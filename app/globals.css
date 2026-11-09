@@ -328,3 +328,5 @@ body { background-image: url(/stars-b.svg), url(/stars-a.svg); background-size: 
 .copy-email:hover { color: var(--text); }
 .copy-status { font-size: .75rem; color: var(--accent); min-width: 3.5em; }
 .site-footer .foot-links { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 24px; }
+/* keep footer content clear of the floating video bubble */
+.site-footer { padding-bottom: 112px; }
