@@ -64,7 +64,7 @@ export default function Home() {
 
       <Globe bg="#05080e" />
 
-      <section className="stack reveal" data-bg="#0f4a45" data-scroll data-scroll-class="is-in" data-scroll-offset="10%,0">
+      <section className="stack reveal" data-bg="#0b5a8f" data-scroll data-scroll-class="is-in" data-scroll-offset="10%,0">
         <h2>Writing</h2>
         <div className="product-row">
           {ARTICLES.map((a) => (
