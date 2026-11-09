@@ -230,3 +230,6 @@ input { font-size: 16px; }
   .meet-photo { order: -1; min-height: 0; aspect-ratio: 1 / 1; }
   .meet-copy { padding: 24px; }
 }
+
+.avail { justify-self: start; display: inline-flex; align-items: center; gap: 8px; min-height: 32px; padding: 0 16px 0 12px; border-radius: 999px; background: var(--surface); border: 1px solid var(--border); font-weight: 600; font-size: .9375rem; }
+.avail-dot { width: 8px; height: 8px; border-radius: 50%; background: #1f9d55; }
