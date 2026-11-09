@@ -7,7 +7,7 @@ export default function OcufuseMark({ href, text, cta }) {
     <>
       <div className="well">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img className="engrave" src="/ocufuse/logo-icon-blue-128.webp" alt="Ocufuse" width="48" height="48" />
+        <img className="engrave" src="/ocufuse/logo-icon-blue-128.webp" alt="Ocufuse" width="58" height="58" />
       </div>
     </>
   );
