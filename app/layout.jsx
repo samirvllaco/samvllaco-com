@@ -2,6 +2,7 @@ import "./globals.css";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import BookPopup from "../components/BookPopup";
+import VideoBubble from "../components/VideoBubble";
 import { SITE } from "../lib/site";
 
 export const metadata = {
@@ -58,6 +59,7 @@ export default function RootLayout({ children }) {
         <main id="main">{children}</main>
         <Footer />
         <BookPopup />
+        <VideoBubble />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }} />
       </body>
     </html>
