@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { NAV, SITE } from "../lib/site";
+import { SITE } from "../lib/site";
 
 export default function Header() {
   return (
@@ -12,14 +12,7 @@ export default function Header() {
           </span>
           <span>Sam</span>
         </Link>
-        <div className="head-right">
-        <nav className="nav" aria-label="Main">
-          {NAV.map((n) => (
-            <Link key={n.href} href={n.href}>{n.label}</Link>
-          ))}
-        </nav>
         <p className="avail"><span className="avail-dot" aria-hidden="true" />Online</p>
-        </div>
       </div>
     </header>
   );

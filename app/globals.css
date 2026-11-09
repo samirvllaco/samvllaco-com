@@ -233,3 +233,6 @@ input { font-size: 16px; }
 .vid-empty { width: 100%; height: 100%; display: grid; place-items: center; color: var(--muted); background: var(--accent-soft); font-weight: 600; }
 .book-pop { bottom: calc(max(16px, env(safe-area-inset-bottom, 0px)) + 96px); }
 @media (prefers-reduced-motion: reduce) { .vid-bubble, .vid-bubble img, .vid-panel, .vid-label, .vid-icon { transition: none !important; } .vid-bubble:hover, .vid-bubble:hover img { transform: none; } }
+
+.avail { margin-left: auto; display: inline-flex; align-items: center; gap: 8px; min-height: 32px; padding: 0 16px 0 12px; border-radius: 999px; background: var(--surface); border: 1px solid var(--border); font-weight: 600; font-size: .9375rem; }
+.avail-dot { width: 8px; height: 8px; border-radius: 50%; background: #1f9d55; }
