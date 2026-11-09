@@ -17,8 +17,12 @@ export default function Home() {
     <div className="wrap page stack-lg">
       <SectionColors />
       <section className="profile" data-bg="#1d1d1f">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img className="avatar" data-scroll data-scroll-speed="0.15" src="/sam.jpg" alt="Sam Vllaco" width="112" height="112" />
+        <div className="plate plate-lg" data-scroll data-scroll-speed="0.15">
+          <div className="well">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img className="engrave" src="/sam.jpg" alt="Sam Vllaco" width="112" height="112" />
+          </div>
+        </div>
         <div className="profile-body">
           <h1>Sam Vllaco</h1>
           <p className="loc">
@@ -58,7 +62,7 @@ export default function Home() {
 
       <section className="stack reveal" data-bg="#000000" data-scroll data-scroll-class="is-in" data-scroll-offset="10%,0">
         <h2>Product</h2>
-        <div className="product-row"><OcufuseMark href="/building/ocufuse/" text="A calm eye journal with screen break games, routines and free tools." cta="Read the build story" /></div>
+        <div className="product-row"><OcufuseMark href={SITE.links.ocufuse} text="A calm eye journal with screen break games, routines and free tools." /></div>
         <div className="btn-row"><Coffee label="Support what I am building" /></div>
       </section>
 

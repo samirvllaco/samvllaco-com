@@ -412,3 +412,8 @@ body { transition: background-color .9s cubic-bezier(.25, .1, .25, 1); }
 .globe-tools button:hover, .globe-close:hover { background: #3a3a3c; }
 .vid-icon { background: rgba(0, 0, 0, .4); }
 .vid-bubble { border-color: #3a3a3c; background: #3a3a3c; }
+
+/* profile photo as the same square metal plate, larger */
+.plate.plate-lg { width: 112px; height: 112px; padding: 4px; border-radius: 16px; }
+.plate.plate-lg .well { border-radius: 12px; }
+@media (max-width: 560px) { .plate.plate-lg { width: 96px; height: 96px; } }
