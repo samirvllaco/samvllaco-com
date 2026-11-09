@@ -4,7 +4,6 @@ import Link from "next/link";
 export default function OcufuseMark({ href, text, cta, tag = "Live" }) {
   const plate = (
     <>
-      <span className="plate-tag">{tag}</span>
       <div className="well">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img className="engrave" src="/ocufuse/logo-icon-blue-128.webp" alt="" width="96" height="96" />

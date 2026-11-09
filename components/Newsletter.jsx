@@ -18,7 +18,7 @@ export default function Newsletter({ id = "newsletter" }) {
       method="post"
       target="popupwindow"
     >
-      <h3>Get the newsletter</h3>
+      <h3>Newsletter</h3>
       <p>What I am building and what I learn. Short, no spam.</p>
       <label htmlFor={`${id}-email`} style={{ fontSize: "0.9rem", color: "var(--muted)" }}>Email</label>
       <input
@@ -28,9 +28,9 @@ export default function Newsletter({ id = "newsletter" }) {
         required
         autoComplete="email"
         placeholder="you@example.com"
-        style={{ minHeight: 48, padding: "0 14px", borderRadius: 10, border: "1.5px solid var(--border)", background: "var(--bg)", color: "var(--text)", font: "inherit" }}
+        style={{ minHeight: 48, padding: "0 16px", borderRadius: 8, border: "1.5px solid var(--border)", background: "var(--bg)", color: "var(--text)", font: "inherit" }}
       />
-      <button className="btn btn-primary" type="submit">Subscribe</button>
+      <button className="btn btn-primary" type="submit">Get the newsletter</button>
     </form>
   );
 }
