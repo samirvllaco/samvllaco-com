@@ -14,7 +14,7 @@ export default function Home() {
     <div className="wrap page stack-lg">
       <section className="profile">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img className="avatar" src="/sam.jpg" alt="Sam Vllaco" width="112" height="112" />
+        <img className="avatar" data-scroll data-scroll-speed="0.15" src="/sam.jpg" alt="Sam Vllaco" width="112" height="112" />
         <div className="profile-body">
           <h1>Sam Vllaco</h1>
           <p className="loc">
@@ -52,13 +52,13 @@ export default function Home() {
       </section>
 
 
-      <section className="stack">
+      <section className="stack reveal" data-scroll data-scroll-class="is-in" data-scroll-offset="10%,0">
         <h2>Product</h2>
         <div className="product-row"><OcufuseMark href="/building/ocufuse/" text="A calm eye journal with screen break games, routines and free tools." cta="Read the build story" /></div>
         <div className="btn-row"><Coffee label="Support what I am building" /></div>
       </section>
 
-      <section className="stack">
+      <section className="stack reveal" data-scroll data-scroll-class="is-in" data-scroll-offset="10%,0">
         <h2>Writing</h2>
         <div className="product-row">
           {ARTICLES.map((a) => (

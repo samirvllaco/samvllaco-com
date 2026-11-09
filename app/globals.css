@@ -236,3 +236,7 @@ input { font-size: 16px; }
 
 .avail { margin-left: auto; display: inline-flex; align-items: center; gap: 8px; min-height: 32px; padding: 0 16px 0 12px; border-radius: 999px; background: var(--surface); border: 1px solid var(--border); font-weight: 600; font-size: .9375rem; }
 .avail-dot { width: 8px; height: 8px; border-radius: 50%; background: #1f9d55; }
+
+/* scroll reveal, only when smooth scroll is active */
+.has-smooth .reveal { opacity: 0; transform: translateY(32px); transition: opacity .6s ease-out, transform .6s ease-out; }
+.has-smooth .reveal.is-in { opacity: 1; transform: none; }
