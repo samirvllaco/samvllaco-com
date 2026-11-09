@@ -1,30 +1,31 @@
 :root {
-  --bg: #f6f5f1;
-  --surface: #fbfaf7;
-  --text: #1c1c1e;
-  --muted: #5f5f66;
-  --border: #e4e2dc;
-  --accent: #134e4a;
+  --bg: #f2f8fd;
+  --surface: #fbfdff;
+  --text: #0f1b2a;
+  --muted: #53647a;
+  --border: #d6e4f0;
+  --accent: #0a6fbf;
   --accent-ink: #ffffff;
-  --accent-soft: #dcebe8;
+  --accent-soft: #d9ecfb;
+  --sky: #62c1fd;
   --radius: 14px;
   --max: 1080px;
   --prose: 680px;
   --font-body: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  --font-display: ui-serif, "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+  --font-display: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   color-scheme: light;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #141615;
-    --surface: #1b1e1d;
-    --text: #efeeea;
-    --muted: #a3a6a4;
-    --border: #2b2f2d;
-    --accent: #5fd0c4;
-    --accent-ink: #0b1f1d;
-    --accent-soft: #1d2f2d;
+    --bg: #0a1420;
+    --surface: #0f1d2d;
+    --text: #eaf3fb;
+    --muted: #9db0c4;
+    --border: #1d3248;
+    --accent: #62c1fd;
+    --accent-ink: #06213a;
+    --accent-soft: #14304a;
     color-scheme: dark;
   }
 }
@@ -68,7 +69,7 @@ a:hover { text-decoration-thickness: 2px; }
 .nav a:hover, .nav a[aria-current="page"] { color: var(--text); text-decoration: underline; }
 
 /* type */
-h1, h2, h3 { font-family: var(--font-display); line-height: 1.15; text-wrap: balance; margin: 0; }
+h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1.15; text-wrap: balance; margin: 0; }
 h1 { font-size: clamp(2.2rem, 6vw, 3.6rem); letter-spacing: -0.02em; }
 h2 { font-size: clamp(1.5rem, 3.5vw, 2rem); letter-spacing: -0.01em; }
 h3 { font-size: 1.2rem; }
@@ -121,3 +122,66 @@ ul.clean li::before { content: ""; position: absolute; left: 0; top: 0.7em; widt
   .page { padding-block: 36px 56px; }
 }
 @media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
+
+/* hover and focus polish */
+.card { transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease; }
+.card:hover { transform: translateY(-3px); border-color: var(--sky); box-shadow: 0 14px 30px -18px rgba(10, 111, 191, 0.55); }
+.btn { transition: transform .2s ease, box-shadow .2s ease, background-color .2s ease; }
+.btn:hover { transform: translateY(-2px); box-shadow: 0 10px 22px -12px rgba(10, 111, 191, 0.7); }
+.btn-primary { background: linear-gradient(180deg, #2b9be6, var(--accent)); }
+
+/* avatar */
+.avatar { width: 96px; height: 96px; border-radius: 50%; object-fit: cover; border: 3px solid var(--sky); box-shadow: 0 8px 22px -10px rgba(10, 111, 191, 0.6); transition: transform .3s ease; }
+.avatar:hover { transform: rotate(-3deg) scale(1.05); }
+.hero { display: flex; gap: 20px; align-items: center; flex-wrap: wrap; }
+
+/* engraved metal plate */
+.plate {
+  position: relative; display: flex; flex-direction: column; gap: 14px; padding: 18px; border-radius: 20px; min-width: 0;
+  color: #1b2735; text-decoration: none; overflow: hidden; isolation: isolate;
+  background:
+    linear-gradient(135deg, rgba(255,255,255,.65), rgba(255,255,255,0) 38%, rgba(0,0,0,.14) 100%),
+    repeating-linear-gradient(90deg, rgba(255,255,255,.14) 0 1px, rgba(0,0,0,.045) 1px 2px),
+    linear-gradient(180deg, #eef2f6 0%, #c5ccd4 46%, #e1e6eb 54%, #aab3bd 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.95), inset 0 -2px 4px rgba(0,0,0,.28),
+    0 0 0 1px rgba(58,70,86,.45), 0 16px 30px -16px rgba(10,30,60,.65);
+  transition: transform .35s cubic-bezier(.2,.8,.2,1), box-shadow .35s ease;
+  transform-style: preserve-3d;
+}
+.plate::before {
+  content: ""; position: absolute; inset: -40% -60%; z-index: 1; pointer-events: none;
+  background: linear-gradient(115deg, transparent 42%, rgba(255,255,255,.85) 50%, transparent 58%);
+  transform: translateX(-65%); transition: transform .9s ease;
+}
+.plate:hover, .plate:focus-within { transform: translateY(-4px) perspective(700px) rotateX(2.5deg); box-shadow: inset 0 1px 0 rgba(255,255,255,.95), inset 0 -2px 4px rgba(0,0,0,.28), 0 0 0 1px rgba(58,70,86,.55), 0 26px 38px -18px rgba(10,111,191,.6); }
+.plate:hover::before, .plate:focus-within::before { transform: translateX(65%); }
+.plate .well {
+  position: relative; z-index: 0; display: flex; align-items: center; gap: 16px; padding: 18px 20px; border-radius: 14px;
+  background: linear-gradient(180deg, rgba(0,0,0,.2), rgba(255,255,255,.14));
+  box-shadow: inset 0 4px 9px rgba(0,0,0,.38), inset 0 -1px 0 rgba(255,255,255,.7), inset 0 0 0 1px rgba(0,0,0,.16);
+}
+.plate .engrave { display: block; filter: drop-shadow(0 1.5px 0 rgba(255,255,255,.9)) drop-shadow(0 -1px 1px rgba(0,0,0,.5)); transition: transform .35s ease, filter .35s ease; }
+.plate:hover .engrave { transform: scale(1.05); filter: drop-shadow(0 1.5px 0 rgba(255,255,255,.95)) drop-shadow(0 -1px 1px rgba(0,0,0,.55)) brightness(1.06) saturate(1.15); }
+.plate .plate-text { position: relative; z-index: 2; display: grid; gap: 6px; }
+.plate .plate-text p { color: #2a3a4d; }
+.plate .plate-text a { color: #0a4f8c; font-weight: 600; }
+.plate .plate-tag { position: relative; z-index: 2; align-self: flex-start; font-size: .75rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #36485c; text-shadow: 0 1px 0 rgba(255,255,255,.8); }
+@media (prefers-reduced-motion: reduce) {
+  .plate, .plate::before, .plate .engrave, .card, .btn, .avatar { transition: none !important; }
+  .plate:hover, .card:hover, .btn:hover, .avatar:hover { transform: none; }
+}
+
+/* header badge */
+.brand { display: inline-flex; align-items: center; gap: 12px; font-family: var(--font-body); font-weight: 800; letter-spacing: -0.01em; min-height: 44px; }
+.badge {
+  position: relative; display: inline-block; width: 44px; height: 44px; padding: 4px; border-radius: 11px; overflow: hidden; isolation: isolate;
+  background: linear-gradient(135deg, rgba(255,255,255,.7), rgba(255,255,255,0) 40%, rgba(0,0,0,.15)), linear-gradient(180deg, #eef2f6, #c5ccd4 48%, #e1e6eb 54%, #aab3bd);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.95), inset 0 -2px 3px rgba(0,0,0,.28), 0 0 0 1px rgba(58,70,86,.5), 0 6px 14px -8px rgba(10,30,60,.7);
+  transition: transform .3s ease, box-shadow .3s ease;
+}
+.badge img { display: block; width: 100%; height: 100%; object-fit: cover; border-radius: 7px; box-shadow: inset 0 3px 6px rgba(0,0,0,.45); filter: drop-shadow(0 1px 0 rgba(255,255,255,.8)); }
+.badge::after { content: ""; position: absolute; inset: -40% -60%; pointer-events: none; background: linear-gradient(115deg, transparent 42%, rgba(255,255,255,.85) 50%, transparent 58%); transform: translateX(-65%); transition: transform .8s ease; }
+.brand:hover .badge, .brand:focus-visible .badge { transform: translateY(-2px) rotate(-3deg); box-shadow: inset 0 1px 0 rgba(255,255,255,.95), inset 0 -2px 3px rgba(0,0,0,.28), 0 0 0 1px rgba(58,70,86,.6), 0 10px 18px -8px rgba(10,111,191,.7); }
+.brand:hover .badge::after, .brand:focus-visible .badge::after { transform: translateX(65%); }
+@media (prefers-reduced-motion: reduce) { .badge, .badge::after { transition: none !important; } .brand:hover .badge { transform: none; } }

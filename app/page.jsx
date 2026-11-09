@@ -1,6 +1,6 @@
-import Link from "next/link";
 import { SITE, ARTICLES } from "../lib/site";
 import Newsletter from "../components/Newsletter";
+import OcufuseMark from "../components/OcufuseMark";
 
 export const metadata = {
   title: { absolute: `${SITE.name}: ${SITE.tagline}` },
@@ -11,7 +11,11 @@ export default function Home() {
   return (
     <div className="wrap page stack-lg prose">
       <section className="stack">
-        <h1>Hey, I am Sam.</h1>
+        <div className="hero">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img className="avatar" src="/sam.jpg" alt="Sam Vllaco" width="96" height="96" />
+          <h1>Hey, I am Sam.</h1>
+        </div>
         <p className="lede">
           {SITE.tagline} I share what I ship and what I learn, mostly on{" "}
           <a href={SITE.links.x} rel="me noopener">X</a>.
@@ -20,11 +24,7 @@ export default function Home() {
 
       <section className="stack">
         <h2>Building</h2>
-        <article className="card">
-          <span className="tag">Live</span>
-          <h3><Link href="/building/ocufuse/">Ocufuse</Link></h3>
-          <p>A calm eye journal with screen break games, routines and free tools.</p>
-        </article>
+        <OcufuseMark href="/building/ocufuse/" text="A calm eye journal with screen break games, routines and free tools." cta="Read the build story" />
       </section>
 
       <section className="stack">

@@ -1,5 +1,6 @@
 import Crumbs from "../../../components/Crumbs";
 import { SITE } from "../../../lib/site";
+import OcufuseMark from "../../../components/OcufuseMark";
 
 export const metadata = {
   title: "Ocufuse: Building a Calm Eye Journal",
@@ -28,7 +29,7 @@ export default function Ocufuse() {
       />
       <article className="stack-lg prose">
         <div className="stack">
-          <p className="eyebrow">Product</p>
+          <OcufuseMark href={SITE.links.ocufuse} tag="Product" />
           <h1>Ocufuse</h1>
           <p className="lede">
             A calm eye journal with screen break games, routines and free tools. I am the founder

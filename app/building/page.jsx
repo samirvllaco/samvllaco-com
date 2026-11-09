@@ -1,5 +1,5 @@
-import Link from "next/link";
 import Crumbs from "../../components/Crumbs";
+import OcufuseMark from "../../components/OcufuseMark";
 
 export const metadata = {
   title: "What I Am Building",
@@ -19,12 +19,7 @@ export default function Building() {
         </p>
       </div>
       <div className="grid">
-        <article className="card">
-          <span className="tag">Live</span>
-          <h2 style={{ fontSize: "1.4rem" }}><Link href="/building/ocufuse/">Ocufuse</Link></h2>
-          <p>A calm eye journal with screen break games, routines and free tools.</p>
-          <a href="https://ocufuse.com">Open ocufuse.com</a>
-        </article>
+        <OcufuseMark href="/building/ocufuse/" text="A calm eye journal with screen break games, routines and free tools." cta="Read the build story" />
       </div>
     </div>
   );

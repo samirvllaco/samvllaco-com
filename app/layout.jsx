@@ -17,8 +17,9 @@ export const metadata = {
     url: SITE.url,
     title: `${SITE.name}: ${SITE.tagline}`,
     description: SITE.description,
+    images: [{ url: "/sam.jpg", width: 400, height: 400, alt: "Sam Vllaco" }],
   },
-  twitter: { card: "summary", site: SITE.handle, creator: SITE.handle },
+  twitter: { card: "summary", images: ["/sam.jpg"], site: SITE.handle, creator: SITE.handle },
   robots: { index: true, follow: true },
 };
 
