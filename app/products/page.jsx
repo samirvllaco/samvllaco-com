@@ -10,6 +10,10 @@ export const metadata = {
 
 const planned = [
   {
+    name: "AI Slop UI: 25 UX Fixes (book), $1.99",
+    body: "The 25 copy-paste fixes from my Medium story, in one short book you can keep next to your editor. Not on sale yet.",
+  },
+  {
     name: "DESIGN.md starter pack",
     body: "A rules file you drop into your project so Claude, Cursor or Codex follow the same colors, spacing and type every time.",
   },
