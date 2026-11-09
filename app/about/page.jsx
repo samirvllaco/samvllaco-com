@@ -19,9 +19,6 @@ export default function About() {
           <a href={SITE.links.x} rel="me noopener">X</a> and{" "}
           <a href={SITE.links.medium} rel="me noopener">Medium</a>.
         </p>
-        <p>
-          My design work and portfolio are at <a href={SITE.links.design}>design.samvllaco.com</a>.
-        </p>
       </div>
     </div>
   );

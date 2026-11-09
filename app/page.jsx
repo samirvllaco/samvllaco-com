@@ -38,9 +38,6 @@ export default function Home() {
 
       <Newsletter />
 
-      <p>
-        Design projects live at <a href={SITE.links.design}>design.samvllaco.com</a>.
-      </p>
     </div>
   );
 }

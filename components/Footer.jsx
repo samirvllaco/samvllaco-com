@@ -10,7 +10,6 @@ export default function Footer() {
           <a href={SITE.links.x} rel="me noopener">X</a>
           <a href={SITE.links.medium} rel="me noopener">Medium</a>
           <a href={SITE.links.ocufuse}>Ocufuse</a>
-          <a href={SITE.links.design}>Design</a>
           <Link href="/links/">All links</Link>
         </div>
       </div>
