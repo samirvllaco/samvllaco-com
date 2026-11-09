@@ -5,12 +5,14 @@ import { PLACES, NOW_IN } from "../lib/places";
 
 const RAD = Math.PI / 180;
 const HOME = { lat: 36, lon: 16, zoom: 1 };
+const HOME_C = { lat: 33, lon: 16, zoom: 1 };
 
 export default function Globe({ full = false, bg }) {
+  const compact = !full;
   const box = useRef(null);
   const cv = useRef(null);
   const pins = useRef([]);
-  const st = useRef({ lat: HOME.lat, lon: HOME.lon, zoom: HOME.zoom, vLon: 0, vLat: 0, auto: true, idle: 0, goal: null, dragging: false });
+  const st = useRef({ lat: compact ? HOME_C.lat : HOME.lat, lon: HOME.lon, zoom: HOME.zoom, vLon: 0, vLat: 0, auto: true, idle: 0, goal: null, dragging: false });
   const data = useRef(null);
   const [sel, setSel] = useState(null);
   const [auto, setAuto] = useState(true);
@@ -71,7 +73,7 @@ export default function Globe({ full = false, bg }) {
       S.lat = Math.max(-80, Math.min(80, S.lat));
       S.lon = ((S.lon + 540) % 360) - 180;
 
-      const cx = w / 2, cy = h / 2, R = Math.min(w, h) * 0.44 * S.zoom;
+      const cx = w / 2, cy = compact ? h * 0.8 : h / 2, R = (compact ? w * 0.5 : Math.min(w, h) * 0.44) * S.zoom;
       ctx.clearRect(0, 0, w, h);
       // atmosphere
       const glow = ctx.createRadialGradient(cx, cy, R * 0.96, cx, cy, R * 1.18);
@@ -112,7 +114,17 @@ export default function Globe({ full = false, bg }) {
         node.style.opacity = vis ? "1" : "0";
         node.style.pointerEvents = vis ? "auto" : "none";
         node.style.zIndex = String(Math.round(q.c * 10));
-        node.style.transform = `translate(${q.x}px, ${q.y}px) translate(-50%, -50%) scale(${0.8 + 0.3 * q.c})`;
+        if (compact) {
+          node.style.transform = `translate(${q.x + (pl.dx || 0)}px, ${q.y + (pl.dy || 0)}px) rotate(${pl.rot || 0}deg) translate(-50%, -50%)`;
+          if (vis) {
+            ctx.strokeStyle = "rgba(98,193,253,.5)"; ctx.lineWidth = 1;
+            ctx.beginPath(); ctx.moveTo(q.x, q.y); ctx.lineTo(q.x + (pl.dx || 0), q.y + (pl.dy || 0)); ctx.stroke();
+            ctx.fillStyle = "rgba(98,193,253,.3)"; ctx.beginPath(); ctx.arc(q.x, q.y, 9, 0, 7); ctx.fill();
+            ctx.fillStyle = "#62c1fd"; ctx.beginPath(); ctx.arc(q.x, q.y, 4.5, 0, 7); ctx.fill();
+          }
+        } else {
+          node.style.transform = `translate(${q.x}px, ${q.y}px) translate(-50%, -50%) scale(${0.8 + 0.3 * q.c})`;
+        }
       });
       raf = requestAnimationFrame(frame);
     };
@@ -150,7 +162,7 @@ export default function Globe({ full = false, bg }) {
       canvas.removeEventListener("pointerup", up); canvas.removeEventListener("pointercancel", up);
       canvas.removeEventListener("wheel", wheel);
     };
-  }, [ready]);
+  }, [ready, compact]);
 
   const countries = new Set(PLACES.map((p) => p.country)).size;
   const now = PLACES.find((p) => p.name === NOW_IN);
@@ -158,7 +170,7 @@ export default function Globe({ full = false, bg }) {
 
   const zoomBy = (f) => { st.current.goal = null; st.current.zoom = Math.max(0.8, Math.min(5, st.current.zoom * f)); };
   const toggleAuto = () => { st.current.auto = !st.current.auto; st.current.goal = null; setAuto(st.current.auto); };
-  const reset = () => { st.current.goal = { ...HOME }; setSel(null); };
+  const reset = () => { st.current.goal = { ...(compact ? HOME_C : HOME) }; setSel(null); };
   const fullscreen = () => { try { box.current.requestFullscreen?.(); } catch {} };
 
   return (
@@ -169,23 +181,28 @@ export default function Globe({ full = false, bg }) {
           <button
             key={pl.name}
             type="button"
-            className={`pin${sel === i ? " is-sel" : ""}`}
+            className={`pin${compact ? " pin-polaroid" : ""}${sel === i ? " is-sel" : ""}`}
             ref={(n) => (pins.current[i] = n)}
             aria-label={`${pl.name}, ${pl.country}`}
             onClick={() => { setSel(i); flyTo(pl.lat, pl.lon, Math.max(st.current.zoom, 2)); }}
           >
-            {pl.photo ? <img src={pl.photo} alt="" width="48" height="48" /> : <span aria-hidden="true">{pl.flag}</span>}
+            {compact ? (
+              <>
+                <span className="polaroid-img" aria-hidden="true">{pl.photo ? <img src={pl.photo} alt="" /> : pl.flag}</span>
+                <span className="polaroid-name">{pl.name}</span>
+              </>
+            ) : pl.photo ? <img src={pl.photo} alt="" width="48" height="48" /> : <span aria-hidden="true">{pl.flag}</span>}
           </button>
         ))}
 
-        <div className="globe-head">
+        <div className="globe-head" hidden={compact}>
           <p className="globe-now">
             <span aria-hidden="true">{now?.flag}</span> Now in <b>{now?.name}, {now?.country}</b>
           </p>
           <p className="globe-count"><b>{PLACES.length}</b> places in <b>{countries}</b> countries</p>
         </div>
 
-        <div className="globe-tools">
+        <div className="globe-tools" hidden={compact}>
           <button type="button" onClick={() => zoomBy(1.4)} aria-label="Zoom in">+</button>
           <button type="button" onClick={() => zoomBy(1 / 1.4)} aria-label="Zoom out">&minus;</button>
           <button type="button" onClick={toggleAuto} aria-pressed={auto} aria-label="Auto rotate">
@@ -213,8 +230,18 @@ export default function Globe({ full = false, bg }) {
         )}
         {!ready && <p className="globe-loading">Loading globe</p>}
       </div>
-      {!full && (
-        <p className="globe-more"><Link href="/globe/">Open the full globe</Link></p>
+      {compact && (
+        <div className="globe-copy">
+          <p className="globe-now"><span aria-hidden="true">{now?.flag}</span> Now in</p>
+          <h2>{now?.name}, {now?.country}</h2>
+          <p className="globe-count"><b>{PLACES.length}</b> places in <b>{countries}</b> countries</p>
+          <ul className="flags" aria-label="Countries visited">
+            {PLACES.map((p) => (
+              <li key={p.country} title={p.country}><span aria-hidden="true">{p.flag}</span><span className="sr">{p.country}</span></li>
+            ))}
+          </ul>
+          <p className="globe-more"><Link href="/globe/">Open the full globe</Link></p>
+        </div>
       )}
     </section>
   );

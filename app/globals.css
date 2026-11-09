@@ -142,7 +142,7 @@ ul.clean li::before { content: ""; position: absolute; left: 0; top: 0.7em; widt
   transform: translateX(-65%); transition: transform .25s ease-out;
 }
 .plate:hover::before, .plate:focus-within::before { transform: translateX(65%); }
-.plate .well {
+.plate .well { overflow: hidden;
   position: relative; z-index: 0; flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0; padding: 0; border-radius: 8px;
   background: linear-gradient(180deg, rgba(0,0,0,.2), rgba(255,255,255,.14));
   box-shadow: inset 0 4px 9px rgba(0,0,0,.38), inset 0 -1px 0 rgba(255,255,255,.7), inset 0 0 0 1px rgba(0,0,0,.16);
@@ -283,3 +283,20 @@ body { background-image: url(/stars-b.svg), url(/stars-a.svg); background-size: 
 @media (prefers-reduced-motion: reduce) { .pin, .globe-tools button { transition: none; } }
 .site-header .wrap.head-row { justify-content: flex-end; flex-wrap: nowrap; padding-block: 24px 0; }
 .engrave-svg { display: block; filter: drop-shadow(0 1.5px 0 rgba(255,255,255,.9)) drop-shadow(0 -1px 1px rgba(0,0,0,.45)); }
+
+/* compact globe, like a places-visited card */
+.globe-wrap:not(.is-full) { grid-template-columns: 1.7fr 1fr; gap: 48px; align-items: center; }
+.globe-wrap:not(.is-full) .globe-stage { height: 320px; }
+.globe-copy { display: grid; gap: 16px; justify-items: start; }
+.globe-copy h2 { font-size: clamp(1.75rem, 4vw, 2.5rem); }
+.flags { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.flags li { width: 44px; height: 44px; display: grid; place-items: center; border-radius: 50%; background: var(--surface); border: 1px solid var(--border); font-size: 1.5rem; }
+.globe-more { text-align: left; }
+.pin.pin-polaroid { width: 84px; height: auto; padding: 4px 4px 8px; border: 0; border-radius: 2px; background: #fff; color: #1c1c1e; display: block; text-align: center; box-shadow: 0 4px 16px -4px rgba(0,0,0,.6); }
+.pin-polaroid .polaroid-img { display: grid; place-items: center; height: 56px; font-size: 2rem; background: linear-gradient(135deg, #cfe8fb, #62c1fd); overflow: hidden; }
+.pin-polaroid .polaroid-img img { width: 100%; height: 100%; object-fit: cover; }
+.pin-polaroid .polaroid-name { display: block; margin-top: 4px; font-size: .75rem; font-weight: 600; }
+.pin-polaroid:hover, .pin-polaroid.is-sel { outline: 2px solid var(--sky); }
+@media (max-width: 860px) { .globe-wrap:not(.is-full) { grid-template-columns: 1fr; gap: 24px; } }
+@media (max-width: 560px) { .globe-wrap:not(.is-full) .globe-stage { height: 300px; } }
+.globe-head[hidden], .globe-tools[hidden] { display: none; }
