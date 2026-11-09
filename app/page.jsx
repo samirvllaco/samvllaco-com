@@ -1,5 +1,6 @@
 import { SITE, ARTICLES } from "../lib/site";
 import { STATS } from "../lib/stats";
+import MeetSam from "../components/MeetSam";
 import Newsletter from "../components/Newsletter";
 import ArticleMark from "../components/ArticleMark";
 import OcufuseMark from "../components/OcufuseMark";
@@ -11,7 +12,7 @@ export const metadata = {
 
 export default function Home() {
   return (
-    <div className="wrap page stack-lg prose">
+    <div className="wrap page stack-lg">
       <section className="profile">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img className="avatar" src="/sam.jpg" alt="Sam Vllaco" width="112" height="112" />
@@ -50,6 +51,8 @@ export default function Home() {
           </ul>
         </div>
       </section>
+
+      <MeetSam />
 
       <section className="stack">
         <h2>Product</h2>
