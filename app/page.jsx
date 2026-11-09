@@ -16,7 +16,7 @@ export default function Home() {
   return (
     <div className="wrap page stack-lg">
       <SectionColors />
-      <section className="profile" data-bg="#1d1d1f">
+      <section className="profile" data-bg="#111112">
         <div className="plate plate-lg" data-scroll data-scroll-speed="0.15">
           <div className="well">
             {/* eslint-disable-next-line @next/next/no-img-element */}

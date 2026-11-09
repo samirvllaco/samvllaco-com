@@ -435,3 +435,11 @@ body { background-image: none; overflow-x: clip; }
 .sec-arrows button:active:not(:disabled) { transition-duration: 0s; transform: scale(.92); background: #636366; }
 .sec-arrows button:disabled { background: #2a2a2c; color: #636366; cursor: default; }
 .sec-arrows button:focus-visible { outline: 3px solid rgba(98, 193, 253, .6); outline-offset: 3px; }
+
+/* globe section as an Apple style gray card on black */
+.globe-wrap:not(.is-full) { background: #1d1d1f; border-radius: 28px; padding: 24px; gap: 32px; }
+.globe-wrap:not(.is-full) .globe-stage { border: 0; border-radius: 20px; background: radial-gradient(ellipse at 50% 40%, #2c2c2e, #000 75%); }
+.globe-wrap:not(.is-full) > :not(.globe-stage) { padding-right: 16px; }
+@media (max-width: 860px) { .globe-wrap:not(.is-full) { padding: 16px; border-radius: 24px; } }
+
+:root { --bg: #111112; }
