@@ -1,6 +1,7 @@
 import { SITE, ARTICLES } from "../lib/site";
 import { STATS } from "../lib/stats";
 import Globe from "../components/Globe";
+import { MEDIUM_PATH } from "../lib/medium-logo";
 import Coffee from "../components/Coffee";
 import ArticleMark from "../components/ArticleMark";
 import OcufuseMark from "../components/OcufuseMark";
@@ -38,7 +39,7 @@ export default function Home() {
             </li>
             <li>
               <a href={SITE.links.medium} rel="me noopener">
-                <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M13.5 12a6 6 0 1 1-12 0 6 6 0 0 1 12 0Zm6.6 0c0 3.2-1.3 5.8-2.9 5.8S14.3 15.2 14.3 12s1.3-5.8 2.9-5.8S20.1 8.8 20.1 12Zm2.9 0c0 2.9-.5 5.200-1 5.200s-1-2.300-1-5.200.5-5.200 1-5.200 1 2.300 1 5.200Z"/></svg>
+                <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d={MEDIUM_PATH} /></svg>
                 <span>Medium</span>
               </a>
             </li>
