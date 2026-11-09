@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { SITE } from "../lib/site";
+import TopNav from "./TopNav";
 
 export default function Header() {
   return (
@@ -12,6 +12,7 @@ export default function Header() {
           </span>
           <span>Sam</span>
         </Link>
+        <TopNav />
         <p className="avail"><span className="avail-dot" aria-hidden="true" />Online</p>
       </div>
     </header>

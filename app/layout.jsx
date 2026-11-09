@@ -24,6 +24,7 @@ export const metadata = {
   },
   twitter: { card: "summary", images: ["/sam.jpg"], site: SITE.handle, creator: SITE.handle },
   robots: { index: true, follow: true },
+  other: { "color-scheme": "dark" },
 };
 
 const personSchema = {
