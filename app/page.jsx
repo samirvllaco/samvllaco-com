@@ -62,9 +62,7 @@ export default function Home() {
         <div className="btn-row"><Coffee label="Support what I am building" /></div>
       </section>
 
-      <Globe bg="#0a1320" />
-
-      <section className="stack reveal" data-bg="#060c16" data-scroll data-scroll-class="is-in" data-scroll-offset="10%,0">
+      <section className="stack reveal" data-bg="#0a1320" data-scroll data-scroll-class="is-in" data-scroll-offset="10%,0">
         <h2>Writing</h2>
         <div className="product-row">
           {ARTICLES.map((a) => (
@@ -72,6 +70,8 @@ export default function Home() {
           ))}
         </div>
       </section>
+
+      <Globe bg="#060c16" />
 
 
     </div>
