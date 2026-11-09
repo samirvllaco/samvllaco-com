@@ -2,6 +2,7 @@ import { SITE, ARTICLES } from "../lib/site";
 import { STATS } from "../lib/stats";
 import Coffee from "../components/Coffee";
 import MeetSam from "../components/MeetSam";
+import Story from "../components/Story";
 import Newsletter from "../components/Newsletter";
 import ArticleMark from "../components/ArticleMark";
 import OcufuseMark from "../components/OcufuseMark";
@@ -53,6 +54,8 @@ export default function Home() {
           </ul>
         </div>
       </section>
+
+      <Story />
 
       <MeetSam />
 
