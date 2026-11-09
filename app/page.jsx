@@ -5,7 +5,6 @@ import Globe from "../components/Globe";
 import { MEDIUM_PATH } from "../lib/medium-logo";
 import Coffee from "../components/Coffee";
 import ArticleMark from "../components/ArticleMark";
-import SectionArrows from "../components/SectionArrows";
 import OcufuseMark from "../components/OcufuseMark";
 
 export const metadata = {
@@ -17,7 +16,6 @@ export default function Home() {
   return (
     <div className="wrap page stack-lg">
       <SectionColors />
-      <SectionArrows />
       <section className="profile" data-bg="#1d1d1f">
         <div className="plate plate-lg" data-scroll data-scroll-speed="0.15">
           <div className="well">
