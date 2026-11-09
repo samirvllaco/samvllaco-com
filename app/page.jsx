@@ -1,7 +1,6 @@
 import { SITE, ARTICLES } from "../lib/site";
 import { STATS } from "../lib/stats";
 import Coffee from "../components/Coffee";
-import MeetSam from "../components/MeetSam";
 import ArticleMark from "../components/ArticleMark";
 import OcufuseMark from "../components/OcufuseMark";
 
@@ -52,7 +51,6 @@ export default function Home() {
         </div>
       </section>
 
-      <MeetSam />
 
       <section className="stack">
         <h2>Product</h2>
