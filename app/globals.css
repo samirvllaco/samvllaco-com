@@ -330,3 +330,85 @@ body { background-image: url(/stars-b.svg), url(/stars-a.svg); background-size: 
 .site-footer .foot-links { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 24px; }
 /* keep footer content clear of the floating video bubble */
 .site-footer { padding-bottom: 112px; }
+
+/* ===== iOS layer: SF type, spring motion, highlight and de-highlight ===== */
+:root {
+  --font-body: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", system-ui, "Helvetica Neue", Arial, sans-serif;
+  --font-display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", system-ui, "Helvetica Neue", Arial, sans-serif;
+  --ease-out: cubic-bezier(.22, 1, .36, 1);        /* things entering */
+  --ease-in: cubic-bezier(.64, 0, .78, 0);         /* things leaving */
+  --ease-sheet: cubic-bezier(.32, .72, 0, 1);      /* iOS sheet and panel curve */
+  --spring: cubic-bezier(.34, 1.45, .64, 1);       /* soft overshoot, follow-through */
+  --hl: rgba(140, 180, 230, .16);                  /* highlight fill */
+}
+body { font-feature-settings: "kern", "liga", "calt"; text-rendering: optimizeLegibility; letter-spacing: -0.011em; -webkit-tap-highlight-color: transparent; }
+h1, h2, h3, .brand { letter-spacing: -0.022em; font-weight: 700; }
+h2 { font-weight: 700; }
+.profile-body h1 { letter-spacing: -0.03em; }
+
+/* Highlight on press is instant, de-highlight fades out slowly, like a UIKit cell */
+.btn, .socials a, .foot-links a, .copy-email, .globe-tools button, .globe-close, .book-close, .product .plate-text a, .crumbs a, .intro a {
+  border-radius: 12px; transition: background-color .45s var(--ease-out), opacity .45s var(--ease-out), transform .45s var(--spring), color .25s var(--ease-out);
+}
+.socials a, .foot-links a, .copy-email, .product .plate-text a { padding-inline: 10px; margin-inline: -10px; }
+.socials a:hover, .foot-links a:hover, .copy-email:hover, .product .plate-text a:hover { background-color: var(--hl); text-decoration: none; }
+.btn-primary:hover { filter: none; background: #7ccdfe; text-decoration: none; }
+.btn-ghost:hover { background: var(--hl); text-decoration: none; }
+.btn:active, .socials a:active, .foot-links a:active, .copy-email:active, .globe-tools button:active, .product .plate-text a:active, .book-close:active {
+  transition-duration: 0s; transform: scale(.96); opacity: .6; background-color: var(--hl);
+}
+.plate { transition: transform .45s var(--spring); }
+.plate:active { transition-duration: 0s; transform: scale(.94); }
+.plate:focus-visible, .btn:focus-visible, .socials a:focus-visible, .foot-links a:focus-visible, .copy-email:focus-visible, .vid-bubble:focus-visible { outline: 3px solid rgba(98, 193, 253, .6); outline-offset: 3px; }
+
+/* Material: translucent blur like iOS bars and sheets */
+.book-pop, .avail, .vid-label { background: rgba(18, 30, 46, .62); -webkit-backdrop-filter: blur(24px) saturate(180%); backdrop-filter: blur(24px) saturate(180%); border-color: rgba(255, 255, 255, .1); }
+.book-pop { border-radius: 20px; }
+.avail { border-radius: 999px; }
+
+/* Book popup slides up with a spring, leaves with ease-in */
+.book-pop { animation: sheet-in .6s var(--spring) .8s both; }
+@keyframes sheet-in { from { opacity: 0; transform: translateY(24px) scale(.96); } to { opacity: 1; transform: none; } }
+
+/* Video bubble: anticipation on press, springy hover */
+.vid-bubble { transition: transform .5s var(--spring), border-color .25s var(--ease-out); }
+.vid-bubble:hover { transform: scale(1.08); }
+.vid-bubble:active { transition-duration: .12s; transform: scale(.92); }
+.vid-panel { transition: opacity .3s var(--ease-out), transform .5s var(--spring), visibility 0s linear .3s; }
+.vid.is-open .vid-panel { transition-delay: 0s; }
+.vid-label { transition: opacity .3s var(--ease-out), transform .45s var(--spring); }
+
+/* Reveal: children cascade in with overlapping action */
+.has-smooth .reveal { opacity: 1; transform: none; transition: none; }
+.has-smooth .reveal > * { opacity: 0; transform: translateY(20px); transition: opacity .7s var(--ease-out), transform .8s var(--ease-sheet); }
+.has-smooth .reveal.is-in > * { opacity: 1; transform: none; }
+.has-smooth .reveal > :nth-child(2) { transition-delay: .08s; }
+.has-smooth .reveal > :nth-child(3) { transition-delay: .16s; }
+.has-smooth .reveal > :nth-child(4) { transition-delay: .24s; }
+
+/* Section colour change uses the default iOS curve */
+body { transition: background-color .9s cubic-bezier(.25, .1, .25, 1); }
+
+@media (prefers-reduced-motion: reduce) {
+  .book-pop { animation: none; }
+  .has-smooth .reveal > * { opacity: 1; transform: none; transition: none; }
+  .btn:active, .plate:active, .vid-bubble:active, .socials a:active { transform: none; }
+}
+
+/* ===== Apple gray and black palette (iPhone page): #1d1d1f gray, #000 black, #f5f5f7 text ===== */
+:root {
+  --bg: #1d1d1f;
+  --surface: #272729;
+  --text: #f5f5f7;
+  --muted: #a1a1a6;
+  --border: #424245;
+  --accent-soft: #2c2c2e;
+  --hl: rgba(255, 255, 255, .12);
+}
+.globe-stage { background: radial-gradient(ellipse at 50% 40%, #1d1d1f, #000 72%); border-color: #2c2c2e; }
+.book-pop, .avail, .vid-label { background: rgba(39, 39, 41, .72); border-color: rgba(255, 255, 255, .1); }
+.globe-head, .globe-card { background: rgba(29, 29, 31, .78); border-color: rgba(255, 255, 255, .1); }
+.globe-tools button, .globe-close, .book-close:hover { background: #2c2c2e; border-color: transparent; }
+.globe-tools button:hover, .globe-close:hover { background: #3a3a3c; }
+.vid-icon { background: rgba(0, 0, 0, .4); }
+.vid-bubble { border-color: #3a3a3c; background: #3a3a3c; }
