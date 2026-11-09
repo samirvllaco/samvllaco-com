@@ -233,7 +233,7 @@ input { font-size: 16px; }
 /* dock navigation: round buttons around the photo */
 .site-header { border-bottom: 0; }
 .head-row { position: relative; display: flex; justify-content: center; padding-block: 24px 8px; }
-.head-row .avail { position: absolute; right: max(20px, env(safe-area-inset-right, 0px)); top: 24px; margin: 0; }
+.head-row .avail { margin: 0 0 0 auto; }
 .dock { display: flex; align-items: center; justify-content: center; gap: 16px; }
 .dock-btn, .dock-me { position: relative; display: grid; place-items: center; border-radius: 50%; text-decoration: none; cursor: pointer; font: inherit; }
 .dock-btn { width: 48px; height: 48px; padding: 0; background: #000; border: 1px solid #5b6672; color: #c9d3dd; transition: border-color .2s ease-out, color .2s ease-out; }
@@ -249,7 +249,6 @@ input { font-size: 16px; }
   .dock { gap: 8px; }
   .dock-btn { width: 44px; height: 44px; }
   .dock-me { width: 56px; height: 56px; }
-  .head-row .avail { position: static; display: none; }
 }
 
 /* star field background */
@@ -282,4 +281,4 @@ body { background-image: url(/stars-b.svg), url(/stars-a.svg); background-size: 
 .globe-more { text-align: right; }
 @media (max-width: 560px) { .globe-stage { height: 460px; } }
 @media (prefers-reduced-motion: reduce) { .pin, .globe-tools button { transition: none; } }
-.site-header .wrap.head-row { justify-content: center; flex-wrap: nowrap; padding-block: 24px 8px; }
+.site-header .wrap.head-row { justify-content: flex-end; flex-wrap: nowrap; padding-block: 24px 0; }
