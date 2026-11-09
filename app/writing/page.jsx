@@ -1,3 +1,4 @@
+import ArticleMark from "../../components/ArticleMark";
 import Crumbs from "../../components/Crumbs";
 import { ARTICLES, SITE } from "../../lib/site";
 
@@ -18,13 +19,9 @@ export default function Writing() {
           Practical stories for founders and designers building with AI. Most are on Medium.
         </p>
       </div>
-      <div className="grid">
+      <div className="product-row">
         {ARTICLES.map((a) => (
-          <article className="card" key={a.url}>
-            <span className="tag">{a.platform}</span>
-            <h2 style={{ fontSize: "1.25rem" }}><a href={a.url}>{a.title}</a></h2>
-            <p>{a.summary}</p>
-          </article>
+          <ArticleMark key={a.url} href={a.url} platform={a.platform} title={a.short} />
         ))}
       </div>
       <p>

@@ -1,5 +1,6 @@
 import { SITE, ARTICLES } from "../lib/site";
 import Newsletter from "../components/Newsletter";
+import ArticleMark from "../components/ArticleMark";
 import OcufuseMark from "../components/OcufuseMark";
 
 export const metadata = {
@@ -23,17 +24,17 @@ export default function Home() {
       </section>
 
       <section className="stack">
-        <h2>Building</h2>
-        <OcufuseMark href="/building/ocufuse/" text="A calm eye journal with screen break games, routines and free tools." cta="Read the build story" />
+        <h2>Product</h2>
+        <div className="product-row"><OcufuseMark href="/building/ocufuse/" text="A calm eye journal with screen break games, routines and free tools." cta="Read the build story" /></div>
       </section>
 
       <section className="stack">
         <h2>Writing</h2>
-        {ARTICLES.map((a) => (
-          <article className="card" key={a.url}>
-            <h3><a href={a.url}>{a.short}</a></h3>
-          </article>
-        ))}
+        <div className="product-row">
+          {ARTICLES.map((a) => (
+            <ArticleMark key={a.url} href={a.url} platform={a.platform} title={a.short} />
+          ))}
+        </div>
       </section>
 
       <Newsletter />

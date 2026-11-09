@@ -18,7 +18,7 @@ export default function Building() {
           Everything I ship lives here, with what worked, what did not and what I would do again.
         </p>
       </div>
-      <div className="grid">
+      <div className="product-row">
         <OcufuseMark href="/building/ocufuse/" text="A calm eye journal with screen break games, routines and free tools." cta="Read the build story" />
       </div>
     </div>

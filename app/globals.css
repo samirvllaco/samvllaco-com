@@ -178,3 +178,6 @@ ul.clean li::before { content: ""; position: absolute; left: 0; top: 0.7em; widt
 .badge::after { content: ""; position: absolute; inset: -40% -60%; pointer-events: none; background: linear-gradient(115deg, transparent 42%, rgba(255,255,255,.85) 50%, transparent 58%); transform: translateX(-65%); transition: transform .8s ease; }
 .brand:hover .badge::after, .brand:focus-visible .badge::after { transform: translateX(65%); }
 @media (prefers-reduced-motion: reduce) { .badge, .badge::after { transition: none !important; }  }
+
+.engrave-text { font-family: var(--font-body); font-weight: 800; font-size: 2rem; letter-spacing: -0.02em; color: #52606f; text-shadow: 0 1.5px 0 rgba(255,255,255,.9), 0 -1px 1px rgba(0,0,0,.45); }
+.product-row { display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(220px, 320px)); }
