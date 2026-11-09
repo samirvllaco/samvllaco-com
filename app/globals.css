@@ -186,3 +186,16 @@ ul.clean li::before { content: ""; position: absolute; left: 0; top: 0.7em; widt
 input { font-size: 16px; }
 
 .plate .engrave { width: 100%; height: 100%; object-fit: contain; }
+
+/* profile header */
+.profile { display: flex; gap: 24px; align-items: flex-start; }
+.profile .avatar { width: 112px; height: 112px; flex: none; }
+.profile-body { display: grid; gap: 16px; min-width: 0; }
+.profile-body h1 { font-size: clamp(2rem, 5vw, 2.75rem); }
+.intro { color: var(--muted); font-size: 1.125rem; }
+.intro b { color: var(--text); font-weight: 600; }
+.socials { list-style: none; margin: 8px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px 24px; }
+.socials a { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; color: var(--muted); text-decoration: none; }
+.socials a:hover { color: var(--text); }
+.socials b { color: var(--text); font-weight: 600; }
+@media (max-width: 560px) { .profile { flex-direction: column; gap: 16px; } .profile .avatar { width: 96px; height: 96px; } }
