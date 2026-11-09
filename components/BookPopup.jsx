@@ -26,22 +26,15 @@ export default function BookPopup() {
   if (!open) return null;
   return (
     <aside className="book-pop" aria-label="AI Slop UI book">
-      <button className="book-close" type="button" onClick={close} aria-label="Close">
-        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" d="M6 6l12 12M18 6L6 18" /></svg>
-      </button>
-      <div className="book-cover" aria-hidden="true">
-        <span className="book-kicker">Book</span>
-        <b>AI Slop UI</b>
-        <span>25 UX fixes</span>
-      </div>
+      <div className="book-cover" aria-hidden="true"><b>AI Slop UI</b></div>
       <div className="book-copy">
-        <p className="book-title">AI Slop UI: 25 UX Fixes</p>
-        <p className="book-sub">Copy-paste fixes for vibe-coded apps.</p>
-        <div className="book-row">
-          <b className="book-price">$1.99</b>
-          <Link className="btn btn-primary" href="/products/">Get the book</Link>
-        </div>
+        <p className="book-title">AI Slop UI book</p>
+        <p className="book-sub">25 UX fixes · <b>$1.99</b></p>
       </div>
+      <Link className="btn btn-primary" href="/products/">Get book</Link>
+      <button className="book-close" type="button" onClick={close} aria-label="Close book offer">
+        <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" d="M6 6l12 12M18 6L6 18" /></svg>
+      </button>
     </aside>
   );
 }

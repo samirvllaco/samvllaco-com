@@ -308,3 +308,18 @@ body { background-image: url(/stars-b.svg), url(/stars-a.svg); background-size: 
 .product .plate-text p, .product .plate-text a { font-size: 12px; line-height: 1.4; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
 .product .plate-text a { text-decoration: underline; text-underline-offset: 3px; }
 .product .plate-text a:hover { color: var(--text); }
+
+/* compact book popup, close inside the card */
+.book-pop { width: auto; max-width: calc(100vw - 32px); gap: 12px; padding: 8px 8px 8px 8px; border-radius: 12px; box-shadow: none; }
+.book-pop .book-cover { width: 32px; padding: 4px; border-left-width: 3px; box-shadow: none; display: grid; place-items: center; }
+.book-pop .book-cover b { font-size: .5rem; line-height: 1.1; }
+.book-pop .book-copy { gap: 0; }
+.book-pop .book-title { font-size: .875rem; }
+.book-pop .book-sub { font-size: .75rem; }
+.book-pop .book-sub b { color: var(--text); font-weight: 600; }
+.book-pop .btn { min-height: 44px; padding: 0 16px; font-size: .875rem; white-space: nowrap; }
+.book-pop .book-close { position: static; width: 44px; height: 44px; border: 0; background: none; flex: none; margin-left: -4px; }
+
+/* the invisible video wrapper must not block clicks on the book popup */
+.vid { pointer-events: none; }
+.vid-bubble, .vid.is-open .vid-panel { pointer-events: auto; }
