@@ -34,6 +34,7 @@ const personSchema = {
       alternateName: SITE.name,
       url: SITE.url,
       jobTitle: "Product designer",
+      homeLocation: { "@type": "Place", name: "Tirana, Albania" },
       description: SITE.description,
       sameAs: [SITE.links.x, SITE.links.medium, SITE.links.dribbble, SITE.links.ocufuse],
       owns: { "@type": "WebSite", name: "Ocufuse", url: SITE.links.ocufuse },

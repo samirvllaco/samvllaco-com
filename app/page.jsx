@@ -17,6 +17,10 @@ export default function Home() {
         <img className="avatar" src="/sam.jpg" alt="Sam Vllaco" width="112" height="112" />
         <div className="profile-body">
           <h1>Sam Vllaco</h1>
+          <p className="loc">
+            <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="none" stroke="currentColor" strokeWidth="2" d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.800 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5" fill="none" stroke="currentColor" strokeWidth="2"/></svg>
+            Tirana, Albania
+          </p>
           <p className="intro">
             Making pixels useful since <b>2013</b>. <b>10,000+</b> screens designed.
           </p>

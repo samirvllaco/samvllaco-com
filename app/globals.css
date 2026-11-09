@@ -213,3 +213,5 @@ input { font-size: 16px; }
 .book-row { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
 .book-price { font-size: 1.25rem; font-weight: 600; }
 .book-row .btn { min-height: 44px; padding: 0 16px; }
+
+.loc { display: flex; align-items: center; gap: 8px; color: var(--muted); font-size: .9375rem; margin-top: -8px; }
