@@ -6,7 +6,7 @@ import { PLACES, NOW_IN } from "../lib/places";
 const RAD = Math.PI / 180;
 const HOME = { lat: 36, lon: 16, zoom: 1 };
 
-export default function Globe({ full = false }) {
+export default function Globe({ full = false, bg }) {
   const box = useRef(null);
   const cv = useRef(null);
   const pins = useRef([]);
@@ -162,7 +162,7 @@ export default function Globe({ full = false }) {
   const fullscreen = () => { try { box.current.requestFullscreen?.(); } catch {} };
 
   return (
-    <section className={`globe-wrap${full ? " is-full" : ""}`} aria-label="Places I have been">
+    <section className={`globe-wrap${full ? " is-full" : ""}`} aria-label="Places I have been" data-bg={bg}>
       <div className="globe-stage" ref={box} data-lenis-prevent>
         <canvas ref={cv} aria-hidden="true" />
         {PLACES.map((pl, i) => (
