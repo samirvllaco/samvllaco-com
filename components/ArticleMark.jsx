@@ -2,9 +2,9 @@
 export default function ArticleMark({ href, platform, title, tag = "Read" }) {
   return (
     <div className="product">
-      <a className="plate" href={href}>
+      <a className="plate" href={href} aria-label={platform}>
           <div className="well">
-          <span className="engrave-text">{platform}</span>
+          <span className="engrave-text">{platform.charAt(0)}</span>
         </div>
       </a>
       <div className="plate-text">

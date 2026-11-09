@@ -1,18 +1,16 @@
 import Link from "next/link";
 
-// Square metal plate with the real Ocufuse logo engraved into it.
-export default function OcufuseMark({ href, text, cta, tag = "Live" }) {
+// 64px square metal plate with the real Ocufuse icon engraved, nothing else inside.
+export default function OcufuseMark({ href, text, cta }) {
+  const external = href.startsWith("http");
   const plate = (
     <>
       <div className="well">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img className="engrave" src="/ocufuse/logo-icon-blue-128.webp" alt="" width="96" height="96" />
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img className="engrave" src="/ocufuse/logo-word-navy-64.webp" alt="Ocufuse" width="142" height="32" />
+        <img className="engrave" src="/ocufuse/logo-icon-blue-128.webp" alt="Ocufuse" width="48" height="48" />
       </div>
     </>
   );
-  const external = href.startsWith("http");
   return (
     <div className="product">
       {external ? <a className="plate" href={href}>{plate}</a> : <Link className="plate" href={href}>{plate}</Link>}

@@ -29,7 +29,7 @@ export default function Ocufuse() {
       />
       <article className="stack-lg prose">
         <div className="stack">
-          <OcufuseMark href={SITE.links.ocufuse} tag="Product" />
+          <OcufuseMark href={SITE.links.ocufuse} />
           <h1>Ocufuse</h1>
           <p className="lede">
             A calm eye journal with screen break games, routines and free tools. I am the founder
