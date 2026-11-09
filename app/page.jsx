@@ -56,7 +56,7 @@ export default function Home() {
       </section>
 
 
-      <section className="stack reveal" data-bg="#0d2038" data-scroll data-scroll-class="is-in" data-scroll-offset="10%,0">
+      <section className="stack reveal" data-bg="#12306a" data-scroll data-scroll-class="is-in" data-scroll-offset="10%,0">
         <h2>Product</h2>
         <div className="product-row"><OcufuseMark href="/building/ocufuse/" text="A calm eye journal with screen break games, routines and free tools." cta="Read the build story" /></div>
         <div className="btn-row"><Coffee label="Support what I am building" /></div>
@@ -64,7 +64,7 @@ export default function Home() {
 
       <Globe bg="#05080e" />
 
-      <section className="stack reveal" data-bg="#0b2a2e" data-scroll data-scroll-class="is-in" data-scroll-offset="10%,0">
+      <section className="stack reveal" data-bg="#0f4a45" data-scroll data-scroll-class="is-in" data-scroll-offset="10%,0">
         <h2>Writing</h2>
         <div className="product-row">
           {ARTICLES.map((a) => (
