@@ -1,4 +1,5 @@
 import Link from "next/link";
+import CopyEmail from "./CopyEmail";
 import { SITE } from "../lib/site";
 
 export default function Footer() {
@@ -11,6 +12,7 @@ export default function Footer() {
           <a href={SITE.links.medium} rel="me noopener">Medium</a>
           <a href={SITE.links.ocufuse}>Ocufuse</a>
           <Link href="/links/">All links</Link>
+          <CopyEmail />
         </div>
       </div>
     </footer>
