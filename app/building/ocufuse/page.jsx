@@ -1,5 +1,6 @@
 import Crumbs from "../../../components/Crumbs";
 import { SITE } from "../../../lib/site";
+import Coffee from "../../../components/Coffee";
 import OcufuseMark from "../../../components/OcufuseMark";
 
 export const metadata = {
@@ -37,6 +38,7 @@ export default function Ocufuse() {
           </p>
           <div className="btn-row">
             <a className="btn btn-primary" href={SITE.links.ocufuse}>Open ocufuse.com</a>
+            <Coffee label="Buy me a coffee for Ocufuse" />
           </div>
         </div>
 

@@ -1,5 +1,6 @@
 import { SITE, ARTICLES } from "../lib/site";
 import { STATS } from "../lib/stats";
+import Coffee from "../components/Coffee";
 import MeetSam from "../components/MeetSam";
 import Newsletter from "../components/Newsletter";
 import ArticleMark from "../components/ArticleMark";
@@ -58,6 +59,7 @@ export default function Home() {
       <section className="stack">
         <h2>Product</h2>
         <div className="product-row"><OcufuseMark href="/building/ocufuse/" text="A calm eye journal with screen break games, routines and free tools." cta="Read the build story" /></div>
+        <div className="btn-row"><Coffee label="Support what I am building" /></div>
       </section>
 
       <section className="stack">
