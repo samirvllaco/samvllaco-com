@@ -2,7 +2,6 @@ import { SITE, ARTICLES } from "../lib/site";
 import { STATS } from "../lib/stats";
 import Coffee from "../components/Coffee";
 import MeetSam from "../components/MeetSam";
-import Newsletter from "../components/Newsletter";
 import ArticleMark from "../components/ArticleMark";
 import OcufuseMark from "../components/OcufuseMark";
 
@@ -70,7 +69,6 @@ export default function Home() {
         </div>
       </section>
 
-      <Newsletter />
 
     </div>
   );
