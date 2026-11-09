@@ -7,8 +7,9 @@ import { NAV, LORDICONS } from "../lib/site";
 const PATHS = {
   home: "M3 11l9-8 9 8M5 10v10h5v-6h4v6h5V10",
   building: "M12 3l9 5-9 5-9-5 9-5ZM3 13l9 5 9-5M3 17l9 5 9-5",
-  writing: "M4 20h4L19 9l-4-4L4 16v4ZM13 7l4 4",
+  writing: "M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8l-5-5ZM14 3v5h5M9 13h6M9 17h6",
   products: "M5 8h14l-1 12H6L5 8ZM9 8a3 3 0 0 1 6 0",
+  globe: "M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18ZM3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18",
   about: "M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM4 21a8 8 0 0 1 16 0",
 };
 
@@ -59,6 +60,9 @@ function Icon({ name }) {
   );
 }
 
+const LEFT = ["building", "writing", "products"];
+const RIGHT = ["globe", "about"];
+
 export default function TopNav() {
   const router = useRouter();
   const pathname = usePathname();
@@ -96,26 +100,36 @@ export default function TopNav() {
     return () => window.removeEventListener("keydown", onKey);
   });
 
+  const item = (key) => {
+    const n = NAV.find((x) => x.key === key);
+    const current = n.href === "/" ? pathname === "/" : pathname.startsWith(n.href);
+    return (
+      <Link
+        key={key}
+        href={n.href}
+        className="dock-btn"
+        aria-label={n.label}
+        aria-current={current ? "page" : undefined}
+        onClick={() => play(660)}
+        onMouseEnter={() => play(520, 0.03)}
+      >
+        <Icon name={key} />
+        <span className="dock-tip" aria-hidden="true">{n.label} <kbd>{n.shortcut}</kbd></span>
+      </Link>
+    );
+  };
+
+  const home = NAV.find((x) => x.key === "home");
   return (
-    <nav className="topnav" aria-label="Main">
-      {NAV.map((n) => {
-        const current = n.href === "/" ? pathname === "/" : pathname.startsWith(n.href);
-        return (
-          <Link
-            key={n.key}
-            href={n.href}
-            className="topnav-link"
-            aria-current={current ? "page" : undefined}
-            onClick={() => play(660)}
-            onMouseEnter={() => play(520, 0.03)}
-          >
-            <Icon name={n.key} />
-            <span className="topnav-label">{n.label}</span>
-            <kbd aria-hidden="true">{n.shortcut}</kbd>
-          </Link>
-        );
-      })}
-      <button type="button" className="topnav-link" onClick={toggle} aria-pressed={on} aria-label={on ? "Sound on, press to mute" : "Sound off, press to unmute"}>
+    <nav className="dock" aria-label="Main">
+      {LEFT.map(item)}
+      <Link href="/" className="dock-me" aria-label={home.label} aria-current={pathname === "/" ? "page" : undefined} onClick={() => play(740)}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/sam.jpg" alt="" width="64" height="64" />
+        <span className="dock-tip" aria-hidden="true">Home <kbd>H</kbd></span>
+      </Link>
+      {RIGHT.map(item)}
+      <button type="button" className="dock-btn" onClick={toggle} aria-pressed={on} aria-label={on ? "Sound on, press to mute" : "Sound off, press to unmute"}>
         <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
           <path d="M4 9v6h4l5 4V5L8 9H4Z" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinejoin="round" />
           {on ? (
@@ -124,7 +138,7 @@ export default function TopNav() {
             <path d="M16 9l5 6M21 9l-5 6" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" />
           )}
         </svg>
-        <kbd aria-hidden="true">M</kbd>
+        <span className="dock-tip" aria-hidden="true">Sound <kbd>M</kbd></span>
       </button>
     </nav>
   );

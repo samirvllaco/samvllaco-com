@@ -1,6 +1,6 @@
 import { SITE, ARTICLES } from "../lib/site";
 import { STATS } from "../lib/stats";
-import GlobeVisited from "../components/GlobeVisited";
+import Globe from "../components/Globe";
 import Coffee from "../components/Coffee";
 import ArticleMark from "../components/ArticleMark";
 import OcufuseMark from "../components/OcufuseMark";
@@ -59,7 +59,7 @@ export default function Home() {
         <div className="btn-row"><Coffee label="Support what I am building" /></div>
       </section>
 
-      <GlobeVisited />
+      <Globe />
 
       <section className="stack reveal" data-scroll data-scroll-class="is-in" data-scroll-offset="10%,0">
         <h2>Writing</h2>

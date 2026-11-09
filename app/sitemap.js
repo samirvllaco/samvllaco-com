@@ -1,7 +1,7 @@
 export const dynamic = "force-static";
 
 const base = "https://samvllaco.com";
-const paths = ["/", "/building/", "/building/ocufuse/", "/writing/", "/products/", "/about/", "/links/"];
+const paths = ["/", "/building/", "/building/ocufuse/", "/writing/", "/products/", "/globe/", "/about/", "/links/"];
 
 export default function sitemap() {
   const lastModified = new Date();
