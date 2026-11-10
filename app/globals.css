@@ -555,3 +555,4 @@ a.cert:active, .cert:active { transition-duration: 0s; transform: scale(.98); }
 .work-grid .work-title { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .work-grid .work-sub { -webkit-line-clamp: 3; line-height: 1.4; padding-bottom: 2px; }
 .work-grid .work-meta { align-content: start; }
+.work-card:active { transform: none; opacity: 1; }

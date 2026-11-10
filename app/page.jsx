@@ -63,7 +63,6 @@ export default function Home() {
       <section className="stack reveal work" data-bg="#000000" data-scroll data-scroll-class="is-in" data-scroll-offset="10%,0">
           <h2>Work</h2>
           <WorkGrid />
-          <a className="work-all" href={SITE.links.design} target="_blank" rel="noopener noreferrer">See all design work</a>
       </section>
 
 
