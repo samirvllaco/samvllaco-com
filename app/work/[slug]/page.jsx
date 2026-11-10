@@ -5,6 +5,7 @@ import Crumbs from "../../../components/Crumbs";
 import { WORK } from "../../../lib/work";
 import { SeenMarker } from "../../../components/Seen";
 import CaseAside from "../../../components/CaseAside";
+import CaseFab from "../../../components/CaseFab";
 import { STUDIES } from "../../../lib/work-studies";
 import { EMAIL } from "../../../lib/site";
 
@@ -254,6 +255,7 @@ export default function CaseStudy({ params }) {
         {others.length ? <MoreWork others={others} /> : null}
       </div>
       <CaseAside items={toc} />
+      <CaseFab />
     </div>
   );
 }

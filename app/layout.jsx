@@ -25,7 +25,7 @@ export const metadata = {
   },
   twitter: { card: "summary", images: ["/sam.jpg"], site: SITE.handle, creator: SITE.handle },
   robots: { index: true, follow: true },
-  other: { "color-scheme": "dark" },
+  other: { "color-scheme": "dark light" },
 };
 
 const personSchema = {
@@ -53,10 +53,14 @@ const personSchema = {
   ],
 };
 
+// Applies the saved theme before the first paint, so there is no flash.
+const THEME_BOOT = `try{if(JSON.parse(localStorage.getItem("sv:theme"))==="light")document.documentElement.dataset.theme="light"}catch(e){}`;
+
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body>
+        <script dangerouslySetInnerHTML={{ __html: THEME_BOOT }} />
         <SmoothScroll />
         <a className="skip" href="#main">Skip to content</a>
         <Header />

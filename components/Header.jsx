@@ -2,6 +2,7 @@ import Link from "next/link";
 import CallIcon from "./CallIcon";
 import SoundToggle from "./SoundToggle";
 import ServicesMenu from "./ServicesMenu";
+import ThemeToggle from "./ThemeToggle";
 import { EMAIL } from "../lib/site";
 
 const NAV = [
@@ -40,6 +41,7 @@ export default function Header() {
         </nav>
         <div className="head-end">
           <SoundToggle />
+          <ThemeToggle />
           <a className="head-cta" href={`mailto:${EMAIL}?subject=Schedule%20a%20call`}><CallIcon />Schedule a call</a>
         </div>
       </div>
