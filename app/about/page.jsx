@@ -15,7 +15,7 @@ export default function About() {
       <div className="stack">
         <p>I am Samir Vllaco, known online as Sam. I design products and build my own apps.</p>
         <p>
-          My main project is <a href={SITE.links.ocufuse}>Ocufuse</a>. I share the work on{" "}
+          I share the work on{" "}
           <a href={SITE.links.x} rel="me noopener">X</a> and{" "}
           <a href={SITE.links.medium} rel="me noopener">Medium</a>.
         </p>

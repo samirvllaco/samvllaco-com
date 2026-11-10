@@ -89,7 +89,6 @@ export default function Footer() {
         <div className="foot-links">
           <a href={SITE.links.x} rel="me noopener">X</a>
           <a href={SITE.links.medium} rel="me noopener">Medium</a>
-          <a href={SITE.links.ocufuse}>Ocufuse</a>
           <Link href="/links/">All links</Link>
           <CopyEmail />
         </div>

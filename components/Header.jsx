@@ -9,7 +9,6 @@ const NAV = [
   { href: "/#work", label: "Work" },
   { href: "/products/", label: "Products", badge: "New" },
   { href: "/writing/", label: "Writing" },
-  { href: "/building/", label: "Building" },
   { href: "/about/", label: "About" },
   { href: "/links/", label: "Contact" },
 ];

@@ -40,8 +40,7 @@ const personSchema = {
       jobTitle: "Product designer",
       homeLocation: { "@type": "Place", name: "Tirana, Albania" },
       description: SITE.description,
-      sameAs: [SITE.links.x, SITE.links.medium, SITE.links.dribbble, SITE.links.ocufuse],
-      owns: { "@type": "WebSite", name: "Ocufuse", url: SITE.links.ocufuse },
+      sameAs: [SITE.links.x, SITE.links.medium, SITE.links.dribbble],
     },
     {
       "@type": "WebSite",

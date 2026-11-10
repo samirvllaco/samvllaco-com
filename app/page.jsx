@@ -3,12 +3,10 @@ import CallIcon from "../components/CallIcon";
 import { STATS } from "../lib/stats";
 import SectionColors from "../components/SectionColors";
 import { MEDIUM_PATH } from "../lib/medium-logo";
-import Coffee from "../components/Coffee";
 import ArticleMark from "../components/ArticleMark";
 import WorkGrid from "../components/WorkGrid";
 import HireCard from "../components/HireCard";
 import HeroShow from "../components/HeroShow";
-import OcufuseMark from "../components/OcufuseMark";
 import { LocalTime, CountUp } from "../components/Greeting";
 
 export const metadata = {
@@ -26,7 +24,7 @@ export default function Home() {
           <h1>Design that makes complex products feel simple</h1>
           <p className="hero2-sub">
             I design SaaS products, dashboards and mobile apps that people understand on the first
-            screen. Currently building <a href={SITE.links.ocufuse}><b>Ocufuse</b></a>.
+            screen.
           </p>
           <div className="hero2-cta">
             <a className="hero2-btn hero2-btn-primary" href={`mailto:${EMAIL}?subject=Schedule%20a%20call`}><CallIcon />Schedule a call</a>
@@ -74,11 +72,7 @@ export default function Home() {
       </section>
 
 
-      <section className="stack reveal" data-bg="#1d1d1f" data-scroll data-scroll-class="is-in" data-scroll-offset="10%,0">
-        <h2>Product</h2>
-        <div className="product-row"><OcufuseMark href={SITE.links.ocufuse} text="A calm eye journal with screen break games, routines and free tools." /></div>
-        <div className="btn-row"><Coffee label="Support what I am building" /></div>
-      </section>
+      {/* Product (Ocufuse) section hidden for now */}
 
       <section className="stack reveal" data-bg="#000000" data-scroll data-scroll-class="is-in" data-scroll-offset="10%,0">
         <div className="blog-head">
