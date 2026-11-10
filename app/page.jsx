@@ -2,7 +2,6 @@ import { SITE, ARTICLES, EMAIL } from "../lib/site";
 import CallIcon from "../components/CallIcon";
 import { STATS } from "../lib/stats";
 import SectionColors from "../components/SectionColors";
-import Globe from "../components/Globe";
 import { MEDIUM_PATH } from "../lib/medium-logo";
 import Coffee from "../components/Coffee";
 import ArticleMark from "../components/ArticleMark";
@@ -109,7 +108,7 @@ export default function Home() {
         </div>
       </section>
 
-      <Globe bg="#000000" />
+      {/* Globe section hidden for now: <Globe bg="#000000" /> */}
 
 
     </div>
