@@ -516,3 +516,30 @@ a.cert:active, .cert:active { transition-duration: 0s; transform: scale(.98); }
 /* no extra empty space under the footer, links sit left so the floating popup never covers them */
 .site-footer { padding-bottom: 32px; }
 .site-footer .wrap { justify-content: flex-start; gap: 16px 48px; }
+
+/* ===== Engraved strokes: every outline is a groove, dark line with a light line beside it ===== */
+:root { --eng-dark: rgba(0, 0, 0, .72); --eng-light: rgba(255, 255, 255, .11); --eng-gold: rgba(233, 184, 74, .38); }
+
+/* straight dividers */
+.site-footer { border-top: 1px solid var(--eng-dark); box-shadow: inset 0 1px 0 var(--eng-light); }
+.site-footer .certs { border-bottom: 1px solid var(--eng-dark); position: relative; }
+.site-footer .certs::after { content: ""; position: absolute; left: 0; right: 0; bottom: -2px; height: 1px; background: var(--eng-light); pointer-events: none; }
+.site-header { border-bottom: 1px solid var(--eng-dark); }
+
+/* outlined shapes */
+.avail, .book-pop, .vid-label, .globe-head, .globe-card, .globe-stage, .btn-ghost, .globe-tools button, .globe-close, .work-empty, .seg {
+  border-color: transparent;
+  box-shadow: inset 0 0 0 1px var(--eng-dark), inset 0 0 0 2px var(--eng-light);
+}
+.globe-tools button[aria-pressed="true"] { box-shadow: inset 0 0 0 1px var(--eng-dark), inset 0 0 0 2px rgba(98, 193, 253, .55); }
+.flags span, .flag { box-shadow: inset 0 0 0 1px var(--eng-dark), inset 0 0 0 2px var(--eng-light); border-color: transparent; }
+
+/* certificate tiles: groove with a gold inner line */
+.cert { box-shadow: inset 0 0 0 1px var(--eng-dark), inset 0 0 0 2px var(--eng-gold); }
+.cert:hover, .cert:focus-visible, .cert:focus-within { box-shadow: inset 0 0 0 1px var(--eng-dark), inset 0 0 0 2px rgba(233, 184, 74, .75); }
+.cert-mark { box-shadow: inset 0 0 0 1px var(--eng-dark), inset 0 0 0 2px var(--eng-light); }
+
+/* focus rings stay clear and bright for accessibility */
+:root { --eng-dark: rgba(0, 0, 0, .85); --eng-light: rgba(255, 255, 255, .17); --eng-gold: rgba(233, 184, 74, .5); }
+.cert, .cert-mark { border-color: transparent !important; }
+.site-footer .certs::after { height: 1px; bottom: -2px; }
