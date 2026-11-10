@@ -50,9 +50,9 @@ export default function WorkGrid() {
         ) : (
           <div className="work-grid">
             {items.map((w, i) => (
-              <a key={w.slug} className={`work-card${i === 0 ? " work-lead" : ""}`} href={SITE.links.design} target="_blank" rel="noopener noreferrer" aria-label={`${w.title}, see my design work, opens in a new tab`}>
+              <a key={w.slug} className="work-card" href={SITE.links.design} target="_blank" rel="noopener noreferrer" aria-label={`${w.title}, see my design work, opens in a new tab`}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={w.big} srcSet={`${w.small} ${w.smallW}w, ${w.big} ${w.w}w`} sizes={i === 0 ? "(max-width: 900px) 100vw, 1100px" : "(max-width: 900px) 100vw, 360px"} width={w.w} height={w.h} alt={w.alt} loading="lazy" />
+                <img src={w.big} srcSet={`${w.small} ${w.smallW}w, ${w.big} ${w.w}w`} sizes="(max-width: 900px) 50vw, 220px" width={w.w} height={w.h} alt={w.alt} loading="lazy" />
                 <span className="work-meta">
                   <span className="work-title">{w.title}</span>
                   <span className="work-sub">{w.sub}</span>

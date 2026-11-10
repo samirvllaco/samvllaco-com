@@ -543,3 +543,15 @@ a.cert:active, .cert:active { transition-duration: 0s; transform: scale(.98); }
 :root { --eng-dark: rgba(0, 0, 0, .85); --eng-light: rgba(255, 255, 255, .17); --eng-gold: rgba(233, 184, 74, .5); }
 .cert, .cert-mark { border-color: transparent !important; }
 .site-footer .certs::after { height: 1px; bottom: -2px; }
+
+/* Work grid: all cards equal and small, 4 to 6 per row */
+.work-grid { grid-template-columns: repeat(auto-fill, minmax(168px, 1fr)); gap: 24px 16px; }
+.work-grid .work-card { gap: 10px; border-radius: 16px; }
+.work-grid .work-card img { border-radius: 16px !important; }
+.work-grid .work-title { font-size: .9375rem; letter-spacing: -.01em; }
+.work-grid .work-sub { font-size: .75rem; line-height: 1.35; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.work-grid .work-meta { padding: 0 2px; }
+@media (max-width: 900px) { .work-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.work-grid .work-title { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.work-grid .work-sub { -webkit-line-clamp: 3; line-height: 1.4; padding-bottom: 2px; }
+.work-grid .work-meta { align-content: start; }
