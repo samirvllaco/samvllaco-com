@@ -8,6 +8,51 @@ const TABS = [
   { id: "mobile", label: "Mobile" },
 ];
 
+
+function WorkCard({ w }) {
+  const vref = useRef(null);
+  const [live, setLive] = useState(false);
+  function start() {
+    const v = vref.current;
+    if (!v) return;
+    if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    v.currentTime = 0;
+    const p = v.play();
+    if (p && p.catch) p.catch(() => {});
+  }
+  function stop() {
+    const v = vref.current;
+    if (!v) return;
+    v.pause();
+    setLive(false);
+  }
+  const vid = w.video;
+  return (
+    <div
+      className="work-card"
+      role="group"
+      aria-label={w.title}
+      tabIndex={vid ? 0 : undefined}
+      onMouseEnter={vid ? start : undefined}
+      onMouseLeave={vid ? stop : undefined}
+      onFocus={vid ? start : undefined}
+      onBlur={vid ? stop : undefined}
+    >
+      <span className="work-media">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={w.big} srcSet={`${w.small} ${w.smallW}w, ${w.big} ${w.w}w`} sizes="(max-width: 900px) 100vw, 380px" width={w.w} height={w.h} alt={w.alt} loading="lazy" />
+        {vid ? (
+          <video ref={vref} className={live ? "is-live" : ""} src={vid} muted loop playsInline preload="metadata" aria-hidden="true" tabIndex={-1} onPlaying={() => setLive(true)} />
+        ) : null}
+      </span>
+      <span className="work-meta">
+        <span className="work-title">{w.title}</span>
+        <span className="work-sub">{w.sub}</span>
+      </span>
+    </div>
+  );
+}
+
 export default function WorkGrid() {
   const [tab, setTab] = useState("all");
   const refs = useRef({});
@@ -48,15 +93,8 @@ export default function WorkGrid() {
           <p className="work-empty">Mobile projects are coming soon.</p>
         ) : (
           <div className="work-grid">
-            {items.map((w, i) => (
-              <div key={w.slug} className="work-card" role="group" aria-label={w.title}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={w.big} srcSet={`${w.small} ${w.smallW}w, ${w.big} ${w.w}w`} sizes="(max-width: 520px) 100vw, (max-width: 900px) 50vw, 290px" width={w.w} height={w.h} alt={w.alt} loading="lazy" />
-                <span className="work-meta">
-                  <span className="work-title">{w.title}</span>
-                  <span className="work-sub">{w.sub}</span>
-                </span>
-              </div>
+            {items.map((w) => (
+              <WorkCard key={w.slug} w={w} />
             ))}
           </div>
         )}
