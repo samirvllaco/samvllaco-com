@@ -21,9 +21,11 @@ export default function Header() {
       </Link>
       <div className="wrap head-row">
         <Link className="brand-me" href="/" aria-label="Sam Vllaco, home">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/sam.jpg" width="36" height="36" alt="" />
-          <span>Sam Vllaco</span>
+          <svg className="logo-mark" viewBox="0 0 40 40" width="40" height="40" aria-hidden="true">
+            <rect width="40" height="40" rx="9" fill="#f5f5f7" />
+            <path d="M17.500 14.200c-.8-1.500-2.300-2.300-4.200-2.300-2.500 0-4.300 1.300-4.300 3.400 0 4.600 9 2.200 9 7.200 0 2.200-1.900 3.600-4.600 3.600-2.200 0-3.900-.9-4.800-2.600" fill="none" stroke="#111112" strokeWidth="2.600" strokeLinecap="round" />
+            <path d="M21 12.200l5 13.600 5-13.600" fill="none" stroke="#111112" strokeWidth="2.600" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
         </Link>
         <nav className="head-nav" aria-label="Main">
           {NAV.map((n) => (

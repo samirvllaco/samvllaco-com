@@ -62,7 +62,7 @@ export function SecretCount() {
   const got = useStored("secrets", []);
   const n = SECRETS.filter((s) => got.includes(s)).length;
   return (
-    <p className="secrets" title="Three secrets are hidden on this site. One uses the arrow keys, one a photo, one the console.">
+    <p className="secrets" title="Three secrets are hidden on this site. One uses the arrow keys, one the logo, one the console.">
       Secrets found: {n} of {SECRETS.length}
     </p>
   );

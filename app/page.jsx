@@ -1,4 +1,4 @@
-import { SITE, ARTICLES } from "../lib/site";
+import { SITE, ARTICLES, EMAIL } from "../lib/site";
 import { STATS } from "../lib/stats";
 import SectionColors from "../components/SectionColors";
 import Globe from "../components/Globe";
@@ -7,6 +7,7 @@ import Coffee from "../components/Coffee";
 import ArticleMark from "../components/ArticleMark";
 import WorkGrid from "../components/WorkGrid";
 import HireCard from "../components/HireCard";
+import HeroShow from "../components/HeroShow";
 import OcufuseMark from "../components/OcufuseMark";
 import Greeting, { LocalTime, CountUp } from "../components/Greeting";
 
@@ -19,26 +20,30 @@ export default function Home() {
   return (
     <div className="wrap page stack-lg">
       <SectionColors />
-      <section className="profile" data-bg="#111112">
-        <div className="plate plate-lg" data-scroll data-scroll-speed="0.15">
-          <div className="well">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img className="engrave" src="/sam.jpg" alt="Sam Vllaco" width="112" height="112" />
+      <section className="hero2" data-bg="#111112">
+        <div className="hero2-main">
+          <Greeting />
+          <p className="hero2-eyebrow">Product designer for SaaS and AI teams</p>
+          <h1>Design that makes complex products feel simple</h1>
+          <p className="hero2-sub">
+            I design SaaS products, dashboards and mobile apps that people understand on the first
+            screen. Currently building <a href={SITE.links.ocufuse}><b>Ocufuse</b></a>.
+          </p>
+          <div className="hero2-cta">
+            <a className="hero2-btn hero2-btn-primary" href={`mailto:${EMAIL}?subject=Project%20inquiry`}>Hire me</a>
+            <a className="hero2-btn hero2-btn-light" href="#work">See my work</a>
           </div>
         </div>
-        <div className="profile-body">
-          <Greeting />
-          <h1>Sam Vllaco</h1>
+        <HeroShow />
+        <div className="hero2-foot">
+          <ul className="hero2-stats" aria-label="In numbers">
+            <li><CountUp to={10000} suffix="+" /> screens designed</li>
+            <li><b>50+</b> clients</li>
+            <li>Making pixels useful since <b>2013</b></li>
+          </ul>
           <p className="loc">
             <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="none" stroke="currentColor" strokeWidth="2" d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.800 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5" fill="none" stroke="currentColor" strokeWidth="2"/></svg>
             Tirana, Albania<LocalTime />
-          </p>
-          <p className="intro">
-            Making pixels useful since <b>2013</b>. <CountUp to={10000} suffix="+" /> screens designed.
-          </p>
-          <p className="intro">
-            Currently building <a href={SITE.links.ocufuse}><b>Ocufuse</b></a>, an eye journal with
-            screen break games and free tools.
           </p>
           <ul className="socials" aria-label="Find me online">
             <li>

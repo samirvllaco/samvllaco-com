@@ -65,11 +65,11 @@ export default function Delight() {
     }
     window.addEventListener("keydown", onKey);
 
-    // Secret 2: tap the photo five times
+    // Secret 2: tap the logo five times
     let taps = 0;
     let tapTimer = null;
     function onClick(e) {
-      const plate = e.target.closest && e.target.closest(".profile .plate");
+      const plate = e.target.closest && e.target.closest(".brand-me");
       if (plate) {
         taps += 1;
         clearTimeout(tapTimer);
@@ -79,7 +79,7 @@ export default function Delight() {
           plate.classList.remove("dl-spin");
           void plate.offsetWidth;
           plate.classList.add("dl-spin");
-          if (!unlock("avatar", "Secret found: Persistent", "Five taps. You really wanted my attention.")) play("tick");
+          if (!unlock("avatar", "Secret found: Persistent", "Five taps on the logo. You really wanted my attention.")) play("tick");
         }
         return;
       }
