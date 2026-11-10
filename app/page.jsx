@@ -7,6 +7,7 @@ import Coffee from "../components/Coffee";
 import ArticleMark from "../components/ArticleMark";
 import WorkGrid from "../components/WorkGrid";
 import OcufuseMark from "../components/OcufuseMark";
+import Greeting, { LocalTime, CountUp } from "../components/Greeting";
 
 export const metadata = {
   title: { absolute: `${SITE.name}: ${SITE.tagline}` },
@@ -25,13 +26,14 @@ export default function Home() {
           </div>
         </div>
         <div className="profile-body">
+          <Greeting />
           <h1>Sam Vllaco</h1>
           <p className="loc">
             <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="none" stroke="currentColor" strokeWidth="2" d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.800 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5" fill="none" stroke="currentColor" strokeWidth="2"/></svg>
-            Tirana, Albania
+            Tirana, Albania<LocalTime />
           </p>
           <p className="intro">
-            Making pixels useful since <b>2013</b>. <b>10,000+</b> screens designed.
+            Making pixels useful since <b>2013</b>. <CountUp to={10000} suffix="+" /> screens designed.
           </p>
           <p className="intro">
             Currently building <a href={SITE.links.ocufuse}><b>Ocufuse</b></a>, an eye journal with

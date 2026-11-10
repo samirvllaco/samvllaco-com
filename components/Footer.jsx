@@ -1,5 +1,6 @@
 import Link from "next/link";
 import CopyEmail from "./CopyEmail";
+import { SecretCount } from "./Seen";
 import { SITE, CERTS } from "../lib/site";
 
 // 16 point scalloped seal, drawn once and filled with a shared gold gradient
@@ -85,6 +86,7 @@ export default function Footer() {
           <Link href="/links/">All links</Link>
           <CopyEmail />
         </div>
+        <SecretCount />
       </div>
     </footer>
   );

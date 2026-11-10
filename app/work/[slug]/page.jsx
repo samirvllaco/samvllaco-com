@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import Crumbs from "../../../components/Crumbs";
 import { WORK } from "../../../lib/work";
+import { SeenMarker } from "../../../components/Seen";
 
 export const dynamicParams = false;
 
@@ -25,7 +26,8 @@ export default function CaseStudy({ params }) {
   const w = WORK[i];
   const others = WORK.filter((x) => x.slug !== w.slug);
   return (
-    <div className="wrap page case">
+    <div className="wrap page case" data-case={w.slug}>
+      <SeenMarker slug={w.slug} />
       <Crumbs items={[{ name: "Work", href: "/#work" }, { name: w.title, href: `/work/${w.slug}/` }]} />
 
       <header className="case-head">
@@ -39,7 +41,7 @@ export default function CaseStudy({ params }) {
         </dl>
       </header>
 
-      <div className="case-hero">
+      <div className="case-hero" style={{ viewTransitionName: `w-${w.slug}` }}>
         {w.fullVideo ? (
           <video src={w.fullVideo} poster={w.big} muted loop playsInline autoPlay controls aria-label={`${w.title} animated preview`} />
         ) : (
@@ -76,7 +78,7 @@ export default function CaseStudy({ params }) {
         <div className="case-more-grid">
           {others.map((o) => (
             <Link href={`/work/${o.slug}/`} className="work-card" key={o.slug}>
-              <span className="work-media">
+              <span className="work-media" style={{ viewTransitionName: `w-${o.slug}` }}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={o.small} width={o.smallW} height={Math.round((o.smallW * o.h) / o.w)} alt={o.alt} loading="lazy" />
               </span>

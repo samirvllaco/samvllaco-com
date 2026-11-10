@@ -4,6 +4,7 @@ import Footer from "../components/Footer";
 import BookPopup from "../components/BookPopup";
 import SmoothScroll from "../components/SmoothScroll";
 import VideoBubble from "../components/VideoBubble";
+import Delight from "../components/Delight";
 import { SITE } from "../lib/site";
 
 export const metadata = {
@@ -63,6 +64,7 @@ export default function RootLayout({ children }) {
         <Footer />
         <BookPopup />
         <VideoBubble />
+        <Delight />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }} />
       </body>
     </html>

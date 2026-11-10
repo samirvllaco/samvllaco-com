@@ -1,7 +1,10 @@
 "use client";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
 import { WORK } from "../lib/work";
+import { play, reducedMotion } from "../lib/delight";
+import { useSeen, WorkProgress } from "./Seen";
 
 const TABS = [
   { id: "all", label: "All" },
@@ -10,8 +13,23 @@ const TABS = [
 ];
 
 
-function WorkCard({ w }) {
+function WorkCard({ w, seen }) {
+  const router = useRouter();
   const vref = useRef(null);
+  // Morph the card into the case study hero where the browser supports it.
+  function go(e) {
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+    if (!document.startViewTransition || reducedMotion()) return;
+    e.preventDefault();
+    const href = `/work/${w.slug}/`;
+    document.startViewTransition(() => new Promise((done) => {
+      router.push(href);
+      const t0 = Date.now();
+      const id = setInterval(() => {
+        if (document.querySelector(`[data-case="${w.slug}"]`) || Date.now() - t0 > 1500) { clearInterval(id); done(); }
+      }, 16);
+    }));
+  }
   const [live, setLive] = useState(false);
   function start() {
     const v = vref.current;
@@ -32,17 +50,19 @@ function WorkCard({ w }) {
     <Link
       href={`/work/${w.slug}/`}
       className="work-card"
+      onClick={go}
       onMouseEnter={vid ? start : undefined}
       onMouseLeave={vid ? stop : undefined}
       onFocus={vid ? start : undefined}
       onBlur={vid ? stop : undefined}
     >
-      <span className="work-media">
+      <span className="work-media" style={{ viewTransitionName: `w-${w.slug}` }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={w.big} srcSet={`${w.small} ${w.smallW}w, ${w.big} ${w.w}w`} sizes="(max-width: 900px) 100vw, 380px" width={w.w} height={w.h} alt={w.alt} loading="lazy" />
         {vid ? (
           <video ref={vref} className={live ? "is-live" : ""} src={vid} muted loop playsInline preload="metadata" aria-hidden="true" tabIndex={-1} onPlaying={() => setLive(true)} />
         ) : null}
+        {seen ? <span className="work-seen"><svg viewBox="0 0 24 24" width="12" height="12" aria-hidden="true"><path d="M5 12.500l4.500 4.500L19 7.500" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" /></svg>Viewed</span> : null}
       </span>
       <span className="work-meta">
         <span className="work-title">{w.title}</span>
@@ -55,6 +75,7 @@ function WorkCard({ w }) {
 export default function WorkGrid() {
   const [tab, setTab] = useState("all");
   const refs = useRef({});
+  const seenList = useSeen();
   const items = tab === "all" ? WORK : WORK.filter((w) => w.platform === tab);
 
   function onKey(e, i) {
@@ -69,6 +90,7 @@ export default function WorkGrid() {
 
   return (
     <>
+      <div className="work-bar">
       <div className="seg" role="tablist" aria-label="Filter work by device">
         {TABS.map((t, i) => (
           <button
@@ -80,12 +102,14 @@ export default function WorkGrid() {
             aria-selected={tab === t.id}
             aria-controls="work-panel"
             tabIndex={tab === t.id ? 0 : -1}
-            onClick={() => setTab(t.id)}
+            onClick={() => { setTab(t.id); play("tab"); }}
             onKeyDown={(e) => onKey(e, i)}
           >
             {t.label}
           </button>
         ))}
+      </div>
+      <WorkProgress />
       </div>
       <div id="work-panel" role="tabpanel" aria-labelledby={`work-tab-${tab}`} className="work-panel" key={tab}>
         {items.length === 0 ? (
@@ -93,7 +117,7 @@ export default function WorkGrid() {
         ) : (
           <div className="work-grid">
             {items.map((w) => (
-              <WorkCard key={w.slug} w={w} />
+              <WorkCard key={w.slug} w={w} seen={seenList.includes(w.slug)} />
             ))}
           </div>
         )}
