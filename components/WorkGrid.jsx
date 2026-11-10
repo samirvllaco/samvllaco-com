@@ -1,15 +1,11 @@
 "use client";
 import Link from "next/link";
 import { useRef, useState } from "react";
-import { WORK } from "../lib/work";
+import { WORK, WORK_TAGS } from "../lib/work";
 import { play } from "../lib/delight";
 import { useSeen } from "./Seen";
 
-const TABS = [
-  { id: "all", label: "All" },
-  { id: "desktop", label: "Desktop" },
-  { id: "mobile", label: "Mobile" },
-];
+const TABS = [{ id: "all", label: "All" }, ...WORK_TAGS.filter((t) => WORK.some((w) => w.tags.includes(t))).map((t) => ({ id: t, label: t }))];
 
 
 function WorkCard({ w, seen }) {
@@ -50,6 +46,7 @@ function WorkCard({ w, seen }) {
       <span className="work-meta">
         <span className="work-title">{w.title}</span>
         <span className="work-sub">{w.sub}</span>
+        <span className="work-tags">{w.tags.map((t) => <span key={t}>{t}</span>)}</span>
       </span>
     </Link>
   );
@@ -59,7 +56,7 @@ export default function WorkGrid() {
   const [tab, setTab] = useState("all");
   const refs = useRef({});
   const seenList = useSeen();
-  const items = tab === "all" ? WORK : WORK.filter((w) => w.platform === tab);
+  const items = tab === "all" ? WORK : WORK.filter((w) => w.tags.includes(tab));
 
   function onKey(e, i) {
     let n = null;
@@ -74,12 +71,12 @@ export default function WorkGrid() {
   return (
     <>
       <div className="work-bar">
-      <div className="seg" role="tablist" aria-label="Filter work by device">
+      <div className="tags" role="tablist" aria-label="Filter work by category">
         {TABS.map((t, i) => (
           <button
             key={t.id}
             ref={(el) => { refs.current[t.id] = el; }}
-            id={`work-tab-${t.id}`}
+            id={`work-tab-${i}`}
             role="tab"
             type="button"
             aria-selected={tab === t.id}
@@ -93,9 +90,9 @@ export default function WorkGrid() {
         ))}
       </div>
       </div>
-      <div id="work-panel" role="tabpanel" aria-labelledby={`work-tab-${tab}`} className="work-panel" key={tab}>
+      <div id="work-panel" role="tabpanel" aria-labelledby={`work-tab-${TABS.findIndex((t) => t.id === tab)}`} className="work-panel" key={tab}>
         {items.length === 0 ? (
-          <p className="work-empty">Mobile projects are coming soon.</p>
+          <p className="work-empty">More projects are coming soon.</p>
         ) : (
           <div className="work-grid">
             {items.map((w) => (
