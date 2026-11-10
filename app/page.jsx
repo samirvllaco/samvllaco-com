@@ -5,6 +5,7 @@ import Globe from "../components/Globe";
 import { MEDIUM_PATH } from "../lib/medium-logo";
 import Coffee from "../components/Coffee";
 import ArticleMark from "../components/ArticleMark";
+import { WORK } from "../lib/work";
 import OcufuseMark from "../components/OcufuseMark";
 
 export const metadata = {
@@ -59,14 +60,33 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="stack reveal work" data-bg="#000000" data-scroll data-scroll-class="is-in" data-scroll-offset="10%,0">
+        <div className="wrap">
+          <h2>Work</h2>
+          <div className="work-grid">
+            {WORK.map((w, i) => (
+              <a key={w.slug} className={`work-card${i === 0 ? " work-lead" : ""}`} href={SITE.links.design} target="_blank" rel="noopener noreferrer" aria-label={`${w.title}, see my design work, opens in a new tab`}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={w.big} srcSet={`${w.small} ${w.smallW}w, ${w.big} ${w.w}w`} sizes={i === 0 ? "(max-width: 900px) 100vw, 1100px" : "(max-width: 900px) 100vw, 360px"} width={w.w} height={w.h} alt={w.alt} loading="lazy" />
+                <span className="work-meta">
+                  <span className="work-title">{w.title}</span>
+                  <span className="work-sub">{w.sub}</span>
+                </span>
+              </a>
+            ))}
+          </div>
+          <a className="work-all" href={SITE.links.design} target="_blank" rel="noopener noreferrer">See all design work</a>
+        </div>
+      </section>
 
-      <section className="stack reveal" data-bg="#000000" data-scroll data-scroll-class="is-in" data-scroll-offset="10%,0">
+
+      <section className="stack reveal" data-bg="#1d1d1f" data-scroll data-scroll-class="is-in" data-scroll-offset="10%,0">
         <h2>Product</h2>
         <div className="product-row"><OcufuseMark href={SITE.links.ocufuse} text="A calm eye journal with screen break games, routines and free tools." /></div>
         <div className="btn-row"><Coffee label="Support what I am building" /></div>
       </section>
 
-      <section className="stack reveal" data-bg="#1d1d1f" data-scroll data-scroll-class="is-in" data-scroll-offset="10%,0">
+      <section className="stack reveal" data-bg="#000000" data-scroll data-scroll-class="is-in" data-scroll-offset="10%,0">
         <h2>Writing</h2>
         <div className="product-row">
           {ARTICLES.map((a) => (
