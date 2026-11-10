@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { useRef, useState } from "react";
 import { WORK } from "../lib/work";
 
@@ -28,11 +29,9 @@ function WorkCard({ w }) {
   }
   const vid = w.video;
   return (
-    <div
+    <Link
+      href={`/work/${w.slug}/`}
       className="work-card"
-      role="group"
-      aria-label={w.title}
-      tabIndex={vid ? 0 : undefined}
       onMouseEnter={vid ? start : undefined}
       onMouseLeave={vid ? stop : undefined}
       onFocus={vid ? start : undefined}
@@ -49,7 +48,7 @@ function WorkCard({ w }) {
         <span className="work-title">{w.title}</span>
         <span className="work-sub">{w.sub}</span>
       </span>
-    </div>
+    </Link>
   );
 }
 

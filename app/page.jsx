@@ -60,7 +60,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="stack reveal work" data-bg="#000000" data-scroll data-scroll-class="is-in" data-scroll-offset="10%,0">
+      <section id="work" className="stack reveal work" data-bg="#000000" data-scroll data-scroll-class="is-in" data-scroll-offset="10%,0">
           <h2>Work</h2>
           <WorkGrid />
       </section>

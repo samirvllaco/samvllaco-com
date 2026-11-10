@@ -581,3 +581,26 @@ a.cert:active, .cert:active { transition-duration: 0s; transform: scale(.98); }
 .work-card:focus-visible { outline: 3px solid rgba(98, 193, 253, .6); outline-offset: 4px; border-radius: 24px !important; }
 @media (max-width: 900px) { .work-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 620px) { .work-grid { grid-template-columns: minmax(0, 1fr); } }
+
+/* Work cards: fixed 4:3 media box so hover never changes size, cards link to case studies */
+.work-grid .work-card { align-content: start; align-items: start; }
+.work-media { aspect-ratio: 4 / 3; width: 100%; }
+.work-media img { height: 100% !important; aspect-ratio: auto !important; object-fit: cover; }
+.work-media video { object-fit: cover; }
+.work-card, .work-card:hover { text-decoration: none; }
+.work-card:hover .work-title { color: var(--accent); }
+.work-title { transition: color .3s var(--ease-out); }
+#work { scroll-margin-top: 24px; }
+
+/* Case study pages */
+.case { max-width: 1080px; }
+.case-meta { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px 32px; margin: 0; padding: 16px 0; border-block: 1px solid rgba(255,255,255,.12); }
+.case-meta dt { font-size: .8125rem; color: var(--muted); margin-bottom: 4px; }
+.case-meta dd { margin: 0; font-weight: 600; }
+.case-hero { border-radius: 24px; overflow: hidden; background: #e6e6e9; }
+.case-hero img, .case-hero video { display: block; width: 100%; height: auto; }
+.case-shot { margin: 0; display: grid; gap: 10px; }
+.case-shot img { display: block; width: 100%; height: auto; border-radius: 24px; background: #1d1d1f; }
+.case-shot figcaption { color: var(--muted); font-size: .875rem; padding-inline: 4px; }
+.case-nav { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding-top: 8px; }
+.case-nav a { min-height: 44px; display: inline-flex; align-items: center; color: var(--accent); }

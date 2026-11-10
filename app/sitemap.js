@@ -1,7 +1,9 @@
 export const dynamic = "force-static";
 
+import { WORK } from "../lib/work";
+
 const base = "https://samvllaco.com";
-const paths = ["/", "/building/", "/building/ocufuse/", "/writing/", "/products/", "/globe/", "/about/", "/links/"];
+const paths = ["/", "/building/", "/building/ocufuse/", "/writing/", "/products/", "/globe/", "/about/", "/links/", ...WORK.map((w) => `/work/${w.slug}/`)];
 
 export default function sitemap() {
   const lastModified = new Date();
