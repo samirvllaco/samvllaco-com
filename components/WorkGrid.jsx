@@ -1,9 +1,8 @@
 "use client";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
 import { WORK } from "../lib/work";
-import { play, reducedMotion } from "../lib/delight";
+import { play } from "../lib/delight";
 import { useSeen, WorkProgress } from "./Seen";
 
 const TABS = [
@@ -14,22 +13,7 @@ const TABS = [
 
 
 function WorkCard({ w, seen }) {
-  const router = useRouter();
   const vref = useRef(null);
-  // Morph the card into the case study hero where the browser supports it.
-  function go(e) {
-    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
-    if (!document.startViewTransition || reducedMotion()) return;
-    e.preventDefault();
-    const href = `/work/${w.slug}/`;
-    document.startViewTransition(() => new Promise((done) => {
-      router.push(href);
-      const t0 = Date.now();
-      const id = setInterval(() => {
-        if (document.querySelector(`[data-case="${w.slug}"]`) || Date.now() - t0 > 1500) { clearInterval(id); done(); }
-      }, 16);
-    }));
-  }
   const [live, setLive] = useState(false);
   function start() {
     const v = vref.current;
@@ -50,13 +34,12 @@ function WorkCard({ w, seen }) {
     <Link
       href={`/work/${w.slug}/`}
       className="work-card"
-      onClick={go}
       onMouseEnter={vid ? start : undefined}
       onMouseLeave={vid ? stop : undefined}
       onFocus={vid ? start : undefined}
       onBlur={vid ? stop : undefined}
     >
-      <span className="work-media" style={{ viewTransitionName: `w-${w.slug}` }}>
+      <span className="work-media">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={w.big} srcSet={`${w.small} ${w.smallW}w, ${w.big} ${w.w}w`} sizes="(max-width: 900px) 100vw, 380px" width={w.w} height={w.h} alt={w.alt} loading="lazy" />
         {vid ? (

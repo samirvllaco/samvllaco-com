@@ -41,7 +41,7 @@ export default function CaseStudy({ params }) {
         </dl>
       </header>
 
-      <div className="case-hero" style={{ viewTransitionName: `w-${w.slug}` }}>
+      <div className="case-hero">
         {w.fullVideo ? (
           <video src={w.fullVideo} poster={w.big} muted loop playsInline autoPlay controls aria-label={`${w.title} animated preview`} />
         ) : (
@@ -78,7 +78,7 @@ export default function CaseStudy({ params }) {
         <div className="case-more-grid">
           {others.map((o) => (
             <Link href={`/work/${o.slug}/`} className="work-card" key={o.slug}>
-              <span className="work-media" style={{ viewTransitionName: `w-${o.slug}` }}>
+              <span className="work-media">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={o.small} width={o.smallW} height={Math.round((o.smallW * o.h) / o.w)} alt={o.alt} loading="lazy" />
               </span>
