@@ -445,7 +445,7 @@ body { background-image: none; overflow-x: clip; }
 :root { --bg: #111112; }
 
 /* Work section */
-.work .wrap { display: grid; gap: 24px; }
+.work { display: grid; gap: 24px; }
 .work-card { display: grid; gap: 16px; color: var(--text); text-decoration: none; border-radius: 28px; transition: opacity .45s var(--ease-out), transform .45s var(--spring); }
 .work-card img { width: 100%; height: auto; display: block; border-radius: 28px; background: #1d1d1f; }
 .work-card:hover { text-decoration: none; }
@@ -463,3 +463,15 @@ body { background-image: none; overflow-x: clip; }
 .work-grid .work-card:not(.work-lead), .work-grid .work-card:not(.work-lead) img { border-radius: 20px; }
 @media (max-width: 900px) { .work-grid { grid-template-columns: minmax(0, 1fr); } }
 .work-grid .work-card img { aspect-ratio: 4 / 3; object-fit: cover; }
+
+/* Apple style segmented control */
+.seg { justify-self: start; display: inline-flex; gap: 4px; padding: 4px; border-radius: 999px; background: #1d1d1f; max-width: 100%; }
+.seg button { min-height: 44px; min-width: 44px; padding: 0 20px; border: 0; border-radius: 999px; background: transparent; color: var(--muted); font: inherit; font-size: .9375rem; font-weight: 600; cursor: pointer; transition: background-color .45s var(--ease-out), color .3s var(--ease-out), transform .45s var(--spring); }
+.seg button:hover { color: var(--text); }
+.seg button[aria-selected="true"] { background: #3a3a3c; color: var(--text); }
+.seg button:active { transition-duration: 0s; transform: scale(.96); }
+.seg button:focus-visible { outline: 3px solid rgba(98, 193, 253, .6); outline-offset: 2px; }
+.work-panel { animation: work-in .5s var(--ease-out) both; }
+@keyframes work-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+.work-empty { margin: 0; padding: 64px 0; color: var(--muted); text-align: center; border-radius: 20px; background: #1d1d1f; }
+@media (prefers-reduced-motion: reduce) { .work-panel { animation: none; } }
