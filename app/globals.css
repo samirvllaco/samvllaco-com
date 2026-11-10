@@ -1047,3 +1047,7 @@ body:has(.case-wrap) .book-pop { display: none; }
 .case-fab a:hover, .case-fab button:hover { background: var(--card-2); text-decoration: none; }
 .case-fab a:focus-visible, .case-fab button:focus-visible { outline: 3px solid rgba(98, 193, 253, .6); outline-offset: 2px; }
 @media (prefers-reduced-motion: reduce) { .case-fab { transition: none; } }
+
+/* Sound toggle stays gray when on; only the icon changes */
+.head-row .snd[aria-pressed="true"] { color: var(--muted); }
+.head-row .snd[aria-pressed="true"]:hover { color: var(--text); }
