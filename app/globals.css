@@ -562,3 +562,10 @@ a.cert:active, .cert:active { transition-duration: 0s; transform: scale(.98); }
 .work-grid .work-card, .work-grid .work-card img { border-radius: 24px !important; }
 .work-grid .work-card { border-radius: 0 !important; }
 @media (max-width: 900px) { .work-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* Work grid: bigger cards, 4 per row on desktop */
+.work-grid { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 32px 20px; }
+.work-grid .work-title { font-size: 1.0625rem; }
+.work-grid .work-sub { font-size: .8125rem; }
+@media (max-width: 900px) { .work-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 520px) { .work-grid { grid-template-columns: minmax(0, 1fr); } }

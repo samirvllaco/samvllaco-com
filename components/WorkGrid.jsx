@@ -51,7 +51,7 @@ export default function WorkGrid() {
             {items.map((w, i) => (
               <div key={w.slug} className="work-card" role="group" aria-label={w.title}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={w.big} srcSet={`${w.small} ${w.smallW}w, ${w.big} ${w.w}w`} sizes="(max-width: 900px) 50vw, 220px" width={w.w} height={w.h} alt={w.alt} loading="lazy" />
+                <img src={w.big} srcSet={`${w.small} ${w.smallW}w, ${w.big} ${w.w}w`} sizes="(max-width: 520px) 100vw, (max-width: 900px) 50vw, 290px" width={w.w} height={w.h} alt={w.alt} loading="lazy" />
                 <span className="work-meta">
                   <span className="work-title">{w.title}</span>
                   <span className="work-sub">{w.sub}</span>
