@@ -23,20 +23,21 @@ export default function CaseStudy({ params }) {
   const i = WORK.findIndex((x) => x.slug === params.slug);
   if (i < 0) notFound();
   const w = WORK[i];
-  const next = WORK[(i + 1) % WORK.length];
+  const others = WORK.filter((x) => x.slug !== w.slug);
   return (
-    <div className="wrap page stack-lg case">
+    <div className="wrap page case">
       <Crumbs items={[{ name: "Work", href: "/#work" }, { name: w.title, href: `/work/${w.slug}/` }]} />
-      <header className="stack prose">
+
+      <header className="case-head">
+        <p className="case-eyebrow">Case study</p>
         <h1>{w.title}</h1>
         <p className="lede">{w.sub}</p>
+        <dl className="case-meta">
+          <div><dt>Role</dt><dd>{w.role}</dd></div>
+          <div><dt>Tools</dt><dd>{w.tools}</dd></div>
+          <div><dt>Platform</dt><dd>{w.platform === "mobile" ? "Mobile" : "Desktop"}</dd></div>
+        </dl>
       </header>
-
-      <dl className="case-meta">
-        <div><dt>Role</dt><dd>{w.role}</dd></div>
-        <div><dt>Tools</dt><dd>{w.tools}</dd></div>
-        <div><dt>Type</dt><dd>{w.platform === "mobile" ? "Mobile" : "Desktop"}</dd></div>
-      </dl>
 
       <div className="case-hero">
         {w.fullVideo ? (
@@ -47,28 +48,46 @@ export default function CaseStudy({ params }) {
         )}
       </div>
 
-      <section className="stack prose">
+      <section className="case-section case-overview">
         <h2>Overview</h2>
         <p>{w.overview}</p>
       </section>
 
       {w.screens && w.screens.length ? (
-        <section className="stack-lg">
+        <section className="case-section">
           <h2>Screens</h2>
-          {w.screens.map((s) => (
-            <figure className="case-shot" key={s.src}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={s.src} width={s.w} height={s.h} alt={s.alt} loading="lazy" />
-              {s.cap ? <figcaption>{s.cap}</figcaption> : null}
-            </figure>
-          ))}
+          <div className="case-shots">
+            {w.screens.map((s) => (
+              <figure className="case-shot" key={s.src}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={s.src} width={s.w} height={s.h} alt={s.alt} loading="lazy" />
+                {s.cap ? <figcaption>{s.cap}</figcaption> : null}
+              </figure>
+            ))}
+          </div>
         </section>
       ) : null}
 
-      <nav className="case-nav" aria-label="Case study navigation">
-        <Link href="/#work">All work</Link>
-        <Link href={`/work/${next.slug}/`}>Next: {next.title}</Link>
-      </nav>
+      <section className="case-section case-more" aria-labelledby="more-work">
+        <div className="case-more-head">
+          <h2 id="more-work">More work</h2>
+          <Link href="/#work">All work</Link>
+        </div>
+        <div className="case-more-grid">
+          {others.map((o) => (
+            <Link href={`/work/${o.slug}/`} className="work-card" key={o.slug}>
+              <span className="work-media">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={o.small} width={o.smallW} height={Math.round((o.smallW * o.h) / o.w)} alt={o.alt} loading="lazy" />
+              </span>
+              <span className="work-meta">
+                <span className="work-title">{o.title}</span>
+                <span className="work-sub">{o.sub}</span>
+              </span>
+            </Link>
+          ))}
+        </div>
+      </section>
     </div>
   );
 }
