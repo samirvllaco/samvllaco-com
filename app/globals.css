@@ -512,3 +512,7 @@ a.cert:active, .cert:active { transition-duration: 0s; transform: scale(.98); }
 .cert-line { font-size: .75rem; line-height: 1.35; color: var(--muted); }
 .cert-verify { margin-top: 4px; font-size: .75rem; font-weight: 600; color: var(--accent); }
 @media (prefers-reduced-motion: reduce) { .cert::after { display: none; } .cert .seal, .cert-front, .cert-back { transition: opacity .01s; transform: none !important; } }
+
+/* no extra empty space under the footer, links sit left so the floating popup never covers them */
+.site-footer { padding-bottom: 32px; }
+.site-footer .wrap { justify-content: flex-start; gap: 16px 48px; }
