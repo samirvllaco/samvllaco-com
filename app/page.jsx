@@ -10,7 +10,7 @@ import WorkGrid from "../components/WorkGrid";
 import HireCard from "../components/HireCard";
 import HeroShow from "../components/HeroShow";
 import OcufuseMark from "../components/OcufuseMark";
-import Greeting, { LocalTime, CountUp } from "../components/Greeting";
+import { LocalTime, CountUp } from "../components/Greeting";
 
 export const metadata = {
   title: { absolute: `${SITE.name}: ${SITE.tagline}` },
@@ -23,7 +23,6 @@ export default function Home() {
       <SectionColors />
       <section className="hero2" data-bg="#111112">
         <div className="hero2-main">
-          <Greeting />
           <p className="hero2-eyebrow">Product designer for SaaS and AI teams</p>
           <h1>Design that makes complex products feel simple</h1>
           <p className="hero2-sub">
