@@ -71,6 +71,7 @@ export default function WorkGrid() {
 
   return (
     <>
+      {TABS.length > 2 && WORK.length > 1 ? (
       <div className="work-bar">
       <div className="tags" role="tablist" aria-label="Filter work by category">
         {TABS.map((t, i) => (
@@ -91,11 +92,12 @@ export default function WorkGrid() {
         ))}
       </div>
       </div>
+      ) : null}
       <div id="work-panel" role="tabpanel" aria-labelledby={`work-tab-${TABS.findIndex((t) => t.id === tab)}`} className="work-panel" key={tab}>
         {items.length === 0 ? (
           <p className="work-empty">More projects are coming soon.</p>
         ) : (
-          <div className="work-grid">
+          <div className={`work-grid${items.length === 1 ? " is-single" : ""}`}>
             {items.map((w) => (
               <WorkCard key={w.slug} w={w} seen={seenList.includes(w.slug)} />
             ))}

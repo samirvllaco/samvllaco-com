@@ -28,7 +28,7 @@ export function SeenMarker({ slug }) {
     if (!seen.includes(slug)) {
       const next = [...seen, slug];
       save("seen", next);
-      if (WORK.every((w) => next.includes(w.slug))) {
+      if (WORK.length > 1 && WORK.every((w) => next.includes(w.slug))) {
         setTimeout(() => unlock("explorer", "Explorer unlocked", "You viewed every project. Thank you for looking."), 900);
       }
     }

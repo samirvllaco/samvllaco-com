@@ -74,13 +74,13 @@ export default function CaseStudy({ params }) {
         ...st.chapters.map((c) => ({ id: c.id, label: c.title })),
         { id: "motion", label: "Motion" },
         { id: "system", label: "Visual system" },
-        { id: "more", label: "More work" },
+        ...(others.length ? [{ id: "more", label: "More work" }] : []),
       ]
     : [
         { id: "intro", label: "Intro" },
         { id: "overview", label: "Overview" },
         ...(w.screens && w.screens.length ? [{ id: "screens", label: "Screens" }] : []),
-        { id: "more", label: "More work" },
+        ...(others.length ? [{ id: "more", label: "More work" }] : []),
       ];
   const hero = (
     <div className="case-hero">
@@ -224,7 +224,7 @@ export default function CaseStudy({ params }) {
               <p>{st.cta.text}</p>
               <div className="btn-row">
                 <a className="btn btn-primary" href={`mailto:${EMAIL}?subject=Schedule%20a%20call`}><CallIcon />Schedule a call</a>
-                <Link className="btn btn-ghost" href="/#work">See more work</Link>
+                <Link className="btn btn-ghost" href="/services/">See services</Link>
               </div>
             </section>
           </>
@@ -251,7 +251,7 @@ export default function CaseStudy({ params }) {
           </>
         )}
 
-        <MoreWork others={others} />
+        {others.length ? <MoreWork others={others} /> : null}
       </div>
       <CaseAside items={toc} />
     </div>

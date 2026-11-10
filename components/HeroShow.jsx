@@ -17,7 +17,7 @@ export default function HeroShow() {
     setStill(!!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches));
   }, []);
   useEffect(() => {
-    if (paused || still) return;
+    if (paused || still || ITEMS.length < 2) return;
     const id = setTimeout(() => setI((n) => (n + 1) % ITEMS.length), HOLD);
     return () => clearTimeout(id);
   }, [i, paused, still]);
@@ -34,7 +34,7 @@ export default function HeroShow() {
       <p className="show-line"><span className="show-label">Now showing</span><b>{w.title}</b></p>
       <p className="show-tags">{w.role}</p>
       <div className="show-foot">
-        <div className="show-dots" role="tablist" aria-label="Choose a project">
+        <div className="show-dots" role="tablist" aria-label="Choose a project" hidden={ITEMS.length < 2}>
           {ITEMS.map((x, n) => (
             <button key={x.slug} type="button" role="tab" aria-selected={n === i} aria-label={x.title} onClick={() => setI(n)}>
               <span className={n === i && !paused && !still ? "run" : n === i ? "full" : ""} style={{ animationDuration: `${HOLD}ms` }} />
