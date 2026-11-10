@@ -42,9 +42,10 @@ function WorkCard({ w, seen }) {
           <video ref={vref} className={live ? "is-live" : ""} src={vid} muted loop playsInline preload="metadata" aria-hidden="true" tabIndex={-1} onPlaying={() => setLive(true)} />
         ) : null}
         {seen ? <span className="work-seen"><svg viewBox="0 0 24 24" width="12" height="12" aria-hidden="true"><path d="M5 12.500l4.500 4.500L19 7.500" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" /></svg>Viewed</span> : null}
+        <span className="work-open" aria-hidden="true">View case study <span>→</span></span>
       </span>
       <span className="work-meta">
-        <span className="work-title">{w.title}</span>
+        <span className="work-title">{w.title}<span className="work-arrow" aria-hidden="true">→</span></span>
         <span className="work-sub">{w.sub}</span>
         <span className="work-tags">{w.tags.map((t) => <span key={t}>{t}</span>)}</span>
       </span>
