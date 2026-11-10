@@ -556,3 +556,9 @@ a.cert:active, .cert:active { transition-duration: 0s; transform: scale(.98); }
 .work-grid .work-sub { -webkit-line-clamp: 3; line-height: 1.4; padding-bottom: 2px; }
 .work-grid .work-meta { align-content: start; }
 .work-card:active { transform: none; opacity: 1; }
+
+/* Work grid: fill the full row width (no empty trailing column) and rounder corners */
+.work-grid { grid-template-columns: repeat(auto-fit, minmax(168px, 1fr)); }
+.work-grid .work-card, .work-grid .work-card img { border-radius: 24px !important; }
+.work-grid .work-card { border-radius: 0 !important; }
+@media (max-width: 900px) { .work-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
