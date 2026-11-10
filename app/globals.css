@@ -690,3 +690,12 @@ a.cert:active, .cert:active { transition-duration: 0s; transform: scale(.98); }
   .case-toc { display: block; }
   .case-overview { grid-template-columns: minmax(0, 1fr); }
 }
+
+/* Hire card, one-row version for the home page */
+.hire-wide { margin-top: 24px; }
+@media (min-width: 900px) {
+  .hire-wide { grid-template-columns: auto minmax(0, 1fr) auto auto; align-items: center; gap: 12px 24px; padding: 20px 24px; }
+  .hire-wide .hire-btn { padding-inline: 28px; }
+  .hire-wide .hire-copy { min-width: 250px; }
+  .hire-wide .hire-x { display: none; }
+}

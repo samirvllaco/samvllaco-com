@@ -6,6 +6,7 @@ import { MEDIUM_PATH } from "../lib/medium-logo";
 import Coffee from "../components/Coffee";
 import ArticleMark from "../components/ArticleMark";
 import WorkGrid from "../components/WorkGrid";
+import HireCard from "../components/HireCard";
 import OcufuseMark from "../components/OcufuseMark";
 import Greeting, { LocalTime, CountUp } from "../components/Greeting";
 
@@ -65,6 +66,7 @@ export default function Home() {
       <section id="work" className="stack reveal work" data-bg="#000000" data-scroll data-scroll-class="is-in" data-scroll-offset="10%,0">
           <h2>Work</h2>
           <WorkGrid />
+          <HireCard wide />
       </section>
 
 
