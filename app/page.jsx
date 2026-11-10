@@ -1,4 +1,5 @@
 import { SITE, ARTICLES, EMAIL } from "../lib/site";
+import CallIcon from "../components/CallIcon";
 import { STATS } from "../lib/stats";
 import SectionColors from "../components/SectionColors";
 import Globe from "../components/Globe";
@@ -30,7 +31,7 @@ export default function Home() {
             screen. Currently building <a href={SITE.links.ocufuse}><b>Ocufuse</b></a>.
           </p>
           <div className="hero2-cta">
-            <a className="hero2-btn hero2-btn-primary" href={`mailto:${EMAIL}?subject=Project%20inquiry`}>Hire me</a>
+            <a className="hero2-btn hero2-btn-primary" href={`mailto:${EMAIL}?subject=Schedule%20a%20call`}><CallIcon />Schedule a call</a>
             <a className="hero2-btn hero2-btn-light" href="#work">See my work</a>
           </div>
         </div>

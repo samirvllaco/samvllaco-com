@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import CallIcon from "./CallIcon";
 import { EMAIL, SITE } from "../lib/site";
 
 // Card with Sam's photo and ways to get in touch. `wide` lays it out in one row.
@@ -23,7 +24,7 @@ export default function HireCard({ wide = false }) {
           </div>
         </div>
         <p className="hire-text">Need a product designed like this? Tell me what you are building.</p>
-        <a className="btn btn-primary hire-btn" href={`mailto:${EMAIL}?subject=Project%20inquiry`}>Hire me</a>
+        <a className="btn btn-primary hire-btn" href={`mailto:${EMAIL}?subject=Schedule%20a%20call`}><CallIcon />Schedule a call</a>
         <button type="button" className="hire-copy" onClick={copy} aria-label={`Copy email address ${EMAIL}`}>
           <span>{EMAIL}</span>
           <span className="hire-copied" role="status">{copied ? "Copied" : "Copy"}</span>

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import CallIcon from "./CallIcon";
 import SoundToggle from "./SoundToggle";
 import { EMAIL } from "../lib/site";
 
@@ -37,7 +38,7 @@ export default function Header() {
         </nav>
         <div className="head-end">
           <SoundToggle />
-          <a className="head-cta" href={`mailto:${EMAIL}?subject=Project%20inquiry`}>Hire me</a>
+          <a className="head-cta" href={`mailto:${EMAIL}?subject=Schedule%20a%20call`}><CallIcon />Schedule a call</a>
         </div>
       </div>
     </header>
