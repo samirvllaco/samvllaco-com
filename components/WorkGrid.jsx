@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useRef, useState } from "react";
 import { WORK } from "../lib/work";
 import { play } from "../lib/delight";
-import { useSeen, WorkProgress } from "./Seen";
+import { useSeen } from "./Seen";
 
 const TABS = [
   { id: "all", label: "All" },
@@ -92,7 +92,6 @@ export default function WorkGrid() {
           </button>
         ))}
       </div>
-      <WorkProgress />
       </div>
       <div id="work-panel" role="tabpanel" aria-labelledby={`work-tab-${tab}`} className="work-panel" key={tab}>
         {items.length === 0 ? (

@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import Crumbs from "../../../components/Crumbs";
 import { WORK } from "../../../lib/work";
 import { SeenMarker } from "../../../components/Seen";
+import CaseAside from "../../../components/CaseAside";
 
 export const dynamicParams = false;
 
@@ -25,12 +26,19 @@ export default function CaseStudy({ params }) {
   if (i < 0) notFound();
   const w = WORK[i];
   const others = WORK.filter((x) => x.slug !== w.slug);
+  const toc = [
+    { id: "intro", label: "Intro" },
+    { id: "overview", label: "Overview" },
+    ...(w.screens && w.screens.length ? [{ id: "screens", label: "Screens" }] : []),
+    { id: "more", label: "More work" },
+  ];
   return (
-    <div className="wrap page case" data-case={w.slug}>
+    <div className="wrap page case-wrap" data-case={w.slug}>
+    <div className="case">
       <SeenMarker slug={w.slug} />
       <Crumbs items={[{ name: "Work", href: "/#work" }, { name: w.title, href: `/work/${w.slug}/` }]} />
 
-      <header className="case-head">
+      <header className="case-head" id="intro">
         <p className="case-eyebrow">Case study</p>
         <h1>{w.title}</h1>
         <p className="lede">{w.sub}</p>
@@ -50,13 +58,13 @@ export default function CaseStudy({ params }) {
         )}
       </div>
 
-      <section className="case-section case-overview">
+      <section className="case-section case-overview" id="overview">
         <h2>Overview</h2>
         <p>{w.overview}</p>
       </section>
 
       {w.screens && w.screens.length ? (
-        <section className="case-section">
+        <section className="case-section" id="screens">
           <h2>Screens</h2>
           <div className="case-shots">
             {w.screens.map((s) => (
@@ -70,7 +78,7 @@ export default function CaseStudy({ params }) {
         </section>
       ) : null}
 
-      <section className="case-section case-more" aria-labelledby="more-work">
+      <section className="case-section case-more" id="more" aria-labelledby="more-work">
         <div className="case-more-head">
           <h2 id="more-work">More work</h2>
           <Link href="/#work">All work</Link>
@@ -90,6 +98,8 @@ export default function CaseStudy({ params }) {
           ))}
         </div>
       </section>
+    </div>
+    <CaseAside items={toc} />
     </div>
   );
 }
