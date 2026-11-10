@@ -1,6 +1,7 @@
 import Link from "next/link";
 import CallIcon from "./CallIcon";
 import SoundToggle from "./SoundToggle";
+import ServicesMenu from "./ServicesMenu";
 import { EMAIL } from "../lib/site";
 
 const NAV = [
@@ -29,6 +30,7 @@ export default function Header() {
           </span>
         </Link>
         <nav className="head-nav" aria-label="Main">
+          <ServicesMenu />
           {NAV.map((n) => (
             <Link key={n.href} href={n.href}>
               {n.label}
