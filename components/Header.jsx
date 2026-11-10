@@ -26,7 +26,6 @@ export default function Header() {
           <span className="face-badge">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/sam.jpg" width="40" height="40" alt="" />
-            <i className="face-dot" />
           </span>
         </Link>
         <nav className="head-nav" aria-label="Main">
