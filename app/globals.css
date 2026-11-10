@@ -1098,3 +1098,13 @@ img.foot-me { position: absolute; left: 50%; top: auto; bottom: 0; width: auto; 
 @media (max-width: 760px) { .foot-switch { right: 16px; bottom: 16px; } .foot-switch button { width: 44px; height: 44px; } }
 img.foot-me { height: 76%; aspect-ratio: 800 / 776; transform: translateX(-47%); -webkit-mask-image: linear-gradient(180deg, #000 82%, transparent 100%); mask-image: linear-gradient(180deg, #000 82%, transparent 100%); }
 .foot-laptop { left: 20%; bottom: 6%; width: 24%; }
+
+/* Footer scene v3: the supplied portrait, blended into a matching dark stage */
+.foot-stage.foot-photo { height: auto; min-height: 0; display: grid; justify-items: center; padding: 24px 0 0; overflow: hidden;
+  background: radial-gradient(50% 60% at 50% 55%, #121018 0%, #07070b 70%), #07070b; }
+.foot-stage.foot-photo img { display: block; width: min(100%, 860px); height: auto;
+  -webkit-mask-image: radial-gradient(ellipse 62% 70% at 50% 55%, #000 62%, transparent 100%); mask-image: radial-gradient(ellipse 62% 70% at 50% 55%, #000 62%, transparent 100%); }
+.site-footer { background: #07070b; }
+.site-footer > .wrap { border-top-color: rgba(255, 255, 255, .1); }
+:root[data-theme="light"] .site-footer { color: #a1a1a6; }
+:root[data-theme="light"] .site-footer a, :root[data-theme="light"] .site-footer .copy-email { color: #c7c7cc; }
