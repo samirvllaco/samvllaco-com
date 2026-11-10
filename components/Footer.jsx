@@ -15,6 +15,9 @@ function sealPath() {
 }
 const SEAL = sealPath();
 
+// Certificates row is hidden for now. Set to true to show it again.
+const SHOW_CERTS = false;
+
 function Seal() {
   return (
     <svg className="seal" viewBox="0 0 48 48" width="44" height="44" aria-hidden="true">
@@ -30,6 +33,7 @@ export default function Footer() {
   return (
     <footer className="site-footer">
       <div className="wrap">
+        {SHOW_CERTS ? (
         <div className="certs" role="group" aria-label="Certificates">
           <svg width="0" height="0" style={{ position: "absolute" }} aria-hidden="true" focusable="false">
             <defs>
@@ -78,6 +82,7 @@ export default function Footer() {
             })}
           </ul>
         </div>
+        ) : null}
         <p>{SITE.fullName}. {SITE.tagline}</p>
         <div className="foot-links">
           <a href={SITE.links.x} rel="me noopener">X</a>
