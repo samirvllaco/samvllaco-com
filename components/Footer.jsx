@@ -1,5 +1,6 @@
 import Link from "next/link";
 import CopyEmail from "./CopyEmail";
+import FootStage from "./FootStage";
 import { SecretCount } from "./Seen";
 import { SITE, CERTS } from "../lib/site";
 
@@ -32,6 +33,7 @@ function Seal() {
 export default function Footer() {
   return (
     <footer className="site-footer">
+      <FootStage />
       <div className="wrap">
         {SHOW_CERTS ? (
         <div className="certs" role="group" aria-label="Certificates">
