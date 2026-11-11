@@ -1947,3 +1947,16 @@ html.is-scrolled .to-top { opacity: 1; transform: none; pointer-events: auto; }
 :root[data-theme="light"] .to-top { box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .08), 0 14px 34px -14px rgba(0, 0, 0, .25); }
 @media (max-width: 520px) { .to-top span { display: none; } .to-top { padding-right: 12px; } }
 @media (prefers-reduced-motion: reduce) { .to-top { transition: none; } }
+/* Section titles: one large size everywhere, intro text 12px below */
+.work > h2, .bx-sec > h2, .bx-soft .bx-title, .faq-side h2, .book-band-head h2, .ask-ai h2 { font-size: clamp(2.25rem, 4.6vw, 4rem); line-height: 1.05; letter-spacing: -.04em; font-weight: 600; text-wrap: balance; }
+.work > h2, .bx-sec > h2, .book-band-head h2 { margin: 0; }
+.work.stack > h2 + .work-intro, .work > h2 + *, .bx-sec > h2 + .bx-lede, .book-band-head h2 + p { margin-top: 12px !important; }
+.work-intro { margin-bottom: 0; max-width: 52ch; font-size: 1.0625rem; color: var(--muted); }
+.work.stack > .work-intro + * { margin-top: 36px !important; }
+.bx-lede { margin: 12px 0 36px; }
+.faq-side h2 { margin: 0 0 24px; }
+.ask-ai h2 { margin: 0 0 20px; }
+.book-band-head { max-width: 820px; margin-bottom: 36px; }
+#work.work > h2 { margin: 0 !important; } #work.work > h2 + .work-intro { margin-top: 12px !important; }
+.book-band-head h2 + p { max-width: 52ch; margin-inline: auto; }
+#work.work > h2 + .work-intro { margin-top: -12px !important; } #work.work > .work-intro + * { margin-top: 12px !important; }
