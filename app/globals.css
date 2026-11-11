@@ -1894,3 +1894,5 @@ html.js .foot-sig-w[data-reveal], .foot-sig-w { opacity: 1; transform: translate
 :root:not([data-theme="light"]) .work-card:hover .work-media, :root:not([data-theme="light"]) .work-card:focus-visible .work-media { box-shadow: 0 2px 4px rgba(0, 0, 0, .3), 0 16px 28px -8px rgba(0, 0, 0, .5), 0 44px 72px -24px rgba(0, 0, 0, .75); }
 .work-card, .work-card:hover, .work-card:focus { outline: none; }
 .work-card:focus-visible .work-media { outline: 3px solid rgba(98, 193, 253, .6); outline-offset: 3px; }
+.vid-bubble { border: 0 !important; box-shadow: 0 10px 28px -8px rgba(0, 0, 0, .5) !important; outline: 0; }
+html.is-scrolled .brand-me img.brand-face { box-shadow: none !important; }
