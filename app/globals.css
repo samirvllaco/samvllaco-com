@@ -1576,3 +1576,8 @@ html.tone-fade, html.tone-fade body, html.tone-fade *, html.tone-fade *::before,
 .hero3 .hero2-btn { min-height: 44px; padding: 0 22px; border-radius: 999px !important; font-size: .9375rem; }
 .hero3 .hero2-btn::before, .hero3 .hero2-btn::after { border-radius: inherit !important; }
 .hero3 .hero2-cta { gap: 14px; }
+/* All buttons are pills */
+:is(.btn, .head-cta, .hero2-btn, .hire-btn, .mega-btn, .dock-btn, .hp-cta a, .hp-copy, .hire-copy, .blog-all, .work-all, .active-filters button, .ask-ai a, .case-fab button, .pf-chips button, .seg button, .tags button, .device-switch, .device-switch button, .foot-switch, .foot-switch button, .seg, .pf button[type="submit"], .of-card .btn, .dl-toast a, .dl-toast button) { border-radius: 999px !important; }
+:is(.btn, .head-cta, .hero2-btn, .hire-btn)::before, :is(.btn, .head-cta, .hero2-btn, .hire-btn)::after { border-radius: inherit !important; }
+/* Hero buttons share one width when they stack */
+@media (max-width: 640px) { .hero3 .hero2-cta { display: inline-grid; grid-template-columns: 1fr; justify-items: stretch; gap: 16px; } .hero3 .hero2-cta .hero2-btn { justify-content: center; width: 100%; } }

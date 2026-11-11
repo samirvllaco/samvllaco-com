@@ -1,6 +1,6 @@
 import fs from "fs";
 import path from "path";
-import Bento, { MainServices } from "../components/Bento";
+import Bento from "../components/Bento";
 import { Offers, Process } from "../components/Offers";
 import ToneShift from "../components/ToneShift";
 import ScreenWall from "../components/ScreenWall";
@@ -113,7 +113,6 @@ export default function Home() {
 
 
 
-      <MainServices />
 
       <Offers />
 
