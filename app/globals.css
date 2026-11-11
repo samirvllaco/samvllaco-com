@@ -1859,3 +1859,38 @@ html.js .foot-sig-w[data-reveal], .foot-sig-w { opacity: 1; transform: translate
 /* Hero: award badge under the buttons; second button is dark grey in dark mode */
 .hero-award { margin: clamp(22px, 3vw, 34px) 0 0; }
 :root:not([data-theme="light"]) .hero2-btn-light { --k-top: #46464c; --k-mid: #34343a; --k-low: #2a2a2f; --k-edge: #18181b; --k-line: #0b0b0c; --k-glow: rgba(0, 0, 0, .4); --k-hi: rgba(255, 255, 255, .22); --k-ink: #f5f5f7; background-color: #34343a; color: #f5f5f7; text-shadow: 0 1px 0 rgba(0, 0, 0, .5); }
+
+/* Swipe deck: cut-out screens on the bento card, softer motion */
+.sd-card, :root[data-theme="light"] .sd-card { background: none; box-shadow: none; overflow: visible; border-radius: 0; }
+.sd-card img.sd-cut { position: absolute; inset: 4% 3% 12%; width: 94%; height: 84%; object-fit: contain; border-radius: 0; filter: drop-shadow(0 28px 36px rgba(0, 0, 0, .45)); }
+:root[data-theme="light"] .sd-card img.sd-cut { filter: drop-shadow(0 22px 30px rgba(0, 0, 0, .18)); }
+.sd-topcard { transition: transform .62s cubic-bezier(.22, 1, .36, 1), opacity .42s ease, filter .42s ease; animation: sd-in2 .7s cubic-bezier(.22, 1, .36, 1) both; will-change: transform; }
+.sd-topcard.is-out { transition: transform .46s cubic-bezier(.4, 0, .7, .2), opacity .4s ease, filter .4s ease; }
+@keyframes sd-in2 { from { opacity: 0; transform: translate3d(0, 18px, 0) scale(.9); filter: blur(8px); } to { opacity: 1; transform: none; filter: blur(0); } }
+.sd-name { left: 50%; bottom: 0; transform: translateX(-50%); }
+.sd-all { flex: none; display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 16px; border-radius: 999px; font-size: .875rem; font-weight: 500; color: var(--text); text-decoration: none; box-shadow: inset 0 0 0 1px var(--line); transition: background-color .25s; }
+.sd-all:hover { background: var(--card-2, #1c1c1e); text-decoration: none; }
+.sd-all span { transition: transform .3s var(--ease-out); } .sd-all:hover span { transform: translateX(3px); }
+@media (max-width: 520px) { .sd-hint { display: none; } .sd-foot { justify-content: flex-end; } .sd-all { margin-right: auto; } }
+@media (prefers-reduced-motion: reduce) { .sd-topcard { animation: none; transition: none; } }
+
+/* Animations card: the screen itself, cropped clean, floating on the card */
+.bx-motion .bx-frame, :root[data-theme="light"] .bx-motion .bx-frame { flex: none; min-height: 0; aspect-ratio: 3 / 2; margin: auto 28px; border-radius: 14px; background: #0c0b1f; box-shadow: 0 30px 60px -24px rgba(0, 0, 0, .7), 0 0 0 1px rgba(255, 255, 255, .08); }
+.bx-motion { padding-bottom: 28px; }
+.bx-motion .bx-frame video { object-fit: cover; object-position: left top; transition: opacity .26s ease; }
+.bx-motion .bx-frame video.is-swap { opacity: 0; }
+
+/* Two-tone titles: first part in the text colour, second part in light grey */
+.t2 { color: #86868b; }
+:root[data-theme="light"] .t2 { color: #86868b; }
+
+/* Buttons: no white or socket ring around them */
+:root[data-theme="light"] :is(.head-cta, .hero2-btn, .btn-primary, .btn-ghost, .hire-btn) { box-shadow: inset 0 1px 0 var(--k-hi), inset 0 0 0 1px rgba(255, 255, 255, .14), inset 0 -2px 0 rgba(0, 0, 0, .2), 0 0 0 1px var(--k-line), 0 3px 0 1px var(--k-edge), 0 12px 22px -6px var(--k-glow); }
+/* Work cards: no outline on hover, soft lift and shadow; no "Viewed" badge */
+.work-seen { display: none !important; }
+.work-card:hover .work-media::after, .work-card:focus-visible .work-media::after { box-shadow: none; }
+.work-media { transition: transform .5s cubic-bezier(.22, 1, .36, 1), box-shadow .5s cubic-bezier(.22, 1, .36, 1); }
+.work-card:hover .work-media, .work-card:focus-visible .work-media { transform: translateY(-4px); box-shadow: 0 2px 4px rgba(0, 0, 0, .04), 0 12px 24px -6px rgba(0, 0, 0, .12), 0 36px 64px -20px rgba(0, 0, 0, .28); }
+:root:not([data-theme="light"]) .work-card:hover .work-media, :root:not([data-theme="light"]) .work-card:focus-visible .work-media { box-shadow: 0 2px 4px rgba(0, 0, 0, .3), 0 16px 28px -8px rgba(0, 0, 0, .5), 0 44px 72px -24px rgba(0, 0, 0, .75); }
+.work-card, .work-card:hover, .work-card:focus { outline: none; }
+.work-card:focus-visible .work-media { outline: 3px solid rgba(98, 193, 253, .6); outline-offset: 3px; }

@@ -49,7 +49,7 @@ export default function Home() {
           <h1>
             I design <Ico tiles={["figma", "photoshop", "illustrator", "claude", "framer", "sketch", "xd", "aftereffects", "systems", "code"]} /> products{" "}<br />
             people <span className="h3-nw">love <Ico tiles={["love"]} delay={6} />,</span> and{" "}<br />
-            experiences that convert <Ico tiles={["growth", "money", "speed"]} delay={3} />
+            <span className="t2">experiences that convert</span> <Ico tiles={["growth", "money", "speed"]} delay={3} />
           </h1>
           <p className="hero2-sub">10 years turning complex ideas into intuitive, scalable digital products. From early-stage startups to established teams.</p>
           <div className="hero2-cta">
@@ -71,7 +71,7 @@ export default function Home() {
       <ScreenWall />
 
       <section id="work" className="stack work" data-bg="#1f1f22">
-          <h2>Work that shipped</h2>
+          <h2>Work <span className="t2">that shipped</span></h2>
           <p className="work-intro">Products across SaaS, fintech, health and mobile. Names changed where an NDA applies, screens are real.</p>
           <WorkGrid />
           <HirePanel />

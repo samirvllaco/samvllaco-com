@@ -7,7 +7,7 @@ const Star = () => <svg viewBox="0 0 20 20" width="16" height="16" aria-hidden="
 export default function Testimonials() {
   return (
     <section className="bx-sec" aria-labelledby="tm-h" data-bg="#000000">
-      <h2 id="tm-h">What clients say after handover</h2>
+      <h2 id="tm-h">What clients say <span className="t2">after handover</span></h2>
       <p className="bx-lede">Don't just take my word for it. A few of 200+ client reviews.</p>
       <div className="tm-wrap">
       <div className="of-grid tm-grid">

@@ -42,12 +42,17 @@ export function MainServices() {
   );
 }
 
+const CLIPS = ["marketing-dashboard-hover", "kestrel-c-01-anim", "kestrel-d-07-anim", "kestrel-c-05-anim"].map((n) => `/work/clip/${n}.mp4`);
+
 export default function Bento() {
   const clip = WORK.find((w) => w.video) || WORK[0];
-  const colA = WALL.slice(30, 36), colB = WALL.slice(40, 46);
+  // Plain product screens only, no annotated UX breakdowns.
+  const pick = (n) => `/work/wall/${n}.webp`;
+  const colA = ["kestrel-d-07", "mobile-banking-01", "room-editor-01", "eye-care-ios-app-01", "freelance-marketplace-01", "trip-planner-01"].map(pick);
+  const colB = ["language-player-01", "supplements-store-01", "eye-care-web-app-01", "golf-swing-recorder-01", "eye-care-marketing-site-01", "freelance-marketplace-05"].map(pick);
   return (
     <section className="bx-sec bx-soft" aria-labelledby="bx-h" data-bg="#000000">
-      <h2 id="bx-h" className="bx-title">One designer<br />for the whole product.</h2>
+      <h2 id="bx-h" className="bx-title">One designer<br /><span className="t2">for the whole product.</span></h2>
       <div className="bx-grid">
         <div className="bx-stats">
           <div className="bx-card bx-stat"><b>10</b><span>Years of experience</span></div>
@@ -56,8 +61,7 @@ export default function Bento() {
         </div>
         <div className="bx-card bx-work bx-deck" data-reveal>
           <h3 className="bx-t">Work</h3>
-          <SwipeDeck items={WORK.map((w) => ({ slug: w.slug, title: w.title, small: w.small, dark: `/work/dark/${w.small.split("?")[0].split("/").pop()}`, alt: w.alt, platform: w.platform, tags: w.tags }))} />
-          <p className="bx-cap"><Link href="/#work" className="bx-go">See all work <span aria-hidden="true">→</span></Link></p>
+          <SwipeDeck items={WORK.map((w) => ({ slug: w.slug, title: w.title, small: w.small, cut: `/work/cut/${w.small.split("?")[0].split("/").pop()}`, alt: w.alt, platform: w.platform, tags: w.tags }))} />
         </div>
         <Link href="/book/" className="bx-card bx-world" data-reveal>
           <h3 className="bx-t">Worldwide</h3>
@@ -79,7 +83,7 @@ export default function Bento() {
         </Link>
         <Link href={`/work/${clip.slug}/`} className="bx-card bx-mini bx-motion" data-reveal>
           <h3 className="bx-t">Animations</h3>
-          <div className="bx-frame"><AutoVideo src={clip.video} dark={clip.slug === "marketing-dashboard" ? "/work/marketing-dashboard-hover-dark.mp4" : undefined} /></div>
+          <div className="bx-frame"><AutoVideo clips={CLIPS} /></div>
         </Link>
         <Toolbox />
       </div>

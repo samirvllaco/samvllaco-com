@@ -16,7 +16,7 @@ export default function AskAI({ name, prompt }) {
   const has = (id) => { try { return fs.existsSync(path.join(process.cwd(), "public", "ai", `${id}.svg`)); } catch { return false; } };
   return (
     <section className="wrap ask-ai" aria-labelledby="ask-ai-h">
-      <h2 id="ask-ai-h">Ask AI about {name}</h2>
+      <h2 id="ask-ai-h">Ask AI <span className="t2">about {name}</span></h2>
       <ul>
         {TOOLS.map((t) => (
           <li key={t.id}>

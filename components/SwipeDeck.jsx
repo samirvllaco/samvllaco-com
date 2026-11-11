@@ -21,7 +21,7 @@ export default function SwipeDeck({ items }) {
   const fling = (dir) => {
     if (out) return;
     setOut({ dir, x: drag.x, y: drag.y });
-    setTimeout(() => { setN((v) => v + 1); setOut(null); setDrag({ x: 0, y: 0, on: false }); }, 320);
+    setTimeout(() => { setN((v) => v + 1); setOut(null); setDrag({ x: 0, y: 0, on: false }); }, 420);
   };
   const down = (e) => { if (out) return; start.current = { x: e.clientX, y: e.clientY }; moved.current = false; e.currentTarget.setPointerCapture?.(e.pointerId); setDrag({ x: 0, y: 0, on: true }); };
   const move = (e) => { if (!start.current) return; const x = e.clientX - start.current.x, y = e.clientY - start.current.y; if (Math.abs(x) > 6) moved.current = true; setDrag({ x, y: y * 0.35, on: true }); };
@@ -29,7 +29,7 @@ export default function SwipeDeck({ items }) {
   const pick = (d) => { setDevice(d); setN(0); setDrag({ x: 0, y: 0, on: false }); };
 
   const top = at(0);
-  const tx = out ? out.dir * 520 : drag.x, ty = out ? out.y : drag.y;
+  const tx = out ? out.dir * 620 : drag.x, ty = out ? out.y - 20 : drag.y;
   const pull = Math.min(1, Math.abs(tx) / 120);
   return (
     <div className="sd">
@@ -42,17 +42,12 @@ export default function SwipeDeck({ items }) {
         </div>
       </div>
       <div className="sd-stack">
-        {[2, 1].map((k) => list.length > k ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <div key={`${device}-${n + k}`} className="sd-card sd-under" style={{ transform: `translateY(${(k - pull * (k === 1 ? 1 : 0.5)) * 12}px) scale(${1 - (k - pull * (k === 1 ? 1 : 0.5)) * 0.05})`, opacity: k === 2 ? 0.5 + pull * 0.3 : 0.85 + pull * 0.15 }} aria-hidden="true"><img className="sd-l" src={at(k).small} alt="" draggable="false" /><img className="sd-d" src={at(k).dark} alt="" draggable="false" /></div>
-        ) : null)}
         <Link key={`${device}-${n}`} href={`/work/${top.slug}/`} className={`sd-card sd-topcard${drag.on ? " is-drag" : ""}${out ? " is-out" : ""}`} draggable="false"
-          style={{ transform: `translate(${tx}px, ${ty}px) rotate(${tx / 18}deg)`, opacity: out ? 0 : 1 }}
+          style={{ transform: `translate3d(${tx}px, ${ty}px, 0) rotate(${tx / 26}deg) scale(${out ? 0.92 : 1 - Math.min(0.04, Math.abs(tx) / 3000)})`, opacity: out ? 0 : 1, filter: out ? "blur(6px)" : "none" }}
           onPointerDown={down} onPointerMove={move} onPointerUp={up} onPointerCancel={up} onClick={(e) => { if (moved.current) e.preventDefault(); }}
           onKeyDown={(e) => { if (e.key === "ArrowRight") fling(1); if (e.key === "ArrowLeft") fling(-1); }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img className="sd-l" src={top.small} alt="" draggable="false" />
-          <img className="sd-d" src={top.dark} alt={top.alt} draggable="false" />
+          <img className="sd-cut" src={top.cut} alt={top.alt} draggable="false" />
           <span className="sd-stamp" style={{ opacity: pull }}>{tx > 0 ? "Next ↗" : "↖ Next"}</span>
           <span className="sd-name"><b>{top.title}</b><i>{top.tags[0]}</i></span>
         </Link>
@@ -60,6 +55,7 @@ export default function SwipeDeck({ items }) {
       <div className="sd-foot">
         <button type="button" className="sd-btn" aria-label="Previous direction, next project" onClick={() => fling(-1)}><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 12H5M11 6l-6 6 6 6" /></svg></button>
         <p className="sd-hint">Swipe the cards. Tap one to open the case study.</p>
+        <Link href="/#work" className="sd-all">See all work <span aria-hidden="true">→</span></Link>
         <button type="button" className="sd-btn" aria-label="Next project" onClick={() => fling(1)}><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg></button>
       </div>
     </div>
