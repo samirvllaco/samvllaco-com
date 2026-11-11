@@ -1535,3 +1535,21 @@ html.js [data-reveal].is-shown { opacity: 1; transform: none; }
 @keyframes h3-beat { 0%, 100% { transform: scale(1); } 14% { transform: scale(1.12); } 28% { transform: scale(1); } 42% { transform: scale(1.08); } 56% { transform: scale(1); } }
 .h3-n1 { overflow: visible; }
 @media (prefers-reduced-motion: reduce) { .h3-slot img { animation: none !important; } }
+
+/* Hero slots with 4 to 10 tiles */
+.h3-n4 img { animation: h3-c4 12s cubic-bezier(.7, 0, .2, 1) infinite both; }
+@keyframes h3-c4 { 0% { opacity: 0; transform: translateY(60%) scale(.8); } 3.75% { opacity: 1; transform: none; } 25.00% { opacity: 1; transform: none; } 28.75% { opacity: 0; transform: translateY(-60%) scale(.8); } 100% { opacity: 0; transform: translateY(-60%) scale(.8); } }
+.h3-n5 img { animation: h3-c5 15s cubic-bezier(.7, 0, .2, 1) infinite both; }
+@keyframes h3-c5 { 0% { opacity: 0; transform: translateY(60%) scale(.8); } 3.00% { opacity: 1; transform: none; } 20.00% { opacity: 1; transform: none; } 23.00% { opacity: 0; transform: translateY(-60%) scale(.8); } 100% { opacity: 0; transform: translateY(-60%) scale(.8); } }
+.h3-n6 img { animation: h3-c6 18s cubic-bezier(.7, 0, .2, 1) infinite both; }
+@keyframes h3-c6 { 0% { opacity: 0; transform: translateY(60%) scale(.8); } 2.50% { opacity: 1; transform: none; } 16.67% { opacity: 1; transform: none; } 19.17% { opacity: 0; transform: translateY(-60%) scale(.8); } 100% { opacity: 0; transform: translateY(-60%) scale(.8); } }
+.h3-n7 img { animation: h3-c7 21s cubic-bezier(.7, 0, .2, 1) infinite both; }
+@keyframes h3-c7 { 0% { opacity: 0; transform: translateY(60%) scale(.8); } 2.14% { opacity: 1; transform: none; } 14.29% { opacity: 1; transform: none; } 16.43% { opacity: 0; transform: translateY(-60%) scale(.8); } 100% { opacity: 0; transform: translateY(-60%) scale(.8); } }
+.h3-n8 img { animation: h3-c8 24s cubic-bezier(.7, 0, .2, 1) infinite both; }
+@keyframes h3-c8 { 0% { opacity: 0; transform: translateY(60%) scale(.8); } 1.88% { opacity: 1; transform: none; } 12.50% { opacity: 1; transform: none; } 14.38% { opacity: 0; transform: translateY(-60%) scale(.8); } 100% { opacity: 0; transform: translateY(-60%) scale(.8); } }
+.h3-n9 img { animation: h3-c9 27s cubic-bezier(.7, 0, .2, 1) infinite both; }
+@keyframes h3-c9 { 0% { opacity: 0; transform: translateY(60%) scale(.8); } 1.67% { opacity: 1; transform: none; } 11.11% { opacity: 1; transform: none; } 12.78% { opacity: 0; transform: translateY(-60%) scale(.8); } 100% { opacity: 0; transform: translateY(-60%) scale(.8); } }
+.h3-n10 img { animation: h3-c10 30s cubic-bezier(.7, 0, .2, 1) infinite both; }
+@keyframes h3-c10 { 0% { opacity: 0; transform: translateY(60%) scale(.8); } 1.50% { opacity: 1; transform: none; } 10.00% { opacity: 1; transform: none; } 11.50% { opacity: 0; transform: translateY(-60%) scale(.8); } 100% { opacity: 0; transform: translateY(-60%) scale(.8); } }
+@media (max-width: 640px) { .hero3 h1 { font-size: clamp(2rem, 9.4vw, 2.6rem); line-height: 1.14; } .h3-slot { margin: 0 .06em; } }
+.h3-nw { white-space: nowrap; }

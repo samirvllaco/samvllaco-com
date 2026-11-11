@@ -1,3 +1,5 @@
+import fs from "fs";
+import path from "path";
 import Bento, { MainServices } from "../components/Bento";
 import { Offers, Process } from "../components/Offers";
 import ScreenWall from "../components/ScreenWall";
@@ -22,7 +24,10 @@ export const metadata = {
 };
 
 // Inline icon slot inside the hero headline. Each slot shows the tiles that match the word before it.
-function Ico({ tiles, delay = 0 }) {
+function Ico({ tiles: wanted, delay = 0 }) {
+  // Only show tiles that have an image in public/hero, so new tools appear as soon as their file is added.
+  const tiles = wanted.filter((n) => fs.existsSync(path.join(process.cwd(), "public", "hero", `${n}.webp`)));
+  if (!tiles.length) return null;
   return (
     <span className={`h3-slot h3-n${tiles.length}`} aria-hidden="true">
       {tiles.map((n, i) => (
@@ -39,10 +44,9 @@ export default function Home() {
       <SectionColors />
       <section className="hero2" data-bg="#111112">
         <div className="hero3">
-          <p className="hero2-eyebrow">Sam Vllaco · Product Designer</p>
           <h1>
-            I design <Ico tiles={["figma", "systems", "code"]} /> products<br />
-            people love <Ico tiles={["love"]} />, and<br />
+            I design <Ico tiles={["figma", "photoshop", "illustrator", "claude", "framer", "sketch", "xd", "aftereffects", "systems", "code"]} /> products{" "}<br />
+            people <span className="h3-nw">love <Ico tiles={["love"]} />,</span> and{" "}<br />
             experiences <Ico tiles={["click", "target"]} delay={0.4} /> that convert <Ico tiles={["growth", "speed"]} delay={0.8} />
           </h1>
           <p className="hero2-sub">10 years turning complex ideas into intuitive, scalable digital products. From early-stage startups to established teams.</p>
