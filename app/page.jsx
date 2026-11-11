@@ -1,3 +1,4 @@
+import Bento from "../components/Bento";
 import Faq from "../components/Faq";
 import { FAQ } from "../lib/faq";
 import { SITE, ARTICLES, EMAIL } from "../lib/site";
@@ -80,6 +81,8 @@ export default function Home() {
       {/* Globe section hidden for now: <Globe bg="#000000" /> */}
 
 
+
+      <Bento />
 
       <Faq items={FAQ}>
         {/* eslint-disable-next-line @next/next/no-img-element */}

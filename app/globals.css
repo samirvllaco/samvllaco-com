@@ -1342,3 +1342,69 @@ img.foot-me { height: 76%; aspect-ratio: 800 / 776; transform: translateX(-47%);
 :root[data-theme="light"] .hp-right, :root[data-theme="light"] .hp-right em, :root[data-theme="light"] .hp-copy b { --hp-accent: #62c1fd; }
 @media (max-width: 960px) { .hp { grid-template-columns: minmax(0, 1fr); } .hp-right { min-height: 480px; } }
 @media (max-width: 520px) { .hp-cols { grid-template-columns: minmax(0, 1fr); } }
+
+/* Home bento grid */
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.bento { margin-top: clamp(88px, 9vw, 136px) !important; }
+.bn-grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 16px; grid-auto-rows: minmax(220px, auto); }
+.bn-card { position: relative; display: flex; flex-direction: column; justify-content: flex-end; gap: 20px; padding: 28px; border-radius: 10px; background: var(--card); box-shadow: inset 0 0 0 1px var(--line); color: var(--text); text-decoration: none; overflow: hidden; isolation: isolate; transition: background-color .35s var(--ease-out), transform .45s var(--ease-out); }
+.bn-card:hover { background: var(--card-2); text-decoration: none; }
+.bn-card:focus-visible { outline: 3px solid rgba(98, 193, 253, .6); outline-offset: 3px; }
+.bn-copy { display: grid; gap: 8px; max-width: 46ch; }
+.bn-label { display: flex; gap: 10px; margin: 0; font-size: .75rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.bn-label span { color: #62c1fd; }
+.bn-card h3 { margin: 0; font-size: clamp(1.25rem, 1.6vw, 1.5rem); line-height: 1.2; letter-spacing: -.02em; font-weight: 600; text-wrap: balance; }
+.bn-text { margin: 0; color: var(--muted); line-height: 1.55; font-size: .9375rem; }
+.bn-arrow { position: absolute; top: 24px; right: 24px; color: var(--muted); transition: transform .4s var(--ease-out), color .3s var(--ease-out); }
+.bn-card:hover .bn-arrow { color: var(--text); transform: translate(2px, -2px); }
+.bn-intro { grid-column: span 7; grid-row: span 2; background: radial-gradient(120% 90% at 100% 0%, rgba(47, 107, 255, .28), transparent 60%), var(--card); }
+.bn-intro h3 { font-size: clamp(2.25rem, 4.4vw, 4rem); line-height: 1.02; letter-spacing: -.04em; }
+.bn-intro .bn-text { font-size: 1.125rem; }
+.bn-work { grid-column: span 5; grid-row: span 2; }
+.bn-mosaic { position: absolute; inset: -12% -18% 34% -6%; display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; transform: rotate(-14deg) skewX(8deg); z-index: -1; }
+.bn-mosaic img { width: 100%; height: auto; border-radius: 8px; box-shadow: 0 10px 30px rgba(0, 0, 0, .45); transition: transform .6s var(--ease-out); }
+.bn-work:hover .bn-mosaic img:nth-child(odd) { transform: translateY(-8px); }
+.bn-work:hover .bn-mosaic img:nth-child(even) { transform: translateY(8px); }
+.bn-work::after { content: ""; position: absolute; inset: 40% 0 0 0; background: linear-gradient(180deg, transparent, var(--card) 55%); z-index: -1; }
+.bn-exp, .bn-avail { grid-column: span 3; }
+.bn-trans, .bn-serv, .bn-proc { grid-column: span 4; }
+.bn-exp + .bn-avail + .bn-trans { grid-column: span 6; }
+.bn-found { grid-column: span 5; }
+.bn-test { grid-column: span 3; }
+.bn-write { grid-column: span 4; }
+.bn-about { grid-column: span 4; grid-row: span 2; }
+.bn-contact { grid-column: span 8; grid-row: span 2; justify-content: center; min-height: 440px; }
+.bn-big { margin: 0; font-size: clamp(3.5rem, 6vw, 5.5rem); line-height: .9; letter-spacing: -.05em; font-weight: 600; color: #62c1fd; }
+.bn-status { display: inline-flex; align-items: center; gap: 10px; margin: 0; font-weight: 600; }
+.bn-status i { width: 10px; height: 10px; border-radius: 50%; background: #34c759; box-shadow: 0 0 0 0 rgba(52, 199, 89, .6); animation: bn-pulse 2s infinite; }
+@keyframes bn-pulse { to { box-shadow: 0 0 0 12px rgba(52, 199, 89, 0); } }
+.bn-chips, .bn-steps { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.bn-chips li, .bn-steps li { padding: 8px 12px; border-radius: 6px; font-size: .8125rem; font-weight: 500; box-shadow: inset 0 0 0 1px var(--line); }
+.bn-steps { counter-reset: s; }
+.bn-steps li { counter-increment: s; }
+.bn-steps li::before { content: "0" counter(s) " "; color: #62c1fd; font-weight: 600; margin-right: 4px; }
+.bn-ba { display: flex; align-items: center; gap: 14px; }
+.bn-before, .bn-after { display: grid; gap: 5px; width: 96px; padding: 10px; border-radius: 8px; box-shadow: inset 0 0 0 1px var(--line); }
+.bn-before { grid-template-columns: 1fr 1fr 1fr; }
+.bn-before i { height: 14px; border-radius: 3px; background: var(--muted); opacity: .45; }
+.bn-before i:nth-child(2n) { height: 22px; } .bn-before i:nth-child(3n) { opacity: .25; }
+.bn-after i { height: 10px; border-radius: 3px; background: #62c1fd; }
+.bn-after i:nth-child(2) { width: 70%; opacity: .6; } .bn-after i:nth-child(3) { width: 45%; opacity: .35; }
+.bn-to { color: var(--muted); }
+.bn-face { width: 96px; height: 96px; border-radius: 50%; object-fit: cover; box-shadow: 0 0 0 3px var(--card), 0 0 0 4px var(--line); }
+.bn-about { justify-content: space-between; }
+.bn-contact .bn-copy { position: relative; z-index: 1; max-width: 22rem; }
+.bn-contact h3 { font-size: clamp(1.75rem, 2.6vw, 2.5rem); letter-spacing: -.03em; }
+.bn-btn { justify-self: start; margin-top: 12px; }
+.bg-globe { position: absolute; inset: 0; z-index: 0; }
+.bg-globe canvas { position: absolute; right: 0; top: 0; width: 72%; height: 100%; display: block; }
+.bg-region { position: absolute; right: 20px; top: 20px; display: inline-flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: 999px; font-size: .8125rem; background: rgba(12, 12, 14, .6); color: #f5f5f7; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .16); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+.bg-region i { width: 8px; height: 8px; border-radius: 50%; background: #62c1fd; }
+.bg-region b { font-weight: 600; }
+.bn-contact { background: #0d0d10; color: #f5f5f7; }
+.bn-contact:hover { background: #111115; }
+.bn-contact .bn-text, .bn-contact .bn-label { color: rgba(245, 245, 247, .66); }
+@media (max-width: 1100px) { .bn-intro, .bn-work { grid-column: span 12; } .bn-exp, .bn-avail, .bn-trans, .bn-serv, .bn-proc, .bn-found, .bn-test, .bn-write { grid-column: span 6 !important; } .bn-about, .bn-contact { grid-column: span 12; } .bn-about { grid-row: span 1; } }
+@media (max-width: 640px) { .bn-grid > * { grid-column: span 12 !important; } .bg-globe canvas { width: 100%; opacity: .55; } .bn-contact { min-height: 420px; justify-content: flex-end; } }
+@media (prefers-reduced-motion: reduce) { .bn-status i { animation: none; } .bn-card, .bn-mosaic img, .bn-arrow { transition: none; } }
+.bn-serv, .bn-proc { grid-column: span 6; }
