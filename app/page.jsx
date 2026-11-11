@@ -2,6 +2,7 @@ import fs from "fs";
 import path from "path";
 import Bento, { MainServices } from "../components/Bento";
 import { Offers, Process } from "../components/Offers";
+import ToneShift from "../components/ToneShift";
 import ScreenWall from "../components/ScreenWall";
 import Testimonials from "../components/Testimonials";
 import { LIVE as SHOW_TESTIMONIALS } from "../lib/testimonials";
@@ -28,11 +29,14 @@ function Ico({ tiles: wanted, delay = 0 }) {
   // Only show tiles that have an image in public/hero, so new tools appear as soon as their file is added.
   const tiles = wanted.filter((n) => fs.existsSync(path.join(process.cwd(), "public", "hero", `${n}.webp`)));
   if (!tiles.length) return null;
+  const n = tiles.length;
+  // One slot changes at a time: every slot swaps once per 8s beat, offset by `delay` seconds.
   return (
-    <span className={`h3-slot h3-n${tiles.length}`} aria-hidden="true">
-      {tiles.map((n, i) => (
+    <span className={`h3-slot h3-seq${n === 1 ? " h3-solo" : ""}`} aria-hidden="true">
+      {tiles.map((t, i) => (
         // eslint-disable-next-line @next/next/no-img-element
-        <img key={n} src={`/hero/${n}.webp`} width="256" height="256" alt="" style={{ animationDelay: `${(i * 3 - tiles.length * 3 + delay).toFixed(2)}s` }} />
+        <img key={t} src={`/hero/${t}.webp`} width="256" height="256" alt=""
+          style={n === 1 ? { animationDelay: `${delay - 8}s` } : { animationName: `h3-s${n}`, animationDuration: `${n * 8}s`, animationDelay: `${i * 8 + delay - n * 8}s` }} />
       ))}
     </span>
   );
@@ -46,8 +50,8 @@ export default function Home() {
         <div className="hero3">
           <h1>
             I design <Ico tiles={["figma", "photoshop", "illustrator", "claude", "framer", "sketch", "xd", "aftereffects", "systems", "code"]} /> products{" "}<br />
-            people <span className="h3-nw">love <Ico tiles={["love"]} />,</span> and{" "}<br />
-            experiences <Ico tiles={["click", "target"]} delay={0.4} /> that convert <Ico tiles={["growth", "speed"]} delay={0.8} />
+            people <span className="h3-nw">love <Ico tiles={["love"]} delay={6} />,</span> and{" "}<br />
+            experiences <Ico tiles={["click", "target"]} delay={2} /> that convert <Ico tiles={["growth", "speed"]} delay={4} />
           </h1>
           <p className="hero2-sub">10 years turning complex ideas into intuitive, scalable digital products. From early-stage startups to established teams.</p>
           <div className="hero2-cta">
@@ -98,6 +102,7 @@ export default function Home() {
 
       <ScreenWall />
 
+      <ToneShift target="#work" />
       <section id="work" className="stack work" data-bg="#000000">
           <h2>Work that shipped</h2>
           <p className="work-intro">Products across SaaS, fintech, health and mobile. Names changed where an NDA applies, screens are real.</p>
