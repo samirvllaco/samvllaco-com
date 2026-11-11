@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Crumbs from "../../components/Crumbs";
 import CallIcon from "../../components/CallIcon";
-import { EMAIL, SITE } from "../../lib/site";
+import { EMAIL, SITE, BOOKING_URL } from "../../lib/site";
 import { SERVICES } from "../../lib/services";
 
 const TITLE = "Book a call with Sam Vllaco";
@@ -30,11 +30,16 @@ export default function Book() {
         <h1>Let&rsquo;s design your product</h1>
         <p className="lede">I turn complex SaaS and AI products into screens people get in seconds.</p>
         <div className="btn-row case-cta-row">
-          <a className="btn btn-primary" href={`mailto:${EMAIL}?subject=Book%20a%20call`}><CallIcon />Book a call</a>
+          <a className="btn btn-primary" href={BOOKING_URL ? "#calendar" : `mailto:${EMAIL}?subject=Book%20a%20call`}><CallIcon />{BOOKING_URL ? "Pick a time" : "Book a call"}</a>
           <Link className="btn btn-ghost" href="/work/marketing-dashboard/">See a case study</Link>
         </div>
         <p className="book-mail">Or write to <b>{EMAIL}</b></p>
       </header>
+      {BOOKING_URL ? (
+        <section className="book-cal" id="calendar" aria-label="Pick a time">
+          <iframe src={`${BOOKING_URL}${BOOKING_URL.includes("?") ? "&" : "?"}embed=true&theme=dark&hide_gdpr_banner=1`} title="Booking calendar" loading="lazy" />
+        </section>
+      ) : null}
       <section className="svc-group" aria-labelledby="book-how">
         <div className="svc-head"><h2 id="book-how">How it works</h2></div>
         <ol className="svc-list book-steps">

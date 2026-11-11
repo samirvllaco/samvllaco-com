@@ -27,7 +27,7 @@ export default function Home() {
             screen.
           </p>
           <div className="hero2-cta">
-            <a className="hero2-btn hero2-btn-primary" href={`mailto:${EMAIL}?subject=Schedule%20a%20call`}><CallIcon />Schedule a call</a>
+            <a className="hero2-btn hero2-btn-primary" href="/book/"><CallIcon />Schedule a call</a>
             <a className="hero2-btn hero2-btn-light" href="#work">See my work</a>
           </div>
         </div>

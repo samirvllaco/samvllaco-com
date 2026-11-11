@@ -19,7 +19,7 @@ export default function Services() {
         <h1>Design, branding, marketing and SEO</h1>
         <p className="lede">Four areas, one goal: a product people understand, remember and can find.</p>
         <div className="btn-row case-cta-row">
-          <a className="btn btn-primary" href={`mailto:${EMAIL}?subject=Schedule%20a%20call`}><CallIcon />Schedule a call</a>
+          <a className="btn btn-primary" href="/book/"><CallIcon />Schedule a call</a>
         </div>
       </header>
       {SERVICES.map((g) => (
