@@ -64,6 +64,14 @@ export default function Home() {
           <p id="trust-h">Trusted by teams at</p>
           <ul>{["Lingopie", "Golf Live", "Zalow", "Kenny Perez Law", "Ocufuse"].map((n) => <li key={n}>{n}</li>)}</ul>
         </div>
+        <div className="trust trust-on">
+          <p>Find my work on</p>
+          <ul>
+            {[["dribbble", "Dribbble", SITE.links.dribbble], ["figma", "Figma", SITE.links.figma], ["x", "X", SITE.links.x], ["medium", "Medium", SITE.links.medium], ["behance", "Behance", SITE.links.behance], ["youtube", "YouTube", SITE.links.youtube]].filter((r) => r[2]).map(([id, name, href]) => (
+              <li key={id}><a href={href} target="_blank" rel="me noopener noreferrer"><span dangerouslySetInnerHTML={{ __html: fs.readFileSync(path.join(process.cwd(), "public", "social", `${id}.svg`), "utf8") }} />{name}</a></li>
+            ))}
+          </ul>
+        </div>
         <div className="hero2-foot">
           <ul className="hero2-stats" aria-label="In numbers">
             <li><CountUp to={10000} suffix="+" /> screens designed</li>

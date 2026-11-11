@@ -1764,3 +1764,11 @@ html.js .foot-sig-w[data-reveal], .foot-sig-w { opacity: 1; transform: translate
 .sd-card .sd-l { display: none; }
 :root[data-theme="light"] .sd-card { background: #e9e9ee; }
 :root[data-theme="light"] .sd-card .sd-l { display: block; } :root[data-theme="light"] .sd-card .sd-d { display: none; }
+
+/* Platforms row under the trust strip */
+.trust-on { padding-top: 0; gap: 16px; }
+.trust-on li { font-size: 1.0625rem; font-weight: 500; letter-spacing: -.01em; text-transform: none !important; }
+.trust-on a { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; color: inherit; text-decoration: none; }
+.trust-on a:hover { color: var(--text); text-decoration: none; }
+.trust-on span { display: grid; } .trust-on svg { width: 24px; height: 24px; }
+.trust-on li:nth-child(n) { font-weight: 500; letter-spacing: -.01em; }
