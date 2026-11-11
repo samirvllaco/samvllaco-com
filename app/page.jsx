@@ -62,42 +62,9 @@ export default function Home() {
         <div className="trust trust-on" aria-labelledby="trust-h">
           <p id="trust-h">Trusted by designers and engineers working at</p>
           <ul>
-            {[["netflix", "Netflix"], ["youtube", "YouTube"], ["x", "X"], ["behance", "Behance"], ["dribbble", "Dribbble"]].map(([id, name]) => (
-              <li key={id}><span dangerouslySetInnerHTML={{ __html: fs.readFileSync(path.join(process.cwd(), "public", "social", `${id}.svg`), "utf8") }} />{name}</li>
+            {[["netflix", "Netflix"], ["uber", "Uber"], ["google", "Google"], ["youtube", "YouTube"], ["x", "X"], ["behance", "Behance"], ["dribbble", "Dribbble"]].map(([id, name]) => (
+              <li key={id}><span hidden={id === "uber"} dangerouslySetInnerHTML={{ __html: fs.readFileSync(path.join(process.cwd(), "public", "social", `${id}.svg`), "utf8") }} />{name}</li>
             ))}
-          </ul>
-        </div>
-        <div className="hero2-foot">
-          <ul className="hero2-stats" aria-label="In numbers">
-            <li><CountUp to={10000} suffix="+" /> screens designed</li>
-            <li><b>50+</b> clients</li>
-            <li><b>10</b> years in product design</li>
-            <li>Calls in US business hours</li>
-          </ul>
-          <p className="loc">
-            <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="none" stroke="currentColor" strokeWidth="2" d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.800 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5" fill="none" stroke="currentColor" strokeWidth="2"/></svg>
-            Tirana, Albania<LocalTime />
-          </p>
-          <ul className="socials" aria-label="Find me online">
-            <li>
-              <a href={SITE.links.x} rel="me noopener" aria-label={`X, ${STATS.x} followers`}>
-                <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M18.9 2H22l-7.2 8.2L23 22h-6.6l-5.2-6.8L5.2 22H2l7.7-8.8L1.5 2h6.7l4.7 6.2L18.9 2Zm-1.2 18h1.8L7.4 3.9H5.5L17.7 20Z"/></svg>
-                <span><b>{STATS.x}</b> followers</span>
-              </a>
-            </li>
-            <li>
-              <a href={SITE.links.medium} rel="me noopener">
-                <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d={MEDIUM_PATH} /></svg>
-                <span className="work-open" aria-hidden="true"><span className="work-open-t">Follow on Medium</span><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M7 17L17 7M9 7h8v8" /></svg></span>
-                <span>Medium</span>
-              </a>
-            </li>
-            <li>
-              <a href={SITE.links.dribbble} rel="me noopener">
-                <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="12" cy="12" r="9.5" fill="none" stroke="currentColor" strokeWidth="2"/><path fill="none" stroke="currentColor" strokeWidth="2" d="M6 5.5c4 3 8 8.5 9.5 14M3 11c5 .5 11-.5 15-4M9 3c3.5 4.500 6 10.5 6.5 14.5"/></svg>
-                <span>Dribbble</span>
-              </a>
-            </li>
           </ul>
         </div>
       </section>
