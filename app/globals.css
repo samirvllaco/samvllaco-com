@@ -1214,3 +1214,7 @@ img.foot-me { height: 76%; aspect-ratio: 800 / 776; transform: translateX(-47%);
 .work-open svg { width: 20px; height: 20px; stroke-width: 2.4; }
 .work-open { display: grid; place-items: center; gap: 0; line-height: 0; }
 .work-open svg, .work-card:hover .work-open svg { display: block; transform: none; }
+.work-open { display: inline-flex; align-items: center; justify-content: center; gap: 8px; width: auto; height: 44px; padding: 0 14px 0 16px; border-radius: 999px; line-height: 1; font-size: .875rem; font-weight: 600; white-space: nowrap; }
+.work-open-t { transition: none; transform: none; }
+.work-card:hover .work-open span { transform: none; }
+.work-open svg { width: 18px; height: 18px; flex: none; }
