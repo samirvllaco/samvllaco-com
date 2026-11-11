@@ -1855,3 +1855,7 @@ html.js .foot-sig-w[data-reveal], .foot-sig-w { opacity: 1; transform: translate
 /* Scrolled header: profile photo slides in before the name */
 .brand-me img.brand-face { width: 0; height: 36px; margin-right: -10px; border-radius: 50%; object-fit: cover; opacity: 0; transform: scale(.6); transition: width .45s var(--ease-out), margin .45s var(--ease-out), opacity .35s, transform .45s var(--ease-out); }
 @media (min-width: 981px) { html.is-scrolled .brand-me img.brand-face { width: 36px; margin-right: 0; opacity: 1; transform: none; box-shadow: 0 0 0 2px rgba(255, 255, 255, .16); } html.is-scrolled .site-header .wrap.head-row { padding-left: 10px; } }
+
+/* Hero: award badge under the buttons; second button is dark grey in dark mode */
+.hero-award { margin: clamp(22px, 3vw, 34px) 0 0; }
+:root:not([data-theme="light"]) .hero2-btn-light { --k-top: #46464c; --k-mid: #34343a; --k-low: #2a2a2f; --k-edge: #18181b; --k-line: #0b0b0c; --k-glow: rgba(0, 0, 0, .4); --k-hi: rgba(255, 255, 255, .22); --k-ink: #f5f5f7; background-color: #34343a; color: #f5f5f7; text-shadow: 0 1px 0 rgba(0, 0, 0, .5); }

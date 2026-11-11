@@ -1,7 +1,6 @@
 import fs from "fs";
 import path from "path";
 import Bento from "../components/Bento";
-import ToneShift from "../components/ToneShift";
 import ScreenWall from "../components/ScreenWall";
 import Testimonials from "../components/Testimonials";
 import { LIVE as SHOW_TESTIMONIALS } from "../lib/testimonials";
@@ -47,7 +46,6 @@ export default function Home() {
       <SectionColors />
       <section className="hero2" data-bg="#111112">
         <div className="hero3">
-          <p className="hero-award"><span>Award-winning</span><span>UI/UX designer</span></p>
           <h1>
             I design <Ico tiles={["figma", "photoshop", "illustrator", "claude", "framer", "sketch", "xd", "aftereffects", "systems", "code"]} /> products{" "}<br />
             people <span className="h3-nw">love <Ico tiles={["love"]} delay={6} />,</span> and{" "}<br />
@@ -58,7 +56,7 @@ export default function Home() {
             <a className="hero2-btn hero2-btn-primary" href="#work">Explore my work</a>
             <a className="hero2-btn hero2-btn-light" href="/book/"><CallIcon />Let's work together</a>
           </div>
-          <p className="hero2-micro">30 minutes on Google Meet. Free. Bring a problem, not a brief.</p>
+          <p className="hero-award"><span>Award-winning</span><span>UI/UX designer</span></p>
         </div>
         <div className="trust trust-on" aria-labelledby="trust-h">
           <p id="trust-h">Trusted by designers and engineers working at</p>
@@ -72,8 +70,7 @@ export default function Home() {
 
       <ScreenWall />
 
-      <ToneShift target="#work" />
-      <section id="work" className="stack work" data-bg="#000000">
+      <section id="work" className="stack work" data-bg="#1f1f22">
           <h2>Work that shipped</h2>
           <p className="work-intro">Products across SaaS, fintech, health and mobile. Names changed where an NDA applies, screens are real.</p>
           <WorkGrid />
