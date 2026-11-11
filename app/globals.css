@@ -1184,3 +1184,7 @@ img.foot-me { height: 76%; aspect-ratio: 800 / 776; transform: translateX(-47%);
 .book-band-head h2 { margin: 6px 0 0; font-size: clamp(1.75rem, 3vw, 2.5rem); letter-spacing: -.025em; text-wrap: balance; }
 .book-band-head p:last-child { margin: 10px 0 0; color: var(--muted); }
 .book-band .book-cal { margin-bottom: 0; }
+
+/* Work grid: four cards per row on desktop */
+@media (min-width: 1200px) { .work-grid:not(.is-single) { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 40px 20px; } }
+@media (min-width: 961px) and (max-width: 1199px) { .work-grid:not(.is-single) { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
