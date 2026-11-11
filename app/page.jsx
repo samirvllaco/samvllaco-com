@@ -47,6 +47,7 @@ export default function Home() {
       <SectionColors />
       <section className="hero2" data-bg="#111112">
         <div className="hero3">
+          <p className="hero-award"><span>Award-winning</span><span>UI/UX designer</span></p>
           <h1>
             I design <Ico tiles={["figma", "photoshop", "illustrator", "claude", "framer", "sketch", "xd", "aftereffects", "systems", "code"]} /> products{" "}<br />
             people <span className="h3-nw">love <Ico tiles={["love"]} delay={6} />,</span> and{" "}<br />

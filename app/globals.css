@@ -1844,3 +1844,10 @@ html.js .foot-sig-w[data-reveal], .foot-sig-w { opacity: 1; transform: translate
 .wall-stick::before { top: 0; background: linear-gradient(180deg, var(--wall-fade, #000) 8%, transparent); }
 .wall-stick::after { bottom: 0; background: linear-gradient(0deg, var(--wall-fade, #000) 8%, transparent); }
 :root[data-theme="light"] .wall-stick { --wall-fade: #fff; }
+
+/* Hero: laurel badge above the headline */
+.hero-award { display: inline-grid; grid-template-columns: auto auto auto; align-items: center; column-gap: 14px; margin: 0 0 clamp(18px, 2.4vw, 30px); text-align: center; font-size: .9375rem; line-height: 1.25; color: var(--text); }
+.hero-award::before, .hero-award::after { content: ""; grid-row: 1 / span 2; width: 34px; height: 60px; background: url(/laurel-l.webp) center / contain no-repeat; }
+.hero-award::before { grid-column: 1; } .hero-award::after { grid-column: 3; background-image: url(/laurel-r.webp); }
+.hero-award span { grid-column: 2; } .hero-award span:first-child { font-weight: 600; align-self: end; } .hero-award span:last-child { color: var(--muted); align-self: start; }
+:root[data-theme="light"] .hero-award::before, :root[data-theme="light"] .hero-award::after { filter: brightness(.55); }
