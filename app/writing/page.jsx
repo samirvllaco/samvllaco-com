@@ -1,4 +1,4 @@
-import ArticleMark from "../../components/ArticleMark";
+import WritingGrid from "../../components/WritingGrid";
 import Crumbs from "../../components/Crumbs";
 import { ARTICLES, SITE } from "../../lib/site";
 
@@ -19,11 +19,7 @@ export default function Writing() {
           Practical stories for founders and designers building with AI. Most are on Medium.
         </p>
       </div>
-      <div className="product-row">
-        {ARTICLES.map((a) => (
-          <ArticleMark key={a.url} href={a.url} platform={a.platform} title={a.short} />
-        ))}
-      </div>
+      <WritingGrid />
       <p>
         More on <a href={SITE.links.medium} rel="me noopener">Medium</a> and
         shorter posts on <a href={SITE.links.x} rel="me noopener">X</a>.
