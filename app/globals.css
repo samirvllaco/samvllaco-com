@@ -1645,3 +1645,13 @@ html.tone-fade, html.tone-fade body, html.tone-fade *, html.tone-fade *::before,
 .tm-card figcaption { display: grid; gap: 2px; margin-top: auto; padding-top: 14px; border-top: 1px solid var(--line); }
 @media (max-width: 1000px) { .tm-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 640px) { .tm-grid { grid-template-columns: minmax(0, 1fr); } }
+
+/* Hero: less space on top, trust strip below */
+.hero3 { padding-top: clamp(16px, 3vw, 40px); }
+.hero2 { padding-top: 32px; }
+.trust { grid-column: 1 / -1; display: grid; justify-items: center; gap: 22px; padding: 8px 0 28px; text-align: center; }
+.trust p { margin: 0; font-size: .9375rem; color: var(--muted); }
+.trust ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 18px clamp(28px, 6vw, 84px); }
+.trust li { font-size: clamp(1.25rem, 2.2vw, 1.75rem); font-weight: 600; letter-spacing: -.04em; color: var(--muted); opacity: .8; white-space: nowrap; transition: opacity .3s, color .3s; }
+.trust li:nth-child(2) { font-weight: 700; letter-spacing: -.02em; } .trust li:nth-child(3) { font-weight: 500; letter-spacing: .02em; text-transform: lowercase; } .trust li:nth-child(4) { font-weight: 500; letter-spacing: -.01em; }
+.trust li:hover { opacity: 1; color: var(--text); }

@@ -60,6 +60,10 @@ export default function Home() {
           </div>
           <p className="hero2-micro">30 minutes on Google Meet. Free. Bring a problem, not a brief.</p>
         </div>
+        <div className="trust" aria-labelledby="trust-h">
+          <p id="trust-h">Trusted by teams at</p>
+          <ul>{["Lingopie", "Golf Live", "Zalow", "Kenny Perez Law", "Ocufuse"].map((n) => <li key={n}>{n}</li>)}</ul>
+        </div>
         <div className="hero2-foot">
           <ul className="hero2-stats" aria-label="In numbers">
             <li><CountUp to={10000} suffix="+" /> screens designed</li>
