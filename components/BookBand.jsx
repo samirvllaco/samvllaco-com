@@ -11,7 +11,7 @@ export default function BookBand() {
       <div className="book-band-head">
         <p className="case-eyebrow">Available for new projects</p>
         <h2 id="book-band-h">Tell me what you are building</h2>
-        <p>Book a 30 minute product strategy call. We map the scope, the timeline and the one next step.</p>
+        <p>Book a 30 minute call. You leave with a scope, a timeline and the one next step, whether we work together or not.</p>
       </div>
       <div className="book-cal">
         <iframe src={`${BOOKING_URL}?embed=true&theme=dark&layout=month_view`} title="Booking calendar" loading="lazy" />

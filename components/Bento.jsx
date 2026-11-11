@@ -43,7 +43,7 @@ export default function Bento() {
       <h2 id="bx-h" className="sr-only">About Sam</h2>
       <div className="bx-grid">
         <div className="bx-stats">
-          <div className="bx-card bx-stat"><b>6+</b><span>Years of experience</span></div>
+          <div className="bx-card bx-stat"><b>10</b><span>Years of experience</span></div>
           <div className="bx-card bx-stat"><b>50+</b><span>Clients served</span></div>
           <div className="bx-card bx-stat"><b>10,000+</b><span>Screens designed</span></div>
         </div>
@@ -66,10 +66,11 @@ export default function Bento() {
             <p><b>Sam Vllaco</b><span>Product designer and founder</span></p>
           </div>
           <div className="bx-bio">
-            <h3>The person behind the pixels</h3>
+            <h3>I design apps. I also ship my own.</h3>
             <p>I'm Sam, a product designer helping ambitious teams turn complex ideas into intuitive digital experiences. I design SaaS platforms, AI products, mobile apps and the websites that explain them.</p>
-            <p>I don't just design apps, I build them. Building my own products has changed how I think about users, priorities and shipping, and it shows in the files I hand to your developers.</p>
+            <p>I have 10 years in product design, I am based in Tirana and I work with teams in the US, Europe, Canada and Australia. I build and run my own products on the side, so I know what a wrong screen costs when it is your money. That is why I ask about revenue before I ask about colors.</p>
             <Link href="/book/" className="bx-link"><Go>Work with Sam</Go></Link>
+            <Link href="/about/" className="bx-link bx-link-2"><Go>More about Sam</Go></Link>
           </div>
         </div>
         <Link href="/writing/" className="bx-card bx-write">

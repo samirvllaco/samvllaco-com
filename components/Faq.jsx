@@ -9,13 +9,13 @@ export default function Faq({ items, children }) {
   return (
     <section className="faq" id="faq" aria-labelledby="faq-h" data-bg="#000000">
       <div className="faq-side">
-        <p className="case-eyebrow">Still got questions?</p>
-        <h2 id="faq-h">Read the FAQs</h2>
+        <p className="case-eyebrow">Before you book</p>
+        <h2 id="faq-h">Questions founders ask first</h2>
         <div className="faq-card">{children}</div>
       </div>
       <div className="faq-list">
         {items.map((f) => (
-          <details key={f.q}>
+          <details key={f.q} open={f.open}>
             <summary>
               <span className="faq-plus" aria-hidden="true" />
               <span>{f.q}</span>

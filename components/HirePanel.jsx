@@ -12,11 +12,11 @@ export default function HirePanel({ photo = "/sam-footer.webp" }) {
   return (
     <section className="hp" aria-labelledby="hp-h">
       <div className="hp-left">
-        <h2 id="hp-h">AI speeds up the routine.<br /><em>I design what people remember.</em></h2>
-        <p className="hp-lede">I use AI for the parts it is good at and keep the decisions that need a designer. You get the work faster, and it still looks like your product and nobody else's.</p>
+        <h2 id="hp-h">AI does the repetitive half.<br /><em>I do the half your users remember.</em></h2>
+        <p className="hp-lede">Variants, states, consistency and accessibility checks run against rules I define, so you get the work faster. The first screen, the core flows, onboarding and checkout are designed by hand, so it still looks like your product and nobody else's.</p>
         <div className="hp-cols">
           <div>
-            <p className="hp-label">Defined, then automated</p>
+            <p className="hp-label">Defined once, then automated</p>
             <ul>{AUTO.map((t) => <li key={t}>{t}</li>)}</ul>
           </div>
           <div className="hp-hand">

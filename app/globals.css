@@ -1437,3 +1437,19 @@ a:hover .bx-go { color: var(--text); } a:hover .bx-go span { transform: translat
 .brand-me { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text); }
 .brand-word { font-family: "Unbounded", "Inter", system-ui, sans-serif; font-weight: 700; font-size: 1.375rem; letter-spacing: -.03em; line-height: 1; }
 .brand-mark { display: block; width: 26px; height: 24px; }
+
+/* Audit additions: hero microcopy, work intro, offers and process */
+.hero2-micro { margin: 14px 0 0; color: var(--muted); font-size: .9375rem; }
+.work-intro { margin: 0; max-width: 60ch; color: var(--muted); }
+.of-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin: 0; padding: 0; list-style: none; }
+.pr-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.of-card { display: grid; align-content: start; gap: 10px; padding: 28px; min-height: 220px; }
+.of-card h3 { margin: 0; font-size: 1.375rem; font-weight: 500; letter-spacing: -.02em; }
+.of-card p { margin: 0; color: var(--muted); line-height: 1.55; }
+.of-card .of-d { display: flex; gap: 10px; font-size: .75rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: #62c1fd; margin-bottom: 18px; }
+.of-d b { color: var(--text); }
+.of-foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; margin-top: 20px; }
+.of-foot p { margin: 0; color: var(--muted); }
+.bx-link-2 { margin-top: 0; }
+@media (max-width: 1000px) { .of-grid, .pr-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 640px) { .of-grid, .pr-grid { grid-template-columns: minmax(0, 1fr); } }

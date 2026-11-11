@@ -23,8 +23,6 @@ export default function Header() {
       <div className="wrap head-row">
         <Link className="brand-me" href="/" aria-label="Sam Vllaco, home">
           <span className="brand-word">Sam</span>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img className="brand-mark" src="/spinaton-mark.svg" width="26" height="24" alt="" />
         </Link>
         <nav className="head-nav" aria-label="Main">
           <ServicesMenu />

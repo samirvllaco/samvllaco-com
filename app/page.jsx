@@ -1,4 +1,5 @@
 import Bento, { MainServices } from "../components/Bento";
+import { Offers, Process } from "../components/Offers";
 import ScreenWall from "../components/ScreenWall";
 import Faq from "../components/Faq";
 import { FAQ } from "../lib/faq";
@@ -25,21 +26,23 @@ export default function Home() {
       <section className="hero2" data-bg="#111112">
         <div className="hero2-main">
           <p className="hero2-eyebrow">Product designer for SaaS and AI teams</p>
-          <h1>Design that makes complex products feel simple</h1>
+          <h1>Your product, understood on the first screen.</h1>
           <p className="hero2-sub">
-            I design SaaS products, dashboards and mobile apps that people understand on the first
-            screen.
+            I design SaaS products, dashboards and mobile apps for US teams. 10 years, 50+ clients,
+            one designer from the first call to the handover.
           </p>
           <div className="hero2-cta">
             <a className="hero2-btn hero2-btn-primary" href="/book/"><CallIcon />Schedule a call</a>
           </div>
+          <p className="hero2-micro">30 minutes on Google Meet. Free. Bring a problem, not a brief.</p>
         </div>
         <HeroShow />
         <div className="hero2-foot">
           <ul className="hero2-stats" aria-label="In numbers">
             <li><CountUp to={10000} suffix="+" /> screens designed</li>
             <li><b>50+</b> clients</li>
-            <li>Making pixels useful since <b>2013</b></li>
+            <li><b>10</b> years in product design</li>
+            <li>Calls in US business hours</li>
           </ul>
           <p className="loc">
             <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="none" stroke="currentColor" strokeWidth="2" d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.800 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5" fill="none" stroke="currentColor" strokeWidth="2"/></svg>
@@ -72,7 +75,8 @@ export default function Home() {
       <ScreenWall />
 
       <section id="work" className="stack work" data-bg="#000000">
-          <h2>Work</h2>
+          <h2>Work that shipped</h2>
+          <p className="work-intro">Products across SaaS, fintech, health and mobile. Names changed where an NDA applies, screens are real.</p>
           <WorkGrid />
           <HirePanel />
       </section>
@@ -87,12 +91,16 @@ export default function Home() {
 
       <MainServices />
 
+      <Offers />
+
+      <Process />
+
       <Bento />
 
       <Faq items={FAQ}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="/sam.jpg" width="88" height="88" alt="Sam Vllaco" loading="lazy" />
-        <h3>Can't find your answer?</h3>
+        <h3>Something else?</h3>
         <p>Schedule a call and let's talk.</p>
         <a className="btn btn-primary" href="/book/"><CallIcon />Schedule a call</a>
         <p className="faq-mail">Or email me at <b>{EMAIL}</b></p>
