@@ -1,3 +1,4 @@
+import HoverVideo from "../../../components/HoverVideo";
 import Link from "next/link";
 import CallIcon from "../../../components/CallIcon";
 import { notFound } from "next/navigation";
@@ -30,7 +31,7 @@ function Shot({ image, light }) {
     <div className={`case-fig${light ? " case-fig-light" : ""}`}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       {image.video ? (
-        <video src={image.video} poster={image.src} width={image.w} height={image.h} muted loop playsInline autoPlay preload="metadata" aria-label={image.alt} />
+        <HoverVideo src={image.video} poster={image.src} width={image.w} height={image.h} label={image.alt} />
       ) : (
         <img src={image.src} width={image.w} height={image.h} alt={image.alt} loading="lazy" />
       )}
@@ -225,6 +226,20 @@ export default function CaseStudy({ params }) {
               </div>
             </section>
 
+            {w.moreScreens && w.moreScreens.length ? (
+              <section className="case-section" id="more-screens">
+                <h2>More screens</h2>
+                <div className="case-shots">
+                  {w.moreScreens.map((s) => (
+                    <figure className="case-shot" key={s.src}>
+                      <HoverVideo src={s.video} poster={s.src} width={s.w} height={s.h} label={s.alt} />
+                      <figcaption>{s.cap}</figcaption>
+                    </figure>
+                  ))}
+                </div>
+              </section>
+            ) : null}
+
             <section className="case-section case-close">
               <h2>{st.cta.title}</h2>
               <p>{st.cta.text}</p>
@@ -261,7 +276,7 @@ export default function CaseStudy({ params }) {
                   {w.screens.map((s) => (
                     <figure className="case-shot" key={s.src}>
                       {s.video ? (
-                        <video src={s.video} poster={s.src} width={s.w} height={s.h} muted loop playsInline autoPlay preload="metadata" aria-label={s.alt} />
+                        <HoverVideo src={s.video} poster={s.src} width={s.w} height={s.h} label={s.alt} />
                       ) : (
                         // eslint-disable-next-line @next/next/no-img-element
                         <img src={s.src} width={s.w} height={s.h} alt={s.alt} loading="lazy" />
