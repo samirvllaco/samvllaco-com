@@ -93,7 +93,6 @@ export default function Footer() {
           <a href={SITE.links.x} rel="me noopener">X</a>
           <a href={SITE.links.medium} rel="me noopener">Medium</a>
           <CopyEmail />
-          <SecretCount />
         </div>
       </div>
     </footer>

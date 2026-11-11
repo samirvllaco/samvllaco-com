@@ -1994,3 +1994,17 @@ html.is-end .to-top { opacity: 1; pointer-events: auto; transform: translate(-50
 /* Hero headline: smaller and tighter */
 .hero3 h1 { font-size: clamp(2rem, 3.9vw, 3.75rem); line-height: 1.04; letter-spacing: -.045em; }
 @media (max-width: 640px) { .hero3 h1 { font-size: clamp(1.875rem, 8.6vw, 2.4rem); line-height: 1.1; } }
+
+/* Back to top: arrow only, above the photo bubble; no secrets counter or toast */
+.to-top, html.is-scrolled .to-top { left: auto; right: max(34px, calc(env(safe-area-inset-right, 0px) + 34px)); bottom: calc(max(16px, env(safe-area-inset-bottom, 0px)) + 92px); width: 44px; height: 44px; padding: 0; justify-content: center; border-radius: 50%; transform: translateY(14px) scale(.9); }
+html.is-end .to-top { transform: none; }
+.to-top svg { color: var(--text); }
+.secrets, .dl-toast { display: none !important; }
+.site-footer { padding-bottom: 0; }
+/* Bento: smaller visuals with more room around them */
+.bx-motion .bx-frame, :root[data-theme="light"] .bx-motion .bx-frame { width: min(58%, 400px); border-radius: 10px; }
+.bx-soft .bx-mini { min-height: 420px; padding-bottom: 40px; }
+.bx-cols { margin: 36px 15% 0; max-height: 300px; gap: 10px; }
+.bx-col { gap: 10px; }
+.sd-stage { width: 80%; margin-inline: auto; }
+.bx-soft .bx-deck { padding: 32px 28px 36px; }
