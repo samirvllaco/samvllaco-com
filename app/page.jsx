@@ -1,6 +1,8 @@
 import Bento, { MainServices } from "../components/Bento";
 import { Offers, Process } from "../components/Offers";
 import ScreenWall from "../components/ScreenWall";
+import Testimonials from "../components/Testimonials";
+import { LIVE as SHOW_TESTIMONIALS } from "../lib/testimonials";
 import Faq from "../components/Faq";
 import { FAQ } from "../lib/faq";
 import { SITE, ARTICLES, EMAIL } from "../lib/site";
@@ -94,6 +96,8 @@ export default function Home() {
       <Offers />
 
       <Process />
+
+      {SHOW_TESTIMONIALS ? <Testimonials /> : null}
 
       <Bento />
 
