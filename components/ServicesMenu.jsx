@@ -56,6 +56,9 @@ export default function ServicesMenu() {
         <div className="wrap mega-in">
           {SERVICES.map((g) => (
             <div className="mega-col" key={g.id}>
+              {/* Image slot: replace public/menu/<id>.webp (16:10) to change it. */}
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <Link className="mega-img" href={`/services/#${g.id}`} onClick={() => setOpen(false)} tabIndex={-1} aria-hidden="true"><img src={`/menu/${g.id}.webp`} width="640" height="400" alt="" loading="lazy" /></Link>
               <Link className="mega-title" href={`/services/#${g.id}`} onClick={() => setOpen(false)}>{g.title}</Link>
               <p className="mega-blurb">{g.blurb}</p>
               <ul>
@@ -66,6 +69,8 @@ export default function ServicesMenu() {
             </div>
           ))}
           <div className="mega-col">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <Link className="mega-img" href="/writing/" onClick={() => setOpen(false)} tabIndex={-1} aria-hidden="true"><img src="/menu/resources.webp" width="640" height="400" alt="" loading="lazy" /></Link>
             <Link className="mega-title" href="/writing/" onClick={() => setOpen(false)}>Resources</Link>
             <p className="mega-blurb">Guides and tools from my own work.</p>
             <ul>
