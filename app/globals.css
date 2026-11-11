@@ -1467,3 +1467,16 @@ a:hover .bx-go { color: var(--text); } a:hover .bx-go span { transform: translat
 /* Soft fade in the bottom right corner so the floating portrait does not sit hard on page content */
 body::after { content: ""; position: fixed; right: 0; bottom: 0; width: 280px; height: 260px; pointer-events: none; z-index: 15; background: radial-gradient(ellipse 100% 100% at 100% 100%, var(--page, #000) 0%, color-mix(in srgb, var(--page, #000) 78%, transparent) 32%, transparent 72%); }
 @media (max-width: 640px) { body::after { width: 200px; height: 190px; } }
+
+/* Dotted texture on a few backgrounds, faded out toward the edges */
+.hero2, .faq, .book-band, .bx-sec:has(.ms-grid), .bx-sec:has(.pr-grid) { position: relative; isolation: isolate; }
+.hero2::before, .faq::before, .book-band::before, .bx-sec:has(.ms-grid)::before, .bx-sec:has(.pr-grid)::before {
+  content: ""; position: absolute; inset: -40px calc(50% - 50vw); z-index: -1; pointer-events: none;
+  background-image: radial-gradient(circle, color-mix(in srgb, var(--text) 22%, transparent) 1px, transparent 1.5px);
+  background-size: 22px 22px;
+  -webkit-mask-image: radial-gradient(ellipse 70% 75% at 50% 40%, #000 0%, transparent 78%);
+  mask-image: radial-gradient(ellipse 70% 75% at 50% 40%, #000 0%, transparent 78%);
+  opacity: .5;
+}
+.hero2::before { -webkit-mask-image: radial-gradient(ellipse 60% 80% at 82% 30%, #000 0%, transparent 75%); mask-image: radial-gradient(ellipse 60% 80% at 82% 30%, #000 0%, transparent 75%); }
+.faq::before { -webkit-mask-image: radial-gradient(ellipse 45% 70% at 18% 35%, #000 0%, transparent 75%); mask-image: radial-gradient(ellipse 45% 70% at 18% 35%, #000 0%, transparent 75%); }
