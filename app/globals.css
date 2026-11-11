@@ -1572,3 +1572,7 @@ html.js [data-reveal].is-shown { opacity: 1; transform: none; }
 /* Smooth light/dark change while scrolling through the work section */
 html.tone-fade, html.tone-fade body, html.tone-fade *, html.tone-fade *::before, html.tone-fade *::after { transition: background-color .8s ease, color .8s ease, border-color .8s ease, box-shadow .8s ease, fill .8s ease, stroke .8s ease !important; }
 @media (prefers-reduced-motion: reduce) { html.tone-fade * { transition: none !important; } }
+/* Hero buttons: smaller pills */
+.hero3 .hero2-btn { min-height: 44px; padding: 0 22px; border-radius: 999px !important; font-size: .9375rem; }
+.hero3 .hero2-btn::before, .hero3 .hero2-btn::after { border-radius: inherit !important; }
+.hero3 .hero2-cta { gap: 14px; }
