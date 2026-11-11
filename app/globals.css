@@ -1851,3 +1851,7 @@ html.js .foot-sig-w[data-reveal], .foot-sig-w { opacity: 1; transform: translate
 .hero-award::before { grid-column: 1; } .hero-award::after { grid-column: 3; background-image: url(/laurel-r.webp); }
 .hero-award span { grid-column: 2; } .hero-award span:first-child { font-weight: 600; align-self: end; } .hero-award span:last-child { color: var(--muted); align-self: start; }
 :root[data-theme="light"] .hero-award::before, :root[data-theme="light"] .hero-award::after { filter: brightness(.55); }
+
+/* Scrolled header: profile photo slides in before the name */
+.brand-me img.brand-face { width: 0; height: 36px; margin-right: -10px; border-radius: 50%; object-fit: cover; opacity: 0; transform: scale(.6); transition: width .45s var(--ease-out), margin .45s var(--ease-out), opacity .35s, transform .45s var(--ease-out); }
+@media (min-width: 981px) { html.is-scrolled .brand-me img.brand-face { width: 36px; margin-right: 0; opacity: 1; transform: none; box-shadow: 0 0 0 2px rgba(255, 255, 255, .16); } html.is-scrolled .site-header .wrap.head-row { padding-left: 10px; } }
