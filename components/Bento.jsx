@@ -1,6 +1,7 @@
 import Link from "next/link";
 import BentoGlobe from "./BentoGlobe";
 import WorldFacts, { WorldFlags } from "./WorldFacts";
+import SwipeDeck from "./SwipeDeck";
 import Toolbox from "./Toolbox";
 import { WORK } from "../lib/work";
 import { SITE } from "../lib/site";
@@ -49,13 +50,10 @@ export default function Bento() {
           <div className="bx-card bx-stat"><b>50+</b><span>Clients served</span></div>
           <div className="bx-card bx-stat"><b>10,000+</b><span>Screens designed</span></div>
         </div>
-        <Link href="/#work" className="bx-card bx-work">
-          <div className="bx-mosaic" aria-hidden="true">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            {WORK.slice(0, 6).map((w) => <img key={w.slug} src={w.small} width="800" height="600" alt="" loading="lazy" />)}
-          </div>
-          <p className="bx-cap"><b>Work that speaks for itself</b><Go>See the work</Go></p>
-        </Link>
+        <div className="bx-card bx-work bx-deck">
+          <SwipeDeck items={WORK.map((w) => ({ slug: w.slug, title: w.title, small: w.small, alt: w.alt, platform: w.platform, tags: w.tags }))} />
+          <p className="bx-cap"><b>Work that speaks for itself</b><Link href="/#work" className="bx-go">See all work <span aria-hidden="true">→</span></Link></p>
+        </div>
         <Link href="/book/" className="bx-card bx-world">
           <p className="bx-world-t">Based in {SITE.city || "Tirana, Albania"}</p>
           <p className="bx-world-s"><i />500+ clients across four continents</p>
