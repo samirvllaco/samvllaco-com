@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Crumbs from "../../components/Crumbs";
+import PageHead from "../../components/PageHead";
 import CallIcon from "../../components/CallIcon";
 import { EMAIL, SITE, BOOKING_URL, FORM_ENDPOINT } from "../../lib/site";
 import ProjectForm from "../../components/ProjectForm";
@@ -24,18 +24,14 @@ const STEPS = [
 
 export default function Book() {
   return (
-    <div className="wrap page svc">
-      <Crumbs items={[{ name: "Book a call", href: "/book/" }]} />
-      <header className="case-head">
-        <p className="case-eyebrow">Available for new projects</p>
-        <h1>Tell me what you are building</h1>
-        <p className="lede">Book a 30 minute product strategy call with Sam. We map the scope, the timeline and the one next step that moves your product forward.</p>
+    <div className="wrap page pg svc">
+      <PageHead crumb="Contact" href="/book/" a="Tell me" b="what you are building" lede="Book a 30 minute product strategy call with Sam. We map the scope, the timeline and the one next step that moves your product forward.">
         <div className="btn-row case-cta-row">
           <a className="btn btn-primary" href={BOOKING_URL ? "#calendar" : `mailto:${EMAIL}?subject=Book%20a%20call`}><CallIcon />{BOOKING_URL ? "Pick a time" : "Book a call"}</a>
           <Link className="btn btn-ghost" href="/work/marketing-dashboard/">See a case study</Link>
         </div>
         <p className="book-mail">Prefer to write? <a href="#write">Send your project details</a> or email <b>{EMAIL}</b>. I reply within 1 business day.</p>
-      </header>
+      </PageHead>
       {BOOKING_URL ? (
         <section className="book-cal" id="calendar" aria-label="Pick a time">
           <iframe src={`${BOOKING_URL}?embed=true&theme=dark&layout=month_view`} title="Booking calendar" loading="lazy" />

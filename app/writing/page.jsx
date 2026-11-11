@@ -1,5 +1,5 @@
 import WritingGrid from "../../components/WritingGrid";
-import Crumbs from "../../components/Crumbs";
+import PageHead from "../../components/PageHead";
 import { ARTICLES, SITE } from "../../lib/site";
 
 export const metadata = {
@@ -11,14 +11,8 @@ export const metadata = {
 
 export default function Writing() {
   return (
-    <div className="wrap page stack-lg">
-      <Crumbs items={[{ name: "Writing", href: "/writing/" }]} />
-      <div className="stack prose">
-        <h1>Writing</h1>
-        <p className="lede">
-          Practical stories for founders and designers building with AI. Most are on Medium.
-        </p>
-      </div>
+    <div className="wrap page pg">
+      <PageHead crumb="Writing" href="/writing/" a="Writing" b="on AI, design and building apps" lede="Practical stories for founders and designers building with AI. Most are on Medium." />
       <WritingGrid />
       <p>
         More on <a href={SITE.links.medium} rel="me noopener">Medium</a> and

@@ -70,7 +70,7 @@ export default function Bento() {
           <BentoGlobe />
           <WorldFacts />
         </Link>
-        <Link href="/#work" className="bx-card bx-mini bx-screens" data-reveal>
+        <Link href="/work/" className="bx-card bx-mini bx-screens" data-reveal>
           <h3 className="bx-t">Screens</h3>
           <div className="bx-cols" aria-hidden="true">
             {[colA, colB].map((col, k) => (

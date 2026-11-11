@@ -2028,3 +2028,15 @@ html.is-end .to-top { transform: none; }
 .sd-stage { margin-block: auto; }
 .sd-foot { margin-top: auto; }
 .sd-label { margin-bottom: 6px; }
+
+/* Shared layout for Work, Writing, About and Contact */
+.pg { padding-block: 40px clamp(88px, 9vw, 136px); }
+.ph { display: grid; gap: 12px; margin: 28px 0 48px; justify-items: start; }
+.ph h1 { margin: 0; font-size: clamp(2.25rem, 4.6vw, 4rem); line-height: 1.05; letter-spacing: -.04em; font-weight: 600; text-wrap: balance; }
+.ph > p { margin: 0; max-width: 52ch; font-size: 1.0625rem; color: var(--muted); }
+.ph .btn-row { margin-top: 12px; }
+.pg-about { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(24px, 4vw, 56px); align-items: start; }
+.pg-about img { width: 100%; height: auto; border-radius: 20px; display: block; }
+.pg-prose { display: grid; gap: 16px; } .pg-prose p { margin: 0; max-width: 58ch; line-height: 1.65; color: var(--text-2, var(--text)); }
+@media (max-width: 860px) { .pg-about { grid-template-columns: minmax(0, 1fr); } }
+.wrap.page.pg.svc { padding-top: 40px; } .pg.svc .ph { margin-top: 28px; }

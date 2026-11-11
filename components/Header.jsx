@@ -7,7 +7,7 @@ import HeaderScroll from "./HeaderScroll";
 import { EMAIL } from "../lib/site";
 
 const NAV = [
-  { href: "/#work", label: "Work" },
+  { href: "/work/", label: "Work" },
   { href: "/writing/", label: "Writing" },
   { href: "/about/", label: "About" },
   { href: "/book/", label: "Contact" },

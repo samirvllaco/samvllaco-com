@@ -4,7 +4,7 @@ import { WORK } from "../lib/work";
 import { SERVICES } from "../lib/services";
 
 const base = "https://samvllaco.com";
-const paths = ["/", "/writing/", "/services/", "/book/", "/products/", "/globe/", "/about/", ...WORK.map((w) => `/work/${w.slug}/`), ...SERVICES.flatMap((g) => g.items.map((it) => `/services/${it.id}/`))];
+const paths = ["/", "/work/", "/writing/", "/services/", "/book/", "/products/", "/globe/", "/about/", ...WORK.map((w) => `/work/${w.slug}/`), ...SERVICES.flatMap((g) => g.items.map((it) => `/services/${it.id}/`))];
 
 export default function sitemap() {
   const lastModified = new Date();

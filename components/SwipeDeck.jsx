@@ -61,7 +61,7 @@ export default function SwipeDeck({ items }) {
       <p className="sd-label" key={`${device}-${idx}`}><b>{cur.title}</b><i>{cur.tags[0]}</i></p>
       <div className="sd-foot">
         <button type="button" className="sd-btn" aria-label="Previous project" onClick={() => go(-1)}><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 12H5M11 6l-6 6 6 6" /></svg></button>
-        <Link href="/#work" className="sd-all">See all work <span aria-hidden="true">→</span></Link>
+        <Link href="/work/" className="sd-all">See all work <span aria-hidden="true">→</span></Link>
         <button type="button" className="sd-btn" aria-label="Next project" onClick={() => go(1)}><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg></button>
       </div>
     </div>
