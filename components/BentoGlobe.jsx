@@ -13,6 +13,8 @@ const REGIONS = [
   { lat: -25, lon: 134, flag: "au" },    // Australia
 ];
 const RAD = Math.PI / 180;
+// [lat, lon, size, drift in degrees per second]
+const CLOUDS = [[48, -140, .2, 1.2], [30, -60, .16, .9], [62, -30, .22, 1.4], [15, 20, .18, 1], [40, 80, .2, 1.3], [-10, -100, .17, .8], [-30, 60, .2, 1.1], [5, 140, .16, 1.2], [70, 120, .2, .9], [-45, -20, .22, 1], [25, -170, .15, 1.3], [55, 40, .14, 1.1]];
 
 export default function BentoGlobe() {
   const ref = useRef(null);
@@ -86,35 +88,59 @@ export default function BentoGlobe() {
 
       const R = Math.min(w * 0.42, h * 0.62), cx = w / 2, cy = h * 0.3 + R;
       ctx.clearRect(0, 0, w, h);
-      // atmosphere glow, then a lit sphere
-      const halo = ctx.createRadialGradient(cx, cy, R * 0.96, cx, cy, R * 1.14);
-      halo.addColorStop(0, "rgba(98,193,253,.32)"); halo.addColorStop(1, "rgba(98,193,253,0)");
-      ctx.fillStyle = halo; ctx.beginPath(); ctx.arc(cx, cy, R * 1.14, 0, 7); ctx.fill();
-      const ball = ctx.createRadialGradient(cx - R * 0.35, cy - R * 0.45, R * 0.05, cx, cy, R);
-      ball.addColorStop(0, "#1b2a3d"); ball.addColorStop(0.55, "#0a0f17"); ball.addColorStop(1, "#020304");
+      // soft white glow, then an icy blue ocean
+      const halo = ctx.createRadialGradient(cx, cy, R * 0.9, cx, cy, R * 1.22);
+      halo.addColorStop(0, "rgba(214,238,255,.55)"); halo.addColorStop(0.35, "rgba(150,205,255,.22)"); halo.addColorStop(1, "rgba(150,205,255,0)");
+      ctx.fillStyle = halo; ctx.beginPath(); ctx.arc(cx, cy, R * 1.22, 0, 7); ctx.fill();
+      const ball = ctx.createRadialGradient(cx - R * 0.38, cy - R * 0.5, R * 0.05, cx, cy, R * 1.05);
+      ball.addColorStop(0, "#d9f0ff"); ball.addColorStop(0.3, "#8ccbff"); ball.addColorStop(0.7, "#3f93ee"); ball.addColorStop(1, "#1b55b8");
       ctx.fillStyle = ball; ctx.beginPath(); ctx.arc(cx, cy, R, 0, 7); ctx.fill();
 
-      // graticule
-      ctx.strokeStyle = "rgba(255,255,255,.16)"; ctx.lineWidth = 1;
-      for (let lo = -180; lo < 180; lo += 30) { const pts = []; for (let la = -90; la <= 90; la += 5) pts.push([la, lo]); path(pts, R, cx, cy); }
-      for (let la = -60; la <= 60; la += 30) { const pts = []; for (let lo = -180; lo <= 180; lo += 5) pts.push([la, lo]); path(pts, R, cx, cy); }
-
-      ctx.fillStyle = "#fff";
+      ctx.save();
+      ctx.beginPath(); ctx.arc(cx, cy, R, 0, 7); ctx.clip();
+      // land: soft white shapes. Points behind the globe are pushed to the rim so shapes close cleanly.
+      ctx.fillStyle = "rgba(255,255,255,.82)"; ctx.strokeStyle = "rgba(255,255,255,.95)"; ctx.lineWidth = 1; ctx.lineJoin = "round";
+      for (let i = 0; i < LINES.length; i++) {
+        const ring = LINES[i], a0 = ring[0], b0 = ring[ring.length - 1];
+        const closed = Math.abs(a0[0] - b0[0]) < 0.6 && Math.abs(a0[1] - b0[1]) < 0.6;
+        if (!closed) continue;
+        let any = false; ctx.beginPath();
+        for (let j = 0; j < ring.length; j++) {
+          const q = proj(ring[j][0], ring[j][1], R, cx, cy);
+          let x = q.x, y = q.y;
+          if (q.z > 0) any = true; else { const dx = x - cx, dy = y - cy, d = Math.hypot(dx, dy) || 1; x = cx + (dx / d) * R * 1.01; y = cy + (dy / d) * R * 1.01; }
+          if (j) ctx.lineTo(x, y); else ctx.moveTo(x, y);
+        }
+        if (any) { ctx.closePath(); ctx.fill(); }
+      }
+      // continents: land points drawn large enough to merge into soft shapes
+      ctx.fillStyle = "#f3f9ff";
+      const dr = R * 0.021;
+      ctx.beginPath();
       for (let i = 0; i < DOTS.length; i++) {
         const q = proj(DOTS[i][0], DOTS[i][1], R, cx, cy);
-        if (q.z <= 0.02 || q.y > h + 2) continue;
-        ctx.globalAlpha = 0.08 + 0.5 * q.z;
-        const ds = 0.8 + 1 * q.z;
-        ctx.fillRect(q.x - ds / 2, q.y - ds / 2, ds, ds);
+        if (q.z <= 0.03 || q.y > h + dr) continue;
+        ctx.moveTo(q.x + dr, q.y); ctx.arc(q.x, q.y, dr, 0, 7);
       }
-      ctx.globalAlpha = 1;
-      ctx.strokeStyle = "rgba(255,255,255,.92)"; ctx.lineWidth = 1.1;
-      for (let i = 0; i < LINES.length; i++) path(LINES[i], R, cx, cy);
-      // limb shading and a rim light
-      const limb = ctx.createRadialGradient(cx - R * 0.2, cy - R * 0.25, R * 0.45, cx, cy, R);
-      limb.addColorStop(0, "rgba(0,0,0,0)"); limb.addColorStop(1, "rgba(0,0,0,.62)");
-      ctx.fillStyle = limb; ctx.beginPath(); ctx.arc(cx, cy, R, 0, 7); ctx.fill();
-      ctx.strokeStyle = "rgba(140,205,255,.55)"; ctx.lineWidth = 1.2; ctx.beginPath(); ctx.arc(cx, cy, R, 0, 7); ctx.stroke();
+      ctx.fill();
+      // soft drifting clouds
+      for (let i = 0; i < CLOUDS.length; i++) {
+        const c = CLOUDS[i], q = proj(c[0], c[1] + t * c[3], R, cx, cy);
+        if (q.z <= 0.1) continue;
+        const r = R * c[2] * (0.6 + 0.4 * q.z);
+        const g = ctx.createRadialGradient(q.x, q.y, 0, q.x, q.y, r);
+        g.addColorStop(0, `rgba(255,255,255,${0.5 * q.z})`); g.addColorStop(1, "rgba(255,255,255,0)");
+        ctx.fillStyle = g; ctx.beginPath(); ctx.ellipse(q.x, q.y, r * 1.5, r * 0.7, 0, 0, 7); ctx.fill();
+      }
+      // shade toward the far edge, and a white highlight
+      const limb = ctx.createRadialGradient(cx - R * 0.25, cy - R * 0.3, R * 0.5, cx, cy, R);
+      limb.addColorStop(0, "rgba(10,40,110,0)"); limb.addColorStop(1, "rgba(10,40,110,.5)");
+      ctx.fillStyle = limb; ctx.fillRect(cx - R, cy - R, R * 2, R * 2);
+      const shine = ctx.createRadialGradient(cx - R * 0.42, cy - R * 0.55, 0, cx - R * 0.42, cy - R * 0.55, R * 0.7);
+      shine.addColorStop(0, "rgba(255,255,255,.5)"); shine.addColorStop(1, "rgba(255,255,255,0)");
+      ctx.fillStyle = shine; ctx.fillRect(cx - R, cy - R, R * 2, R * 2);
+      ctx.restore();
+      ctx.strokeStyle = "rgba(255,255,255,.75)"; ctx.lineWidth = 1.5; ctx.beginPath(); ctx.arc(cx, cy, R, 0, 7); ctx.stroke();
 
       const hp = proj(HOME.lat, HOME.lon, R, cx, cy);
       REGIONS.forEach((r, i) => {
@@ -124,13 +150,13 @@ export default function BentoGlobe() {
         if (hp.z > 0) {
           const mx = (hp.x + q.x) / 2, my = (hp.y + q.y) / 2, dx = mx - cx, dy = my - cy;
           const lift = 1 + (Math.hypot(q.x - hp.x, q.y - hp.y) / R) * 0.4;
-          ctx.strokeStyle = active ? "rgba(98,193,253,.95)" : "rgba(98,193,253,.35)"; ctx.lineWidth = active ? 1.6 : 1;
-          ctx.setLineDash([4, 5]); ctx.lineDashOffset = -t * 18;
+          ctx.strokeStyle = active ? "rgba(13,60,150,.95)" : "rgba(13,60,150,.35)"; ctx.lineWidth = active ? 2.4 : 1.2; ctx.lineCap = "round";
+          ctx.setLineDash(active ? [1, 7] : []); ctx.lineDashOffset = -t * 14;
           ctx.beginPath(); ctx.moveTo(hp.x, hp.y); ctx.quadraticCurveTo(cx + dx * lift, cy + dy * lift, q.x, q.y); ctx.stroke(); ctx.setLineDash([]);
         }
-        ctx.strokeStyle = `rgba(98,193,253,${(1 - pulse) * (active ? 0.9 : 0.4)})`; ctx.lineWidth = 1.5;
+        ctx.strokeStyle = `rgba(13,60,150,${(1 - pulse) * (active ? 0.8 : 0.35)})`; ctx.lineWidth = 1.5;
         ctx.beginPath(); ctx.arc(q.x, q.y, 5 + pulse * (active ? 22 : 12), 0, 7); ctx.stroke();
-        ctx.fillStyle = "#62c1fd"; ctx.beginPath(); ctx.arc(q.x, q.y, active ? 5.5 : 3.5, 0, 7); ctx.fill();
+        ctx.fillStyle = "#0d3c96"; ctx.beginPath(); ctx.arc(q.x, q.y, active ? 5.5 : 3.5, 0, 7); ctx.fill();
       });
       if (hp.z > 0) { ctx.fillStyle = "#ff5a36"; ctx.beginPath(); ctx.arc(hp.x, hp.y, 4.5, 0, 7); ctx.fill(); }
       // flags, far ones first so near ones sit on top
