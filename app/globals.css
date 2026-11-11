@@ -1981,3 +1981,16 @@ html.is-scrolled .to-top { opacity: 1; transform: none; pointer-events: auto; }
 html.is-scrolled .to-top { opacity: 0; pointer-events: none; transform: translate(-50%, 14px) scale(.96); }
 html.is-end .to-top { opacity: 1; pointer-events: auto; transform: translate(-50%, 0); }
 .book-band-head h2 + p { margin: 12px auto 0 !important; } .site-footer { padding-bottom: 76px; }
+
+/* Animations card: sharp screen that builds in band by band */
+.bx-motion .bx-frame, :root[data-theme="light"] .bx-motion .bx-frame { background: #131315; overflow: hidden; aspect-ratio: 3 / 2; }
+.bi { position: absolute; inset: 0; }
+.bi-band { position: absolute; left: 0; right: 0; background-size: 100% 700%; background-repeat: no-repeat; opacity: 0; animation: bi-in .8s cubic-bezier(.22, 1, .36, 1) forwards; }
+@keyframes bi-in { from { opacity: 0; transform: translateY(18px) scale(.985); filter: blur(6px); } to { opacity: 1; transform: none; filter: blur(0); } }
+@media (prefers-reduced-motion: reduce) { .bi-band { animation: none; opacity: 1; } }
+/* FAQ: hovering one question dims the others */
+.faq-list details { transition: opacity .35s ease; }
+@media (hover: hover) { .faq-list:hover details:not(:hover):not([open]) { opacity: .35; } }
+/* Hero headline: smaller and tighter */
+.hero3 h1 { font-size: clamp(2rem, 3.9vw, 3.75rem); line-height: 1.04; letter-spacing: -.045em; }
+@media (max-width: 640px) { .hero3 h1 { font-size: clamp(1.875rem, 8.6vw, 2.4rem); line-height: 1.1; } }

@@ -3,7 +3,7 @@ import BentoGlobe from "./BentoGlobe";
 import WorldFacts, { WorldFlags } from "./WorldFacts";
 import SwipeDeck from "./SwipeDeck";
 import Toolbox from "./Toolbox";
-import AutoVideo from "./AutoVideo";
+import BuildIn from "./BuildIn";
 import { WALL } from "../lib/wall";
 import { WORK } from "../lib/work";
 import { SITE } from "../lib/site";
@@ -42,7 +42,7 @@ export function MainServices() {
   );
 }
 
-const CLIPS = ["marketing-dashboard-hover", "kestrel-c-01-anim", "kestrel-d-07-anim", "kestrel-c-05-anim"].map((n) => `/work/clip/${n}.mp4`);
+const CLIPS = ["hd-kestrel", "hd-veyra", "hd-sublio", "hd-aruma"].map((n) => `/work/clip/${n}.webp`);
 
 export default function Bento() {
   const clip = WORK.find((w) => w.video) || WORK[0];
@@ -83,7 +83,7 @@ export default function Bento() {
         </Link>
         <Link href={`/work/${clip.slug}/`} className="bx-card bx-mini bx-motion" data-reveal>
           <h3 className="bx-t">Animations</h3>
-          <div className="bx-frame"><AutoVideo clips={CLIPS} /></div>
+          <div className="bx-frame"><BuildIn screens={CLIPS} /></div>
         </Link>
         <Toolbox />
       </div>
