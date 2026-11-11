@@ -85,7 +85,7 @@ export default function Footer() {
           </ul>
         </div>
         ) : null}
-        <p>{SITE.fullName}. {SITE.tagline}</p>
+        <p>{SITE.name}. {SITE.tagline}</p>
         <div className="foot-links">
           <a href={SITE.links.x} rel="me noopener">X</a>
           <a href={SITE.links.medium} rel="me noopener">Medium</a>
