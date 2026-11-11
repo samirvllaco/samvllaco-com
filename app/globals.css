@@ -1509,3 +1509,17 @@ html.js [data-reveal].is-shown { opacity: 1; transform: none; }
 .hero3-stats dd { margin: 0; color: var(--muted); font-size: .875rem; }
 @media (max-width: 640px) { .hero3 h1 br { display: none; } }
 @media (prefers-reduced-motion: reduce) { .h3-ico { transition: none; } }
+
+/* Hero: smaller headline, icon slots that cycle */
+.hero3 h1 { font-size: clamp(2.25rem, 4.6vw, 4.5rem); line-height: 1.08; letter-spacing: -.04em; }
+.hero3 { padding-top: clamp(56px, 9vw, 128px); }
+.h3-slot { position: relative; display: inline-block; width: .9em; height: .9em; vertical-align: -.13em; margin: 0 .08em; border-radius: 24%; overflow: hidden; box-shadow: 0 .03em .1em rgba(0, 0, 0, .35); }
+.h3-slot img { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; animation: h3-cycle 12s cubic-bezier(.7, 0, .2, 1) infinite both; }
+@keyframes h3-cycle {
+  0% { opacity: 0; transform: translateY(60%) scale(.8); }
+  4% { opacity: 1; transform: none; }
+  25% { opacity: 1; transform: none; }
+  29% { opacity: 0; transform: translateY(-60%) scale(.8); }
+  100% { opacity: 0; transform: translateY(-60%) scale(.8); }
+}
+@media (prefers-reduced-motion: reduce) { .h3-slot img { animation: none; } .h3-slot img:first-child { opacity: 1; } }

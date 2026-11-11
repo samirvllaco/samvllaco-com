@@ -21,10 +21,17 @@ export const metadata = {
   alternates: { canonical: "/" },
 };
 
-// Inline icon tile inside the hero headline.
-function Ico({ n }) {
-  // eslint-disable-next-line @next/next/no-img-element
-  return <img className="h3-ico" src={`/hero/${n}.webp`} width="256" height="256" alt="" />;
+// Inline icon slot inside the hero headline. It cycles through the tiles, starting at `start`.
+const TILES = ["figma", "love", "growth", "systems"];
+function Ico({ start = 0 }) {
+  return (
+    <span className="h3-slot" aria-hidden="true">
+      {TILES.map((n, i) => (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img key={n} src={`/hero/${n}.webp`} width="256" height="256" alt="" style={{ animationDelay: `${(((i - start + 4) % 4) * 3 - 12 + start * 0.35).toFixed(2)}s` }} />
+      ))}
+    </span>
+  );
 }
 
 export default function Home() {
@@ -35,9 +42,9 @@ export default function Home() {
         <div className="hero3">
           <p className="hero2-eyebrow">Sam Vllaco · Product Designer</p>
           <h1>
-            I design <Ico n="figma" /> products<br />
-            people <Ico n="love" /> love, and<br />
-            experiences <Ico n="growth" /> that convert.
+            I design <Ico start={0} /> products<br />
+            people <Ico start={1} /> love, and<br />
+            experiences <Ico start={2} /> that convert.
           </h1>
           <p className="hero2-sub">10 years turning complex ideas into intuitive, scalable digital products. From early-stage startups to established teams.</p>
           <div className="hero2-cta">
