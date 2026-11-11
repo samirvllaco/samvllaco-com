@@ -1626,3 +1626,11 @@ html.tone-fade, html.tone-fade body, html.tone-fade *, html.tone-fade *::before,
 .sd-btn:hover { transform: scale(1.08); } .sd-btn:active { transform: scale(.94); }
 .sd-btn:focus-visible, .sd-topcard:focus-visible { outline: 3px solid rgba(98, 193, 253, .6); outline-offset: 2px; }
 @media (prefers-reduced-motion: reduce) { .sd-card, .sd-topcard { transition: none; animation: none; } }
+
+/* Screen wall: 7 by 11, best screen in the centre cell */
+.wall-grid { grid-template-columns: repeat(7, minmax(0, 1fr)); --from: 4.4; transform: scale(4.4); }
+.wall-cell { padding: clamp(6px, 1vw, 18px); }
+.wall { height: 300vh; }
+@media (max-width: 800px) { .wall-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); --from: 2.7; transform: scale(2.7); } .wall-cell:first-child, .wall-cell:last-child { display: none; } .wall { height: 240vh; } }
+@media (prefers-reduced-motion: reduce) { .wall-grid { transform: none; } }
+.wall-stick { align-content: center; }

@@ -17,7 +17,8 @@ export default function ScreenWall() {
       const total = r.height - window.innerHeight;
       const p = Math.min(1, Math.max(0, -r.top / (total || 1)));
       const e = 1 - Math.pow(1 - p, 2);
-      g.style.transform = `scale(${(2.6 - 1.6 * e).toFixed(4)})`;
+      const from = parseFloat(getComputedStyle(g).getPropertyValue("--from")) || 2.6;
+      g.style.transform = `scale(${(from - (from - 1) * e).toFixed(4)})`;
     };
     const on = () => { if (!raf) raf = requestAnimationFrame(update); };
     update();
@@ -30,7 +31,7 @@ export default function ScreenWall() {
       <div className="wall-stick">
         <div className="wall-grid" ref={grid} aria-hidden="true">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          {WALL.map((src, i) => <div className="wall-cell" key={src}><img src={src} width="960" height="540" alt="" loading={i < 15 ? "eager" : "lazy"} decoding="async" /></div>)}
+          {WALL.map((src, i) => <div className="wall-cell" key={src}><img src={src} width="960" height="540" alt="" loading={Math.abs(i - 38) < 9 ? "eager" : "lazy"} decoding="async" /></div>)}
         </div>
       </div>
     </section>
