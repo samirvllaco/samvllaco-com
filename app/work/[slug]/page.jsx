@@ -29,7 +29,11 @@ function Shot({ image, light }) {
   return (
     <div className={`case-fig${light ? " case-fig-light" : ""}`}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={image.src} width={image.w} height={image.h} alt={image.alt} loading="lazy" />
+      {image.video ? (
+        <video src={image.video} poster={image.src} width={image.w} height={image.h} muted loop playsInline autoPlay preload="metadata" aria-label={image.alt} />
+      ) : (
+        <img src={image.src} width={image.w} height={image.h} alt={image.alt} loading="lazy" />
+      )}
     </div>
   );
 }
@@ -256,8 +260,12 @@ export default function CaseStudy({ params }) {
                 <div className="case-shots">
                   {w.screens.map((s) => (
                     <figure className="case-shot" key={s.src}>
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src={s.src} width={s.w} height={s.h} alt={s.alt} loading="lazy" />
+                      {s.video ? (
+                        <video src={s.video} poster={s.src} width={s.w} height={s.h} muted loop playsInline autoPlay preload="metadata" aria-label={s.alt} />
+                      ) : (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img src={s.src} width={s.w} height={s.h} alt={s.alt} loading="lazy" />
+                      )}
                       {s.cap ? <figcaption>{s.cap}</figcaption> : null}
                     </figure>
                   ))}

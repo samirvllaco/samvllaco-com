@@ -1192,3 +1192,7 @@ img.foot-me { height: 76%; aspect-ratio: 800 / 776; transform: translateX(-47%);
 /* Work cards: the screen animation is a plain looping video, no script needed */
 .work-media video, .work-media video.is-live { opacity: 1; }
 @media (prefers-reduced-motion: reduce) { .work-media video { display: none; } }
+
+/* Animated screens in case studies */
+.case-fig video { display: block; width: 100%; height: auto; }
+.case-shot video { display: block; width: 100%; height: auto; border-radius: 10px; background: var(--card); }
