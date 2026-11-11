@@ -1153,3 +1153,10 @@ img.foot-me { height: 76%; aspect-ratio: 800 / 776; transform: translateX(-47%);
 :root[data-theme="light"] .site-footer > .wrap > p:not(.secrets) { color: #f5f5f7; }
 @media (max-width: 620px) { .site-footer > .wrap { justify-content: flex-start; } }
 @media (min-width: 621px) { .site-footer > .wrap { padding-right: max(112px, env(safe-area-inset-right, 0px)); } }
+
+.book-mail { margin: 4px 0 0; color: var(--muted); font-size: .9375rem; }
+.book-mail b { color: var(--text); font-weight: 600; user-select: all; }
+.book-steps { list-style: none; }
+.book-steps li { display: grid; gap: 6px; }
+.svc-list h3 a { color: var(--text); text-decoration: none; }
+.svc-list h3 a:hover { text-decoration: underline; text-underline-offset: 4px; }
