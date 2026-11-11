@@ -7,7 +7,7 @@ import SectionColors from "../components/SectionColors";
 import { MEDIUM_PATH } from "../lib/medium-logo";
 import ArticleMark from "../components/ArticleMark";
 import WorkGrid from "../components/WorkGrid";
-import HireCard from "../components/HireCard";
+import HirePanel from "../components/HirePanel";
 import HeroShow from "../components/HeroShow";
 import { LocalTime, CountUp } from "../components/Greeting";
 
@@ -70,7 +70,7 @@ export default function Home() {
       <section id="work" className="stack work" data-bg="#000000">
           <h2>Work</h2>
           <WorkGrid />
-          <HireCard wide />
+          <HirePanel />
       </section>
 
 
