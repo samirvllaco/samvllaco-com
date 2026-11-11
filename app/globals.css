@@ -1523,3 +1523,6 @@ html.js [data-reveal].is-shown { opacity: 1; transform: none; }
   100% { opacity: 0; transform: translateY(-60%) scale(.8); }
 }
 @media (prefers-reduced-motion: reduce) { .h3-slot img { animation: none; } .h3-slot img:first-child { opacity: 1; } }
+.h3-slot img { animation-duration: 24s; animation-name: h3-cycle8; }
+@keyframes h3-cycle8 { 0% { opacity: 0; transform: translateY(60%) scale(.8); } 2% { opacity: 1; transform: none; } 12.5% { opacity: 1; transform: none; } 14.5% { opacity: 0; transform: translateY(-60%) scale(.8); } 100% { opacity: 0; transform: translateY(-60%) scale(.8); } }
+.h3-slot { box-shadow: none; }

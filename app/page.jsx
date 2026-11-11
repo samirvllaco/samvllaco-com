@@ -22,13 +22,13 @@ export const metadata = {
 };
 
 // Inline icon slot inside the hero headline. It cycles through the tiles, starting at `start`.
-const TILES = ["figma", "love", "growth", "systems"];
+const TILES = ["figma", "love", "growth", "systems", "click", "target", "speed", "code"];
 function Ico({ start = 0 }) {
   return (
     <span className="h3-slot" aria-hidden="true">
       {TILES.map((n, i) => (
         // eslint-disable-next-line @next/next/no-img-element
-        <img key={n} src={`/hero/${n}.webp`} width="256" height="256" alt="" style={{ animationDelay: `${(((i - start + 4) % 4) * 3 - 12 + start * 0.35).toFixed(2)}s` }} />
+        <img key={n} src={`/hero/${n}.webp`} width="256" height="256" alt="" style={{ animationDelay: `${(((i - start + 8) % 8) * 3 - 24 + start * 0.35).toFixed(2)}s` }} />
       ))}
     </span>
   );
