@@ -1772,3 +1772,7 @@ html.js .foot-sig-w[data-reveal], .foot-sig-w { opacity: 1; transform: translate
 .trust-on a:hover { color: var(--text); text-decoration: none; }
 .trust-on span { display: grid; } .trust-on svg { width: 24px; height: 24px; }
 .trust-on li:nth-child(n) { font-weight: 500; letter-spacing: -.01em; }
+
+.trust.trust-on { padding: 8px 0 28px; gap: 22px; }
+.trust-on li { display: inline-flex; align-items: center; gap: 10px; font-size: clamp(1.125rem, 1.8vw, 1.5rem); font-weight: 600 !important; letter-spacing: -.02em !important; }
+.trust-on svg { width: 28px; height: 28px; }

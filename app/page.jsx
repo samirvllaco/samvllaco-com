@@ -60,15 +60,11 @@ export default function Home() {
           </div>
           <p className="hero2-micro">30 minutes on Google Meet. Free. Bring a problem, not a brief.</p>
         </div>
-        <div className="trust" aria-labelledby="trust-h">
-          <p id="trust-h">Trusted by teams at</p>
-          <ul>{["Lingopie", "Golf Live", "Zalow", "Kenny Perez Law", "Ocufuse"].map((n) => <li key={n}>{n}</li>)}</ul>
-        </div>
-        <div className="trust trust-on">
-          <p>Find my work on</p>
+        <div className="trust trust-on" aria-labelledby="trust-h">
+          <p id="trust-h">Trusted by designers and engineers working at</p>
           <ul>
-            {[["dribbble", "Dribbble", SITE.links.dribbble], ["figma", "Figma", SITE.links.figma], ["x", "X", SITE.links.x], ["medium", "Medium", SITE.links.medium], ["behance", "Behance", SITE.links.behance], ["youtube", "YouTube", SITE.links.youtube]].filter((r) => r[2]).map(([id, name, href]) => (
-              <li key={id}><a href={href} target="_blank" rel="me noopener noreferrer"><span dangerouslySetInnerHTML={{ __html: fs.readFileSync(path.join(process.cwd(), "public", "social", `${id}.svg`), "utf8") }} />{name}</a></li>
+            {[["netflix", "Netflix"], ["youtube", "YouTube"], ["x", "X"], ["behance", "Behance"], ["dribbble", "Dribbble"]].map(([id, name]) => (
+              <li key={id}><span dangerouslySetInnerHTML={{ __html: fs.readFileSync(path.join(process.cwd(), "public", "social", `${id}.svg`), "utf8") }} />{name}</li>
             ))}
           </ul>
         </div>
