@@ -105,7 +105,6 @@ export default function BentoGlobe() {
   return (
     <div className="bg-globe" aria-hidden="true">
       <canvas ref={ref} />
-      <span className="bg-region"><i />Clients in <b ref={label}>Europe</b></span>
     </div>
   );
 }

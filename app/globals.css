@@ -1408,3 +1408,7 @@ img.foot-me { height: 76%; aspect-ratio: 800 / 776; transform: translateX(-47%);
 @media (max-width: 640px) { .bn-grid > * { grid-column: span 12 !important; } .bg-globe canvas { width: 100%; opacity: .55; } .bn-contact { min-height: 420px; justify-content: flex-end; } }
 @media (prefers-reduced-motion: reduce) { .bn-status i { animation: none; } .bn-card, .bn-mosaic img, .bn-arrow { transition: none; } }
 .bn-serv, .bn-proc { grid-column: span 6; }
+.bn-where { display: flex; flex-wrap: wrap; gap: 6px 18px; margin: 6px 0 0; padding: 0; list-style: none; font-size: .875rem; font-weight: 600; color: #f5f5f7; }
+.bn-where li { display: inline-flex; align-items: center; gap: 8px; }
+.bn-where li::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: #62c1fd; }
+.bn-contact .bn-copy { max-width: 26rem; }

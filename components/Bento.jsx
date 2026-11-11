@@ -60,7 +60,8 @@ export default function Bento() {
           <div className="bn-copy">
             <p className="bn-label"><span>12</span>Contact</p>
             <h3>Let's make your product better.</h3>
-            <p className="bn-text">Have a challenge worth solving? I'd love to hear about it.</p>
+            <p className="bn-text">I work with teams across Europe, the USA, Canada and Australia. Wherever you are, tell me what you are building.</p>
+            <ul className="bn-where" aria-label="Where my clients are"><li>Europe</li><li>USA</li><li>Canada</li><li>Australia</li></ul>
             <span className="btn btn-primary bn-btn"><CallIcon />Schedule a call</span>
           </div>
         </Link>
