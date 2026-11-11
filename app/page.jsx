@@ -1,3 +1,6 @@
+import Faq from "../components/Faq";
+import AskAI from "../components/AskAI";
+import { FAQ } from "../lib/faq";
 import { SITE, ARTICLES, EMAIL } from "../lib/site";
 import CallIcon from "../components/CallIcon";
 import { STATS } from "../lib/stats";
@@ -107,6 +110,17 @@ export default function Home() {
       {/* Globe section hidden for now: <Globe bg="#000000" /> */}
 
 
+
+      <Faq items={FAQ}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/sam.jpg" width="88" height="88" alt="Sam Vllaco" loading="lazy" />
+        <h3>Can't find your answer?</h3>
+        <p>Schedule a call and let's talk.</p>
+        <a className="btn btn-primary" href="/book/"><CallIcon />Schedule a call</a>
+        <p className="faq-mail">Or email me at <b>{EMAIL}</b></p>
+      </Faq>
+
+      <AskAI name="Sam Vllaco" prompt="Tell me about Sam Vllaco, the product designer at samvllaco.com. What does he do, who does he work with and how do I hire him?" />
     </div>
   );
 }
