@@ -1132,3 +1132,14 @@ img.foot-me { height: 76%; aspect-ratio: 800 / 776; transform: translateX(-47%);
 .spot-note.is-end { left: auto; right: 0; --tx: 0%; --ox: 80%; }
 .spot:hover .spot-note, .spot:focus-visible .spot-note, .spot:focus .spot-note { opacity: 1; visibility: visible; transform: translate(var(--tx, -50%), 0) scale(1); transition: opacity .22s var(--ease-out), transform .5s cubic-bezier(.34, 1.56, .64, 1), visibility 0s; }
 @media (prefers-reduced-motion: reduce) { .spot-note, .spot::before { transition: opacity .01s; transform: translate(var(--tx, -50%), 0); } }
+
+/* One primary button everywhere: the blue key from the header */
+.btn-primary, .hire-btn, .site-footer .foot-stage .btn { --k-top: #5b8cff; --k-mid: #2f6bff; --k-low: #2457e0; --k-edge: #1638a3; --k-line: #0c2470; --k-glow: rgba(47, 107, 255, .32); --k-hi: rgba(255, 255, 255, .5); --k-ink: #fff; color: #fff; text-shadow: 0 1px 0 rgba(0, 0, 0, .28); font-weight: 600; border-radius: 11px; }
+.btn-primary .call-ico, .hire-btn .call-ico { filter: drop-shadow(0 1px 0 rgba(0, 0, 0, .25)); }
+.head-nav .mega .btn-primary, .hire-btn, .case-head .btn-primary, .case-close .btn-primary, .svc .btn-primary { color: #fff; }
+
+/* Face badge: neutral graphite frame instead of the blue ring */
+.face-badge { background: linear-gradient(160deg, #f2f2f5 0%, #b9b9c2 40%, #6f6f78 75%, #3a3a40 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .7), 0 0 0 1px #1c1c20, 0 2px 0 1px #2c2c31, 0 2px 0 4px var(--socket), 0 2px 0 5px rgba(255, 255, 255, .13), 0 10px 18px -8px rgba(0, 0, 0, .6); }
+.brand-me:active .face-badge { box-shadow: inset 0 1px 0 rgba(255, 255, 255, .5), 0 0 0 1px #1c1c20, 0 0 0 1px #2c2c31, 0 0 0 4px var(--socket), 0 0 0 5px rgba(255, 255, 255, .13), 0 4px 10px -6px rgba(0, 0, 0, .6); }
+:root[data-theme="light"] .face-badge { box-shadow: inset 0 1px 0 rgba(255, 255, 255, .7), 0 0 0 1px #6f6f78, 0 2px 0 1px #9a9aa4, 0 2px 0 4px var(--socket), 0 2px 0 5px rgba(255, 255, 255, .9), 0 10px 18px -8px rgba(0, 0, 0, .25); }
