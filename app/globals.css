@@ -2019,3 +2019,12 @@ html.is-end .to-top { transform: none; }
 .faq-card { padding: 16px 16px 24px; border-radius: 20px; box-shadow: none; }
 .faq-card img.faq-photo { width: 100%; height: auto; aspect-ratio: 1891 / 832; border-radius: 12px; object-fit: cover; margin-bottom: 6px; }
 .faq-card > :not(.faq-photo) { margin-inline: 12px; }
+
+/* Work deck: same rounded corners on every desktop screen, controls pinned to the bottom of the card */
+.sd-slide img.is-round { border-radius: 14px; filter: none; box-shadow: 0 24px 40px -16px rgba(0, 0, 0, .55); }
+:root[data-theme="light"] .sd-slide img.is-round { box-shadow: 0 20px 36px -16px rgba(0, 0, 0, .2); }
+.bx-soft .bx-deck { display: flex; flex-direction: column; }
+.bx-soft .bx-deck .sd { flex: 1; }
+.sd-stage { margin-block: auto; }
+.sd-foot { margin-top: auto; }
+.sd-label { margin-bottom: 6px; }
