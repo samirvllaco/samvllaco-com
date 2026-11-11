@@ -36,29 +36,27 @@ export default function Bento() {
         <Card n="03" label="Experience" href="/about/" className="bn-exp" title="6+ years in product design." text="From first concept to developer-ready delivery.">
           <p className="bn-big" aria-hidden="true">6+</p>
         </Card>
-        <Card n="07" label="Availability" href="/book/" className="bn-avail" title="Your next project starts here." text="Tell me what you're working on and what you'd like to improve.">
-          <p className="bn-status"><i />Open to new projects</p>
-        </Card>
         <Card n="04" label="Transformations" href="/services/ux-audit/" className="bn-trans" title="Same product. Better experience." text="See how thoughtful design turns cluttered interfaces into experiences that make sense.">
           <div className="bn-ba" aria-hidden="true"><span className="bn-before"><i /><i /><i /><i /><i /><i /></span><span className="bn-to">→</span><span className="bn-after"><i /><i /><i /></span></div>
         </Card>
         <Card n="05" label="Services" href="/services/" className="bn-serv" title="From idea to interface." text="Product design, UX/UI redesigns, design systems, and conversion optimization.">
           <ul className="bn-chips" aria-hidden="true"><li>Product design</li><li>UX/UI redesign</li><li>Design systems</li><li>Conversion</li></ul>
         </Card>
-        <Card n="08" label="Process" href="/book/" className="bn-proc" title="No guesswork. No surprises." text="Clear milestones, regular updates, and designs your developers can actually use.">
+        <Card n="06" label="Process" href="/book/" className="bn-proc" title="No guesswork. No surprises." text="Clear milestones, regular updates, and designs your developers can actually use.">
           <ol className="bn-steps" aria-hidden="true"><li>Call</li><li>Scope</li><li>Design</li><li>Handover</li></ol>
         </Card>
-        <Card n="09" label="Founder" href="/products/" className="bn-found" title="I don't just design apps. I build them." text="Building my own products has changed how I think about users, priorities, and shipping." />
-        <Card n="06" label="Testimonials" href="/about/" className="bn-test" title="Don't just take my word for it." text="Let the people I've worked with tell you what collaboration looks like." />
-        <Card n="10" label="Writing" href="/writing/" className="bn-write" title="Things I've learned along the way." text="Practical thoughts on product design, UX, AI, and building digital products." />
-        <Card n="11" label="About" href="/about/" className="bn-about" title="The person behind the pixels." text="Designer, maker, and someone who cares about the details.">
+        <Card n="07" label="Writing" href="/writing/" className="bn-write" title="Things I've learned along the way." text="Practical thoughts on product design, UX, AI, and building digital products.">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <div className="bn-cover" aria-hidden="true"><img src="/writing/ai-slop-ui.webp" width="1400" height="788" alt="" loading="lazy" /></div>
+        </Card>
+        <Card n="08" label="About" href="/about/" className="bn-about" title="The person behind the pixels." text="Designer, maker, and someone who cares about the details.">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img className="bn-face" src="/sam.jpg" width="96" height="96" alt="" loading="lazy" />
         </Card>
         <Link href="/book/" className="bn-card bn-contact">
           <BentoGlobe />
           <div className="bn-copy">
-            <p className="bn-label"><span>12</span>Contact</p>
+            <p className="bn-label"><span>09</span>Contact</p>
             <h3>Let's make your product better.</h3>
             <p className="bn-text">I work with teams across Europe, the USA, Canada and Australia. Wherever you are, tell me what you are building.</p>
             <ul className="bn-where" aria-label="Where my clients are"><li>Europe</li><li>USA</li><li>Canada</li><li>Australia</li></ul>
