@@ -5,6 +5,7 @@ import { WORK, WORK_TAGS } from "../lib/work";
 import { play } from "../lib/delight";
 import { useSeen } from "./Seen";
 
+const DARK = ["room-editor", "language-player", "mobile-banking"];
 const TABS = [{ id: "all", label: "All" }, ...WORK_TAGS.filter((t) => WORK.some((w) => w.tags.includes(t))).map((t) => ({ id: t, label: t }))];
 
 
@@ -47,9 +48,10 @@ function WorkCard({ w, seen }) {
 export default function WorkGrid() {
   const [tab, setTab] = useState("all");
   const [device, setDevice] = useState("all");
+  const [look, setLook] = useState("all");
   const refs = useRef({});
   const seenList = useSeen();
-  const items = WORK.filter((w) => (tab === "all" || w.tags.includes(tab)) && (device === "all" || w.platform === device));
+  const items = WORK.filter((w) => (tab === "all" || w.tags.includes(tab)) && (device === "all" || w.platform === device) && (look === "all" || (DARK.includes(w.slug) ? "dark" : "light") === look));
 
   function onKey(e, i) {
     let n = null;
@@ -83,6 +85,7 @@ export default function WorkGrid() {
           </button>
         ))}
       </div>
+      <div className="switches">
       <div className="device-switch" role="group" aria-label="Show desktop or mobile work">
         <button type="button" aria-pressed={device === "desktop"} aria-label="Desktop work" title="Desktop" onClick={() => { setDevice(device === "desktop" ? "all" : "desktop"); play("tab"); }}>
           <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="12" rx="2" /><path d="M8 20h8M12 16v4" /></svg>
@@ -91,9 +94,18 @@ export default function WorkGrid() {
           <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="7" y="2.5" width="10" height="19" rx="2.5" /><path d="M11 18.500h2" /></svg>
         </button>
       </div>
+      <div className="device-switch" role="group" aria-label="Show light or dark designs">
+        <button type="button" aria-pressed={look === "light"} aria-label="Light designs" title="Light designs" onClick={() => { setLook(look === "light" ? "all" : "light"); play("tab"); }}>
+          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="4" /><path d="M12 2.500v2M12 19.500v2M2.500 12h2M19.500 12h2M5.300 5.300l1.400 1.400M17.300 17.300l1.400 1.400M5.300 18.700l1.400-1.400M17.300 6.700l1.400-1.400" /></svg>
+        </button>
+        <button type="button" aria-pressed={look === "dark"} aria-label="Dark designs" title="Dark designs" onClick={() => { setLook(look === "dark" ? "all" : "dark"); play("tab"); }}>
+          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M20 14.500A8 8 0 0 1 9.500 4a8 8 0 1 0 10.500 10.500z" /></svg>
+        </button>
+      </div>
+      </div>
       </div>
       ) : null}
-      <div id="work-panel" role="tabpanel" aria-labelledby={`work-tab-${TABS.findIndex((t) => t.id === tab)}`} className="work-panel" key={`${tab}-${device}`}>
+      <div id="work-panel" role="tabpanel" aria-labelledby={`work-tab-${TABS.findIndex((t) => t.id === tab)}`} className="work-panel" key={`${tab}-${device}-${look}`}>
         {items.length === 0 ? (
           <p className="work-empty">More projects are coming soon.</p>
         ) : (
