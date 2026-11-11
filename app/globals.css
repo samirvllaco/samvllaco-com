@@ -1165,3 +1165,10 @@ img.foot-me { height: 76%; aspect-ratio: 800 / 776; transform: translateX(-47%);
 .book-cal iframe { display: block; width: 100%; height: 720px; border: 0; }
 .book-cal { background: #fff; box-shadow: 0 0 0 1px var(--eng-dark); }
 .book-cal iframe { height: 700px; }
+
+/* Calendly's free embed is always white and cannot be styled from outside.
+   In dark mode, flip it: invert turns white into the page's near-black, hue-rotate brings the blues back. */
+.book-cal { background: var(--page); box-shadow: inset 0 0 0 1px var(--line); border-radius: 10px; }
+.book-cal iframe { filter: invert(.93) hue-rotate(180deg) saturate(1.15); }
+:root[data-theme="light"] .book-cal { background: #fff; }
+:root[data-theme="light"] .book-cal iframe { filter: none; }
