@@ -5,8 +5,8 @@ import { useEffect } from "react";
 export default function HeaderScroll() {
   useEffect(() => {
     const root = document.documentElement;
-    let raf = 0, on = null;
-    const update = () => { raf = 0; const v = window.scrollY > (on ? 40 : 90); if (v !== on) { on = v; root.classList.toggle("is-scrolled", v); } };
+    let raf = 0, on = null, end = null;
+    const update = () => { raf = 0; const v = window.scrollY > (on ? 40 : 90); if (v !== on) { on = v; root.classList.toggle("is-scrolled", v); }  const e = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 220; if (e !== end) { end = e; root.classList.toggle("is-end", e); } };
     const onScroll = () => { if (!raf) raf = requestAnimationFrame(update); };
     update();
     window.addEventListener("scroll", onScroll, { passive: true });

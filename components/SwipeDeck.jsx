@@ -6,57 +6,63 @@ const ICON = {
   desktop: <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="12" rx="2" /><path d="M8 20h8M12 16v4" /></svg>,
   mobile: <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="7" y="2.500" width="10" height="19" rx="2.500" /><path d="M11 18.500h2" /></svg>,
 };
+const STEP = 0.82; // distance between slides, as a share of the stage width
+const mod = (a, n) => ((a % n) + n) % n;
 
-// A stack of project cards you throw left or right, like a card game. The switch picks desktop or mobile work.
+// Projects on one row that you swipe sideways. The middle one is in focus, its neighbours wait at the sides.
 export default function SwipeDeck({ items }) {
   const [device, setDevice] = useState("desktop");
-  const [n, setN] = useState(0);
-  const [drag, setDrag] = useState({ x: 0, y: 0, on: false });
-  const [out, setOut] = useState(null);
+  const [idx, setIdx] = useState(0);
+  const [drag, setDrag] = useState(0);
+  const [held, setHeld] = useState(false);
+  const stage = useRef(null);
   const start = useRef(null);
   const moved = useRef(false);
   const list = items.filter((i) => i.platform === device);
-  const at = (k) => list[(n + k) % list.length];
+  const width = () => (stage.current ? stage.current.clientWidth : 600);
 
-  const fling = (dir) => {
-    if (out) return;
-    setOut({ dir, x: drag.x, y: drag.y });
-    setTimeout(() => { setN((v) => v + 1); setOut(null); setDrag({ x: 0, y: 0, on: false }); }, 420);
+  const go = (d) => { setIdx((v) => v + d); setDrag(0); };
+  const down = (e) => { start.current = { x: e.clientX, t: performance.now() }; moved.current = false; setHeld(true); };
+  const move = (e) => { if (!start.current) return; const x = e.clientX - start.current.x; if (Math.abs(x) > 6) moved.current = true; setDrag(x); };
+  const up = (e) => {
+    if (!start.current) return;
+    const x = e.clientX - start.current.x, v = x / Math.max(1, performance.now() - start.current.t);
+    start.current = null; setHeld(false);
+    if (x < -70 || v < -0.45) go(1); else if (x > 70 || v > 0.45) go(-1); else setDrag(0);
   };
-  const down = (e) => { if (out) return; start.current = { x: e.clientX, y: e.clientY }; moved.current = false; e.currentTarget.setPointerCapture?.(e.pointerId); setDrag({ x: 0, y: 0, on: true }); };
-  const move = (e) => { if (!start.current) return; const x = e.clientX - start.current.x, y = e.clientY - start.current.y; if (Math.abs(x) > 6) moved.current = true; setDrag({ x, y: y * 0.35, on: true }); };
-  const up = () => { if (!start.current) return; start.current = null; if (Math.abs(drag.x) > 80) fling(drag.x > 0 ? 1 : -1); else setDrag({ x: 0, y: 0, on: false }); };
-  const pick = (d) => { setDevice(d); setN(0); setDrag({ x: 0, y: 0, on: false }); };
+  const pick = (d) => { setDevice(d); setIdx(0); setDrag(0); };
 
-  const top = at(0);
-  const tx = out ? out.dir * 620 : drag.x, ty = out ? out.y - 20 : drag.y;
-  const pull = Math.min(1, Math.abs(tx) / 120);
+  const cur = list[mod(idx, list.length)];
   return (
     <div className="sd">
       <div className="sd-top">
-        <p className="sd-count" aria-live="polite"><b>{(n % list.length) + 1}</b> / {list.length}</p>
+        <p className="sd-count" aria-live="polite"><b>{mod(idx, list.length) + 1}</b> / {list.length}</p>
         <div className="device-switch sd-switch" role="group" aria-label="Swipe desktop or mobile work">
           {["desktop", "mobile"].map((d) => (
             <button key={d} type="button" aria-pressed={device === d} aria-label={`${d === "desktop" ? "Desktop" : "Mobile"} work`} title={d === "desktop" ? "Desktop" : "Mobile"} onClick={() => pick(d)}>{ICON[d]}</button>
           ))}
         </div>
       </div>
-      <div className="sd-stack">
-        <Link key={`${device}-${n}`} href={`/work/${top.slug}/`} className={`sd-card sd-topcard${drag.on ? " is-drag" : ""}${out ? " is-out" : ""}`} draggable="false"
-          style={{ transform: `translate3d(${tx}px, ${ty}px, 0) rotate(${tx / 26}deg) scale(${out ? 0.92 : 1 - Math.min(0.04, Math.abs(tx) / 3000)})`, opacity: out ? 0 : 1, filter: out ? "blur(6px)" : "none" }}
-          onPointerDown={down} onPointerMove={move} onPointerUp={up} onPointerCancel={up} onClick={(e) => { if (moved.current) e.preventDefault(); }}
-          onKeyDown={(e) => { if (e.key === "ArrowRight") fling(1); if (e.key === "ArrowLeft") fling(-1); }}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img className="sd-cut" src={top.cut} alt={top.alt} draggable="false" />
-          <span className="sd-stamp" style={{ opacity: pull }}>{tx > 0 ? "Next ↗" : "↖ Next"}</span>
-          <span className="sd-name"><b>{top.title}</b><i>{top.tags[0]}</i></span>
-        </Link>
+      <div className={`sd-stage${held ? " is-held" : ""}`} ref={stage} onPointerDown={down} onPointerMove={move} onPointerUp={up} onPointerLeave={up} onPointerCancel={up}
+        tabIndex={0} role="group" aria-label="Projects. Use the arrow keys to move." onKeyDown={(e) => { if (e.key === "ArrowRight") go(1); if (e.key === "ArrowLeft") go(-1); }}>
+        {[-2, -1, 0, 1, 2].map((k) => {
+          const item = list[mod(idx + k, list.length)];
+          const pos = k + drag / (width() * STEP), d = Math.min(1.4, Math.abs(pos));
+          return (
+            <Link key={`${device}-${idx + k}`} href={`/work/${item.slug}/`} className="sd-slide" draggable="false" tabIndex={k === 0 ? 0 : -1} aria-hidden={k !== 0}
+              style={{ transform: `translate3d(${(pos * STEP * 100).toFixed(3)}%, 0, 0) scale(${(1 - 0.2 * Math.min(1, d)).toFixed(4)})`, opacity: Math.max(0, 1 - 0.72 * d), zIndex: 5 - Math.abs(k) }}
+              onClick={(e) => { if (moved.current) { e.preventDefault(); return; } if (k !== 0) { e.preventDefault(); go(k); } }}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={item.cut} alt={k === 0 ? item.alt : ""} draggable="false" loading="lazy" />
+            </Link>
+          );
+        })}
       </div>
+      <p className="sd-label" key={`${device}-${idx}`}><b>{cur.title}</b><i>{cur.tags[0]}</i></p>
       <div className="sd-foot">
-        <button type="button" className="sd-btn" aria-label="Previous direction, next project" onClick={() => fling(-1)}><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 12H5M11 6l-6 6 6 6" /></svg></button>
-        <p className="sd-hint">Swipe the cards. Tap one to open the case study.</p>
+        <button type="button" className="sd-btn" aria-label="Previous project" onClick={() => go(-1)}><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 12H5M11 6l-6 6 6 6" /></svg></button>
         <Link href="/#work" className="sd-all">See all work <span aria-hidden="true">→</span></Link>
-        <button type="button" className="sd-btn" aria-label="Next project" onClick={() => fling(1)}><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg></button>
+        <button type="button" className="sd-btn" aria-label="Next project" onClick={() => go(1)}><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg></button>
       </div>
     </div>
   );
