@@ -10,13 +10,28 @@ const TABS = [{ id: "all", label: "All" }, ...WORK_TAGS.filter((t) => WORK.some(
 
 function WorkCard({ w, seen }) {
   const vid = w.video;
+  const vref = useRef(null);
+  const [live, setLive] = useState(false);
+  function start() {
+    const v = vref.current;
+    if (!v) return;
+    try { v.currentTime = 0; } catch (e) {}
+    const p = v.play();
+    if (p && p.catch) p.catch(() => {});
+    setLive(true);
+  }
+  function stop() {
+    const v = vref.current;
+    setLive(false);
+    if (v) v.pause();
+  }
   return (
-    <Link href={`/work/${w.slug}/`} className="work-card">
+    <Link href={`/work/${w.slug}/`} className="work-card" onMouseEnter={vid ? start : undefined} onMouseLeave={vid ? stop : undefined} onFocus={vid ? start : undefined} onBlur={vid ? stop : undefined}>
       <span className="work-media">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={w.big} srcSet={`${w.small} ${w.smallW}w, ${w.big} ${w.w}w`} sizes="(max-width: 620px) 100vw, (max-width: 960px) 50vw, 500px" width={w.w} height={w.h} alt={w.alt} loading="lazy" />
         {vid ? (
-          <video className="is-live" src={vid} poster={w.small} autoPlay muted loop playsInline preload="metadata" aria-hidden="true" tabIndex={-1} />
+          <video ref={vref} className={live ? "is-live" : undefined} src={vid} muted loop playsInline preload="none" aria-hidden="true" tabIndex={-1} />
         ) : null}
         {seen ? <span className="work-seen"><svg viewBox="0 0 24 24" width="12" height="12" aria-hidden="true"><path d="M5 12.500l4.500 4.500L19 7.500" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" /></svg>Viewed</span> : null}
         <span className="work-open" aria-hidden="true">View case study <span>→</span></span>

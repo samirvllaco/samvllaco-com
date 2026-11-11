@@ -1190,7 +1190,8 @@ img.foot-me { height: 76%; aspect-ratio: 800 / 776; transform: translateX(-47%);
 @media (min-width: 961px) and (max-width: 1199px) { .work-grid:not(.is-single) { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 
 /* Work cards: the screen animation is a plain looping video, no script needed */
-.work-media video, .work-media video.is-live { opacity: 1; }
+.work-media video { opacity: 0; }
+.work-media video.is-live { opacity: 1; }
 @media (prefers-reduced-motion: reduce) { .work-media video { display: none; } }
 
 /* Animated screens in case studies */
