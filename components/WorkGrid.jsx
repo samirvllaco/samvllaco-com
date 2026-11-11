@@ -9,6 +9,10 @@ const DARK = ["room-editor", "language-player", "mobile-banking"];
 const TABS = [{ id: "all", label: "All" }, ...WORK_TAGS.filter((t) => WORK.some((w) => w.tags.includes(t))).map((t) => ({ id: t, label: t }))];
 
 
+function X() {
+  return <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round"><path d="M6 6l12 12M18 6L6 18" /></svg>;
+}
+
 function WorkCard({ w, seen }) {
   const vid = w.video;
   const vref = useRef(null);
@@ -104,6 +108,15 @@ export default function WorkGrid() {
       </div>
       </div>
       </div>
+      ) : null}
+      {tab !== "all" || device !== "all" || look !== "all" ? (
+        <div className="active-filters" aria-live="polite">
+          <span className="af-count">{items.length} {items.length === 1 ? "project" : "projects"}</span>
+          {tab !== "all" ? <button type="button" onClick={() => setTab("all")} aria-label={`Remove filter ${tab}`}>{tab}<X /></button> : null}
+          {device !== "all" ? <button type="button" onClick={() => setDevice("all")} aria-label={`Remove filter ${device}`}>{device === "mobile" ? "Mobile" : "Desktop"}<X /></button> : null}
+          {look !== "all" ? <button type="button" onClick={() => setLook("all")} aria-label={`Remove filter ${look} designs`}>{look === "dark" ? "Dark designs" : "Light designs"}<X /></button> : null}
+          <button type="button" className="af-clear" onClick={() => { setTab("all"); setDevice("all"); setLook("all"); }}>Clear all</button>
+        </div>
       ) : null}
       <div id="work-panel" role="tabpanel" aria-labelledby={`work-tab-${TABS.findIndex((t) => t.id === tab)}`} className="work-panel" key={`${tab}-${device}-${look}`}>
         {items.length === 0 ? (

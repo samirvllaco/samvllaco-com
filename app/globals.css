@@ -1218,3 +1218,12 @@ img.foot-me { height: 76%; aspect-ratio: 800 / 776; transform: translateX(-47%);
 .work-open-t { transition: none; transform: none; }
 .work-card:hover .work-open span { transform: none; }
 .work-open svg { width: 18px; height: 18px; flex: none; }
+
+/* Active filters row: every filter can be removed with one click */
+.active-filters { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 14px; }
+.af-count { color: var(--muted); font-size: .875rem; margin-right: 6px; }
+.active-filters button { display: inline-flex; align-items: center; gap: 6px; min-height: 36px; padding: 0 10px 0 12px; border: 0; border-radius: 8px; background: var(--inv-bg); color: var(--inv-ink); font: inherit; font-size: .875rem; font-weight: 600; cursor: pointer; }
+.active-filters button:hover { opacity: .88; }
+.active-filters .af-clear { background: transparent; color: var(--muted); padding: 0 8px; text-decoration: underline; text-underline-offset: 3px; }
+.active-filters .af-clear:hover { color: var(--text); opacity: 1; }
+.active-filters button:focus-visible { outline: 3px solid rgba(98, 193, 253, .6); outline-offset: 2px; }
