@@ -60,7 +60,7 @@ const THEME_BOOT = `document.documentElement.classList.add("js");try{if(JSON.par
 export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head><link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" /><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@700&display=swap&text=Sam" /></head>
+      <head><link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" /><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@700&display=swap&text=Sam" /><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mrs+Saint+Delafield&display=swap&text=Sam%20Vllaco" /></head>
       <body>
         <script dangerouslySetInnerHTML={{ __html: THEME_BOOT }} />
         <SmoothScroll />

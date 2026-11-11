@@ -31,6 +31,10 @@ export default function FootStage() {
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="/sam-footer.webp" width="1254" height="1254" loading="lazy"
           alt="Sam Vllaco holding a laptop, with a dumbbell, design tool icons, a marker and a coffee cup floating around him" />
+        <span className="foot-sig-w" aria-hidden="true" data-reveal><span className="foot-sig">Sam Vllaco</span></span>
+        {/* The same photo with the background removed, so the signature sits behind Sam. */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img className="foot-cut" src="/sam-footer-cut.webp" width="1254" height="1254" loading="lazy" alt="" aria-hidden="true" />
         {SPOTS.map((s) => {
           const style = { left: `${s.x}%`, top: `${s.y}%`, width: `${s.w}%`, height: `${s.h}%` };
           return s.href ? (

@@ -81,25 +81,6 @@ export default function Bento() {
           <h3 className="bx-t">Animations</h3>
           <div className="bx-frame"><AutoVideo src={clip.video} poster={clip.small} /></div>
         </Link>
-        <Link href="/writing/" className="bx-card bx-mini bx-read" data-reveal>
-          <h3 className="bx-t">Writing</h3>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <div className="bx-frame bx-tilt"><img src="/writing/ai-slop-ui.webp" width="1400" height="788" alt="" loading="lazy" /></div>
-        </Link>
-        <div className="bx-card bx-founder" data-reveal>
-          <div className="bx-photo">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/sam.jpg" width="640" height="640" alt="Sam Vllaco" loading="lazy" />
-            <p><b>Sam Vllaco</b><span>Product designer and founder</span></p>
-          </div>
-          <div className="bx-bio">
-            <h3>I design apps. I also ship my own.</h3>
-            <p>I'm Sam, a product designer helping ambitious teams turn complex ideas into intuitive digital experiences. I design SaaS platforms, AI products, mobile apps and the websites that explain them.</p>
-            <p>I have 10 years in product design, I am based in Tirana and I work with teams in the US, Europe, Canada and Australia. I build and run my own products on the side, so I know what a wrong screen costs when it is your money. That is why I ask about revenue before I ask about colors.</p>
-            <Link href="/book/" className="bx-link"><Go>Work with Sam</Go></Link>
-            <Link href="/about/" className="bx-link bx-link-2"><Go>More about Sam</Go></Link>
-          </div>
-        </div>
         <Toolbox />
       </div>
     </section>

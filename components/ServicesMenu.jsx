@@ -7,6 +7,15 @@ import { SERVICES } from "../lib/services";
 import { EMAIL } from "../lib/site";
 
 // "Services" in the header. Opens a wide panel on hover, click or keyboard.
+// Add PDFs here as { name, href: "/resources/file.pdf", pdf: true } once the files are in public/resources.
+const RESOURCES = [
+  { name: "AI Slop UI: 25 UX fixes", href: "/writing/" },
+  { name: "Digital products", href: "/products/" },
+  { name: "Case studies", href: "/#work" },
+  { name: "Questions founders ask", href: "/#faq" },
+  { name: "Send a project brief", href: "/book/#write" },
+];
+
 export default function ServicesMenu() {
   const [open, setOpen] = useState(false);
   const wrap = useRef(null);
@@ -56,6 +65,15 @@ export default function ServicesMenu() {
               </ul>
             </div>
           ))}
+          <div className="mega-col">
+            <Link className="mega-title" href="/writing/" onClick={() => setOpen(false)}>Resources</Link>
+            <p className="mega-blurb">Guides and tools from my own work.</p>
+            <ul>
+              {RESOURCES.map((r) => (
+                <li key={r.href}><Link href={r.href} onClick={() => setOpen(false)}>{r.name}{r.pdf ? <span className="mega-pdf">PDF</span> : null}</Link></li>
+              ))}
+            </ul>
+          </div>
           <div className="mega-side">
             <p className="mega-side-title">Not sure what you need?</p>
             <p>Tell me about the product. I will suggest where design will help most.</p>

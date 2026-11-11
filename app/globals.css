@@ -1720,3 +1720,30 @@ html.tone-fade, html.tone-fade body, html.tone-fade *, html.tone-fade *::before,
 @media (max-width: 1100px) { .bx-mini { grid-column: span 6; } .bx-read { grid-column: span 12; } }
 @media (max-width: 720px) { .bx-soft .bx-work, .bx-soft .bx-world, .bx-mini, .bx-read { grid-column: span 12; } .bx-soft .bx-stats { grid-template-columns: minmax(0, 1fr); } .bx-mini { min-height: 400px; } }
 @media (prefers-reduced-motion: reduce) { .bx-col { animation: none; } .bx-mini .bx-frame, .bx-cols { transition: none; } }
+
+/* Bento: two cards on the last row */
+.bx-soft .bx-mini { grid-column: span 6; }
+@media (max-width: 720px) { .bx-soft .bx-mini { grid-column: span 12; } }
+/* Mega menu: full screen width, five columns and the call card */
+.site-header .mega { left: 50%; right: auto; width: 100vw; margin-left: -50vw; }
+.site-header .mega .wrap.mega-in { grid-template-columns: repeat(5, minmax(0, 1fr)) minmax(240px, 1.15fr); gap: 32px 32px; }
+.mega-pdf { margin-left: 8px; padding: 2px 6px; border-radius: 5px; font-size: .625rem; font-weight: 700; letter-spacing: .06em; color: var(--muted); box-shadow: inset 0 0 0 1px var(--line); }
+@media (max-width: 1280px) { .site-header .mega .wrap.mega-in { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 760px) { .site-header .mega .wrap.mega-in { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 560px) { .site-header .mega .wrap.mega-in { grid-template-columns: minmax(0, 1fr); } }
+/* Footer: golden signature behind Sam */
+.foot-sig { position: absolute; left: 50%; top: 27%; z-index: 0; transform: translateX(-50%) rotate(-7deg); white-space: nowrap; font-family: "Mrs Saint Delafield", cursive; font-size: clamp(6rem, 27vw, 21rem); line-height: 1; padding: .1em .15em; background: linear-gradient(100deg, #8a6a1e 0%, #f6dd8a 28%, #c79a2e 50%, #fff1b8 68%, #a97c1f 100%); -webkit-background-clip: text; background-clip: text; color: transparent; filter: drop-shadow(0 0 22px rgba(240, 200, 90, .28)); pointer-events: none; clip-path: inset(0 100% 0 0); transition: clip-path 2.2s cubic-bezier(.6, 0, .2, 1) .2s; opacity: 1 !important; }
+.foot-sig.is-shown, html:not(.js) .foot-sig { clip-path: inset(0 0 0 0); }
+html.js .foot-sig[data-reveal] { transform: translateX(-50%) rotate(-7deg); }
+.foot-stage.foot-photo .foot-photo-in img.foot-cut { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
+.foot-photo-in .spot { z-index: 2; }
+@media (prefers-reduced-motion: reduce) { .foot-sig { transition: none; clip-path: none; } }
+/* Footer: glow line */
+.site-footer > .wrap { position: relative; border-top-color: transparent !important; }
+.site-footer > .wrap::before { content: ""; position: absolute; left: 50%; top: 0; width: min(1500px, 100vw); height: 1px; transform: translateX(-50%); background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .28) 30%, rgba(255, 255, 255, .5) 50%, rgba(255, 255, 255, .28) 70%, transparent); pointer-events: none; }
+.site-footer > .wrap::after { content: ""; position: absolute; left: 50%; bottom: 100%; width: min(1500px, 100vw); height: 240px; transform: translateX(-50%); background: radial-gradient(50% 100% at 50% 100%, rgba(255, 255, 255, .09), transparent 70%); pointer-events: none; z-index: 3; }
+
+.foot-sig-w { position: absolute; left: 50%; top: 27%; z-index: 0; pointer-events: none; }
+html.js .foot-sig-w[data-reveal], .foot-sig-w { opacity: 1; transform: translateX(-50%) rotate(-7deg); transition: none; }
+.foot-sig-w .foot-sig { position: static; display: block; transform: none; }
+.foot-sig-w.is-shown .foot-sig, html:not(.js) .foot-sig { clip-path: inset(0 0 0 0); }
