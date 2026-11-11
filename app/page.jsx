@@ -65,7 +65,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="work" className="stack reveal work" data-bg="#000000" data-scroll data-scroll-class="is-in" data-scroll-offset="10%,0">
+      <section id="work" className="stack work" data-bg="#000000">
           <h2>Work</h2>
           <WorkGrid />
           <HireCard wide />
@@ -74,7 +74,7 @@ export default function Home() {
 
       {/* Product (Ocufuse) section hidden for now */}
 
-      <section className="stack reveal" data-bg="#000000" data-scroll data-scroll-class="is-in" data-scroll-offset="10%,0">
+      <section className="stack" data-bg="#000000">
         <div className="blog-head">
           <h2>Latest writing</h2>
           <a className="blog-all" href={SITE.links.medium} target="_blank" rel="me noopener noreferrer">All posts <span aria-hidden="true">→</span></a>

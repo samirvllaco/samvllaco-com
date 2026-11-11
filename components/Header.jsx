@@ -7,7 +7,6 @@ import { EMAIL } from "../lib/site";
 
 const NAV = [
   { href: "/#work", label: "Work" },
-  { href: "/products/", label: "Products", badge: "New" },
   { href: "/writing/", label: "Writing" },
   { href: "/about/", label: "About" },
   { href: "/book/", label: "Contact" },
