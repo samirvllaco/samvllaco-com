@@ -2040,3 +2040,4 @@ html.is-end .to-top { transform: none; }
 .pg-prose { display: grid; gap: 16px; } .pg-prose p { margin: 0; max-width: 58ch; line-height: 1.65; color: var(--text-2, var(--text)); }
 @media (max-width: 860px) { .pg-about { grid-template-columns: minmax(0, 1fr); } }
 .wrap.page.pg.svc { padding-top: 40px; } .pg.svc .ph { margin-top: 28px; }
+.sd-stage { width: 100%; -webkit-mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent); mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent); aspect-ratio: 16 / 9; } .sd-slide { inset: 5% 19%; }
