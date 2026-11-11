@@ -3,6 +3,8 @@ import BentoGlobe from "./BentoGlobe";
 import WorldFacts, { WorldFlags } from "./WorldFacts";
 import SwipeDeck from "./SwipeDeck";
 import Toolbox from "./Toolbox";
+import AutoVideo from "./AutoVideo";
+import { WALL } from "../lib/wall";
 import { WORK } from "../lib/work";
 import { SITE } from "../lib/site";
 
@@ -41,27 +43,50 @@ export function MainServices() {
 }
 
 export default function Bento() {
+  const clip = WORK.find((w) => w.video) || WORK[0];
+  const colA = WALL.slice(30, 36), colB = WALL.slice(40, 46);
   return (
-    <section className="bx-sec" aria-labelledby="bx-h" data-bg="#000000">
-      <h2 id="bx-h" className="sr-only">About Sam</h2>
+    <section className="bx-sec bx-soft" aria-labelledby="bx-h" data-bg="#000000">
+      <h2 id="bx-h" className="bx-title">One designer<br />for the whole product.</h2>
       <div className="bx-grid">
         <div className="bx-stats">
           <div className="bx-card bx-stat"><b>10</b><span>Years of experience</span></div>
           <div className="bx-card bx-stat"><b>50+</b><span>Clients served</span></div>
           <div className="bx-card bx-stat"><b>10,000+</b><span>Screens designed</span></div>
         </div>
-        <div className="bx-card bx-work bx-deck">
+        <div className="bx-card bx-work bx-deck" data-reveal>
+          <h3 className="bx-t">Work</h3>
           <SwipeDeck items={WORK.map((w) => ({ slug: w.slug, title: w.title, small: w.small, alt: w.alt, platform: w.platform, tags: w.tags }))} />
-          <p className="bx-cap"><b>Work that speaks for itself</b><Link href="/#work" className="bx-go">See all work <span aria-hidden="true">→</span></Link></p>
+          <p className="bx-cap"><Link href="/#work" className="bx-go">See all work <span aria-hidden="true">→</span></Link></p>
         </div>
-        <Link href="/book/" className="bx-card bx-world">
-          <p className="bx-world-t">Based in {SITE.city || "Tirana, Albania"}</p>
-          <p className="bx-world-s"><i />500+ clients across four continents</p>
+        <Link href="/book/" className="bx-card bx-world" data-reveal>
+          <h3 className="bx-t">Worldwide</h3>
+          <p className="bx-world-s"><i />Based in {SITE.city || "Tirana, Albania"}. 500+ clients across four continents</p>
           <WorldFlags />
           <BentoGlobe />
           <WorldFacts />
         </Link>
-        <div className="bx-card bx-founder">
+        <Link href="/#work" className="bx-card bx-mini bx-screens" data-reveal>
+          <h3 className="bx-t">Screens</h3>
+          <div className="bx-cols" aria-hidden="true">
+            {[colA, colB].map((col, k) => (
+              <div className="bx-col" key={k}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                {[...col, ...col].map((src, i) => <img key={i} src={src} width="960" height="540" alt="" loading="lazy" />)}
+              </div>
+            ))}
+          </div>
+        </Link>
+        <Link href={`/work/${clip.slug}/`} className="bx-card bx-mini bx-motion" data-reveal>
+          <h3 className="bx-t">Animations</h3>
+          <div className="bx-frame"><AutoVideo src={clip.video} poster={clip.small} /></div>
+        </Link>
+        <Link href="/writing/" className="bx-card bx-mini bx-read" data-reveal>
+          <h3 className="bx-t">Writing</h3>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <div className="bx-frame bx-tilt"><img src="/writing/ai-slop-ui.webp" width="1400" height="788" alt="" loading="lazy" /></div>
+        </Link>
+        <div className="bx-card bx-founder" data-reveal>
           <div className="bx-photo">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/sam.jpg" width="640" height="640" alt="Sam Vllaco" loading="lazy" />
@@ -75,11 +100,6 @@ export default function Bento() {
             <Link href="/about/" className="bx-link bx-link-2"><Go>More about Sam</Go></Link>
           </div>
         </div>
-        <Link href="/writing/" className="bx-card bx-write">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/writing/ai-slop-ui.webp" width="1400" height="788" alt="" loading="lazy" />
-          <p className="bx-cap"><b>Things I've learned along the way</b><Go>Read the writing</Go></p>
-        </Link>
         <Toolbox />
       </div>
     </section>

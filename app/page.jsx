@@ -51,7 +51,7 @@ export default function Home() {
           <h1>
             I design <Ico tiles={["figma", "photoshop", "illustrator", "claude", "framer", "sketch", "xd", "aftereffects", "systems", "code"]} /> products{" "}<br />
             people <span className="h3-nw">love <Ico tiles={["love"]} delay={6} />,</span> and{" "}<br />
-            experiences <Ico tiles={["click", "target"]} delay={2} /> that convert <Ico tiles={["growth", "speed"]} delay={4} />
+            experiences <Ico tiles={["click", "target"]} delay={2} /> that convert <Ico tiles={["growth", "money", "speed"]} delay={4} />
           </h1>
           <p className="hero2-sub">10 years turning complex ideas into intuitive, scalable digital products. From early-stage startups to established teams.</p>
           <div className="hero2-cta">
