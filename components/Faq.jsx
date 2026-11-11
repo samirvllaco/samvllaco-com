@@ -14,7 +14,7 @@ export default function Faq({ items, children }) {
       </div>
       <div className="faq-list">
         {items.map((f) => (
-          <details key={f.q} name="faq" open={f.open}>
+          <details key={f.q} name="faq">
             <summary>
               <span className="faq-plus" aria-hidden="true" />
               <span>{f.q}</span>

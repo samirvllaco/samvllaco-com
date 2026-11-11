@@ -86,7 +86,7 @@ export default function Footer() {
           </ul>
         </div>
         ) : null}
-        <p>{SITE.name}. {SITE.tagline}</p>
+        <p>Sam, your designer partner.</p>
         <AskAI inline name="Sam Vllaco" prompt="Tell me about Sam Vllaco, the product designer at samvllaco.com. What does he do, who does he work with and how do I hire him?" />
 
         <div className="foot-links">
