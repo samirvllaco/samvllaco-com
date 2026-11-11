@@ -1204,3 +1204,8 @@ img.foot-me { height: 76%; aspect-ratio: 800 / 776; transform: translateX(-47%);
 .device-switch button:hover { color: var(--text); }
 .device-switch button[aria-pressed="true"] { background: var(--inv-bg); color: var(--inv-ink); }
 .device-switch button:focus-visible { outline: 3px solid rgba(98, 193, 253, .6); outline-offset: 2px; }
+
+/* Card hover: round open button with an up-right arrow */
+.work-open { right: 14px; bottom: 14px; width: 52px; height: 52px; padding: 0; justify-content: center; border-radius: 50%; background: #fbfbfd; color: #17172a; -webkit-backdrop-filter: none; backdrop-filter: none; box-shadow: 0 0 0 3px #e6e6ec, 0 8px 20px rgba(0, 0, 0, .22); transform: translateY(8px) scale(.9); }
+.work-open svg { transition: transform .45s var(--ease-out); }
+.work-card:hover .work-open svg { transform: translate(2px, -2px); }
