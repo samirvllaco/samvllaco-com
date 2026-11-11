@@ -1581,3 +1581,5 @@ html.tone-fade, html.tone-fade body, html.tone-fade *, html.tone-fade *::before,
 :is(.btn, .head-cta, .hero2-btn, .hire-btn)::before, :is(.btn, .head-cta, .hero2-btn, .hire-btn)::after { border-radius: inherit !important; }
 /* Hero buttons share one width when they stack */
 @media (max-width: 640px) { .hero3 .hero2-cta { display: inline-grid; grid-template-columns: 1fr; justify-items: stretch; gap: 16px; } .hero3 .hero2-cta .hero2-btn { justify-content: center; width: 100%; } }
+.tb-ico { color: var(--text); }
+.tb-ico svg { width: 28px; height: 28px; display: block; }
