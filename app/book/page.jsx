@@ -37,7 +37,7 @@ export default function Book() {
       </header>
       {BOOKING_URL ? (
         <section className="book-cal" id="calendar" aria-label="Pick a time">
-          <iframe src={`${BOOKING_URL}?embed_domain=samvllaco.com&embed_type=Inline&hide_gdpr_banner=1&hide_event_type_details=1&background_color=1d1d1f&text_color=f5f5f7&primary_color=62c1fd`} title="Booking calendar" loading="lazy" />
+          <iframe src={`${BOOKING_URL}?embed=true&theme=dark&layout=month_view`} title="Booking calendar" loading="lazy" />
         </section>
       ) : null}
       <section className="svc-group" aria-labelledby="book-how">

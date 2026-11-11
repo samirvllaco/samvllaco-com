@@ -1172,3 +1172,8 @@ img.foot-me { height: 76%; aspect-ratio: 800 / 776; transform: translateX(-47%);
 .book-cal iframe { filter: invert(.93) hue-rotate(180deg) saturate(1.15); }
 :root[data-theme="light"] .book-cal { background: #fff; }
 :root[data-theme="light"] .book-cal iframe { filter: none; }
+
+/* Cal.com embed has its own dark theme: no filter needed */
+.book-cal { background: transparent; box-shadow: none; border-radius: 0; overflow: visible; }
+.book-cal iframe, :root .book-cal iframe { filter: none; height: 640px; background: transparent; color-scheme: dark; }
+@media (max-width: 760px) { .book-cal iframe { height: 980px; } }
