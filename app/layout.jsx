@@ -1,5 +1,6 @@
 import "./globals.css";
 import Header from "../components/Header";
+import AskAI from "../components/AskAI";
 import Footer from "../components/Footer";
 import BookBand from "../components/BookBand";
 import BookPopup from "../components/BookPopup";
@@ -66,6 +67,7 @@ export default function RootLayout({ children }) {
         <Header />
         <main id="main">{children}</main>
         <BookBand />
+        <AskAI name="Sam Vllaco" prompt="Tell me about Sam Vllaco, the product designer at samvllaco.com. What does he do, who does he work with and how do I hire him?" />
         <Footer />
         <BookPopup />
         <VideoBubble />

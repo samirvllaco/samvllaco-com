@@ -1,5 +1,4 @@
 import Faq from "../components/Faq";
-import AskAI from "../components/AskAI";
 import { FAQ } from "../lib/faq";
 import { SITE, ARTICLES, EMAIL } from "../lib/site";
 import CallIcon from "../components/CallIcon";
@@ -119,8 +118,6 @@ export default function Home() {
         <a className="btn btn-primary" href="/book/"><CallIcon />Schedule a call</a>
         <p className="faq-mail">Or email me at <b>{EMAIL}</b></p>
       </Faq>
-
-      <AskAI name="Sam Vllaco" prompt="Tell me about Sam Vllaco, the product designer at samvllaco.com. What does he do, who does he work with and how do I hire him?" />
     </div>
   );
 }
