@@ -1230,3 +1230,11 @@ img.foot-me { height: 76%; aspect-ratio: 800 / 776; transform: translateX(-47%);
 
 /* Secrets counter sits in the footer row with the links */
 .site-footer .foot-links .secrets { flex: 0 0 auto; width: auto; margin: 0; padding: 0; border: 0; font-size: .875rem; font-weight: 400; color: var(--muted); order: -1; }
+
+/* Home: more air between the work grid, the hire card and the writing section */
+.work .hire-wide { margin-top: clamp(56px, 6vw, 88px); }
+.stack-lg > .home-writing { margin-top: clamp(88px, 9vw, 136px); }
+.home-writing .blog-grid { margin-top: clamp(28px, 3vw, 40px); }
+.home-writing { padding-bottom: clamp(24px, 3vw, 48px); }
+.work > h2 + * { margin-top: 28px; }
+.work-panel { margin-top: 36px; }

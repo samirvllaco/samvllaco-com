@@ -74,7 +74,7 @@ export default function Home() {
 
       {/* Product (Ocufuse) section hidden for now */}
 
-      <section className="stack" data-bg="#000000">
+      <section className="stack home-writing" data-bg="#000000">
         <div className="blog-head">
           <h2>Latest writing</h2>
           <a className="blog-all" href={SITE.links.medium} target="_blank" rel="me noopener noreferrer">All posts <span aria-hidden="true">→</span></a>
