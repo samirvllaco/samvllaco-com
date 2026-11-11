@@ -16,7 +16,7 @@ export const metadata = {
 };
 
 const STEPS = [
-  { t: "Send a short note", d: "What you are building, where it is stuck and a link if you have one." },
+  { t: "Pick a time", d: "Choose a slot in the calendar and add a link to your product if you have one." },
   { t: "We talk for 30 minutes", d: "I look at the product with you and say where design will help most." },
   { t: "You get a plan", d: "Scope, timeline and a fixed price. No obligation." },
 ];
@@ -27,8 +27,8 @@ export default function Book() {
       <Crumbs items={[{ name: "Book a call", href: "/book/" }]} />
       <header className="case-head">
         <p className="case-eyebrow">Available for new projects</p>
-        <h1>Let&rsquo;s design your product</h1>
-        <p className="lede">I turn complex SaaS and AI products into screens people get in seconds.</p>
+        <h1>Free product design review</h1>
+        <p className="lede">30 minutes, one on one. I look at your product with you and show where design will win you more users. You leave with clear next steps, whether we work together or not.</p>
         <div className="btn-row case-cta-row">
           <a className="btn btn-primary" href={BOOKING_URL ? "#calendar" : `mailto:${EMAIL}?subject=Book%20a%20call`}><CallIcon />{BOOKING_URL ? "Pick a time" : "Book a call"}</a>
           <Link className="btn btn-ghost" href="/work/marketing-dashboard/">See a case study</Link>
@@ -37,7 +37,7 @@ export default function Book() {
       </header>
       {BOOKING_URL ? (
         <section className="book-cal" id="calendar" aria-label="Pick a time">
-          <iframe src={`${BOOKING_URL}${BOOKING_URL.includes("?") ? "&" : "?"}embed=true&theme=dark&hide_gdpr_banner=1`} title="Booking calendar" loading="lazy" />
+          <iframe src={`${BOOKING_URL}?embed_domain=samvllaco.com&embed_type=Inline&hide_gdpr_banner=1&hide_event_type_details=1&background_color=1d1d1f&text_color=f5f5f7&primary_color=62c1fd`} title="Booking calendar" loading="lazy" />
         </section>
       ) : null}
       <section className="svc-group" aria-labelledby="book-how">
