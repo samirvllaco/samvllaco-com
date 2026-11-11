@@ -21,24 +21,36 @@ export const metadata = {
   alternates: { canonical: "/" },
 };
 
+// Inline icon tile inside the hero headline.
+function Ico({ n }) {
+  // eslint-disable-next-line @next/next/no-img-element
+  return <img className="h3-ico" src={`/hero/${n}.webp`} width="256" height="256" alt="" />;
+}
+
 export default function Home() {
   return (
     <div className="wrap page stack-lg">
       <SectionColors />
       <section className="hero2" data-bg="#111112">
-        <div className="hero2-main">
-          <p className="hero2-eyebrow">Product designer for SaaS and AI teams</p>
-          <h1>Your product, understood on the first screen.</h1>
-          <p className="hero2-sub">
-            I design SaaS products, dashboards and mobile apps for US teams. 10 years, 50+ clients,
-            one designer from the first call to the handover.
-          </p>
+        <div className="hero3">
+          <p className="hero2-eyebrow">Sam Vllaco · Product Designer</p>
+          <h1>
+            I design <Ico n="figma" /> products<br />
+            people <Ico n="love" /> love, and<br />
+            experiences <Ico n="growth" /> that convert.
+          </h1>
+          <p className="hero2-sub">10 years turning complex ideas into intuitive, scalable digital products. From early-stage startups to established teams.</p>
           <div className="hero2-cta">
-            <a className="hero2-btn hero2-btn-primary" href="/book/"><CallIcon />Schedule a call</a>
+            <a className="hero2-btn hero2-btn-primary" href="#work">Explore my work</a>
+            <a className="hero2-btn hero2-btn-light" href="/book/"><CallIcon />Let's work together</a>
           </div>
           <p className="hero2-micro">30 minutes on Google Meet. Free. Bring a problem, not a brief.</p>
+          <dl className="hero3-stats">
+            <div><dt>10</dt><dd>Years designing</dd></div>
+            <div><dt>UX + CRO</dt><dd>Design expertise</dd></div>
+            <div><dt>0 → 1</dt><dd>Product building</dd></div>
+          </dl>
         </div>
-        <HeroShow />
         <div className="hero2-foot">
           <ul className="hero2-stats" aria-label="In numbers">
             <li><CountUp to={10000} suffix="+" /> screens designed</li>
