@@ -1227,3 +1227,6 @@ img.foot-me { height: 76%; aspect-ratio: 800 / 776; transform: translateX(-47%);
 .active-filters .af-clear { background: transparent; color: var(--muted); padding: 0 8px; text-decoration: underline; text-underline-offset: 3px; }
 .active-filters .af-clear:hover { color: var(--text); opacity: 1; }
 .active-filters button:focus-visible { outline: 3px solid rgba(98, 193, 253, .6); outline-offset: 2px; }
+
+/* Secrets counter sits in the footer row with the links */
+.site-footer .foot-links .secrets { flex: 0 0 auto; width: auto; margin: 0; padding: 0; border: 0; font-size: .875rem; font-weight: 400; color: var(--muted); order: -1; }
