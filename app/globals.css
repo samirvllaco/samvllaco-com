@@ -1776,3 +1776,20 @@ html.js .foot-sig-w[data-reveal], .foot-sig-w { opacity: 1; transform: translate
 .trust.trust-on { padding: 8px 0 28px; gap: 22px; }
 .trust-on li { display: inline-flex; align-items: center; gap: 10px; font-size: clamp(1.125rem, 1.8vw, 1.5rem); font-weight: 600 !important; letter-spacing: -.02em !important; }
 .trust-on svg { width: 28px; height: 28px; }
+/* Swipe deck: card shares the bento background in dark mode, and never overlaps the switch */
+.bx-soft .bx-deck .sd { margin-top: 0; }
+.bx-soft .bx-deck .bx-t { position: absolute; left: 0; right: 0; top: 36px; pointer-events: none; }
+.sd-stack { flex: none; min-height: 0; width: 100%; aspect-ratio: 4 / 3; margin-block: 4px 10px; }
+.sd-card { left: 0; right: 0; top: 0; margin-top: 0; width: 100%; height: 100%; aspect-ratio: auto; }
+.sd-card { background: #131315; box-shadow: none; border-radius: 16px; }
+:root[data-theme="light"] .sd-card { box-shadow: 0 24px 40px -18px rgba(0, 0, 0, .25), inset 0 0 0 1px rgba(0, 0, 0, .06); }
+.sd-under { opacity: 0 !important; }
+:root[data-theme="light"] .sd-under { opacity: .85 !important; }
+
+/* Screens and Animations cards follow the theme */
+.bx-col span { display: block; border-radius: 8px; overflow: hidden; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .06); }
+.bx-col .sd-l { display: none; }
+:root[data-theme="light"] .bx-col .sd-l { display: block; } :root[data-theme="light"] .bx-col .sd-d { display: none; }
+.bx-col span { background: #131315; outline: 1px solid rgba(255, 255, 255, .07); outline-offset: -1px; }
+.bx-motion .bx-frame { background: #131315; box-shadow: none; margin-inline: 12px; }
+:root[data-theme="light"] .bx-motion .bx-frame { background: #e9e9ee; }

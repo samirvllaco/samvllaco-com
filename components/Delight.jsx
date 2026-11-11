@@ -42,12 +42,18 @@ export default function Delight() {
   const timer = useRef(null);
 
   useEffect(() => {
-    // Reveal [data-reveal] blocks when they scroll into view.
-    const els = document.querySelectorAll("[data-reveal]");
-    if (!("IntersectionObserver" in window)) { els.forEach((e) => e.classList.add("is-shown")); return; }
-    const io = new IntersectionObserver((en) => en.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("is-shown"); io.unobserve(e.target); } }), { threshold: 0.2 });
-    els.forEach((e) => io.observe(e));
-    return () => io.disconnect();
+    // Reveal [data-reveal] blocks when they scroll into view. New blocks are picked up too,
+    // so sections still appear after moving between pages without a full reload.
+    const show = (e) => e.classList.add("is-shown");
+    if (!("IntersectionObserver" in window)) { document.querySelectorAll("[data-reveal]").forEach(show); return; }
+    const io = new IntersectionObserver((en) => en.forEach((e) => { if (e.isIntersecting) { show(e.target); io.unobserve(e.target); } }), { threshold: 0.01, rootMargin: "0px 0px -6% 0px" });
+    const seen = new WeakSet();
+    const scan = () => document.querySelectorAll("[data-reveal]:not(.is-shown)").forEach((e) => { if (!seen.has(e)) { seen.add(e); io.observe(e); } });
+    scan();
+    let queued = false;
+    const mo = new MutationObserver(() => { if (queued) return; queued = true; requestAnimationFrame(() => { queued = false; scan(); }); });
+    mo.observe(document.body, { childList: true, subtree: true });
+    return () => { io.disconnect(); mo.disconnect(); };
   }, []);
   useEffect(() => {
     function onToast(e) {

@@ -72,14 +72,14 @@ export default function Bento() {
             {[colA, colB].map((col, k) => (
               <div className="bx-col" key={k}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                {[...col, ...col].map((src, i) => <img key={i} src={src} width="960" height="540" alt="" loading="lazy" />)}
+                {[...col, ...col].map((src, i) => <span key={i}><img className="sd-l" src={src} width="960" height="540" alt="" loading="lazy" /><img className="sd-d" src={src.replace("/wall/", "/wall/dark/")} width="960" height="540" alt="" loading="lazy" /></span>)}
               </div>
             ))}
           </div>
         </Link>
         <Link href={`/work/${clip.slug}/`} className="bx-card bx-mini bx-motion" data-reveal>
           <h3 className="bx-t">Animations</h3>
-          <div className="bx-frame"><AutoVideo src={clip.video} poster={clip.small} /></div>
+          <div className="bx-frame"><AutoVideo src={clip.video} dark={clip.slug === "marketing-dashboard" ? "/work/marketing-dashboard-hover-dark.mp4" : undefined} /></div>
         </Link>
         <Toolbox />
       </div>
