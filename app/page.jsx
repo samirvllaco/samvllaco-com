@@ -1,7 +1,6 @@
 import fs from "fs";
 import path from "path";
 import Bento from "../components/Bento";
-import { Offers, Process } from "../components/Offers";
 import ToneShift from "../components/ToneShift";
 import ScreenWall from "../components/ScreenWall";
 import Testimonials from "../components/Testimonials";
@@ -122,9 +121,7 @@ export default function Home() {
 
 
 
-      <Offers />
 
-      <Process />
 
       {SHOW_TESTIMONIALS ? <Testimonials /> : null}
 

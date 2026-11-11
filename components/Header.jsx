@@ -3,6 +3,7 @@ import CallIcon from "./CallIcon";
 import SoundToggle from "./SoundToggle";
 import ServicesMenu from "./ServicesMenu";
 import ThemeToggle from "./ThemeToggle";
+import HeaderScroll from "./HeaderScroll";
 import { EMAIL } from "../lib/site";
 
 const NAV = [
@@ -15,6 +16,7 @@ const NAV = [
 export default function Header() {
   return (
     <header className="site-header">
+      <HeaderScroll />
       <Link className="top-note" href="/products/">
         <span className="top-badge">New</span>
         <span>AI Slop UI: 25 UX fixes for AI-built apps</span>
