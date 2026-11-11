@@ -52,6 +52,7 @@ export default function Home() {
             <li>
               <a href={SITE.links.medium} rel="me noopener">
                 <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d={MEDIUM_PATH} /></svg>
+                <span className="work-open" aria-hidden="true"><span className="work-open-t">Follow on Medium</span><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M7 17L17 7M9 7h8v8" /></svg></span>
                 <span>Medium</span>
               </a>
             </li>
@@ -85,6 +86,7 @@ export default function Home() {
               <span className="blog-media">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={a.cover} width="1400" height="788" alt={a.coverAlt} loading="lazy" />
+                <span className="work-open" aria-hidden="true"><span className="work-open-t">Read on Medium</span><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M7 17L17 7M9 7h8v8" /></svg></span>
               </span>
               <span className="blog-meta"><span>{a.category}</span><span>Read on Medium</span></span>
               <span className="blog-title">{a.short}</span>
@@ -94,6 +96,7 @@ export default function Home() {
             <a className="blog-card blog-follow" href={SITE.links.medium} target="_blank" rel="me noopener noreferrer" aria-label="Follow Sam Vllaco on Medium, opens in a new tab">
               <span className="blog-media">
                 <svg viewBox="0 0 24 24" width="72" height="72" aria-hidden="true"><path fill="currentColor" d={MEDIUM_PATH} /></svg>
+                <span className="work-open" aria-hidden="true"><span className="work-open-t">Follow on Medium</span><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M7 17L17 7M9 7h8v8" /></svg></span>
               </span>
               <span className="blog-meta"><span>More soon</span><span>Follow on Medium</span></span>
               <span className="blog-title">New stories on design for AI-built apps. Follow to get the next one.</span>

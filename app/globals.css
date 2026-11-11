@@ -1238,3 +1238,8 @@ img.foot-me { height: 76%; aspect-ratio: 800 / 776; transform: translateX(-47%);
 .home-writing { padding-bottom: clamp(24px, 3vw, 48px); }
 .work > h2 + * { margin-top: 28px; }
 .work-panel { margin-top: 36px; }
+
+/* Writing cards use the same hover pill as the work cards */
+.blog-media { position: relative; }
+.blog-card:hover .work-open, .blog-card:focus-visible .work-open { opacity: 1; transform: none; }
+.blog-card .work-open svg, .blog-card:hover .work-open svg { transform: none; }
