@@ -38,7 +38,6 @@ function WorkCard({ w, seen }) {
       </span>
       <span className="work-meta">
         <span className="work-title">{w.title}<span className="work-arrow" aria-hidden="true">→</span></span>
-        <span className="work-sub">{w.sub}</span>
         <span className="work-tags">{w.tags.map((t) => <span key={t}>{t}</span>)}</span>
       </span>
     </Link>
@@ -47,9 +46,10 @@ function WorkCard({ w, seen }) {
 
 export default function WorkGrid() {
   const [tab, setTab] = useState("all");
+  const [device, setDevice] = useState("all");
   const refs = useRef({});
   const seenList = useSeen();
-  const items = tab === "all" ? WORK : WORK.filter((w) => w.tags.includes(tab));
+  const items = WORK.filter((w) => (tab === "all" || w.tags.includes(tab)) && (device === "all" || w.platform === device));
 
   function onKey(e, i) {
     let n = null;
@@ -83,9 +83,17 @@ export default function WorkGrid() {
           </button>
         ))}
       </div>
+      <div className="device-switch" role="group" aria-label="Show desktop or mobile work">
+        <button type="button" aria-pressed={device === "desktop"} aria-label="Desktop work" title="Desktop" onClick={() => { setDevice(device === "desktop" ? "all" : "desktop"); play("tab"); }}>
+          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="12" rx="2" /><path d="M8 20h8M12 16v4" /></svg>
+        </button>
+        <button type="button" aria-pressed={device === "mobile"} aria-label="Mobile work" title="Mobile" onClick={() => { setDevice(device === "mobile" ? "all" : "mobile"); play("tab"); }}>
+          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="7" y="2.5" width="10" height="19" rx="2.5" /><path d="M11 18.500h2" /></svg>
+        </button>
+      </div>
       </div>
       ) : null}
-      <div id="work-panel" role="tabpanel" aria-labelledby={`work-tab-${TABS.findIndex((t) => t.id === tab)}`} className="work-panel" key={tab}>
+      <div id="work-panel" role="tabpanel" aria-labelledby={`work-tab-${TABS.findIndex((t) => t.id === tab)}`} className="work-panel" key={`${tab}-${device}`}>
         {items.length === 0 ? (
           <p className="work-empty">More projects are coming soon.</p>
         ) : (

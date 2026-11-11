@@ -1197,3 +1197,10 @@ img.foot-me { height: 76%; aspect-ratio: 800 / 776; transform: translateX(-47%);
 /* Animated screens in case studies */
 .case-fig video { display: block; width: 100%; height: auto; }
 .case-shot video { display: block; width: 100%; height: auto; border-radius: 10px; background: var(--card); }
+
+/* Desktop / mobile switch beside the work filters */
+.device-switch { display: inline-flex; gap: 2px; padding: 3px; border-radius: 10px; background: var(--card); box-shadow: inset 0 0 0 1px var(--eng-dark), inset 0 0 0 2px var(--eng-light); }
+.device-switch button { display: grid; place-items: center; width: 44px; height: 38px; border: 0; border-radius: 7px; background: transparent; color: var(--muted); cursor: pointer; transition: background-color .25s var(--ease-out), color .25s var(--ease-out); }
+.device-switch button:hover { color: var(--text); }
+.device-switch button[aria-pressed="true"] { background: var(--inv-bg); color: var(--inv-ink); }
+.device-switch button:focus-visible { outline: 3px solid rgba(98, 193, 253, .6); outline-offset: 2px; }
