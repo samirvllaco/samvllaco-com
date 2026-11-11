@@ -1670,3 +1670,4 @@ html.tone-fade, html.tone-fade body, html.tone-fade *, html.tone-fade *::before,
 .tm-more b { font-size: 1.75rem; font-weight: 600; letter-spacing: -.03em; }
 .tm-more i { font-style: normal; font-size: .875rem; color: var(--muted); }
 .tm-more, .tm-more * { text-decoration: none !important; }
+.sd-foot { justify-content: flex-start; gap: 8px; } .sd-hint { order: -1; margin: 0 auto 0 8px; text-align: left; }
