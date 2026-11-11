@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { WORK } from "../lib/work";
 
 // "Now showing" panel in the hero. Cycles through projects, pauses on hover or focus.
-const ORDER = ["marketing-dashboard", "room-planner", "specialist-matching", "revenue-attribution", "cyber-marketplace"];
+const ORDER = ["marketing-dashboard", "freelance-marketplace", "room-editor", "mobile-banking", "language-player", "supplements-store"];
 const ITEMS = ORDER.map((s) => WORK.find((w) => w.slug === s)).filter(Boolean);
 const HOLD = 6000;
 

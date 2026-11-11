@@ -65,7 +65,7 @@ export default function CaseStudy({ params }) {
   if (i < 0) notFound();
   const w = WORK[i];
   const st = STUDIES[w.slug];
-  const others = WORK.filter((x) => x.slug !== w.slug);
+  const others = [...WORK.slice(i + 1), ...WORK.slice(0, i)].slice(0, 3);
   const toc = st
     ? [
         { id: "intro", label: "Intro" },
@@ -80,6 +80,7 @@ export default function CaseStudy({ params }) {
     : [
         { id: "intro", label: "Intro" },
         { id: "overview", label: "Overview" },
+        ...(w.decisions && w.decisions.length ? [{ id: "decisions", label: "Key decisions" }] : []),
         ...(w.screens && w.screens.length ? [{ id: "screens", label: "Screens" }] : []),
         ...(others.length ? [{ id: "more", label: "More work" }] : []),
       ];
@@ -235,6 +236,20 @@ export default function CaseStudy({ params }) {
               <h2>Overview</h2>
               <p>{w.overview}</p>
             </section>
+            {w.decisions && w.decisions.length ? (
+              <section className="case-section" id="decisions">
+                <h2>Key decisions</h2>
+                <div className="case-cards">
+                  {w.decisions.map((d, n) => (
+                    <article key={d.title}>
+                      <span className="case-num">{String(n + 1).padStart(2, "0")}</span>
+                      <h3>{d.title}</h3>
+                      <p>{d.text}</p>
+                    </article>
+                  ))}
+                </div>
+              </section>
+            ) : null}
             {w.screens && w.screens.length ? (
               <section className="case-section" id="screens">
                 <h2>Screens</h2>
