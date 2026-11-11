@@ -1655,3 +1655,9 @@ html.tone-fade, html.tone-fade body, html.tone-fade *, html.tone-fade *::before,
 .trust li { font-size: clamp(1.25rem, 2.2vw, 1.75rem); font-weight: 600; letter-spacing: -.04em; color: var(--muted); opacity: .8; white-space: nowrap; transition: opacity .3s, color .3s; }
 .trust li:nth-child(2) { font-weight: 700; letter-spacing: -.02em; } .trust li:nth-child(3) { font-weight: 500; letter-spacing: .02em; text-transform: lowercase; } .trust li:nth-child(4) { font-weight: 500; letter-spacing: -.01em; }
 .trust li:hover { opacity: 1; color: var(--text); }
+
+/* Tools row: drifts on its own and can be swiped */
+.tb-swipe { overflow-x: auto; scrollbar-width: none; cursor: grab; touch-action: pan-x pan-y; -webkit-overflow-scrolling: touch; }
+.tb-swipe::-webkit-scrollbar { display: none; }
+.tb-swipe.is-drag { cursor: grabbing; user-select: none; }
+.tb .tb-swipe .tb-track { animation: none; transform: none; }

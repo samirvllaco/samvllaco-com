@@ -1,5 +1,6 @@
 import fs from "fs";
 import path from "path";
+import ToolTrack from "./ToolTrack";
 
 // Tools row that scrolls left to right. A tile shows the tool's logo when its official SVG is saved
 // as public/tools/<id>.svg; tools without a file are left out.
@@ -23,10 +24,10 @@ export default function Toolbox() {
   return (
     <div className="bx-card bx-tools tb" data-reveal>
       <p><b>Everyday toolbox</b><span>Used on every project.</span></p>
-      <div className="tb-view">
+      <ToolTrack>
         <ul className="tb-track">{SHOWN.map((t) => tile(t, t[0]))}</ul>
         <ul className="tb-track" aria-hidden="true">{SHOWN.map((t) => tile(t, `${t[0]}-2`))}</ul>
-      </div>
+      </ToolTrack>
     </div>
   );
 }
