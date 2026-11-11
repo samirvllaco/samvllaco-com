@@ -44,14 +44,15 @@ export default function SwipeDeck({ items }) {
       <div className="sd-stack">
         {[2, 1].map((k) => list.length > k ? (
           // eslint-disable-next-line @next/next/no-img-element
-          <div key={`${device}-${n + k}`} className="sd-card sd-under" style={{ transform: `translateY(${(k - pull * (k === 1 ? 1 : 0.5)) * 12}px) scale(${1 - (k - pull * (k === 1 ? 1 : 0.5)) * 0.05})`, opacity: k === 2 ? 0.5 + pull * 0.3 : 0.85 + pull * 0.15 }} aria-hidden="true"><img src={at(k).small} alt="" draggable="false" /></div>
+          <div key={`${device}-${n + k}`} className="sd-card sd-under" style={{ transform: `translateY(${(k - pull * (k === 1 ? 1 : 0.5)) * 12}px) scale(${1 - (k - pull * (k === 1 ? 1 : 0.5)) * 0.05})`, opacity: k === 2 ? 0.5 + pull * 0.3 : 0.85 + pull * 0.15 }} aria-hidden="true"><img className="sd-l" src={at(k).small} alt="" draggable="false" /><img className="sd-d" src={at(k).dark} alt="" draggable="false" /></div>
         ) : null)}
         <Link key={`${device}-${n}`} href={`/work/${top.slug}/`} className={`sd-card sd-topcard${drag.on ? " is-drag" : ""}${out ? " is-out" : ""}`} draggable="false"
           style={{ transform: `translate(${tx}px, ${ty}px) rotate(${tx / 18}deg)`, opacity: out ? 0 : 1 }}
           onPointerDown={down} onPointerMove={move} onPointerUp={up} onPointerCancel={up} onClick={(e) => { if (moved.current) e.preventDefault(); }}
           onKeyDown={(e) => { if (e.key === "ArrowRight") fling(1); if (e.key === "ArrowLeft") fling(-1); }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={top.small} alt={top.alt} draggable="false" />
+          <img className="sd-l" src={top.small} alt="" draggable="false" />
+          <img className="sd-d" src={top.dark} alt={top.alt} draggable="false" />
           <span className="sd-stamp" style={{ opacity: pull }}>{tx > 0 ? "Next ↗" : "↖ Next"}</span>
           <span className="sd-name"><b>{top.title}</b><i>{top.tags[0]}</i></span>
         </Link>

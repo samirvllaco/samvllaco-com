@@ -1758,3 +1758,9 @@ html.js .foot-sig-w[data-reveal], .foot-sig-w { opacity: 1; transform: translate
 .edge-blur i:nth-child(5) { -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); -webkit-mask-image: linear-gradient(180deg, transparent 76%, #000 100%); mask-image: linear-gradient(180deg, transparent 76%, #000 100%); }
 .vid { z-index: 45; } .book-pop { z-index: 46; }
 @media (prefers-reduced-transparency: reduce) { .edge-blur { display: none; } }
+
+/* Swipe deck: dark card backgrounds in dark mode, light ones in light mode */
+.sd-card { background: #18181b; }
+.sd-card .sd-l { display: none; }
+:root[data-theme="light"] .sd-card { background: #e9e9ee; }
+:root[data-theme="light"] .sd-card .sd-l { display: block; } :root[data-theme="light"] .sd-card .sd-d { display: none; }

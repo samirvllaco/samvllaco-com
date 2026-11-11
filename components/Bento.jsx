@@ -56,7 +56,7 @@ export default function Bento() {
         </div>
         <div className="bx-card bx-work bx-deck" data-reveal>
           <h3 className="bx-t">Work</h3>
-          <SwipeDeck items={WORK.map((w) => ({ slug: w.slug, title: w.title, small: w.small, alt: w.alt, platform: w.platform, tags: w.tags }))} />
+          <SwipeDeck items={WORK.map((w) => ({ slug: w.slug, title: w.title, small: w.small, dark: `/work/dark/${w.small.split("?")[0].split("/").pop()}`, alt: w.alt, platform: w.platform, tags: w.tags }))} />
           <p className="bx-cap"><Link href="/#work" className="bx-go">See all work <span aria-hidden="true">→</span></Link></p>
         </div>
         <Link href="/book/" className="bx-card bx-world" data-reveal>
