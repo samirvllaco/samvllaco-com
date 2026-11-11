@@ -70,6 +70,7 @@ export default function RootLayout({ children }) {
         <BookBand />
         <AskAI name="Sam Vllaco" prompt="Tell me about Sam Vllaco, the product designer at samvllaco.com. What does he do, who does he work with and how do I hire him?" />
         <Footer />
+        <div className="edge-blur" aria-hidden="true"><i /><i /><i /><i /><i /></div>
         <BookPopup />
         <VideoBubble />
         <Delight />
