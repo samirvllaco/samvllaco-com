@@ -2014,3 +2014,8 @@ html.is-end .to-top { transform: none; }
 #work.work > h2 + * { margin-top: 36px !important; }
 .bx-sec, .faq { margin-top: clamp(88px, 9vw, 136px) !important; }
 .faq { margin-bottom: clamp(88px, 9vw, 136px); }
+
+/* FAQ card: wide photo on top */
+.faq-card { padding: 16px 16px 24px; border-radius: 20px; box-shadow: none; }
+.faq-card img.faq-photo { width: 100%; height: auto; aspect-ratio: 1891 / 832; border-radius: 12px; object-fit: cover; margin-bottom: 6px; }
+.faq-card > :not(.faq-photo) { margin-inline: 12px; }

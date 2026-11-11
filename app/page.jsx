@@ -93,7 +93,7 @@ export default function Home() {
 
       <Faq items={FAQ}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/sam.jpg" width="88" height="88" alt="Sam Vllaco" loading="lazy" />
+        <img className="faq-photo" src="/sam-sky.webp" width="1891" height="832" alt="Sam Vllaco" loading="lazy" />
         <h3>Something else?</h3>
         <p>Schedule a call and let's talk.</p>
         <a className="btn btn-primary" href="/book/"><CallIcon />Schedule a call</a>
