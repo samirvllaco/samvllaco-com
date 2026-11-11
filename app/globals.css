@@ -1526,3 +1526,12 @@ html.js [data-reveal].is-shown { opacity: 1; transform: none; }
 .h3-slot img { animation-duration: 24s; animation-name: h3-cycle8; }
 @keyframes h3-cycle8 { 0% { opacity: 0; transform: translateY(60%) scale(.8); } 2% { opacity: 1; transform: none; } 12.5% { opacity: 1; transform: none; } 14.5% { opacity: 0; transform: translateY(-60%) scale(.8); } 100% { opacity: 0; transform: translateY(-60%) scale(.8); } }
 .h3-slot { box-shadow: none; }
+/* Hero slots: tiles match the word before them */
+.h3-n3 img { animation: h3-c3 9s cubic-bezier(.7, 0, .2, 1) infinite both; }
+.h3-n2 img { animation: h3-c2 6s cubic-bezier(.7, 0, .2, 1) infinite both; }
+.h3-n1 img { opacity: 1; animation: h3-beat 1.8s ease-in-out infinite; }
+@keyframes h3-c3 { 0% { opacity: 0; transform: translateY(60%) scale(.8); } 5% { opacity: 1; transform: none; } 33.3% { opacity: 1; transform: none; } 38.3% { opacity: 0; transform: translateY(-60%) scale(.8); } 100% { opacity: 0; transform: translateY(-60%) scale(.8); } }
+@keyframes h3-c2 { 0% { opacity: 0; transform: translateY(60%) scale(.8); } 7% { opacity: 1; transform: none; } 50% { opacity: 1; transform: none; } 57% { opacity: 0; transform: translateY(-60%) scale(.8); } 100% { opacity: 0; transform: translateY(-60%) scale(.8); } }
+@keyframes h3-beat { 0%, 100% { transform: scale(1); } 14% { transform: scale(1.12); } 28% { transform: scale(1); } 42% { transform: scale(1.08); } 56% { transform: scale(1); } }
+.h3-n1 { overflow: visible; }
+@media (prefers-reduced-motion: reduce) { .h3-slot img { animation: none !important; } }

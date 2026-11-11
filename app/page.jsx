@@ -21,14 +21,13 @@ export const metadata = {
   alternates: { canonical: "/" },
 };
 
-// Inline icon slot inside the hero headline. It cycles through the tiles, starting at `start`.
-const TILES = ["figma", "love", "growth", "systems", "click", "target", "speed", "code"];
-function Ico({ start = 0 }) {
+// Inline icon slot inside the hero headline. Each slot shows the tiles that match the word before it.
+function Ico({ tiles, delay = 0 }) {
   return (
-    <span className="h3-slot" aria-hidden="true">
-      {TILES.map((n, i) => (
+    <span className={`h3-slot h3-n${tiles.length}`} aria-hidden="true">
+      {tiles.map((n, i) => (
         // eslint-disable-next-line @next/next/no-img-element
-        <img key={n} src={`/hero/${n}.webp`} width="256" height="256" alt="" style={{ animationDelay: `${(((i - start + 8) % 8) * 3 - 24 + start * 0.35).toFixed(2)}s` }} />
+        <img key={n} src={`/hero/${n}.webp`} width="256" height="256" alt="" style={{ animationDelay: `${(i * 3 - tiles.length * 3 + delay).toFixed(2)}s` }} />
       ))}
     </span>
   );
@@ -42,9 +41,9 @@ export default function Home() {
         <div className="hero3">
           <p className="hero2-eyebrow">Sam Vllaco · Product Designer</p>
           <h1>
-            I design <Ico start={0} /> products<br />
-            people <Ico start={1} /> love, and<br />
-            experiences <Ico start={2} /> that convert.
+            I design <Ico tiles={["figma", "systems", "code"]} /> products<br />
+            people love <Ico tiles={["love"]} />, and<br />
+            experiences <Ico tiles={["click", "target"]} delay={0.4} /> that convert <Ico tiles={["growth", "speed"]} delay={0.8} />
           </h1>
           <p className="hero2-sub">10 years turning complex ideas into intuitive, scalable digital products. From early-stage startups to established teams.</p>
           <div className="hero2-cta">
