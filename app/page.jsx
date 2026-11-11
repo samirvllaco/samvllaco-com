@@ -28,7 +28,6 @@ export default function Home() {
           </p>
           <div className="hero2-cta">
             <a className="hero2-btn hero2-btn-primary" href="/book/"><CallIcon />Schedule a call</a>
-            <a className="hero2-btn hero2-btn-light" href="#work">See my work</a>
           </div>
         </div>
         <HeroShow />
