@@ -59,11 +59,6 @@ export default function Home() {
             <a className="hero2-btn hero2-btn-light" href="/book/"><CallIcon />Let's work together</a>
           </div>
           <p className="hero2-micro">30 minutes on Google Meet. Free. Bring a problem, not a brief.</p>
-          <dl className="hero3-stats">
-            <div><dt>10</dt><dd>Years designing</dd></div>
-            <div><dt>UX + CRO</dt><dd>Design expertise</dd></div>
-            <div><dt>0 → 1</dt><dd>Product building</dd></div>
-          </dl>
         </div>
         <div className="hero2-foot">
           <ul className="hero2-stats" aria-label="In numbers">
