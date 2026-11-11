@@ -1,68 +1,86 @@
 import Link from "next/link";
-import CallIcon from "./CallIcon";
 import BentoGlobe from "./BentoGlobe";
 import { WORK } from "../lib/work";
+import { SITE } from "../lib/site";
 
-// Bento grid on the home page. Each card is one link.
-const Arrow = () => <svg className="bn-arrow" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M7 17L17 7M9 7h8v8" /></svg>;
+// Home: main services, then a short bento about Sam. Dark bordered cards.
+const Go = ({ children }) => <span className="bx-go">{children} <span aria-hidden="true">→</span></span>;
+const TOOLS = ["Figma", "FigJam", "Photoshop", "Illustrator", "After Effects", "Claude", "ChatGPT"];
 
-function Card({ n, label, title, text, href, className = "", children }) {
+export function MainServices() {
   return (
-    <Link href={href} className={`bn-card ${className}`}>
-      {children}
-      <div className="bn-copy">
-        <p className="bn-label"><span>{n}</span>{label}</p>
-        <h3>{title}</h3>
-        <p className="bn-text">{text}</p>
+    <section className="bx-sec" aria-labelledby="ms-h" data-bg="#000000">
+      <h2 id="ms-h">What I do</h2>
+      <p className="bx-lede">Four areas, one goal: a product people understand, remember and can find.</p>
+      <div className="ms-grid">
+        <Link href="/services/#design" className="bx-card ms-card">
+          <div className="ms-art ms-design" aria-hidden="true">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={WORK[0].small} width="800" height="600" alt="" loading="lazy" />
+          </div>
+          <h3>Product design</h3>
+        </Link>
+        <Link href="/services/#branding" className="bx-card ms-card">
+          <div className="ms-art ms-brand" aria-hidden="true"><span className="ms-dots"><i /><i /><i /><i /><i /><i /></span><span className="ms-aa">Aa</span></div>
+          <h3>Branding</h3>
+        </Link>
+        <Link href="/services/#marketing" className="bx-card ms-card">
+          <div className="ms-art ms-mkt" aria-hidden="true"><i /><i /><i /><i /><i /></div>
+          <h3>Marketing design</h3>
+        </Link>
+        <Link href="/services/#seo" className="bx-card ms-card">
+          <div className="ms-art ms-seo" aria-hidden="true"><span className="ms-bar" /><span className="ms-res"><i /><i /><i /></span></div>
+          <h3>SEO</h3>
+        </Link>
       </div>
-      <Arrow />
-    </Link>
+    </section>
   );
 }
 
 export default function Bento() {
-  const shots = WORK.slice(0, 6);
   return (
-    <section className="bento" aria-labelledby="bento-h" data-bg="#000000">
-      <h2 id="bento-h" className="sr-only">About Sam and how to work with him</h2>
-      <div className="bn-grid">
-        <Card n="01" label="Intro" href="/about/" className="bn-intro" title="Good design is good business." text="I'm Sam, a product designer helping ambitious teams turn complex ideas into intuitive digital experiences." />
-        <Card n="02" label="Work" href="/#work" className="bn-work" title="Work that speaks for itself." text="Explore selected websites, SaaS platforms, and digital products I've helped design.">
-          <div className="bn-mosaic" aria-hidden="true">
+    <section className="bx-sec" aria-labelledby="bx-h" data-bg="#000000">
+      <h2 id="bx-h" className="sr-only">About Sam</h2>
+      <div className="bx-grid">
+        <div className="bx-stats">
+          <div className="bx-card bx-stat"><b>6+</b><span>Years of experience</span></div>
+          <div className="bx-card bx-stat"><b>50+</b><span>Clients served</span></div>
+          <div className="bx-card bx-stat"><b>10,000+</b><span>Screens designed</span></div>
+        </div>
+        <Link href="/#work" className="bx-card bx-work">
+          <div className="bx-mosaic" aria-hidden="true">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            {shots.map((w) => <img key={w.slug} src={w.small} width="800" height="600" alt="" loading="lazy" />)}
+            {WORK.slice(0, 6).map((w) => <img key={w.slug} src={w.small} width="800" height="600" alt="" loading="lazy" />)}
           </div>
-        </Card>
-        <Card n="03" label="Experience" href="/about/" className="bn-exp" title="6+ years in product design." text="From first concept to developer-ready delivery.">
-          <p className="bn-big" aria-hidden="true">6+</p>
-        </Card>
-        <Card n="04" label="Transformations" href="/services/ux-audit/" className="bn-trans" title="Same product. Better experience." text="See how thoughtful design turns cluttered interfaces into experiences that make sense.">
-          <div className="bn-ba" aria-hidden="true"><span className="bn-before"><i /><i /><i /><i /><i /><i /></span><span className="bn-to">→</span><span className="bn-after"><i /><i /><i /></span></div>
-        </Card>
-        <Card n="05" label="Services" href="/services/" className="bn-serv" title="From idea to interface." text="Product design, UX/UI redesigns, design systems, and conversion optimization.">
-          <ul className="bn-chips" aria-hidden="true"><li>Product design</li><li>UX/UI redesign</li><li>Design systems</li><li>Conversion</li></ul>
-        </Card>
-        <Card n="06" label="Process" href="/book/" className="bn-proc" title="No guesswork. No surprises." text="Clear milestones, regular updates, and designs your developers can actually use.">
-          <ol className="bn-steps" aria-hidden="true"><li>Call</li><li>Scope</li><li>Design</li><li>Handover</li></ol>
-        </Card>
-        <Card n="07" label="Writing" href="/writing/" className="bn-write" title="Things I've learned along the way." text="Practical thoughts on product design, UX, AI, and building digital products.">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <div className="bn-cover" aria-hidden="true"><img src="/writing/ai-slop-ui.webp" width="1400" height="788" alt="" loading="lazy" /></div>
-        </Card>
-        <Card n="08" label="About" href="/about/" className="bn-about" title="The person behind the pixels." text="Designer, maker, and someone who cares about the details.">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img className="bn-face" src="/sam.jpg" width="96" height="96" alt="" loading="lazy" />
-        </Card>
-        <Link href="/book/" className="bn-card bn-contact">
-          <BentoGlobe />
-          <div className="bn-copy">
-            <p className="bn-label"><span>09</span>Contact</p>
-            <h3>Let's make your product better.</h3>
-            <p className="bn-text">I work with teams across Europe, the USA, Canada and Australia. Wherever you are, tell me what you are building.</p>
-            <ul className="bn-where" aria-label="Where my clients are"><li>Europe</li><li>USA</li><li>Canada</li><li>Australia</li></ul>
-            <span className="btn btn-primary bn-btn"><CallIcon />Schedule a call</span>
-          </div>
+          <p className="bx-cap"><b>Work that speaks for itself</b><Go>See the work</Go></p>
         </Link>
+        <Link href="/book/" className="bx-card bx-world">
+          <p className="bx-world-t">Based in {SITE.city || "Tirana, Albania"}</p>
+          <p className="bx-world-s"><i />Clients in Europe, the USA, Canada and Australia</p>
+          <BentoGlobe />
+        </Link>
+        <div className="bx-card bx-founder">
+          <div className="bx-photo">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/sam.jpg" width="640" height="640" alt="Sam Vllaco" loading="lazy" />
+            <p><b>Sam Vllaco</b><span>Product designer and founder</span></p>
+          </div>
+          <div className="bx-bio">
+            <h3>The person behind the pixels</h3>
+            <p>I'm Sam, a product designer helping ambitious teams turn complex ideas into intuitive digital experiences. I design SaaS platforms, AI products, mobile apps and the websites that explain them.</p>
+            <p>I don't just design apps, I build them. Building my own products has changed how I think about users, priorities and shipping, and it shows in the files I hand to your developers.</p>
+            <Link href="/book/" className="bx-link"><Go>Work with Sam</Go></Link>
+          </div>
+        </div>
+        <Link href="/writing/" className="bx-card bx-write">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/writing/ai-slop-ui.webp" width="1400" height="788" alt="" loading="lazy" />
+          <p className="bx-cap"><b>Things I've learned along the way</b><Go>Read the writing</Go></p>
+        </Link>
+        <div className="bx-card bx-tools">
+          <p><b>Everyday toolbox</b><span>Used on every project.</span></p>
+          <ul>{TOOLS.map((t) => <li key={t}>{t}</li>)}</ul>
+        </div>
       </div>
     </section>
   );

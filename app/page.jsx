@@ -1,4 +1,5 @@
-import Bento from "../components/Bento";
+import Bento, { MainServices } from "../components/Bento";
+import ScreenWall from "../components/ScreenWall";
 import Faq from "../components/Faq";
 import { FAQ } from "../lib/faq";
 import { SITE, ARTICLES, EMAIL } from "../lib/site";
@@ -68,6 +69,8 @@ export default function Home() {
         </div>
       </section>
 
+      <ScreenWall />
+
       <section id="work" className="stack work" data-bg="#000000">
           <h2>Work</h2>
           <WorkGrid />
@@ -81,6 +84,8 @@ export default function Home() {
       {/* Globe section hidden for now: <Globe bg="#000000" /> */}
 
 
+
+      <MainServices />
 
       <Bento />
 
