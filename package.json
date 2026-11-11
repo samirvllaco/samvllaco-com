@@ -8,6 +8,7 @@
     "start": "npx serve out"
   },
   "dependencies": {
+    "gsap": "^3.12.5",
     "locomotive-scroll": "^5.0.1",
     "lord-icon-element": "^4.1.2",
     "lottie-web": "^5.13.0",
