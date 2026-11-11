@@ -42,6 +42,14 @@ export default function Delight() {
   const timer = useRef(null);
 
   useEffect(() => {
+    // Reveal [data-reveal] blocks when they scroll into view.
+    const els = document.querySelectorAll("[data-reveal]");
+    if (!("IntersectionObserver" in window)) { els.forEach((e) => e.classList.add("is-shown")); return; }
+    const io = new IntersectionObserver((en) => en.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("is-shown"); io.unobserve(e.target); } }), { threshold: 0.2 });
+    els.forEach((e) => io.observe(e));
+    return () => io.disconnect();
+  }, []);
+  useEffect(() => {
     function onToast(e) {
       setItem({ ...e.detail, id: Date.now() });
       clearTimeout(timer.current);

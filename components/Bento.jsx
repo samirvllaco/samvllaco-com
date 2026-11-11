@@ -1,5 +1,6 @@
 import Link from "next/link";
 import BentoGlobe from "./BentoGlobe";
+import Toolbox from "./Toolbox";
 import { WORK } from "../lib/work";
 import { SITE } from "../lib/site";
 
@@ -78,10 +79,7 @@ export default function Bento() {
           <img src="/writing/ai-slop-ui.webp" width="1400" height="788" alt="" loading="lazy" />
           <p className="bx-cap"><b>Things I've learned along the way</b><Go>Read the writing</Go></p>
         </Link>
-        <div className="bx-card bx-tools">
-          <p><b>Everyday toolbox</b><span>Used on every project.</span></p>
-          <ul>{TOOLS.map((t) => <li key={t}>{t}</li>)}</ul>
-        </div>
+        <Toolbox />
       </div>
     </section>
   );

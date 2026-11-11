@@ -1480,3 +1480,17 @@ body::after { content: ""; position: fixed; right: 0; bottom: 0; width: 280px; h
 }
 .hero2::before { -webkit-mask-image: radial-gradient(ellipse 60% 80% at 82% 30%, #000 0%, transparent 75%); mask-image: radial-gradient(ellipse 60% 80% at 82% 30%, #000 0%, transparent 75%); }
 .faq::before { -webkit-mask-image: radial-gradient(ellipse 45% 70% at 18% 35%, #000 0%, transparent 75%); mask-image: radial-gradient(ellipse 45% 70% at 18% 35%, #000 0%, transparent 75%); }
+
+/* Toolbox marquee */
+.tb { overflow: hidden; }
+.tb-view { display: flex; flex: 1; min-width: 0; overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+.tb .tb-track { display: flex; flex: none; flex-wrap: nowrap; gap: 12px; padding-right: 12px; animation: tb-run 48s linear infinite; }
+.tb:hover .tb-track { animation-play-state: paused; }
+@keyframes tb-run { from { transform: translateX(-100%); } to { transform: translateX(0); } }
+.tb .tb-track li { display: grid; justify-items: center; gap: 8px; padding: 14px 10px 10px; width: 104px; }
+.tb-ico { display: grid; place-items: center; width: 52px; height: 52px; border-radius: 12px; background: var(--card-2); box-shadow: inset 0 0 0 1px var(--line); font-weight: 600; font-size: .9375rem; }
+.tb-name { font-size: .6875rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); white-space: nowrap; }
+html.js [data-reveal] { opacity: 0; transform: translateY(18px); transition: opacity .7s var(--ease-out), transform .7s var(--ease-out); }
+html.js [data-reveal].is-shown { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { .tb .tb-track { animation: none; } .tb-view { overflow-x: auto; } html.js [data-reveal] { opacity: 1; transform: none; transition: none; } }
+.tb .tb-track li { width: 124px; box-shadow: none; padding: 10px 6px; }

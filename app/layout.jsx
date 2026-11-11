@@ -55,7 +55,7 @@ const personSchema = {
 };
 
 // Applies the saved theme before the first paint, so there is no flash.
-const THEME_BOOT = `try{if(JSON.parse(localStorage.getItem("sv:theme"))==="light")document.documentElement.dataset.theme="light"}catch(e){}`;
+const THEME_BOOT = `document.documentElement.classList.add("js");try{if(JSON.parse(localStorage.getItem("sv:theme"))==="light")document.documentElement.dataset.theme="light"}catch(e){}`;
 
 export default function RootLayout({ children }) {
   return (
