@@ -1960,3 +1960,24 @@ html.is-scrolled .to-top { opacity: 1; transform: none; pointer-events: auto; }
 #work.work > h2 { margin: 0 !important; } #work.work > h2 + .work-intro { margin-top: 12px !important; }
 .book-band-head h2 + p { max-width: 52ch; margin-inline: auto; }
 #work.work > h2 + .work-intro { margin-top: -12px !important; } #work.work > .work-intro + * { margin-top: 12px !important; }
+
+/* Ask AI as one row inside the footer */
+.site-footer .ask-ai-row { display: flex; align-items: center; gap: 12px; margin: 0; padding: 0; background: none; text-align: left; }
+.site-footer .ask-ai-row::before { display: none; }
+.ask-ai-row .ask-ai-t { margin: 0; font-size: .875rem; color: #a1a1a6; white-space: nowrap; }
+.site-footer .ask-ai-row ul { display: flex; flex-wrap: nowrap; gap: 6px; margin: 0; padding: 0; list-style: none; }
+.site-footer .ask-ai-row a { display: grid; place-items: center; width: 40px; height: 40px; min-height: 0; padding: 0; border-radius: 50% !important; background: rgba(255, 255, 255, .07); box-shadow: none; transition: background-color .25s, transform .25s var(--ease-out); }
+.site-footer .ask-ai-row a:hover { background: rgba(255, 255, 255, .16); transform: translateY(-2px); }
+.site-footer .ask-ai-row a span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+.site-footer .ask-ai-row img { width: 20px; height: 20px; display: block; }
+@media (max-width: 900px) { .site-footer .ask-ai-row { flex-wrap: wrap; } }
+/* Booking band: same grey as the calendar, full width */
+.book-band { background: #111111; box-shadow: 0 0 0 100vmax #111111; clip-path: inset(0 -100vmax); }
+.book-band::before { display: none; }
+:root[data-theme="light"] .book-band { background: #111111; color: #f5f5f7; }
+:root[data-theme="light"] .book-band-head p { color: #a1a1a6; }
+/* Back to top: centred, only at the end of the page */
+.to-top { left: 50%; transform: translate(-50%, 14px) scale(.96); }
+html.is-scrolled .to-top { opacity: 0; pointer-events: none; transform: translate(-50%, 14px) scale(.96); }
+html.is-end .to-top { opacity: 1; pointer-events: auto; transform: translate(-50%, 0); }
+.book-band-head h2 + p { margin: 12px auto 0 !important; } .site-footer { padding-bottom: 76px; }

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import AskAI from "./AskAI";
 import CopyEmail from "./CopyEmail";
 import FootStage from "./FootStage";
 import { SecretCount } from "./Seen";
@@ -86,6 +87,8 @@ export default function Footer() {
         </div>
         ) : null}
         <p>{SITE.name}. {SITE.tagline}</p>
+        <AskAI inline name="Sam Vllaco" prompt="Tell me about Sam Vllaco, the product designer at samvllaco.com. What does he do, who does he work with and how do I hire him?" />
+
         <div className="foot-links">
           <a href={SITE.links.x} rel="me noopener">X</a>
           <a href={SITE.links.medium} rel="me noopener">Medium</a>

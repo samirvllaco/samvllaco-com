@@ -11,23 +11,23 @@ const TOOLS = [
   { id: "grok", name: "Grok", url: (q) => `https://x.com/i/grok?text=${q}` },
 ];
 
-export default function AskAI({ name, prompt }) {
+export default function AskAI({ name, prompt, inline }) {
   const q = encodeURIComponent(prompt);
   const has = (id) => { try { return fs.existsSync(path.join(process.cwd(), "public", "ai", `${id}.svg`)); } catch { return false; } };
   return (
-    <section className="wrap ask-ai" aria-labelledby="ask-ai-h">
-      <h2 id="ask-ai-h">Ask AI <span className="t2">about {name}</span></h2>
+    <div className={inline ? "ask-ai ask-ai-row" : "wrap ask-ai"} role="group" aria-labelledby="ask-ai-h">
+      <p id="ask-ai-h" className="ask-ai-t">Ask AI about {name.split(" ")[0]}</p>
       <ul>
         {TOOLS.map((t) => (
           <li key={t.id}>
             <a href={t.url(q)} target="_blank" rel="noopener noreferrer" aria-label={`Ask ${t.name} about ${name}, opens in a new tab`}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               {has(t.id) ? <img src={`/ai/${t.id}.svg`} width="20" height="20" alt="" /> : null}
-              {t.name}
+              <span>{t.name}</span>
             </a>
           </li>
         ))}
       </ul>
-    </section>
+    </div>
   );
 }
