@@ -1,6 +1,7 @@
 import "./globals.css";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import BookBand from "../components/BookBand";
 import BookPopup from "../components/BookPopup";
 import SmoothScroll from "../components/SmoothScroll";
 import VideoBubble from "../components/VideoBubble";
@@ -64,6 +65,7 @@ export default function RootLayout({ children }) {
         <a className="skip" href="#main">Skip to content</a>
         <Header />
         <main id="main">{children}</main>
+        <BookBand />
         <Footer />
         <BookPopup />
         <VideoBubble />
