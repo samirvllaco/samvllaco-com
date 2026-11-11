@@ -1,5 +1,6 @@
 import Link from "next/link";
 import BentoGlobe from "./BentoGlobe";
+import WorldFacts, { WorldFlags } from "./WorldFacts";
 import Toolbox from "./Toolbox";
 import { WORK } from "../lib/work";
 import { SITE } from "../lib/site";
@@ -57,8 +58,10 @@ export default function Bento() {
         </Link>
         <Link href="/book/" className="bx-card bx-world">
           <p className="bx-world-t">Based in {SITE.city || "Tirana, Albania"}</p>
-          <p className="bx-world-s"><i />Clients in Europe, the USA, Canada and Australia</p>
+          <p className="bx-world-s"><i />500+ clients across four continents</p>
+          <WorldFlags />
           <BentoGlobe />
+          <WorldFacts />
         </Link>
         <div className="bx-card bx-founder">
           <div className="bx-photo">
