@@ -51,7 +51,7 @@ export default function ServicesMenu() {
               <p className="mega-blurb">{g.blurb}</p>
               <ul>
                 {g.items.map((it) => (
-                  <li key={it.id}><Link href={`/services/#${it.id}`} onClick={() => setOpen(false)}>{it.name}</Link></li>
+                  <li key={it.id}><Link href={`/services/${it.id}/`} onClick={() => setOpen(false)}>{it.name}</Link></li>
                 ))}
               </ul>
             </div>

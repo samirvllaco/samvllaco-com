@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Crumbs from "../../components/Crumbs";
 import CallIcon from "../../components/CallIcon";
 import { SERVICES } from "../../lib/services";
@@ -31,7 +32,7 @@ export default function Services() {
           <ul className="svc-list">
             {g.items.map((it) => (
               <li id={it.id} key={it.id}>
-                <h3>{it.name}</h3>
+                <h3><Link href={`/services/${it.id}/`}>{it.name}</Link></h3>
                 <p>{it.text}</p>
               </li>
             ))}
