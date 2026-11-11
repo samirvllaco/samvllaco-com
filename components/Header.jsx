@@ -10,7 +10,7 @@ const NAV = [
   { href: "/products/", label: "Products", badge: "New" },
   { href: "/writing/", label: "Writing" },
   { href: "/about/", label: "About" },
-  { href: "/links/", label: "Contact" },
+  { href: "/book/", label: "Contact" },
 ];
 
 export default function Header() {
