@@ -2008,3 +2008,9 @@ html.is-end .to-top { transform: none; }
 .bx-col { gap: 10px; }
 .sd-stage { width: 80%; margin-inline: auto; }
 .bx-soft .bx-deck { padding: 32px 28px 36px; }
+
+/* Same space above and below every home section */
+#work.work { padding-block: clamp(88px, 9vw, 136px); }
+#work.work > h2 + * { margin-top: 36px !important; }
+.bx-sec, .faq { margin-top: clamp(88px, 9vw, 136px) !important; }
+.faq { margin-bottom: clamp(88px, 9vw, 136px); }

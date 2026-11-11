@@ -72,7 +72,6 @@ export default function Home() {
 
       <section id="work" className="stack work" data-bg="#1f1f22">
           <h2>Work <span className="t2">that shipped</span></h2>
-          <p className="work-intro">Products across SaaS, fintech, health and mobile. Names changed where an NDA applies, screens are real.</p>
           <WorkGrid />
           <HirePanel />
       </section>
