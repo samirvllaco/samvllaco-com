@@ -9,7 +9,7 @@ import BrandRole from "./BrandRole";
 import { EMAIL } from "../lib/site";
 
 const NAV = [
-  { href: "/work/", label: "Work", badge: "New" },
+  { href: "/work/", label: "Work" },
   { href: "/writing/", label: "Insights" },
   { href: "/ebook/", label: "Book", badge: "$6.99" },
   { href: "/about/", label: "About" },
