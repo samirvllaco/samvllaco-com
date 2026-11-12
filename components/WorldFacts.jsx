@@ -30,7 +30,7 @@ export default function WorldFacts() {
   }, []);
   return (
     <dl className="wf-facts">
-      <div><dt>500+</dt><dd>clients worldwide</dd></div>
+      <div><dt>573</dt><dd>clients worldwide</dd></div>
       <div><dt><span className="wf-live" />{now ? now.me : "Tirana"}</dt><dd>in Tirana{now ? `, ${now.ny} in New York` : ""}</dd></div>
       <div><dt>{now ? `${now.d}h ahead` : "6h ahead"}</dt><dd>of New York. US mornings are my afternoons</dd></div>
     </dl>

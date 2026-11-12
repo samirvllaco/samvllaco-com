@@ -56,7 +56,7 @@ export default function Bento() {
       <div className="bx-grid">
         <div className="bx-stats">
           <div className="bx-card bx-stat"><i className="lr lr-l" aria-hidden="true" /><i className="lr lr-r" aria-hidden="true" /><b>10</b><span>Years of experience</span></div>
-          <div className="bx-card bx-stat"><i className="lr lr-l" aria-hidden="true" /><i className="lr lr-r" aria-hidden="true" /><b>50+</b><span>Clients served</span></div>
+          <div className="bx-card bx-stat"><i className="lr lr-l" aria-hidden="true" /><i className="lr lr-r" aria-hidden="true" /><b>573</b><span>Clients served</span></div>
           <div className="bx-card bx-stat"><i className="lr lr-l" aria-hidden="true" /><i className="lr lr-r" aria-hidden="true" /><b>10,000+</b><span>Screens designed</span></div>
         </div>
         <div className="bx-card bx-work bx-deck" data-reveal>
@@ -65,7 +65,7 @@ export default function Bento() {
         </div>
         <div className="bx-card bx-world" data-reveal>
           <h3 className="bx-t">Worldwide</h3>
-          <p className="bx-world-s"><i />Based in {SITE.city || "Tirana, Albania"}. 500+ clients across four continents</p>
+          <p className="bx-world-s"><i />Based in {SITE.city || "Tirana, Albania"}. 573 clients across four continents</p>
           <WorldFlags />
           <BentoGlobe />
           <WorldFacts />
