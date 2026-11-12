@@ -2475,3 +2475,7 @@ html.js .foot-sig-w[data-reveal], html.js .foot-sig-w[data-reveal].is-shown { op
 /* Reviews end card sits higher over the fading cards */
 .tm-world { bottom: 56px; }
 @media (max-width: 720px) { .tm-world { bottom: 32px; } }
+
+/* Nav badges: quiet translucent white instead of blue */
+.head-nav .top-badge { background: rgba(255, 255, 255, .14); color: rgba(255, 255, 255, .86); box-shadow: none; }
+:root[data-theme="light"]:not(.on-dark):not(.is-end) .head-nav .top-badge { background: rgba(0, 0, 0, .07); color: rgba(0, 0, 0, .7); }
