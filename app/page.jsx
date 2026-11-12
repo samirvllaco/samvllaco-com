@@ -1,3 +1,4 @@
+import SkyPhoto from "../components/SkyPhoto";
 import fs from "fs";
 import path from "path";
 import Bento from "../components/Bento";
@@ -61,7 +62,7 @@ export default function Home() {
         <div className="trust trust-on" aria-labelledby="trust-h">
           <p id="trust-h">Trusted by designers and engineers working at</p>
           <ul>
-            {[["netflix", "Netflix"], ["uber", "Uber"], ["google", "Google"], ["youtube", "YouTube"], ["x", "X"], ["behance", "Behance"], ["dribbble", "Dribbble"]].map(([id, name]) => (
+            {[["netflix", "Netflix"], ["uber", "Uber"], ["google", "Google"], ["youtube", "YouTube"], ["x", "X"], ["dribbble", "Dribbble"]].map(([id, name]) => (
               <li key={id} aria-label={name}>{id === "uber" ? null : <span dangerouslySetInnerHTML={{ __html: fs.readFileSync(path.join(process.cwd(), "public", "social", `${id}.svg`), "utf8") }} />}{id === "x" ? null : name}</li>
             ))}
           </ul>
@@ -93,7 +94,7 @@ export default function Home() {
 
       <Faq items={FAQ}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img className="faq-photo" src="/sam-sky.webp" width="1891" height="832" alt="Sam Vllaco" loading="lazy" />
+        <SkyPhoto className="faq-photo" />
         <h3>Something else?</h3>
         <p>Schedule a call and let's talk.</p>
         <a className="btn btn-primary" href="/book/"><CallIcon />Schedule a call</a>

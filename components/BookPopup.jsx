@@ -29,7 +29,7 @@ export default function BookPopup() {
       <div className="book-cover" aria-hidden="true"><b>AI Slop UI</b></div>
       <div className="book-copy">
         <p className="book-title">AI Slop UI book</p>
-        <p className="book-sub">25 UX fixes · <b>$1.99</b></p>
+        <p className="book-sub">25 UX fixes · <b>$1</b></p>
       </div>
       <Link className="btn btn-primary" href="/products/">Get book</Link>
       <button className="book-close" type="button" onClick={close} aria-label="Close book offer">
