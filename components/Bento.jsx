@@ -76,7 +76,7 @@ export default function Bento() {
             {[colA, colB].map((col, k) => (
               <div className="bx-col" key={k}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                {[...col, ...col].map((src, i) => <span key={i}><img className="sd-l" src={src} width="960" height="540" alt="" loading="lazy" /><img className="sd-d" src={src.replace("/wall/", "/wall/dark/")} width="960" height="540" alt="" loading="lazy" /></span>)}
+                {[...col, ...col].map((src, i) => <span key={i}><img className="sd-l" src={src} width="960" height="540" alt="" loading="lazy" /><img className="sd-d" src={src.replace("/wall/", "/wall/dark/").split("?")[0]} width="960" height="540" alt="" loading="lazy" /></span>)}
               </div>
             ))}
           </div>
