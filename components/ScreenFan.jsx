@@ -3,11 +3,11 @@ import { useEffect, useRef } from "react";
 import Link from "next/link";
 
 // An arc of rounded project screens that drifts slowly sideways, so more screens pass through than fit at once.
-// Cards overlap, lift on hover (which pauses the drift) and spread a little as the row scrolls into view.
+// Cards sit side by side with a small gap (no overlap), lift on hover (which pauses the drift) and spread a little as the row scrolls into view.
 export default function ScreenFan({ items }) {
   const ref = useRef(null);
   const n = items.length;
-  const mid = 3; // seven cards are visible at once; the rest wait off the ends of the arc
+  const mid = 3; // five cards are visible at once; the rest wait off the ends of the arc
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
@@ -19,8 +19,8 @@ export default function ScreenFan({ items }) {
       const a = Math.abs(k);
       li.style.setProperty("--k", k.toFixed(4));
       li.style.zIndex = String(20 - Math.round(a * 2));
-      li.style.opacity = a <= 3 ? "1" : Math.max(0, 1 - (a - 3) * 1.6).toFixed(3);
-      li.style.visibility = a > 3.7 ? "hidden" : "visible";
+      li.style.opacity = a <= 2 ? "1" : Math.max(0, 1 - (a - 2) * 1.5).toFixed(3);
+      li.style.visibility = a > 2.7 ? "hidden" : "visible";
     });
     place(mid);
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
