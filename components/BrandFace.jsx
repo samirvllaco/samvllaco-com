@@ -2,7 +2,7 @@
 import { useEffect, useRef } from "react";
 
 // Header avatar: starts as the normal photo, then rotates through Sam doing different things.
-// Changes slowly on its own after a delay, and quickly while the logo is hovered.
+// Idle: one change every 10 seconds. Hovering the logo flips through them quickly.
 const FACES = ["/sam.jpg", "/me/wave2.webp", "/me/laptop.webp", "/me/coffee2.webp", "/me/sketch2.webp", "/me/think2.webp"];
 
 export default function BrandFace() {
@@ -19,7 +19,7 @@ export default function BrandFace() {
       el.src = FACES[i];
       if (!calm && el.animate) el.animate([{ transform: "scale(.78) rotate(-10deg)", filter: "blur(3px)" }, { transform: "none", filter: "none" }], { duration: 460, easing: "cubic-bezier(.3,1.4,.5,1)" });
     };
-    if (!calm) start = setTimeout(() => { next(); slow = setInterval(() => { if (!fast && !document.hidden) next(); }, 3600); }, 4000);
+    if (!calm) slow = setInterval(() => { if (!fast && !document.hidden) next(); }, 10000);
     const over = () => { if (fast) return; next(); fast = setInterval(next, 1000); };
     const out = () => { clearInterval(fast); fast = null; };
     link?.addEventListener("pointerenter", over);
