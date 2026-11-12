@@ -52,8 +52,8 @@ const FAQ = [
 ];
 
 function Buy({ label }) {
-  if (!BUY_URL) return <span className="btn btn-primary eb-soon" aria-disabled="true">Available soon</span>;
-  return <a className="btn btn-primary" href={BUY_URL} rel="noopener">{label}</a>;
+  if (!BUY_URL) return <span className="hero2-btn hero2-btn-primary eb-soon" aria-disabled="true">Available soon</span>;
+  return <a className="hero2-btn hero2-btn-primary" href={BUY_URL} rel="noopener">{label}</a>;
 }
 
 export default function Ebook() {
@@ -69,7 +69,7 @@ export default function Ebook() {
           <p className="eb-sub">Make your vibe-coded website or app feel human-designed. Spot the mistakes you don't notice, copy the fix, and keep it fixed with one rules file.</p>
           <div className="btn-row">
             <Buy label={`Get the book for ${PRICE}`} />
-            <a className="btn btn-ghost" href="#inside">See what's inside</a>
+            <a className="hero2-btn hero2-btn-light" href="#inside">See what's inside</a>
           </div>
           <ul className="eb-ticks">
             <li>27 ready-to-use prompts</li>

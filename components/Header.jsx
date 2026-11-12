@@ -20,7 +20,7 @@ export default function Header() {
       <HeaderScroll />
       <Link className="top-note" href="/ebook/">
         <span className="top-badge">Just $6.99</span>
-        <span>I'm selling my book: 27 copy-paste prompts to fix AI slop UI</span>
+        <span className="tn-swap"><span className="tn-a">I'm selling my book: 27 copy-paste prompts to fix AI slop UI</span><span className="tn-b" aria-hidden="true">Get your copy: fix your website</span></span>
         <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" /></svg>
       </Link>
       <div className="wrap head-row">
