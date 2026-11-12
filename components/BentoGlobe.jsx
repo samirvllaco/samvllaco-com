@@ -1,9 +1,9 @@
 "use client";
 import { useEffect, useRef } from "react";
-import { geoOrthographic, geoPath, geoInterpolate, geoDistance } from "d3-geo";
+import { geoOrthographic, geoEquirectangular, geoPath, geoInterpolate, geoDistance } from "d3-geo";
 import WORLD from "../lib/world.json";
 
-// Soft dark globe with flat grey land and no borders, centred on Tirana, where Sam's photo sits.
+// Dark globe with land drawn as a field of dots (same look as the reviews card), centred on Tirana, where Sam's photo sits.
 // Client countries are tinted blue, with thin routes from Tirana and a flag pin on each. It can be dragged or swiped.
 const HOME = { lat: 41.3, lon: 19.8, flag: "al" };
 const REGIONS = [
@@ -31,6 +31,28 @@ export default function BentoGlobe() {
     const flags = {};
     ["eu", "us", "ca", "ae", "au"].forEach((c) => { const im = new Image(); im.src = `/flags/${c}.svg`; im.onload = () => { flags[c] = im; }; });
     let face = null; { const im = new Image(); im.src = "/sam.jpg"; im.onload = () => { face = im; }; }
+
+    // Land as dots: paint land (red) and client countries (blue) onto a small flat map once,
+    // then keep the grid points that fall on land. Each frame only projects those points.
+    const DOTS = [];
+    {
+      const MW = 720, MH = 360, m = document.createElement("canvas");
+      m.width = MW; m.height = MH;
+      const mx = m.getContext("2d", { willReadFrequently: true });
+      const flat = geoPath(geoEquirectangular().scale(MW / (2 * Math.PI)).translate([MW / 2, MH / 2]), mx);
+      mx.fillStyle = "#f00"; mx.beginPath(); flat(WORLD.land); mx.fill();
+      mx.fillStyle = "#00f"; mx.beginPath(); GOLD.forEach((f) => flat(f)); mx.fill();
+      const px = mx.getImageData(0, 0, MW, MH).data;
+      const STEP = 1.7;
+      for (let lat = -58; lat <= 82; lat += STEP) {
+        const n = Math.max(1, Math.round((360 * Math.cos((lat * Math.PI) / 180)) / STEP));
+        for (let k = 0; k < n; k++) {
+          const lon = -180 + (k + 0.5) * (360 / n);
+          const o = (Math.min(MH - 1, Math.floor(((90 - lat) / 180) * MH)) * MW + Math.min(MW - 1, Math.floor(((lon + 180) / 360) * MW))) * 4;
+          if (px[o + 3] > 120) DOTS.push([lon, lat, px[o + 2] > px[o]]);
+        }
+      }
+    }
 
     function size() {
       const r = cv.getBoundingClientRect(), d = Math.min(2, window.devicePixelRatio || 1);
@@ -94,10 +116,23 @@ export default function BentoGlobe() {
       const ball = ctx.createRadialGradient(cx - R * 0.35, cy - R * 0.45, R * 0.05, cx, cy, R);
       ball.addColorStop(0, "#262628"); ball.addColorStop(0.7, "#18181a"); ball.addColorStop(1, "#101012");
       ctx.beginPath(); path(SPHERE); ctx.fillStyle = ball; ctx.fill();
-      // land with a soft drop for a raised look
-      // flat, soft land: no borders, no drop shadow, a round join to smooth the coastline
-      ctx.beginPath(); path(WORLD.land); ctx.fillStyle = "#3d3d41"; ctx.strokeStyle = "#3d3d41"; ctx.lineWidth = 2.2; ctx.lineJoin = "round"; ctx.fill(); ctx.stroke();
-      ctx.beginPath(); GOLD.forEach((f) => path(f)); ctx.fillStyle = "rgba(98,193,253,.5)"; ctx.fill();
+      // land as dots, client countries in blue
+      {
+        const c = [-rot[0], -rot[1]], dr = Math.max(1, R * 0.0078);
+        ctx.fillStyle = "rgba(255,255,255,.5)"; ctx.beginPath();
+        const blue = [];
+        for (const d of DOTS) {
+          if (geoDistance(d, c) > 1.5) continue;
+          const q = proj(d);
+          if (!q) continue;
+          if (d[2]) { blue.push(q); continue; }
+          ctx.moveTo(q[0] + dr, q[1]); ctx.arc(q[0], q[1], dr, 0, 6.3);
+        }
+        ctx.fill();
+        ctx.fillStyle = "rgba(98,193,253,.95)"; ctx.beginPath();
+        for (const q of blue) { ctx.moveTo(q[0] + dr, q[1]); ctx.arc(q[0], q[1], dr, 0, 6.3); }
+        ctx.fill();
+      }
       // shading toward the edge
       const limb = ctx.createRadialGradient(cx - R * 0.25, cy - R * 0.3, R * 0.4, cx, cy, R);
       limb.addColorStop(0, "rgba(0,0,0,0)"); limb.addColorStop(1, "rgba(0,0,0,.45)");
