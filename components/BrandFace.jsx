@@ -5,12 +5,12 @@ import { useEffect, useRef } from "react";
 // Idle: one change every 10 seconds. Hovering the logo flips through them quickly.
 const FACES = ["/sam.jpg", "/me/wave2.webp", "/me/laptop.webp", "/me/coffee2.webp", "/me/sketch2.webp", "/me/think2.webp"];
 
-export default function BrandFace() {
+export default function BrandFace({ className = "brand-face" }) {
   const ref = useRef(null);
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    const link = el.closest("a");
+    const link = el.closest("a, button");
     const calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     FACES.forEach((s) => { const im = new Image(); im.src = s; });
     let i = 0, slow, fast, start;
@@ -27,5 +27,5 @@ export default function BrandFace() {
     return () => { clearTimeout(start); clearInterval(slow); clearInterval(fast); link?.removeEventListener("pointerenter", over); link?.removeEventListener("pointerleave", out); };
   }, []);
   // eslint-disable-next-line @next/next/no-img-element
-  return <img ref={ref} className="brand-face" src="/sam.jpg" width="72" height="72" alt="" />;
+  return <img ref={ref} className={className} src="/sam.jpg" width="72" height="72" alt="" />;
 }

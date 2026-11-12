@@ -2780,3 +2780,15 @@ html.is-scrolled .head-nav .top-badge { opacity: 0; transform: scale(.7); max-wi
 .head-cta-book .nb-book, html.is-scrolled .head-cta-book .nb-book { opacity: 1; width: 20px; margin: 0 0 0 -2px; transform: none; pointer-events: auto; overflow: visible; }
 
 .fan-tag .fan-at { font-style: normal; font-weight: 500; font-size: .78em; opacity: .62; letter-spacing: .02em; white-space: nowrap; }
+
+/* Floating avatar matches the header logo: same face, same size, same hover; both online dots are 9px */
+.vid-bubble { width: 36px; height: 36px; border: 0 !important; background: transparent !important; box-shadow: none !important; -webkit-backdrop-filter: none; backdrop-filter: none; overflow: visible; }
+.vid-bubble::before { content: ""; position: absolute; inset: -4px; }
+.vid-bubble .vid-face { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; display: block; box-shadow: 0 0 0 2px rgba(255, 255, 255, .16); }
+.vid-bubble:hover .vid-face { transform: none; }
+.vid-icon { display: none; }
+.vid-on { right: 0; bottom: 0; width: 9px; height: 9px; border-width: 2px; }
+.vid-label { right: 52px; bottom: 6px; }
+html.is-scrolled .brand-me::after, html .brand-me::after { width: 9px; height: 9px; }
+html .brand-me::after { left: 29px; bottom: 6px; }
+html.is-scrolled .brand-me::after, :root[data-theme] html.is-scrolled .brand-me::after { width: 9px; height: 9px; left: 29px; bottom: 6px; box-shadow: 0 0 0 2px var(--card, #1c1c1e); }
