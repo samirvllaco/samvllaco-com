@@ -47,7 +47,6 @@ export default function ServicesMenu() {
     <span className="mega-wrap" ref={wrap} onMouseEnter={enter} onMouseLeave={leave}>
       <button type="button" className={`mega-btn${open ? " is-open" : ""}`} aria-expanded={open} aria-controls="mega-services" onClick={() => setOpen((v) => !v)}>
         Services
-        <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" /></svg>
       </button>
       <div id="mega-services" className="mega" hidden={!open}>
         <div className="wrap mega-in">
