@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 
-const KEY = "book-popup-closed";
+const KEY = "book-promo-closed-v2";
 
 // Bottom right promo card. Design only: the button goes to /products/ until checkout exists.
 export default function BookPopup() {
@@ -25,15 +25,19 @@ export default function BookPopup() {
 
   if (!open) return null;
   return (
-    <aside className="book-pop" aria-label="AI Slop UI book">
-      <div className="book-cover" aria-hidden="true"><b>AI Slop UI</b></div>
-      <div className="book-copy">
-        <p className="book-title">AI Slop UI book</p>
-        <p className="book-sub">25 UX fixes · <b>$1</b></p>
-      </div>
-      <Link className="btn btn-primary" href="/products/">Get book</Link>
-      <button className="book-close" type="button" onClick={close} aria-label="Close book offer">
-        <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" d="M6 6l12 12M18 6L6 18" /></svg>
+    <aside className="bk" aria-label="AI Slop UI book, $1 promo">
+      <Link className="bk-link" href="/products/">
+        <span className="bk-cover">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/book-cover.webp" width="300" height="400" alt="" />
+          <b>AI Slop UI</b>
+          <i>25 UX fixes</i>
+        </span>
+        <span className="bk-tag">$1</span>
+        <span className="bk-tip"><b>My AI book</b><span>$1 promo. 25 UX fixes for AI-built apps.</span></span>
+      </Link>
+      <button className="bk-close" type="button" onClick={close} aria-label="Hide book offer">
+        <svg viewBox="0 0 24 24" width="12" height="12" aria-hidden="true"><path fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" d="M6 6l12 12M18 6L6 18" /></svg>
       </button>
     </aside>
   );
