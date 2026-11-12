@@ -2565,3 +2565,6 @@ html.js .foot-tag, html.js .foot-tag[data-reveal], html.js .foot-tag[data-reveal
 /* Illustrative people stack on the book page */
 .eb-people { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 16px; margin: -8px 0 28px; color: var(--muted, #a1a1a6); font-size: .9375rem; }
 .eb-people .ht-av i { background: #2a2a2e; }
+
+/* Hero dots on both sides for balance, fading out toward the centre copy */
+.hero2::before { -webkit-mask-image: radial-gradient(ellipse 46% 80% at 86% 30%, #000 0%, transparent 75%), radial-gradient(ellipse 46% 80% at 14% 30%, #000 0%, transparent 75%); mask-image: radial-gradient(ellipse 46% 80% at 86% 30%, #000 0%, transparent 75%), radial-gradient(ellipse 46% 80% at 14% 30%, #000 0%, transparent 75%); }
