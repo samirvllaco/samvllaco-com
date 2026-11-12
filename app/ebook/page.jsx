@@ -23,10 +23,41 @@ const PHASES = [
 ];
 
 const STEPS = [
-  ["Spot it", ["Look for the purple to blue gradient", "Count identical icon cards", "Search for emoji used as icons", "Read your headline out loud", "Look for glow and neon", "Measure three gaps", "Find the abstract shapes", "Test the states and the phone"]],
-  ["Set up", ["Expect two or three rounds", "Finish one section at a time", "Design it in Figma first, when you can", "Paste the full link of your reference", "Attach the reference image too", "Say what you need in three lines"]],
-  ["Fix it", ["Build a color system", "Cut type to four sizes", "Put spacing on one scale", "Say what it does in ten words", "Retire the three little boxes", "Use one consistent icon set", "Turn the glow off", "Rewrite the title, paragraph and button", "Design the moments AI skips", "Show the product, not a blob", "Make it work on a phone"]],
-  ["Keep it fixed", ["Fill in DESIGN.md", "Rate it, fix it, rate it again"]],
+  ["Spot it", "Find what makes the page look AI-made", [
+    ["Look for the purple to blue gradient", "List every color and what it is used for. Ten or more with no pattern is the tell."],
+    ["Count identical icon cards", "Three matching cards with an icon, two words and a sentence say nothing specific."],
+    ["Search for emoji used as icons", "Scan feature lists, pricing tiers and buttons. Newer models do it less, but still do."],
+    ["Read your headline out loud", "Say it to someone new and ask what you sell. If they can't tell, it is filler."],
+    ["Look for glow and neon", "Colored glows, neon outlines and heavy shadows look like effort and read as clutter."],
+    ["Measure three gaps", "Write down the space between three pairs of sections. Uneven gaps are felt, not named."],
+    ["Find the abstract shapes", "Is the main image your product, or a blob, a 3D swirl or a stock photo?"],
+    ["Test the states and the phone", "Hover, tab, empty a list, then open the page at 390 pixels wide."],
+  ]],
+  ["Set up", "Prompt in a way that gets it right sooner", [
+    ["Expect two or three rounds", "Treat the first output as a draft and judge the last round, not the first."],
+    ["Finish one section at a time", "Hero, then features, then pricing. One big request gets you the average of everything."],
+    ["Design it in Figma first, when you can", "Dragging boxes for two minutes beats twenty minutes of arguing in prompts."],
+    ["Paste the full link of your reference", "A link plus the part you mean is an instruction. \"Like Linear\" is a guess."],
+    ["Attach the reference image too", "Screenshot the exact section. The AI stops inventing when it can see the target."],
+    ["Say what you need in three lines", "What to change, where, and the exact values. Skip adjectives like modern and clean."],
+  ]],
+  ["Fix it", "Eleven fixes, one prompt each", [
+    ["Build a color system", "Give every color a job and a name. Start in gray, then add one accent."],
+    ["Cut type to four sizes", "One font, four sizes, two weights. Map every size you find to the nearest one."],
+    ["Put spacing on one scale", "A 4-point scale where related things sit close and different things sit apart."],
+    ["Say what it does in ten words", "A headline under ten words, one sentence below it, one primary button."],
+    ["Retire the three little boxes", "Swap them for one big card with a real screenshot and two small ones with a number."],
+    ["Use one consistent icon set", "Filled or lined, never both. Decide once and keep it."],
+    ["Turn the glow off", "Two radii for the whole product, and a thin border or one soft shadow, never both."],
+    ["Rewrite the title, paragraph and button", "One formula so each of the three does a different job."],
+    ["Design the moments AI skips", "Hover, focus, disabled, empty and error states for every control and list."],
+    ["Show the product, not a blob", "A real screenshot with realistic data and one honest line of proof."],
+    ["Make it work on a phone", "Start at 390 pixels, one column, full-width buttons, nothing scrolling sideways."],
+  ]],
+  ["Keep it fixed", "The bonus that makes the fixes stick", [
+    ["Fill in DESIGN.md", "Ten clear rules your AI reads at the start of every session, so it stops forgetting."],
+    ["Rate it, fix it, rate it again", "A scorecard loop you repeat until the page earns a 10 out of 10."],
+  ]],
 ];
 
 const FOR = [
@@ -36,7 +67,7 @@ const FOR = [
 ];
 
 const GET = [
-  "The book: 27 steps, one prompt per step, 54 pages",
+  "The book: 27 steps, one prompt per step, 57 pages",
   "All 27 prompts in one list, numbered and ready to copy",
   "A bonus all-in-one prompt that asks first and waits for your go-ahead",
   "DESIGN.md: a full rules file for spacing, color, icons, copy and states",
@@ -112,14 +143,21 @@ export default function Ebook() {
       <section className="eb-sec">
         <h2>All 27 <span className="t2">steps</span></h2>
         <div className="eb-steps">
-          {STEPS.map(([title, items]) => (
-            <div key={title}>
-              <h3>{title}</h3>
-              <ol>
-                {items.map((it) => { n += 1; return <li key={it}><b>{String(n).padStart(2, "0")}</b>{it}</li>; })}
-              </ol>
-            </div>
-          ))}
+          {STEPS.map(([title, sub, items], gi) => {
+            const bonus = gi === 3;
+            return (
+              <div key={title} className={`eb-grp eb-grp-${gi}${bonus ? " is-bonus" : ""}`}>
+                <div className="eb-grp-h">
+                  <h3>{title}</h3>
+                  <p>{sub}</p>
+                  {bonus ? <span className="eb-bonus">Bonus, inside the book</span> : null}
+                </div>
+                <ol>
+                  {items.map(([it, d]) => { n += 1; return <li key={it}><b>{String(n).padStart(2, "0")}</b><span><strong>{it}</strong><em>{d}</em></span></li>; })}
+                </ol>
+              </div>
+            );
+          })}
         </div>
       </section>
 
@@ -130,6 +168,10 @@ export default function Ebook() {
             // eslint-disable-next-line @next/next/no-img-element
             <img key={i} src={`/ebook/page-${i}.webp?v=2`} width="936" height="1326" alt={`Sample page ${i} from the book`} loading="lazy" />
           ))}
+        </div>
+        <div className="eb-more">
+          <p><b>4 of 57 pages shown</b><span>53 more pages inside: all 27 prompts, 100 UX laws, DESIGN.md and the bonus.</span></p>
+          <Buy label={<>Buy now for <span className="eb-pill">{PRICE}</span></>} />
         </div>
       </section>
 
@@ -155,13 +197,31 @@ export default function Ebook() {
         </aside>
       </section>
 
-      <section className="eb-sec eb-author">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/sam-cut.webp" width="320" height="320" alt="Sam Vllaco" loading="lazy" />
-        <div>
-          <h2>About <span className="t2">the author</span></h2>
-          <p>I'm Sam Vllaco, a product designer. I design SaaS products, dashboards and mobile apps, and I build my own products with the same AI tools you use. This book is the set of rules and prompts I use on them.</p>
-          <p><Link href="/about/">More about me</Link> · <Link href="/work/">See my work</Link></p>
+      <section className="hp eb-hp" aria-labelledby="eb-author-h">
+        <div className="hp-left">
+          <h2 id="eb-author-h">About <span className="t2">the author</span><br /><em>Sam Vllaco, product designer.</em></h2>
+          <p className="hp-lede">I design SaaS products, dashboards and mobile apps, and I build my own products with the same AI tools you use. This book is the set of rules and prompts I use on them.</p>
+          <div className="hp-cols">
+            <div>
+              <p className="hp-label">What I design</p>
+              <ul>{["SaaS products", "Dashboards", "Mobile apps", "Marketing sites", "Design systems"].map((t) => <li key={t}>{t}</li>)}</ul>
+            </div>
+            <div className="hp-hand">
+              <p className="hp-label">What is in the book</p>
+              <ul>{["27 steps", "27 copy-paste prompts", "100 UX laws", "DESIGN.md rules file", "A scorecard to rate your page"].map((t) => <li key={t}>{t}</li>)}</ul>
+            </div>
+          </div>
+          <p className="eb-author-links"><Link href="/about/">More about me</Link> · <Link href="/work/">See my work</Link></p>
+        </div>
+        <div className="hp-right">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img className="hp-photo" src="/sam-footer.webp" width="1254" height="1254" alt="" loading="lazy" />
+          <div className="hp-shade" aria-hidden="true" />
+          <div className="hp-body">
+            <h3>10 years of product design,<br /><em>now in 57 pages you can copy and paste.</em></h3>
+            <p>Every prompt keeps your content and features and changes only the design.</p>
+            <div className="hp-cta"><Buy label={<>Buy now for <span className="eb-pill">{PRICE}</span></>} /></div>
+          </div>
         </div>
       </section>
 
