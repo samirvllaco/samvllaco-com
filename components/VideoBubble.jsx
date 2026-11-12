@@ -57,6 +57,7 @@ export default function VideoBubble() {
           )}
         </span>
       </button>
+      <span className="vid-on" aria-hidden="true" />
       <span className="vid-label" aria-hidden="true">Say hi</span>
     </div>
   );

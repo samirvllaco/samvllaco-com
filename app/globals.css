@@ -2351,3 +2351,14 @@ html.is-end .bk { bottom: 120px; }
 }
 @media (max-width: 720px) { .bx-soft .bx-world-s i { display: none; } .bx-soft .bx-world-s { display: block; text-align: center; } }
 html { overflow-x: clip; } .foot-photo-in { overflow: hidden; }
+
+/* Photo bubble: smaller, thinner ring, online dot */
+.vid-bubble { width: 60px; height: 60px; box-shadow: inset 0 0 0 .5px rgba(255, 255, 255, .16), 0 8px 22px -10px rgba(0, 0, 0, .4) !important; }
+:root[data-theme="light"]:not(.on-dark):not(.is-end) .vid-bubble { box-shadow: inset 0 0 0 .5px rgba(0, 0, 0, .06), 0 8px 22px -12px rgba(0, 0, 0, .16) !important; }
+.vid-on { position: absolute; right: 2px; bottom: 2px; width: 13px; height: 13px; border-radius: 50%; background: #30d158; border: 2px solid var(--bg, #0b0b0c); pointer-events: none; }
+.vid-on::after { content: ""; position: absolute; inset: -2px; border-radius: 50%; border: 2px solid #30d158; opacity: 0; animation: vid-on 2.8s ease-out infinite; }
+@keyframes vid-on { 0% { transform: scale(1); opacity: .55; } 70%, 100% { transform: scale(2); opacity: 0; } }
+.vid.is-open .vid-on { display: none; }
+.vid-label { right: 74px; bottom: 16px; }
+@media (prefers-reduced-motion: reduce) { .vid-on::after { animation: none; } }
+.bk { right: calc(max(16px, env(safe-area-inset-right, 0px)) + 76px); bottom: max(16px, env(safe-area-inset-bottom, 0px)); }
