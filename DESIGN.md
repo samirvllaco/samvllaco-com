@@ -31,3 +31,10 @@ Two buttons side by side are the same width.
 - With no verified entries the hero shows four neutral person icons. Pass `facesOnly` to render nothing instead.
 - Never use generated or stock faces as clients. Do not show a name, project or quote that the client has not agreed to.
 - Used in: hero trust row (`.hero-trust`). Add to the book page and reviews with `<ClientAvatars facesOnly />` once entries are verified.
+
+### Illustrative avatars (not clients)
+
+- `PeopleStack` in `components/ClientAvatars.jsx`, photos listed in `ILLUSTRATIVE` in `lib/clients.js`, files in `public/people/`.
+- Decorative only: no names, no projects, no quotes.
+- Never place it in the hero trust row or beside "Trusted by", star ratings, review counts, client counts, logos or testimonials. Those use `ClientAvatars` with verified entries only.
+- Used in: book page, "Is this for you?" section, as a picture of the audience.

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { PeopleStack } from "../../components/ClientAvatars";
 import Crumbs from "../../components/Crumbs";
 
 // Paste the checkout link here when it exists. While empty, the buy buttons show "Available soon".
@@ -134,6 +135,7 @@ export default function Ebook() {
 
       <section className="eb-sec">
         <h2>Is this <span className="t2">for you?</span></h2>
+        <p className="eb-people"><PeopleStack /><span>Written for founders, designers and developers who build with AI.</span></p>
         <div className="eb-for">
           {FOR.map((f) => (
             <article key={f.t}><h3>{f.t}</h3><p>{f.d}</p></article>

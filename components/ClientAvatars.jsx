@@ -1,6 +1,18 @@
-import { SHOWN_CLIENTS } from "../lib/clients";
+import { SHOWN_CLIENTS, ILLUSTRATIVE } from "../lib/clients";
 
 const PERSON = "M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm0 2c-4.400 0-8 2.200-8 5v1h16v-1c0-2.800-3.600-5-8-5Z";
+
+// Decorative stack of illustrative photos. Not clients: keep it away from trust or review wording.
+export function PeopleStack({ max = 7 }) {
+  return (
+    <span className="ht-av ht-people" aria-hidden="true">
+      {ILLUSTRATIVE.slice(0, max).map((src) => (
+        // eslint-disable-next-line @next/next/no-img-element
+        <i key={src}><img src={src} width="80" height="80" alt="" loading="lazy" /></i>
+      ))}
+    </span>
+  );
+}
 
 // Overlapping avatar stack. Shows verified client photos from lib/clients.js.
 // With none verified it shows four neutral icons, or nothing when `facesOnly` is set.
