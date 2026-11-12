@@ -2532,3 +2532,6 @@ html.js .foot-tag[data-reveal], html.js .foot-tag { opacity: 1; filter: none; tr
 html.js .foot-tag span { display: inline-block; opacity: 0; filter: blur(6px); transform: translateY(.6em); transition: opacity .7s ease, filter .7s ease, transform .7s cubic-bezier(.2, .7, .2, 1); transition-delay: calc(var(--i) * 45ms + .15s); }
 html.js .foot-tag.is-shown span { opacity: 1; filter: none; transform: none; }
 @media (prefers-reduced-motion: reduce) { html.js .foot-tag span { opacity: 1; filter: none; transform: none; transition: none; } }
+
+/* Footer label: larger, centred optically (letter-spacing leaves a trailing gap), more air above */
+.foot-tag { margin: clamp(40px, 6vw, 88px) 0 clamp(4px, 1vw, 16px); padding: 0 16px 0 calc(16px + .3em); font-size: clamp(.8125rem, 1.05vw, 1rem); font-weight: 600; letter-spacing: .3em; line-height: 1.4; color: rgba(255, 255, 255, .78); }
