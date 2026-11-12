@@ -10,8 +10,8 @@ export const metadata = {
 
 const planned = [
   {
-    name: "AI Slop UI: 25 UX Fixes (book), $1",
-    body: "The 25 copy-paste fixes from my Medium story, in one short book you can keep next to your editor. Not on sale yet.",
+    name: "27 Copy-Paste Prompts to Fix AI Slop UI (book), $1",
+    body: "27 steps and 27 prompts that make an AI-built app look designed. See the book page at /ebook/.",
   },
   {
     name: "DESIGN.md starter pack",

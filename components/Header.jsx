@@ -17,9 +17,9 @@ export default function Header() {
   return (
     <header className="site-header">
       <HeaderScroll />
-      <Link className="top-note" href="/products/">
+      <Link className="top-note" href="/ebook/">
         <span className="top-badge">Just $1</span>
-        <span>I'm selling my book: AI Slop UI, 25 UX fixes for AI-built apps</span>
+        <span>I'm selling my book: 27 copy-paste prompts to fix AI slop UI</span>
         <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" /></svg>
       </Link>
       <div className="wrap head-row">
