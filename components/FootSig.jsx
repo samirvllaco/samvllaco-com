@@ -56,12 +56,12 @@ export default function FootSig() {
       if (my !== run.current) return;
       if (i >= list.length) { if (a) a.g.gain.setTargetAtTime(0, a.c.currentTime, 0.03); return; }
       const p = list[i++]; const L = p.getTotalLength();
-      const dur = Math.max(220, L * 0.85);
+      const dur = Math.max(160, L * 0.5);
       const t0 = performance.now();
       const tick = (t) => {
         if (my !== run.current) return;
         const k = Math.min(1, (t - t0) / dur);
-        const e = k < 0.5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;
+        const e = 0.5 - Math.cos(Math.PI * k) / 2;
         p.style.strokeDashoffset = L * (1 - e);
         if (a) {
           const speed = Math.sin(Math.PI * k);
@@ -71,7 +71,7 @@ export default function FootSig() {
           a.bp.frequency.setTargetAtTime(2600 + speed * 1600 + Math.random() * 500, a.c.currentTime, 0.02);
         }
         if (k < 1) requestAnimationFrame(tick);
-        else { if (a) a.g.gain.setTargetAtTime(0, a.c.currentTime, 0.02); setTimeout(next, 90 + Math.random() * 110); }
+        else { if (a) a.g.gain.setTargetAtTime(0, a.c.currentTime, 0.02); setTimeout(next, 30 + Math.random() * 50); }
       };
       requestAnimationFrame(tick);
     };
