@@ -2535,3 +2535,10 @@ html.js .foot-tag.is-shown span { opacity: 1; filter: none; transform: none; }
 
 /* Footer label: larger, centred optically (letter-spacing leaves a trailing gap), more air above */
 .foot-tag { margin: clamp(40px, 6vw, 88px) 0 clamp(4px, 1vw, 16px); padding: 0 16px 0 calc(16px + .3em); font-size: clamp(.8125rem, 1.05vw, 1rem); font-weight: 600; letter-spacing: .3em; line-height: 1.4; color: rgba(255, 255, 255, .78); }
+
+/* Screen wall fades: screens dissolve into the wall's own gray, which then eases into the page, so it reads as one surface */
+.wall-stick { --wall-fade: #000; --wall-tone: #141316; }
+:root[data-theme="light"] .wall-stick { --wall-fade: #fff; --wall-tone: #e8e7ea; }
+.wall-stick::before, .wall-stick::after { height: clamp(140px, 26vh, 300px); }
+.wall-stick::before { background: linear-gradient(180deg, var(--wall-fade) 0%, var(--wall-tone) 46%, transparent 100%); }
+.wall-stick::after { background: linear-gradient(0deg, var(--wall-fade) 0%, var(--wall-tone) 46%, transparent 100%); }
