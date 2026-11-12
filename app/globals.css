@@ -2765,3 +2765,8 @@ html:not(.js) .foot-sig-svg path { stroke-dasharray: none; }
 .head-nav a:hover .nb-img { animation-play-state: paused; transform: rotateY(-34deg) scale(1.18) translateY(-1px); filter: drop-shadow(0 0 10px rgba(246, 170, 50, .65)) drop-shadow(0 3px 3px rgba(0, 0, 0, .6)); }
 @keyframes nb-float { 0%, 100% { transform: rotateY(-14deg) translateY(0); } 50% { transform: rotateY(14deg) translateY(-2px); filter: drop-shadow(0 0 9px rgba(246, 170, 50, .6)) drop-shadow(0 3px 3px rgba(0, 0, 0, .6)); } }
 @media (prefers-reduced-motion: reduce) { .nb-img { animation: none; } }
+
+/* Nav: the book icon and the green dot fade out while their link is hovered */
+.nb-book, .head-nav .nav-dot { transition: opacity .25s ease, transform .25s ease; }
+.head-nav a:hover .nb-book { opacity: 0; transform: scale(.6); }
+.head-nav a:hover .nav-dot { opacity: 0; transform: scale(.4); }
