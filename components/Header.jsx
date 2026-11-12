@@ -7,10 +7,10 @@ import HeaderScroll from "./HeaderScroll";
 import { EMAIL } from "../lib/site";
 
 const NAV = [
-  { href: "/work/", label: "Work" },
+  { href: "/work/", label: "Work", badge: "New" },
   { href: "/writing/", label: "Writing" },
   { href: "/about/", label: "About" },
-  { href: "/book/", label: "Contact" },
+  { href: "/book/", label: "Contact", dot: true },
 ];
 
 export default function Header() {
@@ -32,6 +32,7 @@ export default function Header() {
           <ServicesMenu />
           {NAV.map((n) => (
             <Link key={n.href} href={n.href}>
+              {n.dot ? <i className="nav-dot" aria-hidden="true" /> : null}
               {n.label}
               {n.badge ? <span className="top-badge">{n.badge}</span> : null}
             </Link>
