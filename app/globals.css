@@ -2169,3 +2169,14 @@ html.is-end .edge-blur.edge-top { opacity: 1; }
 @media (max-width: 560px) { .site-header .mega .wrap.mega-in { grid-template-columns: minmax(0, 1fr); } }
 /* Light header pill: faint stroke, very soft shadow */
 @media (min-width: 981px) { :root[data-theme="light"].is-scrolled:not(.is-end) .site-header .wrap.head-row { box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .06), 0 6px 24px -12px rgba(0, 0, 0, .1); } }
+/* World card: globe fades into the card at the bottom, under the fact tiles */
+.bx-world::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 46%; background: linear-gradient(180deg, rgba(13, 13, 14, 0), rgba(13, 13, 14, .85) 55%, #0d0d0e 88%); pointer-events: none; z-index: 0; }
+.bx-world .wf-facts { z-index: 1; }
+/* Mega menu: a floating rounded panel, not full width */
+@media (min-width: 981px) {
+  .site-header .mega { --mw: min(1180px, calc(100vw - 32px)); left: 50%; right: auto; width: var(--mw); margin-left: calc(var(--mw) / -2); top: calc(100% + 10px); border-radius: 24px; box-shadow: inset 0 0 0 1px var(--line), 0 30px 70px -30px rgba(0, 0, 0, .6); }
+  html.is-scrolled .site-header .mega { top: calc(100% + 12px); }
+  .site-header .mega .wrap.mega-in { padding: 36px 36px 40px; gap: 28px 36px; grid-template-columns: repeat(4, minmax(0, 1fr)) minmax(230px, 1.1fr); max-width: none; }
+  :root[data-theme="light"] .site-header .mega { box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .06), 0 24px 60px -30px rgba(0, 0, 0, .18); }
+}
+@media (min-width: 981px) and (max-width: 1180px) { .site-header .mega .wrap.mega-in { grid-template-columns: repeat(2, minmax(0, 1fr)); } }

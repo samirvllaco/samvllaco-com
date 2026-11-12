@@ -13,7 +13,6 @@ const RESOURCES = [
   { name: "Digital products", href: "/products/" },
   { name: "Case studies", href: "/work/" },
   { name: "Questions founders ask", href: "/#faq" },
-  { name: "Send a project brief", href: "/book/#write" },
 ];
 
 export default function ServicesMenu() {

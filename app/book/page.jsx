@@ -2,7 +2,6 @@ import Link from "next/link";
 import PageHead from "../../components/PageHead";
 import CallIcon from "../../components/CallIcon";
 import { EMAIL, SITE, BOOKING_URL, FORM_ENDPOINT } from "../../lib/site";
-import ProjectForm from "../../components/ProjectForm";
 import { SERVICES } from "../../lib/services";
 
 const TITLE = "Book a strategy call with Sam Vllaco";
@@ -31,14 +30,6 @@ export default function Book() {
           <iframe src={`${BOOKING_URL}?embed=true&theme=dark&layout=month_view`} title="Booking calendar" loading="lazy" />
         </section>
       ) : null}
-      <section className="pf-wrap" id="write" aria-labelledby="pf-h">
-        <h2 id="pf-h">Prefer to write?</h2>
-        <p>Send your project details and I come back with questions or a time to talk.</p>
-        <ProjectForm email={EMAIL} endpoint={FORM_ENDPOINT} who="me" example="A new dashboard for our AI product before the March launch."
-          needs={["Product design", "Mobile app", "Website", "Branding", "Marketing design", "SEO"]}
-          budgets={["$1,000 to $5,000", "$5,000 to $10,000", "$10,000 to $25,000", "$25,000+", "Not sure yet"]}
-          starts={["As soon as possible", "Within a month", "In 1 to 3 months", "Just exploring"]} sources={["Google or another search engine", "ChatGPT, Claude or another AI assistant", "X (Twitter)", "LinkedIn", "Upwork or Dribbble", "A referral or somewhere else"]} />
-      </section>
     </div>
   );
 }
