@@ -61,9 +61,9 @@ const STEPS = [
 ];
 
 const FOR = [
-  { t: "Founders who built with AI", d: "Your product works. You want it to stop looking like every other AI-built page, without hiring a designer yet." },
-  { t: "Developers", d: "You can build anything, and you want clear rules for spacing, color and type that you can hand to your AI tool." },
-  { t: "Designers who use AI", d: "You know good design. You want prompts and a rules file that make the AI follow it the first time." },
+  { t: "Founders who built with AI", d: "Your product works. You want it to stop looking AI-made, and you are not ready to hire a designer." },
+  { t: "Developers", d: "You can build anything. You want clear rules for spacing, color and type to hand to your AI tool." },
+  { t: "Designers who use AI", d: "You know good design. You want prompts and rules that make the AI follow it the first time." },
 ];
 
 const GET = [
@@ -76,10 +76,10 @@ const GET = [
 ];
 
 const FAQ = [
-  ["What format is it?", "A PDF, plus three plain text files you can drop into your project."],
-  ["Which AI tools does it work with?", "Any tool that takes a prompt. The prompts are plain language, written for tools like Claude, Lovable, v0, Codex, Cursor and Bolt."],
-  ["Do I need design skills?", "No. Each step says what to do, why it matters and what to check before you accept the AI's change."],
-  ["How long does it take?", "About one hour for one page. Color, type and spacing change the most."],
+  ["What format is it?", "A PDF plus three plain text files (DESIGN.md, SCORECARD.md and PROMPTS.md) you can drop into your project."],
+  ["Which AI tools does it work with?", "Any tool that takes a prompt, such as Claude, Lovable, v0, Codex, Cursor and Bolt. The prompts are plain language."],
+  ["Do I need design skills?", "No. Each step tells you what to do, why it matters and what to check before you accept the AI's change."],
+  ["How long does it take?", "About an hour per page. Color, type and spacing make the biggest difference, so start there."],
   ["Will it rebuild my app?", "No. Every prompt keeps your content and features and changes only the design."],
 ];
 
@@ -98,15 +98,15 @@ export default function Ebook() {
         <div className="eb-copy">
           <p className="eb-kick">Designed, not generated.</p>
           <h1><span className="eb-27">27 copy-paste prompts</span> to fix AI slop UI</h1>
-          <p className="eb-sub">Make your vibe-coded website or app feel human-designed. Spot the mistakes you don't notice, copy the fix, and keep it fixed with one rules file.</p>
+          <p className="eb-sub">Your AI-built site works, but it looks like every other AI-built site. Copy a prompt, paste it into your AI tool, and get a page that looks designed. Then keep it that way with one rules file.</p>
           <div className="btn-row">
             <Buy label={<>Buy now for <span className="eb-pill">{PRICE}</span></>} />
             <a className="hero2-btn hero2-btn-light" href="#inside">See what's inside</a>
           </div>
           <ul className="eb-ticks">
-            <li>27 ready-to-use prompts</li>
+            <li>27 prompts, one per step</li>
             <li>DESIGN.md rules file included</li>
-            <li>No design skills or rebuild required</li>
+            <li>No design skills needed, no rebuild</li>
           </ul>
         </div>
         <div className="eb-cover">
@@ -116,7 +116,7 @@ export default function Ebook() {
       </header>
 
       <section className="eb-tools" aria-label="Tools the prompts work with">
-        <p>Works with what you built in</p>
+        <p>Works with the tool you built in</p>
         <div>
           {TOOLS.map((t) => (
             // eslint-disable-next-line @next/next/no-img-element
@@ -177,7 +177,7 @@ export default function Ebook() {
 
       <section className="eb-sec">
         <h2>Is this <span className="t2">for you?</span></h2>
-        <p className="eb-people"><PeopleStack /><span>Written for founders, designers and developers who build with AI.</span></p>
+        <p className="eb-people"><PeopleStack /><span>For founders, developers and designers who build with AI.</span></p>
         <div className="eb-for">
           {FOR.map((f) => (
             <article key={f.t}><h3>{f.t}</h3><p>{f.d}</p></article>
@@ -233,7 +233,7 @@ export default function Ebook() {
       </section>
 
       <section className="eb-sec eb-end">
-        <h2>Copy-paste solution, <span className="t2">fix your app in 30 minutes</span></h2>
+        <h2>Make your app look designed, <span className="t2">one prompt at a time</span></h2>
         <div className="btn-row"><Buy label={<>Buy now for <span className="eb-pill">{PRICE}</span></>} /></div>
       </section>
     </div>
