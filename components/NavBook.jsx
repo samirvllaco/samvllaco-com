@@ -20,13 +20,13 @@ export default function NavBook() {
   if (here) {
     return (
       <a href={BOOK_URL} target="_blank" rel="noopener">
-        <Book3D />Buy now <span className="top-badge">$6.99</span>
+        <Book3D />E-book <span className="top-badge">$6.99</span>
       </a>
     );
   }
   return (
     <Link href="/ebook/">
-      <Book3D />Book <span className="top-badge">$6.99</span>
+      <Book3D />E-book <span className="top-badge">$6.99</span>
     </Link>
   );
 }
