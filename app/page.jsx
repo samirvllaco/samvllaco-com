@@ -37,7 +37,7 @@ function Ico({ tiles: wanted, delay = 0, at = 0 }) {
     <span className={`h3-slot h3-seq${n === 1 ? " h3-solo" : ""}`} aria-hidden="true" style={{ "--pop": `${3.6 + at * 0.35}s` }}>
       {tiles.map((t, i) => (
         // eslint-disable-next-line @next/next/no-img-element
-        <img key={t} src={`/hero/${t}.webp`} width="256" height="256" alt=""
+        <img key={t} src={`/hero/${t}.webp?v=3`} width="256" height="256" alt=""
           style={n === 1 ? { animationDelay: `${delay - 8}s` } : { animationName: `h3-s${n}`, animationDuration: `${n * 8}s`, animationDelay: `${i * 8 + delay - n * 8}s` }} />
       ))}
     </span>
