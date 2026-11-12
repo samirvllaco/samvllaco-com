@@ -18,6 +18,7 @@ import ArticleMark from "../components/ArticleMark";
 import WorkGrid from "../components/WorkGrid";
 import HirePanel from "../components/HirePanel";
 import HeroShow from "../components/HeroShow";
+import HeroRole from "../components/HeroRole";
 import ClientAvatars from "../components/ClientAvatars";
 import { LocalTime, CountUp } from "../components/Greeting";
 
@@ -62,7 +63,7 @@ export default function Home() {
       <SectionColors />
       <section className="hero2" data-bg="#111112">
         <div className="hero3">
-          <p className="hero-badge"><i aria-hidden="true" />UI/UX Designer</p>
+          <HeroRole />
           <h1>
             I design <Ico id="a" tiles={[["figma", 12], ["photoshop", 5], ["chatgpt", 2.5], ["illustrator", 5], ["pen", 5], ["claude", 2.5], ["systems", 5], ["wand", 4]]} /> digital products{" "}<br />
             people <span className="h3-nw">love <Ico id="b" tiles={[["love", 9], "star", "smile", "like", "chat"]} delay={2} at={1} />,</span> and{" "}<br />

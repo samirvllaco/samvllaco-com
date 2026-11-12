@@ -2,7 +2,7 @@
 import { useEffect, useRef } from "react";
 
 // Small badge beside the logo that cycles through what Sam does.
-const ROLES = ["UI/UX Designer", "Product Designer", "Web Designer", "Landing Page Designer", "SaaS Designer", "Figma Expert", "UX Designer", "UI Designer", "Website Designer", "Mobile App Designer", "iOS App Designer", "Web App Designer", "Dashboard Designer", "CRO Specialist", "Conversion Designer", "UX Consultant", "Design Systems Expert", "UX Writer", "UX Researcher", "Interaction Designer", "Ecommerce Designer", "Shopify Designer", "Startup Designer", "B2B SaaS Designer", "AI Product Designer", "AI UI Designer", "UX Strategist", "Website Redesign Expert", "Prototyping Expert", "AI Slop Fixer"];
+export const ROLES = ["UI/UX Designer", "Product Designer", "Web Designer", "Landing Page Designer", "SaaS Designer", "Figma Expert", "UX Designer", "UI Designer", "Website Designer", "Mobile App Designer", "iOS App Designer", "Web App Designer", "Dashboard Designer", "CRO Specialist", "Conversion Designer", "UX Consultant", "Design Systems Expert", "UX Writer", "UX Researcher", "Interaction Designer", "Ecommerce Designer", "Shopify Designer", "Startup Designer", "B2B SaaS Designer", "AI Product Designer", "AI UI Designer", "UX Strategist", "Website Redesign Expert", "Prototyping Expert", "AI Slop Fixer"];
 
 export default function BrandRole() {
   const ref = useRef(null);

@@ -2614,3 +2614,8 @@ html.js .foot-tag, html.js .foot-tag[data-reveal], html.js .foot-tag[data-reveal
 .hp-left .hp-fields li { padding: 7px 12px; border-radius: 999px; font-size: .8125rem; background: rgba(255, 255, 255, .07); color: rgba(255, 255, 255, .82); box-shadow: none; -webkit-backdrop-filter: none; backdrop-filter: none; }
 :root[data-theme="light"] .hp-left .hp-fields li { background: rgba(0, 0, 0, .06); color: rgba(0, 0, 0, .75); }
 .hp-right .hp-body { margin-top: auto; }
+.hero-badge { cursor: default; transition: background-color .2s ease; }
+.hero-badge:hover, .hero-badge:focus-visible { background: rgba(255, 255, 255, .12); }
+.hero-badge:focus-visible { outline: 3px solid rgba(98, 193, 253, .6); outline-offset: 2px; }
+.hero-badge-t { display: inline-block; overflow: hidden; padding-block: 2px; margin-block: -2px; }
+.hero-badge-t > span { display: inline-block; white-space: nowrap; }
