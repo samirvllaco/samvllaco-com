@@ -6,7 +6,7 @@ import CopyEmailInline from "./HirePanelCopy";
 // Photo: replace public/sam-panel.webp (falls back to the footer portrait until it exists).
 const AUTO = ["Design system upkeep", "Screen variants and states", "Copy and clarity checks", "Consistency rules", "Accessibility checks"];
 const HAND = ["Core user flows", "What goes on the first screen", "Signature interactions", "Onboarding and empty states", "Signup and checkout steps"];
-const FIELDS = ["SaaS", "AI products", "Fintech", "Healthcare", "LegalTech", "Cybersecurity", "E-commerce", "EdTech", "Dashboards"];
+const FIELDS = ["SaaS", "AI products", "Fintech", "Healthcare", "LegalTech", "Cybersecurity", "E-commerce", "EdTech", "Dashboards", "Marketplaces", "Mobile apps", "Language learning", "Editorial", "Sports", "Marketing sites", "Design systems"];
 
 export default function HirePanel({ photo = "/sam-footer.webp" }) {
   return (
@@ -24,12 +24,15 @@ export default function HirePanel({ photo = "/sam-footer.webp" }) {
             <ul>{HAND.map((t) => <li key={t}>{t}</li>)}</ul>
           </div>
         </div>
+        <div className="hp-ind">
+          <p className="hp-label">Industries I have designed for</p>
+          <ul className="hp-fields">{FIELDS.map((t) => <li key={t}>{t}</li>)}</ul>
+        </div>
       </div>
       <div className="hp-right">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img className="hp-photo" src={photo} width="1254" height="1254" alt="" loading="lazy" />
         <div className="hp-shade" aria-hidden="true" />
-        <ul className="hp-fields" aria-label="Industries I have designed for">{FIELDS.map((t) => <li key={t}>{t}</li>)}</ul>
         <div className="hp-body">
           <h3>10 years of product design across industries,<br /><em>with one designer from first call to handover.</em></h3>
           <p>You always work with me. I take the call, design the screens and hand over the files myself.</p>

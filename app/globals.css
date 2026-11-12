@@ -2606,3 +2606,11 @@ html.js .foot-tag, html.js .foot-tag[data-reveal], html.js .foot-tag[data-reveal
   .head-cta { min-height: 38px; padding-inline: 15px; font-size: .875rem; }
   .head-cta .call-ico, .hero2-btn .call-ico { width: 18px; height: 18px; }
 }
+
+/* Hire panel: industries live in the left card, not over the photo */
+.hp-ind { margin-top: 32px; }
+.hp-ind .hp-label { margin-bottom: 14px; }
+.hp-left .hp-fields { position: static; max-width: none; gap: 8px; }
+.hp-left .hp-fields li { padding: 7px 12px; border-radius: 999px; font-size: .8125rem; background: rgba(255, 255, 255, .07); color: rgba(255, 255, 255, .82); box-shadow: none; -webkit-backdrop-filter: none; backdrop-filter: none; }
+:root[data-theme="light"] .hp-left .hp-fields li { background: rgba(0, 0, 0, .06); color: rgba(0, 0, 0, .75); }
+.hp-right .hp-body { margin-top: auto; }
