@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useRef } from "react";
-import { ROLES } from "./BrandRole";
+import { ROLES, onRoleTick } from "./BrandRole";
 
 // Hero badge: rotates through the same roles as the header badge.
 // Hover or focus swaps it to "Available to start" until the pointer leaves.
@@ -23,14 +23,14 @@ export default function HeroRole() {
         el.animate([{ opacity: 0, transform: "translateY(60%)", filter: "blur(4px)" }, { opacity: 1, transform: "none", filter: "none" }], { duration: 380, easing: "cubic-bezier(.2,.8,.2,1)" });
       };
     };
-    const id = calm ? 0 : setInterval(() => { if (held || document.hidden) return; i = (i + 1) % ROLES.length; swap(ROLES[i]); }, 2400);
+    const stop = calm ? () => {} : onRoleTick((n) => { i = n; if (!held) swap(ROLES[i]); });
     const over = () => { if (held) return; held = true; swap(HOVER); };
     const out = () => { if (!held) return; held = false; swap(ROLES[i]); };
     wrap.addEventListener("pointerenter", over);
     wrap.addEventListener("pointerleave", out);
     wrap.addEventListener("focus", over);
     wrap.addEventListener("blur", out);
-    return () => { clearInterval(id); wrap.removeEventListener("pointerenter", over); wrap.removeEventListener("pointerleave", out); wrap.removeEventListener("focus", over); wrap.removeEventListener("blur", out); };
+    return () => { stop(); wrap.removeEventListener("pointerenter", over); wrap.removeEventListener("pointerleave", out); wrap.removeEventListener("focus", over); wrap.removeEventListener("blur", out); };
   }, []);
   return (
     <p className="hero-badge" ref={box} tabIndex={0} aria-label={`${ROLES[0]}. ${HOVER}`}>
