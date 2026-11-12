@@ -50,6 +50,7 @@ export default function Home() {
       <SectionColors />
       <section className="hero2" data-bg="#111112">
         <div className="hero3">
+          <p className="hero-badge"><i aria-hidden="true" />UI/UX Designer</p>
           <h1>
             I design <Ico tiles={["figma", "chatgpt", "claude", "photoshop", "illustrator", "systems"]} /> digital products{" "}<br />
             people <span className="h3-nw">love <Ico tiles={["love"]} delay={6} at={1} />,</span> and{" "}<br />

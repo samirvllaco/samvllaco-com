@@ -2594,3 +2594,8 @@ html.js .foot-tag, html.js .foot-tag[data-reveal], html.js .foot-tag[data-reveal
 
 /* Footer signature: quieter, so the photo and label lead */
 .foot-sig-w .foot-sig { opacity: .42 !important; filter: drop-shadow(0 0 14px rgba(240, 200, 90, .12)); }
+
+/* Hero: small role badge above the title */
+.hero-badge { display: inline-flex; align-items: center; gap: 8px; margin: 0 auto 20px; padding: 7px 14px 7px 12px; border-radius: 999px; background: rgba(255, 255, 255, .08); color: rgba(255, 255, 255, .78); font-size: .8125rem; font-weight: 600; letter-spacing: .02em; line-height: 1; width: fit-content; }
+.hero-badge i { width: 7px; height: 7px; border-radius: 50%; background: #34c759; }
+:root[data-theme="light"] .hero-badge { background: rgba(0, 0, 0, .06); color: rgba(0, 0, 0, .7); }
