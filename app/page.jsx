@@ -51,9 +51,9 @@ export default function Home() {
       <section className="hero2" data-bg="#111112">
         <div className="hero3">
           <h1>
-            I design digital products{" "}<br />
-            people love, and{" "}<br />
-            <span className="t2">experiences that convert</span> <Ico tiles={["figma", "chatgpt", "claude", "photoshop", "illustrator", "click", "systems", "growth", "love", "money"]} />
+            I design <Ico tiles={["figma", "chatgpt", "claude", "photoshop", "illustrator", "systems"]} /> digital products{" "}<br />
+            people <span className="h3-nw">love <Ico tiles={["love"]} delay={6} at={1} />,</span> and{" "}<br />
+            <span className="t2">experiences that convert</span> <Ico tiles={["growth", "money", "click"]} delay={3} at={2} />
           </h1>
           <p className="hero2-sub">I make complex products feel simple, beautiful, and impossible to ignore.</p>
           <div className="hero2-cta">
