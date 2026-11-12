@@ -74,7 +74,7 @@ export default function ServicesMenu() {
           <div className="mega-side">
             <p className="mega-side-title">Not sure what you need?</p>
             <p>Tell me about the product. I will suggest where design will help most.</p>
-            <a className="btn btn-primary" href="/book/"><CallIcon />Schedule a call</a>
+            <a className="btn btn-primary" href="/book/"><CallIcon />Book a call</a>
             <Link className="mega-all" href="/services/" onClick={() => setOpen(false)}>All services <span aria-hidden="true">→</span></Link>
           </div>
         </div>

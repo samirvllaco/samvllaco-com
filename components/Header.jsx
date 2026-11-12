@@ -44,7 +44,7 @@ export default function Header() {
         <div className="head-end">
           <SoundToggle />
           <ThemeToggle />
-          <a className="head-cta" href="/book/"><CallIcon />Schedule a call</a>
+          <a className="head-cta" href="/book/"><CallIcon />Book a call</a>
         </div>
       </div>
     </header>

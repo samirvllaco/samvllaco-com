@@ -1,4 +1,4 @@
-// Generic video call glyph used on the "Schedule a call" buttons.
+// Generic video call glyph used on the "Book a call" buttons.
 export default function CallIcon() {
   return (
     <svg className="call-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">

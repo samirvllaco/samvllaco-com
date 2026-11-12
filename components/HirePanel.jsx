@@ -34,7 +34,7 @@ export default function HirePanel({ photo = "/sam-footer.webp" }) {
           <h3>10 years of product design across industries,<br /><em>with one designer from first call to handover.</em></h3>
           <p>You always work with me. I take the call, design the screens and hand over the files myself.</p>
           <div className="hp-cta">
-            <a className="btn btn-primary" href="/book/"><CallIcon />Schedule a call</a>
+            <a className="btn btn-primary" href="/book/"><CallIcon />Book a call</a>
             <CopyEmailInline />
           </div>
         </div>

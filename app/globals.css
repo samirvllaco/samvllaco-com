@@ -2591,3 +2591,6 @@ html.js .foot-tag, html.js .foot-tag[data-reveal], html.js .foot-tag[data-reveal
   :root[data-theme="light"].on-dark .brand-role { background: rgba(255, 255, 255, .08); color: rgba(255, 255, 255, .72); }
   html.is-scrolled .brand-role { display: none; }
 }
+
+/* Footer signature: quieter, so the photo and label lead */
+.foot-sig-w .foot-sig { opacity: .42 !important; filter: drop-shadow(0 0 14px rgba(240, 200, 90, .12)); }

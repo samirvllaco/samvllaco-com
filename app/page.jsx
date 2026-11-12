@@ -114,8 +114,8 @@ export default function Home() {
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <SkyPhoto className="faq-photo" />
         <h3>Something else?</h3>
-        <p>Schedule a call and let's talk.</p>
-        <a className="btn btn-primary" href="/book/"><CallIcon />Schedule a call</a>
+        <p>Book a call and let&apos;s talk.</p>
+        <a className="btn btn-primary" href="/book/"><CallIcon />Book a call</a>
         <p className="faq-mail">Or email me at <b>{EMAIL}</b></p>
       </Faq>
     </div>
