@@ -2778,3 +2778,5 @@ html.is-scrolled .head-nav .top-badge { opacity: 0; transform: scale(.7); max-wi
 /* Header CTA on the book page: 3D book on the left, always visible */
 .head-cta-book { display: inline-flex; align-items: center; gap: 10px; }
 .head-cta-book .nb-book, html.is-scrolled .head-cta-book .nb-book { opacity: 1; width: 20px; margin: 0 0 0 -2px; transform: none; pointer-events: auto; overflow: visible; }
+
+.fan-tag .fan-at { font-style: normal; font-weight: 500; font-size: .78em; opacity: .62; letter-spacing: .02em; white-space: nowrap; }
