@@ -2059,3 +2059,15 @@ html.is-end .to-top { transform: none; }
   :root[data-theme="light"].is-end .site-header .wrap.head-row { background: rgba(28, 28, 30, .5); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .14), 0 14px 34px -14px rgba(0, 0, 0, .55); }
   :root[data-theme="light"].is-end .head-nav > a, :root[data-theme="light"].is-end .head-nav .mega-btn, :root[data-theme="light"].is-end .head-end button { color: #f5f5f7; }
 }
+
+/* 200+ reviews as one line; softer shadows and stars */
+.tm-more { display: inline-flex; align-items: center; gap: 8px; width: auto; padding: 14px 22px; border-radius: 999px; white-space: nowrap; font-size: 1rem; box-shadow: inset 0 0 0 1px var(--line), 0 8px 28px -10px rgba(0, 0, 0, .35); }
+.tm-more b { font-size: 1rem; font-weight: 600; letter-spacing: 0; }
+.tm-more i { font-size: 1rem; color: var(--muted); }
+.tm-more span:last-child { font-weight: 500; text-decoration: underline !important; text-underline-offset: 4px; text-decoration-color: var(--muted) !important; }
+.tm-stars svg { filter: drop-shadow(0 0 4px rgba(255, 149, 0, .35)); }
+:root[data-theme="light"] .tm-more { background: rgba(255, 255, 255, .86); box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .06), 0 6px 24px -8px rgba(0, 0, 0, .12); }
+:root[data-theme="light"] .tm-stars svg { filter: none; }
+:root[data-theme="light"] .tm-stars svg path { fill: #ff9f0a; }
+/* FAQ card: light grey in light mode */
+:root[data-theme="light"] .faq-card { background: #f5f5f7; }

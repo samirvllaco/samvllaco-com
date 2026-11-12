@@ -22,9 +22,10 @@ export default function Testimonials() {
         ))}
       </div>
       <Link href="/book/" className="tm-more">
-        <span className="tm-stars" aria-hidden="true"><Star /><Star /><Star /><Star /><Star /></span>
-        <b>200+ reviews</b>
-        <i>from clients in Europe, the USA, Canada, Australia and the UAE</i>
+        <span className="tm-stars" aria-hidden="true"><Star /></span>
+        <b>5.0</b>
+        <i aria-hidden="true">·</i>
+        <span>200+ reviews worldwide</span>
       </Link>
       </div>
     </section>
