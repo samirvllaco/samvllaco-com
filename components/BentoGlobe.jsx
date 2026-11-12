@@ -3,8 +3,8 @@ import { useEffect, useRef } from "react";
 import { geoOrthographic, geoPath, geoInterpolate, geoDistance } from "d3-geo";
 import WORLD from "../lib/world.json";
 
-// Solid dark globe with grey land and country borders. Client countries are gold, with thick gold routes
-// from Tirana and a flag pin on each. It turns by itself and can be dragged or swiped.
+// Soft dark globe with flat grey land and no borders, centred on Tirana, where Sam's photo sits.
+// Client countries are tinted blue, with thin routes from Tirana and a flag pin on each. It can be dragged or swiped.
 const HOME = { lat: 41.3, lon: 19.8, flag: "al" };
 const REGIONS = [
   { lat: 50, lon: 9, flag: "eu" },
@@ -24,12 +24,13 @@ export default function BentoGlobe() {
     if (!cv) return;
     const ctx = cv.getContext("2d");
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const proj = geoOrthographic().clipAngle(90).precision(0.4);
+    const proj = geoOrthographic().clipAngle(90).precision(0.8);
     const path = geoPath(proj, ctx);
     let w = 0, h = 0, raf = 0, on = false, R = 100, small = false;
-    let rot = [-10, -8], target = 0, lastAuto = performance.now(), held = null, idleAt = 0;
+    let rot = [-HOME.lon, -(HOME.lat - 36)], target = 0, lastAuto = performance.now(), held = null, idleAt = 0;
     const flags = {};
-    ["eu", "us", "ca", "ae", "au", "al"].forEach((c) => { const im = new Image(); im.src = `/flags/${c}.svg`; im.onload = () => { flags[c] = im; }; });
+    ["eu", "us", "ca", "ae", "au"].forEach((c) => { const im = new Image(); im.src = `/flags/${c}.svg`; im.onload = () => { flags[c] = im; }; });
+    let face = null; { const im = new Image(); im.src = "/sam.jpg"; im.onload = () => { face = im; }; }
 
     function size() {
       const r = cv.getBoundingClientRect(), d = Math.min(2, window.devicePixelRatio || 1);
@@ -56,13 +57,33 @@ export default function BentoGlobe() {
       g.addColorStop(0, "rgba(255,255,255,.35)"); g.addColorStop(0.5, "rgba(255,255,255,0)"); g.addColorStop(1, "rgba(0,0,0,.25)");
       ctx.fillStyle = g; ctx.fillRect(x, y, fw, fh); ctx.restore();
     }
+    // Sam's photo marks Tirana: a pulsing ring, the avatar with a white edge and an online dot, and a label.
+    function me(t) {
+      if (!visible(HOME.lon, HOME.lat)) return;
+      const [x, y] = proj([HOME.lon, HOME.lat]);
+      const r = small ? 19 : 24, p = (t * 0.5) % 1;
+      ctx.strokeStyle = `rgba(98,193,253,${0.7 * (1 - p)})`; ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(x, y, r + 4 + p * 22, 0, 7); ctx.stroke();
+      ctx.save(); ctx.shadowColor = "rgba(0,0,0,.55)"; ctx.shadowBlur = 14; ctx.shadowOffsetY = 5;
+      ctx.beginPath(); ctx.arc(x, y, r + 3, 0, 7); ctx.fillStyle = "#fff"; ctx.fill(); ctx.restore();
+      ctx.save(); ctx.beginPath(); ctx.arc(x, y, r, 0, 7); ctx.clip();
+      if (face) ctx.drawImage(face, x - r, y - r, r * 2, r * 2); else { ctx.fillStyle = "#62c1fd"; ctx.fillRect(x - r, y - r, r * 2, r * 2); }
+      ctx.restore();
+      ctx.beginPath(); ctx.arc(x + r * 0.72, y + r * 0.72, 6, 0, 7); ctx.fillStyle = "#fff"; ctx.fill();
+      ctx.beginPath(); ctx.arc(x + r * 0.72, y + r * 0.72, 4, 0, 7); ctx.fillStyle = "#34c759"; ctx.fill();
+      const label = "Sam, Tirana"; ctx.font = "600 12px ui-sans-serif, system-ui, -apple-system, sans-serif";
+      const tw = ctx.measureText(label).width, lx = x - tw / 2 - 9, ly = y + r + 10;
+      ctx.beginPath(); ctx.roundRect(lx, ly, tw + 18, 24, 12); ctx.fillStyle = "rgba(20,20,22,.82)"; ctx.fill();
+      ctx.fillStyle = "#fff"; ctx.textBaseline = "middle"; ctx.fillText(label, lx + 9, ly + 12.5);
+    }
     function draw(now) {
       const t = now / 1000;
       if (!held && now > idleAt && !reduce) {
         if (now - lastAuto > 4200) { target = (target + 1) % REGIONS.length; lastAuto = now; }
-        const g = REGIONS[target], want = [-(g.lon + HOME.lon) / 2 - (Math.abs(g.lon - HOME.lon) > 150 ? 0 : 0), -Math.max(-60, Math.min(20, (g.lat + HOME.lat) / 2 - 34))];
+        const g = REGIONS[target];
+        const lean = Math.max(-16, Math.min(16, ((((g.lon - HOME.lon) + 540) % 360) - 180) * 0.14));
+        const want = [-(HOME.lon + lean), -(HOME.lat - 36)];
         let d0 = ((want[0] - rot[0] + 540) % 360) - 180;
-        rot = [rot[0] + d0 * 0.035, rot[1] + (want[1] - rot[1]) * 0.035];
+        rot = [rot[0] + d0 * 0.03, rot[1] + (want[1] - rot[1]) * 0.03];
       }
       proj.rotate(rot);
       const cx = w / 2, cy = h * (small ? 0.84 : 0.95);
@@ -71,25 +92,25 @@ export default function BentoGlobe() {
       halo.addColorStop(0, "rgba(255,255,255,.1)"); halo.addColorStop(1, "rgba(255,255,255,0)");
       ctx.fillStyle = halo; ctx.beginPath(); ctx.arc(cx, cy, R * 1.25, 0, 7); ctx.fill();
       const ball = ctx.createRadialGradient(cx - R * 0.35, cy - R * 0.45, R * 0.05, cx, cy, R);
-      ball.addColorStop(0, "#2b2b2c"); ball.addColorStop(0.6, "#171718"); ball.addColorStop(1, "#0c0c0d");
+      ball.addColorStop(0, "#262628"); ball.addColorStop(0.7, "#18181a"); ball.addColorStop(1, "#101012");
       ctx.beginPath(); path(SPHERE); ctx.fillStyle = ball; ctx.fill();
       // land with a soft drop for a raised look
-      ctx.save(); ctx.shadowColor = "rgba(0,0,0,.55)"; ctx.shadowBlur = 6; ctx.shadowOffsetX = 2; ctx.shadowOffsetY = 3;
-      ctx.beginPath(); path(WORLD.land); ctx.fillStyle = "#6b6b66"; ctx.fill(); ctx.restore();
-      ctx.beginPath(); GOLD.forEach((f) => path(f)); ctx.fillStyle = "#4fa9ee"; ctx.fill();
-      ctx.beginPath(); path(WORLD.borders); ctx.strokeStyle = "rgba(20,20,20,.55)"; ctx.lineWidth = 0.7; ctx.stroke();
+      // flat, soft land: no borders, no drop shadow, a round join to smooth the coastline
+      ctx.beginPath(); path(WORLD.land); ctx.fillStyle = "#3d3d41"; ctx.strokeStyle = "#3d3d41"; ctx.lineWidth = 2.2; ctx.lineJoin = "round"; ctx.fill(); ctx.stroke();
+      ctx.beginPath(); GOLD.forEach((f) => path(f)); ctx.fillStyle = "rgba(98,193,253,.5)"; ctx.fill();
       // shading toward the edge
       const limb = ctx.createRadialGradient(cx - R * 0.25, cy - R * 0.3, R * 0.4, cx, cy, R);
-      limb.addColorStop(0, "rgba(0,0,0,0)"); limb.addColorStop(1, "rgba(0,0,0,.62)");
+      limb.addColorStop(0, "rgba(0,0,0,0)"); limb.addColorStop(1, "rgba(0,0,0,.45)");
       ctx.beginPath(); path(SPHERE); ctx.fillStyle = limb; ctx.fill();
       // thick gold routes from Tirana
       REGIONS.forEach((r, i) => {
         const line = { type: "LineString", coordinates: Array.from({ length: 41 }, (_, k) => geoInterpolate([HOME.lon, HOME.lat], [r.lon, r.lat])(k / 40)) };
         ctx.beginPath(); path(line);
-        ctx.strokeStyle = i === target ? "#62c1fd" : "rgba(98,193,253,.4)"; ctx.lineWidth = i === target ? 3.5 : 2; ctx.lineCap = "round"; ctx.stroke();
+        ctx.strokeStyle = i === target ? "rgba(98,193,253,.95)" : "rgba(98,193,253,.28)"; ctx.lineWidth = i === target ? 2.4 : 1.4; ctx.lineCap = "round"; ctx.stroke();
         if (visible(r.lon, r.lat)) { const [x, y] = proj([r.lon, r.lat]); const p = (t * 0.7 + i * 0.2) % 1; ctx.strokeStyle = `rgba(98,193,253,${1 - p})`; ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(x, y, 6 + p * 16, 0, 7); ctx.stroke(); }
       });
-      [...REGIONS.map((r, i) => ({ r, big: i === target })), { r: HOME, big: false }].forEach(({ r, big }) => pin(r, big, t));
+      REGIONS.map((r, i) => ({ r, big: i === target })).forEach(({ r, big }) => pin(r, big, t));
+      me(t);
       if (on) raf = requestAnimationFrame(draw);
     }
     const down = (e) => { held = { x: e.clientX, y: e.clientY, r: rot.slice() }; cv.setPointerCapture?.(e.pointerId); cv.classList.add("is-held"); };
