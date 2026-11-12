@@ -2580,3 +2580,14 @@ html.js .foot-tag, html.js .foot-tag[data-reveal], html.js .foot-tag[data-reveal
   .book-split > .ph h1 { font-size: clamp(2.25rem, 3.4vw, 3.25rem); }
   .book-split > .book-cal { margin: 0; }
 }
+
+/* Logo wordmark in the system font, with a rotating badge of what Sam does */
+.brand-word { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Inter", system-ui, sans-serif; font-weight: 700; font-size: 1.3125rem; letter-spacing: -.02em; }
+.brand-role { display: none; }
+@media (min-width: 1240px) {
+  .brand-role { display: inline-flex; align-items: center; height: 24px; padding: 0 10px; margin-left: 2px; border-radius: 999px; overflow: hidden; background: rgba(255, 255, 255, .08); color: rgba(255, 255, 255, .72); font-size: .75rem; font-weight: 500; letter-spacing: 0; line-height: 1; white-space: nowrap; }
+  .brand-role > span { display: inline-block; }
+  :root[data-theme="light"] .brand-role { background: rgba(0, 0, 0, .06); color: rgba(0, 0, 0, .62); }
+  :root[data-theme="light"].on-dark .brand-role { background: rgba(255, 255, 255, .08); color: rgba(255, 255, 255, .72); }
+  html.is-scrolled .brand-role { display: none; }
+}

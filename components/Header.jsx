@@ -5,6 +5,7 @@ import ServicesMenu from "./ServicesMenu";
 import ThemeToggle from "./ThemeToggle";
 import HeaderScroll from "./HeaderScroll";
 import BrandFace from "./BrandFace";
+import BrandRole from "./BrandRole";
 import { EMAIL } from "../lib/site";
 
 const NAV = [
@@ -28,6 +29,7 @@ export default function Header() {
         <Link className="brand-me" href="/" aria-label="Sam Vllaco, home">
           <BrandFace />
           <span className="brand-word">Sam</span>
+          <BrandRole />
         </Link>
         <nav className="head-nav" aria-label="Main">
           <ServicesMenu />
