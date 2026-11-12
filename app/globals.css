@@ -2149,3 +2149,4 @@ html.is-end .to-top { bottom: 212px; }
 /* Online dot ring follows the header surface */
 @media (min-width: 981px) { :root[data-theme="light"].is-end .brand-me::after { box-shadow: 0 0 0 2.5px #2a2a2c; } }
 @media (min-width: 621px) { .site-footer > .wrap { padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-left: max(16px, env(safe-area-inset-left, 0px)); } }
+.lr-l::after { background-image: url(/laurel-gold2-l.webp); } .lr-r::after { background-image: url(/laurel-gold2-r.webp); } .lr::after { inset: 0; }
