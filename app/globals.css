@@ -2552,3 +2552,8 @@ html.js .hero3 h1 .h3-slot { animation: h3-pop .9s cubic-bezier(.3, 1.35, .5, 1)
 
 /* Footer label sits over his head, which is right of the photo's centre, not over the page centre */
 html.js .foot-tag, html.js .foot-tag[data-reveal], html.js .foot-tag[data-reveal].is-shown, .foot-tag { transform: translateX(calc(min(100vw, 860px) * .056)); }
+
+/* Header: the avatar always sits in front of the "Sam" wordmark, not only after scrolling */
+.brand-me img.brand-face { width: 32px; height: 32px; margin-right: 0; opacity: 1; transform: none; }
+@media (min-width: 981px) { html.is-scrolled .brand-me img.brand-face { width: 36px; height: 36px; } }
+@media (max-width: 420px) { .brand-me .brand-word { display: none; } }
