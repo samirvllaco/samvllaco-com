@@ -26,7 +26,7 @@ export default function BentoGlobe() {
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const proj = geoOrthographic().clipAngle(90).precision(0.4);
     const path = geoPath(proj, ctx);
-    let w = 0, h = 0, raf = 0, on = false, R = 100;
+    let w = 0, h = 0, raf = 0, on = false, R = 100, small = false;
     let rot = [-10, -8], target = 0, lastAuto = performance.now(), held = null, idleAt = 0;
     const flags = {};
     ["eu", "us", "ca", "ae", "au", "al"].forEach((c) => { const im = new Image(); im.src = `/flags/${c}.svg`; im.onload = () => { flags[c] = im; }; });
@@ -34,14 +34,14 @@ export default function BentoGlobe() {
     function size() {
       const r = cv.getBoundingClientRect(), d = Math.min(2, window.devicePixelRatio || 1);
       w = r.width; h = r.height; cv.width = Math.round(w * d); cv.height = Math.round(h * d); ctx.setTransform(d, 0, 0, d, 0, 0);
-      R = Math.min(w * 0.62, h * 0.66);
-      proj.scale(R).translate([w / 2, h * 0.95]);
+      small = w < 480; R = small ? w * 0.72 : Math.min(w * 0.62, h * 0.66);
+      proj.scale(R).translate([w / 2, h * (small ? 0.84 : 0.95)]);
     }
     const visible = (lon, lat) => geoDistance([lon, lat], [-rot[0], -rot[1]]) < Math.PI / 2 - 0.05;
     function pin(r, big, t) {
       if (!visible(r.lon, r.lat)) return;
       const [bx, by] = proj([r.lon, r.lat]);
-      const cx = w / 2, cy = h * 0.95, dx = bx - cx, dy = by - cy, k = big ? 0.2 : 0.13;
+      const cx = w / 2, cy = h * (small ? 0.84 : 0.95), dx = bx - cx, dy = by - cy, k = big ? 0.2 : 0.13;
       const tx = bx + dx * k, ty = by + dy * k - (big ? 16 : 10);
       const fw = big ? 40 : 28, fh = fw * 0.72, bob = Math.sin(t * 1.6 + r.lon) * 1.2;
       ctx.strokeStyle = "rgba(255,255,255,.9)"; ctx.lineWidth = 2; ctx.lineCap = "round";
@@ -65,7 +65,7 @@ export default function BentoGlobe() {
         rot = [rot[0] + d0 * 0.035, rot[1] + (want[1] - rot[1]) * 0.035];
       }
       proj.rotate(rot);
-      const cx = w / 2, cy = h * 0.95;
+      const cx = w / 2, cy = h * (small ? 0.84 : 0.95);
       ctx.clearRect(0, 0, w, h);
       const halo = ctx.createRadialGradient(cx, cy, R * 0.9, cx, cy, R * 1.25);
       halo.addColorStop(0, "rgba(255,255,255,.1)"); halo.addColorStop(1, "rgba(255,255,255,0)");

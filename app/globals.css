@@ -2320,3 +2320,34 @@ html.is-end .bk { bottom: 120px; }
 .book-cal iframe, :root .book-cal iframe { height: 620px; transition: height .3s ease; }
 @media (max-width: 760px) { .book-cal iframe, :root .book-cal iframe { height: 1000px; } }
 .book-band-head { margin-bottom: 28px; }
+/* Bento: one padding, one title row and one gap for every card */
+.bx-soft { --bp: 32px; --bg: 24px; }
+.bx-soft .bx-work, .bx-soft .bx-mini { padding: var(--bp) !important; }
+.bx-soft .bx-world { padding: var(--bp) 20px 20px !important; }
+.bx-soft .bx-t { margin: 0; height: 40px; line-height: 40px; font-size: 1.375rem; }
+.bx-soft .bx-deck .bx-t { top: var(--bp); }
+.bx-soft .sd-top { min-height: 40px; } .sd-count { margin-left: 0; }
+.bx-soft .sd { gap: 12px; } .bx-soft .sd-stage { margin-top: var(--bg); margin-bottom: 4px; }
+.bx-soft .bx-world-s { margin: 8px 0 0; } .bx-soft .wf-flags { margin-top: 16px; padding: 0; }
+.bx-soft .wf-facts { margin: auto 0 0; gap: 8px; }
+.bx-soft .bx-cols { margin: var(--bg) auto 0; width: min(100%, 520px); }
+.bx-soft .bx-motion .bx-frame { margin: var(--bg) auto 0; }
+.bx-soft .bx-mini { min-height: 380px; align-items: stretch; }
+.bx-soft .bx-tools { padding: 24px var(--bp); }
+@media (max-width: 720px) {
+  .bx-soft { --bp: 20px; --bg: 16px; }
+  .bx-soft .bx-grid { gap: 12px; }
+  .bx-soft .bx-card { border-radius: 22px; }
+  .bx-soft .bx-t { height: 36px; line-height: 36px; font-size: 1.25rem; }
+  .bx-soft .bx-world { padding: var(--bp) 12px 12px !important; min-height: 600px; }
+  .bx-soft .bx-world-s { font-size: .875rem; padding-inline: 8px; }
+  .wf-flags li { font-size: .75rem; padding: 5px 10px 5px 5px; }
+  .bx-soft .wf-facts { grid-template-columns: minmax(0, 1fr); gap: 6px; }
+  .bx-soft .bx-mini { min-height: 320px; }
+  .bx-soft .bx-motion .bx-frame { width: 86%; }
+  .bx-soft .sd-stage { aspect-ratio: 16 / 10; } .sd-slide { inset: 4% 12%; }
+  .bx-soft .bx-tools { padding: 20px; gap: 16px; }
+  .bx-soft .bx-stat { min-height: 120px; }
+}
+@media (max-width: 720px) { .bx-soft .bx-world-s i { display: none; } .bx-soft .bx-world-s { display: block; text-align: center; } }
+html { overflow-x: clip; } .foot-photo-in { overflow: hidden; }
