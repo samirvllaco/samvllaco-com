@@ -2512,3 +2512,10 @@ html.js .hero3 > .hero-trust { animation-delay: .32s; }
 .top-note:hover .tn-a, .top-note:focus-visible .tn-a { opacity: 0; transform: translateY(-8px); }
 .top-note:hover .tn-b, .top-note:focus-visible .tn-b { opacity: 1; transform: none; }
 @media (prefers-reduced-motion: reduce) { .tn-swap > span, .top-note svg { transition: none; } }
+
+/* Hero proof row: award and trusted-by side by side with a hairline between */
+.hero-proof { display: inline-flex; align-items: center; justify-content: center; gap: clamp(20px, 3vw, 36px); margin: clamp(22px, 3vw, 36px) 0 clamp(18px, 2.4vw, 30px); }
+.hero-proof .hero-award, .hero-proof .hero-trust { margin: 0; }
+.hp-div { width: 1px; height: 44px; background: color-mix(in srgb, var(--text) 16%, transparent); }
+html.js .hero3 > .hero-proof { animation-delay: .32s; }
+@media (max-width: 640px) { .hero-proof { flex-direction: column; gap: 18px; } .hp-div { width: 44px; height: 1px; } }
