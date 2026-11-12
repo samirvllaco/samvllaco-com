@@ -2549,3 +2549,6 @@ html.js .foot-tag.is-shown span { opacity: 1; filter: none; transform: none; }
 html.js .hero3 h1 .h3-slot { animation: h3-pop .9s cubic-bezier(.3, 1.35, .5, 1) var(--pop, 3.6s) both; }
 @media (max-width: 640px) { html.js .hero3 h1 .h3-slot { animation-name: h3-pop-s; } }
 @media (prefers-reduced-motion: reduce) { html.js .hero3 h1 .h3-slot { animation: none; } }
+
+/* Footer label sits over his head, which is right of the photo's centre, not over the page centre */
+html.js .foot-tag, html.js .foot-tag[data-reveal], html.js .foot-tag[data-reveal].is-shown, .foot-tag { transform: translateX(calc(min(100vw, 860px) * .056)); }
