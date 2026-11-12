@@ -34,11 +34,14 @@ function Note({ s }) {
 export default function FootStage() {
   return (
     <div className="foot-stage foot-photo">
+      <p className="foot-tag" data-reveal aria-label="Your design partner">
+        {[..."Your design partner"].map((c, i) => <span key={i} aria-hidden="true" style={{ "--i": i }}>{c === " " ? "\u00a0" : c}</span>)}
+      </p>
       <div className="foot-photo-in">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="/sam-footer.webp" width="1254" height="1254" loading="lazy"
           alt="Sam Vllaco holding a laptop, with a dumbbell, design tool icons, a marker and a coffee cup floating around him" />
-        <span className="foot-sig-w" aria-hidden="true" data-reveal><span className="foot-sig">Sam Vllaco</span><span className="foot-sig foot-sig2">your design</span><span className="foot-sig foot-sig2 foot-sig3">partner</span></span>
+        <span className="foot-sig-w" aria-hidden="true" data-reveal><span className="foot-sig">Sam Vllaco</span></span>
         {/* The same photo with the background removed, so the signature sits behind Sam. */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         {FRAMES.length > 1 ? <FootSeq frames={FRAMES} /> : <img className="foot-cut" src="/sam-footer-cut.webp" width="1254" height="1254" loading="lazy" alt="" aria-hidden="true" />}
