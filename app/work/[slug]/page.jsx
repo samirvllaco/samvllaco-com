@@ -293,7 +293,10 @@ export default function CaseStudy({ params }) {
         {others.length ? <MoreWork others={others} /> : null}
       </div>
       <CaseAside items={toc} />
-      <CaseFab />
+      <CaseFab
+        prev={(() => { const i = WORK.findIndex((x) => x.slug === w.slug), p = WORK[(i - 1 + WORK.length) % WORK.length]; return { href: `/work/${p.slug}/`, title: p.title }; })()}
+        next={(() => { const i = WORK.findIndex((x) => x.slug === w.slug), n = WORK[(i + 1) % WORK.length]; return { href: `/work/${n.slug}/`, title: n.title }; })()}
+      />
     </div>
   );
 }
