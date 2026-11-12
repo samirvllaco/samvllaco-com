@@ -3,7 +3,7 @@ import { useEffect, useRef } from "react";
 
 // Header avatar: starts as the normal photo, then rotates through Sam doing different things.
 // Changes slowly on its own after a delay, and quickly while the logo is hovered.
-const FACES = ["/sam.jpg", "/me/wave.webp", "/me/laptop.webp", "/me/coffee.webp", "/me/sketch.webp", "/me/think.webp"];
+const FACES = ["/sam.jpg", "/me/wave2.webp", "/me/laptop.webp", "/me/coffee2.webp", "/me/sketch2.webp", "/me/think2.webp"];
 
 export default function BrandFace() {
   const ref = useRef(null);
