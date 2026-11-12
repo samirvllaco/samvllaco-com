@@ -2753,3 +2753,8 @@ html:not(.js) .foot-sig-svg path { stroke-dasharray: none; }
 .nb-in { filter: drop-shadow(0 3px 4px rgba(0, 0, 0, .55)); }
 @keyframes nb-sway { 0%, 100% { transform: rotateY(-28deg) rotateX(4deg) translateY(0); } 50% { transform: rotateY(-8deg) rotateX(2deg) translateY(-1.5px); } }
 @media (prefers-reduced-motion: reduce) { .nb-in { animation: none; } }
+
+/* Hero: a single CTA sits in the middle */
+.hero3 .hero2-cta { display: flex; justify-content: center; }
+.hero3 .hero2-cta .hero2-btn { width: auto; min-width: 220px; }
+@media (max-width: 640px) { .hero3 .hero2-cta { display: flex; } .hero3 .hero2-cta .hero2-btn { width: 100%; max-width: 360px; } }
