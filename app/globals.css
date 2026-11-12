@@ -2519,3 +2519,9 @@ html.js .hero3 > .hero-trust { animation-delay: .32s; }
 .hp-div { width: 1px; height: 44px; background: color-mix(in srgb, var(--text) 16%, transparent); }
 html.js .hero3 > .hero-proof { animation-delay: .32s; }
 @media (max-width: 640px) { .hero-proof { flex-direction: column; gap: 18px; } .hp-div { width: 44px; height: 1px; } }
+
+/* Drifting fan: cards are placed by their slot on the arc, so the row can slide through more screens */
+.fan-run { position: relative; display: block; }
+.fan-run li { position: absolute; left: 50%; top: 0; margin: 0 0 0 calc(var(--w) * -.5); transition: opacity .3s linear; will-change: transform, opacity;
+  transform: translateX(calc(var(--k) * var(--w) * .66)) translateY(calc(var(--k) * var(--k) * 7px * var(--open))) rotate(calc(var(--k) * 5.5deg * var(--open))); }
+@media (max-width: 640px) { .fan-run li:nth-child(1), .fan-run li:nth-child(7) { display: block; } }

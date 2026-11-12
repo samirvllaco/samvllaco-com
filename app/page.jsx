@@ -54,7 +54,7 @@ export default function Home() {
             people <span className="h3-nw">love <Ico tiles={["love"]} delay={6} />,</span> and{" "}<br />
             <span className="t2">experiences that convert</span> <Ico tiles={["growth", "money", "speed"]} delay={3} />
           </h1>
-          <p className="hero2-sub">10 years turning complex ideas into intuitive, scalable digital products. From early-stage startups to established teams.</p>
+          <p className="hero2-sub">I make complex products feel simple, beautiful, and impossible to ignore.</p>
           <div className="hero2-cta">
             <a className="hero2-btn hero2-btn-primary" href="#work">Explore my work</a>
             <a className="hero2-btn hero2-btn-light" href="/book/"><CallIcon />Let's work together</a>
@@ -71,7 +71,7 @@ export default function Home() {
             </p>
           </div>
         </div>
-        <ScreenFan items={[["activity", "Activity", "marketing-dashboard"], ["contacts", "Contacts", "marketing-dashboard"], ["campaigns", "Campaigns", "marketing-dashboard"], ["dashboard", "Marketing dashboard", "marketing-dashboard"], ["messages", "Freelance marketplace", "freelance-marketplace"], ["aidraft", "AI draft reply", "marketing-dashboard"], ["discover", "Discover", "freelance-marketplace"]].map(([id, title, slug]) => ({ id, slug, title, src: `/work/fan/${id}.webp` }))} />
+        <ScreenFan items={[["activity", "Activity", "marketing-dashboard"], ["contacts", "Contacts", "marketing-dashboard"], ["campaigns", "Campaigns", "marketing-dashboard"], ["dashboard", "Marketing dashboard", "marketing-dashboard"], ["messages", "Freelance marketplace", "freelance-marketplace"], ["aidraft", "AI draft reply", "marketing-dashboard"], ["discover", "Discover", "freelance-marketplace"], ["subliohome", "Language player", "language-player"], ["approve", "Approve work", "freelance-marketplace"], ["arumahome", "Room planner", "room-editor"], ["upgrade", "Upgrade plan", "marketing-dashboard"], ["review", "Review words", "language-player"], ["table", "Furniture detail", "room-editor"], ["vr", "Room in VR", "room-editor"]].map(([id, title, slug]) => ({ id, slug, title, src: `/work/fan/${id}.webp` }))} />
         <div className="trust trust-on" aria-labelledby="trust-h">
           <p id="trust-h">Trusted by designers and engineers working at</p>
           <div className="trust-run">
