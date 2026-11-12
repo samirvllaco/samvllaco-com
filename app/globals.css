@@ -2150,3 +2150,10 @@ html.is-end .to-top { bottom: 212px; }
 @media (min-width: 981px) { :root[data-theme="light"].is-end .brand-me::after { box-shadow: 0 0 0 2.5px #2a2a2c; } }
 @media (min-width: 621px) { .site-footer > .wrap { padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-left: max(16px, env(safe-area-inset-left, 0px)); } }
 .lr-l::after { background-image: url(/laurel-gold2-l.webp); } .lr-r::after { background-image: url(/laurel-gold2-r.webp); } .lr::after { inset: 0; }
+
+/* Edge blur: shorter at the bottom, plus a small one at the top once the header floats */
+.edge-blur { height: clamp(56px, 9vh, 96px); }
+.edge-blur.edge-top { top: 0; bottom: auto; height: clamp(48px, 7.5vh, 76px); transform: scaleY(-1); opacity: 0; }
+html.is-scrolled .edge-blur.edge-top { opacity: 1; }
+html.is-end .edge-blur.edge-top { opacity: 1; }
+@media (max-width: 980px) { .edge-blur.edge-top { display: none; } }

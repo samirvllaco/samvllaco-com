@@ -70,6 +70,7 @@ export default function RootLayout({ children }) {
         <BookBand />
         <Footer />
         <ToTop />
+        <div className="edge-blur edge-top" aria-hidden="true"><i /><i /><i /><i /><i /></div>
         <div className="edge-blur" aria-hidden="true"><i /><i /><i /><i /><i /></div>
         <BookPopup />
         <VideoBubble />
