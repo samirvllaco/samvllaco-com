@@ -1,3 +1,4 @@
+import CalFrame from "../../components/CalFrame";
 import Link from "next/link";
 import PageHead from "../../components/PageHead";
 import CallIcon from "../../components/CallIcon";
@@ -27,7 +28,7 @@ export default function Book() {
       <PageHead crumb="Contact" href="/book/" a="Tell me" b="what you are building" lede="Book a 30 minute product strategy call with Sam. We map the scope, the timeline and the one next step that moves your product forward." />
       {BOOKING_URL ? (
         <section className="book-cal" id="calendar" aria-label="Pick a time">
-          <iframe src={`${BOOKING_URL}?embed=true&theme=dark&layout=month_view`} title="Booking calendar" loading="lazy" />
+          <CalFrame src={`${BOOKING_URL}?embed=true&theme=dark&layout=month_view`} />
         </section>
       ) : null}
     </div>

@@ -1,4 +1,5 @@
 "use client";
+import CalFrame from "./CalFrame";
 import { usePathname } from "next/navigation";
 import { BOOKING_URL } from "../lib/site";
 
@@ -14,7 +15,7 @@ export default function BookBand() {
         <p>Book a 30 minute call. You leave with a scope, a timeline and the one next step, whether we work together or not.</p>
       </div>
       <div className="book-cal">
-        <iframe src={`${BOOKING_URL}?embed=true&theme=dark&layout=month_view`} title="Booking calendar" loading="lazy" />
+        <CalFrame src={`${BOOKING_URL}?embed=true&theme=dark&layout=month_view`} />
       </div>
     </section>
   );

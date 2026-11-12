@@ -2312,3 +2312,11 @@ html.is-end .bk { bottom: 120px; }
 @media (max-width: 640px) { .fan li { --w: 34vw; } .fan { height: 30vw; } }
 .fan { height: clamp(190px, 21vw, 290px); }
 .blog-grid.is-one { grid-template-columns: minmax(0, 720px); }
+/* Photo bubble: frosted glass instead of the blue backdrop */
+.vid-bubble { background: rgba(255, 255, 255, .12) !important; -webkit-backdrop-filter: blur(18px) saturate(180%); backdrop-filter: blur(18px) saturate(180%); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .22), inset 0 1px 0 rgba(255, 255, 255, .35), 0 10px 28px -10px rgba(0, 0, 0, .45) !important; }
+:root[data-theme="light"]:not(.on-dark):not(.is-end) .vid-bubble { background: rgba(255, 255, 255, .55) !important; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .06), inset 0 1px 0 rgba(255, 255, 255, .9), 0 10px 28px -12px rgba(0, 0, 0, .18) !important; }
+
+/* Calendar frame: natural height, grows when Cal.com reports a taller step */
+.book-cal iframe, :root .book-cal iframe { height: 620px; transition: height .3s ease; }
+@media (max-width: 760px) { .book-cal iframe, :root .book-cal iframe { height: 1000px; } }
+.book-band-head { margin-bottom: 28px; }

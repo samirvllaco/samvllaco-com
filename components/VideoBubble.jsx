@@ -48,7 +48,7 @@ export default function VideoBubble() {
         onClick={() => setOpen((v) => !v)}
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/sam.jpg" alt="" width="80" height="80" />
+        <img src="/sam-cut.webp" alt="" width="80" height="80" />
         <span className="vid-icon" aria-hidden="true">
           {open ? (
             <svg viewBox="0 0 24 24" width="20" height="20"><path fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" d="M6 6l12 12M18 6L6 18" /></svg>
