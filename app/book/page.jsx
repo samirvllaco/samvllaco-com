@@ -25,12 +25,14 @@ const STEPS = [
 export default function Book() {
   return (
     <div className="wrap page pg svc">
+      <div className="book-split">
       <PageHead crumb="Contact" href="/book/" a="Tell me" b="what you are building" lede="Book a 30 minute product strategy call with Sam. We map the scope, the timeline and the one next step that moves your product forward." />
       {BOOKING_URL ? (
         <section className="book-cal" id="calendar" aria-label="Pick a time">
           <CalFrame src={`${BOOKING_URL}?embed=true&theme=dark&layout=month_view`} />
         </section>
       ) : null}
+      </div>
     </div>
   );
 }

@@ -2571,3 +2571,12 @@ html.js .foot-tag, html.js .foot-tag[data-reveal], html.js .foot-tag[data-reveal
 
 /* Footer: call button under the label, centred over his head like the label */
 .foot-call { margin: clamp(14px, 1.6vw, 22px) 0 clamp(8px, 1.4vw, 20px); transform: translateX(calc(min(100vw, 860px) * .056)); position: relative; z-index: 3; }
+
+/* Contact page: title on the left, calendar to its right on wide screens */
+@media (min-width: 1180px) {
+  .book-split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2.3fr); column-gap: clamp(32px, 4vw, 64px); align-items: start; }
+  .book-split > :not(.ph):not(.book-cal) { grid-column: 1 / -1; }
+  .book-split > .ph { position: sticky; top: 140px; margin: 0; }
+  .book-split > .ph h1 { font-size: clamp(2.25rem, 3.4vw, 3.25rem); }
+  .book-split > .book-cal { margin: 0; }
+}
