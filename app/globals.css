@@ -2619,3 +2619,8 @@ html.js .foot-tag, html.js .foot-tag[data-reveal], html.js .foot-tag[data-reveal
 .hero-badge:focus-visible { outline: 3px solid rgba(98, 193, 253, .6); outline-offset: 2px; }
 .hero-badge-t { display: inline-block; overflow: hidden; padding-block: 2px; margin-block: -2px; }
 .hero-badge-t > span { display: inline-block; white-space: nowrap; }
+.hero-badge { padding: 7px 14px; }
+
+/* Hero depth: a slightly lighter gray at the top, full width, fading down into the page colour */
+.hero2::after { content: ""; position: absolute; inset: -160px calc(50% - 50vw) auto; height: 760px; z-index: -2; pointer-events: none; background: radial-gradient(90% 100% at 50% 0%, rgba(255, 255, 255, .09), rgba(255, 255, 255, .03) 50%, transparent 100%); }
+:root[data-theme="light"] .hero2::after { background: radial-gradient(90% 100% at 50% 0%, rgba(0, 0, 0, .05), transparent 100%); }
