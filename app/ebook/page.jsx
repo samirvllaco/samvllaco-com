@@ -173,7 +173,7 @@ export default function Ebook() {
       </section>
 
       <section className="eb-sec eb-end">
-        <h2>Fix it <span className="t2">in one afternoon</span></h2>
+        <h2>Copy-paste solution, <span className="t2">fix your app in 30 minutes</span></h2>
         <div className="btn-row"><Buy label={`Get the book for ${PRICE}`} /></div>
       </section>
     </div>
