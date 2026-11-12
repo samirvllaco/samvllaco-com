@@ -1,3 +1,5 @@
+import { WORK } from "../lib/work";
+import ScreenFan from "../components/ScreenFan";
 import SkyPhoto from "../components/SkyPhoto";
 import fs from "fs";
 import path from "path";
@@ -59,6 +61,7 @@ export default function Home() {
           </div>
           <p className="hero-award"><i className="lr lr-l" aria-hidden="true" /><i className="lr lr-r" aria-hidden="true" /><span>Award-winning</span><span>UI/UX designer</span></p>
         </div>
+        <ScreenFan items={["marketing-dashboard", "mobile-banking", "room-editor", "law-firm-website", "language-player", "supplements-store", "freelance-marketplace"].map((slug) => { const w = WORK.find((x) => x.slug === slug); return w ? { slug, title: w.title, src: `/work/cut/${w.small.split("?")[0].split("/").pop()}?v=4` } : null; }).filter(Boolean)} />
         <div className="trust trust-on" aria-labelledby="trust-h">
           <p id="trust-h">Trusted by designers and engineers working at</p>
           <ul>
