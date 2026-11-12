@@ -27,19 +27,31 @@ export const metadata = {
 };
 
 // Inline icon slot inside the hero headline. Each slot shows the tiles that match the word before it.
-function Ico({ tiles: wanted, delay = 0, at = 0 }) {
+// A tile is a name, or [name, seconds] to keep it on screen longer or shorter than the 6s default.
+function Ico({ id, tiles: wanted, delay = 0, at = 0 }) {
   // Only show tiles that have an image in public/hero, so new tools appear as soon as their file is added.
-  const tiles = wanted.filter((n) => fs.existsSync(path.join(process.cwd(), "public", "hero", `${n}.webp`)));
+  const tiles = wanted.map((t) => (Array.isArray(t) ? t : [t, 6])).filter(([n]) => fs.existsSync(path.join(process.cwd(), "public", "hero", `${n}.webp`)));
   if (!tiles.length) return null;
-  const n = tiles.length;
-  // One slot changes at a time: every slot swaps once per 8s beat, offset by `delay` seconds.
+  const total = tiles.reduce((a, [, d]) => a + d, 0);
+  const pc = (sec) => `${((sec / total) * 100).toFixed(2)}%`;
+  const off = "opacity: 0; filter: blur(7px);";
+  let start = 0;
+  const css = [];
+  const imgs = tiles.map(([t, d], i) => {
+    const name = `h3-w-${id}-${i}`;
+    css.push(`@keyframes ${name} { 0% { ${off} transform: translateY(55%) scale(.82, 1.12); } ${pc(0.35)} { opacity: 1; transform: none; filter: blur(0); } ${pc(d)} { opacity: 1; transform: none; filter: blur(0); } ${pc(d + 0.35)} { ${off} transform: translateY(-55%) scale(.82, 1.12); } 100% { ${off} transform: translateY(-55%) scale(.82, 1.12); } }`);
+    const el = (
+      // eslint-disable-next-line @next/next/no-img-element
+      <img key={t} src={`/hero/${t}.webp?v=4`} width="256" height="256" alt=""
+        style={tiles.length === 1 ? { opacity: 1, animation: "none" } : { animationName: name, animationDuration: `${total}s`, animationDelay: `${start + delay - total}s` }} />
+    );
+    start += d;
+    return el;
+  });
   return (
-    <span className={`h3-slot h3-seq${n === 1 ? " h3-solo" : ""}`} aria-hidden="true" style={{ "--pop": `${3.6 + at * 0.35}s` }}>
-      {tiles.map((t, i) => (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img key={t} src={`/hero/${t}.webp?v=3`} width="256" height="256" alt=""
-          style={n === 1 ? { animationDelay: `${delay - 8}s` } : { animationName: `h3-s${n}`, animationDuration: `${n * 8}s`, animationDelay: `${i * 8 + delay - n * 8}s` }} />
-      ))}
+    <span className="h3-slot h3-seq" aria-hidden="true" style={{ "--pop": `${3.6 + at * 0.35}s` }}>
+      {tiles.length > 1 ? <style dangerouslySetInnerHTML={{ __html: css.join("\n") }} /> : null}
+      {imgs}
     </span>
   );
 }
@@ -52,9 +64,9 @@ export default function Home() {
         <div className="hero3">
           <p className="hero-badge"><i aria-hidden="true" />UI/UX Designer</p>
           <h1>
-            I design <Ico tiles={["figma", "chatgpt", "claude", "photoshop", "illustrator", "systems"]} /> digital products{" "}<br />
-            people <span className="h3-nw">love <Ico tiles={["love"]} delay={6} at={1} />,</span> and{" "}<br />
-            <span className="t2">experiences that convert</span> <Ico tiles={["growth", "money", "click"]} delay={3} at={2} />
+            I design <Ico id="a" tiles={[["figma", 12], ["photoshop", 5], ["chatgpt", 2.5], ["illustrator", 5], ["pen", 5], ["claude", 2.5], ["systems", 5], ["wand", 4]]} /> digital products{" "}<br />
+            people <span className="h3-nw">love <Ico id="b" tiles={[["love", 9], "star", "smile", "like", "chat"]} delay={2} at={1} />,</span> and{" "}<br />
+            <span className="t2">experiences that convert</span> <Ico id="c" tiles={["growth", "money", "target", "bolt", "rocket", "click"]} delay={4} at={2} />
           </h1>
           <p className="hero2-sub">I make complex products feel simple, beautiful, and impossible to ignore.</p>
           <div className="hero2-cta">
