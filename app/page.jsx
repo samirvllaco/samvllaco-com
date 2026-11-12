@@ -71,7 +71,6 @@ export default function Home() {
           </h1>
           <p className="hero2-sub">I make complex products feel simple, beautiful, and impossible to ignore.</p>
           <div className="hero2-cta">
-            <a className="hero2-btn hero2-btn-light" href="#work">Explore my work</a>
             <a className="hero2-btn hero2-btn-primary" href="/book/"><CallIcon />Let's work together</a>
           </div>
           <div className="hero-proof">
