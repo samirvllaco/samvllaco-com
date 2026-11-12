@@ -2772,3 +2772,5 @@ html:not(.js) .foot-sig-svg path { stroke-dasharray: none; }
 @keyframes nav-dot-pop { 0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(52, 199, 89, .5); } 50% { transform: scale(1.35); box-shadow: 0 0 0 5px rgba(52, 199, 89, 0); } }
 html.is-scrolled .nb-book { opacity: 0; width: 0; margin-right: -8px; transform: scale(.5); pointer-events: none; overflow: hidden; }
 html.is-scrolled .head-nav .nav-dot { opacity: 0; transform: scale(.3); width: 0; margin-right: -8px; }
+.head-nav .top-badge { transition: opacity .3s ease, transform .3s ease, max-width .3s ease, margin .3s ease, padding .3s ease; max-width: 6em; overflow: hidden; white-space: nowrap; }
+html.is-scrolled .head-nav .top-badge { opacity: 0; transform: scale(.7); max-width: 0; margin: 0; padding-left: 0; padding-right: 0; }
