@@ -62,7 +62,7 @@ export default function Home() {
           <p id="trust-h">Trusted by designers and engineers working at</p>
           <ul>
             {[["netflix", "Netflix"], ["uber", "Uber"], ["google", "Google"], ["youtube", "YouTube"], ["x", "X"], ["behance", "Behance"], ["dribbble", "Dribbble"]].map(([id, name]) => (
-              <li key={id}><span hidden={id === "uber"} dangerouslySetInnerHTML={{ __html: fs.readFileSync(path.join(process.cwd(), "public", "social", `${id}.svg`), "utf8") }} />{name}</li>
+              <li key={id} aria-label={name}>{id === "uber" ? null : <span dangerouslySetInnerHTML={{ __html: fs.readFileSync(path.join(process.cwd(), "public", "social", `${id}.svg`), "utf8") }} />}{id === "x" ? null : name}</li>
             ))}
           </ul>
         </div>
