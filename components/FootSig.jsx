@@ -25,8 +25,16 @@ export default function FootSig() {
       const hp = c.createBiquadFilter(); hp.type = "highpass"; hp.frequency.value = 1400;
       const bp = c.createBiquadFilter(); bp.type = "bandpass"; bp.frequency.value = 3200; bp.Q.value = 0.7;
       const g = c.createGain(); g.gain.value = 0;
-      src.connect(hp); hp.connect(bp); bp.connect(g); g.connect(c.destination); src.start();
-      audio.current = { c, g, bp };
+      const lp = c.createBiquadFilter(); lp.type = "lowpass"; lp.frequency.value = 700;
+      const lg = c.createGain(); lg.gain.value = 0.9;
+      const grain = c.createGain(); grain.gain.value = 1;
+      const lfo = c.createOscillator(); lfo.type = "sawtooth"; lfo.frequency.value = 38;
+      const lfoAmt = c.createGain(); lfoAmt.gain.value = 0.35;
+      lfo.connect(lfoAmt); lfoAmt.connect(grain.gain); lfo.start();
+      src.connect(hp); hp.connect(bp); bp.connect(grain); grain.connect(g);
+      src.connect(lp); lp.connect(lg); lg.connect(g);
+      g.connect(c.destination); src.start();
+      audio.current = { c, g, bp, lfo };
     } catch { audio.current = null; }
     return audio.current;
   }
@@ -58,7 +66,8 @@ export default function FootSig() {
         if (a) {
           const speed = Math.sin(Math.PI * k);
           const jitter = 0.7 + Math.random() * 0.6;
-          a.g.gain.setTargetAtTime(0.05 * speed * jitter + 0.004, a.c.currentTime, 0.015);
+          a.g.gain.setTargetAtTime(0.09 * speed * jitter + 0.006, a.c.currentTime, 0.012);
+          a.lfo.frequency.setTargetAtTime(24 + speed * 40 + Math.random() * 14, a.c.currentTime, 0.02);
           a.bp.frequency.setTargetAtTime(2600 + speed * 1600 + Math.random() * 500, a.c.currentTime, 0.02);
         }
         if (k < 1) requestAnimationFrame(tick);
@@ -89,6 +98,11 @@ export default function FootSig() {
   return (
     <span className="foot-sig-w" ref={root}>
       <svg className="foot-sig-svg" viewBox="-12 -14 1034 228" aria-hidden="true" focusable="false">
+        <defs>
+          <linearGradient id="sig-gold" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="1010" y2="60">
+            <stop offset="0" stopColor="#b98a2a" /><stop offset=".25" stopColor="#f6dd8a" /><stop offset=".5" stopColor="#d4a43a" /><stop offset=".75" stopColor="#fff0b0" /><stop offset="1" stopColor="#b98a2a" />
+          </linearGradient>
+        </defs>
         {SIG.d.map((d, i) => <path key={i} ref={(el) => (paths.current[i] = el)} d={d} />)}
       </svg>
       <button type="button" className="foot-sig-hit" aria-label="Write the signature again, with sound" onClick={() => write(true)} />

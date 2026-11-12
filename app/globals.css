@@ -2688,9 +2688,9 @@ html.js .foot-tag, html.js .foot-tag[data-reveal], html.js .foot-tag[data-reveal
 .hero2-btn .eb-pill { display: inline-block; line-height: 1.35; }
 
 /* Footer signature: one thin pen line, drawn in gold behind Sam */
-.foot-sig-w { position: absolute; left: 50%; top: 24%; width: min(118%, 1180px); z-index: 0; transform: translateX(-50%) rotate(-6deg); opacity: 1; filter: drop-shadow(0 0 10px rgba(240, 200, 90, .18)); }
+.foot-sig-w { position: absolute; left: 50%; top: 24%; width: min(118%, 1180px); z-index: 0; transform: translateX(-50%) rotate(-6deg); opacity: 1; filter: drop-shadow(0 0 12px rgba(240, 200, 90, .35)) drop-shadow(0 1px 1px rgba(0, 0, 0, .5)); }
 .foot-sig-svg { display: block; width: 100%; height: auto; overflow: visible; }
-.foot-sig-svg path { fill: none; stroke: #e6c46a; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; opacity: .7; vector-effect: non-scaling-stroke; }
+.foot-sig-svg path { fill: none; stroke: url(#sig-gold); stroke-width: 3.4px; stroke-linecap: round; stroke-linejoin: round; opacity: .95; vector-effect: non-scaling-stroke; }
 html:not(.js) .foot-sig-svg path { stroke-dasharray: none; }
 .foot-sig-hit { position: absolute; left: 0; top: 0; width: 100%; height: 70%; background: none; border: 0; cursor: pointer; z-index: 0; }
 
