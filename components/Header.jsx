@@ -9,6 +9,7 @@ import BrandFace from "./BrandFace";
 import BrandRole from "./BrandRole";
 import { EMAIL } from "../lib/site";
 import NavBook from "./NavBook";
+import HeadCta from "./HeadCta";
 
 const NAV = [
   { href: "/work/", label: "Work" },
@@ -50,7 +51,7 @@ export default function Header() {
         <div className="head-end">
           <SoundToggle />
           <ThemeToggle />
-          <a className="head-cta" href="/book/"><CallIcon />Book a call</a>
+          <HeadCta />
         </div>
       </div>
     </header>

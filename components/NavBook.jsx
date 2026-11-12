@@ -5,7 +5,7 @@ import { BOOK_URL } from "../lib/site";
 
 // Nav item for the book. Elsewhere it opens the internal book page.
 // On the book page itself it becomes the buy button.
-function Book3D() {
+export function Book3D() {
   return (
     <span className="nb-book" aria-hidden="true">
       {/* eslint-disable-next-line @next/next/no-img-element */}
