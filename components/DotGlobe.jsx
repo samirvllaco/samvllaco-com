@@ -40,3 +40,24 @@ export function LocalClock({ tz = "Europe/Tirane" }) {
   useEffect(() => { const f = () => setT(new Intl.DateTimeFormat("en-US", { hour: "numeric", minute: "2-digit", timeZone: tz }).format(new Date())); f(); const id = setInterval(f, 20000); return () => clearInterval(id); }, [tz]);
   return <span suppressHydrationWarning>{t}</span>;
 }
+
+const hourIn = (tz) => { const p = new Intl.DateTimeFormat("en-US", { hour: "numeric", minute: "numeric", hourCycle: "h23", timeZone: tz }).formatToParts(new Date()); return +p.find((x) => x.type === "hour").value + +p.find((x) => x.type === "minute").value / 60; };
+const fmt = (tz) => new Intl.DateTimeFormat("en-US", { hour: "numeric", minute: "2-digit", timeZone: tz }).format(new Date());
+const CITIES = [["Tirana", "Europe/Tirane"], ["New York", "America/New_York"], ["San Francisco", "America/Los_Angeles"]];
+
+// Three small day bars: a dot shows where each city is in its day right now, and the lit part is working hours.
+export function TimeStrip() {
+  const [now, setNow] = useState(null);
+  useEffect(() => { const f = () => setNow(CITIES.map(([n, tz]) => ({ n, t: fmt(tz), h: hourIn(tz) }))); f(); const id = setInterval(f, 20000); return () => clearInterval(id); }, []);
+  return (
+    <span className="ts" aria-label="Current time in Tirana, New York and San Francisco">
+      {(now || CITIES.map(([n]) => ({ n, t: "", h: 12 }))).map((c) => (
+        <span className="ts-row" key={c.n}>
+          <span className="ts-n">{c.n}</span>
+          <span className="ts-bar"><i style={{ left: `${(c.h / 24) * 100}%` }} className={c.h >= 9 && c.h < 18 ? "is-work" : undefined} /></span>
+          <span className="ts-t" suppressHydrationWarning>{c.t}</span>
+        </span>
+      ))}
+    </span>
+  );
+}
