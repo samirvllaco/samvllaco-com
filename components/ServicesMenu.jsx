@@ -67,7 +67,7 @@ export default function ServicesMenu() {
             <p className="mega-blurb">My book and the kit I use on my own products.</p>
             <ul>
               {RESOURCES.map((r) => (
-                <li key={r.href}><Link href={r.href} onClick={() => setOpen(false)}>{r.name}{r.tag ? <span className="mega-pdf mega-gold">{r.tag}</span> : null}</Link></li>
+                <li key={r.name}><Link href={r.href} onClick={() => setOpen(false)}>{r.name}{r.tag ? <span className="mega-pdf mega-gold">{r.tag}</span> : null}</Link></li>
               ))}
             </ul>
           </div>
