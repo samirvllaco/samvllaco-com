@@ -22,3 +22,12 @@ Two buttons side by side are the same width.
 - No visible strokes on cards. Separate with a slightly lighter or darker gray.
 - Soft shadows only. No shadow on hover.
 - Images and screens follow the theme: dark frames in dark mode, light frames in light mode.
+
+## Client avatars
+
+- Component: `components/ClientAvatars.jsx`. Data: `lib/clients.js` (names, projects, photos in one file).
+- An overlapping stack of 40px circles with a 2px ring in the page background, each overlapping the last by 10px. Up to 5 shown.
+- A face appears only for an entry with `verified: true` and a real photo in `public/clients/`. Unverified entries are placeholders and never render.
+- With no verified entries the hero shows four neutral person icons. Pass `facesOnly` to render nothing instead.
+- Never use generated or stock faces as clients. Do not show a name, project or quote that the client has not agreed to.
+- Used in: hero trust row (`.hero-trust`). Add to the book page and reviews with `<ClientAvatars facesOnly />` once entries are verified.
