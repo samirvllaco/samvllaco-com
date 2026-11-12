@@ -30,7 +30,7 @@ export default function BookPopup() {
       <a className="bk-link" href={BOOK_URL} target="_blank" rel="noopener">
         <span className="bk-cover">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/book-cover.webp" width="300" height="400" alt="" />
+          <img src="/book-cover.webp?v=2" width="300" height="400" alt="" />
           
         </span>
         <span className="bk-tag">$6.99</span>

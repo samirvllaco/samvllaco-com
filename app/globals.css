@@ -2680,3 +2680,29 @@ html.js .foot-tag, html.js .foot-tag[data-reveal], html.js .foot-tag[data-reveal
 @media (min-width: 641px) { .case-fab-r { right: auto; } }
 @media (max-width: 640px) { .case-fab { gap: 6px; bottom: max(84px, env(safe-area-inset-bottom, 0px)); } }
 @media (max-width: 640px) { .case-fab { bottom: max(116px, env(safe-area-inset-bottom, 0px)); } }
+.eb-27 { padding: .06em .24em .1em; margin: 0 .04em .12em -.06em; box-decoration-break: clone; -webkit-box-decoration-break: clone; box-shadow: inset 0 1px 0 rgba(255, 255, 255, .55), inset 0 -1px 0 rgba(0, 0, 0, .18), 0 8px 26px -8px rgba(255, 157, 46, .55); }
+@media (min-width: 900px) { .eb-27 { white-space: nowrap; } }
+
+/* Price highlight: low-opacity white pill */
+.eb-pill, .head-nav .top-badge { background: rgba(255, 255, 255, .2); border-radius: 999px; padding: .08em .55em; margin-left: .15em; }
+.hero2-btn .eb-pill { display: inline-block; line-height: 1.35; }
+
+/* Footer signature: one thin pen line, drawn in gold behind Sam */
+.foot-sig-w { position: absolute; left: 50%; top: 24%; width: min(118%, 1180px); z-index: 0; transform: translateX(-50%) rotate(-6deg); opacity: 1; filter: drop-shadow(0 0 10px rgba(240, 200, 90, .18)); }
+.foot-sig-svg { display: block; width: 100%; height: auto; overflow: visible; }
+.foot-sig-svg path { fill: none; stroke: #e6c46a; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; opacity: .7; vector-effect: non-scaling-stroke; }
+html:not(.js) .foot-sig-svg path { stroke-dasharray: none; }
+.foot-sig-hit { position: absolute; left: 0; top: 0; width: 100%; height: 70%; background: none; border: 0; cursor: pointer; z-index: 0; }
+
+/* Contact: QR card for people who would rather book from their phone */
+.book-qr { display: flex; align-items: center; gap: 16px; margin-top: 24px; padding: 14px; border-radius: 16px; background: rgba(255, 255, 255, .05); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .1); }
+.book-qr img { flex: none; width: 104px; height: 104px; padding: 8px; border-radius: 12px; background: #fff; }
+.book-qr p { margin: 0; display: grid; gap: 4px; font-size: .9375rem; line-height: 1.4; }
+.book-qr p b { font-weight: 600; }
+.book-qr p span { opacity: .65; }
+:root[data-theme="light"] .book-qr { background: rgba(0, 0, 0, .04); box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .1); }
+@media (max-width: 759px) { .book-qr { display: none; } }
+@media (min-width: 1180px) {
+  .book-split > .book-side.book-side { grid-column: 1; position: sticky; top: 140px; }
+  .book-split > .book-side .ph { position: static; }
+}

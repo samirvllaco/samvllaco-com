@@ -8,11 +8,12 @@ import HeaderScroll from "./HeaderScroll";
 import BrandFace from "./BrandFace";
 import BrandRole from "./BrandRole";
 import { EMAIL } from "../lib/site";
+import NavBook from "./NavBook";
 
 const NAV = [
   { href: "/work/", label: "Work" },
   { href: "/writing/", label: "Insights" },
-  { href: BOOK_URL, label: "Book", badge: "$6.99", ext: true },
+  { href: "/ebook/", label: "Book", book: true },
   { href: "/about/", label: "About" },
   { href: "/book/", label: "Contact", dot: true },
 ];
@@ -35,11 +36,8 @@ export default function Header() {
         <nav className="head-nav" aria-label="Main">
           <ServicesMenu />
           {NAV.map((n) => (
-            n.ext ? (
-              <a key={n.href} href={n.href} target="_blank" rel="noopener">
-                {n.label}
-                {n.badge ? <span className="top-badge">{n.badge}</span> : null}
-              </a>
+            n.book ? (
+              <NavBook key={n.href} />
             ) : (
             <Link key={n.href} href={n.href}>
               {n.dot ? <i className="nav-dot" aria-hidden="true" /> : null}

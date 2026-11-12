@@ -66,10 +66,10 @@ export default function Ebook() {
       <header className="eb-hero">
         <div className="eb-copy">
           <p className="eb-kick">Designed, not generated.</p>
-          <h1><span className="eb-27">27</span> copy-paste prompts to fix AI slop UI</h1>
+          <h1><span className="eb-27">27 copy-paste prompts</span> to fix AI slop UI</h1>
           <p className="eb-sub">Make your vibe-coded website or app feel human-designed. Spot the mistakes you don't notice, copy the fix, and keep it fixed with one rules file.</p>
           <div className="btn-row">
-            <Buy label={`Buy now for ${PRICE}`} />
+            <Buy label={<>Buy now for <span className="eb-pill">{PRICE}</span></>} />
             <a className="hero2-btn hero2-btn-light" href="#inside">See what's inside</a>
           </div>
           <ul className="eb-ticks">
@@ -80,7 +80,7 @@ export default function Ebook() {
         </div>
         <div className="eb-cover">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/ebook/cover.webp" width="936" height="1326" alt="Cover of 27 Copy-Paste Prompts to Fix AI Slop UI" />
+          <img src="/ebook/cover.webp?v=2" width="936" height="1326" alt="Cover of 27 Copy-Paste Prompts to Fix AI Slop UI" />
         </div>
       </header>
 
@@ -128,7 +128,7 @@ export default function Ebook() {
         <div className="eb-pages">
           {[1, 2, 3, 4].map((i) => (
             // eslint-disable-next-line @next/next/no-img-element
-            <img key={i} src={`/ebook/page-${i}.webp`} width="936" height="1326" alt={`Sample page ${i} from the book`} loading="lazy" />
+            <img key={i} src={`/ebook/page-${i}.webp?v=2`} width="936" height="1326" alt={`Sample page ${i} from the book`} loading="lazy" />
           ))}
         </div>
       </section>
@@ -174,7 +174,7 @@ export default function Ebook() {
 
       <section className="eb-sec eb-end">
         <h2>Copy-paste solution, <span className="t2">fix your app in 30 minutes</span></h2>
-        <div className="btn-row"><Buy label={`Buy now for ${PRICE}`} /></div>
+        <div className="btn-row"><Buy label={<>Buy now for <span className="eb-pill">{PRICE}</span></>} /></div>
       </section>
     </div>
   );

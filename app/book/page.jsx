@@ -26,7 +26,14 @@ export default function Book() {
   return (
     <div className="wrap page pg svc">
       <div className="book-split">
+      <div className="book-side">
       <PageHead crumb="Contact" href="/book/" a="Tell me" b="what you are building" lede="Book a 30 minute product strategy call with Sam. We map the scope, the timeline and the one next step that moves your product forward." />
+      <aside className="book-qr" aria-label="Book from your phone">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/book-qr.svg" width="112" height="112" alt="QR code that opens the booking page" />
+        <p><b>Busy right now?</b><span>Scan with your phone and book in a minute.</span></p>
+      </aside>
+      </div>
       {BOOKING_URL ? (
         <section className="book-cal" id="calendar" aria-label="Pick a time">
           <CalFrame src={`${BOOKING_URL}?embed=true&theme=dark&layout=month_view`} />

@@ -2,6 +2,7 @@ import CallIcon from "./CallIcon";
 import fs from "fs";
 import path from "path";
 import FootSeq from "./FootSeq";
+import FootSig from "./FootSig";
 import { SITE } from "../lib/site";
 
 // Laptop animation frames, if any have been added to public/footer-frames.
@@ -43,7 +44,7 @@ export default function FootStage() {
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="/sam-footer.webp" width="1254" height="1254" loading="lazy"
           alt="Sam Vllaco holding a laptop, with a dumbbell, design tool icons, a marker and a coffee cup floating around him" />
-        <span className="foot-sig-w" aria-hidden="true" data-reveal><span className="foot-sig">Sam Vllaco</span></span>
+        <FootSig />
         {/* The same photo with the background removed, so the signature sits behind Sam. */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         {FRAMES.length > 1 ? <FootSeq frames={FRAMES} /> : <img className="foot-cut" src="/sam-footer-cut.webp" width="1254" height="1254" loading="lazy" alt="" aria-hidden="true" />}
