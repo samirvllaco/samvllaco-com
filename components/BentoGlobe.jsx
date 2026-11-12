@@ -57,8 +57,8 @@ export default function BentoGlobe() {
     function size() {
       const r = cv.getBoundingClientRect(), d = Math.min(2, window.devicePixelRatio || 1);
       w = r.width; h = r.height; cv.width = Math.round(w * d); cv.height = Math.round(h * d); ctx.setTransform(d, 0, 0, d, 0, 0);
-      small = w < 480; R = small ? w * 0.72 : Math.min(w * 0.62, h * 0.66);
-      proj.scale(R).translate([w / 2, h * (small ? 0.84 : 0.95)]);
+      small = w < 480; R = small ? w * 0.6 : Math.min(w * 0.46, h * 0.5);
+      proj.scale(R).translate([w / 2, h * (small ? 0.8 : 0.86)]);
     }
     const visible = (lon, lat) => geoDistance([lon, lat], [-rot[0], -rot[1]]) < Math.PI / 2 - 0.05;
     function pin(r, big, t) {
@@ -83,7 +83,7 @@ export default function BentoGlobe() {
     function me(t) {
       if (!visible(HOME.lon, HOME.lat)) return;
       const [x, y] = proj([HOME.lon, HOME.lat]);
-      const r = small ? 19 : 24, p = (t * 0.5) % 1;
+      const r = small ? 17 : 20, p = (t * 0.5) % 1;
       ctx.strokeStyle = `rgba(98,193,253,${0.7 * (1 - p)})`; ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(x, y, r + 4 + p * 22, 0, 7); ctx.stroke();
       ctx.save(); ctx.shadowColor = "rgba(0,0,0,.55)"; ctx.shadowBlur = 14; ctx.shadowOffsetY = 5;
       ctx.beginPath(); ctx.arc(x, y, r + 3, 0, 7); ctx.fillStyle = "#fff"; ctx.fill(); ctx.restore();
@@ -108,7 +108,7 @@ export default function BentoGlobe() {
         rot = [rot[0] + d0 * 0.03, rot[1] + (want[1] - rot[1]) * 0.03];
       }
       proj.rotate(rot);
-      const cx = w / 2, cy = h * (small ? 0.84 : 0.95);
+      const cx = w / 2, cy = h * (small ? 0.8 : 0.86);
       ctx.clearRect(0, 0, w, h);
       const halo = ctx.createRadialGradient(cx, cy, R * 0.9, cx, cy, R * 1.25);
       halo.addColorStop(0, "rgba(255,255,255,.1)"); halo.addColorStop(1, "rgba(255,255,255,0)");

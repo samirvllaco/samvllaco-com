@@ -2629,3 +2629,22 @@ html.js .foot-tag, html.js .foot-tag[data-reveal], html.js .foot-tag[data-reveal
 .bx-soft .bx-grid { max-width: 1120px; margin-inline: auto; gap: 24px; }
 .bx-soft .bx-stats { gap: 24px; }
 @media (max-width: 900px) { .bx-soft .bx-grid, .bx-soft .bx-stats { gap: 16px; } }
+
+/* Bentos: smaller contents inside the capped cards, so each card has more empty space */
+.bx-soft .bx-t { font-size: 1.25rem; }
+.bx-soft .bx-deck .sd { transform: scale(.84); transform-origin: 50% 50%; }
+.bx-soft .bx-world-s { font-size: .875rem; }
+.bx-soft .bx-world .wf-facts dt { font-size: 1.0625rem; }
+.bx-soft .bx-world .wf-facts dd { font-size: .8125rem; }
+.bx-soft .bx-stat b { font-size: clamp(1.75rem, 2.6vw, 2.25rem); }
+.bx-soft .bx-mini .bx-cols { transform: scale(.84); transform-origin: 50% 40%; }
+.bx-soft .bx-motion .bx-frame, :root[data-theme="light"] .bx-soft .bx-motion .bx-frame { width: min(64%, 400px); }
+@media (max-width: 720px) { .bx-soft .bx-deck .sd, .bx-soft .bx-mini .bx-cols { transform: none; } .bx-soft .bx-motion .bx-frame { width: min(82%, 400px); } }
+
+/* Screen fan: hairline edge, gentle lift on hover, the rest blur back */
+.fan a { box-shadow: 0 0 0 1px rgba(255, 255, 255, .14), 0 18px 34px -20px rgba(0, 0, 0, .5); transition: transform .45s cubic-bezier(.22, 1, .36, 1), filter .35s ease, opacity .35s ease; }
+:root[data-theme="light"] .fan a { box-shadow: 0 0 0 1px rgba(0, 0, 0, .1), 0 14px 30px -20px rgba(0, 0, 0, .2); }
+.fan li:hover a, .fan a:focus-visible { transform: translateY(-8px) scale(1.045); }
+.fan-run li:hover { z-index: 60 !important; }
+@media (hover: hover) { .fan:hover li:not(:hover) a { filter: blur(2px); opacity: .6; } }
+@media (prefers-reduced-motion: reduce) { .fan:hover li:not(:hover) a { filter: none; } }
