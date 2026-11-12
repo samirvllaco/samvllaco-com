@@ -12,8 +12,8 @@ export const metadata = {
   title: "Book a strategy call",
   description: DESC,
   alternates: { canonical: "/book/" },
-  openGraph: { title: TITLE, description: DESC, url: "/book/", type: "website", images: [{ url: "/og-book-call.jpg", width: 1200, height: 630, alt: "Book a strategy design call. Sam Vllaco holding a laptop." }] },
-  twitter: { card: "summary_large_image", title: TITLE, description: DESC, images: ["/og-book-call.jpg"], site: SITE.handle, creator: SITE.handle },
+  openGraph: { title: TITLE, description: DESC, url: "/book/", type: "website", images: [{ url: "/og-book-call-2.jpg", width: 1200, height: 630, alt: "Book a strategy design call. Sam Vllaco holding a laptop." }] },
+  twitter: { card: "summary_large_image", title: TITLE, description: DESC, images: ["/og-book-call-2.jpg"], site: SITE.handle, creator: SITE.handle },
 };
 
 const STEPS = [
