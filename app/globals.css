@@ -2437,3 +2437,18 @@ html.js .hero3 > :nth-child(n+5), html.js .eb-hero .eb-copy > :nth-child(n+5), h
   html.js [data-reveal] { opacity: 1; filter: none; transform: none; transition: none; }
   html.js .hero3 > *, html.js .ph > *, html.js .eb-hero .eb-copy > *, html.js .eb-hero .eb-cover { animation: none; }
 }
+
+/* Footer signature keeps its own position now that reveals reset transforms */
+html.js .foot-sig-w[data-reveal], html.js .foot-sig-w[data-reveal].is-shown { opacity: 1; filter: none; transform: translateX(-50%) rotate(-7deg); transition: none; will-change: auto; }
+/* Scrolled pill: room for six nav items, and a tighter fit on tablets */
+@media (min-width: 981px) {
+  html.is-scrolled .site-header .wrap.head-row { max-width: min(1040px, calc(100vw - 32px)); }
+}
+@media (min-width: 981px) and (max-width: 1180px) {
+  html.is-scrolled .site-header .wrap.head-row { padding-left: 14px; }
+  html.is-scrolled .brand-me { display: none; }
+  html.is-scrolled .head-nav a { padding: 0 10px; }
+}
+@media (min-width: 981px) and (max-width: 1180px) {
+  html.is-scrolled .site-header .wrap.head-row { width: fit-content; grid-template-columns: auto auto; column-gap: 8px; }
+}
