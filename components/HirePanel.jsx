@@ -10,7 +10,7 @@ const FIELDS = ["SaaS", "AI products", "Fintech", "Healthcare", "LegalTech", "Cy
 
 export default function HirePanel({ photo = "/sam-footer.webp" }) {
   return (
-    <section className="hp" aria-labelledby="hp-h">
+    <section className="hp" aria-labelledby="hp-h" data-bg="#1f1f22">
       <div className="hp-left">
         <h2 id="hp-h">AI does the repetitive half.<br /><em>I do the half your users remember.</em></h2>
         <p className="hp-lede">Variants, states, consistency and accessibility checks run against rules I define, so you get the work faster. The first screen, the core flows, onboarding and checkout are designed by hand, so it still looks like your product and nobody else's.</p>

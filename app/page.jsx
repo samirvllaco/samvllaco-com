@@ -89,7 +89,7 @@ export default function Home() {
 
       <ScreenWall />
 
-      <section id="work" className="stack work" data-bg="#1f1f22">
+      <section id="work" className="stack work" data-bg="#111112">
           <h2>Work <span className="t2">that shipped</span></h2>
           <WorkGrid />
           <HirePanel />

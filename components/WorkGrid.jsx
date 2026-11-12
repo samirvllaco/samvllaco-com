@@ -82,7 +82,7 @@ export default function WorkGrid() {
             aria-selected={tab === t.id}
             aria-controls="work-panel"
             tabIndex={tab === t.id ? 0 : -1}
-            onClick={() => { setTab(t.id); play("tab"); }}
+            onClick={() => { setTab(tab === t.id ? "all" : t.id); play("tab"); }}
             onKeyDown={(e) => onKey(e, i)}
           >
             {t.label}

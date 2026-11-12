@@ -4,7 +4,7 @@ import { useEffect } from "react";
 // Fades the page background to the color of the section sitting at the 60% line of the screen.
 // Works both ways: scrolling back up restores the earlier colors.
 // The same sections in light mode.
-const LIGHT = { "#111112": "#f5f5f7", "#000000": "#ffffff", "#1d1d1f": "#ececf0" };
+const LIGHT = { "#111112": "#f5f5f7", "#000000": "#ffffff", "#1d1d1f": "#ececf0", "#1f1f22": "#ececf0" };
 
 export default function SectionColors() {
   useEffect(() => {
