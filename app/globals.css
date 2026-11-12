@@ -2624,3 +2624,8 @@ html.js .foot-tag, html.js .foot-tag[data-reveal], html.js .foot-tag[data-reveal
 /* Hero depth: a slightly lighter gray at the top, full width, fading down into the page colour */
 .hero2::after { content: ""; position: absolute; inset: -160px calc(50% - 50vw) auto; height: 760px; z-index: -2; pointer-events: none; background: radial-gradient(90% 100% at 50% 0%, rgba(255, 255, 255, .09), rgba(255, 255, 255, .03) 50%, transparent 100%); }
 :root[data-theme="light"] .hero2::after { background: radial-gradient(90% 100% at 50% 0%, rgba(0, 0, 0, .05), transparent 100%); }
+
+/* Bentos: narrower, calmer, more air between cards */
+.bx-soft .bx-grid { max-width: 1120px; margin-inline: auto; gap: 24px; }
+.bx-soft .bx-stats { gap: 24px; }
+@media (max-width: 900px) { .bx-soft .bx-grid, .bx-soft .bx-stats { gap: 16px; } }
