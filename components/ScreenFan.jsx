@@ -19,7 +19,7 @@ export default function ScreenFan({ items }) {
   return (
     <ul className="fan" ref={ref} aria-label="Recent projects">
       {items.map((it, i) => (
-        <li key={it.slug} style={{ "--k": i - mid, zIndex: 10 - Math.abs(Math.round(i - mid)) }}>
+        <li key={it.id} style={{ "--k": i - mid, zIndex: 10 - Math.abs(Math.round(i - mid)) }}>
           <Link href={`/work/${it.slug}/`}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={it.src} alt={it.title} loading="lazy" draggable="false" />

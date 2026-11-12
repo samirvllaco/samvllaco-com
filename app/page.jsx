@@ -61,7 +61,7 @@ export default function Home() {
           </div>
           <p className="hero-award"><i className="lr lr-l" aria-hidden="true" /><i className="lr lr-r" aria-hidden="true" /><span>Award-winning</span><span>UI/UX designer</span></p>
         </div>
-        <ScreenFan items={["marketing-dashboard", "mobile-banking", "room-editor", "law-firm-website", "language-player", "supplements-store", "freelance-marketplace"].map((slug) => { const w = WORK.find((x) => x.slug === slug); return w ? { slug, title: w.title, src: `/work/cut/${w.small.split("?")[0].split("/").pop()}?v=4` } : null; }).filter(Boolean)} />
+        <ScreenFan items={[["activity", "Activity", "marketing-dashboard"], ["contacts", "Contacts", "marketing-dashboard"], ["campaigns", "Campaigns", "marketing-dashboard"], ["dashboard", "Marketing dashboard", "marketing-dashboard"], ["messages", "Freelance marketplace", "freelance-marketplace"], ["aidraft", "AI draft reply", "marketing-dashboard"], ["discover", "Discover", "freelance-marketplace"]].map(([id, title, slug]) => ({ id, slug, title, src: `/work/fan/${id}.webp` }))} />
         <div className="trust trust-on" aria-labelledby="trust-h">
           <p id="trust-h">Trusted by designers and engineers working at</p>
           <ul>
