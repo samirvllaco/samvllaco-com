@@ -2568,3 +2568,6 @@ html.js .foot-tag, html.js .foot-tag[data-reveal], html.js .foot-tag[data-reveal
 
 /* Hero dots on both sides for balance, fading out toward the centre copy */
 .hero2::before { -webkit-mask-image: radial-gradient(ellipse 46% 80% at 86% 30%, #000 0%, transparent 75%), radial-gradient(ellipse 46% 80% at 14% 30%, #000 0%, transparent 75%); mask-image: radial-gradient(ellipse 46% 80% at 86% 30%, #000 0%, transparent 75%), radial-gradient(ellipse 46% 80% at 14% 30%, #000 0%, transparent 75%); }
+
+/* Footer: call button under the label, centred over his head like the label */
+.foot-call { margin: clamp(14px, 1.6vw, 22px) 0 clamp(8px, 1.4vw, 20px); transform: translateX(calc(min(100vw, 860px) * .056)); position: relative; z-index: 3; }

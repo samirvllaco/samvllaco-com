@@ -1,3 +1,4 @@
+import CallIcon from "./CallIcon";
 import fs from "fs";
 import path from "path";
 import FootSeq from "./FootSeq";
@@ -37,6 +38,7 @@ export default function FootStage() {
       <p className="foot-tag" data-reveal aria-label="Your design partner">
         {[..."Your design partner"].map((c, i) => <span key={i} aria-hidden="true" style={{ "--i": i }}>{c === " " ? "\u00a0" : c}</span>)}
       </p>
+      <p className="foot-call"><a className="hero2-btn hero2-btn-light" href="/book/"><CallIcon />Book a call</a></p>
       <div className="foot-photo-in">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="/sam-footer.webp" width="1254" height="1254" loading="lazy"
