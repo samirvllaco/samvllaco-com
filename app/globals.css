@@ -2311,3 +2311,4 @@ html.is-end .bk { bottom: 120px; }
 .fan img { object-fit: cover; object-position: center; }
 @media (max-width: 640px) { .fan li { --w: 34vw; } .fan { height: 30vw; } }
 .fan { height: clamp(190px, 21vw, 290px); }
+.blog-grid.is-one { grid-template-columns: minmax(0, 720px); }
