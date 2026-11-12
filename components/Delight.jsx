@@ -44,11 +44,26 @@ export default function Delight() {
   useEffect(() => {
     // Reveal [data-reveal] blocks when they scroll into view. New blocks are picked up too,
     // so sections still appear after moving between pages without a full reload.
-    const show = (e) => e.classList.add("is-shown");
+    const show = (e) => {
+      e.classList.add("is-shown");
+      // Auto-tagged blocks drop the attribute once they have faded in, so their own hover styles work again.
+      if (e.getAttribute("data-reveal") === "auto") setTimeout(() => { e.removeAttribute("data-reveal"); e.classList.remove("is-shown"); e.style.removeProperty("--rd"); }, 1700);
+    };
     if (!("IntersectionObserver" in window)) { document.querySelectorAll("[data-reveal]").forEach(show); return; }
     const io = new IntersectionObserver((en) => en.forEach((e) => { if (e.isIntersecting) { show(e.target); io.unobserve(e.target); } }), { threshold: 0.01, rootMargin: "0px 0px -6% 0px" });
     const seen = new WeakSet();
-    const scan = () => document.querySelectorAll("[data-reveal]:not(.is-shown)").forEach((e) => { if (!seen.has(e)) { seen.add(e); io.observe(e); } });
+    // Blocks that fade in without being marked by hand. Only ones still below the fold are tagged,
+    // so nothing already on screen flickers. Siblings get a small stagger.
+    const AUTO = "main h2, main section > p, main details, main .card, .eb article, .eb-steps > div, .eb-pages img, .eb-offer, .eb-author, .eb-faq > div, .eb-tools, .ab-wrap section, .trust";
+    const tag = () => document.querySelectorAll(AUTO).forEach((e) => {
+      if (e.dataset.rv || e.hasAttribute("data-reveal") || e.closest("[data-reveal], .site-footer, .site-header")) return;
+      e.dataset.rv = "1";
+      if (e.getBoundingClientRect().top < window.innerHeight * 0.92) return;
+      const sibs = e.parentElement ? Array.from(e.parentElement.children).filter((c) => c.matches(AUTO)) : [];
+      e.style.setProperty("--rd", `${Math.min(Math.max(sibs.indexOf(e), 0), 5) * 90}ms`);
+      e.setAttribute("data-reveal", "auto");
+    });
+    const scan = () => { tag(); document.querySelectorAll("[data-reveal]:not(.is-shown)").forEach((e) => { if (!seen.has(e)) { seen.add(e); io.observe(e); } }); };
     scan();
     let queued = false;
     const mo = new MutationObserver(() => { if (queued) return; queued = true; requestAnimationFrame(() => { queued = false; scan(); }); });
