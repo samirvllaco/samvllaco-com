@@ -1,10 +1,11 @@
 "use client";
 import { useEffect, useState } from "react";
+import { BOOK_URL } from "../lib/site";
 import Link from "next/link";
 
 const KEY = "book-promo-closed-v2";
 
-// Bottom right promo card. Design only: the button goes to /ebook/ until checkout exists.
+// Bottom right promo card. Opens the book checkout in a new tab.
 export default function BookPopup() {
   const [open, setOpen] = useState(false);
 
@@ -26,7 +27,7 @@ export default function BookPopup() {
   if (!open) return null;
   return (
     <aside className="bk" aria-label="27 prompts to fix AI slop UI, $6.99">
-      <Link className="bk-link" href="/ebook/">
+      <a className="bk-link" href={BOOK_URL} target="_blank" rel="noopener">
         <span className="bk-cover">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/book-cover.webp" width="300" height="400" alt="" />
@@ -34,7 +35,7 @@ export default function BookPopup() {
         </span>
         <span className="bk-tag">$6.99</span>
         <span className="bk-tip"><b>My AI book</b><span>$6.99. 27 prompts to fix AI slop UI.</span></span>
-      </Link>
+      </a>
       <button className="bk-close" type="button" onClick={close} aria-label="Hide book offer">
         <svg viewBox="0 0 24 24" width="12" height="12" aria-hidden="true"><path fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" d="M6 6l12 12M18 6L6 18" /></svg>
       </button>

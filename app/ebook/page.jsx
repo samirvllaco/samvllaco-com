@@ -1,9 +1,9 @@
 import Link from "next/link";
+import { BOOK_URL } from "../../lib/site";
 import { PeopleStack } from "../../components/ClientAvatars";
 import Crumbs from "../../components/Crumbs";
 
-// Paste the checkout link here when it exists. While empty, the buy buttons show "Available soon".
-const BUY_URL = "";
+const BUY_URL = BOOK_URL;
 const PRICE = "$6.99";
 
 export const metadata = {
@@ -48,13 +48,13 @@ const FAQ = [
   ["What format is it?", "A PDF, plus three plain text files you can drop into your project."],
   ["Which AI tools does it work with?", "Any tool that takes a prompt. The prompts are plain language, written for tools like Claude, Lovable, v0, Codex, Cursor and Bolt."],
   ["Do I need design skills?", "No. Each step says what to do, why it matters and what to check before you accept the AI's change."],
-  ["How long does it take?", "About three hours for one page. The first hour, on color, type and spacing, changes the most."],
+  ["How long does it take?", "About one hour for one page. Color, type and spacing change the most."],
   ["Will it rebuild my app?", "No. Every prompt keeps your content and features and changes only the design."],
 ];
 
 function Buy({ label }) {
   if (!BUY_URL) return <span className="hero2-btn hero2-btn-primary eb-soon" aria-disabled="true">Available soon</span>;
-  return <a className="hero2-btn hero2-btn-primary" href={BUY_URL} rel="noopener">{label}</a>;
+  return <a className="hero2-btn hero2-btn-primary" href={BUY_URL} target="_blank" rel="noopener">{label}</a>;
 }
 
 export default function Ebook() {
@@ -69,7 +69,7 @@ export default function Ebook() {
           <h1><span className="eb-27">27</span> copy-paste prompts to fix AI slop UI</h1>
           <p className="eb-sub">Make your vibe-coded website or app feel human-designed. Spot the mistakes you don't notice, copy the fix, and keep it fixed with one rules file.</p>
           <div className="btn-row">
-            <Buy label={`Get the book for ${PRICE}`} />
+            <Buy label={`Buy now for ${PRICE}`} />
             <a className="hero2-btn hero2-btn-light" href="#inside">See what's inside</a>
           </div>
           <ul className="eb-ticks">
@@ -174,7 +174,7 @@ export default function Ebook() {
 
       <section className="eb-sec eb-end">
         <h2>Copy-paste solution, <span className="t2">fix your app in 30 minutes</span></h2>
-        <div className="btn-row"><Buy label={`Get the book for ${PRICE}`} /></div>
+        <div className="btn-row"><Buy label={`Buy now for ${PRICE}`} /></div>
       </section>
     </div>
   );
