@@ -26,14 +26,14 @@ export const metadata = {
 };
 
 // Inline icon slot inside the hero headline. Each slot shows the tiles that match the word before it.
-function Ico({ tiles: wanted, delay = 0 }) {
+function Ico({ tiles: wanted, delay = 0, at = 0 }) {
   // Only show tiles that have an image in public/hero, so new tools appear as soon as their file is added.
   const tiles = wanted.filter((n) => fs.existsSync(path.join(process.cwd(), "public", "hero", `${n}.webp`)));
   if (!tiles.length) return null;
   const n = tiles.length;
   // One slot changes at a time: every slot swaps once per 8s beat, offset by `delay` seconds.
   return (
-    <span className={`h3-slot h3-seq${n === 1 ? " h3-solo" : ""}`} aria-hidden="true">
+    <span className={`h3-slot h3-seq${n === 1 ? " h3-solo" : ""}`} aria-hidden="true" style={{ "--pop": `${3.6 + at * 0.35}s` }}>
       {tiles.map((t, i) => (
         // eslint-disable-next-line @next/next/no-img-element
         <img key={t} src={`/hero/${t}.webp`} width="256" height="256" alt=""
@@ -51,8 +51,8 @@ export default function Home() {
         <div className="hero3">
           <h1>
             I design <Ico tiles={["figma", "photoshop", "illustrator", "claude", "framer", "sketch", "xd", "aftereffects", "systems", "code"]} /> digital products{" "}<br />
-            people <span className="h3-nw">love <Ico tiles={["love"]} delay={6} />,</span> and{" "}<br />
-            <span className="t2">experiences that convert</span> <Ico tiles={["growth", "money", "speed"]} delay={3} />
+            people <span className="h3-nw">love <Ico tiles={["love"]} delay={6} at={1} />,</span> and{" "}<br />
+            <span className="t2">experiences that convert</span> <Ico tiles={["growth", "money", "speed"]} delay={3} at={2} />
           </h1>
           <p className="hero2-sub">I make complex products feel simple, beautiful, and impossible to ignore.</p>
           <div className="hero2-cta">

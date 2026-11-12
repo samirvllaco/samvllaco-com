@@ -2542,3 +2542,10 @@ html.js .foot-tag.is-shown span { opacity: 1; filter: none; transform: none; }
 .wall-stick::before, .wall-stick::after { height: clamp(140px, 26vh, 300px); }
 .wall-stick::before { background: linear-gradient(180deg, var(--wall-fade) 0%, var(--wall-tone) 46%, transparent 100%); }
 .wall-stick::after { background: linear-gradient(0deg, var(--wall-fade) 0%, var(--wall-tone) 46%, transparent 100%); }
+
+/* Hero title: plain headline first, the icon tiles open up inside it a few seconds later */
+@keyframes h3-pop { from { width: 0; margin-inline: 0; opacity: 0; transform: scale(.3) rotate(-12deg); } 60% { opacity: 1; } to { width: .9em; margin-inline: .08em; opacity: 1; transform: none; } }
+@keyframes h3-pop-s { from { width: 0; margin-inline: 0; opacity: 0; transform: scale(.3) rotate(-12deg); } 60% { opacity: 1; } to { width: .9em; margin-inline: .06em; opacity: 1; transform: none; } }
+html.js .hero3 h1 .h3-slot { animation: h3-pop .9s cubic-bezier(.3, 1.35, .5, 1) var(--pop, 3.6s) both; }
+@media (max-width: 640px) { html.js .hero3 h1 .h3-slot { animation-name: h3-pop-s; } }
+@media (prefers-reduced-motion: reduce) { html.js .hero3 h1 .h3-slot { animation: none; } }
