@@ -18,7 +18,7 @@ import HeroShow from "../components/HeroShow";
 import { LocalTime, CountUp } from "../components/Greeting";
 
 export const metadata = {
-  title: { absolute: `${SITE.name}: ${SITE.tagline}` },
+  title: { absolute: "Sam - UI/UX Design Partner" },
   alternates: { canonical: "/" },
 };
 

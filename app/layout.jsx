@@ -12,7 +12,7 @@ import { SITE } from "../lib/site";
 export const metadata = {
   metadataBase: new URL(SITE.url),
   title: {
-    default: `${SITE.name}: ${SITE.tagline}`,
+    default: "Sam - UI/UX Design Partner",
     template: `%s | ${SITE.name}`,
   },
   description: SITE.description,
