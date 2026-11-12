@@ -4,6 +4,7 @@ import SoundToggle from "./SoundToggle";
 import ServicesMenu from "./ServicesMenu";
 import ThemeToggle from "./ThemeToggle";
 import HeaderScroll from "./HeaderScroll";
+import BrandFace from "./BrandFace";
 import { EMAIL } from "../lib/site";
 
 const NAV = [
@@ -25,8 +26,7 @@ export default function Header() {
       </Link>
       <div className="wrap head-row">
         <Link className="brand-me" href="/" aria-label="Sam Vllaco, home">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img className="brand-face" src="/sam.jpg" width="72" height="72" alt="" />
+          <BrandFace />
           <span className="brand-word">Sam</span>
         </Link>
         <nav className="head-nav" aria-label="Main">
