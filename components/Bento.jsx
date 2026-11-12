@@ -55,21 +55,21 @@ export default function Bento() {
       <h2 id="bx-h" className="bx-title">One designer<br /><span className="t2">for the whole product.</span></h2>
       <div className="bx-grid">
         <div className="bx-stats">
-          <div className="bx-card bx-stat"><b>10</b><span>Years of experience</span></div>
-          <div className="bx-card bx-stat"><b>50+</b><span>Clients served</span></div>
-          <div className="bx-card bx-stat"><b>10,000+</b><span>Screens designed</span></div>
+          <div className="bx-card bx-stat"><i className="lr lr-l" aria-hidden="true" /><i className="lr lr-r" aria-hidden="true" /><b>10</b><span>Years of experience</span></div>
+          <div className="bx-card bx-stat"><i className="lr lr-l" aria-hidden="true" /><i className="lr lr-r" aria-hidden="true" /><b>50+</b><span>Clients served</span></div>
+          <div className="bx-card bx-stat"><i className="lr lr-l" aria-hidden="true" /><i className="lr lr-r" aria-hidden="true" /><b>10,000+</b><span>Screens designed</span></div>
         </div>
         <div className="bx-card bx-work bx-deck" data-reveal>
           <h3 className="bx-t">Work</h3>
           <SwipeDeck items={WORK.map((w) => ({ slug: w.slug, title: w.title, small: w.small, cut: `/work/cut/${w.small.split("?")[0].split("/").pop()}?v=4`, round: w.platform === "desktop", alt: w.alt, platform: w.platform, tags: w.tags }))} />
         </div>
-        <Link href="/book/" className="bx-card bx-world" data-reveal>
+        <div className="bx-card bx-world" data-reveal>
           <h3 className="bx-t">Worldwide</h3>
           <p className="bx-world-s"><i />Based in {SITE.city || "Tirana, Albania"}. 500+ clients across four continents</p>
           <WorldFlags />
           <BentoGlobe />
           <WorldFacts />
-        </Link>
+        </div>
         <Link href="/work/" className="bx-card bx-mini bx-screens" data-reveal>
           <h3 className="bx-t">Screens</h3>
           <div className="bx-cols" aria-hidden="true">

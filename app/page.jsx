@@ -56,7 +56,7 @@ export default function Home() {
             <a className="hero2-btn hero2-btn-primary" href="#work">Explore my work</a>
             <a className="hero2-btn hero2-btn-light" href="/book/"><CallIcon />Let's work together</a>
           </div>
-          <p className="hero-award"><span>Award-winning</span><span>UI/UX designer</span></p>
+          <p className="hero-award"><i className="lr lr-l" aria-hidden="true" /><i className="lr lr-r" aria-hidden="true" /><span>Award-winning</span><span>UI/UX designer</span></p>
         </div>
         <div className="trust trust-on" aria-labelledby="trust-h">
           <p id="trust-h">Trusted by designers and engineers working at</p>
