@@ -64,11 +64,15 @@ export default function Home() {
         <ScreenFan items={[["activity", "Activity", "marketing-dashboard"], ["contacts", "Contacts", "marketing-dashboard"], ["campaigns", "Campaigns", "marketing-dashboard"], ["dashboard", "Marketing dashboard", "marketing-dashboard"], ["messages", "Freelance marketplace", "freelance-marketplace"], ["aidraft", "AI draft reply", "marketing-dashboard"], ["discover", "Discover", "freelance-marketplace"]].map(([id, title, slug]) => ({ id, slug, title, src: `/work/fan/${id}.webp` }))} />
         <div className="trust trust-on" aria-labelledby="trust-h">
           <p id="trust-h">Trusted by designers and engineers working at</p>
-          <ul>
-            {[["netflix", "Netflix"], ["uber", "Uber"], ["google", "Google"], ["youtube", "YouTube"], ["x", "X"], ["dribbble", "Dribbble"]].map(([id, name]) => (
-              <li key={id} aria-label={name}>{id === "uber" ? null : <span dangerouslySetInnerHTML={{ __html: fs.readFileSync(path.join(process.cwd(), "public", "social", `${id}.svg`), "utf8") }} />}{id === "x" ? null : name}</li>
+          <div className="trust-run">
+            {[0, 1].map((k) => (
+              <ul key={k} aria-hidden={k === 1 ? "true" : undefined}>
+                {[["netflix", "Netflix"], ["uber", "Uber"], ["google", "Google"], ["youtube", "YouTube"], ["x", "X"], ["dribbble", "Dribbble"], ["behance", "Behance"], ["linkedin", "LinkedIn"]].map(([id, name]) => (
+                  <li key={id} aria-label={name}>{id === "uber" ? null : <span dangerouslySetInnerHTML={{ __html: fs.readFileSync(path.join(process.cwd(), "public", "social", `${id}.svg`), "utf8") }} />}{id === "x" ? null : name}</li>
+                ))}
+              </ul>
             ))}
-          </ul>
+          </div>
         </div>
       </section>
 

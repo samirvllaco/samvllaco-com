@@ -2452,3 +2452,26 @@ html.js .foot-sig-w[data-reveal], html.js .foot-sig-w[data-reveal].is-shown { op
 @media (min-width: 981px) and (max-width: 1180px) {
   html.is-scrolled .site-header .wrap.head-row { width: fit-content; grid-template-columns: auto auto; column-gap: 8px; }
 }
+
+/* Footer signature runs past the photo instead of being cut at its edges; the footer clips it at the page edge */
+.foot-photo-in { overflow: visible; }
+.site-footer { overflow-x: clip; }
+
+/* Trust strip: slow marquee with faded edges */
+.trust-run { display: flex; width: 100%; max-width: 1100px; margin-inline: auto; overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 14%, #000 86%, transparent); mask-image: linear-gradient(90deg, transparent, #000 14%, #000 86%, transparent); }
+.trust-run ul { flex: none; flex-wrap: nowrap; justify-content: flex-start; gap: 0; padding-right: 0; animation: trust-run 36s linear infinite; }
+.trust-run li { padding-inline: clamp(18px, 3vw, 40px); }
+.trust-run:hover ul { animation-play-state: paused; }
+@keyframes trust-run { to { transform: translateX(-100%); } }
+@media (prefers-reduced-motion: reduce) { .trust-run { overflow-x: auto; } .trust-run ul { animation: none; } .trust-run ul[aria-hidden] { display: none; } }
+
+/* More air between sections */
+:root { --sec: clamp(112px, 12vw, 184px); }
+.bx-sec, .faq { margin-top: var(--sec) !important; }
+.faq { margin-bottom: var(--sec); }
+#work.work { padding-block: var(--sec); }
+.pg { padding-bottom: var(--sec); }
+.eb-sec { margin-top: var(--sec); }
+/* Reviews end card sits higher over the fading cards */
+.tm-world { bottom: 56px; }
+@media (max-width: 720px) { .tm-world { bottom: 32px; } }
