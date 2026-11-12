@@ -8,13 +8,8 @@ import { BOOK_URL } from "../lib/site";
 function Book3D() {
   return (
     <span className="nb-book" aria-hidden="true">
-      <span className="nb-in">
-        <i className="nb-back" />
-        <i className="nb-pages" />
-        <i className="nb-spine" />
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img className="nb-front" src="/book-cover.webp?v=2" width="18" height="24" alt="" />
-      </span>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img className="nb-img" src="/nav-book.webp" width="20" height="29" alt="" />
     </span>
   );
 }

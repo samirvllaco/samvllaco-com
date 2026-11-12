@@ -2758,3 +2758,10 @@ html:not(.js) .foot-sig-svg path { stroke-dasharray: none; }
 .hero3 .hero2-cta { display: flex; justify-content: center; }
 .hero3 .hero2-cta .hero2-btn { width: auto; min-width: 220px; }
 @media (max-width: 640px) { .hero3 .hero2-cta { display: flex; } .hero3 .hero2-cta .hero2-btn { width: 100%; max-width: 360px; } }
+
+/* Nav book: rendered 3D book image that floats, tilts and glows */
+.nb-book { width: 20px; height: 29px; perspective: 200px; margin-right: 4px; }
+.nb-img { display: block; width: 20px; height: 29px; border-radius: 2px; transform: rotateY(-14deg); transform-origin: 50% 60%; animation: nb-float 4.2s ease-in-out infinite; filter: drop-shadow(0 0 6px rgba(246, 170, 50, .35)) drop-shadow(0 3px 3px rgba(0, 0, 0, .6)); transition: transform .45s cubic-bezier(.2, .8, .2, 1), filter .3s; }
+.head-nav a:hover .nb-img { animation-play-state: paused; transform: rotateY(-34deg) scale(1.18) translateY(-1px); filter: drop-shadow(0 0 10px rgba(246, 170, 50, .65)) drop-shadow(0 3px 3px rgba(0, 0, 0, .6)); }
+@keyframes nb-float { 0%, 100% { transform: rotateY(-14deg) translateY(0); } 50% { transform: rotateY(14deg) translateY(-2px); filter: drop-shadow(0 0 9px rgba(246, 170, 50, .6)) drop-shadow(0 3px 3px rgba(0, 0, 0, .6)); } }
+@media (prefers-reduced-motion: reduce) { .nb-img { animation: none; } }
