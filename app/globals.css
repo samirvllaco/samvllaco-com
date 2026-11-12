@@ -2668,3 +2668,15 @@ html.js .foot-tag, html.js .foot-tag[data-reveal], html.js .foot-tag[data-reveal
 .case-fab-top::after { content: ""; position: absolute; left: 14px; right: 14px; bottom: 6px; height: 2px; border-radius: 2px; background: linear-gradient(90deg, #62c1fd calc(var(--read, 0) * 100%), color-mix(in srgb, var(--text) 16%, transparent) 0); }
 @media (max-width: 640px) { .case-fab-next span { display: none; } .case-fab-next { width: 44px; padding: 0 !important; justify-content: center; } .case-fab a, .case-fab button { padding: 0 13px; } .case-fab { bottom: max(84px, env(safe-area-inset-bottom, 0px)); } }
 @media (min-width: 641px) { .case-fab-r { right: 172px; bottom: max(24px, env(safe-area-inset-bottom, 0px)); } }
+
+/* Case navigation: one centred bar; the Top button's border fills in the accent colour as you scroll */
+.case-fab { left: 50%; right: auto; transform: translate(-50%, 12px); padding: 6px; border-radius: 999px; background: color-mix(in srgb, var(--bg, #111112) 72%, transparent); -webkit-backdrop-filter: blur(18px) saturate(160%); backdrop-filter: blur(18px) saturate(160%); box-shadow: 0 0 0 1px color-mix(in srgb, var(--text) 10%, transparent), 0 18px 40px -18px rgba(0, 0, 0, .6); width: max-content; max-width: calc(100vw - 24px); }
+.case-fab.is-on { transform: translate(-50%, 0); }
+.case-fab a, .case-fab button { box-shadow: none; background: color-mix(in srgb, var(--text) 8%, transparent); -webkit-backdrop-filter: none; backdrop-filter: none; }
+.case-fab a:hover, .case-fab button:hover { background: color-mix(in srgb, var(--text) 16%, transparent); }
+.case-fab-top::after { content: none; }
+.case-fab-top::before { content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 2px; background: conic-gradient(from 0deg, var(--accent, #62c1fd) calc(var(--read, 0) * 360deg), color-mix(in srgb, var(--text) 14%, transparent) 0); -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0); pointer-events: none; }
+.case-fab-tip { right: auto; left: 0; }
+@media (min-width: 641px) { .case-fab-r { right: auto; } }
+@media (max-width: 640px) { .case-fab { gap: 6px; bottom: max(84px, env(safe-area-inset-bottom, 0px)); } }
+@media (max-width: 640px) { .case-fab { bottom: max(116px, env(safe-area-inset-bottom, 0px)); } }

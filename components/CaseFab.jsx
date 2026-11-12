@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 // Floating case study navigation, shown after some scrolling:
-// left: back to all work, or up to the top. Right: previous and next case study, with a reading progress ring.
+// one centred bar: previous, all work, top (its border fills as you read), next.
 // Left and right arrow keys also move between case studies.
 const Arrow = ({ d }) => (
   <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d={d} fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" /></svg>
@@ -34,17 +34,11 @@ export default function CaseFab({ prev, next }) {
   }
   const t = on ? 0 : -1;
   return (
-    <>
-      <div className={`case-fab${on ? " is-on" : ""}`} aria-hidden={!on}>
-        <Link href="/work/" tabIndex={t}><Arrow d="M4 6h7v7H4zM13 6h7v7h-7zM4 15h7v3H4zM13 15h7v3h-7z" /> All work</Link>
-        <button type="button" onClick={top} tabIndex={t} className="case-fab-top" style={{ "--read": read }}><Arrow d="M12 19V5M6 11l6-6 6 6" /> Top</button>
-      </div>
-      {prev && next ? (
-        <nav className={`case-fab case-fab-r${on ? " is-on" : ""}`} aria-label="Other case studies" aria-hidden={!on}>
-          <Link href={prev.href} tabIndex={t} aria-label={`Previous case study: ${prev.title}`} className="case-fab-ic"><Arrow d="M19 12H5M11 6l-6 6 6 6" /><span className="case-fab-tip">{prev.title}</span></Link>
-          <Link href={next.href} tabIndex={t} className="case-fab-next"><span><small>Next</small>{next.title}</span><Arrow d="M5 12h14M13 6l6 6-6 6" /></Link>
-        </nav>
-      ) : null}
-    </>
+    <nav className={`case-fab${on ? " is-on" : ""}`} aria-label="Case study navigation" aria-hidden={!on}>
+      {prev ? <Link href={prev.href} tabIndex={t} aria-label={`Previous case study: ${prev.title}`} className="case-fab-ic"><Arrow d="M19 12H5M11 6l-6 6 6 6" /><span className="case-fab-tip">{prev.title}</span></Link> : null}
+      <Link href="/work/" tabIndex={t}><Arrow d="M4 6h7v7H4zM13 6h7v7h-7zM4 15h7v3H4zM13 15h7v3h-7z" /> All work</Link>
+      <button type="button" onClick={top} tabIndex={t} className="case-fab-top" style={{ "--read": read }} aria-label={`Back to top, ${Math.round(read * 100)}% read`}><Arrow d="M12 19V5M6 11l6-6 6 6" /> Top</button>
+      {next ? <Link href={next.href} tabIndex={t} className="case-fab-next"><span><small>Next</small>{next.title}</span><Arrow d="M5 12h14M13 6l6 6-6 6" /></Link> : null}
+    </nav>
   );
 }
