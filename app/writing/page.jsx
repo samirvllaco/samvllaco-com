@@ -12,7 +12,7 @@ export const metadata = {
 export default function Writing() {
   return (
     <div className="wrap page pg">
-      <PageHead crumb="Writing" href="/writing/" a="Writing" b="on AI, design and building apps" lede="Practical stories for founders and designers building with AI. Most are on Medium." />
+      <PageHead crumb="Insights" href="/writing/" a="Insights" b="on AI, design and building apps" lede="Practical stories for founders and designers building with AI. Most are on Medium." />
       <WritingGrid />
       <p>
         More on <a href={SITE.links.medium} rel="me noopener">Medium</a> and

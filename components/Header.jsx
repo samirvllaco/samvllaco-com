@@ -8,7 +8,8 @@ import { EMAIL } from "../lib/site";
 
 const NAV = [
   { href: "/work/", label: "Work", badge: "New" },
-  { href: "/writing/", label: "Writing" },
+  { href: "/writing/", label: "Insights" },
+  { href: "/ebook/", label: "Book", badge: "$6.99" },
   { href: "/about/", label: "About" },
   { href: "/book/", label: "Contact", dot: true },
 ];
