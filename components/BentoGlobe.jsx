@@ -27,26 +27,26 @@ export default function BentoGlobe() {
     const proj = geoOrthographic().clipAngle(90).precision(0.4);
     const path = geoPath(proj, ctx);
     let w = 0, h = 0, raf = 0, on = false, R = 100;
-    let rot = [-10, -28], target = 0, lastAuto = performance.now(), held = null, idleAt = 0;
+    let rot = [-10, -8], target = 0, lastAuto = performance.now(), held = null, idleAt = 0;
     const flags = {};
     ["eu", "us", "ca", "ae", "au", "al"].forEach((c) => { const im = new Image(); im.src = `/flags/${c}.svg`; im.onload = () => { flags[c] = im; }; });
 
     function size() {
       const r = cv.getBoundingClientRect(), d = Math.min(2, window.devicePixelRatio || 1);
       w = r.width; h = r.height; cv.width = Math.round(w * d); cv.height = Math.round(h * d); ctx.setTransform(d, 0, 0, d, 0, 0);
-      R = Math.min(w * 0.4, h * 0.36);
-      proj.scale(R).translate([w / 2, h * 0.52]);
+      R = Math.min(w * 0.62, h * 0.66);
+      proj.scale(R).translate([w / 2, h * 0.95]);
     }
     const visible = (lon, lat) => geoDistance([lon, lat], [-rot[0], -rot[1]]) < Math.PI / 2 - 0.05;
     function pin(r, big, t) {
       if (!visible(r.lon, r.lat)) return;
       const [bx, by] = proj([r.lon, r.lat]);
-      const cx = w / 2, cy = h * 0.52, dx = bx - cx, dy = by - cy, k = big ? 0.2 : 0.13;
+      const cx = w / 2, cy = h * 0.95, dx = bx - cx, dy = by - cy, k = big ? 0.2 : 0.13;
       const tx = bx + dx * k, ty = by + dy * k - (big ? 16 : 10);
       const fw = big ? 40 : 28, fh = fw * 0.72, bob = Math.sin(t * 1.6 + r.lon) * 1.2;
       ctx.strokeStyle = "rgba(255,255,255,.9)"; ctx.lineWidth = 2; ctx.lineCap = "round";
       ctx.beginPath(); ctx.moveTo(bx, by); ctx.lineTo(tx, ty + bob); ctx.stroke();
-      ctx.fillStyle = "#f5c542"; ctx.beginPath(); ctx.arc(bx, by, big ? 5 : 3.5, 0, 7); ctx.fill();
+      ctx.fillStyle = "#62c1fd"; ctx.beginPath(); ctx.arc(bx, by, big ? 5 : 3.5, 0, 7); ctx.fill();
       const x = tx - fw / 2, y = ty - fh + bob;
       ctx.save(); ctx.shadowColor = "rgba(0,0,0,.6)"; ctx.shadowBlur = 12; ctx.shadowOffsetY = 5;
       ctx.beginPath(); ctx.roundRect(x - 2, y - 2, fw + 4, fh + 4, 7); ctx.fillStyle = "#fff"; ctx.fill(); ctx.restore();
@@ -60,12 +60,12 @@ export default function BentoGlobe() {
       const t = now / 1000;
       if (!held && now > idleAt && !reduce) {
         if (now - lastAuto > 4200) { target = (target + 1) % REGIONS.length; lastAuto = now; }
-        const g = REGIONS[target], want = [-(g.lon + HOME.lon) / 2 - (Math.abs(g.lon - HOME.lon) > 150 ? 0 : 0), -Math.max(-20, Math.min(40, (g.lat + HOME.lat) / 2)) + 4];
+        const g = REGIONS[target], want = [-(g.lon + HOME.lon) / 2 - (Math.abs(g.lon - HOME.lon) > 150 ? 0 : 0), -Math.max(-60, Math.min(20, (g.lat + HOME.lat) / 2 - 34))];
         let d0 = ((want[0] - rot[0] + 540) % 360) - 180;
         rot = [rot[0] + d0 * 0.035, rot[1] + (want[1] - rot[1]) * 0.035];
       }
       proj.rotate(rot);
-      const cx = w / 2, cy = h * 0.52;
+      const cx = w / 2, cy = h * 0.95;
       ctx.clearRect(0, 0, w, h);
       const halo = ctx.createRadialGradient(cx, cy, R * 0.9, cx, cy, R * 1.25);
       halo.addColorStop(0, "rgba(255,255,255,.1)"); halo.addColorStop(1, "rgba(255,255,255,0)");
@@ -76,7 +76,7 @@ export default function BentoGlobe() {
       // land with a soft drop for a raised look
       ctx.save(); ctx.shadowColor = "rgba(0,0,0,.55)"; ctx.shadowBlur = 6; ctx.shadowOffsetX = 2; ctx.shadowOffsetY = 3;
       ctx.beginPath(); path(WORLD.land); ctx.fillStyle = "#6b6b66"; ctx.fill(); ctx.restore();
-      ctx.beginPath(); GOLD.forEach((f) => path(f)); ctx.fillStyle = "#e3bd3f"; ctx.fill();
+      ctx.beginPath(); GOLD.forEach((f) => path(f)); ctx.fillStyle = "#4fa9ee"; ctx.fill();
       ctx.beginPath(); path(WORLD.borders); ctx.strokeStyle = "rgba(20,20,20,.55)"; ctx.lineWidth = 0.7; ctx.stroke();
       // shading toward the edge
       const limb = ctx.createRadialGradient(cx - R * 0.25, cy - R * 0.3, R * 0.4, cx, cy, R);
@@ -86,14 +86,14 @@ export default function BentoGlobe() {
       REGIONS.forEach((r, i) => {
         const line = { type: "LineString", coordinates: Array.from({ length: 41 }, (_, k) => geoInterpolate([HOME.lon, HOME.lat], [r.lon, r.lat])(k / 40)) };
         ctx.beginPath(); path(line);
-        ctx.strokeStyle = i === target ? "#f5c542" : "rgba(245,197,66,.4)"; ctx.lineWidth = i === target ? 3.5 : 2; ctx.lineCap = "round"; ctx.stroke();
-        if (visible(r.lon, r.lat)) { const [x, y] = proj([r.lon, r.lat]); const p = (t * 0.7 + i * 0.2) % 1; ctx.strokeStyle = `rgba(245,197,66,${1 - p})`; ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(x, y, 6 + p * 16, 0, 7); ctx.stroke(); }
+        ctx.strokeStyle = i === target ? "#62c1fd" : "rgba(98,193,253,.4)"; ctx.lineWidth = i === target ? 3.5 : 2; ctx.lineCap = "round"; ctx.stroke();
+        if (visible(r.lon, r.lat)) { const [x, y] = proj([r.lon, r.lat]); const p = (t * 0.7 + i * 0.2) % 1; ctx.strokeStyle = `rgba(98,193,253,${1 - p})`; ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(x, y, 6 + p * 16, 0, 7); ctx.stroke(); }
       });
       [...REGIONS.map((r, i) => ({ r, big: i === target })), { r: HOME, big: false }].forEach(({ r, big }) => pin(r, big, t));
       if (on) raf = requestAnimationFrame(draw);
     }
     const down = (e) => { held = { x: e.clientX, y: e.clientY, r: rot.slice() }; cv.setPointerCapture?.(e.pointerId); cv.classList.add("is-held"); };
-    const move = (e) => { if (!held) return; rot = [held.r[0] + (e.clientX - held.x) * (90 / R) * 0.6, Math.max(-70, Math.min(70, held.r[1] - (e.clientY - held.y) * (90 / R) * 0.6))]; };
+    const move = (e) => { if (!held) return; rot = [held.r[0] + (e.clientX - held.x) * (90 / R) * 0.6, Math.max(-60, Math.min(60, held.r[1] - (e.clientY - held.y) * (90 / R) * 0.6))]; };
     const up = () => { if (!held) return; held = null; idleAt = performance.now() + 3500; lastAuto = idleAt; cv.classList.remove("is-held"); };
     cv.addEventListener("pointerdown", down); cv.addEventListener("pointermove", move); cv.addEventListener("pointerup", up); cv.addEventListener("pointercancel", up);
     size(); draw(performance.now());

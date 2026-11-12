@@ -2157,3 +2157,4 @@ html.is-end .to-top { bottom: 212px; }
 html.is-scrolled .edge-blur.edge-top { opacity: 1; }
 html.is-end .edge-blur.edge-top { opacity: 1; }
 @media (max-width: 980px) { .edge-blur.edge-top { display: none; } }
+.bx-world-s i { background: #62c1fd; box-shadow: 0 0 10px rgba(98, 193, 253, .7); }
