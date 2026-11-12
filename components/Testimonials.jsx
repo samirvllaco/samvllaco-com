@@ -1,4 +1,5 @@
 import Link from "next/link";
+import DotGlobe, { LocalClock } from "./DotGlobe";
 import { TESTIMONIALS } from "../lib/testimonials";
 
 const Star = () => <svg viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="m10 1.600 2.600 5.300 5.800.800-4.200 4.100 1 5.800L10 14.900l-5.200 2.700 1-5.800L1.600 7.700l5.800-.800L10 1.600Z" /></svg>;
@@ -21,11 +22,19 @@ export default function Testimonials() {
           </figure>
         ))}
       </div>
-      <Link href="/book/" className="tm-more">
-        <span className="tm-stars" aria-hidden="true"><Star /></span>
-        <b>5.0</b>
-        <i aria-hidden="true">·</i>
-        <span>200+ reviews worldwide</span>
+      <Link href="/book/" className="tm-world">
+        <span className="tm-world-in">
+          <span className="tm-world-r"><span className="tm-stars" aria-hidden="true"><Star /><Star /><Star /><Star /><Star /></span><b>5.0</b></span>
+          <b className="tm-world-t">200+ reviews <span className="t2">worldwide</span></b>
+          <span className="tm-world-f">
+            {[["us", "USA"], ["ca", "Canada"], ["au", "Australia"], ["ae", "UAE"], ["eu", "Europe"]].map(([c, n]) => (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img key={c} src={`/flags/${c}.svg`} width="28" height="21" alt={n} title={n} loading="lazy" />
+            ))}
+          </span>
+          <span className="tm-world-c">Tirana, Albania · <LocalClock /></span>
+        </span>
+        <DotGlobe />
       </Link>
       </div>
     </section>
