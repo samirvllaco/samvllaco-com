@@ -9,10 +9,8 @@ import { EMAIL } from "../lib/site";
 // "Services" in the header. Opens a wide panel on hover, click or keyboard.
 // Add PDFs here as { name, href: "/resources/file.pdf", pdf: true } once the files are in public/resources.
 const RESOURCES = [
-  { name: "AI Slop UI: 25 UX fixes", href: "/writing/" },
-  { name: "Digital products", href: "/products/" },
-  { name: "Case studies", href: "/work/" },
-  { name: "Questions founders ask", href: "/#faq" },
+  { name: "AI Slop UI book", href: "/products/", tag: "$1" },
+  { name: "Digital kit", href: "/products/" },
 ];
 
 export default function ServicesMenu() {
@@ -66,10 +64,10 @@ export default function ServicesMenu() {
           ))}
           <div className="mega-col">
             <Link className="mega-title" href="/writing/" onClick={() => setOpen(false)}>Resources</Link>
-            <p className="mega-blurb">Guides and tools from my own work.</p>
+            <p className="mega-blurb">My book and the kit I use on my own products.</p>
             <ul>
               {RESOURCES.map((r) => (
-                <li key={r.href}><Link href={r.href} onClick={() => setOpen(false)}>{r.name}{r.pdf ? <span className="mega-pdf">PDF</span> : null}</Link></li>
+                <li key={r.href}><Link href={r.href} onClick={() => setOpen(false)}>{r.name}{r.tag ? <span className="mega-pdf mega-gold">{r.tag}</span> : null}</Link></li>
               ))}
             </ul>
           </div>
