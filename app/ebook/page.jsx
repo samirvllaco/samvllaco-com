@@ -3,7 +3,7 @@ import Crumbs from "../../components/Crumbs";
 
 // Paste the checkout link here when it exists. While empty, the buy buttons show "Available soon".
 const BUY_URL = "";
-const PRICE = "$1";
+const PRICE = "$6.99";
 
 export const metadata = {
   title: "27 Copy-Paste Prompts to Fix AI Slop UI",
@@ -147,7 +147,7 @@ export default function Ebook() {
           <ul className="eb-ticks">{GET.map((g) => <li key={g}>{g}</li>)}</ul>
         </div>
         <aside>
-          <p className="eb-price">{PRICE}<span>launch price</span></p>
+          <p className="eb-price">{PRICE}<span>one-time</span></p>
           <Buy label="Get your copy" />
           <p className="eb-note">One PDF and three text files. Yours to keep.</p>
         </aside>

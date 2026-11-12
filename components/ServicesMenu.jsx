@@ -9,7 +9,7 @@ import { EMAIL } from "../lib/site";
 // "Services" in the header. Opens a wide panel on hover, click or keyboard.
 // Add PDFs here as { name, href: "/resources/file.pdf", pdf: true } once the files are in public/resources.
 const RESOURCES = [
-  { name: "27 Prompts book", href: "/ebook/", tag: "$1" },
+  { name: "27 Prompts book", href: "/ebook/", tag: "$6.99" },
   { name: "Digital kit", href: "/products/" },
 ];
 

@@ -10,7 +10,7 @@ export const metadata = {
 
 const planned = [
   {
-    name: "27 Copy-Paste Prompts to Fix AI Slop UI (book), $1",
+    name: "27 Copy-Paste Prompts to Fix AI Slop UI (book), $6.99",
     body: "27 steps and 27 prompts that make an AI-built app look designed. See the book page at /ebook/.",
   },
   {
