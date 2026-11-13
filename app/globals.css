@@ -3314,3 +3314,15 @@ body:has(.hero2[data-bg="#0b0b0c"]) { background-color: #0b0b0c; }
 .ba-sl:has(input:focus-visible) { outline: 3px solid rgba(98, 193, 253, .6); outline-offset: 3px; }
 .ba-layer span { position: absolute; top: 14px; translate: none; padding: 4px 10px; border-radius: 999px; background: rgba(0, 0, 0, .35); font-size: .75rem; }
 .ba-b span { left: 14px; } .ba-a span { right: 14px; }
+.ba .ba-list { grid-template-columns: minmax(0, 880px); justify-content: center; }
+.ba-sl:has(img) { aspect-ratio: 1 / 1; }
+.ba-sl:has(img) .ba-layer span { background: rgba(0, 0, 0, .6); color: #fff; }
+/* Script accents on the ebook page a little bigger */
+.scr { font-size: 1.45em; }
+.eb-story-sign.scr { font-size: 2.4rem; }
+.ba-sl:has(img) .ba-layer span { top: auto; bottom: 14px; padding: 3px 8px; font-size: .6875rem; }
+/* Ebook on phones: every call to action sits in the middle, where the thumb is */
+@media (max-width: 640px) {
+  :is(.eb-hero .btn-row, .eb-bn-cta, .eb-more, .eb-hp .hp-cta, .eb-end .btn-row) { display: flex; flex-wrap: wrap; justify-content: center; text-align: center; }
+  .eb-offer :is(.hero2-btn) { align-self: center; justify-self: center; margin-inline: auto; }
+}
