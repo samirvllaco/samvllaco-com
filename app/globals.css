@@ -3192,3 +3192,8 @@ html.js .hero3 > .hero-proof, html.js .hero3 > .hero-trust { animation-delay: .1
 .scr { font-family: "Caveat", "Segoe Script", "Bradley Hand", cursive; font-style: normal; font-weight: 600; font-size: 1.32em; line-height: 1; letter-spacing: 0; color: #f3b25a; }
 :root[data-theme="light"]:not(.on-dark) .scr { color: #a8590a; }
 .eb-story-sign.scr { font-size: 2rem; color: #f3b25a !important; }
+/* Speed Index: the first screen paints complete. No entrance fade on above-the-fold content,
+   and headline icons keep their space from the first frame (they still pop in, without moving the text). */
+html.js .hero3 > *, html.js .ph > *, html.js .eb-hero .eb-copy > *, html.js .eb-hero .eb-cover { animation: none !important; }
+@keyframes h3-pop3 { from { opacity: 0; transform: scale(.4) rotate(-12deg); } to { opacity: 1; transform: none; } }
+html.js .hero3 h1 .h3-slot { animation-name: h3-pop3 !important; animation-duration: .5s !important; }

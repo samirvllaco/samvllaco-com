@@ -33,7 +33,8 @@ Every new section, component or page must keep this. Check it before calling a c
 - No new npm package for something a few lines of code can do.
 
 **First paint**
-- Never hide the main headline, intro text or LCP image with `opacity: 0` or a delayed entrance animation. Above-the-fold entrance motion stays at 0.5s or less with delays of 0.12s or less.
+- The first screen paints complete: no entrance fade or slide on above-the-fold content, and nothing above the fold changes size or position after first paint (inline icons keep their space from frame one). Motion above the fold is limited to opacity/transform pops that do not move other elements.
+- Speed Index can never be lower than First Contentful Paint. On PageSpeed mobile (slow 4G emulation) FCP is about 1.5 to 2 s even for a tiny page, so mobile Speed Index under 1 s is not reachable; aim for Speed Index within 1 s of FCP on mobile and under 1.2 s on desktop.
 - Anything that appears later (popups, widgets) shows after the first scroll, so it never becomes the LCP.
 - Server-render the same first frame the client will show. No layout jump on hydration.
 - Continuous motion near the top (drifts, carousels) starts after the first interaction or 5 seconds.

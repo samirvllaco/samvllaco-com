@@ -51,7 +51,7 @@ function Ico({ id, tiles: wanted, delay = 0, at = 0 }) {
     return el;
   });
   return (
-    <span className="h3-slot h3-seq" aria-hidden="true" style={{ "--pop": `${3.6 + at * 0.35}s` }}>
+    <span className="h3-slot h3-seq" aria-hidden="true" style={{ "--pop": `${0.25 + at * 0.15}s` }}>
       {tiles.length > 1 ? <style dangerouslySetInnerHTML={{ __html: css.join("\n") }} /> : null}
       {imgs}
     </span>
