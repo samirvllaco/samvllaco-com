@@ -12,15 +12,16 @@ export default function BrandFace({ className = "brand-face" }) {
     if (!el) return;
     const link = el.closest("a, button");
     const calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    FACES.forEach((s) => { const im = new Image(); im.src = s; });
+    let loaded = false;
+    const load = () => { if (loaded) return; loaded = true; FACES.forEach((s) => { const im = new Image(); im.src = s; }); };
     let i = 0, slow, fast, start;
     const next = () => {
       i = (i + 1) % FACES.length;
       el.src = FACES[i];
       if (!calm && el.animate) el.animate([{ transform: "scale(.78) rotate(-10deg)", filter: "blur(3px)" }, { transform: "none", filter: "none" }], { duration: 460, easing: "cubic-bezier(.3,1.4,.5,1)" });
     };
-    if (!calm) slow = setInterval(() => { if (!fast && !document.hidden) next(); }, 10000);
-    const over = () => { if (fast) return; next(); fast = setInterval(next, 1000); };
+    if (!calm) slow = setInterval(() => { if (!fast && !document.hidden && document.documentElement.classList.contains("is-live")) { load(); next(); } }, 10000);
+    const over = () => { if (fast) return; load(); next(); fast = setInterval(next, 1000); };
     const out = () => { clearInterval(fast); fast = null; };
     link?.addEventListener("pointerenter", over);
     link?.addEventListener("pointerleave", out);

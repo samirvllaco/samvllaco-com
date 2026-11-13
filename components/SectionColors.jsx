@@ -12,7 +12,8 @@ export default function SectionColors() {
     if (!els.length) return;
     const body = document.body;
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    body.style.transition = reduce ? "none" : "background-color 900ms ease";
+    // First color applies instantly (no fade on load), later changes fade.
+    body.style.transition = "none";
     let raf = 0;
     let current = "";
 
@@ -38,6 +39,7 @@ export default function SectionColors() {
     };
 
     update();
+    requestAnimationFrame(() => { body.style.transition = reduce ? "none" : "background-color 900ms ease"; });
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll);
     window.addEventListener("sv:theme", update);

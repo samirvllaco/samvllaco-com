@@ -37,7 +37,9 @@ Every new section, component or page must keep this. Check it before calling a c
 - Speed Index can never be lower than First Contentful Paint. On PageSpeed mobile (slow 4G emulation) FCP is about 1.5 to 2 s even for a tiny page, so mobile Speed Index under 1 s is not reachable; aim for Speed Index within 1 s of FCP on mobile and under 1.2 s on desktop.
 - Anything that appears later (popups, widgets) shows after the first scroll, so it never becomes the LCP.
 - Server-render the same first frame the client will show. No layout jump on hydration.
-- Continuous motion near the top (drifts, carousels) starts after the first interaction or 5 seconds.
+- Ambient motion (CSS loops, cycling icons, rotating badges, marquees, drifts) holds still until the first interaction. `html.is-live` is set by `HeaderScroll` on the first pointer, key, wheel, touch or scroll; CSS animations are paused until then, and JS loops check for `is-live` before ticking.
+- No timers that read layout (`getBoundingClientRect`, `offsetWidth`) on an interval. Read layout only on scroll or resize, inside `requestAnimationFrame`.
+- The page background on first paint must equal the first `data-bg` section color. No background fade on load.
 - Fonts are self-hosted in `public/fonts` with `font-display: swap`. No Google Fonts links.
 - CSS stays in its own cached file. Do not turn on `experimental.inlineCss`: it was tested and was slower.
 

@@ -10,11 +10,12 @@ export default function ToTop() {
     const check = () => {
       raf = 0;
       const max = document.documentElement.scrollHeight - window.innerHeight;
-      setShow(max > 0 && window.scrollY / max >= 0.4);
+      const on40 = max > 0 && window.scrollY / max >= 0.4;
+      setShow(on40);
       // Sit straight above the video avatar, centred on it.
       const bub = document.querySelector(".vid-bubble");
       const el = me.current;
-      if (bub && el) {
+      if (bub && el && on40) {
         const r = bub.getBoundingClientRect();
         if (r.width) {
           const w = el.offsetWidth || 44;
@@ -25,10 +26,9 @@ export default function ToTop() {
     };
     const on = () => { if (!raf) raf = requestAnimationFrame(check); };
     check();
-    const t = setInterval(check, 600);
     window.addEventListener("scroll", on, { passive: true });
     window.addEventListener("resize", on);
-    return () => { window.removeEventListener("scroll", on); window.removeEventListener("resize", on); cancelAnimationFrame(raf); clearInterval(t); };
+    return () => { window.removeEventListener("scroll", on); window.removeEventListener("resize", on); cancelAnimationFrame(raf); };
   }, []);
   const up = () => {
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;

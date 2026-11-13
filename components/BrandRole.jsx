@@ -13,7 +13,7 @@ export function onRoleTick(fn) {
   subs.add(fn);
   const tick = () => {
     timer = setTimeout(tick, BEAT - (Date.now() % BEAT));
-    if (!document.hidden) subs.forEach((f) => f(roleNow()));
+    if (!document.hidden && document.documentElement.classList.contains("is-live")) subs.forEach((f) => f(roleNow()));
   };
   if (!timer) timer = setTimeout(tick, BEAT - (Date.now() % BEAT));
   return () => { subs.delete(fn); if (!subs.size) { clearTimeout(timer); timer = 0; } };
