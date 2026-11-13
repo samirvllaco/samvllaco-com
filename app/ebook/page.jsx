@@ -57,6 +57,7 @@ const STEPS = [
   ["Keep it fixed", "The bonus that makes the fixes stick", [
     ["Fill in DESIGN.md", "Ten clear rules your AI reads at the start of every session, so it stops forgetting."],
     ["Rate it, fix it, rate it again", "A scorecard loop you repeat until the page earns a 10 out of 10."],
+    ["Add motion and UX rules", "Two bonus prompts for subtle motion and easy-to-use controls, saved into DESIGN.md."],
   ]],
 ];
 
@@ -108,6 +109,7 @@ export default function Ebook() {
           <ul className="eb-ticks">
             <li>27 prompts, one per step</li>
             <li>DESIGN.md rules file included</li>
+            <li>Bonus: motion and UX principles prompts</li>
             <li>No design skills needed, no rebuild</li>
           </ul>
         </div>
@@ -163,6 +165,46 @@ export default function Ebook() {
         </div>
       </section>
 
+
+      <section className="eb-sec eb-bn" id="bonus">
+        <p className="eb-bn-tag">Included in the same $6.99 purchase</p>
+        <h2>Bonus: <span className="t2">motion and UX principles</span></h2>
+        <p className="eb-bn-lede">Once the page looks designed, make it feel designed. Two more copy-paste prompts add small, quick motion and check every control, and a short block saves the rules in DESIGN.md so every new screen follows them. Works for apps, marketing sites and landing pages.</p>
+        <div className="eb-bn-grid">
+          <article>
+            <span>Bonus prompt A</span>
+            <h3>Add subtle motion</h3>
+            <p>12 animation principles in small amounts, so people feel it and do not notice it.</p>
+            <ul>
+              <li>Press scales to 0.97 in 90ms</li>
+              <li>Hover lifts 2px, nothing glows</li>
+              <li>Transform and opacity only</li>
+              <li>Off for reduced motion</li>
+            </ul>
+          </article>
+          <article>
+            <span>Bonus prompt B</span>
+            <h3>Check 8 UX principles</h3>
+            <p>The AI reviews every button, link and list and fixes only what breaks a rule.</p>
+            <ul>
+              <li>44 by 44 pixel hit areas</li>
+              <li>One primary button per screen</li>
+              <li>Lists in groups of seven or fewer</li>
+              <li>Respond within 400ms</li>
+            </ul>
+          </article>
+          <article className="eb-bn-code">
+            <span>Paste into DESIGN.md</span>
+            <h3>Rules that stick</h3>
+            <pre>{"## Motion\nTransform and opacity only.\nFeedback 90 to 250ms.\nPress: scale 0.97.\nHover: lift 2px.\n\n## UX principles\nControls at least 44 by 44px.\nOne primary button per screen."}</pre>
+          </article>
+        </div>
+        <div className="eb-bn-cta">
+          <Buy label={<>Buy now for <span className="eb-pill">{PRICE}</span></>} />
+          <p>Want it done for you instead? <Link href="/book/">Book a call</Link> and I will fix your page with the same rules.</p>
+        </div>
+      </section>
+
       <section className="eb-sec">
         <h2>Look <span className="t2">inside</span></h2>
         <div className="eb-pages">
@@ -195,7 +237,7 @@ export default function Ebook() {
         <aside>
           <p className="eb-price">{PRICE}<span>one-time</span></p>
           <Buy label="Get your copy" />
-          <p className="eb-note">One PDF and three text files. Yours to keep.</p>
+          <p className="eb-note">One PDF and four text files. Yours to keep.</p>
         </aside>
       </section>
 
