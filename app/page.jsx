@@ -20,7 +20,6 @@ import HirePanel from "../components/HirePanel";
 import PainStory from "../components/PainStory";
 import HeroShow from "../components/HeroShow";
 import HeroRole from "../components/HeroRole";
-import ClientAvatars from "../components/ClientAvatars";
 import { LocalTime, CountUp } from "../components/Greeting";
 
 export const metadata = {

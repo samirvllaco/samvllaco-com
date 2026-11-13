@@ -5,10 +5,10 @@ export default function PainStory() {
   return (
     <section className="eb-sec eb-feel pain" aria-labelledby="pain-h" data-bg="#111112">
       <h2 id="pain-h">Sound <span className="t2">familiar?</span></h2>
-      <ul className="eb-pains">
-        <li>People sign up, look around and never come back.</li>
-        <li>Your product is great. Your landing page doesn't show it.</li>
-        <li>Every new screen looks a little different from the last one.</li>
+      <ul className="eb-pains pain-seg">
+        <li><span>Startup founders</span><b>You've put everything into the idea. Make the first experience count.</b><em>Will people understand and use what we're building?</em></li>
+        <li><span>SaaS product teams</span><b>Your product is getting bigger. It shouldn't be getting harder to use.</b><em>Why is every release a little more confusing?</em></li>
+        <li><span>Marketing teams</span><b>People can't choose what they don't understand.</b><em>Why are visitors leaving without taking action?</em></li>
       </ul>
       <div className="eb-story">
         <p>I've seen this for 10 years, in SaaS, fintech, health and AI. The product is almost never the problem. It just isn't clear yet.</p>
