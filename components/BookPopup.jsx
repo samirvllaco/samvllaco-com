@@ -37,7 +37,7 @@ export default function BookPopup() {
         onClick={() => { if (ptr.current !== "mouse") setOpen((v) => !v); ptr.current = ""; }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="/book-cover.webp?v=2" width="300" height="400" alt="" />
-        <span className="bw-price"><s aria-label="was $34.95">$34.95</s> $6.99</span>
+        <span className="bw-price">$6.99</span>
         <span className="sr-only">Show my book</span>
       </button>
       <div id="bw-card" className="bw-card">
