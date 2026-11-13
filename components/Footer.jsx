@@ -33,24 +33,43 @@ function Seal() {
   );
 }
 
-// Link map: every main page one click from any page, with descriptive names.
-const svc = (g) => (SERVICES.find((x) => x.id === g) || { items: [] }).items;
+// Link map: main pages one click from every page. Clean columns like v0: white headings, quiet links,
+// an arrow on links that leave the site, icons on the social links.
+const svc = (ids) => SERVICES.flatMap((g) => g.items).filter((it) => ids.includes(it.id)).map((it) => [{ "dashboard-design": "Dashboard design", "ux-audit": "UX audit" }[it.id] || it.name, `/services/${it.id}/`]);
+const ICON = {
+  x: "M17.75 3h3.07l-6.71 7.67L22 21h-6.18l-4.84-6.33L5.44 21H2.37l7.18-8.2L2 3h6.34l4.37 5.78zm-1.08 16.2h1.7L7.4 4.73H5.58z",
+  medium: "M7 7a5 5 0 1 1 0 10A5 5 0 0 1 7 7zm8 .5c1.4 0 2.5 2 2.5 4.5s-1.1 4.5-2.5 4.5-2.5-2-2.5-4.5 1.1-4.5 2.5-4.5zm4.5.8c.6 0 1 1.7 1 3.7s-.4 3.7-1 3.7-1-1.7-1-3.7.4-3.7 1-3.7z",
+  dribbble: "M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm6.6 4.6a8.5 8.5 0 0 1 1.9 5.2c-2.8-.6-5.3-.6-7.6-.1l-.7-1.6c2.6-1.1 4.8-2.2 6.4-3.5zM12 3.5c2 0 3.9.7 5.4 1.9-1.4 1.2-3.5 2.2-5.9 3.2-1.2-2.2-2.5-4-3.6-5a8.5 8.5 0 0 1 4.1-.1zM6.4 4.4c1.1.9 2.4 2.7 3.6 4.8-2.6.8-5.4 1.2-6.4 1.3a8.5 8.5 0 0 1 2.8-6.1zM3.5 12v-.1c1.3-.1 4.4-.5 7.2-1.4l.7 1.5c-3.1 1-5.6 3-7 5.3A8.4 8.4 0 0 1 3.5 12zm3.3 6.9c1.3-2 3.6-3.8 6.3-4.7.9 2.4 1.5 4.9 1.7 6.4a8.5 8.5 0 0 1-8-1.7zm9.4.8c-.3-1.6-.8-3.8-1.6-6 2-.3 4.2-.2 6.7.3a8.5 8.5 0 0 1-5.1 5.7z",
+  figma: "M9 3h3v6H9a3 3 0 0 1 0-6zm3 0h3a3 3 0 0 1 0 6h-3zm-3 6h3v6H9a3 3 0 0 1 0-6zm6 0a3 3 0 1 1 0 6 3 3 0 0 1 0-6zm-6 6h3v3a3 3 0 1 1-3-3z",
+};
 const MAP = [
-  { h: "Design", links: svc("design").slice(0, 8).map((it) => [it.name, `/services/${it.id}/`]) },
-  { h: "Build and grow", links: [...svc("development").slice(0, 4), ...svc("marketing").filter((it) => ["landing-pages", "conversion-optimization", "seo-audit", "ai-search"].includes(it.id))].map((it) => [it.name, `/services/${it.id}/`]) },
-  { h: "Case studies", links: [...WORK.slice(0, 7).map((w) => [w.title, `/work/${w.slug}/`]), ["All work", "/work/"]] },
-  { h: "Resources", links: [["Insights", "/writing/"], ["AI slop UI ebook", "/ebook/"], ["Free UI prompts", "/ebook/#free"], ["Questions founders ask", "/#faq"], ["Products", "/products/"], ["What I'm building", "/building/"]] },
-  { h: "Sam Vllaco", links: [["About Sam", "/about/"], ["Book a call", "/book/"], ["All services", "/services/"], ["X", SITE.links.x, 1], ["Medium", SITE.links.medium, 1], ["Dribbble", SITE.links.dribbble, 1]] },
+  { h: "Services", links: [...svc(["saas-product-design", "dashboard-design", "mobile-app-design", "ux-audit", "design-systems", "website-design"]), ["All services", "/services/"]] },
+  { h: "Work", links: [...WORK.slice(0, 5).map((w) => [w.title, `/work/${w.slug}/`]), ["All case studies", "/work/"]] },
+  { h: "Resources", links: [["Insights", "/writing/"], ["AI slop UI ebook", "/ebook/"], ["Free UI prompts", "/ebook/#free"], ["FAQs", "/#faq"], ["Products", "/products/"]] },
+  { h: "Company", links: [["About Sam", "/about/"], ["Book a call", "/book/"], ["What I'm building", "/building/"]] },
+  { h: "Social", links: [["X", SITE.links.x, "x"], ["Medium", SITE.links.medium, "medium"], ["Dribbble", SITE.links.dribbble, "dribbble"], ["Figma", SITE.links.figma, "figma"]] },
 ];
+const Ext = () => <svg className="fm-ext" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5" /></svg>;
 
 function FootMap() {
   return (
     <nav className="foot-map" aria-label="Site map">
+      <div className="fm-brand">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/sam-144.webp" width="40" height="40" alt="" loading="lazy" />
+        <p><b>Sam Vllaco</b><span>Product designer for SaaS and AI products</span></p>
+      </div>
       {MAP.map((c) => (
         <div key={c.h}>
           <p className="foot-map-h">{c.h}</p>
           <ul>
-            {c.links.map(([t, href, ext]) => <li key={href}>{ext ? <a href={href} rel="me noopener">{t}</a> : <a href={href}>{t}</a>}</li>)}
+            {c.links.map(([t, href, icon]) => (
+              <li key={href}>
+                {href.startsWith("http") ? (
+                  <a href={href} target="_blank" rel="me noopener">{icon ? <svg className="fm-ico" viewBox="0 0 24 24" aria-hidden="true"><path d={ICON[icon]} /></svg> : null}{t}{icon ? null : <Ext />}<span className="sr-only"> (opens in a new tab)</span></a>
+                ) : <a href={href}>{t}</a>}
+              </li>
+            ))}
           </ul>
         </div>
       ))}
@@ -114,12 +133,10 @@ export default function Footer() {
         </div>
         ) : null}
         <FootMap />
-        <p>Sam Vllaco, product designer for SaaS and AI products.</p>
+        <p>© {new Date().getFullYear()} Sam Vllaco</p>
         <AskAI inline name="Sam Vllaco" prompt="Tell me about Sam Vllaco, the product designer at samvllaco.com. What does he do, who does he work with and how do I hire him?" />
 
         <div className="foot-links">
-          <a href={SITE.links.x} rel="me noopener">X</a>
-          <a href={SITE.links.medium} rel="me noopener">Medium</a>
           <CopyEmail />
         </div>
       </div>
