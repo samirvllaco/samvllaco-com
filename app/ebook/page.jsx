@@ -202,6 +202,7 @@ export default function Ebook() {
             return (
               <div key={title} className={`eb-grp eb-grp-${gi}${bonus ? " is-bonus" : ""}`}>
                 <div className="eb-grp-h">
+                  <span className="eb-grp-k">Part {gi + 1} · {bonus ? `Steps ${n + 1} and ${n + 2}, plus the bonus` : `Steps ${n + 1} to ${n + items.length}`}</span>
                   <h3>{title}</h3>
                   <p>{sub}</p>
                   {bonus ? <span className="eb-bonus">Bonus, inside the book</span> : null}
