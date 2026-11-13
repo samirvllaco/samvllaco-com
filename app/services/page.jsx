@@ -18,7 +18,7 @@ export default function Services() {
       <header className="case-head">
         <p className="case-eyebrow">Services</p>
         <h1>Design, branding, marketing and SEO</h1>
-        <p className="lede">Four areas, one goal: a product people understand, remember and can find.</p>
+        <p className="lede">Confusing screens, a brand nobody remembers, a site nobody finds. Whatever's holding your product back, this is where we fix it. Four areas, one goal: a product people understand, remember and can find.</p>
         <div className="btn-row case-cta-row">
           <a className="btn btn-primary" href="/book/"><CallIcon />Book a call</a>
         </div>

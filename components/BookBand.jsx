@@ -12,7 +12,7 @@ export default function BookBand() {
       <div className="book-band-head">
         <p className="case-eyebrow">Available for new projects</p>
         <h2 id="book-band-h">Tell me <span className="t2">what you are building</span></h2>
-        <p>Book a 30 minute call. You leave with a scope, a timeline and the one next step, whether we work together or not.</p>
+        <p>Book a 30-minute call. You leave with a scope, a timeline and one clear next step, whether we work together or not.</p>
       </div>
       <div className="book-cal">
         <CalFrame src={`${BOOKING_URL}?embed=true&theme=dark&layout=month_view`} />

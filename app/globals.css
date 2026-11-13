@@ -3045,3 +3045,9 @@ body:has(.case-fab) .to-top { display: none; }
 }
 /* Back to top lines up with the video avatar (position set from the avatar in ToTop.jsx) */
 html .to-top, html.is-scrolled .to-top, html.is-end .to-top { left: auto !important; right: var(--tt-r, 16px) !important; bottom: var(--tt-b, 96px) !important; transition: opacity .3s ease, transform .4s cubic-bezier(.22, 1, .36, 1), bottom .5s cubic-bezier(.22, 1, .36, 1); }
+
+/* Home: pain points and story */
+.pain { max-width: 100%; }
+.pain-cta { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; margin: 0; }
+.pain-cta span { color: var(--muted); font-size: .9375rem; }
+.work-lede { margin: -8px 0 8px; max-width: 62ch; color: var(--muted); }

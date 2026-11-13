@@ -10,7 +10,7 @@ export const metadata = {
 export default function Work() {
   return (
     <div className="wrap page pg">
-      <PageHead crumb="Work" href="/work/" a="Work" b="that shipped" lede="Products across SaaS, fintech, health and mobile. Open any project for the case study." />
+      <PageHead crumb="Work" href="/work/" a="Work" b="that shipped" lede="Products across SaaS, fintech, health and mobile, used by real people. Open any project to see the problem and how I solved it." />
       <section className="work"><WorkGrid /></section>
     </div>
   );

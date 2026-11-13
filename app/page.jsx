@@ -17,6 +17,7 @@ import { MEDIUM_PATH } from "../lib/medium-logo";
 import ArticleMark from "../components/ArticleMark";
 import WorkGrid from "../components/WorkGrid";
 import HirePanel from "../components/HirePanel";
+import PainStory from "../components/PainStory";
 import HeroShow from "../components/HeroShow";
 import HeroRole from "../components/HeroRole";
 import ClientAvatars from "../components/ClientAvatars";
@@ -69,9 +70,9 @@ export default function Home() {
             people <span className="h3-nw">love <Ico id="b" tiles={[["love", 9], "star", "smile", "like", "chat"]} delay={2} at={1} />,</span> and{" "}<br />
             <span className="t2">experiences that convert</span> <Ico id="c" tiles={["growth", "money", "target", "bolt", "rocket", "click"]} delay={4} at={2} />
           </h1>
-          <p className="hero2-sub">I make complex products feel simple, beautiful, and impossible to ignore.</p>
+          <p className="hero2-sub">You built something people need. If they can't see it in five seconds, they leave. I make your product clear, beautiful and easy to say yes to.</p>
           <div className="hero2-cta">
-            <a className="hero2-btn hero2-btn-primary" href="/book/"><CallIcon />Let's work together</a>
+            <a className="hero2-btn hero2-btn-primary" href="/book/"><CallIcon />Book a 30-minute call</a>
           </div>
           <div className="hero-proof">
             <p className="hero-award"><i className="lr lr-l" aria-hidden="true" /><i className="lr lr-r" aria-hidden="true" /><span>Award-winning</span><span>UI/UX designer</span></p>
@@ -102,8 +103,11 @@ export default function Home() {
 
       <ScreenWall />
 
+      <PainStory />
+
       <section id="work" className="stack work" data-bg="#000000">
           <h2>Work <span className="t2">that shipped</span></h2>
+          <p className="work-lede">Real products with real users. Some names are changed because the work is under NDA.</p>
           <WorkGrid />
           <HirePanel />
       </section>
@@ -126,8 +130,8 @@ export default function Home() {
       <Faq items={FAQ}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <SkyPhoto className="faq-photo" />
-        <h3>Something else?</h3>
-        <p>Book a call and let&apos;s talk.</p>
+        <h3>Still have a question?</h3>
+        <p>Ask me on a quick call. No slides, no sales rep, just us.</p>
         <a className="btn btn-primary" href="/book/"><CallIcon />Book a call</a>
         <p className="faq-mail">Or email me at <b>{EMAIL}</b></p>
       </Faq>

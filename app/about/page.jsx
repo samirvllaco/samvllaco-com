@@ -23,7 +23,7 @@ const has = (id) => ["webp", "png"].find((e) => fs.existsSync(path.join(process.
 export default function About() {
   return (
     <div className="wrap page pg">
-      <PageHead crumb="About" href="/about/" a="I design apps." b="I also ship my own." lede="I'm Sam, a product designer helping ambitious teams turn complex ideas into intuitive digital experiences." />
+      <PageHead crumb="About" href="/about/" a="I design apps." b="I also ship my own." lede="I'm Sam. I help teams turn complicated products into screens people get on the first try. I run my own products too, so I know what a confusing screen costs." />
       <div className="ab-wrap">
       <div className="ab-photo"><SkyPhoto /></div>
       <div className="ab">
@@ -42,7 +42,7 @@ export default function About() {
           );
         })}
         <p className="ab-end">
-          <Link className="btn btn-primary" href="/book/">Work with Sam</Link>
+          <Link className="btn btn-primary" href="/book/">Tell me what you're building</Link>
           <span>I share the work on <a href={SITE.links.x} rel="me noopener">X</a> and <a href={SITE.links.medium} rel="me noopener">Medium</a>.</span>
         </p>
       </div>

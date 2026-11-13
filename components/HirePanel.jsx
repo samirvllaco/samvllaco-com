@@ -13,7 +13,7 @@ export default function HirePanel({ photo = "/sam-footer.webp" }) {
     <section className="hp" aria-labelledby="hp-h" data-bg="#1f1f22">
       <div className="hp-left">
         <h2 id="hp-h">AI does the repetitive half.<br /><em>I do the half your users remember.</em></h2>
-        <p className="hp-lede">Variants, states, consistency and accessibility checks run against rules I define, so you get the work faster. The first screen, the core flows, onboarding and checkout are designed by hand, so it still looks like your product and nobody else's.</p>
+        <p className="hp-lede">AI handles the busywork: variants, states, consistency and accessibility checks, all run against rules I set. That buys time for the parts your users actually feel, the first screen, the core flows, onboarding and checkout, which I design by hand so it looks like your product and nobody else's.</p>
         <div className="hp-cols">
           <div>
             <p className="hp-label">Defined once, then automated</p>

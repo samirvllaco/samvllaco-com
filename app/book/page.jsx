@@ -17,7 +17,7 @@ export const metadata = {
 };
 
 const STEPS = [
-  { t: "30 minutes", d: "Pick a slot, tell me what you are building and your rough budget. That way I come prepared." },
+  { t: "30 minutes", d: "Pick a slot and tell me what you are building and roughly what you want to spend, so I come prepared." },
   { t: "With me, not a sales rep", d: "I take every call myself and I am the one who designs your product." },
   { t: "One clear next step", d: "We check the fit and agree on one next step: scope, audit, sprint or monthly plan." },
 ];
@@ -27,7 +27,7 @@ export default function Book() {
     <div className="wrap page pg svc">
       <div className="book-split">
       <div className="book-side">
-      <PageHead crumb="Contact" href="/book/" a="Tell me" b="what you are building" lede="Book a 30 minute product strategy call with Sam. We map the scope, the timeline and the one next step that moves your product forward." />
+      <PageHead crumb="Contact" href="/book/" a="Tell me" b="what you are building" lede="Book 30 minutes with me, not a sales rep. Bring your product and the thing that worries you most about it. You leave with a scope, a timeline and one clear next step." />
       <aside className="book-qr" aria-label="Book from your phone">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="/book-qr.svg" width="112" height="112" alt="QR code that opens the booking page" />
