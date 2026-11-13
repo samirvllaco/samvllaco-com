@@ -3056,3 +3056,9 @@ html .to-top, html.is-scrolled .to-top, html.is-end .to-top { left: auto !import
 .hero2::after { background: radial-gradient(130% 100% at 50% 0%, rgba(255, 255, 255, .05) 0%, rgba(255, 255, 255, .042) 40%, rgba(255, 255, 255, .022) 70%, rgba(255, 255, 255, .008) 88%, transparent 100%); }
 :root[data-theme="light"] .hero2::after { background: radial-gradient(130% 100% at 50% 0%, rgba(0, 0, 0, .035) 0%, rgba(0, 0, 0, .028) 40%, rgba(0, 0, 0, .014) 70%, transparent 100%); }
 .hero2::after { background: radial-gradient(130% 100% at 50% 0%, rgba(255, 255, 255, .026) 0%, rgba(255, 255, 255, .022) 40%, rgba(255, 255, 255, .011) 70%, rgba(255, 255, 255, .004) 88%, transparent 100%); }
+
+/* Sound and theme toggles hide while scrolling down and come back on scroll up */
+.head-row :is(.snd, .thm) { transition: opacity var(--t-base, .25s) ease-out, scale var(--t-base, .25s) var(--ease-out, ease-out), width var(--t-slow, .45s) var(--ease-out, ease-out), margin var(--t-slow, .45s) var(--ease-out, ease-out); }
+html.is-down .head-row :is(.snd, .thm) { opacity: 0; scale: .8; width: 0 !important; min-width: 0 !important; margin: 0 !important; padding: 0 !important; overflow: hidden; pointer-events: none; }
+html.is-down .head-end .head-cta { margin-left: 0; }
+@media (prefers-reduced-motion: reduce) { .head-row :is(.snd, .thm) { transition: opacity .15s linear; } }
