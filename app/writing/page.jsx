@@ -1,6 +1,6 @@
 import WritingGrid from "../../components/WritingGrid";
 import PageHead from "../../components/PageHead";
-import { ARTICLES, SITE } from "../../lib/site";
+import { ARTICLES } from "../../lib/site";
 
 export const metadata = {
   title: "Writing on AI, Design and Building Apps",
@@ -14,10 +14,6 @@ export default function Writing() {
     <div className="wrap page pg">
       <PageHead crumb="Insights" href="/writing/" a="Insights" b="on AI, design and building apps" lede="Practical stories for founders and designers building with AI. Most are on Medium." />
       <WritingGrid />
-      <p>
-        More on <a href={SITE.links.medium} rel="me noopener">Medium</a> and
-        shorter posts on <a href={SITE.links.x} rel="me noopener">X</a>.
-      </p>
     </div>
   );
 }

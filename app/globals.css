@@ -3538,3 +3538,10 @@ html.is-end .bk { bottom: max(16px, env(safe-area-inset-bottom, 0px)); }
 .pain .pain-cta { margin-top: clamp(24px, 3vw, 36px); }
 #work.work > h2 + .work-lede { margin-top: -8px !important; }
 .tg-note::after, .tm-tags li.tg:last-child:not(:first-child) .tg-note::after { left: var(--ax, 22px); right: auto; }
+/* Reviews: hovering one card dims the others, like the FAQ and work grid (owner, 13 Nov 2026) */
+.tm-card { transition: opacity .35s var(--ease-out), filter .35s var(--ease-out), translate .5s var(--spring); }
+@media (hover: hover) {
+  .tm-grid:has(.tm-card:hover) .tm-card:not(:hover) { opacity: .5; filter: saturate(.6); }
+  .tm-card:hover { translate: 0 -4px; }
+}
+@media (prefers-reduced-motion: reduce) { .tm-card:hover { translate: none; } }
