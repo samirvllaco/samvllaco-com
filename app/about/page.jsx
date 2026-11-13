@@ -5,11 +5,14 @@ import Link from "next/link";
 import SkyPhoto from "../../components/SkyPhoto";
 import PageHead from "../../components/PageHead";
 import { SITE } from "../../lib/site";
+import { share, PERSON_ID } from "../../lib/seo";
+import JsonLd from "../../components/JsonLd";
 
 export const metadata = {
-  title: "About",
-  description: "About Sam Vllaco: a designer building apps in public.",
+  title: { absolute: "About Sam Vllaco, Product Designer" },
+  description: "Sam Vllaco (Samir Vllaco) is a product designer in Tirana with 10 years designing SaaS, AI, fintech and health products for teams in the US and Europe.",
   alternates: { canonical: "/about/" },
+  ...share({ title: "About Sam Vllaco, Product Designer", description: "10 years designing SaaS, AI, fintech and health products. One designer from first call to handover.", url: "/about/" }),
 };
 
 const PARTS = [
@@ -23,6 +26,7 @@ const has = (id) => ["webp", "png"].find((e) => fs.existsSync(path.join(process.
 export default function About() {
   return (
     <div className="wrap page pg">
+      <JsonLd data={{ "@context": "https://schema.org", "@type": "ProfilePage", "@id": `${SITE.url}/about/#page`, url: `${SITE.url}/about/`, name: "About Sam Vllaco", mainEntity: { "@id": PERSON_ID } }} />
       <PageHead crumb="About" href="/about/" a="I design apps." b="I also ship my own." lede="I'm Sam. You built something real, and people still bounce from it. I help teams turn complicated products into screens people get on the first try, and I run my own, so I know what a confusing screen costs." />
       <div className="ab-wrap">
       <div className="ab-photo"><SkyPhoto eager /></div>

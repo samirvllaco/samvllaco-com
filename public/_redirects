@@ -1,2 +1,18 @@
 /links /book/ 301
 /links/ /book/ 301
+# Short links for bios and posts. Every link people share points at samvllaco.com first.
+/call /book/ 301
+/meet /book/ 301
+/hire /book/ 301
+/prompts /ebook/ 301
+/buy https://whop.com/sam-vllaco/products/27-copy-paste-prompts-to-fix-ai-slop-ui/ 302
+/x https://x.com/samvllaco 302
+/twitter https://x.com/samvllaco 302
+/medium https://medium.com/@samvllaco 302
+/dribbble https://dribbble.com/samirvllaco 302
+/figma https://www.figma.com/design/JDrxmwmeWbl1oyj1d4O391 302
+/portfolio /work/ 301
+/case-studies /work/ 301
+/blog /writing/ 301
+/insights /writing/ 301
+/contact /book/ 301

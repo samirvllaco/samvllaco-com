@@ -5,6 +5,9 @@ import { PeopleStack } from "../../components/ClientAvatars";
 import Crumbs from "../../components/Crumbs";
 import SectionColors from "../../components/SectionColors";
 import FreePrompts from "../../components/FreePrompts";
+import JsonLd from "../../components/JsonLd";
+import { share, PERSON_ID } from "../../lib/seo";
+import { SITE } from "../../lib/site";
 
 const BUY_URL = BOOK_URL;
 const PRICE = "$6.99";
@@ -13,9 +16,24 @@ const WAS = "$34.95"; // compare-at price set on Whop (Save 80%)
 export const metadata = {
   title: "27 Copy-Paste Prompts to Fix AI Slop UI",
   description:
-    "A short book by Sam Vllaco: 27 steps and 27 copy-paste prompts that make an AI-built website or app look designed, a DESIGN.md rules file, and a private 15 to 30 minute video of Sam fixing a real AI-built page live.",
+    "27 copy-paste prompts by product designer Sam Vllaco that make an AI-built app or site look designed, plus a DESIGN.md rules file and a private video.",
   keywords: ["AI slop UI", "fix AI generated website design", "vibe coding design", "DESIGN.md", "copy-paste UI prompts", "Lovable Cursor v0 Claude design prompts", "UX laws", "private video tutorial", "live AI design demo", "Sam Vllaco"],
   alternates: { canonical: "/ebook/" },
+  ...share({ title: "27 Copy-Paste Prompts to Fix AI Slop UI", description: "Make your Claude, Cursor, Lovable or v0 app look designed. 27 prompts, a DESIGN.md rules file and a private video.", url: "/ebook/", image: "/og/ebook.jpg", alt: "The book 27 Copy-Paste Prompts to Fix AI Slop UI by Sam Vllaco" }),
+};
+
+const BOOK_LD = {
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "@id": `${SITE.url}/ebook/#product`,
+  name: "27 Copy-Paste Prompts to Fix AI Slop UI",
+  description: "An ebook with 27 steps and copy-paste prompts that make an AI-built website or app look designed, a DESIGN.md rules file, PROMPTS.md, SCORECARD.md, UX-LAWS.md and a private 15 to 30 minute video.",
+  image: [`${SITE.url}/og/ebook.jpg`, `${SITE.url}/book-cover.webp`],
+  category: "Ebook",
+  brand: { "@type": "Brand", name: "Sam Vllaco" },
+  author: { "@id": PERSON_ID },
+  url: `${SITE.url}/ebook/`,
+  offers: { "@type": "Offer", price: "6.99", priceCurrency: "USD", availability: "https://schema.org/InStock", url: BOOK_URL, seller: { "@id": PERSON_ID } },
 };
 
 const TOOLS = ["claude", "lovable", "v0", "codex", "cursor", "bolt", "chatgpt", "gemini"];
@@ -110,6 +128,7 @@ export default function Ebook() {
     <div className="wrap page pg eb">
       <SectionColors />
       <Crumbs items={[{ name: "Book", href: "/ebook/" }]} />
+      <JsonLd data={BOOK_LD} />
 
       <header className="eb-hero" data-bg="#111112">
         <div className="eb-copy">

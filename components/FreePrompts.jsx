@@ -18,7 +18,7 @@ function Copy({ text }) {
 
 export default function FreePrompts() {
   return (
-    <section className="eb-sec fp" aria-labelledby="fp-h">
+    <section className="eb-sec fp" id="free" aria-labelledby="fp-h">
       <div className="fp-box">
       <span className="fp-free">Free</span>
       <h2 id="fp-h">Try 2 prompts <span className="t2">for free, right now</span></h2>

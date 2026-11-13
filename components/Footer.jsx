@@ -4,6 +4,8 @@ import CopyEmail from "./CopyEmail";
 import FootStage from "./FootStage";
 import { SecretCount } from "./Seen";
 import { SITE, CERTS } from "../lib/site";
+import { WORK } from "../lib/work";
+import { SERVICES } from "../lib/services";
 
 // 16 point scalloped seal, drawn once and filled with a shared gold gradient
 function sealPath() {
@@ -28,6 +30,31 @@ function Seal() {
       <circle cx="24" cy="24" r="13.4" fill="url(#gold-g2)" />
       <path d="M17.5 24.5l4.6 4.6 8.6-9.6" fill="none" stroke="#5c3f0c" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
+  );
+}
+
+// Link map: every main page one click from any page, with descriptive names.
+const svc = (g) => (SERVICES.find((x) => x.id === g) || { items: [] }).items;
+const MAP = [
+  { h: "Design", links: svc("design").slice(0, 8).map((it) => [it.name, `/services/${it.id}/`]) },
+  { h: "Build and grow", links: [...svc("development").slice(0, 4), ...svc("marketing").filter((it) => ["landing-pages", "conversion-optimization", "seo-audit", "ai-search"].includes(it.id))].map((it) => [it.name, `/services/${it.id}/`]) },
+  { h: "Case studies", links: [...WORK.slice(0, 7).map((w) => [w.title, `/work/${w.slug}/`]), ["All work", "/work/"]] },
+  { h: "Resources", links: [["Insights", "/writing/"], ["AI slop UI ebook", "/ebook/"], ["Free UI prompts", "/ebook/#free"], ["Questions founders ask", "/#faq"], ["Products", "/products/"], ["What I'm building", "/building/"]] },
+  { h: "Sam Vllaco", links: [["About Sam", "/about/"], ["Book a call", "/book/"], ["All services", "/services/"], ["X", SITE.links.x, 1], ["Medium", SITE.links.medium, 1], ["Dribbble", SITE.links.dribbble, 1]] },
+];
+
+function FootMap() {
+  return (
+    <nav className="foot-map" aria-label="Site map">
+      {MAP.map((c) => (
+        <div key={c.h}>
+          <p className="foot-map-h">{c.h}</p>
+          <ul>
+            {c.links.map(([t, href, ext]) => <li key={href}>{ext ? <a href={href} rel="me noopener">{t}</a> : <a href={href}>{t}</a>}</li>)}
+          </ul>
+        </div>
+      ))}
+    </nav>
   );
 }
 
@@ -86,7 +113,8 @@ export default function Footer() {
           </ul>
         </div>
         ) : null}
-        <p>Sam, your designer partner.</p>
+        <FootMap />
+        <p>Sam Vllaco, product designer for SaaS and AI products.</p>
         <AskAI inline name="Sam Vllaco" prompt="Tell me about Sam Vllaco, the product designer at samvllaco.com. What does he do, who does he work with and how do I hire him?" />
 
         <div className="foot-links">

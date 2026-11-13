@@ -4,24 +4,17 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import BookBand from "../components/BookBand";
 import { SITE } from "../lib/site";
+import { share } from "../lib/seo";
 
 export const metadata = {
   metadataBase: new URL(SITE.url),
   title: {
-    default: "Sam - UI/UX Design Partner",
+    default: "Sam Vllaco: Product Designer for SaaS and AI Products",
     template: `%s | ${SITE.name}`,
   },
   description: SITE.description,
   alternates: { canonical: "/" },
-  openGraph: {
-    type: "website",
-    siteName: SITE.name,
-    url: SITE.url,
-    title: `${SITE.name}: ${SITE.tagline}`,
-    description: SITE.description,
-    images: [{ url: "/sam.jpg", width: 400, height: 400, alt: "Sam Vllaco" }],
-  },
-  twitter: { card: "summary", images: ["/sam.jpg"], site: SITE.handle, creator: SITE.handle },
+  ...share({ title: "Sam Vllaco: Product Designer for SaaS and AI Products", description: SITE.description, url: SITE.url }),
   robots: { index: true, follow: true },
   other: { "color-scheme": "dark light" },
 };
@@ -35,9 +28,28 @@ const personSchema = {
       name: SITE.fullName,
       alternateName: SITE.name,
       url: SITE.url,
+      givenName: "Samir",
+      familyName: "Vllaco",
       jobTitle: "Product designer",
+      image: `${SITE.url}/og/default.jpg`,
+      email: "mailto:hello@samvllaco.com",
       homeLocation: { "@type": "Place", name: "Tirana, Albania" },
+      address: { "@type": "PostalAddress", addressLocality: "Tirana", addressCountry: "AL" },
       description: SITE.description,
+      knowsAbout: ["Product design", "UI design", "UX design", "SaaS product design", "Dashboard design", "Mobile app design", "Design systems", "AI product UX", "Website design", "Figma", "AI-built app design", "Accessibility"],
+      sameAs: [SITE.links.x, SITE.links.medium, SITE.links.dribbble, SITE.links.figma],
+    },
+    {
+      "@type": "ProfessionalService",
+      "@id": `${SITE.url}/#service`,
+      name: "Sam Vllaco, product design",
+      url: SITE.url,
+      image: `${SITE.url}/og/default.jpg`,
+      description: "Product design for SaaS and AI teams: UI and UX for web and mobile apps, dashboards, design systems, websites and landing pages.",
+      founder: { "@id": `${SITE.url}/#person` },
+      email: "hello@samvllaco.com",
+      address: { "@type": "PostalAddress", addressLocality: "Tirana", addressCountry: "AL" },
+      areaServed: ["United States", "Europe", "Canada", "Australia", "United Arab Emirates"],
       sameAs: [SITE.links.x, SITE.links.medium, SITE.links.dribbble],
     },
     {
@@ -45,6 +57,8 @@ const personSchema = {
       "@id": `${SITE.url}/#website`,
       url: SITE.url,
       name: SITE.name,
+      alternateName: "samvllaco.com",
+      inLanguage: "en",
       publisher: { "@id": `${SITE.url}/#person` },
     },
   ],

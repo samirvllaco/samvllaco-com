@@ -3545,3 +3545,13 @@ html.is-end .bk { bottom: max(16px, env(safe-area-inset-bottom, 0px)); }
   .tm-card:hover { translate: 0 -4px; }
 }
 @media (prefers-reduced-motion: reduce) { .tm-card:hover { translate: none; } }
+/* Footer link map (owner, 13 Nov 2026): main pages one click away from every page */
+.site-footer .foot-map { grid-column: 1 / -1; justify-self: stretch; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 32px 24px; width: 100%; padding: 8px 0 32px; margin-bottom: 8px; border-bottom: 1px solid rgba(255, 255, 255, .08); text-align: left; }
+.foot-map-h { margin: 0 0 14px; font-size: .8125rem; font-weight: 500; color: #8e8e93; }
+.foot-map ul { display: grid; gap: 4px; margin: 0; padding: 0; list-style: none; }
+.foot-map a { display: inline-flex; align-items: center; min-height: 32px; font-size: .9375rem; color: #d1d1d6; text-decoration: none; transition: color .2s; }
+.foot-map a:hover { color: #fff; }
+.foot-map a:focus-visible { outline: 2px solid rgba(98, 193, 253, .7); outline-offset: 2px; border-radius: 4px; }
+@media (max-width: 900px) { .site-footer .foot-map { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+:root[data-theme="light"] .foot-map-h { color: #6e6e73; } :root[data-theme="light"] .foot-map a { color: #3a3a3c; } :root[data-theme="light"] .foot-map a:hover { color: #000; } :root[data-theme="light"] .site-footer .foot-map { border-bottom-color: rgba(0, 0, 0, .08); }
+.site-footer .foot-map a { min-width: 0; padding: 0; margin: 0; }

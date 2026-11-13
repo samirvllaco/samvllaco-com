@@ -9,7 +9,9 @@ import { SeenMarker } from "../../../components/Seen";
 import CaseAside from "../../../components/CaseAside";
 import CaseFab from "../../../components/CaseFab";
 import { STUDIES } from "../../../lib/work-studies";
-import { EMAIL } from "../../../lib/site";
+import { EMAIL, SITE } from "../../../lib/site";
+import { share, PERSON_ID } from "../../../lib/seo";
+import JsonLd from "../../../components/JsonLd";
 
 export const dynamicParams = false;
 
@@ -20,10 +22,12 @@ export function generateStaticParams() {
 export function generateMetadata({ params }) {
   const w = WORK.find((x) => x.slug === params.slug);
   if (!w) return {};
+  const description = `${w.sub}. A UI/UX case study by product designer Sam Vllaco.`;
   return {
     title: `${w.title}: UI/UX case study`,
-    description: w.overview || w.sub,
+    description,
     alternates: { canonical: `/work/${w.slug}/` },
+    ...share({ title: `${w.title}: UI/UX case study by Sam Vllaco`, description, url: `/work/${w.slug}/`, image: `/og/work-${w.slug}.jpg`, alt: `${w.title} screens designed by Sam Vllaco` }),
   };
 }
 
@@ -105,6 +109,7 @@ export default function CaseStudy({ params }) {
     <div className="wrap page case-wrap" data-case={w.slug}>
       <div className="case">
         <SeenMarker slug={w.slug} />
+        <JsonLd data={{ "@context": "https://schema.org", "@type": "CreativeWork", name: `${w.title}: UI/UX case study`, headline: w.title, abstract: w.sub, description: w.overview || w.sub, url: `${SITE.url}/work/${w.slug}/`, image: `${SITE.url}/og/work-${w.slug}.jpg`, creator: { "@id": PERSON_ID }, author: { "@id": PERSON_ID }, keywords: (w.tags || []).join(", "), genre: "UI/UX case study" }} />
         <Crumbs items={[{ name: "Work", href: "/#work" }, { name: w.title, href: `/work/${w.slug}/` }]} />
 
         <header className="case-head" id="intro">
