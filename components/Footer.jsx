@@ -42,9 +42,12 @@ const ICON = {
   dribbble: "M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm6.6 4.6a8.5 8.5 0 0 1 1.9 5.2c-2.8-.6-5.3-.6-7.6-.1l-.7-1.6c2.6-1.1 4.8-2.2 6.4-3.5zM12 3.5c2 0 3.9.7 5.4 1.9-1.4 1.2-3.5 2.2-5.9 3.2-1.2-2.2-2.5-4-3.6-5a8.5 8.5 0 0 1 4.1-.1zM6.4 4.4c1.1.9 2.4 2.7 3.6 4.8-2.6.8-5.4 1.2-6.4 1.3a8.5 8.5 0 0 1 2.8-6.1zM3.5 12v-.1c1.3-.1 4.4-.5 7.2-1.4l.7 1.5c-3.1 1-5.6 3-7 5.3A8.4 8.4 0 0 1 3.5 12zm3.3 6.9c1.3-2 3.6-3.8 6.3-4.7.9 2.4 1.5 4.9 1.7 6.4a8.5 8.5 0 0 1-8-1.7zm9.4.8c-.3-1.6-.8-3.8-1.6-6 2-.3 4.2-.2 6.7.3a8.5 8.5 0 0 1-5.1 5.7z",
   figma: "M9 3h3v6H9a3 3 0 0 1 0-6zm3 0h3a3 3 0 0 1 0 6h-3zm-3 6h3v6H9a3 3 0 0 1 0-6zm6 0a3 3 0 1 1 0 6 3 3 0 0 1 0-6zm-6 6h3v3a3 3 0 1 1-3-3z",
 };
+// Case studies of products that are live today (Ocufuse, ocufuse.com).
+const LIVE = ["eye-care-web-app", "eye-care-ios-app", "eye-care-marketing-site"];
+const LIVE_NAME = { "eye-care-web-app": "Ocufuse web app", "eye-care-ios-app": "Ocufuse iOS app", "eye-care-marketing-site": "Ocufuse website" };
 const MAP = [
   { h: "Services", links: [...svc(["saas-product-design", "dashboard-design", "mobile-app-design", "ux-audit", "design-systems", "website-design"]), ["All services", "/services/"]] },
-  { h: "Work", links: [...WORK.slice(0, 5).map((w) => [w.title, `/work/${w.slug}/`]), ["All case studies", "/work/"]] },
+  { h: "Work", links: [...LIVE.map((slug) => WORK.find((w) => w.slug === slug)).filter(Boolean).map((w) => [LIVE_NAME[w.slug], `/work/${w.slug}/`, null, true]), ...WORK.filter((w) => !LIVE.includes(w.slug)).slice(0, 3).map((w) => [w.title, `/work/${w.slug}/`]), ["All case studies", "/work/"]] },
   { h: "Resources", links: [["Insights", "/writing/"], ["AI slop UI ebook", "/ebook/"], ["Free UI prompts", "/ebook/#free"], ["FAQs", "/#faq"], ["Products", "/products/"]] },
   { h: "Company", links: [["About Sam", "/about/"], ["Book a call", "/book/"], ["What I'm building", "/building/"]] },
   { h: "Social", links: [["X", SITE.links.x, "x"], ["Medium", SITE.links.medium, "medium"], ["Dribbble", SITE.links.dribbble, "dribbble"]] },
@@ -63,11 +66,11 @@ function FootMap() {
         <div key={c.h}>
           <p className="foot-map-h">{c.h}</p>
           <ul>
-            {c.links.map(([t, href, icon]) => (
+            {c.links.map(([t, href, icon, live]) => (
               <li key={href}>
                 {href.startsWith("http") ? (
                   <a href={href} target="_blank" rel="me noopener">{icon ? <svg className="fm-ico" viewBox="0 0 24 24" aria-hidden="true"><path d={ICON[icon]} /></svg> : null}{t}{icon ? null : <Ext />}<span className="sr-only"> (opens in a new tab)</span></a>
-                ) : <a href={href}>{t}</a>}
+                ) : <a href={href}>{t}{live ? <span className="fm-live"><i aria-hidden="true" />Live</span> : null}</a>}
               </li>
             ))}
           </ul>

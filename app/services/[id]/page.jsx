@@ -3,12 +3,14 @@ import { notFound } from "next/navigation";
 import Crumbs from "../../../components/Crumbs";
 import CallIcon from "../../../components/CallIcon";
 import JsonLd from "../../../components/JsonLd";
+import Faq from "../../../components/Faq";
+import SkyPhoto from "../../../components/SkyPhoto";
 import { SERVICES } from "../../../lib/services";
 import { DETAILS, PROCESS } from "../../../lib/service-details";
 import { PAGES, GET_ICONS, PAIN_ICONS, SVC_FAQ } from "../../../lib/service-pages";
 import { WORK } from "../../../lib/work";
 import { TESTIMONIALS } from "../../../lib/testimonials";
-import { SITE } from "../../../lib/site";
+import { SITE, EMAIL } from "../../../lib/site";
 import { share, PERSON_ID } from "../../../lib/seo";
 
 const ALL = SERVICES.flatMap((g) => g.items.map((it) => ({ ...it, group: g })));
@@ -47,13 +49,13 @@ export default async function ServicePage({ params }) {
   const idx = ALL.findIndex((x) => x.id === id);
   const quote = TESTIMONIALS[idx % TESTIMONIALS.length];
   const related = s.group.items.filter((x) => x.id !== id).slice(0, 8);
-  const lower = s.name.charAt(0).toLowerCase() + s.name.slice(1);
+  const first = s.name.split(" ")[0];
+  const lower = /[A-Z].*[A-Z]/.test(first) ? s.name : s.name.charAt(0).toLowerCase() + s.name.slice(1);
 
   const schema = {
     "@context": "https://schema.org",
     "@graph": [
       { "@type": "Service", name: s.name, description: `${s.text} ${d.for}`.trim(), serviceType: s.name, category: s.group.title, provider: { "@id": PERSON_ID }, areaServed: ["United States", "Europe", "Canada", "Australia", "United Arab Emirates"], url: `${SITE.url}/services/${id}/` },
-      { "@type": "FAQPage", mainEntity: SVC_FAQ.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })) },
     ],
   };
 
@@ -137,12 +139,15 @@ export default async function ServicePage({ params }) {
         </section>
       ) : null}
 
-      <section className="sv-sec" aria-labelledby="sv-faq-h">
-        <h2 id="sv-faq-h">Questions <span className="t2">before we start</span></h2>
-        <div className="sv-faq">
-          {SVC_FAQ.map((f) => <details key={f.q}><summary>{f.q}</summary><p>{f.a}</p></details>)}
-        </div>
-      </section>
+      <div className="sv-sec sv-faqwrap">
+        <Faq items={SVC_FAQ} a="Questions" b="before we start" bg="#111112">
+          <SkyPhoto className="faq-photo" />
+          <h3>Still have a question? <em className="scr">Good, ask me.</em></h3>
+          <p>Bring it to a 30-minute call. It's just you and me, and you can ask anything about your {lower} project.</p>
+          <p className="faq-go"><a className="hero2-btn hero2-btn-primary" href="/book/"><CallIcon />Ask me on a call</a></p>
+          <p className="faq-mail">Rather write? Email me at <b>{EMAIL}</b></p>
+        </Faq>
+      </div>
 
       <section className="sv-sec sv-end" aria-labelledby="sv-end-h">
         <h2 id="sv-end-h">Tell me about your <span className="t2">{lower} project</span></h2>

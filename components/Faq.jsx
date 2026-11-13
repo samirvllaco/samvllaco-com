@@ -1,15 +1,15 @@
 // FAQ section: sticky intro card on the left, questions on the right.
 // Uses <details>, so it works without JavaScript, and adds FAQPage structured data.
-export default function Faq({ items, children }) {
+export default function Faq({ items, children, a = "Questions", b = "founders ask first", bg = "#000000" }) {
   const schema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
     mainEntity: items.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
   };
   return (
-    <section className="faq" id="faq" aria-labelledby="faq-h" data-bg="#000000">
+    <section className="faq" id="faq" aria-labelledby="faq-h" data-bg={bg}>
       <div className="faq-side">
-        <h2 id="faq-h">Questions <span className="t2">founders ask first</span></h2>
+        <h2 id="faq-h">{a} <span className="t2">{b}</span></h2>
         <div className="faq-card">{children}</div>
       </div>
       <div className="faq-list">

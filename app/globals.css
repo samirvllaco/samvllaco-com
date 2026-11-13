@@ -3724,3 +3724,7 @@ main p { font-size: 1.0625rem; line-height: 1.6; }
 :root[data-theme="light"] .sv-more a { background: rgba(0, 0, 0, .05); } :root[data-theme="light"] .sv-story .scr { color: #0a6fd6; }
 /* Dotted texture removed everywhere (owner, 14 Nov 2026) */
 .hero2::before, .faq::before, .book-band::before, .bx-sec:has(.ms-grid)::before, .bx-sec:has(.pr-grid)::before { content: none; }
+.fm-live { display: inline-flex; align-items: center; gap: 5px; margin-left: 8px; padding: 2px 8px 2px 7px; border-radius: 999px; font-size: .6875rem; font-weight: 600; letter-spacing: .02em; color: #30d158; background: rgba(48, 209, 88, .12); }
+.fm-live i { width: 6px; height: 6px; border-radius: 50%; background: #30d158; box-shadow: 0 0 0 3px rgba(48, 209, 88, .2); }
+:root[data-theme="light"] .fm-live { color: #1a7f37; background: rgba(26, 127, 55, .1); } :root[data-theme="light"] .fm-live i { background: #1a7f37; }
+.foot-map a:has(.fm-live) { white-space: nowrap; }
