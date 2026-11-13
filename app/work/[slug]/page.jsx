@@ -1,5 +1,6 @@
 import HoverVideo from "../../../components/HoverVideo";
 import Link from "next/link";
+import { preload } from "react-dom";
 import CallIcon from "../../../components/CallIcon";
 import { notFound } from "next/navigation";
 import Crumbs from "../../../components/Crumbs";
@@ -89,6 +90,7 @@ export default function CaseStudy({ params }) {
         ...(w.screens && w.screens.length ? [{ id: "screens", label: "Screens" }] : []),
         ...(others.length ? [{ id: "more", label: "More work" }] : []),
       ];
+  if (w.fullVideo) preload(w.big, { as: "image", fetchPriority: "high" });
   const hero = (
     <div className="case-hero">
       {w.fullVideo ? (

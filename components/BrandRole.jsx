@@ -27,11 +27,11 @@ export default function BrandRole() {
     let i = 0;
     return onRoleTick((n) => {
       i = n;
-      const out = el.animate([{ opacity: 1, transform: "none", filter: "none" }, { opacity: 0, transform: "translateY(-60%)", filter: "blur(4px)" }], { duration: 260, easing: "ease-in", fill: "forwards" });
+      const out = el.animate([{ transform: "none", filter: "none" }, { transform: "translateY(-130%)", filter: "blur(4px)" }], { duration: 260, easing: "ease-in", fill: "forwards" });
       out.onfinish = () => {
         el.textContent = ROLES[i];
         out.cancel();
-        el.animate([{ opacity: 0, transform: "translateY(60%)", filter: "blur(4px)" }, { opacity: 1, transform: "none", filter: "none" }], { duration: 420, easing: "cubic-bezier(.2,.8,.2,1)" });
+        el.animate([{ transform: "translateY(130%)", filter: "blur(4px)" }, { transform: "none", filter: "none" }], { duration: 420, easing: "cubic-bezier(.2,.8,.2,1)" });
       };
     });
   }, []);

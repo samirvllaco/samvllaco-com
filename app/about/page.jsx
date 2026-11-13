@@ -25,7 +25,7 @@ export default function About() {
     <div className="wrap page pg">
       <PageHead crumb="About" href="/about/" a="I design apps." b="I also ship my own." lede="I'm Sam. I help teams turn complicated products into screens people get on the first try. I run my own products too, so I know what a confusing screen costs." />
       <div className="ab-wrap">
-      <div className="ab-photo"><SkyPhoto /></div>
+      <div className="ab-photo"><SkyPhoto eager /></div>
       <div className="ab">
         {PARTS.map((p) => {
           const ext = has(p.id);

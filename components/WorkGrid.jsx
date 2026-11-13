@@ -13,7 +13,7 @@ function X() {
   return <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round"><path d="M6 6l12 12M18 6L6 18" /></svg>;
 }
 
-function WorkCard({ w, seen }) {
+function WorkCard({ w, seen, first }) {
   const vid = w.video;
   const vref = useRef(null);
   const [live, setLive] = useState(false);
@@ -34,7 +34,7 @@ function WorkCard({ w, seen }) {
     <Link prefetch={false} href={`/work/${w.slug}/`} className="work-card" onMouseEnter={vid ? start : undefined} onMouseLeave={vid ? stop : undefined} onFocus={vid ? start : undefined} onBlur={vid ? stop : undefined}>
       <span className="work-media">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={w.big} srcSet={`${w.small} ${w.smallW}w, ${w.big} ${w.w}w`} sizes="(max-width: 620px) 100vw, (max-width: 960px) 50vw, 500px" width={w.w} height={w.h} alt={w.alt} loading="lazy" />
+        <img src={w.big} srcSet={`${w.small} ${w.smallW}w, ${w.big} ${w.w}w`} sizes="(max-width: 620px) 100vw, (max-width: 960px) 50vw, 500px" width={w.w} height={w.h} alt={w.alt} loading={first ? "eager" : "lazy"} fetchPriority={first ? "high" : undefined} />
         {vid ? (
           <video ref={vref} className={live ? "is-live" : undefined} src={vid} muted loop playsInline preload="none" aria-hidden="true" tabIndex={-1} />
         ) : null}
@@ -123,8 +123,8 @@ export default function WorkGrid() {
           <p className="work-empty">More projects are coming soon.</p>
         ) : (
           <div className={`work-grid${items.length === 1 ? " is-single" : ""}`}>
-            {items.map((w) => (
-              <WorkCard key={w.slug} w={w} seen={seenList.includes(w.slug)} />
+            {items.map((w, i) => (
+              <WorkCard key={w.slug} w={w} first={i < 2} seen={seenList.includes(w.slug)} />
             ))}
           </div>
         )}

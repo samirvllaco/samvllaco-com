@@ -9,15 +9,15 @@ export default function WritingGrid() {
           <a className="blog-all" href={SITE.links.medium} target="_blank" rel="me noopener noreferrer">All posts <span aria-hidden="true">→</span></a>
         </div>
         <div className={`blog-grid${ARTICLES.length === 1 ? " is-one" : ""}`}>
-          {ARTICLES.map((a) => (
-            <a className="blog-card" key={a.url} href={a.url} target="_blank" rel="noopener noreferrer" aria-label={`${a.short}. Read on Medium, opens in a new tab`}>
+          {ARTICLES.map((a, i) => (
+            <a className="blog-card" key={a.url} href={a.url} target="_blank" rel="noopener noreferrer">
               <span className="blog-media">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={a.cover} width="1400" height="788" alt={a.coverAlt} loading="lazy" />
+                <img src={a.cover} width="1400" height="788" alt={a.coverAlt} loading={i < 2 ? "eager" : "lazy"} fetchPriority={i === 0 ? "high" : undefined} />
                 <span className="work-open" aria-hidden="true"><span className="work-open-t">Read on Medium</span><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M7 17L17 7M9 7h8v8" /></svg></span>
               </span>
               <span className="blog-meta"><span>{a.category}</span><span>Read on Medium</span></span>
-              <span className="blog-title">{a.short}</span>
+              <span className="blog-title">{a.short}</span><span className="sr-only"> (opens in a new tab)</span>
             </a>
           ))}
         </div>

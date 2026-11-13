@@ -2,7 +2,7 @@
 import { useEffect, useRef } from "react";
 
 // Portrait in two layers: the sky drifts as the page scrolls, Sam stays put.
-export default function SkyPhoto({ className }) {
+export default function SkyPhoto({ className, eager }) {
   const ref = useRef(null);
   useEffect(() => {
     const el = ref.current;
@@ -24,9 +24,9 @@ export default function SkyPhoto({ className }) {
   return (
     <span className={`sky${className ? ` ${className}` : ""}`} ref={ref} role="img" aria-label="Sam Vllaco">
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img className="sky-bg" src="/sam-sky-bg.webp" width="1891" height="832" alt="" loading="lazy" />
+      <img className="sky-bg" src="/sam-sky-bg.webp" width="1891" height="832" alt="" loading={eager ? "eager" : "lazy"} fetchPriority={eager ? "high" : undefined} />
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img className="sky-me" src="/sam-sky-cut.webp" width="1891" height="832" alt="" loading="lazy" />
+      <img className="sky-me" src="/sam-sky-cut.webp" width="1891" height="832" alt="" loading={eager ? "eager" : "lazy"} />
     </span>
   );
 }
