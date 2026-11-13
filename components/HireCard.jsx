@@ -17,7 +17,7 @@ export default function HireCard({ wide = false }) {
       <div className={`hire${wide ? " hire-wide" : ""}`}>
         <div className="hire-top">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/sam.jpg" width="56" height="56" alt="Sam Vllaco" />
+          <img src="/sam-144.webp" width="56" height="56" alt="Sam Vllaco" />
           <div>
             <p className="hire-name">Sam Vllaco</p>
             <p className="hire-status"><span className="avail-dot" aria-hidden="true" />Open to new projects</p>

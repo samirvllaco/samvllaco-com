@@ -1,12 +1,8 @@
-import ToTop from "../components/ToTop";
+import LazyExtras from "../components/LazyExtras";
 import "./globals.css";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import BookBand from "../components/BookBand";
-import BookPopup from "../components/BookPopup";
-import SmoothScroll from "../components/SmoothScroll";
-import VideoBubble from "../components/VideoBubble";
-import Delight from "../components/Delight";
 import { SITE } from "../lib/site";
 
 export const metadata = {
@@ -63,18 +59,14 @@ export default function RootLayout({ children }) {
       <head><link rel="preload" href="/fonts/unbounded-sam.woff2" as="font" type="font/woff2" crossOrigin="" /></head>
       <body>
         <script dangerouslySetInnerHTML={{ __html: THEME_BOOT }} />
-        <SmoothScroll />
         <a className="skip" href="#main">Skip to content</a>
         <Header />
         <main id="main">{children}</main>
         <BookBand />
         <Footer />
-        <ToTop />
         <div className="edge-blur edge-top" aria-hidden="true"><i /><i /><i /><i /><i /></div>
         <div className="edge-blur" aria-hidden="true"><i /><i /><i /><i /><i /></div>
-        <BookPopup />
-        <VideoBubble />
-        <Delight />
+        <LazyExtras />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }} />
       </body>
     </html>

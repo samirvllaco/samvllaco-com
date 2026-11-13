@@ -1,5 +1,5 @@
 import Link from "next/link";
-import BentoGlobe from "./BentoGlobe";
+import GlobeLazy from "./GlobeLazy";
 import WorldFacts, { WorldFlags } from "./WorldFacts";
 import SwipeDeck from "./SwipeDeck";
 import Toolbox from "./Toolbox";
@@ -67,7 +67,7 @@ export default function Bento() {
           <h3 className="bx-t">Worldwide</h3>
           <p className="bx-world-s"><i />Based in {SITE.city || "Tirana, Albania"}. 573 clients across four continents</p>
           <WorldFlags />
-          <BentoGlobe />
+          <GlobeLazy />
           <WorldFacts />
         </div>
         <Link href="/work/" className="bx-card bx-mini bx-screens" data-reveal>

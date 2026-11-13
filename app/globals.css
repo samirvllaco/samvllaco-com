@@ -3085,3 +3085,6 @@ html.js .hero3 > h1, html.js .hero3 > .hero2-sub, html.js .ph > h1, html.js .ph 
 .hp-ico li[data-i="cart"] { --m: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 4h2.500l2 11h10.500l2-8H7'/%3E%3Ccircle cx='9' cy='19.500' r='1.500'/%3E%3Ccircle cx='17' cy='19.500' r='1.500'/%3E%3C/svg%3E"); }
 .brand-role span { color: #a1a1a6; }
 :root[data-theme="light"]:not(.on-dark) .brand-role span { color: #5f5f66; }
+/* Faster first-load reveal: same motion, shorter, so the page settles sooner */
+html.js .hero3 > *, html.js .ph > *, html.js .eb-hero .eb-copy > *, html.js .eb-hero .eb-cover { animation-duration: .7s; }
+@media (max-width: 420px) { .brand-me span.sr-only { display: inline !important; } }
