@@ -4,6 +4,7 @@ import { BOOK_URL } from "../../lib/site";
 import { PeopleStack } from "../../components/ClientAvatars";
 import Crumbs from "../../components/Crumbs";
 import SectionColors from "../../components/SectionColors";
+import FreePrompts from "../../components/FreePrompts";
 
 const BUY_URL = BOOK_URL;
 const PRICE = "$6.99";
@@ -11,7 +12,8 @@ const PRICE = "$6.99";
 export const metadata = {
   title: "27 Copy-Paste Prompts to Fix AI Slop UI",
   description:
-    "A short book by Sam Vllaco: 27 steps and 27 copy-paste prompts that make an AI-built website or app look designed, plus a DESIGN.md rules file.",
+    "A short book by Sam Vllaco: 27 steps and 27 copy-paste prompts that make an AI-built website or app look designed, a DESIGN.md rules file, and a private 15 to 30 minute video of Sam fixing a real AI-built page live.",
+  keywords: ["AI slop UI", "fix AI generated website design", "vibe coding design", "DESIGN.md", "copy-paste UI prompts", "Lovable Cursor v0 Claude design prompts", "UX laws", "private video tutorial", "live AI design demo", "Sam Vllaco"],
   alternates: { canonical: "/ebook/" },
 };
 
@@ -71,6 +73,7 @@ const FOR = [
 
 const GET = [
   ["book", "The book: 27 steps, one prompt per step, 59 pages"],
+  ["play", "A private 15 to 30 minute video: watch me turn an AI-built page into a real product, live", "Bonus"],
   ["list", "All 27 prompts in one list, numbered and ready to copy"],
   ["spark", "An all-in-one prompt that asks first and waits for your go-ahead", "Bonus"],
   ["file", "DESIGN.md: a full rules file for spacing, color, icons, copy and states"],
@@ -83,7 +86,8 @@ const GET = [
 const FILES = ["DESIGN.md", "SCORECARD.md", "PROMPTS.md", "UX-LAWS.md"];
 
 const FAQ = [
-  ["What format is it?", "A PDF plus four plain text files (DESIGN.md, SCORECARD.md, PROMPTS.md and UX-LAWS.md) you can drop into your project."],
+  ["What format is it?", "A PDF plus four plain text files (DESIGN.md, SCORECARD.md, PROMPTS.md and UX-LAWS.md) you can drop into your project, and a private video link."],
+  ["What is the private video?", "A 15 to 30 minute screen recording where I take an AI-built page and turn it into a real product, live, using the prompts from the book. You see every decision and why I make it, so you can pause, copy my steps and learn how I think."],
   ["Which AI tools does it work with?", "Any tool that takes a prompt, such as Claude, Lovable, v0, Codex, Cursor and Bolt. The prompts are plain language."],
   ["Do I need design skills?", "Nope. Each step tells you what to do, why it matters and what to check before you say yes to the AI's change."],
   ["How long does it take?", "About an hour per page. Start with color, type and spacing. That is where you will see the biggest jump."],
@@ -119,6 +123,7 @@ export default function Ebook() {
             <li data-i="list">27 prompts, one per step</li>
             <li data-i="file">DESIGN.md rules file included</li>
             <li data-i="motion">Bonus: motion and UX principles prompts</li>
+            <li data-i="play">Bonus: a private video of me fixing a real AI build, live</li>
             <li data-i="hand">No design skills needed. Nothing gets rebuilt</li>
           </ul>
         </div>
@@ -153,6 +158,43 @@ export default function Ebook() {
       </section>
 
       <BeforeAfter />
+
+      <section className="eb-sec eb-vid" aria-labelledby="eb-vid-h">
+        <div className="eb-vid-in">
+          <div>
+            <p className="eb-grp-k">Bonus with every copy</p>
+            <h2 id="eb-vid-h">Watch me fix it, <span className="t2">live</span></h2>
+            <p className="eb-why-lede">When you buy the book, you also get a private video. For 15 to 30 minutes I take a page built with AI and turn it into a real product, live on screen. <em className="scr">No cuts, no tricks.</em></p>
+            <ul className="eb-ticks eb-ico">
+              <li data-i="play">See which prompt I run first, and why</li>
+              <li data-i="spark">Hear how I decide what stays and what goes</li>
+              <li data-i="list">Pause and copy my steps on your own project</li>
+              <li data-i="gauge">Test yourself: score the page with me before and after</li>
+            </ul>
+            <p className="eb-vid-note">It is the closest thing to sitting next to me while I work. You learn how I think, not just what I type.</p>
+          </div>
+          <div className="eb-vid-card" aria-hidden="true">
+            <span className="eb-vid-play" />
+            <span className="eb-vid-tag">Private video · 15 to 30 min</span>
+            <span className="eb-vid-cap">From AI first draft to a real product</span>
+          </div>
+        </div>
+        <div className="btn-row"><Buy label={<>Get the book and the video <span className="eb-pill">{PRICE}</span></>} /></div>
+      </section>
+
+      <FreePrompts />
+
+      <section className="eb-sec eb-road" aria-labelledby="eb-road-h">
+        <h2 id="eb-road-h">Your first <span className="t2">30 minutes</span></h2>
+        <p className="eb-why-lede">You do not need a free weekend. Open your app, open the book, and follow this. <em className="scr">Most of the change shows up here.</em></p>
+        <ol className="eb-road-l">
+          <li><b>0 to 5 min</b><span><strong>Audit your colors</strong>Run prompt 1. The AI lists every color and what to cut, without changing anything yet.</span></li>
+          <li><b>5 to 10 min</b><span><strong>Set your rules</strong>Fill in DESIGN.md with prompt 15, so your AI uses one gray base and one accent from now on.</span></li>
+          <li><b>10 to 20 min</b><span><strong>Fix type and spacing</strong>Prompts 16 and 17: four text sizes and one spacing scale. This is the biggest jump.</span></li>
+          <li><b>20 to 25 min</b><span><strong>Rewrite the hero</strong>Prompt 18: one clear headline, one sentence, one button.</span></li>
+          <li><b>25 to 30 min</b><span><strong>Rate it</strong>Prompt 27 and the scorecard. Fix the lowest score, then run it again.</span></li>
+        </ol>
+      </section>
 
       <section className="eb-sec" id="inside">
         <h2>What's <span className="t2">inside</span></h2>
@@ -314,11 +356,12 @@ export default function Ebook() {
               <li className="eb-f-pdf"><b>PDF</b>59 pages</li>
               {FILES.map((f) => <li key={f}><b>MD</b>{f}</li>)}
               <li className="eb-f-bn"><b>+</b>2 bonus prompts</li>
+              <li className="eb-f-bn"><b>▶</b>Private video, 15 to 30 min</li>
             </ul>
           </div>
           <p className="eb-price">{PRICE}<span>one-time</span></p>
           <Buy label="Get your copy" />
-          <p className="eb-note">One PDF and four text files. Yours to keep.</p>
+          <p className="eb-note">One PDF, four text files and a private video. Yours to keep.</p>
         </aside>
       </section>
 
@@ -343,6 +386,8 @@ export default function Ebook() {
           <div className="hp-shade" aria-hidden="true" />
           <div className="hp-body">
             <h3>10 years of product design,<br /><em>now in 59 pages you can copy and paste.</em></h3>
+            <ul className="hp-proof"><li><b>10+</b>years designing products</li><li><b>10,000+</b>screens designed</li><li><b>570+</b>clients</li></ul>
+            <p className="hp-live">Live products I designed: <b>Lingopie</b>, language learning with 100,000+ users, and <b>Golf Live</b>, a PGA Show award winner.</p>
             <p>Every prompt keeps your content and features and changes only the design.</p>
             <div className="hp-cta"><Buy label={<>Buy now for <span className="eb-pill">{PRICE}</span></>} /></div>
           </div>
