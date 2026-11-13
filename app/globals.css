@@ -3414,3 +3414,20 @@ body:has(.hero2[data-bg="#0b0b0c"]) { background-color: #0b0b0c; }
 .eb-hp ul.hp-proof { display: flex; flex-wrap: nowrap; grid-template-columns: none; }
 .eb-hp ul.hp-proof li { flex: 1 1 0; justify-content: center; min-width: 0; }
 .eb-hp ul.hp-proof li.ws-main { flex: 1.3 1 0; }
+/* Wall stats: tighter on desktop */
+@media (min-width: 641px) {
+  .wall-stats { gap: clamp(24px, 3.5vw, 56px); padding-top: clamp(20px, 2.4vw, 32px); padding-bottom: clamp(40px, 4vw, 56px); }
+  .wall-stats b { font-size: clamp(1.5rem, 2.6vw, 2.25rem); }
+  .wall-stats .ws-main b { font-size: clamp(2rem, 3.4vw, 2.875rem); }
+  .wall-stats span { font-size: .8125rem; }
+  .wall-stats .ws-main .ws-lr { width: clamp(18px, 2vw, 28px); }
+}
+/* Sound familiar: icons and a centered call to action */
+.pain-ico { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 12px; margin-bottom: 6px; background: linear-gradient(180deg, rgba(255, 255, 255, .08), rgba(255, 255, 255, .02)); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .1), inset 0 1px 0 rgba(255, 255, 255, .08); }
+.pain-ico svg { width: 24px; height: 24px; fill: none; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.pain-ico svg g { fill: none; }
+:root[data-theme="light"]:not(.on-dark) .pain-ico svg stop { stop-color: #111112; }
+.pain .pain-cta { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; text-align: center; margin-inline: auto; }
+.pain .pain-cta span { margin: 0; }
+.hp-fields li { display: inline-flex; align-items: center; gap: 8px; }
+.hp-fields li svg { width: 16px; height: 16px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; opacity: .75; }
