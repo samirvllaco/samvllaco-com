@@ -1,3 +1,4 @@
+import BeforeAfter from "../../components/BeforeAfter";
 import Link from "next/link";
 import { BOOK_URL } from "../../lib/site";
 import { PeopleStack } from "../../components/ClientAvatars";
@@ -150,6 +151,8 @@ export default function Ebook() {
           <p className="eb-story-sign scr">Sam</p>
         </div>
       </section>
+
+      <BeforeAfter />
 
       <section className="eb-sec" id="inside">
         <h2>What's <span className="t2">inside</span></h2>
