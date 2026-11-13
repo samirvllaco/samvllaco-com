@@ -86,6 +86,10 @@ const FAQ = [
   ["Which AI tools does it work with?", "Any tool that takes a prompt, such as Claude, Lovable, v0, Codex, Cursor and Bolt. The prompts are plain language."],
   ["Do I need design skills?", "Nope. Each step tells you what to do, why it matters and what to check before you say yes to the AI's change."],
   ["How long does it take?", "About an hour per page. Start with color, type and spacing. That is where you will see the biggest jump."],
+  ["Why not just ask the AI to make it look better?", "You can, and you usually get another gradient. Vague asks get average results. These prompts give your AI exact values and rules, and the scorecard shows what still looks off."],
+  ["Is $6.99 too cheap to be any good?", "It is priced to be an easy yes. Inside are the same rules I use on client projects."],
+  ["My app already looks okay. Do I need this?", "Run the scorecard first. If your page already scores a 10, you lost the price of a coffee. If not, you know exactly what to fix."],
+  ["Will it work on my next project?", "Yes. That is the point of the system: rules, fix, rate, re-run, on any page you build."],
   ["Will it break my app?", "No. Every prompt keeps your content and features and only touches the design."],
 ];
 
@@ -192,6 +196,17 @@ export default function Ebook() {
           <ul>{[["phone", "Mobile apps"], ["web", "Web apps"], ["chart", "SaaS dashboards"], ["globe", "Marketing sites"], ["rocket", "Landing pages"], ["mac", "Mac apps"], ["desk", "Desktop apps"], ["book", "Books"], ["pen", "Articles"]].map(([i, t]) => <li key={t} data-i={i}>{t}</li>)}</ul>
         </div>
         <p className="eb-why-end">When you know what is happening, you trust the result, you feel when something is off, and you can make it your own. Learn the principles and how to use AI properly, and there is not much you cannot build.</p>
+      </section>
+
+      <section className="eb-sec eb-sys" aria-labelledby="eb-sys-h">
+        <h2 id="eb-sys-h">A system, <span className="t2">not a pile of prompts</span></h2>
+        <p className="eb-why-lede">Prompts fix a page once. This is a loop you can <em className="scr">run on every page you build.</em></p>
+        <ol className="eb-sys-l">
+          <li><span>1</span><b>Rules</b><p>DESIGN.md gives your AI your spacing, colors, type, icons and copy rules, so it stops guessing.</p><code>DESIGN.md</code></li>
+          <li><span>2</span><b>Fix</b><p>27 copy-paste prompts, plus the motion and UX principles prompts. Each says why it works and what to check.</p><code>PROMPTS.md</code></li>
+          <li><span>3</span><b>Rate</b><p>The scorecard rates your page out of 10 and shows exactly what still looks generated.</p><code>SCORECARD.md</code></li>
+          <li><span>4</span><b>Re-run</b><p>Fix the lowest scores, rate again, repeat until it earns a 10. Then run it on the next page.</p><code>Loop</code></li>
+        </ol>
       </section>
 
       <section className="eb-sec">
