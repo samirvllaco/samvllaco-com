@@ -72,7 +72,7 @@ export default function Home() {
           </h1>
           <p className="hero2-sub">You built something people need. If they can't see it in five seconds, they leave. I make your product clear, beautiful and easy to say yes to.</p>
           <div className="hero2-cta">
-            <a className="hero2-btn hero2-btn-primary" href="/book/"><CallIcon />Book a 30-minute call</a>
+            <a className="hero2-btn hero2-btn-primary" href="/book/"><CallIcon />Book a 30-min design strategy call</a>
           </div>
           <div className="hero-proof">
             <p className="hero-award"><i className="lr lr-l" aria-hidden="true" /><i className="lr lr-r" aria-hidden="true" /><span>Award-winning</span><span>UI/UX designer</span></p>
