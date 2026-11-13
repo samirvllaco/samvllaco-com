@@ -62,7 +62,7 @@ export default function Home() {
   return (
     <div className="wrap page stack-lg">
       <SectionColors />
-      <section className="hero2" data-bg="#111112">
+      <section className="hero2" data-bg="#0b0b0c">
         <div className="hero3">
           <HeroRole />
           <h1>

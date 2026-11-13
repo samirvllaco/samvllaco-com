@@ -3055,3 +3055,4 @@ html .to-top, html.is-scrolled .to-top, html.is-end .to-top { left: auto !import
 /* Hero top glow: darker, holds its shape longer, then eases out smoothly */
 .hero2::after { background: radial-gradient(130% 100% at 50% 0%, rgba(255, 255, 255, .05) 0%, rgba(255, 255, 255, .042) 40%, rgba(255, 255, 255, .022) 70%, rgba(255, 255, 255, .008) 88%, transparent 100%); }
 :root[data-theme="light"] .hero2::after { background: radial-gradient(130% 100% at 50% 0%, rgba(0, 0, 0, .035) 0%, rgba(0, 0, 0, .028) 40%, rgba(0, 0, 0, .014) 70%, transparent 100%); }
+.hero2::after { background: radial-gradient(130% 100% at 50% 0%, rgba(255, 255, 255, .026) 0%, rgba(255, 255, 255, .022) 40%, rgba(255, 255, 255, .011) 70%, rgba(255, 255, 255, .004) 88%, transparent 100%); }
