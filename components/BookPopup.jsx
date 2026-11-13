@@ -1,48 +1,54 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { BOOK_URL } from "../lib/site";
-import Link from "next/link";
 
-const KEY = "book-promo-closed-v2";
-
-// Bottom right promo card. Opens the book checkout in a new tab.
+// Book widget: tucked into the bottom left edge, slides out and grows on hover, focus or tap.
+// Appears after the visitor starts scrolling, so it never slows the first paint.
 export default function BookPopup() {
+  const [show, setShow] = useState(false);
   const [open, setOpen] = useState(false);
+  const box = useRef(null);
   const path = usePathname() || "";
 
   useEffect(() => {
-    let closed = false;
-    try { closed = !!window.localStorage.getItem(KEY); } catch {}
-    if (closed) return;
-    // Show after the visitor starts scrolling, so the card never delays the first paint of the page.
-    const on = () => { if (window.scrollY > 200) { setOpen(true); window.removeEventListener("scroll", on); } };
+    const on = () => { if (window.scrollY > 200) { setShow(true); window.removeEventListener("scroll", on); } };
+    on();
     window.addEventListener("scroll", on, { passive: true });
     return () => window.removeEventListener("scroll", on);
   }, []);
 
-  function close() {
-    setOpen(false);
-    try {
-      window.localStorage.setItem(KEY, "1");
-    } catch {}
-  }
+  useEffect(() => {
+    if (!open) return;
+    const out = (e) => { if (box.current && !box.current.contains(e.target)) setOpen(false); };
+    const key = (e) => { if (e.key === "Escape") setOpen(false); };
+    document.addEventListener("pointerdown", out);
+    window.addEventListener("keydown", key);
+    return () => { document.removeEventListener("pointerdown", out); window.removeEventListener("keydown", key); };
+  }, [open]);
 
-  if (!open || path.replace(/\/$/, "") === "/ebook") return null;
+  if (!show || path.replace(/\/$/, "") === "/ebook") return null;
   return (
-    <aside className="bk" aria-label="27 prompts to fix AI slop UI, $6.99">
-      <a className="bk-link" href={BOOK_URL} target="_blank" rel="noopener">
-        <span className="bk-cover">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/book-cover.webp?v=2" width="300" height="400" alt="" />
-          
-        </span>
-        <span className="bk-tag">$6.99</span>
-        <span className="bk-tip"><b>My AI book</b><span>$6.99. 27 prompts to fix AI slop UI.</span></span>
-      </a>
-      <button className="bk-close" type="button" onClick={close} aria-label="Hide book offer">
-        <svg viewBox="0 0 24 24" width="12" height="12" aria-hidden="true"><path fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" d="M6 6l12 12M18 6L6 18" /></svg>
+    <aside ref={box} className={`bw${open ? " is-open" : ""}`} aria-label="My book, 27 prompts to fix AI slop UI"
+      onPointerEnter={(e) => { if (e.pointerType === "mouse") setOpen(true); }} onPointerLeave={(e) => { if (e.pointerType === "mouse") setOpen(false); }}
+      onFocus={(e) => { if (e.target.matches(":focus-visible")) setOpen(true); }} onBlur={(e) => { if (!box.current?.contains(e.relatedTarget)) setOpen(false); }}>
+      <button type="button" className="bw-tab" aria-expanded={open} aria-controls="bw-card" onClick={(e) => { if (e.nativeEvent.pointerType !== "mouse") setOpen((v) => !v); }}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/book-cover.webp?v=2" width="300" height="400" alt="" />
+        <span className="bw-price">$6.99</span>
+        <span className="sr-only">Show my book</span>
       </button>
+      <div id="bw-card" className="bw-card">
+        <p className="bw-k">My book</p>
+        <p className="bw-t">27 copy-paste prompts to fix AI slop UI</p>
+        <ul className="bw-l">
+          <li>59 pages, one prompt per step</li>
+          <li>DESIGN.md and 100 UX laws</li>
+          <li>Bonus motion and UX prompts</li>
+        </ul>
+        <a className="hero2-btn hero2-btn-primary bw-buy" href={BOOK_URL} target="_blank" rel="noopener" tabIndex={open ? 0 : -1}>Buy for $6.99</a>
+        <a className="bw-more" href="/ebook/" tabIndex={open ? 0 : -1}>See what's inside</a>
+      </div>
     </aside>
   );
 }
