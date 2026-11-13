@@ -30,7 +30,7 @@ export default function ScreenWall() {
     <section className="wall" ref={sec} aria-label="A wall of screens from recent projects" data-bg="#000000">
       <div className="wall-stick">
         <ul className="wall-stats">
-          <li><div><b>10,000+</b><span>screens designed, and counting</span></div></li>
+          <li><div><b>10,000+</b><span>screens</span></div></li>
           <li className="ws-main"><i className="ws-lr ws-lr-l" aria-hidden="true" /><div><b>10+</b><span>years of experience</span></div><i className="ws-lr ws-lr-r" aria-hidden="true" /></li>
           <li><div><b>570+</b><span>clients</span></div></li>
         </ul>
