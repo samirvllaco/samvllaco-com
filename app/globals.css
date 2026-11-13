@@ -3051,3 +3051,7 @@ html .to-top, html.is-scrolled .to-top, html.is-end .to-top { left: auto !import
 .pain-cta { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; margin: 0; }
 .pain-cta span { color: var(--muted); font-size: .9375rem; }
 .work-lede { margin: -8px 0 8px; max-width: 62ch; color: var(--muted); }
+
+/* Hero top glow: darker, holds its shape longer, then eases out smoothly */
+.hero2::after { background: radial-gradient(130% 100% at 50% 0%, rgba(255, 255, 255, .05) 0%, rgba(255, 255, 255, .042) 40%, rgba(255, 255, 255, .022) 70%, rgba(255, 255, 255, .008) 88%, transparent 100%); }
+:root[data-theme="light"] .hero2::after { background: radial-gradient(130% 100% at 50% 0%, rgba(0, 0, 0, .035) 0%, rgba(0, 0, 0, .028) 40%, rgba(0, 0, 0, .014) 70%, transparent 100%); }
