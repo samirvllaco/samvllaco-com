@@ -55,5 +55,10 @@ Every new section, component or page must keep this. Check it before calling a c
 ## Buttons (owner, 13 Nov 2026, locked)
 - Only the two button classes in DESIGN.md (Buttons), with the hover and state rules defined there. Check every new or moved button on hover before calling a change done.
 
+## SEO (owner, 13 Nov 2026)
+- Google Search Console is verified with the meta tag in `app/layout.jsx` (`verification.google`); do not remove it. Sitemap is submitted there.
+- After a deploy that adds or renames pages, run `sh scripts/indexnow.sh` to tell Bing. The key file is `public/<key>.txt`; do not delete it.
+- Share images: `node scripts/og.cjs` (with `npx serve out -l 4173` running) rebuilds `public/og/*.jpg`. New case studies need it.
+
 ## Git
 - Commit messages are plain: no Co-Authored-By, Claude-Session or other trailers (owner, 13 Nov 2026).
