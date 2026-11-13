@@ -3613,3 +3613,5 @@ html.is-end .bk { bottom: max(16px, env(safe-area-inset-bottom, 0px)); }
 :root[data-theme="light"] .head-nav .mx .mx-grid a:hover, :root[data-theme="light"] .head-nav .mx a.mx-all { background: rgba(0, 0, 0, .04); }
 :root[data-theme="light"] .head-nav .mx .mx-more a { background: rgba(0, 0, 0, .05); } :root[data-theme="light"] .mx-more { border-top-color: rgba(0, 0, 0, .08); }
 @media (hover: hover) { .head-nav:has(a:hover, .mega-btn:hover) .mega a:not(:hover) { opacity: 1; } }
+.hp-photo { filter: none; object-position: 50% 15%; }
+@media (max-width: 960px) { .hp-right { padding-top: calc(min(100vw, 960px) * .78); } .hp-right .hp-photo { bottom: auto; height: auto; aspect-ratio: 561 / 701; object-position: 50% 0; } }
