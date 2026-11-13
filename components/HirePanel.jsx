@@ -4,8 +4,8 @@ import CopyEmailInline from "./HirePanelCopy";
 // Two panel "why work with me" section on the home page.
 // Left: what AI speeds up and what is designed by hand. Right: photo, industries and the call to action.
 // Photo: replace public/sam-panel.webp (falls back to the footer portrait until it exists).
-const AUTO = ["Design system upkeep", "Screen variants and states", "Copy and clarity checks", "Consistency rules", "Accessibility checks"];
-const HAND = ["Core user flows", "What goes on the first screen", "Signature interactions", "Onboarding and empty states", "Signup and checkout steps"];
+const AUTO = [["system", "Design system upkeep"], ["layers", "Screen variants and states"], ["text", "Copy and clarity checks"], ["ruler", "Consistency rules"], ["access", "Accessibility checks"]];
+const HAND = [["flow", "Core user flows"], ["screen", "What goes on the first screen"], ["spark", "Signature interactions"], ["wave", "Onboarding and empty states"], ["cart", "Signup and checkout steps"]];
 const FIELDS = ["SaaS", "AI products", "Fintech", "Healthcare", "LegalTech", "Cybersecurity", "E-commerce", "EdTech", "Dashboards", "Marketplaces", "Mobile apps", "Language learning", "Editorial", "Sports", "Marketing sites", "Design systems"];
 
 export default function HirePanel({ photo = "/sam-footer.webp" }) {
@@ -17,11 +17,11 @@ export default function HirePanel({ photo = "/sam-footer.webp" }) {
         <div className="hp-cols">
           <div>
             <p className="hp-label">Defined once, then automated</p>
-            <ul>{AUTO.map((t) => <li key={t}>{t}</li>)}</ul>
+            <ul className="hp-ico">{AUTO.map(([i, t]) => <li key={t} data-i={i}>{t}</li>)}</ul>
           </div>
           <div className="hp-hand">
             <p className="hp-label">Designed by hand</p>
-            <ul>{HAND.map((t) => <li key={t}>{t}</li>)}</ul>
+            <ul className="hp-ico">{HAND.map(([i, t]) => <li key={t} data-i={i}>{t}</li>)}</ul>
           </div>
         </div>
         <div className="hp-ind">
