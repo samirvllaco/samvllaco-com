@@ -30,7 +30,7 @@ export default function Newsletter({ id = "newsletter" }) {
         placeholder="you@example.com"
         style={{ minHeight: 48, padding: "0 16px", borderRadius: 8, border: "1.5px solid var(--border)", background: "var(--bg)", color: "var(--text)", font: "inherit" }}
       />
-      <button className="btn btn-primary" type="submit">Get the newsletter</button>
+      <button className="hero2-btn hero2-btn-primary" type="submit">Get the newsletter</button>
     </form>
   );
 }

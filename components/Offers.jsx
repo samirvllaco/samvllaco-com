@@ -29,7 +29,7 @@ export function Offers() {
       </div>
       <div className="of-foot">
         <p>Every project starts with a 30 minute call and a fixed quote. No hourly billing.</p>
-        <a className="btn btn-primary" href="/book/"><CallIcon />Book a call</a>
+        <a className="hero2-btn hero2-btn-primary" href="/book/"><CallIcon />Book a call</a>
       </div>
     </section>
   );

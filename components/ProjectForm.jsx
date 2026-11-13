@@ -63,7 +63,7 @@ export default function ProjectForm({ email, endpoint = "", needs, budgets, star
       <label>{ask} <i>(optional)</i><textarea rows={3} placeholder={example} value={v.building} onChange={set("building")} /></label>
       <label>How did you hear about {who}?<select value={v.source} onChange={set("source")} aria-invalid={tried && !!err.source}><option value="">Choose one</option>{sources.map((o) => <option key={o}>{o}</option>)}</select>{show("source")}</label>
 
-      <button type="submit" className="btn btn-primary pf-send" disabled={state === "sending"}>{state === "sending" ? "Sending" : "Send project details"} <span aria-hidden="true">→</span></button>
+      <button type="submit" className="hero2-btn hero2-btn-primary pf-send" disabled={state === "sending"}>{state === "sending" ? "Sending" : "Send project details"} <span aria-hidden="true">→</span></button>
       {state === "error" ? <p className="pf-err" role="alert"><span aria-hidden="true">!</span>Could not send. Email {email} instead.</p> : null}
       {state === "mail" ? <p className="pf-note" role="status">Your email app opened with the details filled in. Press send there. If nothing opened, write to <b>{email}</b>.</p> : <p className="pf-note">You get a reply within 1 business day, with questions or a time to talk.</p>}
     </form>

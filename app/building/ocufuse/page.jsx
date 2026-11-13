@@ -37,7 +37,7 @@ export default function Ocufuse() {
             and the designer, and I build it in public.
           </p>
           <div className="btn-row">
-            <a className="btn btn-primary" href={SITE.links.ocufuse}>Open ocufuse.com</a>
+            <a className="hero2-btn hero2-btn-primary" href={SITE.links.ocufuse}>Open ocufuse.com</a>
             <Coffee label="Buy me a coffee for Ocufuse" />
           </div>
         </div>

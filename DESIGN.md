@@ -12,6 +12,13 @@ Two button styles only. Both are fully rounded pills with the raised "key" look.
 Do not use `btn-ghost` (blue text on graphite) for page actions. It is not the secondary button.
 Two buttons side by side are the same width.
 
+**Hover and states (locked, 13 Nov 2026).** A button looks and behaves the same everywhere: in the header, mega menu, cards, footer and popups.
+- Hover: the key lifts slightly brighter (`filter: brightness(1.08)`), same color family. Never a flat grey or `--hl` fill.
+- Press: the key sinks (`translateY` 1 to 2px) and the ledge shrinks.
+- Focus: 3px blue ring, offset 2px.
+- Container link styles (`.head-nav a`, `.mega li a`, `.foot-map a`, `.socials a`) must exclude buttons with `:not(.hero2-btn)`. When adding any new link style for a container, add that exclusion.
+- Never use `btn btn-primary` or `btn-ghost` in new markup. Use the two classes above.
+
 ## Type and copy
 
 - Sans-serif for all titles and body text. No em dashes in copy.

@@ -48,7 +48,7 @@ export default async function ServicePage({ params }) {
         <h1>{s.name}</h1>
         <p className="lede">{s.text}</p>
         <div className="btn-row case-cta-row">
-          <a className="btn btn-primary" href="/book/"><CallIcon />Book a call</a>
+          <a className="hero2-btn hero2-btn-primary" href="/book/"><CallIcon />Book a call</a>
           <Link prefetch={false} className="hero2-btn hero2-btn-light" href="/#work">See my work</Link>
         </div>
       </header>

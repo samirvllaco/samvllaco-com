@@ -42,7 +42,7 @@ export default function HirePanel({ photo = "/sam-footer.webp" }) {
           <h3>You found the designer,<br /><em>not another agency.</em></h3>
           <p>No account managers and no junior handoffs. For 10 years I've taken every call, designed every screen and handed over the files myself, so what we talk about is what you get.</p>
           <div className="hp-cta">
-            <a className="btn btn-primary" href="/book/"><CallIcon />Book a call</a>
+            <a className="hero2-btn hero2-btn-primary" href="/book/"><CallIcon />Book a call</a>
             <CopyEmailInline />
           </div>
         </div>

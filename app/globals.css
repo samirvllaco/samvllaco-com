@@ -775,7 +775,7 @@ a.cert:active, .cert:active { transition-duration: 0s; transform: scale(.98); }
 .brand-me img { width: 36px; height: 36px; aspect-ratio: 1; border-radius: 8px; object-fit: cover; display: block; }
 .head-nav { display: flex; align-items: center; gap: 4px; }
 .head-nav a { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 14px; border-radius: 8px; color: var(--text); font-size: .9375rem; font-weight: 500; text-decoration: none; white-space: nowrap; transition: background-color .3s var(--ease-out); }
-.head-nav a:hover { background: var(--hl); text-decoration: none; }
+.head-nav a:not(.hero2-btn):not(.btn):hover { background: var(--hl); text-decoration: none; }
 .head-end { justify-self: end; display: flex; align-items: center; gap: 8px; }
 .head-row .snd { margin-left: 0; }
 .head-cta { display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px; border-radius: 8px; background: #2f6bff; color: #fff; font-weight: 600; font-size: .9375rem; text-decoration: none; white-space: nowrap; transition: background-color .3s var(--ease-out); }
@@ -3577,3 +3577,7 @@ html.is-end .bk { bottom: max(16px, env(safe-area-inset-bottom, 0px)); }
 @media (min-width: 901px) { .site-footer > .wrap > .foot-links { margin-right: 64px; } }
 @media (max-width: 1100px) { .site-footer .foot-map { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 @media (max-width: 620px) { .site-footer .foot-map { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* Buttons keep their own look and hover wherever they sit (DESIGN.md, Buttons). Container link styles never reach them. */
+.head-nav a.hero2-btn, .mega a.hero2-btn, .site-footer a.hero2-btn { padding: 0 22px; border-radius: 999px; color: #fff; }
+.head-nav a.hero2-btn-light, .site-footer a.hero2-btn-light { color: var(--k-ink, #f5f5f7); }

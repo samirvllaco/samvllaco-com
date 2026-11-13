@@ -20,7 +20,7 @@ export default function Services() {
         <h1>Design, branding, marketing and SEO</h1>
         <p className="lede">Confusing screens, a brand nobody remembers, a site nobody finds. Whatever's holding your product back, this is where we fix it. Four areas, one goal: a product people understand, remember and can find.</p>
         <div className="btn-row case-cta-row">
-          <a className="btn btn-primary" href="/book/"><CallIcon />Book a call</a>
+          <a className="hero2-btn hero2-btn-primary" href="/book/"><CallIcon />Book a call</a>
         </div>
       </header>
       {SERVICES.map((g) => (

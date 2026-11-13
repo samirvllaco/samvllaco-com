@@ -8,7 +8,7 @@ export default function NotFound() {
       <h1>That page does not exist</h1>
       <p className="lede">The link may be old or mistyped. These pages are a good place to start.</p>
       <div className="btn-row">
-        <Link prefetch={false} className="btn btn-primary" href="/">Go to home page</Link>
+        <Link prefetch={false} className="hero2-btn hero2-btn-primary" href="/">Go to home page</Link>
         <Link prefetch={false} className="hero2-btn hero2-btn-light" href="/building/">See what I am building</Link>
       </div>
     </div>

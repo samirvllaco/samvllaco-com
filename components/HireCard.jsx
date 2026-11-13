@@ -24,7 +24,7 @@ export default function HireCard({ wide = false }) {
           </div>
         </div>
         <p className="hire-text">Need a product designed like this? Tell me what you are building.</p>
-        <a className="btn btn-primary hire-btn" href="/book/"><CallIcon />Book a call</a>
+        <a className="hero2-btn hero2-btn-primary hire-btn" href="/book/"><CallIcon />Book a call</a>
         <button type="button" className="hire-copy" onClick={copy}>
           <span>{EMAIL}</span>
           <span className="hire-copied" role="status">{copied ? "Copied" : "Copy"}</span>

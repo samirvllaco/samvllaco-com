@@ -119,7 +119,7 @@ export default function CaseStudy({ params }) {
           <p className="work-tags case-tags">{w.tags.map((t) => <span key={t}>{t}</span>)}</p>
           {st ? (
             <div className="btn-row case-cta-row">
-              <a className="btn btn-primary" href="/book/"><CallIcon />Book a call</a>
+              <a className="hero2-btn hero2-btn-primary" href="/book/"><CallIcon />Book a call</a>
               <a className="hero2-btn hero2-btn-light" href={`#${st.chapters[0].id}`}>See the screens</a>
             </div>
           ) : null}
@@ -251,7 +251,7 @@ export default function CaseStudy({ params }) {
               <h2>{st.cta.title}</h2>
               <p>{st.cta.text}</p>
               <div className="btn-row">
-                <a className="btn btn-primary" href="/book/"><CallIcon />Book a call</a>
+                <a className="hero2-btn hero2-btn-primary" href="/book/"><CallIcon />Book a call</a>
                 <Link prefetch={false} className="hero2-btn hero2-btn-light" href="/services/">See services</Link>
               </div>
             </section>
