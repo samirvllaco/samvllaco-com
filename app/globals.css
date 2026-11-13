@@ -3722,3 +3722,5 @@ main p { font-size: 1.0625rem; line-height: 1.6; }
 :root[data-theme="light"] .sv-sec { border-top-color: rgba(0, 0, 0, .07); }
 :root[data-theme="light"] .sv-pains li, :root[data-theme="light"] .sv-get li, :root[data-theme="light"] .sv-how li, :root[data-theme="light"] .sv-faq details { box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .06); }
 :root[data-theme="light"] .sv-more a { background: rgba(0, 0, 0, .05); } :root[data-theme="light"] .sv-story .scr { color: #0a6fd6; }
+/* Dotted texture removed everywhere (owner, 14 Nov 2026) */
+.hero2::before, .faq::before, .book-band::before, .bx-sec:has(.ms-grid)::before, .bx-sec:has(.pr-grid)::before { content: none; }
