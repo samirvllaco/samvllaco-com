@@ -178,9 +178,10 @@ export default function Ebook() {
             <ul>
               <li>Press scales to 0.97 in 90ms</li>
               <li>Hover lifts 2px, nothing glows</li>
-              <li>Transform and opacity only</li>
-              <li>Off for reduced motion</li>
+              <li className="eb-lock" aria-hidden="true">Dim the other cards to 60 percent</li>
+              <li className="eb-lock" aria-hidden="true">Settle with a tiny overshoot</li>
             </ul>
+            <em className="eb-more-tag">+ 10 more principles in the book</em>
           </article>
           <article>
             <span>Bonus prompt B</span>
@@ -189,14 +190,16 @@ export default function Ebook() {
             <ul>
               <li>44 by 44 pixel hit areas</li>
               <li>One primary button per screen</li>
-              <li>Lists in groups of seven or fewer</li>
-              <li>Respond within 400ms</li>
+              <li className="eb-lock" aria-hidden="true">Lists in groups of seven or fewer</li>
+              <li className="eb-lock" aria-hidden="true">Respond within 400ms</li>
             </ul>
+            <em className="eb-more-tag">+ 6 more principles in the book</em>
           </article>
           <article className="eb-bn-code">
             <span>Paste into DESIGN.md</span>
             <h3>Rules that stick</h3>
-            <pre>{"## Motion\nTransform and opacity only.\nFeedback 90 to 250ms.\nPress: scale 0.97.\nHover: lift 2px.\n\n## UX principles\nControls at least 44 by 44px.\nOne primary button per screen."}</pre>
+            <pre>{"## Motion\nTransform and opacity only.\nFeedback 90 to 250ms.\n"}<span className="eb-lock" aria-hidden="true">{"Press: scale 0.97.\nHover: lift 2px.\n\n## UX principles\nControls at least 44 by 44px.\nOne primary button per screen."}</span></pre>
+            <em className="eb-more-tag">+ the full block in the book</em>
           </article>
         </div>
         <div className="eb-bn-cta">
