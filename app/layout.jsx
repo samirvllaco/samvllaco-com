@@ -16,6 +16,7 @@ export const metadata = {
   alternates: { canonical: "/" },
   ...share({ title: "Sam Vllaco: Product Designer for SaaS and AI Products", description: SITE.description, url: SITE.url }),
   robots: { index: true, follow: true },
+  verification: { google: "cTF2I8D5vrDc_uRlNMciCbaRGVuMYVJehzlbn4wBAqA" },
   other: { "color-scheme": "dark light" },
 };
 
