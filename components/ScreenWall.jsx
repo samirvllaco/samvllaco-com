@@ -29,6 +29,11 @@ export default function ScreenWall() {
   return (
     <section className="wall" ref={sec} aria-label="A wall of screens from recent projects" data-bg="#000000">
       <div className="wall-stick">
+        <ul className="wall-stats">
+          <li><b>10+</b><span>years of experience</span></li>
+          <li><b>10,000+</b><span>screens designed, and counting</span></li>
+          <li><b>570+</b><span>clients</span></li>
+        </ul>
         <div className="wall-grid" ref={grid} aria-hidden="true">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           {WALL.map((src, i) => <div className="wall-cell" key={src}><img className="wl" src={src} width="960" height="540" alt="" loading="lazy" decoding="async" /><img className="wd" src={src.replace("/wall/", "/wall/dark/").split("?")[0] + "?v=9"} width="960" height="540" alt="" loading={Math.abs(i - 38) < 9 ? "eager" : "lazy"} decoding="async" /></div>)}
