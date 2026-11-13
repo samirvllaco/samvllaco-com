@@ -51,3 +51,6 @@ Every new section, component or page must keep this. Check it before calling a c
 
 **Caching**
 - `public/_headers` sets long caching for `/_next/static`, `/fonts`, `/hero`, `/work/*` image folders. New image folders get a rule there too. Never long-cache HTML.
+
+## Git
+- Commit messages are plain: no Co-Authored-By, Claude-Session or other trailers (owner, 13 Nov 2026).
