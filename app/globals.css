@@ -3514,3 +3514,16 @@ html.is-end .bk { bottom: max(16px, env(safe-area-inset-bottom, 0px)); }
 .bb-alt { max-width: 960px; margin-inline: auto; }
 .book-split .bb-alt { max-width: none; }
 @media (max-width: 560px) { .md-club-acts { display: grid; width: 100%; } .md-club-acts a { width: 100%; } }
+/* Ebook sale: pill above the headline, struck old price (Whop compare-at $34.95, owner 13 Nov 2026) */
+.eb-sale { display: inline-flex; align-items: center; gap: 12px; max-width: 100%; margin: 0 0 18px; padding: 5px 16px 5px 5px; border-radius: 999px; font-size: .9375rem; font-weight: 500; color: var(--text); background: rgba(0, 0, 0, .35); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .14); }
+.eb-sale b { flex: none; padding: 5px 12px; border-radius: 999px; font-weight: 700; letter-spacing: .01em; color: #ff6b61; background: rgba(255, 59, 48, .2); }
+.eb-sale span { min-width: 0; }
+.eb-sale s, .eb-pill s, .eb-was s, .bw-price s { color: #a1a1a6; text-decoration-thickness: 1.5px; font-weight: 500; }
+.eb-pill s { margin-right: 4px; color: rgba(255, 255, 255, .78); }
+.eb-was { display: flex; align-items: center; gap: 10px; margin: 0 0 4px; font-size: 1.25rem; }
+.eb-was b { padding: 3px 10px; border-radius: 8px; font-size: .875rem; font-weight: 600; color: #111; background: #f2f2f2; }
+.bw-price s { margin-right: 4px; font-size: .85em; }
+:root[data-theme="light"] .eb-sale { background: rgba(255, 255, 255, .7); box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .1); }
+:root[data-theme="light"] .eb-sale b { color: #c4190f; background: rgba(255, 59, 48, .12); }
+:root[data-theme="light"] .eb-sale s, :root[data-theme="light"] .eb-was s { color: #6e6e73; }
+@media (max-width: 560px) { .eb-sale { font-size: .8125rem; gap: 8px; } }

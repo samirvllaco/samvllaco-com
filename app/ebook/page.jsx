@@ -8,6 +8,7 @@ import FreePrompts from "../../components/FreePrompts";
 
 const BUY_URL = BOOK_URL;
 const PRICE = "$6.99";
+const WAS = "$34.95"; // compare-at price set on Whop (Save 80%)
 
 export const metadata = {
   title: "27 Copy-Paste Prompts to Fix AI Slop UI",
@@ -112,11 +113,12 @@ export default function Ebook() {
 
       <header className="eb-hero" data-bg="#111112">
         <div className="eb-copy">
+          <p className="eb-sale"><b>80% OFF</b><span><s aria-label={`was ${WAS}`}>{WAS}</s> now {PRICE}, video included</span></p>
           <p className="eb-kick">Designed, not generated.</p>
           <h1><span className="eb-27">27 copy-paste prompts</span> to fix AI slop UI</h1>
           <p className="eb-sub">You built it fast. It works. Then you open it next to a real product and something feels off: the purple gradient, the three little cards, the glow. Visitors notice it <em className="scr">before they read a word.</em> These prompts fix that, one step at a time, without rebuilding anything.</p>
           <div className="btn-row">
-            <Buy label={<>Buy now for <span className="eb-pill">{PRICE}</span></>} />
+            <Buy label={<>Buy now for <span className="eb-pill"><s aria-label={`was ${WAS}`}>{WAS}</s> {PRICE}</span></>} />
             <a className="hero2-btn hero2-btn-light" href="#inside">Peek inside</a>
           </div>
           <ul className="eb-ticks eb-ico">
@@ -359,6 +361,7 @@ export default function Ebook() {
               <li className="eb-f-bn"><b>▶</b>Private video, 15 to 30 min</li>
             </ul>
           </div>
+          <p className="eb-was"><s aria-label={`was ${WAS}`}>{WAS}</s><b>Save 80%</b></p>
           <p className="eb-price">{PRICE}<span>one-time</span></p>
           <Buy label="Get your copy" />
           <p className="eb-note">One PDF, four text files and a private video. Yours to keep.</p>
