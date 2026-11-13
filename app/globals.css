@@ -3728,3 +3728,11 @@ main p { font-size: 1.0625rem; line-height: 1.6; }
 .fm-live i { width: 6px; height: 6px; border-radius: 50%; background: #30d158; box-shadow: 0 0 0 3px rgba(48, 209, 88, .2); }
 :root[data-theme="light"] .fm-live { color: #1a7f37; background: rgba(26, 127, 55, .1); } :root[data-theme="light"] .fm-live i { background: #1a7f37; }
 .foot-map a:has(.fm-live) { white-space: nowrap; }
+/* Current page: shown in the header and the footer link map (owner, 14 Nov 2026) */
+.site-footer .foot-map a[aria-current="page"] { color: #f5f5f7; }
+.site-footer .foot-map a[aria-current="page"]::before { content: ""; width: 6px; height: 6px; margin-right: 2px; border-radius: 50%; background: #62c1fd; flex: none; }
+.head-nav > a[aria-current="page"], .head-nav .mega-btn.is-current { background: var(--hl); }
+.head-nav > a[aria-current="page"]::after, .head-nav .mega-btn.is-current::after { content: ""; position: absolute; left: 50%; bottom: 4px; width: 4px; height: 4px; margin-left: -2px; border-radius: 50%; background: #62c1fd; }
+.head-nav > a, .head-nav .mega-btn { position: relative; }
+:root[data-theme="light"] .site-footer .foot-map a[aria-current="page"] { color: #000; }
+.foot-map a:has(.mega-pdf) { white-space: nowrap; } .foot-map .mega-pdf { margin-left: 8px; }
