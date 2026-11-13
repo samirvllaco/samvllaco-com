@@ -30,9 +30,9 @@ export default function Header() {
         <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" /></svg>
       </a>
       <div className="wrap head-row">
-        <Link className="brand-me" href="/" aria-label="Sam Vllaco, home">
+        <Link className="brand-me" href="/">
           <BrandFace />
-          <span className="brand-word">Sam</span>
+          <span className="brand-word">Sam</span><span className="sr-only"> Vllaco, home</span>
           <BrandRole />
         </Link>
         <nav className="head-nav" aria-label="Main">
