@@ -3536,3 +3536,4 @@ html.is-end .bk { bottom: max(16px, env(safe-area-inset-bottom, 0px)); }
 .pain .eb-story p { text-wrap: pretty; }
 .pain .eb-story-sign { margin-top: 4px; transform: rotate(-4deg); }
 .pain .pain-cta { margin-top: clamp(24px, 3vw, 36px); }
+#work.work > h2 + .work-lede { margin-top: -8px !important; }
