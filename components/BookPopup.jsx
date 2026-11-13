@@ -9,6 +9,7 @@ export default function BookPopup() {
   const [show, setShow] = useState(false);
   const [open, setOpen] = useState(false);
   const box = useRef(null);
+  const ptr = useRef("");
   const path = usePathname() || "";
 
   useEffect(() => {
@@ -32,7 +33,8 @@ export default function BookPopup() {
     <aside ref={box} className={`bw${open ? " is-open" : ""}`} aria-label="My book, 27 prompts to fix AI slop UI"
       onPointerEnter={(e) => { if (e.pointerType === "mouse") setOpen(true); }} onPointerLeave={(e) => { if (e.pointerType === "mouse") setOpen(false); }}
       onFocus={(e) => { if (e.target.matches(":focus-visible")) setOpen(true); }} onBlur={(e) => { if (!box.current?.contains(e.relatedTarget)) setOpen(false); }}>
-      <button type="button" className="bw-tab" aria-expanded={open} aria-controls="bw-card" onClick={(e) => { if (e.nativeEvent.pointerType !== "mouse") setOpen((v) => !v); }}>
+      <button type="button" className="bw-tab" aria-expanded={open} aria-controls="bw-card" onPointerDown={(e) => { ptr.current = e.pointerType; }}
+        onClick={() => { if (ptr.current !== "mouse") setOpen((v) => !v); ptr.current = ""; }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="/book-cover.webp?v=2" width="300" height="400" alt="" />
         <span className="bw-price">$6.99</span>
