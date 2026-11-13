@@ -7,7 +7,7 @@ export default function ActiveNav() {
   const path = usePathname() || "/";
   useEffect(() => {
     const here = path.endsWith("/") ? path : `${path}/`;
-    document.querySelectorAll(".head-nav a, .foot-map a").forEach((a) => {
+    document.querySelectorAll(".head-nav a, .foot-map a, .crumb-pop a").forEach((a) => {
       const href = a.getAttribute("href") || "";
       if (href.startsWith("http") || href.includes("#")) return;
       const h = href.endsWith("/") ? href : `${href}/`;
