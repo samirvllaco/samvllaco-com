@@ -3571,3 +3571,9 @@ html.is-end .bk { bottom: max(16px, env(safe-area-inset-bottom, 0px)); }
   .ba .ba-tabs { justify-content: center; margin-top: 28px; }
   .ba .ba-note { text-align: center; }
 }
+/* Footer side space (owner, 13 Nov 2026): roomier gutters, bottom row clear of the floating buttons */
+.site-footer > .wrap { padding-left: max(clamp(24px, 5vw, 80px), env(safe-area-inset-left, 0px)) !important; padding-right: max(clamp(24px, 5vw, 80px), env(safe-area-inset-right, 0px)) !important; }
+.site-footer .foot-map { grid-template-columns: 1.2fr repeat(5, minmax(0, 1fr)); column-gap: clamp(24px, 3vw, 48px); }
+@media (min-width: 901px) { .site-footer > .wrap > .foot-links { margin-right: 64px; } }
+@media (max-width: 1100px) { .site-footer .foot-map { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 620px) { .site-footer .foot-map { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
