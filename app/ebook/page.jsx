@@ -68,15 +68,17 @@ const FOR = [
 ];
 
 const GET = [
-  "The book: 27 steps, one prompt per step, 59 pages",
-  "All 27 prompts in one list, numbered and ready to copy",
-  "A bonus all-in-one prompt that asks first and waits for your go-ahead",
-  "DESIGN.md: a full rules file for spacing, color, icons, copy and states",
-  "SCORECARD.md and PROMPTS.md as plain files for your project",
-  "100 UX laws, each one matched to the prompt that uses it",
-  "Bonus: a subtle motion prompt (12 animation principles) and a UX principles prompt (8 rules for controls), plus a block to paste into DESIGN.md",
-  "A list of places to find good design references",
+  ["book", "The book: 27 steps, one prompt per step, 59 pages"],
+  ["list", "All 27 prompts in one list, numbered and ready to copy"],
+  ["spark", "An all-in-one prompt that asks first and waits for your go-ahead", "Bonus"],
+  ["file", "DESIGN.md: a full rules file for spacing, color, icons, copy and states"],
+  ["gauge", "SCORECARD.md and PROMPTS.md as plain files for your project"],
+  ["scale", "100 UX laws, each one matched to the prompt that uses it"],
+  ["motion", "Motion prompt: 12 animation principles in subtle values, plus a block to paste into DESIGN.md", "Bonus"],
+  ["hand", "UX principles prompt: 8 rules that check every button, link and list", "Bonus"],
+  ["compass", "A list of places to find good design references"],
 ];
+const FILES = ["DESIGN.md", "SCORECARD.md", "PROMPTS.md", "UX-LAWS.md"];
 
 const FAQ = [
   ["What format is it?", "A PDF plus four plain text files (DESIGN.md, SCORECARD.md, PROMPTS.md and UX-LAWS.md) you can drop into your project."],
@@ -106,11 +108,11 @@ export default function Ebook() {
             <Buy label={<>Buy now for <span className="eb-pill">{PRICE}</span></>} />
             <a className="hero2-btn hero2-btn-light" href="#inside">See what's inside</a>
           </div>
-          <ul className="eb-ticks">
-            <li>27 prompts, one per step</li>
-            <li>DESIGN.md rules file included</li>
-            <li>Bonus: motion and UX principles prompts</li>
-            <li>No design skills needed, no rebuild</li>
+          <ul className="eb-ticks eb-ico">
+            <li data-i="list">27 prompts, one per step</li>
+            <li data-i="file">DESIGN.md rules file included</li>
+            <li data-i="motion">Bonus: motion and UX principles prompts</li>
+            <li data-i="hand">No design skills needed, no rebuild</li>
           </ul>
         </div>
         <div className="eb-cover">
@@ -235,9 +237,18 @@ export default function Ebook() {
       <section className="eb-sec eb-offer">
         <div>
           <h2>What <span className="t2">you get</span></h2>
-          <ul className="eb-ticks">{GET.map((g) => <li key={g}>{g}</li>)}</ul>
+          <ul className="eb-ticks eb-ico">{GET.map(([i, g, tag]) => <li key={g} data-i={i}><span>{g}{tag ? <em className="eb-tag">{tag}</em> : null}</span></li>)}</ul>
         </div>
         <aside>
+          <div className="eb-bundle" aria-label="The full bundle">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/ebook/cover.webp?v=2" width="936" height="1326" alt="The book cover" loading="lazy" />
+            <ul>
+              <li className="eb-f-pdf"><b>PDF</b>59 pages</li>
+              {FILES.map((f) => <li key={f}><b>MD</b>{f}</li>)}
+              <li className="eb-f-bn"><b>+</b>2 bonus prompts</li>
+            </ul>
+          </div>
           <p className="eb-price">{PRICE}<span>one-time</span></p>
           <Buy label="Get your copy" />
           <p className="eb-note">One PDF and four text files. Yours to keep.</p>
@@ -258,7 +269,6 @@ export default function Ebook() {
               <ul>{["27 steps", "27 copy-paste prompts", "100 UX laws", "DESIGN.md rules file", "A scorecard to rate your page"].map((t) => <li key={t}>{t}</li>)}</ul>
             </div>
           </div>
-          <p className="eb-author-links"><Link href="/about/">More about me</Link> · <Link href="/work/">See my work</Link></p>
         </div>
         <div className="hp-right">
           {/* eslint-disable-next-line @next/next/no-img-element */}
