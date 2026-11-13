@@ -3616,3 +3616,29 @@ html.is-end .bk { bottom: max(16px, env(safe-area-inset-bottom, 0px)); }
 .hp-photo { filter: none; object-position: 50% 15%; }
 @media (max-width: 960px) { .hp-right { padding-top: calc(min(100vw, 960px) * .78); } .hp-right .hp-photo { bottom: auto; height: auto; aspect-ratio: 561 / 701; object-position: 50% 0; } }
 .foot-tagline { font-weight: 400; color: #98989d; } :root[data-theme="light"] .foot-tagline { color: #6e6e73; }
+/* Resources mega menu (owner, 14 Nov 2026) */
+.mx-k2 { margin-top: 20px; padding-top: 16px; border-top: 1px solid rgba(255, 255, 255, .08); }
+.mx-posts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 16px; margin: 0; padding: 0; list-style: none; }
+.head-nav .mx .mx-posts a { display: flex; align-items: center; gap: 14px; min-height: 0; margin: 0; padding: 8px; border-radius: 14px; white-space: normal; color: var(--text); text-decoration: none; background: none; transition: background .2s; }
+.head-nav .mx .mx-posts a:hover { background: rgba(255, 255, 255, .05); }
+.mx-posts img { flex: none; width: 112px; height: 63px; border-radius: 8px; object-fit: cover; }
+.mx-posts b { display: block; font-size: .875rem; font-weight: 600; line-height: 1.35; }
+.mx-posts em { display: block; margin-top: 4px; font-style: normal; font-size: .75rem; color: var(--muted); }
+.mx-grid b .mega-pdf { margin-left: 8px; vertical-align: 1px; }
+.mx-book-art { position: relative; display: grid; place-items: center; aspect-ratio: 16 / 10; border-radius: 12px; overflow: hidden; margin-bottom: 6px; background: radial-gradient(80% 90% at 50% 100%, rgba(255, 157, 46, .28), transparent 70%), #0e0e10; }
+.mx-book-art img { width: auto; height: 84%; border-radius: 3px 8px 8px 3px; rotate: -5deg; box-shadow: inset 3px 0 0 rgba(255, 255, 255, .25), 0 18px 34px -12px rgba(0, 0, 0, .8); transition: rotate .5s cubic-bezier(.34, 1.56, .64, 1); }
+.mx-book:hover .mx-book-art img { rotate: -1deg; }
+.mx-sale { color: #1a0f00; background: linear-gradient(180deg, #ffb655, #ff9d2e 55%, #f08a14); }
+.head-nav .mx .mx-book-art img { width: auto; max-width: none; height: 82%; aspect-ratio: 3 / 4; object-fit: cover; }
+/* Ebook fixed buy bar (owner, 14 Nov 2026) */
+.eb-bar { position: fixed; z-index: 44; left: 50%; bottom: max(16px, env(safe-area-inset-bottom, 0px)); display: flex; align-items: center; gap: 14px; width: min(620px, calc(100vw - 32px)); padding: 8px 8px 8px 12px; border-radius: 20px; background: rgba(28, 28, 30, .78); -webkit-backdrop-filter: blur(22px) saturate(180%); backdrop-filter: blur(22px) saturate(180%); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .1), 0 24px 48px -18px rgba(0, 0, 0, .7); opacity: 0; visibility: hidden; pointer-events: none; transform: translate(-50%, 24px); transition: opacity .3s var(--ease-out), transform .5s cubic-bezier(.34, 1.4, .64, 1), visibility 0s linear .3s; }
+.eb-bar.is-on { opacity: 1; visibility: visible; pointer-events: auto; transform: translate(-50%, 0); transition: opacity .3s var(--ease-out), transform .5s cubic-bezier(.34, 1.4, .64, 1), visibility 0s; }
+.eb-bar img { flex: none; width: 36px; height: 48px; border-radius: 2px 5px 5px 2px; rotate: -6deg; box-shadow: inset 2px 0 0 rgba(255, 255, 255, .25), 0 6px 12px -4px rgba(0, 0, 0, .7); }
+.eb-bar p { display: grid; gap: 2px; min-width: 0; margin: 0; flex: 1; }
+.eb-bar b { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; font-size: .9375rem; font-weight: 600; color: #f5f5f7; }
+.eb-bar p span { font-size: .8125rem; color: #ffb655; } .eb-bar s { color: #a1a1a6; margin-right: 4px; }
+.eb-bar .hero2-btn { flex: none; min-height: 48px; padding: 0 22px; border-radius: 14px; font-size: 1rem; }
+html.eb-bar-on .vid, html.eb-bar-on .bk { bottom: calc(max(16px, env(safe-area-inset-bottom, 0px)) + 80px); }
+html.eb-bar-on .to-top { opacity: 0 !important; pointer-events: none !important; }
+@media (max-width: 560px) { .eb-bar b { font-size: .8125rem; } .eb-bar .hero2-btn { padding: 0 16px; } }
+@media (prefers-reduced-motion: reduce) { .eb-bar { transition: opacity .2s; transform: translate(-50%, 0); } }

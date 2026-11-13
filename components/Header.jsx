@@ -3,19 +3,17 @@ import { BOOK_URL } from "../lib/site";
 import CallIcon from "./CallIcon";
 import SoundToggle from "./SoundToggle";
 import ServicesMenu from "./ServicesMenu";
+import ResourcesMenu from "./ResourcesMenu";
 import ThemeToggle from "./ThemeToggle";
 import HeaderScroll from "./HeaderScroll";
 import BrandFace from "./BrandFace";
 import BrandRole from "./BrandRole";
 import { EMAIL } from "../lib/site";
-import NavBook from "./NavBook";
 import HeadCta from "./HeadCta";
 import MobileMenu from "./MobileMenu";
 
 const NAV = [
   { href: "/work/", label: "Work" },
-  { href: "/writing/", label: "Insights" },
-  { href: "/ebook/", label: "Book", book: true },
   { href: "/about/", label: "About" },
   { href: "/book/", label: "Contact", dot: true },
 ];
@@ -37,16 +35,14 @@ export default function Header() {
         </Link>
         <nav className="head-nav" aria-label="Main">
           <ServicesMenu />
-          {NAV.map((n) => (
-            n.book ? (
-              <NavBook key={n.href} />
-            ) : (
+          <Link prefetch={false} href="/work/">Work</Link>
+          <ResourcesMenu />
+          {NAV.filter((n) => n.href !== "/work/").map((n) => (
             <Link prefetch={false} key={n.href} href={n.href}>
               {n.dot ? <i className="nav-dot" aria-hidden="true" /> : null}
               {n.label}
               {n.badge ? <span className="top-badge">{n.badge}</span> : null}
             </Link>
-            )
           ))}
         </nav>
         <div className="head-end">

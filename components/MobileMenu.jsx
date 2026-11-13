@@ -8,7 +8,7 @@ import { BOOK_URL } from "../lib/site";
 const LINKS = [
   { href: "/services/", label: "Services" },
   { href: "/work/", label: "Work" },
-  { href: "/writing/", label: "Insights" },
+  { href: "/writing/", label: "Resources" },
   { href: "/ebook/", label: "E-book", tag: "$6.99" },
   { href: "/about/", label: "About" },
   { href: "/book/", label: "Contact", dot: true },

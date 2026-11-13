@@ -6,6 +6,7 @@ import Crumbs from "../../components/Crumbs";
 import SectionColors from "../../components/SectionColors";
 import FreePrompts from "../../components/FreePrompts";
 import JsonLd from "../../components/JsonLd";
+import EbookBar from "../../components/EbookBar";
 import { share, PERSON_ID } from "../../lib/seo";
 import { SITE } from "../../lib/site";
 
@@ -129,6 +130,7 @@ export default function Ebook() {
       <SectionColors />
       <Crumbs items={[{ name: "Book", href: "/ebook/" }]} />
       <JsonLd data={BOOK_LD} />
+      <EbookBar />
 
       <header className="eb-hero" data-bg="#111112">
         <div className="eb-copy">
