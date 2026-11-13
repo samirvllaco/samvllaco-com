@@ -1,5 +1,6 @@
 /* Self-hosted logo and signature fonts (subset to the letters used), so no render-blocking font CSS */
 @font-face { font-family: "Unbounded"; font-style: normal; font-weight: 700; font-display: swap; src: url(/fonts/unbounded-sam.woff2) format("woff2"); }
+@font-face { font-family: "Caveat"; font-style: normal; font-weight: 600; font-display: swap; src: url(/fonts/caveat-600.woff2) format("woff2"); }
 @font-face { font-family: "Mrs Saint Delafield"; font-style: normal; font-weight: 400; font-display: swap; src: url(/fonts/delafield-sam.woff2) format("woff2"); }
 :root {
   --bg: #0a1420;
@@ -3186,3 +3187,8 @@ html.js .hero3 > .hero-proof, html.js .hero3 > .hero-trust { animation-delay: .1
   .eb-grp ol, .eb-grp-2 ol, .eb-grp-3 ol { grid-template-columns: 1fr; }
   .eb-grp li:nth-child(2) { border-top: 1px solid rgba(255, 255, 255, .07); padding-top: 16px; }
 }
+
+/* Script accent: a few words inside paragraphs only (never titles), to pull the eye */
+.scr { font-family: "Caveat", "Segoe Script", "Bradley Hand", cursive; font-style: normal; font-weight: 600; font-size: 1.32em; line-height: 1; letter-spacing: 0; color: #f3b25a; }
+:root[data-theme="light"]:not(.on-dark) .scr { color: #a8590a; }
+.eb-story-sign.scr { font-size: 2rem; color: #f3b25a !important; }

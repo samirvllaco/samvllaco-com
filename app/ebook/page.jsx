@@ -105,7 +105,7 @@ export default function Ebook() {
         <div className="eb-copy">
           <p className="eb-kick">Designed, not generated.</p>
           <h1><span className="eb-27">27 copy-paste prompts</span> to fix AI slop UI</h1>
-          <p className="eb-sub">You built it fast. It works. Then you open it next to a real product and something feels off: the purple gradient, the three little cards, the glow. Visitors notice it before they read a word. These prompts fix that, one step at a time, without rebuilding anything.</p>
+          <p className="eb-sub">You built it fast. It works. Then you open it next to a real product and something feels off: the purple gradient, the three little cards, the glow. Visitors notice it <em className="scr">before they read a word.</em> These prompts fix that, one step at a time, without rebuilding anything.</p>
           <div className="btn-row">
             <Buy label={<>Buy now for <span className="eb-pill">{PRICE}</span></>} />
             <a className="hero2-btn hero2-btn-light" href="#inside">Peek inside</a>
@@ -141,15 +141,15 @@ export default function Ebook() {
           <li>It looks like every other AI-built site, and you cannot say why.</li>
         </ul>
         <div className="eb-story">
-          <p>I have been there. I design products for a living, and I build my own with the same AI tools you use. They hand me the same purple, glowing first drafts they hand you.</p>
-          <p>The difference is I know what to ask for next. So I wrote down the rules I use with clients, turned each one into a prompt, and explained why it works. That is this book.</p>
-          <p className="eb-story-sign">Sam</p>
+          <p><em className="scr">I have been there.</em> I design products for a living, and I build my own with the same AI tools you use. They hand me the same purple, glowing first drafts they hand you.</p>
+          <p>The difference is I know what to ask for next. So I wrote down the rules I use with clients, turned each one into a prompt, and explained why it works. <em className="scr">That is this book.</em></p>
+          <p className="eb-story-sign scr">Sam</p>
         </div>
       </section>
 
       <section className="eb-sec" id="inside">
         <h2>What's <span className="t2">inside</span></h2>
-        <p className="eb-ph-lede">Four parts, in the order you use them. Start at step 1 and finish with a page that scores 10 out of 10.</p>
+        <p className="eb-ph-lede">Four parts, in the order you use them. Start at step 1 and finish with a page that scores <em className="scr">10 out of 10.</em></p>
         <div className="eb-phases">
           {PHASES.map((p) => (
             <article key={p.t}>
@@ -165,7 +165,7 @@ export default function Ebook() {
 
       <section className="eb-sec eb-why">
         <h2>Why this book is <span className="t2">different</span></h2>
-        <p className="eb-why-lede">I started with prompt packs too. Paste, get a nicer page, move on. Then the next page looked just as AI-made, and I had no idea why. The fix was not a better prompt. It was knowing the rules behind it.</p>
+        <p className="eb-why-lede">I started with prompt packs too. Paste, get a nicer page, move on. Then the next page looked just as AI-made, and I had no idea why. The fix was not a better prompt. It was <em className="scr">knowing the rules behind it.</em></p>
         <p className="eb-why-lede">So this book does not just hand you prompts. It teaches you why each fix works, so you can repeat it on anything you build.</p>
         <div className="eb-why-grid">
           <article className="eb-why-them">
@@ -220,7 +220,7 @@ export default function Ebook() {
       <section className="eb-sec eb-bn" id="bonus">
         <p className="eb-bn-tag">Included in the same $6.99 purchase</p>
         <h2>Bonus: <span className="t2">motion and UX principles</span></h2>
-        <p className="eb-bn-lede">Once the page looks designed, make it feel designed. Two more copy-paste prompts add small, quick motion and check every control, and a short block saves the rules in DESIGN.md so every new screen follows them. Works for apps, marketing sites and landing pages.</p>
+        <p className="eb-bn-lede">Once the page looks designed, <em className="scr">make it feel designed.</em> Two more copy-paste prompts add small, quick motion and check every control, and a short block saves the rules in DESIGN.md so every new screen follows them. Works for apps, marketing sites and landing pages.</p>
         <div className="eb-bn-grid">
           <article>
             <span>Bonus prompt A</span>

@@ -14,7 +14,8 @@ Two buttons side by side are the same width.
 
 ## Type and copy
 
-- Sans-serif only. No em dashes in copy.
+- Sans-serif for all titles and body text. No em dashes in copy.
+- Script accent (Caveat, class `scr`): only for 2 to 5 words inside a paragraph to direct attention, at most one per paragraph and a few per page. Never in titles, buttons or navigation. Self-hosted in `public/fonts`.
 - Titles use the two-tone pattern: first part white, second part gray (`.t2`).
 
 ## Surfaces
