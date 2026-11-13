@@ -3298,3 +3298,19 @@ body:has(.hero2[data-bg="#0b0b0c"]) { background-color: #0b0b0c; }
 @media (max-width: 640px) { .work-bar > .tags { flex: 0 0 calc(100% + 32px); min-width: 0; max-width: calc(100% + 32px); } }
 @media (max-width: 640px) { .work-bar { display: grid; grid-template-columns: minmax(0, 1fr); } .work-bar > .tags { flex: none; width: auto; max-width: none; } }
 .ba-l-b .ba-btns span { white-space: nowrap; }
+/* Before and after: drag slider with gray placeholders */
+.ba .ba-list { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 28px; }
+@media (max-width: 720px) { .ba .ba-list { grid-template-columns: 1fr; } }
+.ba-sl { position: relative; aspect-ratio: 4 / 3; border-radius: 16px; overflow: hidden; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .08); user-select: none; }
+.ba-layer { position: absolute; inset: 0; display: grid; place-items: center; }
+.ba-layer img { width: 100%; height: 100%; object-fit: cover; }
+.ba-layer span { font-size: .8125rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: #8e8e93; }
+.ba-b { background: #232326; } .ba-b span { translate: -25% 0; }
+.ba-a { background: #38383d; clip-path: inset(0 0 0 var(--p)); } .ba-a span { translate: 25% 0; color: #c7c7cc; }
+.ba-line { position: absolute; top: 0; bottom: 0; left: var(--p); width: 2px; translate: -1px 0; background: rgba(255, 255, 255, .7); pointer-events: none; }
+.ba-line i { position: absolute; top: 50%; left: 50%; width: 36px; height: 36px; translate: -50% -50%; border-radius: 50%; background: #f5f5f7; box-shadow: 0 6px 18px rgba(0, 0, 0, .4); }
+.ba-line i::before { content: "‹ ›"; position: absolute; inset: 0; display: grid; place-items: center; font-size: 15px; font-weight: 700; font-style: normal; color: #111112; letter-spacing: 2px; }
+.ba-sl input { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: ew-resize; touch-action: pan-y; }
+.ba-sl:has(input:focus-visible) { outline: 3px solid rgba(98, 193, 253, .6); outline-offset: 3px; }
+.ba-layer span { position: absolute; top: 14px; translate: none; padding: 4px 10px; border-radius: 999px; background: rgba(0, 0, 0, .35); font-size: .75rem; }
+.ba-b span { left: 14px; } .ba-a span { right: 14px; }
