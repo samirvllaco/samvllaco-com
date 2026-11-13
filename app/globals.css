@@ -3326,3 +3326,8 @@ body:has(.hero2[data-bg="#0b0b0c"]) { background-color: #0b0b0c; }
   :is(.eb-hero .btn-row, .eb-bn-cta, .eb-more, .eb-hp .hp-cta, .eb-end .btn-row) { display: flex; flex-wrap: wrap; justify-content: center; text-align: center; }
   .eb-offer :is(.hero2-btn) { align-self: center; justify-self: center; margin-inline: auto; }
 }
+/* Ebook: small book cover beside section headings */
+.eb-cov-h { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.eb-cov-h h2 { margin-bottom: 0; }
+.eb-cov { flex: none; width: clamp(64px, 9vw, 104px); height: auto; border-radius: 3px 8px 8px 3px; rotate: 6deg; box-shadow: inset 3px 0 0 rgba(255, 255, 255, .25), 0 18px 34px -12px rgba(0, 0, 0, .75), 0 0 0 1px rgba(255, 255, 255, .06); }
+.eb-cov-h + * { margin-top: 20px; }

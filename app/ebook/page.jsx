@@ -171,7 +171,7 @@ export default function Ebook() {
       </section>
 
       <section className="eb-sec eb-why">
-        <h2>Why this book is <span className="t2">different</span></h2>
+        <div className="eb-cov-h"><h2>Why this book is <span className="t2">different</span></h2><img className="eb-cov" src="/book-cover.webp?v=2" width="300" height="400" alt="" loading="lazy" aria-hidden="true" /></div>
         <p className="eb-why-lede">I started with prompt packs too. Paste, get a nicer page, move on. Then the next page looked just as AI-made, and I had no idea why. The fix was not a better prompt. It was <em className="scr">knowing the rules behind it.</em></p>
         <p className="eb-why-lede">So this book does not just hand you prompts. It teaches you why each fix works, so you can repeat it on anything you build.</p>
         <div className="eb-why-grid">
@@ -202,7 +202,7 @@ export default function Ebook() {
       </section>
 
       <section className="eb-sec eb-sys" aria-labelledby="eb-sys-h">
-        <h2 id="eb-sys-h">A system, <span className="t2">not a pile of prompts</span></h2>
+        <div className="eb-cov-h"><h2 id="eb-sys-h">A system, <span className="t2">not a pile of prompts</span></h2><img className="eb-cov" src="/book-cover.webp?v=2" width="300" height="400" alt="" loading="lazy" aria-hidden="true" /></div>
         <p className="eb-why-lede">Prompts fix a page once. This is a loop you can <em className="scr">run on every page you build.</em></p>
         <ol className="eb-sys-l">
           <li><span>1</span><b>Rules</b><p>DESIGN.md gives your AI your spacing, colors, type, icons and copy rules, so it stops guessing.</p><code>DESIGN.md</code></li>
@@ -213,7 +213,7 @@ export default function Ebook() {
       </section>
 
       <section className="eb-sec">
-        <h2>All 27 <span className="t2">steps</span></h2>
+        <div className="eb-cov-h"><h2>All 27 <span className="t2">steps</span></h2><img className="eb-cov" src="/book-cover.webp?v=2" width="300" height="400" alt="" loading="lazy" aria-hidden="true" /></div>
         <div className="eb-steps">
           {STEPS.map(([title, sub, items], gi) => {
             const bonus = gi === 3;
