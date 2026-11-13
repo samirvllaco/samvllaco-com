@@ -369,6 +369,12 @@ export default function Ebook() {
         <div className="hp-left">
           <h2 id="eb-author-h">About <span className="t2">the author</span><br /><em>Sam Vllaco, product designer.</em></h2>
           <p className="hp-lede">I design SaaS products, dashboards and mobile apps, and I build my own products with the same AI tools you use. This book is the set of rules and prompts I use on them.</p>
+          <ul className="hp-proof">
+            <li><div><b>10,000+</b><span>screens</span></div></li>
+            <li className="ws-main"><i className="ws-lr ws-lr-l" aria-hidden="true" /><div><b>10+</b><span>years of experience</span></div><i className="ws-lr ws-lr-r" aria-hidden="true" /></li>
+            <li><div><b>570+</b><span>clients</span></div></li>
+          </ul>
+          <p className="hp-live">Live products I designed: <b>Lingopie</b>, language learning with 100,000+ users, and <b>Golf Live</b>, a PGA Show award winner.</p>
           <div className="hp-cols">
             <div>
               <p className="hp-label">What I design</p>
@@ -386,8 +392,6 @@ export default function Ebook() {
           <div className="hp-shade" aria-hidden="true" />
           <div className="hp-body">
             <h3>10 years of product design,<br /><em>now in 59 pages you can copy and paste.</em></h3>
-            <ul className="hp-proof"><li><b>10+</b>years designing products</li><li><b>10,000+</b>screens designed</li><li><b>570+</b>clients</li></ul>
-            <p className="hp-live">Live products I designed: <b>Lingopie</b>, language learning with 100,000+ users, and <b>Golf Live</b>, a PGA Show award winner.</p>
             <p>Every prompt keeps your content and features and changes only the design.</p>
             <div className="hp-cta"><Buy label={<>Buy now for <span className="eb-pill">{PRICE}</span></>} /></div>
           </div>
