@@ -3244,3 +3244,6 @@ body:has(.hero2[data-bg="#0b0b0c"]) { background-color: #0b0b0c; }
 @media (max-width: 640px) { .wall-stats { gap: 6px; padding-top: 28px; padding-bottom: 56px; } .wall-stats li { gap: 3px; } .wall-stats span { font-size: .6875rem; max-width: 8.5em; } }
 @media (max-width: 980px) { .wall-stats { top: 112px; } }
 @media (min-width: 641px) { .wall-stats span { max-width: 15em; } }
+.wall-stats .ws-main b { font-size: clamp(1.875rem, 5.4vw, 4rem); }
+.wall-stats .ws-main .ws-lr { width: clamp(20px, 3.2vw, 42px); }
+@media (max-width: 640px) { .wall-stats li:not(.ws-main) b { font-size: 1.25rem; } .wall-stats .ws-main b { font-size: 2.25rem; } .wall-stats .ws-main .ws-lr { width: 20px; } .wall-stats { gap: 10px; } }
