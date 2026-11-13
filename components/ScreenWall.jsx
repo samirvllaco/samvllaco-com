@@ -31,7 +31,7 @@ export default function ScreenWall() {
       <div className="wall-stick">
         <div className="wall-grid" ref={grid} aria-hidden="true">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          {WALL.map((src, i) => <div className="wall-cell" key={src}><img className="wl" src={src} width="960" height="540" alt="" loading="lazy" decoding="async" /><img className="wd" src={src.replace("/wall/", "/wall/dark/").split("?")[0] + "?v=8"} width="960" height="540" alt="" loading={Math.abs(i - 38) < 9 ? "eager" : "lazy"} decoding="async" /></div>)}
+          {WALL.map((src, i) => <div className="wall-cell" key={src}><img className="wl" src={src} width="960" height="540" alt="" loading="lazy" decoding="async" /><img className="wd" src={src.replace("/wall/", "/wall/dark/").split("?")[0] + "?v=9"} width="960" height="540" alt="" loading={Math.abs(i - 38) < 9 ? "eager" : "lazy"} decoding="async" /></div>)}
         </div>
       </div>
     </section>

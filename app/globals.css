@@ -1,3 +1,6 @@
+/* Self-hosted logo and signature fonts (subset to the letters used), so no render-blocking font CSS */
+@font-face { font-family: "Unbounded"; font-style: normal; font-weight: 700; font-display: swap; src: url(/fonts/unbounded-sam.woff2) format("woff2"); }
+@font-face { font-family: "Mrs Saint Delafield"; font-style: normal; font-weight: 400; font-display: swap; src: url(/fonts/delafield-sam.woff2) format("woff2"); }
 :root {
   --bg: #0a1420;
   --surface: #0f1d2d;
@@ -3062,3 +3065,6 @@ html .to-top, html.is-scrolled .to-top, html.is-end .to-top { left: auto !import
 html.is-down .head-row :is(.snd, .thm) { opacity: 0; scale: .8; width: 0 !important; min-width: 0 !important; margin: 0 !important; padding: 0 !important; overflow: hidden; pointer-events: none; }
 html.is-down .head-end .head-cta { margin-left: 0; }
 @media (prefers-reduced-motion: reduce) { .head-row :is(.snd, .thm) { transition: opacity .15s linear; } }
+.bk-close { width: 24px; height: 24px; }
+/* The headline and intro paint at once (they are the largest text on first load), the rest still rises in */
+html.js .hero3 > h1, html.js .hero3 > .hero2-sub, html.js .ph > h1, html.js .ph > p, html.js .eb-hero .eb-copy > h1, html.js .eb-hero .eb-copy > .eb-sub { animation: none; }

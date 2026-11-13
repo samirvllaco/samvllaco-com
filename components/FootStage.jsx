@@ -36,7 +36,8 @@ function Note({ s }) {
 export default function FootStage() {
   return (
     <div className="foot-stage foot-photo">
-      <p className="foot-tag" data-reveal aria-label="Your design partner">
+      <p className="foot-tag" data-reveal>
+        <span className="sr-only">Your design partner</span>
         {[..."Your design partner"].map((c, i) => <span key={i} aria-hidden="true" style={{ "--i": i }}>{c === " " ? "\u00a0" : c}</span>)}
       </p>
       <p className="foot-call"><a className="hero2-btn hero2-btn-light" href="/book/"><CallIcon />Book a call</a></p>

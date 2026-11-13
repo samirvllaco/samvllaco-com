@@ -12,11 +12,13 @@ export default function BookPopup() {
   const path = usePathname() || "";
 
   useEffect(() => {
-    try {
-      if (!window.localStorage.getItem(KEY)) setOpen(true);
-    } catch {
-      setOpen(true);
-    }
+    let closed = false;
+    try { closed = !!window.localStorage.getItem(KEY); } catch {}
+    if (closed) return;
+    // Show after the visitor starts scrolling, so the card never delays the first paint of the page.
+    const on = () => { if (window.scrollY > 200) { setOpen(true); window.removeEventListener("scroll", on); } };
+    window.addEventListener("scroll", on, { passive: true });
+    return () => window.removeEventListener("scroll", on);
   }, []);
 
   function close() {

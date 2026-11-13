@@ -8,7 +8,7 @@ export default function CopyEmailInline() {
     try { await navigator.clipboard.writeText(EMAIL); setCopied(true); setTimeout(() => setCopied(false), 1800); } catch {}
   }
   return (
-    <button type="button" className="hp-copy" onClick={copy} aria-label={`Copy email address ${EMAIL}`}>
+    <button type="button" className="hp-copy" onClick={copy} aria-label={`${EMAIL} Copy email address`}>
       <span>{EMAIL}</span><b role="status">{copied ? "Copied" : "Copy"}</b>
     </button>
   );

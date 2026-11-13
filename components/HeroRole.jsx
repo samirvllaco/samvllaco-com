@@ -36,7 +36,8 @@ export default function HeroRole() {
     return () => { stop(); wrap.removeEventListener("pointerenter", over); wrap.removeEventListener("pointerleave", out); wrap.removeEventListener("focus", over); wrap.removeEventListener("blur", out); };
   }, []);
   return (
-    <p className="hero-badge" ref={box} tabIndex={0} aria-label={`${say(0)}. ${HOVER}`}>
+    <p className="hero-badge" ref={box} tabIndex={0}>
+      <span className="sr-only">{`${say(0)}. ${HOVER}`}</span>
       <span className="hero-badge-t" aria-hidden="true"><span ref={ref}>{say(0)}</span></span>
     </p>
   );

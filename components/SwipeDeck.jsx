@@ -53,7 +53,7 @@ export default function SwipeDeck({ items }) {
               style={{ transform: `translate3d(${(pos * STEP * 100).toFixed(3)}%, 0, 0) scale(${(1 - 0.2 * Math.min(1, d)).toFixed(4)})`, opacity: Math.max(0, 1 - 0.6 * d), zIndex: 5 - Math.abs(k) }}
               onClick={(e) => { if (moved.current) { e.preventDefault(); return; } if (k !== 0) { e.preventDefault(); go(k); } }}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img className={item.round ? "is-round" : undefined} src={item.cut} alt={k === 0 ? item.alt : ""} draggable="false" />
+              <img className={item.round ? "is-round" : undefined} src={item.cut} width="900" height="600" loading="lazy" decoding="async" alt={k === 0 ? item.alt : ""} draggable="false" />
             </Link>
           );
         })}
