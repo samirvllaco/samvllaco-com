@@ -2,11 +2,17 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import Crumbs from "../../../components/Crumbs";
 import CallIcon from "../../../components/CallIcon";
+import JsonLd from "../../../components/JsonLd";
 import { SERVICES } from "../../../lib/services";
 import { DETAILS, PROCESS } from "../../../lib/service-details";
+import { PAGES, GET_ICONS, PAIN_ICONS, SVC_FAQ } from "../../../lib/service-pages";
+import { WORK } from "../../../lib/work";
+import { TESTIMONIALS } from "../../../lib/testimonials";
 import { SITE } from "../../../lib/site";
+import { share, PERSON_ID } from "../../../lib/seo";
 
 const ALL = SERVICES.flatMap((g) => g.items.map((it) => ({ ...it, group: g })));
+const STEP_ICONS = ["M4 5h16v11H9l-5 4z", "M6 3h9l4 4v14H6zM9 11h7M9 15h7", "M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z", "M12 3v12M7 10l5 5 5-5M5 21h14"];
 
 export function generateStaticParams() {
   return ALL.map((s) => ({ id: s.id }));
@@ -17,78 +23,139 @@ export async function generateMetadata({ params }) {
   const { id } = await params;
   const s = ALL.find((x) => x.id === id);
   if (!s) return {};
-  const d = DETAILS[id];
+  const p = PAGES[id];
+  const title = `${s.name} ${p ? p.tail : "for SaaS and AI teams"}`;
+  const description = `${s.text} By Sam Vllaco, product designer for SaaS and AI products. Fixed price after a 30-minute call.`;
   return {
     title: `${s.name} for SaaS and AI teams`,
-    description: `${s.text} ${d ? d.for : ""}`.trim(),
+    description,
     alternates: { canonical: `/services/${id}/` },
+    ...share({ title: `${title} | Sam Vllaco`, description, url: `/services/${id}/` }),
   };
 }
+
+const Ico = ({ d, cls = "tg-ico" }) => <i className={cls} aria-hidden="true"><svg viewBox="0 0 24 24"><path d={d} /></svg></i>;
 
 export default async function ServicePage({ params }) {
   const { id } = await params;
   const s = ALL.find((x) => x.id === id);
   if (!s) notFound();
   const d = DETAILS[id] || { for: "", get: [] };
-  const related = s.group.items.filter((x) => x.id !== id);
+  const p = PAGES[id] || { tail: "for SaaS and AI teams", pains: [], work: [] };
+  const work = p.work.map((slug) => WORK.find((w) => w.slug === slug)).filter(Boolean);
+  const hero = work[0];
+  const idx = ALL.findIndex((x) => x.id === id);
+  const quote = TESTIMONIALS[idx % TESTIMONIALS.length];
+  const related = s.group.items.filter((x) => x.id !== id).slice(0, 8);
+  const lower = s.name.charAt(0).toLowerCase() + s.name.slice(1);
+
   const schema = {
     "@context": "https://schema.org",
-    "@type": "Service",
-    name: s.name,
-    description: s.text,
-    serviceType: s.group.title,
-    provider: { "@type": "Person", name: SITE.name, url: SITE.url },
-    url: `${SITE.url}/services/${id}/`,
+    "@graph": [
+      { "@type": "Service", name: s.name, description: `${s.text} ${d.for}`.trim(), serviceType: s.name, category: s.group.title, provider: { "@id": PERSON_ID }, areaServed: ["United States", "Europe", "Canada", "Australia", "United Arab Emirates"], url: `${SITE.url}/services/${id}/` },
+      { "@type": "FAQPage", mainEntity: SVC_FAQ.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })) },
+    ],
   };
+
   return (
-    <div className="wrap page svc">
+    <div className="wrap page svc sv">
       <Crumbs items={[{ name: "Services", href: "/services/" }, { name: s.name, href: `/services/${id}/` }]} />
-      <header className="case-head">
-        <p className="case-eyebrow">{s.group.title}</p>
-        <h1>{s.name}</h1>
-        <p className="lede">{s.text}</p>
-        <div className="btn-row case-cta-row">
-          <a className="hero2-btn hero2-btn-primary" href="/book/"><CallIcon />Book a call</a>
-          <Link prefetch={false} className="hero2-btn hero2-btn-light" href="/#work">See my work</Link>
+      <JsonLd data={schema} />
+
+      <header className="sv-hero">
+        <div className="sv-hero-copy">
+          <p className="case-eyebrow">{s.group.title}</p>
+          <h1>{s.name} <span className="t2">{p.tail}</span></h1>
+          <p className="sv-lede">{d.for ? `Made for ${d.for.charAt(0).toLowerCase()}${d.for.slice(1)}` : s.text}</p>
+          <div className="sv-cta">
+            <a className="hero2-btn hero2-btn-primary" href="/book/"><CallIcon />Book a call</a>
+            <a className="hero2-btn hero2-btn-light" href="#sv-work">See the work</a>
+          </div>
+          <ul className="sv-proof">
+            <li><b>10+</b> years</li>
+            <li><b>570+</b> clients</li>
+            <li><b>10,000+</b> screens</li>
+          </ul>
         </div>
+        {hero ? (
+          <Link prefetch={false} className="sv-hero-art" href={`/work/${hero.slug}/`}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={hero.small} width="800" height="600" alt={hero.alt || `${hero.title} screens designed by Sam Vllaco`} loading="eager" fetchPriority="high" />
+            <span className="sv-art-tag"><b>{hero.title}</b><span>Case study</span></span>
+          </Link>
+        ) : null}
       </header>
 
-      {d.for ? (
-        <section className="svc-group" aria-labelledby="svc-for">
-          <div className="svc-head"><h2 id="svc-for">Who it is for</h2></div>
-          <p className="svc-para">{d.for}</p>
+      {p.pains.length ? (
+        <section className="sv-sec" aria-labelledby="sv-pain-h">
+          <h2 id="sv-pain-h">Sound <span className="t2">familiar?</span></h2>
+          <ul className="sv-pains">
+            {p.pains.map((t, i) => <li key={t}><Ico d={PAIN_ICONS[i % PAIN_ICONS.length]} cls="tg-ico sv-ico" /><b>{t}</b></li>)}
+          </ul>
+          <p className="sv-story">That's normal. It usually isn't the product, it's how it's shown. <em className="scr">That part I can fix.</em></p>
         </section>
       ) : null}
 
       {d.get.length ? (
-        <section className="svc-group" aria-labelledby="svc-get">
-          <div className="svc-head"><h2 id="svc-get">What you get</h2></div>
-          <ul className="svc-list">
-            {d.get.map((g, i) => (
-              <li key={g}><span className="case-num">{String(i + 1).padStart(2, "0")}</span><p className="svc-get">{g}</p></li>
+        <section className="sv-sec" aria-labelledby="sv-get-h">
+          <h2 id="sv-get-h">What <span className="t2">you get</span></h2>
+          <ul className="sv-get">
+            {d.get.map((g, i) => <li key={g}><Ico d={GET_ICONS[i % GET_ICONS.length]} cls="tg-ico sv-ico" /><span className="sv-n">{String(i + 1).padStart(2, "0")}</span><b>{g}</b></li>)}
+          </ul>
+        </section>
+      ) : null}
+
+      <section className="sv-sec" aria-labelledby="sv-how-h">
+        <h2 id="sv-how-h">How it <span className="t2">works</span></h2>
+        <ol className="sv-how">
+          {PROCESS.map((st, i) => <li key={st.t}><Ico d={STEP_ICONS[i]} cls="tg-ico sv-ico" /><span className="sv-n">Step {i + 1}</span><b>{st.t}</b><p>{st.d}</p></li>)}
+        </ol>
+      </section>
+
+      {work.length ? (
+        <section className="sv-sec" id="sv-work" aria-labelledby="sv-work-h">
+          <h2 id="sv-work-h">Work <span className="t2">like this</span></h2>
+          <ul className="sv-work">
+            {work.map((w) => (
+              <li key={w.slug}>
+                <Link prefetch={false} href={`/work/${w.slug}/`}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={w.small} width="800" height="600" alt="" loading="lazy" />
+                  <b>{w.title}</b><span>{w.sub}</span>
+                </Link>
+              </li>
             ))}
           </ul>
         </section>
       ) : null}
 
-      <section className="svc-group" aria-labelledby="svc-how">
-        <div className="svc-head"><h2 id="svc-how">How it works</h2></div>
-        <ol className="svc-list book-steps">
-          {PROCESS.map((p, i) => (
-            <li key={p.t}><span className="case-num">{String(i + 1).padStart(2, "0")}</span><h3>{p.t}</h3><p>{p.d}</p></li>
-          ))}
-        </ol>
+      {quote ? (
+        <section className="sv-sec sv-quote" aria-label="Client review">
+          <p className="sv-stars" aria-label="Rated 5 out of 5">★★★★★</p>
+          <blockquote>“{quote.quote}”</blockquote>
+          <p className="sv-quote-by">{quote.project}, verified review</p>
+        </section>
+      ) : null}
+
+      <section className="sv-sec" aria-labelledby="sv-faq-h">
+        <h2 id="sv-faq-h">Questions <span className="t2">before we start</span></h2>
+        <div className="sv-faq">
+          {SVC_FAQ.map((f) => <details key={f.q}><summary>{f.q}</summary><p>{f.a}</p></details>)}
+        </div>
       </section>
 
-      <section className="svc-group" aria-labelledby="svc-more">
-        <div className="svc-head"><h2 id="svc-more">More in {s.group.title}</h2></div>
-        <ul className="svc-list">
-          {related.map((r) => (
-            <li key={r.id}><h3><Link prefetch={false} href={`/services/${r.id}/`}>{r.name}</Link></h3><p>{r.text}</p></li>
-          ))}
-        </ul>
+      <section className="sv-sec sv-end" aria-labelledby="sv-end-h">
+        <h2 id="sv-end-h">Tell me about your <span className="t2">{lower} project</span></h2>
+        <p>30 minutes, just you and me. You leave with a scope, a timeline and a fixed price.</p>
+        <div className="sv-cta sv-cta-c"><a className="hero2-btn hero2-btn-primary" href="/book/"><CallIcon />Book a call</a></div>
       </section>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
+
+      {related.length ? (
+        <nav className="sv-sec sv-more" aria-label={`More in ${s.group.title}`}>
+          <p className="mx-k">More in {s.group.title}</p>
+          <ul>{related.map((r) => <li key={r.id}><Link prefetch={false} href={`/services/${r.id}/`}>{r.name}</Link></li>)}</ul>
+        </nav>
+      ) : null}
     </div>
   );
 }
