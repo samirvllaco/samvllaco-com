@@ -3,7 +3,7 @@ import { useState } from "react";
 
 // Before and after slider. Sample site drawn for this page; add reader screenshots as new pairs later.
 // To add a pair later, give it before and after image paths.
-const PAIRS = [{ id: 1, before: "/ebook/ba-before.webp?v=1", after: "/ebook/ba-after.webp?v=2", beforeAlt: "First AI draft of a sample invoicing site: purple gradient, glowing buttons, emoji and three identical cards", afterAlt: "The same sample site with the DESIGN.md rules: dark gray base with a dotted fade, one blue accent, a clear headline and a real invoice screen" }];
+const PAIRS = [{ id: 1, before: "/ebook/ba-before.webp?v=2", after: "/ebook/ba-after.webp?v=2", beforeAlt: "First AI draft of a sample invoicing site: default AI layout with a gradient headline word, generic stats and six colorful icon cards", afterAlt: "The same sample site with the DESIGN.md rules: dark gray base with a dotted fade, one blue accent, a clear headline and a real invoice screen" }];
 
 function Slider({ id, before, after, beforeAlt, afterAlt }) {
   const [v, setV] = useState(50);
