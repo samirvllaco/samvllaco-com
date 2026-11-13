@@ -146,6 +146,36 @@ export default function Ebook() {
         </div>
       </section>
 
+      <section className="eb-sec eb-why">
+        <h2>Why this book is <span className="t2">different</span></h2>
+        <p className="eb-why-lede">Plenty of apps hand you a full prompt. That works, and I use them too. But a prompt you do not understand fixes one page and stops there. This book teaches you why each fix works, so you can repeat it on anything you build.</p>
+        <div className="eb-why-grid">
+          <article className="eb-why-them">
+            <h3>Prompt packs</h3>
+            <ul>
+              <li>Paste it and hope it works</li>
+              <li>Fixes the page you pasted it on</li>
+              <li>You cannot tell when the AI gets it wrong</li>
+              <li>Stuck the moment it breaks</li>
+            </ul>
+          </article>
+          <article className="eb-why-us">
+            <h3>This book</h3>
+            <ul>
+              <li>Every step explains what changes and why</li>
+              <li>Principles you reuse on every project</li>
+              <li>You check the result before you accept it</li>
+              <li>You tune the rules to your own taste</li>
+            </ul>
+          </article>
+        </div>
+        <div className="eb-why-any">
+          <p>Learn it once, use it anywhere</p>
+          <ul>{["Mobile apps", "Web apps", "SaaS dashboards", "Marketing sites", "Landing pages", "Mac apps", "Desktop apps", "Books", "Articles"].map((t) => <li key={t}>{t}</li>)}</ul>
+        </div>
+        <p className="eb-why-end">When you know what is happening, you trust the result, you feel when something is off, and you can make it your own. Learn the principles and how to use AI properly, and there is not much you cannot build.</p>
+      </section>
+
       <section className="eb-sec">
         <h2>All 27 <span className="t2">steps</span></h2>
         <div className="eb-steps">
