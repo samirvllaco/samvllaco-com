@@ -377,7 +377,6 @@ export default function Ebook() {
             <li className="ws-main"><i className="ws-lr ws-lr-l" aria-hidden="true" /><div><b>10+</b><span>years of experience</span></div><i className="ws-lr ws-lr-r" aria-hidden="true" /></li>
             <li><div><b>570+</b><span>clients</span></div></li>
           </ul>
-          <p className="hp-live">Live products I designed: <b>Lingopie</b>, language learning with 100,000+ users, and <b>Golf Live</b>, a PGA Show award winner.</p>
           <div className="hp-cols">
             <div>
               <p className="hp-label">What I design</p>
