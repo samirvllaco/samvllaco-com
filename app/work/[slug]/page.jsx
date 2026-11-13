@@ -120,7 +120,7 @@ export default function CaseStudy({ params }) {
           {st ? (
             <div className="btn-row case-cta-row">
               <a className="btn btn-primary" href="/book/"><CallIcon />Book a call</a>
-              <a className="btn btn-ghost" href={`#${st.chapters[0].id}`}>See the screens</a>
+              <a className="hero2-btn hero2-btn-light" href={`#${st.chapters[0].id}`}>See the screens</a>
             </div>
           ) : null}
           {st ? (
@@ -252,7 +252,7 @@ export default function CaseStudy({ params }) {
               <p>{st.cta.text}</p>
               <div className="btn-row">
                 <a className="btn btn-primary" href="/book/"><CallIcon />Book a call</a>
-                <Link prefetch={false} className="btn btn-ghost" href="/services/">See services</Link>
+                <Link prefetch={false} className="hero2-btn hero2-btn-light" href="/services/">See services</Link>
               </div>
             </section>
           </>

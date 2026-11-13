@@ -164,18 +164,20 @@ export default function Ebook() {
         </div>
       </section>
 
-      <section className="eb-sec eb-feel">
-        <h2>Sound <span className="t2">familiar?</span></h2>
-        <ul className="eb-pains">
-          <li>You shipped it, and now you hesitate before sharing the link.</li>
-          <li>You asked the AI to make it look better. It added another gradient.</li>
-          <li>It looks like every other AI-built site, and you cannot say why.</li>
+      <section className="eb-sec eb-feel pain" aria-labelledby="eb-feel-h">
+        <h2 id="eb-feel-h">Sound <span className="t2">familiar?</span></h2>
+        <ul className="eb-pains pain-seg">
+          <li><i className="pain-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><defs><linearGradient id="ef-1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#fff" /><stop offset="1" stopColor="#fff" stopOpacity=".2" /></linearGradient></defs><g stroke="url(#ef-1)"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1" /></g></svg></i><b>You hesitate before sharing the link.</b><em>You shipped it. You're proud of it. Something still feels off.</em></li>
+          <li><i className="pain-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><defs><linearGradient id="ef-2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#fff" /><stop offset="1" stopColor="#fff" stopOpacity=".2" /></linearGradient></defs><g stroke="url(#ef-2)"><path d="M4 20 15 9M14 4l1.5 3L19 8.5 15.5 10 14 13l-1.5-3L9 8.5 12.5 7zM19 14l.7 1.3L21 16l-1.3.7L19 18l-.7-1.3L17 16l1.3-.7z" /></g></svg></i><b>"Make it look better" added another gradient.</b><em>The AI tries. It just doesn't know what better means.</em></li>
+          <li><i className="pain-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><defs><linearGradient id="ef-3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#fff" /><stop offset="1" stopColor="#fff" stopOpacity=".2" /></linearGradient></defs><g stroke="url(#ef-3)"><path d="M8 8h11v11H8zM5 16V5h11" /></g></svg></i><b>It looks like every other AI-built site.</b><em>And you can't quite say why.</em></li>
         </ul>
         <div className="eb-story">
-          <p><em className="scr">I have been there.</em> I design products for a living, and I build my own with the same AI tools you use. They hand me the same purple, glowing first drafts they hand you.</p>
-          <p>The difference is I know what to ask for next. So I wrote down the rules I use with clients, turned each one into a prompt, and explained why it works. <em className="scr">That is this book.</em></p>
+          <p>It's 1 a.m. The app works. Then you open it next to Linear or Stripe, and yours suddenly looks like a template.</p>
+          <p><em className="scr">I've been there.</em> I've designed products for 10 years, and I build my own with Claude and Cursor. They hand me the same purple, glowing first drafts they hand you. The difference is I know what to ask for next.</p>
+          <p>So I wrote down the rules I use with clients, turned each one into a copy-paste prompt, and explained why it works. <em className="scr">That's this book.</em></p>
           <p className="eb-story-sign scr">Sam</p>
         </div>
+        <p className="pain-cta"><Buy label={<>Get the prompts <span className="eb-pill">{PRICE}</span></>} /><span>27 prompts, one evening. Yours to keep.</span></p>
       </section>
 
       <BeforeAfter />

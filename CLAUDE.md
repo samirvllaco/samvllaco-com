@@ -52,5 +52,8 @@ Every new section, component or page must keep this. Check it before calling a c
 **Caching**
 - `public/_headers` sets long caching for `/_next/static`, `/fonts`, `/hero`, `/work/*` image folders. New image folders get a rule there too. Never long-cache HTML.
 
+## Buttons (owner, 13 Nov 2026, locked)
+- Primary: `hero2-btn hero2-btn-primary` (blue 3D). Secondary: `hero2-btn hero2-btn-light` (gray 3D key, white text in dark mode, like the footer "Book a call"). Never `btn-ghost` or a blue-text secondary.
+
 ## Git
 - Commit messages are plain: no Co-Authored-By, Claude-Session or other trailers (owner, 13 Nov 2026).
