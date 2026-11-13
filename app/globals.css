@@ -3642,3 +3642,22 @@ html.eb-bar-on .vid, html.eb-bar-on .bk { bottom: calc(max(16px, env(safe-area-i
 html.eb-bar-on .to-top { opacity: 0 !important; pointer-events: none !important; }
 @media (max-width: 560px) { .eb-bar b { font-size: .8125rem; } .eb-bar .hero2-btn { padding: 0 16px; } }
 @media (prefers-reduced-motion: reduce) { .eb-bar { transition: opacity .2s; transform: translate(-50%, 0); } }
+/* Wall stats: same color as the hero above, no blue tint and no top line (owner, 14 Nov 2026) */
+@property --sec-bg { syntax: "<color>"; inherits: true; initial-value: #0b0b0c; }
+.wall-stats { background: linear-gradient(180deg, var(--sec-bg) 0%, var(--sec-bg) 55%, color-mix(in srgb, var(--sec-bg) 55%, transparent) 80%, transparent 100%); -webkit-backdrop-filter: none; backdrop-filter: none; transition: --sec-bg 900ms ease; }
+.wall-stats::before { content: none; }
+/* Readability (owner, 14 Nov 2026): bigger body paragraphs everywhere */
+main p { font-size: 1.0625rem; line-height: 1.6; }
+.eb-why-lede, .eb-why-end, .bx-lede, .md-club-p, .eb-story p, .hp-body p, .faq-list details p, .faq .faq-card > p:not(.faq-mail):not(.faq-go), .book-band-head p:not(.bb-sub):not(.case-eyebrow) { font-size: clamp(1.0625rem, 1.3vw, 1.1875rem); line-height: 1.6; }
+.pain-seg em, .mx-grid em { font-size: 1rem; line-height: 1.5; }
+.eb-ticks li, .eb-ico li { font-size: 1.0625rem; }
+
+/* One icon tile everywhere (owner, 14 Nov 2026): the graphite 3D tile from the mega menu. Glyph color may change (orange on the ebook), the tile does not. */
+.tg-ico { border-radius: 30%; }
+.pain-ico { width: 44px; height: 44px; border-radius: 12px; background: radial-gradient(120% 90% at 30% 15%, #8e8e96 0%, #4a4a52 45%, #1f1f24 100%); box-shadow: inset 0 1.5px 0 rgba(255, 255, 255, .45), inset 0 -2px 3px rgba(0, 0, 0, .55), 0 3px 6px -2px rgba(0, 0, 0, .6); }
+.pain-ico svg { width: 20px; height: 20px; }
+.pain-ico svg g { stroke: #fff; filter: drop-shadow(0 1px 1px rgba(0, 0, 0, .55)); }
+:root[data-theme="light"]:not(.on-dark) .pain-ico svg stop { stop-color: #fff; }
+.eb-ico li { padding-left: 46px; min-height: 32px; display: flex; align-items: center; }
+.eb-ico li::before { top: 50%; width: 32px; height: 32px; margin-top: -16px; border-radius: 10px; background: radial-gradient(120% 90% at 30% 15%, #8e8e96 0%, #4a4a52 45%, #1f1f24 100%); box-shadow: inset 0 1.5px 0 rgba(255, 255, 255, .45), inset 0 -2px 3px rgba(0, 0, 0, .55), 0 3px 6px -2px rgba(0, 0, 0, .6); }
+.eb-ico li::after { top: 50%; width: 32px; height: 32px; margin-top: -16px; -webkit-mask-size: 19px; mask-size: 19px; filter: drop-shadow(0 1px 1px rgba(0, 0, 0, .5)); }

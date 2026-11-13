@@ -51,7 +51,6 @@ export default function About() {
         })}
         <p className="ab-end">
           <Link prefetch={false} className="hero2-btn hero2-btn-primary" href="/book/">Tell me what you're building</Link>
-          <span>Or read along on <a href={SITE.links.x} rel="me noopener">X</a> and <a href={SITE.links.medium} rel="me noopener">Medium</a>.</span>
         </p>
       </div>
       </div>

@@ -19,7 +19,15 @@ Two buttons side by side are the same width.
 - Container link styles (`.head-nav a`, `.mega li a`, `.foot-map a`, `.socials a`) must exclude buttons with `:not(.hero2-btn)`. When adding any new link style for a container, add that exclusion.
 - Never use `btn btn-primary` or `btn-ghost` in new markup. Use the two classes above.
 
+## Icons (locked, 14 Nov 2026)
+
+One icon style everywhere: a line glyph (24 grid, 1.8 to 2 stroke, round caps) on the graphite 3D tile used in the Services and Resources menus (radial graphite gradient, top highlight, soft drop shadow, corners about 30% of the size). Sizes 28, 32, 36, 44 px.
+- The tile never changes. The glyph color may: white by default, the book orange on the ebook page.
+- Classes: `tg-ico` (any size), `pain-ico` (44px cards), `.eb-ico` lists (32px). No outlined colored boxes, emoji or filled colored squares as icon boxes.
+
 ## Type and copy
+
+- Body paragraphs are at least 17px (1.0625rem), line height 1.6. Ledes under section titles 17 to 19px. Small grey text only for labels and notes.
 
 - Sans-serif for all titles and body text. No em dashes in copy.
 - Script accent (Caveat, class `scr`): only for 2 to 5 words inside a paragraph to direct attention, at most one per paragraph and a few per page. Never in titles, buttons or navigation. Self-hosted in `public/fonts`.

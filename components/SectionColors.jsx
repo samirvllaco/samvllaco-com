@@ -32,6 +32,7 @@ export default function SectionColors() {
       if (c !== current) {
         current = c;
         body.style.backgroundColor = c;
+        document.documentElement.style.setProperty("--sec-bg", c);
       }
     };
     const onScroll = () => {
@@ -50,6 +51,7 @@ export default function SectionColors() {
       if (raf) cancelAnimationFrame(raf);
       body.style.backgroundColor = "";
       body.style.transition = "";
+      document.documentElement.style.removeProperty("--sec-bg");
     };
   }, []);
   return null;
