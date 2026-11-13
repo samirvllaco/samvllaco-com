@@ -62,9 +62,9 @@ const STEPS = [
 ];
 
 const FOR = [
-  { t: "Founders who built with AI", d: "Your product works. You want it to stop looking AI-made, and you are not ready to hire a designer." },
-  { t: "Developers", d: "You can build anything. You want clear rules for spacing, color and type to hand to your AI tool." },
-  { t: "Designers who use AI", d: "You know good design. You want prompts and rules that make the AI follow it the first time." },
+  { t: "Founders who built with AI", d: "You shipped. People can use it. You just wish it did not look like a template, and a designer is not in the budget yet." },
+  { t: "Developers", d: "You can build anything, but \"make it look nicer\" is not a spec. You want real numbers for spacing, color and type to hand your AI." },
+  { t: "Designers who use AI", d: "You know what good looks like. You are tired of fixing the same AI habits by hand every single time." },
 ];
 
 const GET = [
@@ -83,9 +83,9 @@ const FILES = ["DESIGN.md", "SCORECARD.md", "PROMPTS.md", "UX-LAWS.md"];
 const FAQ = [
   ["What format is it?", "A PDF plus four plain text files (DESIGN.md, SCORECARD.md, PROMPTS.md and UX-LAWS.md) you can drop into your project."],
   ["Which AI tools does it work with?", "Any tool that takes a prompt, such as Claude, Lovable, v0, Codex, Cursor and Bolt. The prompts are plain language."],
-  ["Do I need design skills?", "No. Each step tells you what to do, why it matters and what to check before you accept the AI's change."],
-  ["How long does it take?", "About an hour per page. Color, type and spacing make the biggest difference, so start there."],
-  ["Will it rebuild my app?", "No. Every prompt keeps your content and features and changes only the design."],
+  ["Do I need design skills?", "Nope. Each step tells you what to do, why it matters and what to check before you say yes to the AI's change."],
+  ["How long does it take?", "About an hour per page. Start with color, type and spacing. That is where you will see the biggest jump."],
+  ["Will it break my app?", "No. Every prompt keeps your content and features and only touches the design."],
 ];
 
 function Buy({ label }) {
@@ -103,16 +103,16 @@ export default function Ebook() {
         <div className="eb-copy">
           <p className="eb-kick">Designed, not generated.</p>
           <h1><span className="eb-27">27 copy-paste prompts</span> to fix AI slop UI</h1>
-          <p className="eb-sub">Your AI-built site works, but it looks like every other AI-built site. Copy a prompt, paste it into your AI tool, and get a page that looks designed. Then keep it that way with one rules file.</p>
+          <p className="eb-sub">You built it fast. It works. Then you open it next to a real product and something feels off: the purple gradient, the three little cards, the glow. Visitors notice it before they read a word. These prompts fix that, one step at a time, without rebuilding anything.</p>
           <div className="btn-row">
             <Buy label={<>Buy now for <span className="eb-pill">{PRICE}</span></>} />
-            <a className="hero2-btn hero2-btn-light" href="#inside">See what's inside</a>
+            <a className="hero2-btn hero2-btn-light" href="#inside">Peek inside</a>
           </div>
           <ul className="eb-ticks eb-ico">
             <li data-i="list">27 prompts, one per step</li>
             <li data-i="file">DESIGN.md rules file included</li>
             <li data-i="motion">Bonus: motion and UX principles prompts</li>
-            <li data-i="hand">No design skills needed, no rebuild</li>
+            <li data-i="hand">No design skills needed. Nothing gets rebuilt</li>
           </ul>
         </div>
         <div className="eb-cover">
@@ -122,12 +122,26 @@ export default function Ebook() {
       </header>
 
       <section className="eb-tools" aria-label="Tools the prompts work with">
-        <p>Works with the tool you built in</p>
+        <p>Works with whatever you built it in</p>
         <div>
           {TOOLS.map((t) => (
             // eslint-disable-next-line @next/next/no-img-element
             <img key={t} src={`/ebook/${t}.webp`} width="200" height="200" alt={t} loading="lazy" />
           ))}
+        </div>
+      </section>
+
+      <section className="eb-sec eb-feel">
+        <h2>Sound <span className="t2">familiar?</span></h2>
+        <ul className="eb-pains">
+          <li>You shipped it, and now you hesitate before sharing the link.</li>
+          <li>You asked the AI to make it look better. It added another gradient.</li>
+          <li>It looks like every other AI-built site, and you cannot say why.</li>
+        </ul>
+        <div className="eb-story">
+          <p>I have been there. I design products for a living, and I build my own with the same AI tools you use. They hand me the same purple, glowing first drafts they hand you.</p>
+          <p>The difference is I know what to ask for next. So I wrote down the rules I use with clients, turned each one into a prompt, and explained why it works. That is this book.</p>
+          <p className="eb-story-sign">Sam</p>
         </div>
       </section>
 
@@ -320,7 +334,8 @@ export default function Ebook() {
       </section>
 
       <section className="eb-sec eb-end">
-        <h2>Make your app look designed, <span className="t2">one prompt at a time</span></h2>
+        <h2>You did the hard part. <span className="t2">Now make it look the part.</span></h2>
+        <p className="eb-end-sub">Your product already works. Give it the hour it deserves and send the link with confidence.</p>
         <div className="btn-row"><Buy label={<>Buy now for <span className="eb-pill">{PRICE}</span></>} /></div>
       </section>
     </div>

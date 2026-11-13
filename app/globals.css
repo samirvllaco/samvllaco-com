@@ -2942,3 +2942,15 @@ a[rel~="me"] { display: inline-flex; align-items: center; justify-content: cente
 .eb-why-any li { padding: 7px 14px; border-radius: 999px; font-size: .875rem; background: rgba(255, 255, 255, .06); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .1); }
 :root[data-theme="light"] .eb-why-any li { background: rgba(0, 0, 0, .04); box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .08); }
 @media (max-width: 760px) { .eb-why-grid { grid-template-columns: 1fr; } }
+
+/* Ebook: story section */
+.eb-feel { display: grid; gap: 24px; }
+.eb-pains { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.eb-pains li { padding: 20px 22px; border-radius: 20px 20px 20px 6px; font-size: 1rem; line-height: 1.45; background: rgba(255, 255, 255, .05); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .09); }
+:root[data-theme="light"] .eb-pains li { background: #fff; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .08); }
+.eb-story { display: grid; gap: 12px; max-width: 62ch; }
+.eb-story p { margin: 0; font-size: 1.0625rem; line-height: 1.6; color: var(--muted); }
+.eb-story p:first-child { color: var(--fg); }
+.eb-story-sign { font-weight: 600; color: var(--fg) !important; }
+.eb-end-sub { margin: 0 auto 8px; max-width: 48ch; color: var(--muted); }
+@media (max-width: 760px) { .eb-pains { grid-template-columns: 1fr; } }
