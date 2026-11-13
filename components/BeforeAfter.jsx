@@ -2,11 +2,11 @@
 import { useState } from "react";
 import { BOOK_URL } from "../lib/site";
 
-// Before and after sliders, one per niche. Sample products drawn for this page (fictional Acme brands).
+// Before and after sliders, one per niche. Sample products drawn for this page; the dashboard after is the Kestrel case study screen.
 // Left is a typical first AI draft, right is the same screen with the DESIGN.md rules applied.
 const PAIRS = [
   { id: "site", label: "Marketing site", h: 1280, before: "/ebook/ba-before.webp?v=3", after: "/ebook/ba-after.webp?v=3", beforeAlt: "First AI draft of a sample invoicing site: vague headline, three buttons of equal weight and nine identical feature cards", afterAlt: "The same site with the DESIGN.md rules: dotted dark background, purple 3D buttons, a clear headline, a real invoice screen and a bento grid" },
-  { id: "dash", label: "SaaS dashboard", h: 900, before: "/ebook/ba-dash-before.webp?v=2", after: "/ebook/ba-dash-after.webp?v=1", beforeAlt: "First AI draft of a sample dashboard: eight equal stat cards in random colors and charts with no focus", afterAlt: "The same dashboard with the rules: one big revenue number with a trend line, two quiet cards, one icon set and a calm table" },
+  { id: "dash", label: "SaaS dashboard", h: 720, before: "/ebook/ba-crm-before.webp?v=1", after: "/ebook/ba-crm-after.webp?v=1", beforeAlt: "First AI draft of a contacts screen: six equal stat cards in random colors, five colored buttons and a table where every row looks the same", afterAlt: "Kestrel contacts screen from Sam's case study: a pipeline bar, a focused table with reply status and a detail panel for the selected lead" },
   { id: "store", label: "Online store", h: 880, before: "/ebook/ba-store-before.webp?v=2", after: "/ebook/ba-store-after.webp?v=1", beforeAlt: "First AI draft of a sample product page: long generic title, six equal boxes and four colored buttons", afterAlt: "The same product page with the rules: a short headline, one price, one main button and three clear benefits" },
   { id: "app", label: "Mobile app", h: 920, before: "/ebook/ba-mob-before.webp?v=2", after: "/ebook/ba-mob-after.webp?v=1", beforeAlt: "First AI draft of a sample fitness app: eight pastel tiles of equal weight and two competing buttons", afterAlt: "The same fitness app with the rules: one progress ring, quiet stat cards, one main button and a clean workout list" },
 ];
