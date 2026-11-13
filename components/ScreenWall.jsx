@@ -30,9 +30,9 @@ export default function ScreenWall() {
     <section className="wall" ref={sec} aria-label="A wall of screens from recent projects" data-bg="#000000">
       <div className="wall-stick">
         <ul className="wall-stats">
-          <li><b>10+</b><span>years of experience</span></li>
-          <li><b>10,000+</b><span>screens designed, and counting</span></li>
-          <li><b>570+</b><span>clients</span></li>
+          <li><i className="ws-lr ws-lr-l" aria-hidden="true" /><div><b>10+</b><span>years of experience</span></div><i className="ws-lr ws-lr-r" aria-hidden="true" /></li>
+          <li><i className="ws-lr ws-lr-l" aria-hidden="true" /><div><b>10,000+</b><span>screens designed, and counting</span></div><i className="ws-lr ws-lr-r" aria-hidden="true" /></li>
+          <li><i className="ws-lr ws-lr-l" aria-hidden="true" /><div><b>570+</b><span>clients</span></div><i className="ws-lr ws-lr-r" aria-hidden="true" /></li>
         </ul>
         <div className="wall-grid" ref={grid} aria-hidden="true">
           {/* eslint-disable-next-line @next/next/no-img-element */}

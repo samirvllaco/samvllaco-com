@@ -3232,3 +3232,15 @@ body:has(.hero2[data-bg="#0b0b0c"]) { background-color: #0b0b0c; }
 .pain-seg span { font-size: .75rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
 .pain-seg b { font-size: 1.125rem; font-weight: 600; line-height: 1.35; letter-spacing: -.01em; color: var(--text); }
 .pain-seg em { font-style: normal; font-size: .9375rem; color: var(--muted); }
+/* Screens wall stats: full-width premium band with gray laurels */
+.wall-stats { left: 0; right: 0; translate: none; top: clamp(56px, 9vh, 112px); justify-content: center; align-items: center; gap: clamp(8px, 5vw, 88px); padding: clamp(32px, 5vw, 56px) max(16px, env(safe-area-inset-right, 0px)) clamp(56px, 7vw, 96px) max(16px, env(safe-area-inset-left, 0px)); border-radius: 0; white-space: normal; background: linear-gradient(180deg, rgba(6, 6, 8, .94) 0%, rgba(6, 6, 8, .82) 55%, rgba(6, 6, 8, .4) 80%, rgba(6, 6, 8, 0) 100%); -webkit-backdrop-filter: blur(16px) saturate(150%); backdrop-filter: blur(16px) saturate(150%); -webkit-mask-image: linear-gradient(180deg, #000 70%, transparent); mask-image: linear-gradient(180deg, #000 70%, transparent); box-shadow: none; }
+.wall-stats::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; background: radial-gradient(55% 90% at 50% 0%, rgba(120, 150, 255, .16), transparent 70%), linear-gradient(90deg, transparent, rgba(255, 255, 255, .14) 30%, rgba(255, 255, 255, .14) 70%, transparent) top / 100% 1px no-repeat; }
+.wall-stats li { display: flex; align-items: center; gap: clamp(4px, .8vw, 12px); }
+.wall-stats li > div { display: grid; justify-items: center; gap: 4px; text-align: center; }
+.wall-stats b { font-size: clamp(1.5rem, 4.4vw, 3.25rem); font-weight: 700; letter-spacing: -.04em; line-height: 1; color: #f5f5f7; background: linear-gradient(180deg, #ffffff 30%, #b9b9bf); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 6px 18px rgba(0, 0, 0, .55)); }
+.wall-stats span { font-size: clamp(.6875rem, 1.1vw, .9375rem); color: #b4b4ba; max-width: 11em; line-height: 1.3; }
+.ws-lr { flex: none; display: block; width: clamp(16px, 2.6vw, 34px); aspect-ratio: 226 / 400; background: center / contain no-repeat; filter: drop-shadow(0 4px 10px rgba(0, 0, 0, .6)); }
+.ws-lr-l { background-image: url(/laurel-l.webp); } .ws-lr-r { background-image: url(/laurel-r.webp); }
+@media (max-width: 640px) { .wall-stats { gap: 6px; padding-top: 28px; padding-bottom: 56px; } .wall-stats li { gap: 3px; } .wall-stats span { font-size: .6875rem; max-width: 8.5em; } }
+@media (max-width: 980px) { .wall-stats { top: 112px; } }
+@media (min-width: 641px) { .wall-stats span { max-width: 15em; } }
