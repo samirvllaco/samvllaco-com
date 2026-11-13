@@ -250,7 +250,7 @@ export default function Ebook() {
         </div>
         <div className="eb-bn-cta">
           <Buy label={<>Buy now for <span className="eb-pill">{PRICE}</span></>} />
-          <p>Want it done for you instead? <Link href="/book/">Book a call</Link> and I will fix your page with the same rules.</p>
+          <p>Two prompts, one rules file, no extra cost.</p>
         </div>
       </section>
 

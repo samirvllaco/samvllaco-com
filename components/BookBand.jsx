@@ -6,7 +6,7 @@ import { BOOKING_URL } from "../lib/site";
 /* Booking calendar shown above the footer on every page except /book, which has its own. */
 export default function BookBand() {
   const path = usePathname() || "";
-  if (!BOOKING_URL || path.startsWith("/book")) return null;
+  if (!BOOKING_URL || path.startsWith("/book") || path.startsWith("/ebook")) return null;
   return (
     <section className="wrap book-band" id="book" aria-labelledby="book-band-h">
       <div className="book-band-head">

@@ -10,6 +10,7 @@ import BrandRole from "./BrandRole";
 import { EMAIL } from "../lib/site";
 import NavBook from "./NavBook";
 import HeadCta from "./HeadCta";
+import MobileMenu from "./MobileMenu";
 
 const NAV = [
   { href: "/work/", label: "Work" },
@@ -52,6 +53,7 @@ export default function Header() {
           <SoundToggle />
           <ThemeToggle />
           <HeadCta />
+          <MobileMenu />
         </div>
       </div>
     </header>

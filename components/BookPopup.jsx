@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import { BOOK_URL } from "../lib/site";
 import Link from "next/link";
 
@@ -8,6 +9,7 @@ const KEY = "book-promo-closed-v2";
 // Bottom right promo card. Opens the book checkout in a new tab.
 export default function BookPopup() {
   const [open, setOpen] = useState(false);
+  const path = usePathname() || "";
 
   useEffect(() => {
     try {
@@ -24,7 +26,7 @@ export default function BookPopup() {
     } catch {}
   }
 
-  if (!open) return null;
+  if (!open || path.replace(/\/$/, "") === "/ebook") return null;
   return (
     <aside className="bk" aria-label="27 prompts to fix AI slop UI, $6.99">
       <a className="bk-link" href={BOOK_URL} target="_blank" rel="noopener">
