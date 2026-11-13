@@ -2,6 +2,7 @@ import Link from "next/link";
 import { BOOK_URL } from "../../lib/site";
 import { PeopleStack } from "../../components/ClientAvatars";
 import Crumbs from "../../components/Crumbs";
+import SectionColors from "../../components/SectionColors";
 
 const BUY_URL = BOOK_URL;
 const PRICE = "$6.99";
@@ -97,9 +98,10 @@ export default function Ebook() {
   let n = 0;
   return (
     <div className="wrap page pg eb">
+      <SectionColors />
       <Crumbs items={[{ name: "Book", href: "/ebook/" }]} />
 
-      <header className="eb-hero">
+      <header className="eb-hero" data-bg="#111112">
         <div className="eb-copy">
           <p className="eb-kick">Designed, not generated.</p>
           <h1><span className="eb-27">27 copy-paste prompts</span> to fix AI slop UI</h1>
@@ -147,6 +149,7 @@ export default function Ebook() {
 
       <section className="eb-sec" id="inside">
         <h2>What's <span className="t2">inside</span></h2>
+        <p className="eb-ph-lede">Four parts, in the order you use them. Start at step 1 and finish with a page that scores 10 out of 10.</p>
         <div className="eb-phases">
           {PHASES.map((p) => (
             <article key={p.t}>
@@ -162,30 +165,31 @@ export default function Ebook() {
 
       <section className="eb-sec eb-why">
         <h2>Why this book is <span className="t2">different</span></h2>
-        <p className="eb-why-lede">Plenty of apps hand you a full prompt. That works, and I use them too. But a prompt you do not understand fixes one page and stops there. This book teaches you why each fix works, so you can repeat it on anything you build.</p>
+        <p className="eb-why-lede">I started with prompt packs too. Paste, get a nicer page, move on. Then the next page looked just as AI-made, and I had no idea why. The fix was not a better prompt. It was knowing the rules behind it.</p>
+        <p className="eb-why-lede">So this book does not just hand you prompts. It teaches you why each fix works, so you can repeat it on anything you build.</p>
         <div className="eb-why-grid">
           <article className="eb-why-them">
             <h3>Prompt packs</h3>
             <ul>
-              <li>Paste it and hope it works</li>
-              <li>Fixes the page you pasted it on</li>
-              <li>You cannot tell when the AI gets it wrong</li>
-              <li>Stuck the moment it breaks</li>
+              <li data-i="dice">Paste it and hope it works</li>
+              <li data-i="page">Fixes the page you pasted it on</li>
+              <li data-i="eyeoff">You cannot tell when the AI gets it wrong</li>
+              <li data-i="broken">Stuck the moment it breaks</li>
             </ul>
           </article>
           <article className="eb-why-us">
             <h3>This book</h3>
             <ul>
-              <li>Every step explains what changes and why</li>
-              <li>Principles you reuse on every project</li>
-              <li>You check the result before you accept it</li>
-              <li>You tune the rules to your own taste</li>
+              <li data-i="bulb">Every step explains what changes and why</li>
+              <li data-i="repeat">Principles you reuse on every project</li>
+              <li data-i="shield">You check the result before you accept it</li>
+              <li data-i="sliders">You tune the rules to your own taste</li>
             </ul>
           </article>
         </div>
         <div className="eb-why-any">
           <p>Learn it once, use it anywhere</p>
-          <ul>{["Mobile apps", "Web apps", "SaaS dashboards", "Marketing sites", "Landing pages", "Mac apps", "Desktop apps", "Books", "Articles"].map((t) => <li key={t}>{t}</li>)}</ul>
+          <ul>{[["phone", "Mobile apps"], ["web", "Web apps"], ["chart", "SaaS dashboards"], ["globe", "Marketing sites"], ["rocket", "Landing pages"], ["mac", "Mac apps"], ["desk", "Desktop apps"], ["book", "Books"], ["pen", "Articles"]].map(([i, t]) => <li key={t} data-i={i}>{t}</li>)}</ul>
         </div>
         <p className="eb-why-end">When you know what is happening, you trust the result, you feel when something is off, and you can make it your own. Learn the principles and how to use AI properly, and there is not much you cannot build.</p>
       </section>
@@ -278,7 +282,7 @@ export default function Ebook() {
         </div>
       </section>
 
-      <section className="eb-sec eb-offer">
+      <section className="eb-sec eb-offer" data-bg="#000000">
         <div>
           <h2>What <span className="t2">you get</span></h2>
           <ul className="eb-ticks eb-ico">{GET.map(([i, g, tag]) => <li key={g} data-i={i}><span>{g}{tag ? <em className="eb-tag">{tag}</em> : null}</span></li>)}</ul>
@@ -299,18 +303,18 @@ export default function Ebook() {
         </aside>
       </section>
 
-      <section className="hp eb-hp" aria-labelledby="eb-author-h">
+      <section className="hp eb-hp" aria-labelledby="eb-author-h" data-bg="#111112">
         <div className="hp-left">
           <h2 id="eb-author-h">About <span className="t2">the author</span><br /><em>Sam Vllaco, product designer.</em></h2>
           <p className="hp-lede">I design SaaS products, dashboards and mobile apps, and I build my own products with the same AI tools you use. This book is the set of rules and prompts I use on them.</p>
           <div className="hp-cols">
             <div>
               <p className="hp-label">What I design</p>
-              <ul>{["SaaS products", "Dashboards", "Mobile apps", "Marketing sites", "Design systems"].map((t) => <li key={t}>{t}</li>)}</ul>
+              <ul className="hp-ico">{[["saas", "SaaS products"], ["chart", "Dashboards"], ["screen", "Mobile apps"], ["globe", "Marketing sites"], ["system", "Design systems"]].map(([i, t]) => <li key={t} data-i={i}>{t}</li>)}</ul>
             </div>
             <div className="hp-hand">
               <p className="hp-label">What is in the book</p>
-              <ul>{["27 steps", "27 copy-paste prompts", "100 UX laws", "DESIGN.md rules file", "A scorecard to rate your page"].map((t) => <li key={t}>{t}</li>)}</ul>
+              <ul className="hp-ico">{[["steps", "27 steps"], ["copy", "27 copy-paste prompts"], ["scale", "100 UX laws"], ["file", "DESIGN.md rules file"], ["gauge", "A scorecard to rate your page"]].map(([i, t]) => <li key={t} data-i={i}>{t}</li>)}</ul>
             </div>
           </div>
         </div>
