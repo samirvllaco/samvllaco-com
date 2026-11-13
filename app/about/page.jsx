@@ -42,7 +42,7 @@ export default function About() {
           );
         })}
         <p className="ab-end">
-          <Link className="btn btn-primary" href="/book/">Tell me what you're building</Link>
+          <Link prefetch={false} className="btn btn-primary" href="/book/">Tell me what you're building</Link>
           <span>I share the work on <a href={SITE.links.x} rel="me noopener">X</a> and <a href={SITE.links.medium} rel="me noopener">Medium</a>.</span>
         </p>
       </div>

@@ -240,7 +240,7 @@ export default function Globe({ full = false, bg }) {
               <li key={p.country} title={p.country}><span aria-hidden="true">{p.flag}</span><span className="sr">{p.country}</span></li>
             ))}
           </ul>
-          <p className="globe-more"><Link href="/globe/">Open the full globe</Link></p>
+          <p className="globe-more"><Link prefetch={false} href="/globe/">Open the full globe</Link></p>
         </div>
       )}
     </section>

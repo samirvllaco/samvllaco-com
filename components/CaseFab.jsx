@@ -35,10 +35,10 @@ export default function CaseFab({ prev, next }) {
   const t = on ? 0 : -1;
   return (
     <nav className={`case-fab${on ? " is-on" : ""}`} aria-label="Case study navigation" aria-hidden={!on}>
-      {prev ? <Link href={prev.href} tabIndex={t} aria-label={`Previous case study: ${prev.title}`} className="case-fab-ic"><Arrow d="M19 12H5M11 6l-6 6 6 6" /><span className="case-fab-tip">{prev.title}</span></Link> : null}
-      <Link href="/work/" tabIndex={t}><Arrow d="M4 6h7v7H4zM13 6h7v7h-7zM4 15h7v3H4zM13 15h7v3h-7z" /> All work</Link>
+      {prev ? <Link prefetch={false} href={prev.href} tabIndex={t} aria-label={`Previous case study: ${prev.title}`} className="case-fab-ic"><Arrow d="M19 12H5M11 6l-6 6 6 6" /><span className="case-fab-tip">{prev.title}</span></Link> : null}
+      <Link prefetch={false} href="/work/" tabIndex={t}><Arrow d="M4 6h7v7H4zM13 6h7v7h-7zM4 15h7v3H4zM13 15h7v3h-7z" /> All work</Link>
       <button type="button" onClick={top} tabIndex={t} className="case-fab-top" style={{ "--read": read }} aria-label={`Back to top, ${Math.round(read * 100)}% read`}><Arrow d="M12 19V5M6 11l6-6 6 6" /> Top</button>
-      {next ? <Link href={next.href} tabIndex={t} className="case-fab-next"><span><small>Next</small>{next.title}</span><Arrow d="M5 12h14M13 6l6 6-6 6" /></Link> : null}
+      {next ? <Link prefetch={false} href={next.href} tabIndex={t} className="case-fab-next"><span><small>Next</small>{next.title}</span><Arrow d="M5 12h14M13 6l6 6-6 6" /></Link> : null}
     </nav>
   );
 }

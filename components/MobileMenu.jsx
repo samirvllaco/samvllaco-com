@@ -51,7 +51,7 @@ export default function MobileMenu() {
                 const here = path.startsWith(l.href);
                 return (
                   <li key={l.href}>
-                    <Link href={l.href} aria-current={here ? "page" : undefined} onClick={() => setOpen(false)}>
+                    <Link prefetch={false} href={l.href} aria-current={here ? "page" : undefined} onClick={() => setOpen(false)}>
                       {l.dot ? <i className="nav-dot" aria-hidden="true" /> : null}
                       {l.label}
                       {l.tag ? <span className="top-badge">{l.tag}</span> : null}

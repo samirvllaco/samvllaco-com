@@ -47,7 +47,7 @@ export default function ScreenFan({ items }) {
     <ul className="fan fan-run" ref={ref} aria-label="Recent projects">
       {items.map((it, i) => (
         <li key={it.id} style={{ "--k": i - mid, zIndex: 20 - Math.abs(i - mid) * 2, opacity: i > 6 ? 0 : 1 }}>
-          <Link href={`/work/${it.slug}/`}>
+          <Link prefetch={false} href={`/work/${it.slug}/`}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={it.src} alt={it.title} loading={i < 7 ? "eager" : "lazy"} draggable="false" />
             <span className="fan-tag">{it.title} <em className="fan-at">@ UX/UI</em> <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" /></svg></span>

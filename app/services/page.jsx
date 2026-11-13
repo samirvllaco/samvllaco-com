@@ -32,7 +32,7 @@ export default function Services() {
           <ul className="svc-list">
             {g.items.map((it) => (
               <li id={it.id} key={it.id}>
-                <h3><Link href={`/services/${it.id}/`}>{it.name}</Link></h3>
+                <h3><Link prefetch={false} href={`/services/${it.id}/`}>{it.name}</Link></h3>
                 <p>{it.text}</p>
               </li>
             ))}

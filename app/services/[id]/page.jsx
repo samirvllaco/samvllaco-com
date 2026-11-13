@@ -49,7 +49,7 @@ export default async function ServicePage({ params }) {
         <p className="lede">{s.text}</p>
         <div className="btn-row case-cta-row">
           <a className="btn btn-primary" href="/book/"><CallIcon />Book a call</a>
-          <Link className="btn btn-ghost" href="/#work">See my work</Link>
+          <Link prefetch={false} className="btn btn-ghost" href="/#work">See my work</Link>
         </div>
       </header>
 
@@ -84,7 +84,7 @@ export default async function ServicePage({ params }) {
         <div className="svc-head"><h2 id="svc-more">More in {s.group.title}</h2></div>
         <ul className="svc-list">
           {related.map((r) => (
-            <li key={r.id}><h3><Link href={`/services/${r.id}/`}>{r.name}</Link></h3><p>{r.text}</p></li>
+            <li key={r.id}><h3><Link prefetch={false} href={`/services/${r.id}/`}>{r.name}</Link></h3><p>{r.text}</p></li>
           ))}
         </ul>
       </section>

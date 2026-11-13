@@ -25,7 +25,7 @@ export default function HeroShow() {
   const w = ITEMS[i];
   return (
     <div className="show" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)} onFocus={() => setPaused(true)} onBlur={() => setPaused(false)}>
-      <Link className="show-media" href={`/work/${w.slug}/`} aria-label={`${w.title} case study`}>
+      <Link prefetch={false} className="show-media" href={`/work/${w.slug}/`} aria-label={`${w.title} case study`}>
         {ITEMS.map((x, n) => (
           // eslint-disable-next-line @next/next/no-img-element
           <img key={x.slug} className={n === i ? "on" : ""} src={x.small} width={x.smallW} height={Math.round((x.smallW * x.h) / x.w)} alt="" loading={n === 0 ? "eager" : "lazy"} />
@@ -41,7 +41,7 @@ export default function HeroShow() {
             </button>
           ))}
         </div>
-        <Link className="show-link" href={`/work/${w.slug}/`}>View case study <span aria-hidden="true">→</span></Link>
+        <Link prefetch={false} className="show-link" href={`/work/${w.slug}/`}>View case study <span aria-hidden="true">→</span></Link>
       </div>
     </div>
   );

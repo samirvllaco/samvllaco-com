@@ -22,7 +22,7 @@ export default function Testimonials() {
           </figure>
         ))}
       </div>
-      <Link href="/book/" className="tm-world">
+      <Link prefetch={false} href="/book/" className="tm-world">
         <span className="tm-world-in">
           <span className="tm-world-r"><span className="tm-stars" aria-hidden="true"><Star /><Star /><Star /><Star /><Star /></span><b>5.0</b></span>
           <b className="tm-world-t">200+ reviews <span className="t2">worldwide</span></b>

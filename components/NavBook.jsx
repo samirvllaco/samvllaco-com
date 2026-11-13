@@ -25,7 +25,7 @@ export default function NavBook() {
     );
   }
   return (
-    <Link href="/ebook/">
+    <Link prefetch={false} href="/ebook/">
       <Book3D />E-book <span className="top-badge">$6.99</span>
     </Link>
   );

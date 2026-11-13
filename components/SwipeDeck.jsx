@@ -49,7 +49,7 @@ export default function SwipeDeck({ items }) {
           const item = list[mod(idx + k, list.length)];
           const pos = k + drag / (width() * STEP), d = Math.min(1.4, Math.abs(pos));
           return (
-            <Link key={`${device}-${idx + k}`} href={`/work/${item.slug}/`} className="sd-slide" draggable="false" tabIndex={k === 0 ? 0 : -1} aria-hidden={k !== 0}
+            <Link prefetch={false} key={`${device}-${idx + k}`} href={`/work/${item.slug}/`} className="sd-slide" draggable="false" tabIndex={k === 0 ? 0 : -1} aria-hidden={k !== 0}
               style={{ transform: `translate3d(${(pos * STEP * 100).toFixed(3)}%, 0, 0) scale(${(1 - 0.2 * Math.min(1, d)).toFixed(4)})`, opacity: Math.max(0, 1 - 0.6 * d), zIndex: 5 - Math.abs(k) }}
               onClick={(e) => { if (moved.current) { e.preventDefault(); return; } if (k !== 0) { e.preventDefault(); go(k); } }}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -61,7 +61,7 @@ export default function SwipeDeck({ items }) {
       <p className="sd-label" key={`${device}-${idx}`}><b>{cur.title}</b><i>{cur.tags[0]}</i></p>
       <div className="sd-foot">
         <button type="button" className="sd-btn" aria-label="Previous project" onClick={() => go(-1)}><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 12H5M11 6l-6 6 6 6" /></svg></button>
-        <Link href="/work/" className="sd-all">See all work <span aria-hidden="true">→</span></Link>
+        <Link prefetch={false} href="/work/" className="sd-all">See all work <span aria-hidden="true">→</span></Link>
         <button type="button" className="sd-btn" aria-label="Next project" onClick={() => go(1)}><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg></button>
       </div>
     </div>

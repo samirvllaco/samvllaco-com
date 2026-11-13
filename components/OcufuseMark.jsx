@@ -13,7 +13,7 @@ export default function OcufuseMark({ href, text, cta }) {
   );
   return (
     <div className="product">
-      {external ? <a className="plate" href={href} target="_blank" rel="noopener noreferrer" aria-label="Ocufuse, opens in a new tab">{plate}</a> : <Link className="plate" href={href}>{plate}</Link>}
+      {external ? <a className="plate" href={href} target="_blank" rel="noopener noreferrer" aria-label="Ocufuse, opens in a new tab">{plate}</a> : <Link prefetch={false} className="plate" href={href}>{plate}</Link>}
       {text && (
         <div className="plate-text">
           <p>{text}</p>

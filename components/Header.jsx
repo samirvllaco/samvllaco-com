@@ -30,7 +30,7 @@ export default function Header() {
         <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" /></svg>
       </a>
       <div className="wrap head-row">
-        <Link className="brand-me" href="/">
+        <Link prefetch={false} className="brand-me" href="/">
           <BrandFace />
           <span className="brand-word">Sam</span><span className="sr-only"> Vllaco, home</span>
           <BrandRole />
@@ -41,7 +41,7 @@ export default function Header() {
             n.book ? (
               <NavBook key={n.href} />
             ) : (
-            <Link key={n.href} href={n.href}>
+            <Link prefetch={false} key={n.href} href={n.href}>
               {n.dot ? <i className="nav-dot" aria-hidden="true" /> : null}
               {n.label}
               {n.badge ? <span className="top-badge">{n.badge}</span> : null}

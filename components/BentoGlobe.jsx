@@ -30,7 +30,7 @@ export default function BentoGlobe() {
     let rot = [-HOME.lon, -(HOME.lat - 36)], target = 0, lastAuto = performance.now(), held = null, idleAt = 0;
     const flags = {};
     ["eu", "us", "ca", "ae", "au"].forEach((c) => { const im = new Image(); im.src = `/flags/${c}.svg`; im.onload = () => { flags[c] = im; }; });
-    let face = null; { const im = new Image(); im.src = "/sam.jpg"; im.onload = () => { face = im; }; }
+    let face = null; { const im = new Image(); im.src = "/sam-144.webp"; im.onload = () => { face = im; }; }
 
     // Land as dots: paint land (red) and client countries (blue) onto a small flat map once,
     // then keep the grid points that fall on land. Each frame only projects those points.

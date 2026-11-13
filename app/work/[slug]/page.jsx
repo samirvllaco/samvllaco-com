@@ -44,11 +44,11 @@ function MoreWork({ others }) {
     <section className="case-section case-more" id="more" aria-labelledby="more-work">
       <div className="case-more-head">
         <h2 id="more-work">More work</h2>
-        <Link href="/#work">All work</Link>
+        <Link prefetch={false} href="/#work">All work</Link>
       </div>
       <div className="case-more-grid">
         {others.map((o) => (
-          <Link href={`/work/${o.slug}/`} className="work-card" key={o.slug}>
+          <Link prefetch={false} href={`/work/${o.slug}/`} className="work-card" key={o.slug}>
             <span className="work-media">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={o.small} width={o.smallW} height={Math.round((o.smallW * o.h) / o.w)} alt={o.alt} loading="lazy" />
@@ -245,7 +245,7 @@ export default function CaseStudy({ params }) {
               <p>{st.cta.text}</p>
               <div className="btn-row">
                 <a className="btn btn-primary" href="/book/"><CallIcon />Book a call</a>
-                <Link className="btn btn-ghost" href="/services/">See services</Link>
+                <Link prefetch={false} className="btn btn-ghost" href="/services/">See services</Link>
               </div>
             </section>
           </>

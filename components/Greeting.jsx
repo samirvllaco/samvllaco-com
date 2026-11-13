@@ -33,7 +33,7 @@ export default function Greeting() {
       {s.last ? (
         <>
           <span aria-hidden="true"> · </span>
-          <Link href={`/work/${s.last.slug}/`}>Continue with {s.last.title}</Link>
+          <Link prefetch={false} href={`/work/${s.last.slug}/`}>Continue with {s.last.title}</Link>
         </>
       ) : null}
     </p>

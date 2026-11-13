@@ -52,21 +52,21 @@ export default function ServicesMenu() {
         <div className="wrap mega-in">
           {SERVICES.map((g) => (
             <div className="mega-col" key={g.id}>
-              <Link className="mega-title" href={`/services/#${g.id}`} onClick={() => setOpen(false)}>{g.title}</Link>
+              <Link prefetch={false} className="mega-title" href={`/services/#${g.id}`} onClick={() => setOpen(false)}>{g.title}</Link>
               <p className="mega-blurb">{g.blurb}</p>
               <ul>
                 {g.items.filter((it) => !it.more).map((it) => (
-                  <li key={it.id}><Link href={`/services/${it.id}/`} onClick={() => setOpen(false)}>{it.name}</Link></li>
+                  <li key={it.id}><Link prefetch={false} href={`/services/${it.id}/`} onClick={() => setOpen(false)}>{it.name}</Link></li>
                 ))}
               </ul>
             </div>
           ))}
           <div className="mega-col">
-            <Link className="mega-title" href="/writing/" onClick={() => setOpen(false)}>Resources</Link>
+            <Link prefetch={false} className="mega-title" href="/writing/" onClick={() => setOpen(false)}>Resources</Link>
             <p className="mega-blurb">My book and the kit I use on my own products.</p>
             <ul>
               {RESOURCES.map((r) => (
-                <li key={r.name}><Link href={r.href} onClick={() => setOpen(false)}>{r.name}{r.tag ? <span className="mega-pdf mega-gold">{r.tag}</span> : null}</Link></li>
+                <li key={r.name}><Link prefetch={false} href={r.href} onClick={() => setOpen(false)}>{r.name}{r.tag ? <span className="mega-pdf mega-gold">{r.tag}</span> : null}</Link></li>
               ))}
             </ul>
           </div>
@@ -74,7 +74,7 @@ export default function ServicesMenu() {
             <p className="mega-side-title">Not sure what you need?</p>
             <p>Tell me about the product. I will suggest where design will help most.</p>
             <a className="btn btn-primary" href="/book/"><CallIcon />Book a call</a>
-            <Link className="mega-all" href="/services/" onClick={() => setOpen(false)}>All services <span aria-hidden="true">→</span></Link>
+            <Link prefetch={false} className="mega-all" href="/services/" onClick={() => setOpen(false)}>All services <span aria-hidden="true">→</span></Link>
           </div>
         </div>
       </div>

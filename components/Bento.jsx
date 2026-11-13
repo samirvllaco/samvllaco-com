@@ -18,22 +18,22 @@ export function MainServices() {
       <h2 id="ms-h">What I do</h2>
       <p className="bx-lede">Four areas, one goal: a product people understand, remember and can find.</p>
       <div className="ms-grid">
-        <Link href="/services/#design" className="bx-card ms-card">
+        <Link prefetch={false} href="/services/#design" className="bx-card ms-card">
           <div className="ms-art ms-design" aria-hidden="true">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={WORK[0].small} width="800" height="600" alt="" loading="lazy" />
           </div>
           <h3>Product design</h3>
         </Link>
-        <Link href="/services/#branding" className="bx-card ms-card">
+        <Link prefetch={false} href="/services/#branding" className="bx-card ms-card">
           <div className="ms-art ms-brand" aria-hidden="true"><span className="ms-dots"><i /><i /><i /><i /><i /><i /></span><span className="ms-aa">Aa</span></div>
           <h3>Branding</h3>
         </Link>
-        <Link href="/services/#marketing" className="bx-card ms-card">
+        <Link prefetch={false} href="/services/#marketing" className="bx-card ms-card">
           <div className="ms-art ms-mkt" aria-hidden="true"><i /><i /><i /><i /><i /></div>
           <h3>Marketing design</h3>
         </Link>
-        <Link href="/services/#seo" className="bx-card ms-card">
+        <Link prefetch={false} href="/services/#seo" className="bx-card ms-card">
           <div className="ms-art ms-seo" aria-hidden="true"><span className="ms-bar" /><span className="ms-res"><i /><i /><i /></span></div>
           <h3>SEO</h3>
         </Link>
@@ -70,7 +70,7 @@ export default function Bento() {
           <GlobeLazy />
           <WorldFacts />
         </div>
-        <Link href="/work/" className="bx-card bx-mini bx-screens" data-reveal>
+        <Link prefetch={false} href="/work/" className="bx-card bx-mini bx-screens" data-reveal>
           <h3 className="bx-t">Screens</h3>
           <div className="bx-cols" aria-hidden="true">
             {[colA, colB].map((col, k) => (
@@ -81,7 +81,7 @@ export default function Bento() {
             ))}
           </div>
         </Link>
-        <Link href={`/work/${clip.slug}/`} className="bx-card bx-mini bx-motion" data-reveal>
+        <Link prefetch={false} href={`/work/${clip.slug}/`} className="bx-card bx-mini bx-motion" data-reveal>
           <h3 className="bx-t">Animations</h3>
           <div className="bx-frame"><BuildIn screens={CLIPS} /></div>
         </Link>
