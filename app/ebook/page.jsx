@@ -67,16 +67,18 @@ const FOR = [
 ];
 
 const GET = [
-  "The book: 27 steps, one prompt per step, 57 pages",
+  "The book: 27 steps, one prompt per step, 59 pages",
   "All 27 prompts in one list, numbered and ready to copy",
   "A bonus all-in-one prompt that asks first and waits for your go-ahead",
   "DESIGN.md: a full rules file for spacing, color, icons, copy and states",
   "SCORECARD.md and PROMPTS.md as plain files for your project",
+  "100 UX laws, each one matched to the prompt that uses it",
+  "Bonus: a subtle motion prompt (12 animation principles) and a UX principles prompt (8 rules for controls), plus a block to paste into DESIGN.md",
   "A list of places to find good design references",
 ];
 
 const FAQ = [
-  ["What format is it?", "A PDF plus three plain text files (DESIGN.md, SCORECARD.md and PROMPTS.md) you can drop into your project."],
+  ["What format is it?", "A PDF plus four plain text files (DESIGN.md, SCORECARD.md, PROMPTS.md and UX-LAWS.md) you can drop into your project."],
   ["Which AI tools does it work with?", "Any tool that takes a prompt, such as Claude, Lovable, v0, Codex, Cursor and Bolt. The prompts are plain language."],
   ["Do I need design skills?", "No. Each step tells you what to do, why it matters and what to check before you accept the AI's change."],
   ["How long does it take?", "About an hour per page. Color, type and spacing make the biggest difference, so start there."],
@@ -170,7 +172,7 @@ export default function Ebook() {
           ))}
         </div>
         <div className="eb-more">
-          <p><b>4 of 57 pages shown</b><span>53 more pages inside: all 27 prompts, 100 UX laws, DESIGN.md and the bonus.</span></p>
+          <p><b>4 of 59 pages shown</b><span>55 more pages inside: all 27 prompts, 100 UX laws, DESIGN.md and the bonus motion and UX prompts.</span></p>
           <Buy label={<>Buy now for <span className="eb-pill">{PRICE}</span></>} />
         </div>
       </section>
@@ -218,7 +220,7 @@ export default function Ebook() {
           <img className="hp-photo" src="/sam-footer.webp" width="1254" height="1254" alt="" loading="lazy" />
           <div className="hp-shade" aria-hidden="true" />
           <div className="hp-body">
-            <h3>10 years of product design,<br /><em>now in 57 pages you can copy and paste.</em></h3>
+            <h3>10 years of product design,<br /><em>now in 59 pages you can copy and paste.</em></h3>
             <p>Every prompt keeps your content and features and changes only the design.</p>
             <div className="hp-cta"><Buy label={<>Buy now for <span className="eb-pill">{PRICE}</span></>} /></div>
           </div>
