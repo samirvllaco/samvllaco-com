@@ -13,17 +13,17 @@ export const metadata = {
 };
 
 const PARTS = [
-  { id: "who", a: "Who", b: "I am", text: "I am Samir Vllaco, known online as Sam. I am a product designer with 10 years of experience, helping ambitious teams turn complex ideas into products people understand on the first screen." },
-  { id: "work", a: "What", b: "I design", text: "SaaS platforms, AI products, dashboards, mobile apps and the websites that explain them. I take a product from the first flow to the final screen, and I can build the front end too." },
-  { id: "build", a: "Why", b: "I ask about revenue first", text: "I build and run my own products on the side, so I know what a wrong screen costs when it is your money. That is why I ask about revenue before I ask about colors." },
-  { id: "where", a: "Where", b: "I work", text: "I am based in Tirana and I work with teams in the US, Europe, Canada, Australia and the UAE. US mornings are my afternoons, so we always share working hours." },
+  { id: "who", a: "Who", b: "I am", d: "M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM4 21c0-4.4 3.6-7 8-7s8 2.6 8 7", text: "I'm Samir Vllaco, Sam online. For 10 years I've been the designer founders call when the product works but people still don't get it. Most of that work sits under NDA, so you won't find it on Dribbble.", note: "You found me anyway." },
+  { id: "work", a: "What", b: "I design", d: "M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM16.5 13a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7z", text: "SaaS platforms, AI products, dashboards, mobile apps and the websites that sell them. I take your product from the first flow to the last screen, and I can build the front end too, so nothing gets lost in a handoff.", note: "One person, first call to last file." },
+  { id: "build", a: "Why", b: "I ask about revenue first", d: "M4 20V10M10 20V4M16 20v-7M22 20H2", text: "I build and run my own products, so I've paid for a confusing screen with my own money. That's why I ask what you earn before I ask which colors you like.", note: "Pretty is nice. Paid is better." },
+  { id: "where", a: "Where", b: "I work", d: "M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18zM3.5 9h17M3.5 15h17M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18", text: "I live in Tirana and work with teams in the US, Europe, Canada, Australia and the UAE. Your morning is my afternoon, so we always share working hours.", note: "Same hours, half the noise." },
 ];
 const has = (id) => ["webp", "png"].find((e) => fs.existsSync(path.join(process.cwd(), "public", "about", `${id}.${e}`)));
 
 export default function About() {
   return (
     <div className="wrap page pg">
-      <PageHead crumb="About" href="/about/" a="I design apps." b="I also ship my own." lede="I'm Sam. I help teams turn complicated products into screens people get on the first try. I run my own products too, so I know what a confusing screen costs." />
+      <PageHead crumb="About" href="/about/" a="I design apps." b="I also ship my own." lede="I'm Sam. You built something real, and people still bounce from it. I help teams turn complicated products into screens people get on the first try, and I run my own, so I know what a confusing screen costs." />
       <div className="ab-wrap">
       <div className="ab-photo"><SkyPhoto eager /></div>
       <div className="ab">
@@ -32,18 +32,22 @@ export default function About() {
           return (
             <section className="ab-part" key={p.id} aria-labelledby={`ab-${p.id}`}>
               <h2 id={`ab-${p.id}`}>
+                <i className="tg-ico ab-tile" aria-hidden="true"><svg viewBox="0 0 24 24"><path d={p.d} /></svg></i>
                 {p.a}{" "}
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 {ext ? <img className="ab-ico" src={`/about/${p.id}.${ext}`} width="160" height="160" alt="" /> : null}
                 <span className="t2">{p.b}</span>
               </h2>
-              <ScrollText className="ab-text" text={p.text} />
+              <div className="ab-body">
+                <ScrollText className="ab-text" text={p.text} />
+                <p className="ab-note scr">{p.note}</p>
+              </div>
             </section>
           );
         })}
         <p className="ab-end">
-          <Link prefetch={false} className="btn btn-primary" href="/book/">Tell me what you're building</Link>
-          <span>I share the work on <a href={SITE.links.x} rel="me noopener">X</a> and <a href={SITE.links.medium} rel="me noopener">Medium</a>.</span>
+          <Link prefetch={false} className="hero2-btn hero2-btn-primary" href="/book/">Tell me what you're building</Link>
+          <span>Or read along on <a href={SITE.links.x} rel="me noopener">X</a> and <a href={SITE.links.medium} rel="me noopener">Medium</a>.</span>
         </p>
       </div>
       </div>

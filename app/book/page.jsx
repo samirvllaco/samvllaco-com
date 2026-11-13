@@ -1,4 +1,5 @@
 import CalFrame from "../../components/CalFrame";
+import { BookAlt } from "../../components/BookBand";
 import Link from "next/link";
 import PageHead from "../../components/PageHead";
 import CallIcon from "../../components/CallIcon";
@@ -27,16 +28,17 @@ export default function Book() {
     <div className="wrap page pg svc">
       <div className="book-split">
       <div className="book-side">
-      <PageHead crumb="Contact" href="/book/" a="Tell me" b="what you are building" lede="Book 30 minutes with me, not a sales rep. Bring your product and the thing that worries you most about it. You leave with a scope, a timeline and one clear next step." />
+      <PageHead crumb="Contact" href="/book/" a="Tell me" b="what you are building" lede="You've been staring at your product for months. Give me 30 minutes and I'll show you what fresh eyes see. Bring the thing that worries you most. You leave with a scope, a timeline and one clear next step." />
       <aside className="book-qr" aria-label="Book from your phone">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/book-qr.svg" width="112" height="112" alt="QR code that opens the booking page" />
-        <p><b>Busy right now?</b><span>Scan with your phone and book in a minute.</span></p>
+        <img src="/cal-qr.svg?v=1" width="112" height="112" alt="QR code that opens the booking calendar" />
+        <p><b>On your phone anyway?</b><span>Scan it and book in a minute, from the couch.</span></p>
       </aside>
       </div>
       {BOOKING_URL ? (
         <section className="book-cal" id="calendar" aria-label="Pick a time">
           <CalFrame src={`${BOOKING_URL}?embed=true&theme=dark&layout=month_view`} />
+          <BookAlt />
         </section>
       ) : null}
       </div>

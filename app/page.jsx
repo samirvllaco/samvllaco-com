@@ -122,10 +122,15 @@ export default function Home() {
       <Faq items={FAQ}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <SkyPhoto className="faq-photo" />
-        <h3>Still have a question?</h3>
-        <p>Ask me on a quick call. No slides, no sales rep, just us.</p>
-        <a className="btn btn-primary" href="/book/"><CallIcon />Book a call</a>
-        <p className="faq-mail">Or email me at <b>{EMAIL}</b></p>
+        <h3>Still have a question? <em className="scr">Good, ask me.</em></h3>
+        <p>Most founders I talk to have one question they didn't want to type into a form. Bring it to a call. It's just you and me, and you can ask anything.</p>
+        <ul className="faq-pts">
+          <li><i className="tg-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18zM12 7v5l3 2" /></svg></i>30 minutes</li>
+          <li><i className="tg-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z" /></svg></i>No slides, no sales rep</li>
+          <li><i className="tg-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 3h12l3 6-9 12L3 9zM3 9h18" /></svg></i>Fixed price after</li>
+        </ul>
+        <p className="faq-go"><a className="hero2-btn hero2-btn-primary" href="/book/"><CallIcon />Ask me on a call</a></p>
+        <p className="faq-mail">Rather write? Email me at <b>{EMAIL}</b></p>
       </Faq>
     </div>
   );

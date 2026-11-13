@@ -16,7 +16,7 @@ export default function ScrollText({ text, className }) {
       const r = el.getBoundingClientRect(), vh = innerHeight;
       const p = Math.max(0, Math.min(1, (vh * 0.86 - r.top) / (r.height + vh * 0.42)));
       const at = p * (spans.length + 4);
-      for (let i = 0; i < spans.length; i++) spans[i].style.opacity = (0.5 + 0.5 * Math.max(0, Math.min(1, (at - i) / 4))).toFixed(3);
+      for (let i = 0; i < spans.length; i++) spans[i].style.opacity = (0.7 + 0.3 * Math.max(0, Math.min(1, (at - i) / 4))).toFixed(3);
     };
     const on = () => { if (!raf) raf = requestAnimationFrame(update); };
     update();

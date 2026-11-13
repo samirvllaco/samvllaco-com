@@ -1,6 +1,7 @@
 import Link from "next/link";
 import DotGlobe, { TimeStrip } from "./DotGlobe";
 import { TESTIMONIALS } from "../lib/testimonials";
+import TagTip from "./TagTip";
 
 const Star = () => <svg viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="m10 1.600 2.600 5.300 5.800.800-4.200 4.100 1 5.800L10 14.900l-5.200 2.700 1-5.800L1.600 7.700l5.800-.800L10 1.600Z" /></svg>;
 
@@ -17,7 +18,7 @@ export default function Testimonials() {
           <figure className="bx-card tm-card" key={i} data-reveal>
             <span className="tm-stars" role="img" aria-label={`Rated ${t.rating || "5.0"} out of 5`}><Star /><Star /><Star /><Star /><Star /><b>{t.rating || "5.0"}</b></span>
             <blockquote>“{t.quote}”</blockquote>
-            <ul className="tm-tags" aria-label="Endorsed by the client">{t.tags.map((g) => <li key={g}>{g}</li>)}</ul>
+            <ul className="tm-tags" aria-label="Endorsed by the client">{t.tags.map((g, j) => <TagTip key={g} label={g} id={`tg-${i}-${j}`} />)}</ul>
 <figcaption><b>{t.project}</b><i><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="#3b9bff" d="M12 1.800l2.500 1.800 3.100-.100 1 2.900 2.500 1.800-1 2.900 1 2.900-2.500 1.800-1 2.900-3.100-.100L12 21.400l-2.500-1.800-3.100.100-1-2.900L2.900 15l1-2.900-1-2.900 2.500-1.800 1-2.900 3.100.100L12 1.800Z" /><path fill="none" stroke="#fff" strokeWidth="2.200" strokeLinecap="round" strokeLinejoin="round" d="m8.300 12.200 2.500 2.500 4.900-5.200" /></svg>Verified review</i></figcaption>
           </figure>
         ))}
