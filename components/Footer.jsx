@@ -133,7 +133,7 @@ export default function Footer() {
         </div>
         ) : null}
         <FootMap />
-        <p>© {new Date().getFullYear()} Sam Vllaco</p>
+        <p>© {new Date().getFullYear()} Sam Vllaco<span className="foot-tagline">, your close design partner</span></p>
         <AskAI inline name="Sam Vllaco" prompt="Tell me about Sam Vllaco, the product designer at samvllaco.com. What does he do, who does he work with and how do I hire him?" />
 
         <div className="foot-links">
