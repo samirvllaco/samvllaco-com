@@ -46,13 +46,14 @@ export default function MobileMenu() {
       <button ref={btn} type="button" className="mm-btn" aria-expanded={open} aria-controls="mm-sheet" aria-label="Open menu" onClick={() => { place(); setOpen(true); }}>
         <span aria-hidden="true" /><span aria-hidden="true" />
       </button>
-      {ready ? createPortal(<div id="mm-sheet" className={`mm-sheet${open ? " is-open" : ""}${spot ? " has-spot" : ""}`} style={spot || undefined} hidden={!open} onClick={(e) => { if (e.target === e.currentTarget) { setOpen(false); btn.current?.focus(); } }}>
-        <div className="mm-panel" role="dialog" aria-modal="true" aria-label="Menu">
+      {ready ? createPortal(<div id="mm-sheet" className={`mm-sheet${open ? " is-open" : ""}${spot ? " has-spot" : ""}`} style={spot || undefined} hidden={!open} role="dialog" aria-modal="true" aria-label="Menu" onClick={(e) => { if (e.target === e.currentTarget) { setOpen(false); btn.current?.focus(); } }}>
+        {/* Outside the panel, so the panel's drop-in motion never moves it */}
+        <button type="button" className="mm-x" aria-label="Close menu" onClick={() => { setOpen(false); btn.current?.focus(); }}>
+          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" /></svg>
+        </button>
+        <div className="mm-panel">
           <div className="mm-top">
             <span>Menu</span>
-            <button type="button" className="mm-x" aria-label="Close menu" onClick={() => { setOpen(false); btn.current?.focus(); }}>
-              <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" /></svg>
-            </button>
           </div>
           <nav aria-label="Mobile">
             <ul>
