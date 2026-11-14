@@ -3820,3 +3820,18 @@ main p { font-size: 1.0625rem; line-height: 1.6; }
 /* Ebook page: a minimal footer so the page ends on the buy button (owner, 14 Nov 2026) */
 body:has(.eb) .site-footer .foot-stage, body:has(.eb) .site-footer .foot-map, body:has(.eb) .site-footer .ask-ai { display: none !important; }
 body:has(.eb) .site-footer > .wrap { padding-top: 28px; }
+/* Book widget: a round button the same size as the back-to-top and photo bubbles (owner, 14 Nov 2026) */
+.bw { bottom: max(16px, env(safe-area-inset-bottom, 0px)); }
+.bw-tab, .bw.is-open .bw-tab { position: relative; width: 44px; height: 44px; padding: 0; gap: 0; justify-content: center; border-radius: 50%; overflow: visible; background: rgba(28, 28, 30, .72); }
+.bw-tab img, .bw.is-open .bw-tab img { width: 22px; height: 29px; rotate: -8deg; border-radius: 1px 3px 3px 1px; }
+.bw-tab:hover img, .bw.is-open .bw-tab img { rotate: 0deg; }
+.bw-price, .bw.is-open .bw-price { position: absolute; top: -8px; left: 28px; height: 18px; padding: 0 6px; font-size: .625rem; white-space: nowrap; box-shadow: 0 2px 6px rgba(0, 0, 0, .4); }
+.bw.is-open .bw-price { opacity: 0; }
+.bw-tab, .bw.is-open .bw-tab { width: 40px; height: 40px; }
+.bw-tab img, .bw.is-open .bw-tab img { width: 20px; height: 26px; }
+.bw-price, .bw.is-open .bw-price { left: 26px; }
+/* Only the round button opens the book card; the empty space around it no longer reacts to the mouse */
+.bw { pointer-events: none; }
+.bw-tab, .bw.is-open .bw-card { pointer-events: auto; }
+.bw-card { margin-left: -4px; } .bw.is-open .bw-card::before { content: ""; position: absolute; left: -16px; top: 0; bottom: 0; width: 16px; }
+.bw-price, .bw.is-open .bw-price { padding: 0 8px; min-width: max-content; display: inline-flex; align-items: center; }

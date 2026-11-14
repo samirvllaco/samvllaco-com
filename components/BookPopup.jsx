@@ -31,7 +31,7 @@ export default function BookPopup() {
   if (!show || path.replace(/\/$/, "") === "/ebook") return null;
   return (
     <aside ref={box} className={`bw${open ? " is-open" : ""}`} aria-label="My book, 27 prompts to fix AI slop UI"
-      onPointerEnter={(e) => { if (e.pointerType === "mouse") setOpen(true); }} onPointerLeave={(e) => { if (e.pointerType === "mouse") setOpen(false); }}
+      onPointerEnter={(e) => { if (e.pointerType === "mouse") { clearTimeout(box.t); setOpen(true); } }} onPointerLeave={(e) => { if (e.pointerType === "mouse") { clearTimeout(box.t); box.t = setTimeout(() => setOpen(false), 220); } }}
       onFocus={(e) => { if (e.target.matches(":focus-visible")) setOpen(true); }} onBlur={(e) => { if (!box.current?.contains(e.relatedTarget)) setOpen(false); }}>
       <button type="button" className="bw-tab" aria-expanded={open} aria-controls="bw-card" onPointerDown={(e) => { ptr.current = e.pointerType; }}
         onClick={() => { if (ptr.current !== "mouse") setOpen((v) => !v); ptr.current = ""; }}>
