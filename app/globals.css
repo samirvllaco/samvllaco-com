@@ -3879,18 +3879,22 @@ a.mega-btn { text-decoration: none; }
 @media (max-width: 980px) { .mm-sheet.has-spot .mm-x { animation: none; } .mm-sheet.has-spot .mm-top { padding-right: calc(var(--bx-s) + 8px); } }
 
 /* Big menu: opens like an Apple panel. The panel unfolds from the header on the sheet curve, then its content
-   settles in a short stagger; closing is quicker and eases in (DESIGN.md motion rules 5, 6, 8, 9) (owner, 14 Nov 2026) */
+   settles in a short stagger; closing is quicker and eases in (DESIGN.md motion rules 5, 6, 8, 9) (owner, 14 Nov 2026).
+   Transitions, not keyframes: opening and closing fast reverses from where the panel is, with no jump (owner, 14 Nov 2026) */
 @media (min-width: 981px) and (prefers-reduced-motion: no-preference) {
-  .site-header .mega { transform-origin: 50% 0; animation: mx-open .46s var(--ease-sheet) backwards; }
-  .site-header .mega.is-closing { pointer-events: none; animation: mx-close .2s var(--ease-in) forwards; }
-  .site-header .mega:not(.is-closing) :is(.mx-k, .mx-grid > li, .mx-all, .mx-more, .mx-posts, .mx-side) { animation: mx-item .42s var(--ease-out) backwards; animation-delay: 90ms; }
-  .site-header .mega:not(.is-closing) .mx-grid > li:nth-child(2) { animation-delay: 110ms; }
-  .site-header .mega:not(.is-closing) .mx-grid > li:nth-child(3) { animation-delay: 130ms; }
-  .site-header .mega:not(.is-closing) .mx-grid > li:nth-child(4) { animation-delay: 150ms; }
-  .site-header .mega:not(.is-closing) .mx-grid > li:nth-child(5) { animation-delay: 170ms; }
-  .site-header .mega:not(.is-closing) .mx-grid > li:nth-child(n+6) { animation-delay: 190ms; }
-  .site-header .mega:not(.is-closing) :is(.mx-all, .mx-more, .mx-posts) { animation-delay: 200ms; }
-  .site-header .mega:not(.is-closing) .mx-side { animation-delay: 140ms; }
+  .site-header .mega { animation: none; transform-origin: 50% 0; opacity: 0; translate: 0 -10px; scale: .97 .94; clip-path: inset(0 0 60% 0 round 24px); pointer-events: none;
+    transition: opacity .2s var(--ease-in), translate .2s var(--ease-in), scale .2s var(--ease-in), clip-path .2s var(--ease-in); }
+  .site-header .mega.is-on { opacity: 1; translate: 0 0; scale: 1; clip-path: inset(0 0 0 0 round 24px); pointer-events: auto;
+    transition-duration: .46s; transition-timing-function: var(--ease-sheet); }
+  .site-header .mega :is(.mx-k, .mx-grid > li, .mx-all, .mx-more, .mx-posts, .mx-side) { opacity: 0; translate: 0 8px; transition: opacity .14s var(--ease-in), translate .14s var(--ease-in); }
+  .site-header .mega.is-on :is(.mx-k, .mx-grid > li, .mx-all, .mx-more, .mx-posts, .mx-side) { opacity: 1; translate: 0 0; transition: opacity .42s var(--ease-out) 90ms, translate .42s var(--ease-out) 90ms; }
+  .site-header .mega.is-on .mx-grid > li:nth-child(2) { transition-delay: 110ms; }
+  .site-header .mega.is-on .mx-grid > li:nth-child(3) { transition-delay: 130ms; }
+  .site-header .mega.is-on .mx-grid > li:nth-child(4) { transition-delay: 150ms; }
+  .site-header .mega.is-on .mx-grid > li:nth-child(5) { transition-delay: 170ms; }
+  .site-header .mega.is-on .mx-grid > li:nth-child(n+6) { transition-delay: 190ms; }
+  .site-header .mega.is-on :is(.mx-all, .mx-more, .mx-posts) { transition-delay: 200ms; }
+  .site-header .mega.is-on .mx-side { transition-delay: 140ms; }
 }
 @keyframes mx-open { from { opacity: 0; translate: 0 -10px; scale: .97 .94; clip-path: inset(0 0 60% 0 round 24px); } to { opacity: 1; translate: 0 0; scale: 1; clip-path: inset(0 0 0 0 round 24px); } }
 @keyframes mx-close { to { opacity: 0; translate: 0 -6px; scale: .985; } }

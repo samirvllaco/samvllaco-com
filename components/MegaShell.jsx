@@ -1,13 +1,16 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 
 // A header item that opens a wide panel on hover, click or keyboard. children(close) renders the panel content.
 export default function MegaShell({ id, label, href, children }) {
   const [open, setOpen] = useState(false);
-  const [shut, setShut] = useState(false); // plays the short close animation before the panel is hidden
-  const was = useRef(false);
+  // shown: the panel is in the page. on: the panel sits in its open state. The panel moves with CSS transitions,
+  // so opening and closing quickly reverses from wherever it is instead of jumping back to the start.
+  const [shown, setShown] = useState(false);
+  const [on, setOn] = useState(false);
+  const hideT = useRef(null);
   const handoff = useRef(false);
   const wrap = useRef(null);
   const timer = useRef(null);
@@ -16,26 +19,30 @@ export default function MegaShell({ id, label, href, children }) {
   useEffect(() => { setOpen(false); }, [path]);
   useEffect(() => {
     if (open) {
-      // Grow the panel from the button that opened it.
-      const btn = wrap.current?.querySelector(".mega-btn"); const panel = document.getElementById(id);
-      if (btn && panel) { const b = btn.getBoundingClientRect(); const pr = panel.getBoundingClientRect(); if (pr.width) panel.style.setProperty("--mx-ox", `${Math.round(b.left + b.width / 2 - pr.left)}px`); }
-      was.current = true; setShut(false);
+      clearTimeout(hideT.current); handoff.current = false;
+      setShown(true);
       window.dispatchEvent(new CustomEvent("mega:open", { detail: id }));
       return;
     }
-    if (!was.current) return;
-    was.current = false;
-    if (handoff.current) { handoff.current = false; setShut(false); return; }
-    setShut(true);
-    const t = setTimeout(() => setShut(false), 200);
-    // Another menu opening hides this one at once, so the two never overlap.
-    const other = (e) => { if (e.detail !== id) { clearTimeout(t); setShut(false); } };
-    window.addEventListener("mega:open", other);
-    return () => { clearTimeout(t); window.removeEventListener("mega:open", other); };
+    setOn(false);
+    if (handoff.current) { handoff.current = false; clearTimeout(hideT.current); setShown(false); return; }
+    clearTimeout(hideT.current);
+    hideT.current = setTimeout(() => setShown(false), 220);
   }, [open, id]);
+  // Once the panel is in the page, read its layout first so the open transition always starts from the closed state.
+  useLayoutEffect(() => {
+    if (!open || !shown || on) return;
+    const btn = wrap.current?.querySelector(".mega-btn"); const panel = document.getElementById(id);
+    if (btn && panel) {
+      const b = btn.getBoundingClientRect(); const pr = panel.getBoundingClientRect();
+      if (pr.width) panel.style.setProperty("--mx-ox", `${Math.round(b.left + b.width / 2 - pr.left)}px`);
+    }
+    setOn(true);
+  }, [open, shown, on, id]);
+  useEffect(() => () => clearTimeout(hideT.current), []);
   // Moving from one menu to the next swaps them at once, with no close animation in between.
   useEffect(() => {
-    const swap = (e) => { if (e.detail !== id && was.current) { clearTimeout(timer.current); handoff.current = true; setOpen(false); } };
+    const swap = (e) => { if (e.detail === id) return; clearTimeout(timer.current); clearTimeout(hideT.current); handoff.current = true; setOpen(false); setOn(false); setShown(false); };
     window.addEventListener("mega:open", swap);
     return () => window.removeEventListener("mega:open", swap);
   }, [id]);
@@ -69,7 +76,7 @@ export default function MegaShell({ id, label, href, children }) {
           {label}
         </button>
       )}
-      <div id={id} className={`mega mx${shut ? " is-closing" : ""}`} hidden={!open && !shut}>
+      <div id={id} className={`mega mx${on ? " is-on" : ""}`} hidden={!shown}>
         {children(close)}
       </div>
     </span>
