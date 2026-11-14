@@ -6,9 +6,10 @@ import Crumbs from "../../components/Crumbs";
 import SectionColors from "../../components/SectionColors";
 import FreePrompts from "../../components/FreePrompts";
 import JsonLd from "../../components/JsonLd";
+import Faq from "../../components/Faq";
 import EbookBar from "../../components/EbookBar";
 import { share, PERSON_ID } from "../../lib/seo";
-import { SITE } from "../../lib/site";
+import { SITE, EMAIL } from "../../lib/site";
 
 const BUY_URL = BOOK_URL;
 const PRICE = "$6.99";
@@ -413,7 +414,7 @@ export default function Ebook() {
         </div>
         <div className="hp-right">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img className="hp-photo" src="/sam-footer.webp" width="1254" height="1254" alt="" loading="lazy" />
+          <img className="hp-photo" src="/sam-hire.webp?v=2" width="1000" height="1250" alt="" loading="lazy" />
           <div className="hp-shade" aria-hidden="true" />
           <div className="hp-body">
             <h3>10 years of product design,<br /><em>now in 59 pages you can copy and paste.</em></h3>
@@ -423,12 +424,16 @@ export default function Ebook() {
         </div>
       </section>
 
-      <section className="eb-sec">
-        <h2>Questions <span className="t2">before you buy</span></h2>
-        <dl className="eb-faq">
-          {FAQ.map(([q, a]) => (<div key={q}><dt>{q}</dt><dd>{a}</dd></div>))}
-        </dl>
-      </section>
+      <div className="eb-sec eb-faqwrap">
+        <Faq items={FAQ.map(([q, a]) => ({ q, a }))} a="Questions" b="before you buy" bg="#111112">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img className="faq-photo eb-faq-cov" src="/book-cover.webp?v=2" width="300" height="400" alt="" loading="lazy" />
+          <h3>Still not sure? <em className="scr">Ask me.</em></h3>
+          <p>Send me a message and I'll tell you honestly if the book fits your product.</p>
+          <p className="faq-go"><Buy label={<>Get the book <span className="eb-pill">{PRICE}</span></>} /></p>
+          <p className="faq-mail">Or email me at <b>{EMAIL}</b></p>
+        </Faq>
+      </div>
 
       <section className="eb-sec eb-end">
         <h2>You did the hard part. <span className="t2">Now make it look the part.</span></h2>

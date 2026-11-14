@@ -3813,3 +3813,7 @@ main p { font-size: 1.0625rem; line-height: 1.6; }
 .wall-stats .ws-main .ws-lr { width: clamp(24px, 2.8vw, 40px); }
 .wall-stats li:not(.ws-main) b { font-size: clamp(1.375rem, 2.3vw, 2rem); }
 @media (max-width: 640px) { .wall-stats .ws-main { margin-top: 12px; } .wall-stats .ws-main b { font-size: 2.5rem; } .wall-stats li:not(.ws-main) b { font-size: 1.125rem; } }
+/* Price pill inside a primary button always reads white (owner, 14 Nov 2026) */
+.hero2-btn .eb-pill, .pain-cta .hero2-btn .eb-pill { color: #fff; font-size: 1em; }
+.eb-faq-cov { width: auto !important; height: 200px !important; aspect-ratio: 3 / 4 !important; margin: 8px auto 10px !important; border-radius: 4px 10px 10px 4px !important; rotate: -4deg; box-shadow: inset 3px 0 0 rgba(255, 255, 255, .25), 0 24px 40px -16px rgba(0, 0, 0, .8); }
+.eb-faqwrap .faq-card { justify-items: center; }
