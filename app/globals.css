@@ -3770,3 +3770,10 @@ main p { font-size: 1.0625rem; line-height: 1.6; }
 :root[data-theme="light"] .crumb-pop { background: rgba(255, 255, 255, .9); box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .08), 0 30px 60px -24px rgba(0, 0, 0, .25); }
 :root[data-theme="light"] .crumbs .crumb-pop a { color: #1d1d1f; } :root[data-theme="light"] .crumbs .crumb-pop a:hover { background: rgba(0, 0, 0, .05); color: #000; }
 .crumbs .crumb-pop a[aria-current="page"] { color: #fff; background: rgba(98, 193, 253, .12); } :root[data-theme="light"] .crumbs .crumb-pop a[aria-current="page"] { color: #000; background: rgba(10, 111, 214, .08); }
+/* Card hover pills as clear glass, like backgrounds.supply (owner, 14 Nov 2026) */
+.work-open { height: 48px; padding: 0 22px; gap: 10px; font-size: .9375rem; font-weight: 500; color: #fff; letter-spacing: -.005em;
+  background: linear-gradient(180deg, rgba(255, 255, 255, .26) 0%, rgba(255, 255, 255, .1) 100%), rgba(40, 40, 44, .28);
+  -webkit-backdrop-filter: blur(16px) saturate(170%); backdrop-filter: blur(16px) saturate(170%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .55), inset 0 0 0 1px rgba(255, 255, 255, .22), inset 0 -8px 16px -8px rgba(255, 255, 255, .12), 0 12px 30px -10px rgba(0, 0, 0, .45);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, .35); }
+.work-open svg { filter: drop-shadow(0 1px 2px rgba(0, 0, 0, .35)); }
