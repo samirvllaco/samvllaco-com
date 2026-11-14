@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { BOOK_URL } from "../lib/site";
 import CallIcon from "./CallIcon";
@@ -47,7 +47,7 @@ export default function MobileMenu() {
   const isHere = (href) => !href.includes("#") && path.replace(/\/?$/, "/") === href;
 
   useEffect(() => { setOpen(false); }, [path]);
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (open) { was.current = true; setShut(false); return; }
     if (!was.current) return;
     was.current = false; setShut(true);
@@ -62,17 +62,18 @@ export default function MobileMenu() {
     window.addEventListener("resize", place);
     return () => window.removeEventListener("resize", place);
   }, [open]);
+  // The page stays in "menu open" mode until the close animation ends, so nothing pops over the sheet as it leaves.
+  useLayoutEffect(() => { document.documentElement.classList.toggle("mm-open", open || shut); }, [open, shut]);
   useEffect(() => {
-    document.documentElement.classList.toggle("mm-open", open);
     if (!open) return;
     const onKey = (e) => { if (e.key === "Escape") { setOpen(false); btn.current?.focus(); } };
     window.addEventListener("keydown", onKey);
-    return () => { window.removeEventListener("keydown", onKey); document.documentElement.classList.remove("mm-open"); };
+    return () => window.removeEventListener("keydown", onKey);
   }, [open]);
 
   return (
     <>
-      <button ref={btn} type="button" className="mm-btn" aria-expanded={open} aria-controls="mm-sheet" aria-label="Open menu" onClick={() => { place(); setOpen(true); }}>
+      <button ref={btn} type="button" className="mm-btn" aria-expanded={open} aria-controls="mm-sheet" aria-label="Open menu" onPointerEnter={() => setReady(true)} onPointerDown={() => setReady(true)} onFocus={() => setReady(true)} onClick={() => { setReady(true); place(); setOpen(true); }}>
         <span aria-hidden="true" /><span aria-hidden="true" />
       </button>
       {ready ? createPortal(<div id="mm-sheet" className={`mm-sheet${open ? " is-open" : ""}${shut ? " is-closing" : ""}${spot ? " has-spot" : ""}`} style={spot || undefined} hidden={!open && !shut} role="dialog" aria-modal="true" aria-label="Menu" onClick={(e) => { if (e.target === e.currentTarget) { setOpen(false); btn.current?.focus(); } }}>

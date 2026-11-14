@@ -42,6 +42,13 @@ export default function MegaShell({ id, label, href, children }) {
     setOn(true);
   }, [open, shown, on, id]);
   useEffect(() => () => clearTimeout(hideT.current), []);
+  // While a big menu is out, the floating extras (avatar bubble, book widget, buy bar, back to top) step aside.
+  useEffect(() => {
+    if (!shown) return;
+    const root = document.documentElement;
+    root.classList.add("mega-open");
+    return () => { if (!document.querySelector(".mega.is-on")) root.classList.remove("mega-open"); };
+  }, [shown]);
   // Moving from one menu to the next swaps them at once, with no close animation in between.
   useEffect(() => {
     const swap = (e) => { if (e.detail === id) return; clearTimeout(timer.current); clearTimeout(hideT.current); handoff.current = true; setOpen(false); setOn(false); setShown(false); };
