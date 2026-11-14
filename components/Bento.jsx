@@ -51,7 +51,7 @@ export default function Bento() {
   const colA = ["kestrel-d-07", "mobile-banking-01", "room-editor-01", "eye-care-ios-app-01", "freelance-marketplace-01", "trip-planner-01"].map(pick);
   const colB = ["language-player-01", "supplements-store-01", "eye-care-web-app-01", "golf-swing-recorder-01", "eye-care-marketing-site-01", "freelance-marketplace-05"].map(pick);
   return (
-    <section className="bx-sec bx-soft dark-island" aria-labelledby="bx-h" data-bg="#000000" data-dark>
+    <section className="bx-sec bx-soft dark-island" aria-labelledby="bx-h" data-bg="#000000">
       <h2 id="bx-h" className="bx-title">One designer<br /><span className="t2">for the whole product.</span></h2>
       <div className="bx-grid">
         <div className="bx-stats">
