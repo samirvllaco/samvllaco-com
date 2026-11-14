@@ -3614,7 +3614,7 @@ html.is-end .bk { bottom: max(16px, env(safe-area-inset-bottom, 0px)); }
 :root[data-theme="light"] .head-nav .mx .mx-more a { background: rgba(0, 0, 0, .05); } :root[data-theme="light"] .mx-more { border-top-color: rgba(0, 0, 0, .08); }
 @media (hover: hover) { .head-nav:has(a:hover, .mega-btn:hover) .mega a:not(:hover) { opacity: 1; } }
 .hp-photo { filter: none; object-position: 50% 15%; }
-@media (max-width: 960px) { .hp-right { padding-top: calc(min(100vw, 960px) * .78); } .hp-right .hp-photo { bottom: auto; height: auto; aspect-ratio: 561 / 701; object-position: 50% 0; } }
+@media (max-width: 960px) { .hp-right { padding-top: calc(min(100vw, 960px) * .78); } .hp-right .hp-photo { bottom: auto; height: auto; aspect-ratio: 1000 / 1250; object-position: 50% 0; } }
 .foot-tagline { font-weight: 400; color: #98989d; } :root[data-theme="light"] .foot-tagline { color: #6e6e73; }
 /* Resources mega menu (owner, 14 Nov 2026) */
 .mx-k2 { margin-top: 20px; padding-top: 16px; border-top: 1px solid rgba(255, 255, 255, .08); }
@@ -3777,3 +3777,4 @@ main p { font-size: 1.0625rem; line-height: 1.6; }
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, .55), inset 0 0 0 1px rgba(255, 255, 255, .22), inset 0 -8px 16px -8px rgba(255, 255, 255, .12), 0 12px 30px -10px rgba(0, 0, 0, .45);
   text-shadow: 0 1px 2px rgba(0, 0, 0, .35); }
 .work-open svg { filter: drop-shadow(0 1px 2px rgba(0, 0, 0, .35)); }
+.hp-photo { object-position: 55% 20%; }

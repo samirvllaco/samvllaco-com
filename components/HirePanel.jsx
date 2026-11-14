@@ -13,7 +13,7 @@ const FIELDS = [
   ["Editorial", "M5 4h11l3 3v13H5zM8 9h8M8 13h8M8 17h5"], ["Sports", "M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM3.5 9h17M3.5 15h17M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"], ["Marketing sites", "M3 5h18v14H3zM3 9h18M7 7h.01M10 7h.01"], ["Design systems", "M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM16.5 13a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7z"],
 ];
 
-export default function HirePanel({ photo = "/sam-hire.webp?v=1" }) {
+export default function HirePanel({ photo = "/sam-hire.webp?v=2" }) {
   return (
     <section className="hp" aria-labelledby="hp-h" data-bg="#1f1f22">
       <div className="hp-left">
@@ -36,7 +36,7 @@ export default function HirePanel({ photo = "/sam-hire.webp?v=1" }) {
       </div>
       <div className="hp-right">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img className="hp-photo" src={photo} width="561" height="701" alt="" loading="lazy" />
+        <img className="hp-photo" src={photo} width="1000" height="1250" alt="" loading="lazy" />
         <div className="hp-shade" aria-hidden="true" />
         <div className="hp-body">
           <h3>You found the designer,<br /><em>not another agency.</em></h3>
