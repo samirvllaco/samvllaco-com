@@ -9,7 +9,6 @@ import JsonLd from "../../components/JsonLd";
 import Faq from "../../components/Faq";
 import EbookBar from "../../components/EbookBar";
 import FlipBook from "../../components/FlipBook";
-import FreePagesForm from "../../components/FreePagesForm";
 import { share, PERSON_ID } from "../../lib/seo";
 import { SITE, EMAIL, REVIEW_URL } from "../../lib/site";
 
@@ -406,16 +405,11 @@ export default function Ebook() {
 
       <section className="eb-sec eb-pk" id="options" aria-labelledby="eb-pk-h">
         <h2 id="eb-pk-h">Pick what <span className="t2">fits you</span></h2>
-        <p className="eb-why-lede">Start free, get the full system, or have me look at your product with you.</p>
+        <p className="eb-why-lede">Get the full system, or have me review your product with you.</p>
         <div className="eb-pk-grid">
-          <article className="eb-pk-card">
-            <p className="eb-pk-k">Free sample</p>
-            <h3>10 free pages</h3>
-            <p className="eb-pk-price">$0</p>
-            <p>The first 10 pages of the book: what makes a page look AI-made, the first tells and the first prompts. I send them to your inbox.</p>
-            <FreePagesForm />
-          </article>
           <article className="eb-pk-card is-main">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img className="eb-pk-media eb-pk-book" src="/ebook/cover.webp?v=2" width="936" height="1326" alt="" loading="lazy" />
             <p className="eb-pk-k">The full book</p>
             <h3>27 Copy-Paste Prompts</h3>
             <p className="eb-pk-price">{PRICE}<span>one-time</span></p>
@@ -429,6 +423,11 @@ export default function Ebook() {
             <p className="eb-pk-small">One-time purchase. Downloadable files you can keep and reuse.</p>
           </article>
           <article className="eb-pk-card">
+            <div className="eb-pk-me">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/sam-hire.webp?v=2" width="1000" height="1250" alt="Sam Vllaco" loading="lazy" />
+              <span><b>Sam Vllaco</b>10+ years in product design, 570+ clients, 10,000+ screens</span>
+            </div>
             <p className="eb-pk-k">Personal review</p>
             <h3>Complete UI/UX review</h3>
             <p className="eb-pk-price">$99<span>one-time</span></p>
@@ -439,7 +438,7 @@ export default function Ebook() {
               <li data-i="steps">A step-by-step plan from your score to 10/10</li>
               <li data-i="play">A Loom video walking you through it</li>
               <li data-i="spark">Custom prompts written for your product</li>
-              <li data-i="web">I clone your site and improve it for you</li>
+              <li data-i="web">Before and after screenshots of your site, showing what improved</li>
               <li data-i="book">The full book included</li>
             </ul>
             {REVIEW_URL ? <a className="hero2-btn hero2-btn-light" href={REVIEW_URL} target="_blank" rel="noopener">Get a review</a> : <a className="hero2-btn hero2-btn-light" href="/book/">Ask about a review</a>}
