@@ -302,7 +302,8 @@ export default function CaseStudy({ params }) {
       <CaseAside items={toc} />
       <CaseFab
         prev={(() => { const i = WORK.findIndex((x) => x.slug === w.slug), p = WORK[(i - 1 + WORK.length) % WORK.length]; return { href: `/work/${p.slug}/`, title: p.title }; })()}
-        next={(() => { const i = WORK.findIndex((x) => x.slug === w.slug), n = WORK[(i + 1) % WORK.length]; return { href: `/work/${n.slug}/`, title: n.title }; })()}
+        next={(() => { const i = WORK.findIndex((x) => x.slug === w.slug), n = WORK[(i + 1) % WORK.length]; return { href: `/work/${n.slug}/`, title: n.title, img: n.small }; })()}
+        more={(() => { const i = WORK.findIndex((x) => x.slug === w.slug); return [2, 3, 4].map((k) => WORK[(i + k) % WORK.length]).map((m) => ({ href: `/work/${m.slug}/`, title: m.title, sub: m.sub, img: m.small })); })()}
       />
     </div>
   );
