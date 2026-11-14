@@ -3833,3 +3833,21 @@ body:has(.eb) .site-footer > .wrap { padding-top: 28px; }
 .bw-tab, .bw.is-open .bw-card { pointer-events: auto; }
 .bw-card { margin-left: -4px; } .bw.is-open .bw-card::before { content: ""; position: absolute; left: -16px; top: 0; bottom: 0; width: 16px; }
 .bw-price, .bw.is-open .bw-price { padding: 0 8px; min-width: max-content; display: inline-flex; align-items: center; }
+
+/* Stats band over the screen wall: solid page color at the top so it meets the area above with no visible edge,
+   fading out only at the bottom (owner, 14 Nov 2026) */
+.wall-stick { --wall-fade: var(--sec-bg, #000); }
+.wall-stats { background: linear-gradient(180deg, var(--sec-bg) 0%, var(--sec-bg) 45%, color-mix(in srgb, var(--sec-bg) 70%, transparent) 70%, color-mix(in srgb, var(--sec-bg) 25%, transparent) 88%, transparent 100%); }
+.wall-stick::before { background: linear-gradient(180deg, var(--wall-fade) 0%, var(--wall-fade) 55%, transparent 100%); }
+
+/* Dotted texture behind the hero of every page, same dots and side fade as the home hero (owner, 14 Nov 2026) */
+/* body is its own stacking layer so the dots (z-index -1) sit above the body color and below the content */
+body { isolation: isolate; }
+main > .page { position: relative; }
+main > .page:not(:has(> .hero2))::before {
+  content: ""; position: absolute; top: -40px; left: calc(50% - 50vw); right: calc(50% - 50vw); height: clamp(560px, 86vh, 860px); z-index: -1; pointer-events: none;
+  background-image: radial-gradient(circle, color-mix(in srgb, var(--text) 22%, transparent) 1px, transparent 1.5px);
+  background-size: 22px 22px; opacity: .5;
+  -webkit-mask-image: radial-gradient(ellipse 46% 80% at 86% 30%, #000 0%, transparent 75%), radial-gradient(ellipse 46% 80% at 14% 30%, #000 0%, transparent 75%);
+  mask-image: radial-gradient(ellipse 46% 80% at 86% 30%, #000 0%, transparent 75%), radial-gradient(ellipse 46% 80% at 14% 30%, #000 0%, transparent 75%);
+}
