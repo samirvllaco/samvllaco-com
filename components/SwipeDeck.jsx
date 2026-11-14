@@ -6,7 +6,7 @@ const ICON = {
   desktop: <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="12" rx="2" /><path d="M8 20h8M12 16v4" /></svg>,
   mobile: <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="7" y="2.500" width="10" height="19" rx="2.500" /><path d="M11 18.500h2" /></svg>,
 };
-const STEP = 0.74; // distance between slides, as a share of the stage width
+const STEP = 1.06; // distance between slides, as a share of one slide width (a small gap between cards)
 const mod = (a, n) => ((a % n) + n) % n;
 
 // Projects on one row that you swipe sideways. The middle one is in focus, its neighbours wait at the sides.
@@ -45,12 +45,12 @@ export default function SwipeDeck({ items }) {
       </div>
       <div className={`sd-stage${held ? " is-held" : ""}`} ref={stage} onPointerDown={down} onPointerMove={move} onPointerUp={up} onPointerLeave={up} onPointerCancel={up}
         tabIndex={0} role="group" aria-label="Projects. Use the arrow keys to move." onKeyDown={(e) => { if (e.key === "ArrowRight") go(1); if (e.key === "ArrowLeft") go(-1); }}>
-        {[-2, -1, 0, 1, 2].map((k) => {
+        {[-3, -2, -1, 0, 1, 2, 3].map((k) => {
           const item = list[mod(idx + k, list.length)];
-          const pos = k + drag / (width() * STEP), d = Math.min(1.4, Math.abs(pos));
+          const pos = k + drag / (width() * 0.6 * STEP);
           return (
             <Link prefetch={false} key={`${device}-${idx + k}`} href={`/work/${item.slug}/`} className="sd-slide" draggable="false" tabIndex={k === 0 ? 0 : -1} aria-hidden={k !== 0}
-              style={{ transform: `translate3d(${(pos * STEP * 100).toFixed(3)}%, 0, 0) scale(${(1 - 0.2 * Math.min(1, d)).toFixed(4)})`, opacity: Math.max(0, 1 - 0.6 * d), zIndex: 5 - Math.abs(k) }}
+              style={{ transform: `translate3d(${(pos * STEP * 100).toFixed(3)}%, 0, 0)`, zIndex: 5 - Math.abs(k) }}
               onClick={(e) => { if (moved.current) { e.preventDefault(); return; } if (k !== 0) { e.preventDefault(); go(k); } }}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img className={item.round ? "is-round" : undefined} src={item.cut} width="900" height="600" loading="lazy" decoding="async" alt={k === 0 ? item.alt : ""} draggable="false" />
