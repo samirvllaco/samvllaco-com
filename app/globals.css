@@ -4258,3 +4258,14 @@ html.js .hero3 h1.h3-flip.h3-in .h3-slot { opacity: 1; scale: 1; rotate: 0deg; t
 
 /* Ebook closing section: the dots sit behind the headline and button, fading out toward the edges (owner, 15 Nov 2026) */
 .eb-end::before { background-image: radial-gradient(circle, color-mix(in srgb, var(--text) 34%, transparent) 1.1px, transparent 1.6px); -webkit-mask-image: radial-gradient(ellipse 60% 80% at 50% 45%, #000 10%, transparent 80%); mask-image: radial-gradient(ellipse 60% 80% at 50% 45%, #000 10%, transparent 80%); opacity: 1; }
+/* Footer email copy: same feedback as the other copy buttons (tick plus "Copied"), and a tight pill hover area (owner, 15 Nov 2026) */
+.copy-email { gap: 8px; padding-inline: 12px; margin-inline: -12px; border-radius: 999px; }
+.copy-email .copy-status { display: inline-flex; min-width: 0; width: auto; font-size: .875rem; font-weight: 600; color: #62c1fd; }
+.copy-email .copy-status:empty, .copy-email:not(.is-done) .copy-status { margin-left: -8px; }
+.copy-email.is-done svg { color: #62c1fd; }
+@media (prefers-reduced-motion: no-preference) { .copy-email.is-done svg, .copy-email.is-done .copy-status { animation: ce-pop .3s var(--spring) both; } }
+@keyframes ce-pop { from { opacity: 0; scale: .6; } to { opacity: 1; scale: 1; } }
+/* "Copied" floats just above the pill so nothing next to it moves */
+.copy-email { position: relative; }
+.copy-email .copy-status { position: absolute; left: 50%; bottom: calc(100% + 4px); translate: -50% 0; margin: 0 !important; padding: 4px 10px; border-radius: 999px; font-size: .8125rem; white-space: nowrap; color: #0b1a26; background: #62c1fd; pointer-events: none; }
+.copy-email:not(.is-done) .copy-status { padding: 0; background: none; }

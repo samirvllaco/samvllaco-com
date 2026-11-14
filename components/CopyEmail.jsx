@@ -18,7 +18,7 @@ export default function CopyEmail() {
     setTimeout(() => setDone(false), 1800);
   }
   return (
-    <button type="button" className="copy-email" onClick={copy} aria-label={`Copy email address ${EMAIL}`}>
+    <button type="button" className={`copy-email${done ? " is-done" : ""}`} onClick={copy}>
       <span id="copy-email-text">{EMAIL}</span>
       <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
         {done ? (
@@ -27,7 +27,7 @@ export default function CopyEmail() {
           <g fill="none" stroke="currentColor" strokeWidth="2" strokeLinejoin="round"><rect x="9" y="9" width="11" height="11" rx="2" /><path d="M5 15V6a2 2 0 0 1 2-2h8" /></g>
         )}
       </svg>
-      <span className="copy-status" role="status">{done ? "Copied" : ""}</span>
+      <span className="copy-status" role="status">{done ? "Copied" : <span className="sr-only">Copy</span>}</span>
     </button>
   );
 }
