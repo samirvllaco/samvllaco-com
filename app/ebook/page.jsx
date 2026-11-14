@@ -109,18 +109,18 @@ const GET = [
 const FILES = ["DESIGN.md", "SCORECARD.md", "PROMPTS.md", "UX-LAWS.md"];
 
 const FAQ = [
-  ["What format is it?", "A PDF plus four plain text files (DESIGN.md, SCORECARD.md, PROMPTS.md and UX-LAWS.md) you can drop into your project, and a private video link."],
-  ["What is the private video?", "A 15 to 30 minute screen recording where I take an AI-built page and turn it into a real product, live, using the prompts from the book. You see every decision and why I make it, so you can pause, copy my steps and learn how I think."],
-  ["Which AI tools does it work with?", "Any tool that takes a prompt, such as Claude, Lovable, v0, Codex, Cursor and Bolt. The prompts are plain language."],
-  ["Do I need design skills?", "Nope. Each step tells you what to do, why it matters and what to check before you say yes to the AI's change."],
-  ["How long does it take?", "Two speeds. The 30-minute quick start covers color, type, spacing and the hero, where you see the biggest jump. The full 27 steps take about an hour per page."],
-  ["Why not just ask the AI to make it look better?", "You can, and you usually get another gradient. Vague asks get average results. These prompts give your AI exact values and rules, and the scorecard shows what still looks off."],
-  ["Why is it only $12.99?", "It is priced to be an easy yes. Inside are the same rules I use on client projects."],
-  ["My app already looks okay. Do I need this?", "Run the scorecard first. If your page already scores a 10, you know it is ready. If not, you know exactly what to fix."],
-  ["Will it work on my next project?", "Yes. That is the point of the system: rules, fix, rate, re-run, on any page you build."],
-  ["Can it break something in my app?", "Every prompt asks your AI to keep your content and features and change only the design. AI tools still make mistakes, so work on a copy or a new branch, review each change before you accept it and click through the page after. Each step tells you what to check."],
-  ["What if the AI changes something important?", "Undo it and run the step again with the part to leave alone named in the prompt. Commit or save a backup before each step, so going back is one click. The checks in each step help you catch it before you accept the change."],
-  ["Do I get updates?", "Yes. I update the book every week, and every new version is yours for free. Download it again from your Whop library."],
+  ["What format is it?", "**A PDF** plus **four plain text files** (DESIGN.md, SCORECARD.md, PROMPTS.md and UX-LAWS.md) you can drop into your project, and ==a private video link==."],
+  ["What is the private video?", "A **15 to 30 minute screen recording** where I take an AI-built page and turn it into a real product, _live_, using the prompts from the book. You see ==every decision and why I make it==, so you can pause, copy my steps and learn how I think."],
+  ["Which AI tools does it work with?", "==Any tool that takes a prompt==, such as **Claude, Lovable, v0, Codex, Cursor and Bolt**. The prompts are plain language."],
+  ["Do I need design skills?", "**Nope.** Each step tells you ==what to do, why it matters and what to check== before you say yes to the AI's change."],
+  ["How long does it take?", "Two speeds. The **30-minute quick start** covers color, type, spacing and the hero, where you see ==the biggest jump==. The **full 27 steps** take about an hour per page."],
+  ["Why not just ask the AI to make it look better?", "You can, and you usually get _another gradient_. Vague asks get average results. These prompts give your AI ==exact values and rules==, and **the scorecard** shows what still looks off."],
+  ["Why is it only $12.99?", "It is priced to be ==an easy yes==. Inside are **the same rules I use on client projects**."],
+  ["My app already looks okay. Do I need this?", "**Run the scorecard first.** If your page already scores a 10, you know it is ready. If not, you know ==exactly what to fix==."],
+  ["Will it work on my next project?", "**Yes.** That is the point of the system: ==rules, fix, rate, re-run==, on any page you build."],
+  ["Can it break something in my app?", "Every prompt asks your AI to ==keep your content and features and change only the design==. AI tools still make mistakes, so **work on a copy or a new branch**, review each change before you accept it and click through the page after. Each step tells you what to check."],
+  ["What if the AI changes something important?", "**Undo it** and run the step again with the part to leave alone named in the prompt. Commit or save a backup before each step, so ==going back is one click==. The checks in each step help you catch it _before_ you accept the change."],
+  ["Do I get updates?", "**Yes.** I update the book every week, and ==every new version is yours for free==. Download it again from your **Whop library**."],
 ];
 
 function Buy({ label }) {

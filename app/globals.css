@@ -4269,3 +4269,11 @@ html.js .hero3 h1.h3-flip.h3-in .h3-slot { opacity: 1; scale: 1; rotate: 0deg; t
 .copy-email { position: relative; }
 .copy-email .copy-status { position: absolute; left: 50%; bottom: calc(100% + 4px); translate: -50% 0; margin: 0 !important; padding: 4px 10px; border-radius: 999px; font-size: .8125rem; white-space: nowrap; color: #0b1a26; background: #62c1fd; pointer-events: none; }
 .copy-email:not(.is-done) .copy-status { padding: 0; background: none; }
+/* FAQ answers: light rich text (owner, 15 Nov 2026). Bold lifts to the main text colour, a soft highlighter marks
+   the one line to remember, and the hand-written accent is kept for a word or two. */
+.faq-list details p b { color: var(--text); font-weight: 600; }
+.faq-list details p .faq-hl { color: var(--text); font-weight: 500; padding: 0 .15em; margin: 0 -.05em; border-radius: .25em; background: linear-gradient(transparent 55%, rgba(98, 193, 253, .28) 55%); -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+.faq-list details p .scr { font-size: 1.25em; line-height: 1; }
+:root[data-theme="light"] .faq-list details p .faq-hl { background: linear-gradient(transparent 55%, rgba(11, 98, 196, .18) 55%); }
+.eb .faq-list details p .faq-hl { background: linear-gradient(transparent 55%, rgba(255, 157, 46, .3) 55%); }
+:root[data-theme="light"] .eb .faq-list details p .faq-hl { background: linear-gradient(transparent 55%, rgba(255, 157, 46, .32) 55%); }
