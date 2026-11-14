@@ -4360,3 +4360,14 @@ html.js .hero3 h1.h3-flip.h3-in .h3-slot { opacity: 1; scale: 1; rotate: 0deg; t
 /* Floating extras step aside while a big menu is open, so nothing sits on top of the panel (owner, 15 Nov 2026) */
 :is(.vid, .bw, .to-top, .eb-bar) { transition-property: opacity, visibility, translate, transform; }
 html.mega-open :is(.vid, .bw, .to-top, .eb-bar) { opacity: 0 !important; visibility: hidden; pointer-events: none; transition: opacity .15s var(--ease-out), visibility 0s linear .15s; }
+/* Hero reviews line (owner, 15 Nov 2026): the same 5.0 and 200+ reviews as the reviews card */
+.hr-rev { display: grid; justify-items: center; gap: 6px; margin: 0; font-size: .9375rem; line-height: 1.3; }
+.hr-stars { display: inline-flex; gap: 3px; }
+.hr-stars svg { width: 17px; height: 17px; fill: #ff9f0a; filter: drop-shadow(0 0 4px rgba(255, 149, 0, .35)); }
+.hr-txt b { font-weight: 600; color: var(--text); }
+.hr-txt .t2 { color: var(--muted); }
+.hr-rev.hr-left { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; justify-items: start; margin: 18px 0 4px; }
+:root[data-theme="light"] .hr-stars svg { filter: none; fill: #e08600; }
+.hr-top { display: inline-flex; align-items: center; gap: 8px; }
+.hr-top b { font-weight: 600; color: var(--text); }
+.hr-rev.hr-left .hr-txt::before { content: ""; display: inline-block; width: 4px; height: 4px; margin-right: 12px; vertical-align: middle; border-radius: 50%; background: color-mix(in srgb, var(--text) 30%, transparent); }

@@ -18,6 +18,7 @@ import ArticleMark from "../components/ArticleMark";
 import WorkGrid from "../components/WorkGrid";
 import HirePanel from "../components/HirePanel";
 import PainStory from "../components/PainStory";
+import HeroReviews from "../components/HeroReviews";
 import HeroShow from "../components/HeroShow";
 import HeroRole from "../components/HeroRole";
 import { LocalTime, CountUp } from "../components/Greeting";
@@ -97,6 +98,8 @@ export default function Home() {
           </div>
           <div className="hero-proof">
             <p className="hero-award"><i className="lr lr-l" aria-hidden="true" /><i className="lr lr-r" aria-hidden="true" /><span>Award-winning</span><span>UI/UX designer</span></p>
+            <i className="hp-div" aria-hidden="true" />
+            <HeroReviews />
             {/* Client avatars and "Trusted by" row hidden until real client photos are added. */}
           </div>
         </div>

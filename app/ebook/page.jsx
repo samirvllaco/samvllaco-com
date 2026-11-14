@@ -8,6 +8,7 @@ import FreePrompts from "../../components/FreePrompts";
 import JsonLd from "../../components/JsonLd";
 import Faq from "../../components/Faq";
 import EbookBar from "../../components/EbookBar";
+import HeroReviews from "../../components/HeroReviews";
 import FlipBook from "../../components/FlipBook";
 import { share, PERSON_ID } from "../../lib/seo";
 import { SITE, EMAIL, REVIEW_URL } from "../../lib/site";
@@ -153,6 +154,7 @@ export default function Ebook() {
             <Buy label={<>Buy now for <span className="eb-pill"><s aria-label={`was ${WAS}`}>{WAS}</s> {PRICE}</span></>} />
             <a className="hero2-btn hero2-btn-light" href="#inside">Peek inside</a>
           </div>
+          <HeroReviews className="hr-left" />
           <ul className="eb-ticks eb-ico">
             <li data-i="list">27 prompts, one per step</li>
             <li data-i="file">DESIGN.md rules file included</li>
