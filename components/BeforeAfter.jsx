@@ -15,7 +15,7 @@ function Slider({ label, h, before, after, beforeAlt, afterAlt }) {
   const [v, setV] = useState(50);
   const mode = v <= 22 ? " is-after" : v >= 78 ? " is-before" : "";
   return (
-    <div className={`ba-sl${mode}`} style={{ "--p": `${v}%`, aspectRatio: `1280 / ${h}` }}>
+    <div className={`ba-sl${mode}`} style={{ "--p": `${v}%` }}>
       <div className="ba-layer ba-b"><img src={before} alt={beforeAlt} width="1280" height={h} loading="lazy" decoding="async" /><span>Before</span></div>
       <div className="ba-layer ba-a"><img src={after} alt={afterAlt} width="1280" height={h} loading="lazy" decoding="async" /><span>After</span></div>
       <div className="ba-line" aria-hidden="true"><i /></div>

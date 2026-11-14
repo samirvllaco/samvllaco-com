@@ -3958,3 +3958,37 @@ a.mega-btn { text-decoration: none; }
   .case-fab.is-on { transform: translate(-50%, 0); }
   body:has(.case-fab) :is(.vid-dock, .vid) { display: none; }
 }
+
+/* Case studies: no floating book promo next to the dock, and the suggestions panel is solid so nothing behind it shows through (owner, 14 Nov 2026) */
+body:has(.case-fab) .bw { display: none; }
+.case-fab .cf-more { background: #1c1c1e; -webkit-backdrop-filter: none; backdrop-filter: none; }
+
+/* Before and after: every niche uses the same frame, so switching tabs never changes the height (owner, 14 Nov 2026) */
+.ba .ba-sl, .ba .ba-sl:has(img) { aspect-ratio: 16 / 10; }
+.ba .ba-layer img { object-fit: cover; object-position: 50% 0; }
+@media (max-width: 640px) { .ba .ba-sl, .ba .ba-sl:has(img) { aspect-ratio: 4 / 3; } }
+
+/* Phone and tablet menu opens like the desktop big menu: the panel unfolds from the top on the sheet curve,
+   the rows settle in a short stagger, and closing is quicker and eases in (owner, 14 Nov 2026) */
+@media (max-width: 980px) and (prefers-reduced-motion: no-preference) {
+  .mm-sheet.is-open .mm-panel { transform-origin: 50% 0; animation: mx-open .46s var(--ease-sheet) backwards; }
+  .mm-sheet.is-open :is(.mm-top, nav > ul > li, .mm-cta) { animation: mx-item .42s var(--ease-out) backwards; animation-delay: 80ms; }
+  .mm-sheet.is-open nav > ul > li:nth-child(2) { animation-delay: 100ms; }
+  .mm-sheet.is-open nav > ul > li:nth-child(3) { animation-delay: 120ms; }
+  .mm-sheet.is-open nav > ul > li:nth-child(4) { animation-delay: 140ms; }
+  .mm-sheet.is-open nav > ul > li:nth-child(5) { animation-delay: 160ms; }
+  .mm-sheet.is-open nav > ul > li:nth-child(6) { animation-delay: 180ms; }
+  .mm-sheet.is-open .mm-cta { animation-delay: 210ms; }
+  .mm-sheet.is-open .mm-x { animation: mm-fade .25s var(--ease-out) backwards; }
+  .mm-sheet.is-closing { pointer-events: none; animation: mm-fade-out .22s var(--ease-in) forwards; }
+  .mm-sheet.is-closing .mm-panel { transform-origin: 50% 0; animation: mx-close .2s var(--ease-in) forwards; }
+}
+@keyframes mm-fade-out { to { opacity: 0; } }
+
+/* Footer last row: copyright, Ask AI, then the email at the far end. On phones the actions come first and the copyright last.
+   The floating avatar, book and back-to-top buttons rise above this row when it scrolls into view (owner, 14 Nov 2026) */
+@media (min-width: 901px) { .site-footer > .wrap > .foot-links { margin-right: 0; } }
+@media (max-width: 900px) { .site-footer > .wrap > .ask-ai { order: 1; } .site-footer > .wrap > .foot-links { order: 2; } .site-footer > .wrap > p { order: 3; } }
+html:not(.eb-bar-on) .vid { bottom: calc(max(16px, env(safe-area-inset-bottom, 0px)) + var(--float-lift, 0px)); transition: none; }
+html:not(.eb-bar-on) .bw { bottom: calc(max(16px, env(safe-area-inset-bottom, 0px)) + var(--float-lift, 0px)); }
+html:not(.eb-bar-on) .bk { bottom: calc(max(16px, env(safe-area-inset-bottom, 0px)) + var(--float-lift, 0px)); transition: none; }

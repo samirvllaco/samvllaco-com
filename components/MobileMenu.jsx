@@ -39,11 +39,19 @@ export default function MobileMenu() {
   const [ready, setReady] = useState(false);
   const [spot, setSpot] = useState(null);
   const [sub, setSub] = useState(null); // which nested list is open
+  const [shut, setShut] = useState(false); // short close animation before the sheet hides
+  const was = useRef(false);
   useEffect(() => setReady(true), []);
   const onBook = path.replace(/\/$/, "") === "/ebook";
 
   useEffect(() => { setOpen(false); }, [path]);
-  useEffect(() => { if (!open) setSub(null); }, [open]);
+  useEffect(() => {
+    if (open) { was.current = true; setShut(false); return; }
+    if (!was.current) return;
+    was.current = false; setShut(true);
+    const t = setTimeout(() => { setShut(false); setSub(null); }, 220);
+    return () => clearTimeout(t);
+  }, [open]);
   // The close button sits exactly where the hamburger was, so the menu closes without moving the pointer or thumb.
   const place = () => { const r = btn.current?.getBoundingClientRect(); if (r) setSpot({ "--bx-t": `${r.top}px`, "--bx-l": `${r.left}px`, "--bx-s": `${r.width}px` }); };
   useEffect(() => {
@@ -65,7 +73,7 @@ export default function MobileMenu() {
       <button ref={btn} type="button" className="mm-btn" aria-expanded={open} aria-controls="mm-sheet" aria-label="Open menu" onClick={() => { place(); setOpen(true); }}>
         <span aria-hidden="true" /><span aria-hidden="true" />
       </button>
-      {ready ? createPortal(<div id="mm-sheet" className={`mm-sheet${open ? " is-open" : ""}${spot ? " has-spot" : ""}`} style={spot || undefined} hidden={!open} role="dialog" aria-modal="true" aria-label="Menu" onClick={(e) => { if (e.target === e.currentTarget) { setOpen(false); btn.current?.focus(); } }}>
+      {ready ? createPortal(<div id="mm-sheet" className={`mm-sheet${open ? " is-open" : ""}${shut ? " is-closing" : ""}${spot ? " has-spot" : ""}`} style={spot || undefined} hidden={!open && !shut} role="dialog" aria-modal="true" aria-label="Menu" onClick={(e) => { if (e.target === e.currentTarget) { setOpen(false); btn.current?.focus(); } }}>
         {/* Outside the panel, so the panel's drop-in motion never moves it */}
         <button type="button" className="mm-x" aria-label="Close menu" onClick={() => { setOpen(false); btn.current?.focus(); }}>
           <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" /></svg>
