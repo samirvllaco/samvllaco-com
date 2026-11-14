@@ -1,16 +1,17 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import SIG from "../lib/signature.json";
+import { soundOn } from "../lib/delight";
 
 // A signature drawn as one thin pen line, stroke by stroke, with a soft pen-on-paper sound.
-// Sound needs a tap or key press first (browsers block audio until then). Tap the signature to write it again.
+// It writes only while the footer is on screen and stops when it leaves (it writes again on return).
+// The sound follows the site sound switch in the header, and needs a tap or key press first (browsers block audio until then).
 export default function FootSig() {
   const root = useRef(null);
   const paths = useRef([]);
   const audio = useRef(null);
   const run = useRef(0);
-  const [armed, setArmed] = useState(false);
-
+  
   function ctx() {
     if (audio.current) return audio.current;
     try {
@@ -43,7 +44,21 @@ export default function FootSig() {
     paths.current.forEach((p) => { if (!p) return; const L = p.getTotalLength(); p.style.transition = "none"; p.style.strokeDasharray = L; p.style.strokeDashoffset = L; });
   }
 
-  function write(sound) {
+  function hush() {
+    const a = audio.current;
+    if (a) { a.g.gain.cancelScheduledValues(a.c.currentTime); a.g.gain.setTargetAtTime(0, a.c.currentTime, 0.02); }
+  }
+
+  function stop() {
+    run.current++;
+    hush();
+    const a = audio.current;
+    if (a && a.c.state === "running") a.c.suspend().catch(() => {});
+    reset();
+  }
+
+  function write() {
+    const sound = soundOn() && !!navigator.userActivation?.hasBeenActive;
     const my = ++run.current;
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const list = paths.current.filter(Boolean);
@@ -63,7 +78,8 @@ export default function FootSig() {
         const k = Math.min(1, (t - t0) / dur);
         const e = 0.5 - Math.cos(Math.PI * k) / 2;
         p.style.strokeDashoffset = L * (1 - e);
-        if (a) {
+        if (a && !soundOn()) hush();
+        else if (a) {
           const speed = Math.sin(Math.PI * k);
           const jitter = 0.7 + Math.random() * 0.6;
           a.g.gain.setTargetAtTime(0.09 * speed * jitter + 0.006, a.c.currentTime, 0.012);
@@ -80,19 +96,18 @@ export default function FootSig() {
 
   useEffect(() => {
     reset();
-    let done = false;
     const el = root.current;
-    const unlock = () => { setArmed(true); };
-    window.addEventListener("pointerdown", unlock, { once: true });
-    window.addEventListener("keydown", unlock, { once: true });
+    let seen = false, wait = 0;
     const io = new IntersectionObserver((es) => {
-      if (done || !es.some((e) => e.isIntersecting)) return;
-      done = true; io.disconnect();
-      const unlocked = !!navigator.userActivation?.hasBeenActive;
-      setTimeout(() => write(unlocked), 250);
+      const inView = es.some((e) => e.isIntersecting);
+      if (inView && !seen) { seen = true; clearTimeout(wait); wait = setTimeout(write, 250); }
+      else if (!inView && seen) { seen = false; clearTimeout(wait); stop(); }
     }, { threshold: 0.35 });
     io.observe(el);
-    return () => { io.disconnect(); run.current++; window.removeEventListener("pointerdown", unlock); window.removeEventListener("keydown", unlock); if (audio.current) audio.current.c.close().catch(() => {}); };
+    // Sound switched off in the header: silence the pen right away.
+    const onChange = (e) => { if (e.detail === "sound" && !soundOn()) hush(); };
+    window.addEventListener("sv:change", onChange);
+    return () => { io.disconnect(); clearTimeout(wait); run.current++; window.removeEventListener("sv:change", onChange); if (audio.current) audio.current.c.close().catch(() => {}); };
   }, []);
 
   return (
@@ -105,7 +120,7 @@ export default function FootSig() {
         </defs>
         {SIG.d.map((d, i) => <path key={i} ref={(el) => (paths.current[i] = el)} d={d} />)}
       </svg>
-      <button type="button" className="foot-sig-hit" aria-label="Write the signature again, with sound" onClick={() => write(true)} />
+      <button type="button" className="foot-sig-hit" aria-label="Write the signature again" onClick={write} />
     </span>
   );
 }
