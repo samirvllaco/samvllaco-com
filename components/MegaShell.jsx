@@ -10,6 +10,8 @@ export default function MegaShell({ id, label, href, children }) {
   // so opening and closing quickly reverses from wherever it is instead of jumping back to the start.
   const [shown, setShown] = useState(false);
   const [on, setOn] = useState(false);
+  // The panel content is built the first time it opens, then kept, so hidden menus cost nothing on page load.
+  const [built, setBuilt] = useState(false);
   const hideT = useRef(null);
   const handoff = useRef(false);
   const wrap = useRef(null);
@@ -20,7 +22,7 @@ export default function MegaShell({ id, label, href, children }) {
   useEffect(() => {
     if (open) {
       clearTimeout(hideT.current); handoff.current = false;
-      setShown(true);
+      setBuilt(true); setShown(true);
       window.dispatchEvent(new CustomEvent("mega:open", { detail: id }));
       return;
     }
@@ -76,9 +78,11 @@ export default function MegaShell({ id, label, href, children }) {
           {label}
         </button>
       )}
-      <div id={id} className={`mega mx${on ? " is-on" : ""}`} hidden={!shown}>
-        {children(close)}
-      </div>
+      {built ? (
+        <div id={id} className={`mega mx${on ? " is-on" : ""}`} hidden={!shown}>
+          {children(close)}
+        </div>
+      ) : null}
     </span>
   );
 }

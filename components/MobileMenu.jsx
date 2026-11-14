@@ -41,7 +41,8 @@ export default function MobileMenu() {
   const [sub, setSub] = useState(null); // which nested list is open
   const [shut, setShut] = useState(false); // short close animation before the sheet hides
   const was = useRef(false);
-  useEffect(() => setReady(true), []);
+  // The sheet is built the first time the menu opens, so it costs nothing on page load.
+  useEffect(() => { if (open) setReady(true); }, [open]);
   const onBook = path.replace(/\/$/, "") === "/ebook";
 
   useEffect(() => { setOpen(false); }, [path]);

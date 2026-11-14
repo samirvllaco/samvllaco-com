@@ -1685,8 +1685,8 @@ html.tone-fade, html.tone-fade body, html.tone-fade *, html.tone-fade *::before,
 .wf-facts div { background: rgba(9, 26, 62, .55); }
 /* Stat cards: a laurel on each side of the number */
 .bx-stat { grid-template-columns: auto auto auto; column-gap: 10px; align-items: center; padding-inline: 8px; }
-.bx-stat::before, .bx-stat::after { content: ""; grid-row: 1 / span 2; width: 52px; height: 92px; background: url(/laurel-l.webp) center / contain no-repeat; }
-.bx-stat::before { grid-column: 1; } .bx-stat::after { grid-column: 3; background-image: url(/laurel-r.webp); }
+.bx-stat::before, .bx-stat::after { content: ""; grid-row: 1 / span 2; width: 52px; height: 92px; background: url(/laurel-l.webp?v=2) center / contain no-repeat; }
+.bx-stat::before { grid-column: 1; } .bx-stat::after { grid-column: 3; background-image: url(/laurel-r.webp?v=2); }
 .bx-stat b { grid-column: 2; grid-row: 1; align-self: end; } .bx-stat span { grid-column: 2; grid-row: 2; align-self: start; }
 :root[data-theme="light"] .bx-stat::before, :root[data-theme="light"] .bx-stat::after { filter: brightness(.55); }
 @media (min-width: 1101px) { .bx-stat { column-gap: 4px; } .bx-stat::before, .bx-stat::after { width: 36px; height: 64px; } .bx-stat b { font-size: clamp(1.5rem, 2vw, 2rem); } }
@@ -1851,8 +1851,8 @@ html.js .foot-sig-w[data-reveal], .foot-sig-w { opacity: 1; transform: translate
 
 /* Hero: laurel badge above the headline */
 .hero-award { display: inline-grid; grid-template-columns: auto auto auto; align-items: center; column-gap: 14px; margin: 0 0 clamp(18px, 2.4vw, 30px); text-align: center; font-size: .9375rem; line-height: 1.25; color: var(--text); }
-.hero-award::before, .hero-award::after { content: ""; grid-row: 1 / span 2; width: 34px; height: 60px; background: url(/laurel-l.webp) center / contain no-repeat; }
-.hero-award::before { grid-column: 1; } .hero-award::after { grid-column: 3; background-image: url(/laurel-r.webp); }
+.hero-award::before, .hero-award::after { content: ""; grid-row: 1 / span 2; width: 34px; height: 60px; background: url(/laurel-l.webp?v=2) center / contain no-repeat; }
+.hero-award::before { grid-column: 1; } .hero-award::after { grid-column: 3; background-image: url(/laurel-r.webp?v=2); }
 .hero-award span { grid-column: 2; } .hero-award span:first-child { font-weight: 600; align-self: end; } .hero-award span:last-child { color: var(--muted); align-self: start; }
 :root[data-theme="light"] .hero-award::before, :root[data-theme="light"] .hero-award::after { filter: brightness(.55); }
 
@@ -2132,7 +2132,7 @@ body::after { transition: opacity .4s ease; } html.is-end body::after { opacity:
 .lr-l { grid-column: 1; } .lr-r { grid-column: 3; }
 .hero-award .lr { width: 34px; height: 60px; }
 .lr::before, .lr::after { content: ""; position: absolute; inset: 0; background: center / contain no-repeat; transition: opacity .7s ease; }
-.lr-l::before { background-image: url(/laurel-l.webp); } .lr-r::before { background-image: url(/laurel-r.webp); }
+.lr-l::before { background-image: url(/laurel-l.webp?v=2); } .lr-r::before { background-image: url(/laurel-r.webp?v=2); }
 .lr-l::after { background-image: url(/laurel-gold-l.webp); } .lr-r::after { background-image: url(/laurel-gold-r.webp); }
 .lr::after { opacity: 0; inset: -6%; }
 :is(.hero-award, .bx-stat):hover .lr::after { opacity: 1; } :is(.hero-award, .bx-stat):hover .lr::before { opacity: 0; }
@@ -3240,7 +3240,7 @@ body:has(.hero2[data-bg="#0b0b0c"]) { background-color: #0b0b0c; }
 .wall-stats b { font-size: clamp(1.5rem, 4.4vw, 3.25rem); font-weight: 700; letter-spacing: -.04em; line-height: 1; color: #f5f5f7; background: linear-gradient(180deg, #ffffff 30%, #b9b9bf); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 6px 18px rgba(0, 0, 0, .55)); }
 .wall-stats span { font-size: clamp(.6875rem, 1.1vw, .9375rem); color: #b4b4ba; max-width: 11em; line-height: 1.3; }
 .ws-lr { flex: none; display: block; width: clamp(16px, 2.6vw, 34px); aspect-ratio: 226 / 400; background: center / contain no-repeat; filter: drop-shadow(0 4px 10px rgba(0, 0, 0, .6)); }
-.ws-lr-l { background-image: url(/laurel-l.webp); } .ws-lr-r { background-image: url(/laurel-r.webp); }
+.ws-lr-l { background-image: url(/laurel-l.webp?v=2); } .ws-lr-r { background-image: url(/laurel-r.webp?v=2); }
 @media (max-width: 640px) { .wall-stats { gap: 6px; padding-top: 28px; padding-bottom: 56px; } .wall-stats li { gap: 3px; } .wall-stats span { font-size: .6875rem; max-width: 8.5em; } }
 @media (max-width: 980px) { .wall-stats { top: 112px; } }
 @media (min-width: 641px) { .wall-stats span { max-width: 15em; } }
@@ -4151,3 +4151,22 @@ html:not(.eb-bar-on) .bk { bottom: calc(max(16px, env(safe-area-inset-bottom, 0p
 .eb-pk-role { display: inline-flex; align-items: center; height: 24px; padding: 0 10px; border-radius: 999px; font-style: normal; font-size: .75rem; font-weight: 600; letter-spacing: .01em; white-space: nowrap; color: color-mix(in srgb, var(--eo) 70%, var(--text)); background: color-mix(in srgb, var(--eo) 16%, transparent); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--eo) 38%, transparent); }
 :root[data-theme="light"] .eb-pk-role { color: #8a4b00; }
 .eb-pk-me img { flex: none; }
+
+/* Motion pass 2 (owner, 14 Nov 2026)
+   FAQ answers open and close with their height instead of snapping (Chrome and Edge; other browsers keep the instant open).
+   Exclusive accordions (name="faq") close the old answer while the new one opens. */
+@media (prefers-reduced-motion: no-preference) {
+  .faq-list details, .sv-faq details { interpolate-size: allow-keywords; }
+  .faq-list details::details-content, .sv-faq details::details-content { block-size: 0; overflow: clip; opacity: 0; transition: block-size .32s var(--ease-out), opacity .2s var(--ease-out), content-visibility .32s allow-discrete; }
+  .faq-list details[open]::details-content, .sv-faq details[open]::details-content { block-size: auto; opacity: 1; }
+}
+/* Project form: the sent state settles in and its tick draws once (a rare, happy moment) */
+.pf-done { justify-items: start; }
+.pf-tick { width: 48px; height: 48px; fill: none; stroke: #30d158; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+.pf-tick circle { stroke-opacity: .35; }
+@media (prefers-reduced-motion: no-preference) {
+  .pf-done { animation: pf-in .45s var(--ease-out) both; }
+  .pf-tick path { stroke-dasharray: 32; stroke-dashoffset: 32; animation: pf-draw .5s var(--ease-out) .2s forwards; }
+}
+@keyframes pf-in { from { opacity: 0; scale: .97; } to { opacity: 1; scale: 1; } }
+@keyframes pf-draw { to { stroke-dashoffset: 0; } }

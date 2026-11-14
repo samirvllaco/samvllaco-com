@@ -157,7 +157,7 @@ export default function Ebook() {
         </div>
         <div className="eb-cover">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/ebook/cover.webp?v=2" width="936" height="1326" alt="Cover of 27 Copy-Paste Prompts to Fix AI Slop UI" />
+          <img src="/ebook/cover.webp?v=2" srcSet="/ebook/cover-520.webp?v=1 520w, /ebook/cover.webp?v=2 936w" sizes="(max-width: 720px) 260px, 440px" width="936" height="1326" alt="Cover of 27 Copy-Paste Prompts to Fix AI Slop UI" loading="eager" fetchPriority="high" />
         </div>
       </header>
 
@@ -166,7 +166,7 @@ export default function Ebook() {
         <div>
           {TOOLS.map((t) => (
             // eslint-disable-next-line @next/next/no-img-element
-            <img key={t} src={`/ebook/${t}.webp`} width="200" height="200" alt={t} loading="lazy" />
+            <img key={t} src={`/ebook/${t}-128.webp`} width="128" height="128" alt={t} loading="lazy" />
           ))}
         </div>
       </section>
@@ -409,7 +409,7 @@ export default function Ebook() {
         <div className="eb-pk-grid">
           <article className="eb-pk-card is-main">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img className="eb-pk-media eb-pk-book" src="/ebook/cover.webp?v=2" width="936" height="1326" alt="" loading="lazy" />
+            <img className="eb-pk-media eb-pk-book" src="/ebook/cover-520.webp?v=1" width="936" height="1326" alt="" loading="lazy" />
             <p className="eb-pk-k">The full book</p>
             <h3>27 Copy-Paste Prompts</h3>
             <p className="eb-pk-price">{PRICE}<span>one-time</span></p>
@@ -428,7 +428,7 @@ export default function Ebook() {
               <img src="/sam-hire.webp?v=2" width="1000" height="1250" alt="Sam Vllaco" loading="lazy" />
               <i className="eb-pk-plus" aria-hidden="true">+</i>
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img className="eb-pk-mini" src="/ebook/cover.webp?v=2" width="936" height="1326" alt="The book" loading="lazy" />
+              <img className="eb-pk-mini" src="/ebook/cover-520.webp?v=1" width="936" height="1326" alt="The book" loading="lazy" />
               <span><b>Sam Vllaco <em className="eb-pk-role">Product Designer</em></b>10+ years in product design, 570+ clients, 10,000+ screens</span>
             </div>
             <p className="eb-pk-k">Personal review</p>

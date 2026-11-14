@@ -11,13 +11,16 @@ const PAIRS = [
   { id: "app", label: "Mobile app", h: 920, before: "/ebook/ba-mob-before.webp?v=2", after: "/ebook/ba-mob-after.webp?v=1", beforeAlt: "First AI draft of a sample fitness app: eight pastel tiles of equal weight and two competing buttons", afterAlt: "The same fitness app with the rules: one progress ring, quiet stat cards, one main button and a clean workout list" },
 ];
 
+// The 768px copy of each image, for phones.
+const small = (src) => src.replace(".webp", "-768.webp");
+
 function Slider({ label, h, before, after, beforeAlt, afterAlt }) {
   const [v, setV] = useState(50);
   const mode = v <= 22 ? " is-after" : v >= 78 ? " is-before" : "";
   return (
     <div className={`ba-sl${mode}`} style={{ "--p": `${v}%` }}>
-      <div className="ba-layer ba-b"><img src={before} alt={beforeAlt} width="1280" height={h} loading="lazy" decoding="async" /><span>Before</span></div>
-      <div className="ba-layer ba-a"><img src={after} alt={afterAlt} width="1280" height={h} loading="lazy" decoding="async" /><span>After</span></div>
+      <div className="ba-layer ba-b"><img src={before} srcSet={`${small(before)} 768w, ${before} 1280w`} sizes="(max-width: 720px) calc(100vw - 32px), 1100px" alt={beforeAlt} width="1280" height={h} loading="lazy" decoding="async" /><span>Before</span></div>
+      <div className="ba-layer ba-a"><img src={after} srcSet={`${small(after)} 768w, ${after} 1280w`} sizes="(max-width: 720px) calc(100vw - 32px), 1100px" alt={afterAlt} width="1280" height={h} loading="lazy" decoding="async" /><span>After</span></div>
       <div className="ba-line" aria-hidden="true"><i /></div>
       <input type="range" min="0" max="100" value={v} onChange={(e) => setV(+e.target.value)} aria-label={`Compare before and after: ${label}`} />
       <a className="hero2-btn hero2-btn-primary ba-buy" href={BOOK_URL} target="_blank" rel="noopener" tabIndex={mode === " is-after" ? 0 : -1} aria-hidden={mode !== " is-after"}>Get the book for $12.99</a>

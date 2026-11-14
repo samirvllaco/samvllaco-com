@@ -36,7 +36,7 @@ export default function ProjectForm({ email, endpoint = "", needs, budgets, star
     setState("mail");
   }
 
-  if (state === "sent") return <div className="pf pf-done" role="status"><h3>Thanks, {v.name.split(" ")[0]}.</h3><p>Your project details are in. You get a reply within 1 business day.</p></div>;
+  if (state === "sent") return <div className="pf pf-done" role="status"><svg className="pf-tick" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="21" /><path d="M15 24.5l6 6 12-13" /></svg><h3>Thanks, {v.name.split(" ")[0]}.</h3><p>Your project details are in. You get a reply within 1 business day.</p></div>;
 
   return (
     <form className="pf" onSubmit={submit} noValidate>
