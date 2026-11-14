@@ -6,11 +6,36 @@ import { useEffect, useRef, useState } from "react";
 // A header item that opens a wide panel on hover, click or keyboard. children(close) renders the panel content.
 export default function MegaShell({ id, label, href, children }) {
   const [open, setOpen] = useState(false);
+  const [shut, setShut] = useState(false); // plays the short close animation before the panel is hidden
+  const was = useRef(false);
+  const handoff = useRef(false);
   const wrap = useRef(null);
   const timer = useRef(null);
   const path = usePathname();
 
   useEffect(() => { setOpen(false); }, [path]);
+  useEffect(() => {
+    if (open) {
+      was.current = true; setShut(false);
+      window.dispatchEvent(new CustomEvent("mega:open", { detail: id }));
+      return;
+    }
+    if (!was.current) return;
+    was.current = false;
+    if (handoff.current) { handoff.current = false; setShut(false); return; }
+    setShut(true);
+    const t = setTimeout(() => setShut(false), 200);
+    // Another menu opening hides this one at once, so the two never overlap.
+    const other = (e) => { if (e.detail !== id) { clearTimeout(t); setShut(false); } };
+    window.addEventListener("mega:open", other);
+    return () => { clearTimeout(t); window.removeEventListener("mega:open", other); };
+  }, [open, id]);
+  // Moving from one menu to the next swaps them at once, with no close animation in between.
+  useEffect(() => {
+    const swap = (e) => { if (e.detail !== id && was.current) { clearTimeout(timer.current); handoff.current = true; setOpen(false); } };
+    window.addEventListener("mega:open", swap);
+    return () => window.removeEventListener("mega:open", swap);
+  }, [id]);
   useEffect(() => {
     if (!open) return;
     function onKey(e) {
@@ -41,7 +66,7 @@ export default function MegaShell({ id, label, href, children }) {
           {label}
         </button>
       )}
-      <div id={id} className="mega mx" hidden={!open}>
+      <div id={id} className={`mega mx${shut ? " is-closing" : ""}`} hidden={!open && !shut}>
         {children(close)}
       </div>
     </span>
