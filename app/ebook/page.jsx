@@ -429,7 +429,7 @@ export default function Ebook() {
               <i className="eb-pk-plus" aria-hidden="true">+</i>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img className="eb-pk-mini" src="/ebook/cover.webp?v=2" width="936" height="1326" alt="The book" loading="lazy" />
-              <span><b>Sam Vllaco</b>10+ years in product design, 570+ clients, 10,000+ screens</span>
+              <span><b>Sam Vllaco <em className="eb-pk-role">Product Designer</em></b>10+ years in product design, 570+ clients, 10,000+ screens</span>
             </div>
             <p className="eb-pk-k">Personal review</p>
             <h3>Complete UI/UX review <span className="t2">+ the book</span></h3>
