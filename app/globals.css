@@ -4371,3 +4371,14 @@ html.mega-open :is(.vid, .bw, .to-top, .eb-bar) { opacity: 0 !important; visibil
 .hr-top { display: inline-flex; align-items: center; gap: 8px; }
 .hr-top b { font-weight: 600; color: var(--text); }
 .hr-rev.hr-left .hr-txt::before { content: ""; display: inline-block; width: 4px; height: 4px; margin-right: 12px; vertical-align: middle; border-radius: 50%; background: color-mix(in srgb, var(--text) 30%, transparent); }
+.pn-trust.eb-guar { margin: 10px 0 0; font-size: .875rem; }
+.eb-offer .pn-trust.eb-guar { justify-content: center; text-align: left; }
+.eb-end .pn-trust.eb-guar { justify-content: center; margin-top: 16px; }
+/* The "One designer for the whole product" bento stays dark in light mode too (owner, 15 Nov 2026) */
+:root[data-theme="light"] .bx-soft.dark-island { background: #000; box-shadow: 0 0 0 100vmax #000; clip-path: inset(0 -100vmax); }
+:root[data-theme="light"] .dark-island .bx-card { --bx-bg: #0b0b0c; --bx-bg-2: #141416; }
+:root[data-theme="light"] .dark-island.bx-soft .bx-card { --bx-bg: #131315; --bx-bg-2: #18181b; }
+:root[data-theme="light"] .dark-island .bx-stat::before, :root[data-theme="light"] .dark-island .bx-stat::after { filter: none; }
+:root[data-theme="light"] .dark-island .sd-card .sd-l, :root[data-theme="light"] .dark-island .bx-col .sd-l { display: none; }
+:root[data-theme="light"] .dark-island .sd-card .sd-d, :root[data-theme="light"] .dark-island .bx-col .sd-d { display: block; }
+:root[data-theme="light"] .dark-island .bx-motion .bx-frame { background: #131315; box-shadow: 0 16px 34px -22px rgba(0, 0, 0, .45); }

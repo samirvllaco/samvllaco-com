@@ -35,7 +35,6 @@ export default function PainStory() {
         </div>
         <div className="pn-cta">
           <a className="hero2-btn hero2-btn-primary" href="/book/"><CallIcon />Show me what you're building</a>
-          <p className="pn-trust"><span className="pn-shield" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.2-3 7.6-7 9-4-1.4-7-4.8-7-9V6zM8.5 12l2.5 2.5 4.5-5" /></svg></span><span><b>Money-back guarantee.</b> Not happy with the first design? Full refund, no questions.</span></p>
           <p className="pn-note">30-minute call. You get a fixed price after it.</p>
         </div>
       </div>

@@ -18,15 +18,14 @@ export default function ToTop() {
       row.forEach((n) => { const b = n.getBoundingClientRect(); if (b.height && b.top < top) top = b.top; });
       const lift = top < window.innerHeight ? Math.max(0, Math.round(window.innerHeight - top)) : 0;
       document.documentElement.style.setProperty("--float-lift", `${lift}px`);
-      // Sit straight above the video avatar, centred on it.
+      // Sit just left of the video avatar, bottom aligned with it (and with the book on the left).
       const bub = document.querySelector(".vid-bubble");
       const el = me.current;
       if (bub && el && on40) {
         const r = bub.getBoundingClientRect();
         if (r.width) {
-          const w = el.offsetWidth || 44;
-          el.style.setProperty("--tt-r", `${Math.round(window.innerWidth - (r.left + r.width / 2) - w / 2)}px`);
-          el.style.setProperty("--tt-b", `${Math.round(window.innerHeight - r.top + 12)}px`);
+          el.style.setProperty("--tt-r", `${Math.round(window.innerWidth - r.left + 12)}px`);
+          el.style.setProperty("--tt-b", `${Math.round(window.innerHeight - r.bottom)}px`);
         }
       }
     };

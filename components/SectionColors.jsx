@@ -28,7 +28,8 @@ export default function SectionColors() {
       }
       if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) pick = els[els.length - 1];
       const light = document.documentElement.dataset.theme === "light";
-      const c = light ? (LIGHT[pick.dataset.bg.toLowerCase()] || "#f5f5f7") : pick.dataset.bg;
+      // Sections marked data-dark stay dark in light mode too.
+      const c = light && !pick.hasAttribute("data-dark") ? (LIGHT[pick.dataset.bg.toLowerCase()] || "#f5f5f7") : pick.dataset.bg;
       if (c !== current) {
         current = c;
         body.style.backgroundColor = c;

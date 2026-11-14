@@ -155,6 +155,7 @@ export default function Ebook() {
             <a className="hero2-btn hero2-btn-light" href="#inside">Peek inside</a>
           </div>
           <HeroReviews className="hr-left" />
+          <p className="pn-trust eb-guar"><span className="pn-shield" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.2-3 7.6-7 9-4-1.4-7-4.8-7-9V6zM8.5 12l2.5 2.5 4.5-5" /></svg></span><span><b>Money-back guarantee.</b> Not happy with the book? Full refund, no questions.</span></p>
           <ul className="eb-ticks eb-ico">
             <li data-i="list">27 prompts, one per step</li>
             <li data-i="file">DESIGN.md rules file included</li>
@@ -417,6 +418,7 @@ export default function Ebook() {
           <p className="eb-was"><s aria-label={`was ${WAS}`}>{WAS}</s><b>Save 63%</b></p>
           <p className="eb-price">{PRICE}<span>one-time</span></p>
           <Buy label="Get your copy" />
+          <p className="pn-trust eb-guar"><span className="pn-shield" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.2-3 7.6-7 9-4-1.4-7-4.8-7-9V6zM8.5 12l2.5 2.5 4.5-5" /></svg></span><span><b>Money-back guarantee.</b> Not happy with the book? Full refund, no questions.</span></p>
           <p className="eb-note">One-time purchase. Downloadable files you can keep and reuse.</p>
           <p className="eb-note eb-note-2">Right after checkout, Whop opens your library: the PDF, four .md files and the video link. Every weekly update lands there too.</p>
         </aside>
@@ -517,6 +519,7 @@ export default function Ebook() {
         <h2>You did the hard part. You built it. <span className="t2">Now give it the polish it deserves.</span></h2>
         <p className="eb-end-sub">Your product already works. Give it one focused hour and send the link with confidence.</p>
         <div className="btn-row"><Buy label={<>Buy now for <span className="eb-pill">{PRICE}</span></>} /></div>
+        <p className="pn-trust eb-guar"><span className="pn-shield" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.2-3 7.6-7 9-4-1.4-7-4.8-7-9V6zM8.5 12l2.5 2.5 4.5-5" /></svg></span><span><b>Money-back guarantee.</b> Not happy with the book? Full refund, no questions.</span></p>
       </section>
     </div>
   );
