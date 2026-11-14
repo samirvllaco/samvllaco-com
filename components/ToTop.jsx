@@ -15,7 +15,7 @@ export default function ToTop() {
       // At the bottom of the page, lift the floating buttons (avatar, book, back to top) above the footer's last row.
       const row = document.querySelectorAll(".site-footer > .wrap > p, .site-footer > .wrap > .ask-ai, .site-footer > .wrap > .foot-links");
       let top = Infinity;
-      row.forEach((n) => { const t = n.getBoundingClientRect().top; if (t < top) top = t; });
+      row.forEach((n) => { const b = n.getBoundingClientRect(); if (b.height && b.top < top) top = b.top; });
       const lift = top < window.innerHeight ? Math.max(0, Math.round(window.innerHeight - top)) : 0;
       document.documentElement.style.setProperty("--float-lift", `${lift}px`);
       // Sit straight above the video avatar, centred on it.

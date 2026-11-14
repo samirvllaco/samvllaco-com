@@ -32,7 +32,7 @@ export default function BeforeAfter() {
   return (
     <section className="eb-sec ba" aria-labelledby="ba-h">
       <div className="eb-cov-h"><h2 id="ba-h">Before and <span className="t2">after</span></h2><img className="eb-cov" src="/book-cover.webp?v=2" width="300" height="400" alt="" loading="lazy" aria-hidden="true" /></div>
-      <p className="eb-why-lede"><b className="ba-line">Same app. Same features. Better design decisions.</b> Four sample products in four niches. Left is the first AI draft, breaking every rule in DESIGN.md. Right is the same screen with the rules applied. <em className="scr">Drag to compare.</em></p>
+      <p className="eb-why-lede"><b className="ba-promise">Same app. Same features. Better design decisions.</b> Four sample products in four niches. Left is the first AI draft, breaking every rule in DESIGN.md. Right is the same screen with the rules applied. <em className="scr">Drag to compare.</em></p>
       <div className="ba-tabs" role="tablist" aria-label="Pick a niche">
         {PAIRS.map((p) => (
           <button key={p.id} type="button" role="tab" id={`ba-t-${p.id}`} aria-selected={tab === p.id} aria-controls="ba-panel" onClick={() => setTab(p.id)}>{p.label}</button>

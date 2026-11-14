@@ -430,15 +430,20 @@ export default function Ebook() {
           </article>
           <article className="eb-pk-card">
             <p className="eb-pk-k">Personal review</p>
-            <h3>Mini UI review</h3>
+            <h3>Complete UI/UX review</h3>
             <p className="eb-pk-price">$99<span>one-time</span></p>
+            <p>An in-depth review of your product by a designer with 10+ years of experience.</p>
             <ul className="eb-ticks eb-ico">
-              <li data-i="play">A video of me going through your product</li>
-              <li data-i="list">A fix list in order, with the prompt to run for each</li>
+              <li data-i="gauge">Your scorecard today, out of 10</li>
+              <li data-i="list">What's wrong, and the exact fix for each</li>
+              <li data-i="steps">A step-by-step plan from your score to 10/10</li>
+              <li data-i="play">A Loom video walking you through it</li>
+              <li data-i="spark">Custom prompts written for your product</li>
+              <li data-i="web">I clone your site and improve it for you</li>
               <li data-i="book">The full book included</li>
             </ul>
             {REVIEW_URL ? <a className="hero2-btn hero2-btn-light" href={REVIEW_URL} target="_blank" rel="noopener">Get a review</a> : <a className="hero2-btn hero2-btn-light" href="/book/">Ask about a review</a>}
-            <p className="eb-pk-small">Send me your link after checkout. Want me to fix it for you instead? <Link prefetch={false} href="/book/">Book a call</Link>.</p>
+            <p className="eb-pk-small">Send me your link after checkout. Want a full redesign instead? <Link prefetch={false} href="/book/">Book a call</Link>.</p>
           </article>
         </div>
       </section>
