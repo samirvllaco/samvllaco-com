@@ -44,6 +44,7 @@ export default function MobileMenu() {
   // The sheet is built the first time the menu opens, so it costs nothing on page load.
   useEffect(() => { if (open) setReady(true); }, [open]);
   const onBook = path.replace(/\/$/, "") === "/ebook";
+  const isHere = (href) => !href.includes("#") && path.replace(/\/?$/, "/") === href;
 
   useEffect(() => { setOpen(false); }, [path]);
   useEffect(() => {
@@ -108,7 +109,7 @@ export default function MobileMenu() {
                         <ul>
                           {SUB[l.href].items.map((it) => (
                             <li key={it.href}>
-                              <Link prefetch={false} href={it.href} onClick={() => setOpen(false)}>
+                              <Link prefetch={false} href={it.href} aria-current={isHere(it.href) ? "page" : undefined} onClick={() => setOpen(false)}>
                                 <i className="tg-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d={it.icon} /></svg></i>
                                 {it.label}
                                 {it.tag ? <span className="top-badge">{it.tag}</span> : null}

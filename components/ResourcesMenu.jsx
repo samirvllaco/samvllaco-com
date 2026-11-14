@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import MegaShell from "./MegaShell";
 import { ARTICLES } from "../lib/site";
 import { RESOURCES } from "../lib/resources";
@@ -9,6 +10,7 @@ import { RESOURCES } from "../lib/resources";
 const ITEMS = RESOURCES.map((r) => [r.href, r.title, r.text, r.icon, r.tag]);
 
 export default function ResourcesMenu() {
+  const path = (usePathname() || "/").replace(/\/?$/, "/");
   return (
     <MegaShell id="mega-resources" label="Resources" href="/resources/">
       {(close) => (
@@ -18,7 +20,7 @@ export default function ResourcesMenu() {
             <ul className="mx-grid">
               {ITEMS.map(([href, t, d, icon, tag]) => (
                 <li key={href}>
-                  <Link prefetch={false} href={href} onClick={close}>
+                  <Link prefetch={false} href={href} aria-current={path === href ? "page" : undefined} onClick={close}>
                     <i className="tg-ico mx-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d={icon} /></svg></i>
                     <span><b>{t}{tag ? <span className="mega-pdf mega-gold">{tag}</span> : null}</b><em>{d}</em></span>
                   </Link>

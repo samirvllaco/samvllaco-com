@@ -41,6 +41,10 @@ export default function BookPopup() {
         <span className="sr-only">Show my book</span>
       </button>
       <div id="bw-card" className="bw-card">
+        <button type="button" className="bw-x" tabIndex={open ? 0 : -1} onClick={() => { setOpen(false); box.current?.querySelector(".bw-tab")?.focus({ preventScroll: true }); }}>
+          <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" /></svg>
+          <span className="sr-only">Close</span>
+        </button>
         <p className="bw-k">My book</p>
         <p className="bw-t">27 copy-paste prompts to fix AI slop UI</p>
         <ul className="bw-l">

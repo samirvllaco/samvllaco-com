@@ -52,8 +52,19 @@ Every new section, component or page must keep this. Check it before calling a c
 **Caching**
 - `public/_headers` sets long caching for `/_next/static`, `/fonts`, `/hero`, `/work/*` image folders. New image folders get a rule there too. Never long-cache HTML.
 
+## Both themes (owner, 14 Nov 2026, locked)
+Every change is checked in dark AND light mode before publishing. Light mode broke unnoticed more than once.
+- Colours come from tokens (`--text`, `--muted`, `--card`, `--line`, ...). A literal colour needs a light-mode partner rule (`:root[data-theme="light"] ...`) in the same change.
+- Sections that stay dark in light mode (`.site-footer`, `.book-band`, or anything marked `.dark-island`) get the dark tokens back automatically. A new always-dark block gets the `dark-island` class instead of one-off colour fixes.
+- Gradient text (`background-clip: text`) needs a light-mode gradient too.
+- Before calling a change done: `npm run build`, `npx serve out -l 4173`, then
+  `NODE_PATH=$(npm root -g) node scripts/contrast.cjs` (all pages) or `... scripts/contrast.cjs /page/ /other/` (pages you touched).
+  It checks every page in both themes on phone and desktop (WCAG AA, axe-core plus gradient text) and must end with 0 failures.
+- Also look at each touched page in light mode yourself, phone and desktop: images, icons and borders the script cannot judge.
+
 ## Buttons (owner, 13 Nov 2026, locked)
 - Only the two button classes in DESIGN.md (Buttons), with the hover and state rules defined there. Check every new or moved button on hover before calling a change done.
+- Buttons side by side are the same width (owner, 14 Nov 2026). Put them alone in one row container: the global rule in `globals.css` sizes every button in a row of only `hero2-btn` buttons to the widest one, and stacks them full width on phones.
 
 ## SEO (owner, 13 Nov 2026)
 - Google Search Console is verified with the meta tag in `app/layout.jsx` (`verification.google`); do not remove it. Sitemap is submitted there.

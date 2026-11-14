@@ -29,7 +29,7 @@ export const metadata = {
 
 // Inline icon slot inside the hero headline. Each slot shows the tiles that match the word before it.
 // A tile is a name, or [name, seconds] to keep it on screen longer or shorter than the 6s default.
-function Ico({ id, tiles: wanted, delay = 0, at = 0 }) {
+function Ico({ id, tiles: wanted, delay = 0, at = 0, gap = "" }) {
   // Only show tiles that have an image in public/hero, so new tools appear as soon as their file is added.
   const tiles = wanted.map((t) => (Array.isArray(t) ? t : [t, 6])).filter(([n]) => fs.existsSync(path.join(process.cwd(), "public", "hero", `${n}.webp`)));
   if (!tiles.length) return null;
@@ -50,12 +50,32 @@ function Ico({ id, tiles: wanted, delay = 0, at = 0 }) {
     return el;
   });
   return (
-    <span className="h3-slot h3-seq" aria-hidden="true" style={{ "--pop": `${0.25 + at * 0.15}s` }}>
+    <span className={`h3-slot h3-seq${gap ? ` h3-g${gap}` : ""}`} aria-hidden="true" style={{ "--pop": `${0.25 + at * 0.15}s` }}>
       {tiles.length > 1 ? <style dangerouslySetInnerHTML={{ __html: css.join("\n") }} /> : null}
       {imgs}
     </span>
   );
 }
+
+// Words of the hero headline, one span each, so they can glide aside when the icons arrive.
+function W({ t }) {
+  const parts = t.split(" ");
+  return parts.map((w, i) => <span key={i}><span className="h3-wd">{w}</span>{i < parts.length - 1 ? " " : null}</span>);
+}
+
+// Headline intro (owner, 14 Nov 2026): for the first 2 seconds it reads as plain text, then the icons pop in
+// and the words glide apart to make room. The words move with transform only, measured against the final
+// layout, so nothing shifts in layout (no CLS). Reduced motion shows the final headline at once.
+const H1_FLIP = `(function(){var s=document.currentScript,h=s&&s.previousElementSibling;if(!h)return;
+if(matchMedia("(prefers-reduced-motion: reduce)").matches){h.classList.add("h3-in");return}
+var go=false,ws=[].slice.call(h.querySelectorAll(".h3-wd"));
+function place(){if(go)return;ws.forEach(function(w){w.style.transform=""});var f=ws.map(function(w){return w.getBoundingClientRect()}),hf=h.offsetHeight;
+h.classList.add("h3-c");var c=ws.map(function(w){return w.getBoundingClientRect()}),dy=(hf-h.offsetHeight)/2;h.classList.remove("h3-c");
+ws.forEach(function(w,i){var x=c[i].left-f[i].left,y=c[i].top-f[i].top+dy;w.style.transform=x||y?"translate("+x+"px,"+y+"px)":""})}
+place();h.classList.add("h3-pre");
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(place);
+addEventListener("resize",place);
+setTimeout(function(){go=true;removeEventListener("resize",place);h.classList.add("h3-in");ws.forEach(function(w){w.style.transform=""})},2000)})();`;
 
 export default function Home() {
   return (
@@ -64,11 +84,13 @@ export default function Home() {
       <section className="hero2" data-bg="#0b0b0c">
         <div className="hero3">
           <HeroRole />
-          <h1>
-            I design <Ico id="a" tiles={[["figma", 12], ["photoshop", 5], ["chatgpt", 2.5], ["illustrator", 5], ["pen", 5], ["claude", 2.5], ["systems", 5], ["wand", 4]]} /> digital products{" "}<br />
-            people <span className="h3-nw">love <Ico id="b" tiles={[["love", 9], "star", "smile", "like", "chat"]} delay={2} at={1} />,</span> and{" "}<br />
-            <span className="t2">experiences that convert</span> <Ico id="c" tiles={["growth", "money", "target", "bolt", "rocket", "click"]} delay={4} at={2} />
+          <h1 className="h3-flip">
+            <W t="I design" /> <Ico id="a" gap="r" tiles={[["figma", 12], ["photoshop", 5], ["chatgpt", 2.5], ["illustrator", 5], ["pen", 5], ["claude", 2.5], ["systems", 5], ["wand", 4]]} /><W t="digital products" />{" "}<br />
+            <W t="people" /> <span className="h3-nw"><W t="love" /><Ico id="b" gap="l" tiles={[["love", 9], "star", "smile", "like", "chat"]} delay={2} at={1} /><W t="," /></span> <W t="and" />{" "}<br />
+            <span className="t2"><W t="experiences that convert" /></span> <Ico id="c" tiles={["growth", "money", "target", "bolt", "rocket", "click"]} delay={4} at={2} />
           </h1>
+          {/* Runs before the first paint: the headline first reads as plain text, then the icons open their space. */}
+          <script dangerouslySetInnerHTML={{ __html: H1_FLIP }} />
           <p className="hero2-sub">You built something people need. If they can't see it in five seconds, they leave. I make your product clear, beautiful and easy to say yes to.</p>
           <div className="hero2-cta">
             <a className="hero2-btn hero2-btn-primary" href="/book/"><CallIcon />Book a 30-min design strategy call</a>

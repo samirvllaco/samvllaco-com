@@ -2060,7 +2060,7 @@ html.is-end .to-top { transform: none; }
 @media (min-width: 981px) {
   :root[data-theme="light"].is-scrolled .site-header .wrap.head-row { background: rgba(255, 255, 255, .52); }
   /* Over the dark footer the light-mode header switches to dark glass so the links stay readable */
-  :root[data-theme="light"].is-end .site-header .wrap.head-row { background: rgba(28, 28, 30, .5); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .14), 0 14px 34px -14px rgba(0, 0, 0, .55); }
+  :root[data-theme="light"].is-end .site-header .wrap.head-row { background: rgba(28, 28, 30, .86); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .14), 0 14px 34px -14px rgba(0, 0, 0, .55); }
   :root[data-theme="light"].is-end .head-nav > a, :root[data-theme="light"].is-end .head-nav .mega-btn, :root[data-theme="light"].is-end .head-end button { color: #f5f5f7; }
 }
 
@@ -2265,7 +2265,7 @@ html.is-end .bk { bottom: 120px; }
 
 /* Light mode: header turns to dark glass as soon as it sits over a dark band */
 @media (min-width: 981px) {
-  :root[data-theme="light"].on-dark.is-scrolled .site-header .wrap.head-row { background: rgba(28, 28, 30, .5); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .14), 0 14px 34px -14px rgba(0, 0, 0, .55); }
+  :root[data-theme="light"].on-dark.is-scrolled .site-header .wrap.head-row { background: rgba(28, 28, 30, .86); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .14), 0 14px 34px -14px rgba(0, 0, 0, .55); }
   :root[data-theme="light"].on-dark .head-nav > a, :root[data-theme="light"].on-dark .head-nav .mega-btn, :root[data-theme="light"].on-dark .head-end button { color: #f5f5f7; }
   :root[data-theme="light"].on-dark .brand-me::after { box-shadow: 0 0 0 2.5px #2a2a2c; }
 }
@@ -3494,7 +3494,6 @@ html.is-end .bk { bottom: max(16px, env(safe-area-inset-bottom, 0px)); }
 :root[data-theme="light"] .md-club-acts a { background: rgba(0, 0, 0, .05); }
 /* Booking: script line, other ways to reach Sam and a QR for phone booking (owner, 13 Nov 2026) */
 .book-band-head .bb-sub { margin: 4px 0 0; font-size: clamp(1.625rem, 2.6vw, 2.125rem); line-height: 1; color: #8fd0ff; }
-:root[data-theme="light"] .book-band-head .bb-sub { color: #0a6fd6; }
 .bb-alt { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 20px 32px; margin-top: 20px; padding: 18px 22px; border-radius: 20px; background: rgba(255, 255, 255, .05); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .08); }
 .bb-alt-l { display: grid; gap: 12px; min-width: 0; }
 .bb-alt-h { margin: 0; font-size: 1rem; } .bb-alt-h span { color: var(--muted); }
@@ -3506,12 +3505,10 @@ html.is-end .bk { bottom: max(16px, env(safe-area-inset-bottom, 0px)); }
 .bb-qr img { flex: none; width: 96px; height: 96px; padding: 7px; border-radius: 12px; background: #fff; }
 .bb-qr figcaption { display: grid; gap: 3px; max-width: 22ch; font-size: .875rem; line-height: 1.4; } .bb-qr figcaption span { color: var(--muted); }
 @media (max-width: 760px) { .bb-qr { display: none; } .bb-alt { justify-content: center; text-align: center; } .bb-alt-row { justify-content: center; } }
-:root[data-theme="light"] .bb-alt { background: rgba(0, 0, 0, .04); box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .08); } :root[data-theme="light"] .bb-x { background: rgba(0, 0, 0, .06); }
-.bb-alt .hp-copy { --hp-accent: #62c1fd; border-radius: 999px; min-height: 44px; } :root[data-theme="light"] .bb-alt .hp-copy { background: rgba(0, 0, 0, .06); color: var(--text); --hp-accent: #0a6fd6; }
+.bb-alt .hp-copy { --hp-accent: #62c1fd; border-radius: 999px; min-height: 44px; }
 .faq .faq-card { justify-items: center; text-align: center; }
 .faq .faq-card h3 .scr { margin-top: 4px; }
 .book-band .book-band-head p.bb-sub { margin-top: 6px; color: #8fd0ff; }
-:root[data-theme="light"] .book-band .book-band-head p.bb-sub { color: #0a6fd6; }
 .bb-alt { max-width: 960px; margin-inline: auto; }
 .book-split .bb-alt { max-width: none; }
 @media (max-width: 560px) { .md-club-acts { display: grid; width: 100%; } .md-club-acts a { width: 100%; } }
@@ -3561,7 +3558,6 @@ html.is-end .bk { bottom: max(16px, env(safe-area-inset-bottom, 0px)); }
 .fm-ext { width: 13px; height: 13px; flex: none; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; opacity: .8; }
 @media (max-width: 1100px) { .site-footer .foot-map { grid-template-columns: repeat(3, minmax(0, 1fr)); } .fm-brand { grid-column: 1 / -1; } }
 @media (max-width: 620px) { .site-footer .foot-map { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 36px 20px; } }
-:root[data-theme="light"] .foot-map-h, :root[data-theme="light"] .fm-brand b { color: #1d1d1f; } :root[data-theme="light"] .site-footer .foot-map a { color: #6e6e73; } :root[data-theme="light"] .site-footer .foot-map a:hover { color: #000; } :root[data-theme="light"] .site-footer .foot-map { border-bottom-color: rgba(0, 0, 0, .08); }
 /* Ebook before/after: one centred column, heading, lede, tabs and slider on the same axis (owner, 13 Nov 2026) */
 @media (min-width: 641px) {
   .ba .eb-cov-h { justify-content: center; gap: clamp(16px, 2vw, 28px); }
@@ -3615,7 +3611,7 @@ html.is-end .bk { bottom: max(16px, env(safe-area-inset-bottom, 0px)); }
 @media (hover: hover) { .head-nav:has(a:hover, .mega-btn:hover) .mega a:not(:hover) { opacity: 1; } }
 .hp-photo { filter: none; object-position: 50% 15%; }
 @media (max-width: 960px) { .hp-right { padding-top: calc(min(100vw, 960px) * .78); } .hp-right .hp-photo { bottom: auto; height: auto; aspect-ratio: 1000 / 1250; object-position: 50% 0; } }
-.foot-tagline { font-weight: 400; color: #98989d; } :root[data-theme="light"] .foot-tagline { color: #6e6e73; }
+.foot-tagline { font-weight: 400; color: #98989d; }
 /* Resources mega menu (owner, 14 Nov 2026) */
 .mx-k2 { margin-top: 20px; padding-top: 16px; border-top: 1px solid rgba(255, 255, 255, .08); }
 .mx-posts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 16px; margin: 0; padding: 0; list-style: none; }
@@ -3724,7 +3720,6 @@ main p { font-size: 1.0625rem; line-height: 1.6; }
 :root[data-theme="light"] .sv-more a { background: rgba(0, 0, 0, .05); } :root[data-theme="light"] .sv-story .scr { color: #0a6fd6; }
 .fm-live { display: inline-flex; align-items: center; gap: 5px; margin-left: 8px; padding: 2px 8px 2px 7px; border-radius: 999px; font-size: .6875rem; font-weight: 600; letter-spacing: .02em; color: #30d158; background: rgba(48, 209, 88, .12); }
 .fm-live i { width: 6px; height: 6px; border-radius: 50%; background: #30d158; box-shadow: 0 0 0 3px rgba(48, 209, 88, .2); }
-:root[data-theme="light"] .fm-live { color: #1a7f37; background: rgba(26, 127, 55, .1); } :root[data-theme="light"] .fm-live i { background: #1a7f37; }
 .foot-map a:has(.fm-live) { white-space: nowrap; }
 /* Current page: shown in the header and the footer link map (owner, 14 Nov 2026) */
 .site-footer .foot-map a[aria-current="page"] { color: #f5f5f7; }
@@ -3732,7 +3727,6 @@ main p { font-size: 1.0625rem; line-height: 1.6; }
 .head-nav > a[aria-current="page"], .head-nav .mega-btn.is-current { background: var(--hl); }
 .head-nav > a[aria-current="page"]::after, .head-nav .mega-btn.is-current::after { content: ""; position: absolute; left: 50%; bottom: 4px; width: 4px; height: 4px; margin-left: -2px; border-radius: 50%; background: #62c1fd; }
 .head-nav > a, .head-nav .mega-btn { position: relative; }
-:root[data-theme="light"] .site-footer .foot-map a[aria-current="page"] { color: #000; }
 .foot-map a:has(.mega-pdf) { white-space: nowrap; } .foot-map .mega-pdf { margin-left: 8px; }
 /* Wall stats: frosted glass over the screens, tinted with the page color, no blue (owner, 14 Nov 2026) */
 .wall-stats { background: linear-gradient(180deg, color-mix(in srgb, var(--sec-bg) 72%, transparent) 0%, color-mix(in srgb, var(--sec-bg) 55%, transparent) 60%, color-mix(in srgb, var(--sec-bg) 20%, transparent) 85%, transparent 100%); -webkit-backdrop-filter: blur(22px) saturate(140%); backdrop-filter: blur(22px) saturate(140%); }
@@ -4170,3 +4164,84 @@ html:not(.eb-bar-on) .bk { bottom: calc(max(16px, env(safe-area-inset-bottom, 0p
 }
 @keyframes pf-in { from { opacity: 0; scale: .97; } to { opacity: 1; scale: 1; } }
 @keyframes pf-draw { to { stroke-dashoffset: 0; } }
+
+/* Menus: the page you are on is clearly marked (owner, 14 Nov 2026): a blue tinted row with a blue ring and a
+   "You're here" tag, in the big menus and the phone menu. Replaces the old muted grey, which read as disabled. */
+.head-nav .mx .mx-grid a[aria-current="page"], .head-nav .mx .mx-grid a[aria-current="page"]:hover { background: rgba(98, 193, 253, .1); box-shadow: inset 0 0 0 1px rgba(98, 193, 253, .45); }
+.mx-grid a[aria-current="page"] .mx-ico { color: #62c1fd; }
+.mx-grid a[aria-current="page"] b::after, .mm-sheet nav a[aria-current="page"]::after { content: "You're here"; display: inline-flex; align-items: center; height: 20px; margin-left: 8px; padding: 0 8px; border-radius: 999px; vertical-align: 2px; font-size: .6875rem; font-weight: 600; letter-spacing: .01em; color: #62c1fd; background: rgba(98, 193, 253, .14); }
+@media (max-width: 980px) {
+  .mm-sheet nav a[aria-current="page"] { color: var(--text); margin-inline: -10px; padding-inline: 12px; border-radius: 12px; background: rgba(98, 193, 253, .1); box-shadow: inset 0 0 0 1px rgba(98, 193, 253, .45); }
+  .mm-sheet nav a[aria-current="page"]::after { order: 2; }
+  .mm-sheet nav a[aria-current="page"] .mm-arr { order: 3; color: #62c1fd; }
+}
+:root[data-theme="light"]:not(.on-dark) .mx-grid a[aria-current="page"] b::after, :root[data-theme="light"] .mm-sheet nav a[aria-current="page"]::after { color: #0b5f99; background: rgba(11, 95, 153, .1); }
+:root[data-theme="light"]:not(.on-dark) .head-nav .mx .mx-grid a[aria-current="page"], :root[data-theme="light"] .mm-sheet nav a[aria-current="page"] { background: rgba(11, 95, 153, .07); box-shadow: inset 0 0 0 1px rgba(11, 95, 153, .4); }
+:root[data-theme="light"]:not(.on-dark) .mx-grid a[aria-current="page"] .mx-ico, :root[data-theme="light"] .mm-sheet nav a[aria-current="page"] .mm-arr { color: #0b5f99; }
+.mx-grid a[aria-current="page"] b::after, .mm-sheet nav a[aria-current="page"]::after { white-space: nowrap; }
+@media (max-width: 980px) {
+  .mm-sheet nav .mm-sub a[aria-current="page"] { margin-inline: -8px; padding-inline: 8px; }
+  .mm-sheet nav .mm-sub a[aria-current="page"]::after { content: none; }
+}
+/* Buttons side by side share one width (owner, 14 Nov 2026; DESIGN.md Buttons): any row made only of
+   hero2 buttons sizes every button to the widest one. On phones they stack, full width. */
+:where(div, p, nav):has(> .hero2-btn + .hero2-btn):not(:has(> :not(.hero2-btn))) { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; width: fit-content; max-width: 100%; }
+:where(div, p, nav):has(> .hero2-btn + .hero2-btn):not(:has(> :not(.hero2-btn))) > .hero2-btn { width: auto; min-width: 0; justify-content: center; }
+@media (max-width: 560px) { :where(div, p, nav):has(> .hero2-btn + .hero2-btn):not(:has(> :not(.hero2-btn))) { grid-auto-flow: row; width: 100%; } }
+
+/* Light mode: dark islands (owner, 14 Nov 2026). The book-a-call band and the footer stay dark in light mode,
+   so they get the dark colour tokens back. Anything inside them that uses tokens reads correctly in both themes.
+   Checked by scripts/contrast.cjs (see CLAUDE.md, "Both themes"). */
+:root[data-theme="light"] :is(.site-footer, .book-band, .dark-island) {
+  color-scheme: dark;
+  --bg: #111112; --page: #111112; --surface: #1d1d1f; --card: #1d1d1f; --card-2: #2a2a2c; --card-3: #3a3a3c; --card-low: #151516; --socket: #08080a;
+  --text: #f5f5f7; --text-2: #d4d4d8; --muted: #a1a1a6; --border: #424245; --line: rgba(255, 255, 255, .12); --hl: rgba(255, 255, 255, .12);
+  --accent: #62c1fd; --accent-soft: #2c2c2e; --eng-dark: rgba(0, 0, 0, .85); --eng-light: rgba(255, 255, 255, .17);
+  --glass: rgba(17, 17, 18, .82); --glass-card: rgba(39, 39, 41, .86); --inv-bg: #f5f5f7; --inv-ink: #111112;
+  color: var(--text);
+}
+:root[data-theme="light"] :is(.site-footer, .book-band, .dark-island) .hero2-btn-light { --k-top: #46464c; --k-mid: #34343a; --k-low: #2a2a2f; --k-edge: #18181b; --k-line: #0b0b0c; --k-glow: rgba(0, 0, 0, .4); --k-hi: rgba(255, 255, 255, .22); --k-ink: #f5f5f7; background-color: #34343a; color: #f5f5f7; text-shadow: 0 1px 0 rgba(0, 0, 0, .5); }
+/* Light mode fixes found by scripts/contrast.cjs (owner, 14 Nov 2026) */
+:root[data-theme="light"] .wall-stats b { color: #111112; background: linear-gradient(180deg, #111112 30%, #48484e); -webkit-background-clip: text; background-clip: text; }
+:root[data-theme="light"] .wall-stats span { color: #5c5c63; }
+:root[data-theme="light"]:not(.on-dark) .eb-story-sign.scr { color: #a8590a !important; }
+:root[data-theme="light"] .tm-world-t .t2 { color: #6e6e73; }
+/* Book widget: a close button in the card corner (owner, 14 Nov 2026) */
+.bw-card { position: relative; }
+.bw-x { position: absolute; top: 8px; right: 8px; display: grid; place-items: center; width: 36px; height: 36px; padding: 0; border: 0; border-radius: 50%; background: rgba(255, 255, 255, .08); color: var(--text); cursor: pointer; transition: background-color .15s var(--ease-out); }
+.bw-x::before { content: ""; position: absolute; inset: -4px; }
+.bw-x:focus-visible { outline: 3px solid rgba(98, 193, 253, .6); outline-offset: 2px; }
+@media (hover: hover) and (pointer: fine) { .bw-x:hover { background: rgba(255, 255, 255, .16); } }
+.bw-x:active { scale: .94; }
+:root[data-theme="light"]:not(.on-dark) .bw-x { background: rgba(0, 0, 0, .06); color: #111112; }
+@media (hover: hover) and (pointer: fine) { :root[data-theme="light"]:not(.on-dark) .bw-x:hover { background: rgba(0, 0, 0, .1); } }
+.bw-k { padding-right: 40px; }
+:root[data-theme="light"]:not(.on-dark) .bw-k { color: #a8590a; }
+/* Hero headline intro (owner, 14 Nov 2026): plain text first, then the icons arrive and the words glide apart.
+   .h3-c is only set for one measurement inside the inline script (slots with no width). */
+.h3-flip .h3-wd { display: inline-block; }
+.h3-flip.h3-c .h3-slot { width: 0 !important; margin-inline: 0 !important; }
+html.js .hero3 h1.h3-flip .h3-slot { animation: none !important; }
+html.js .hero3 h1.h3-flip.h3-pre:not(.h3-in) .h3-slot { opacity: 0; scale: .3; rotate: -12deg; }
+html.js .hero3 h1.h3-flip.h3-in .h3-slot { opacity: 1; scale: 1; rotate: 0deg; transition: opacity .3s var(--ease-out) calc(var(--pop, 0s) - .1s), scale .6s var(--spring) calc(var(--pop, 0s) - .1s), rotate .6s var(--spring) calc(var(--pop, 0s) - .1s); }
+.h3-flip.h3-in .h3-wd { transition: transform .75s var(--ease-sheet); }
+.hero3 h1 .h3-slot.h3-gr { margin-inline: .08em .3em; }
+.hero3 h1 .h3-slot.h3-gl { margin-inline: .3em .08em; }
+/* Light mode: orange and blue accents used as text get their deeper light-mode shade (contrast 4.5:1 on light) */
+:root[data-theme="light"] .eb { --eo: #a8590a; }
+:root[data-theme="light"] :is(.eb-pk-card .eb-pk-k, .eb .eb-end .eb-end-k, .sv-stars) { color: #a8590a; }
+:root[data-theme="light"] .sv-n { color: #0b62c4; }
+:root[data-theme="light"] .mx-k { color: #6e6e73; }
+:root[data-theme="light"] :is(.site-footer, .book-band, .dark-island) .eb { --eo: #ff9d2e; }
+:root[data-theme="light"]:not(.on-dark) :is(.fp-h span, .eb-road-l b) { color: #a8590a; }
+:root[data-theme="light"] .eb-bn-grid pre { background: #1d1d1f; color: #e9e9ee; }
+:root[data-theme="light"] .t2 { color: #6e6e73; }
+/* The "Not a fan of calendars?" box sits on light pages too (/book/): light colours there, dark ones inside dark islands */
+:root[data-theme="light"] .bb-alt { background: rgba(0, 0, 0, .04); box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .08); }
+:root[data-theme="light"] .bb-x { background: rgba(0, 0, 0, .06); }
+:root[data-theme="light"] .bb-alt .hp-copy { background: rgba(0, 0, 0, .06); color: var(--text); --hp-accent: #0a6fd6; }
+:root[data-theme="light"] :is(.site-footer, .book-band, .dark-island) .bb-alt { background: rgba(255, 255, 255, .05); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .08); }
+:root[data-theme="light"] :is(.site-footer, .book-band, .dark-island) .bb-x { background: rgba(255, 255, 255, .08); }
+:root[data-theme="light"] :is(.site-footer, .book-band, .dark-island) .bb-alt .hp-copy { background: none; --hp-accent: #62c1fd; }
+:root[data-theme="light"] .bb-alt .hp-copy b { --hp-accent: #0a6fd6; }
+:root[data-theme="light"] :is(.site-footer, .book-band, .dark-island) .bb-alt .hp-copy b { --hp-accent: #62c1fd; }

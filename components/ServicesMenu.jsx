@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import MegaShell from "./MegaShell";
 import CallIcon from "./CallIcon";
 import { SERVICES } from "../lib/services";
@@ -20,6 +21,7 @@ export const FEATURED = [
 ];
 
 export default function ServicesMenu() {
+  const path = (usePathname() || "/").replace(/\/?$/, "/");
   return (
     <MegaShell id="mega-services" label="Services" href="/services/">
       {(close) => (
@@ -32,7 +34,7 @@ export default function ServicesMenu() {
                 if (!it) return null;
                 return (
                   <li key={id}>
-                    <Link prefetch={false} href={`/services/${id}/`} onClick={close}>
+                    <Link prefetch={false} href={`/services/${id}/`} aria-current={path === `/services/${id}/` ? "page" : undefined} onClick={close}>
                       <i className="tg-ico mx-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d={d} /></svg></i>
                       <span><b>{it.name}</b><em>{short}</em></span>
                     </Link>
