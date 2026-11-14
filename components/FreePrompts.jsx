@@ -7,11 +7,15 @@ const P = [
   ["18", "Say what it does in ten words", "Rewrite the top of the page. One headline under 10 words that says what this does and who it is for. One sentence under it that says how. One main button that names the first thing the visitor does. Remove any second button. Show a real screenshot of the product. Follow these UX laws: Hick's law, Focal point, Inverted pyramid and Serial position effect."],
 ];
 
+const COPY_D = "M9 9h11v11H9zM5 15H4V4h11v1";
+const TICK_D = "M5 12.5l4.5 4.5L19 7.5";
+
 function Copy({ text }) {
   const [done, setDone] = useState(false);
   return (
-    <button type="button" className="fp-copy" onClick={() => { navigator.clipboard?.writeText(text).then(() => { setDone(true); setTimeout(() => setDone(false), 1600); }).catch(() => {}); }}>
-      {done ? "Copied" : "Copy prompt"}
+    <button type="button" className={`fp-copy${done ? " is-done" : ""}`} onClick={() => { navigator.clipboard?.writeText(text).then(() => { setDone(true); setTimeout(() => setDone(false), 1800); }).catch(() => {}); }}>
+      <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" key={done ? "t" : "c"}><path d={done ? TICK_D : COPY_D} /></svg>
+      <span role="status">{done ? "Copied" : "Copy prompt"}</span>
     </button>
   );
 }

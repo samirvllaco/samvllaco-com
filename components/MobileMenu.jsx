@@ -5,6 +5,22 @@ import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { BOOK_URL } from "../lib/site";
 import CallIcon from "./CallIcon";
+import { FEATURED } from "./ServicesMenu";
+import { SERVICES } from "../lib/services";
+import { RESOURCES } from "../lib/resources";
+
+const ALL_SERVICES = SERVICES.flatMap((g) => g.items);
+// Nested pages for the two menus that open a big panel on desktop.
+const SUB = {
+  "/services/": {
+    items: FEATURED.map(([id, d]) => ({ href: `/services/${id}/`, label: ALL_SERVICES.find((x) => x.id === id)?.name || id, icon: d })),
+    all: { href: "/services/", label: `All ${ALL_SERVICES.length} services` },
+  },
+  "/resources/": {
+    items: RESOURCES.map((r) => ({ href: r.href, label: r.title, icon: r.icon, tag: r.tag })),
+    all: { href: "/resources/", label: "All resources" },
+  },
+};
 
 const LINKS = [
   { href: "/services/", label: "Services" },
@@ -22,10 +38,12 @@ export default function MobileMenu() {
   const btn = useRef(null);
   const [ready, setReady] = useState(false);
   const [spot, setSpot] = useState(null);
+  const [sub, setSub] = useState(null); // which nested list is open
   useEffect(() => setReady(true), []);
   const onBook = path.replace(/\/$/, "") === "/ebook";
 
   useEffect(() => { setOpen(false); }, [path]);
+  useEffect(() => { if (!open) setSub(null); }, [open]);
   // The close button sits exactly where the hamburger was, so the menu closes without moving the pointer or thumb.
   const place = () => { const r = btn.current?.getBoundingClientRect(); if (r) setSpot({ "--bx-t": `${r.top}px`, "--bx-l": `${r.left}px`, "--bx-s": `${r.width}px` }); };
   useEffect(() => {
@@ -61,13 +79,39 @@ export default function MobileMenu() {
               {LINKS.map((l) => {
                 const here = path.startsWith(l.href);
                 return (
-                  <li key={l.href}>
-                    <Link prefetch={false} href={l.href} aria-current={here ? "page" : undefined} onClick={() => setOpen(false)}>
-                      {l.dot ? <i className="nav-dot" aria-hidden="true" /> : null}
-                      {l.label}
-                      {l.tag ? <span className="top-badge">{l.tag}</span> : null}
-                      <svg className="mm-arr" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
-                    </Link>
+                  <li key={l.href} className={SUB[l.href] ? `mm-has${sub === l.href ? " is-sub" : ""}` : undefined}>
+                    <div className="mm-row">
+                      <Link prefetch={false} href={l.href} aria-current={here ? "page" : undefined} onClick={() => setOpen(false)}>
+                        {l.dot ? <i className="nav-dot" aria-hidden="true" /> : null}
+                        {l.label}
+                        {l.tag ? <span className="top-badge">{l.tag}</span> : null}
+                        {SUB[l.href] ? null : <svg className="mm-arr" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>}
+                      </Link>
+                      {SUB[l.href] ? (
+                        <button type="button" className="mm-tog" aria-expanded={sub === l.href} aria-controls={`mm-sub-${l.label}`} onClick={() => setSub(sub === l.href ? null : l.href)}>
+                          <span className="sr-only">{sub === l.href ? "Hide" : "Show"} {l.label} pages</span>
+                          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                        </button>
+                      ) : null}
+                    </div>
+                    {SUB[l.href] ? (
+                      <div className="mm-sub" id={`mm-sub-${l.label}`} hidden={sub !== l.href}>
+                        <ul>
+                          {SUB[l.href].items.map((it) => (
+                            <li key={it.href}>
+                              <Link prefetch={false} href={it.href} onClick={() => setOpen(false)}>
+                                <i className="tg-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d={it.icon} /></svg></i>
+                                {it.label}
+                                {it.tag ? <span className="top-badge">{it.tag}</span> : null}
+                              </Link>
+                            </li>
+                          ))}
+                          <li className="mm-sub-all">
+                            <Link prefetch={false} href={SUB[l.href].all.href} onClick={() => setOpen(false)}>{SUB[l.href].all.label}<svg className="mm-arr" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg></Link>
+                          </li>
+                        </ul>
+                      </div>
+                    ) : null}
                   </li>
                 );
               })}

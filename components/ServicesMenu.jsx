@@ -8,7 +8,7 @@ import { SERVICES } from "../lib/services";
 
 const ITEMS = SERVICES.flatMap((g) => g.items);
 // [service id, icon path, one short line]
-const FEATURED = [
+export const FEATURED = [
   ["saas-product-design", "M4 5h16v11H4zM4 9h16M8 20h8M12 16v4", "Web apps, from first flow to final screen."],
   ["dashboard-design", "M4 20V10M10 20V4M16 20v-7M22 20H2", "Dense numbers people can read at a glance."],
   ["ai-product-ux", "M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8zM19 16l.7 1.5L21 18l-1.3.6L19 20l-.7-1.4L17 18l1.3-.5z", "Assistants that feel like part of the product."],
