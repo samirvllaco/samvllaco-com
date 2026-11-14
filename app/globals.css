@@ -4277,3 +4277,13 @@ html.js .hero3 h1.h3-flip.h3-in .h3-slot { opacity: 1; scale: 1; rotate: 0deg; t
 :root[data-theme="light"] .faq-list details p .faq-hl { background: linear-gradient(transparent 55%, rgba(11, 98, 196, .18) 55%); }
 .eb .faq-list details p .faq-hl { background: linear-gradient(transparent 55%, rgba(255, 157, 46, .3) 55%); }
 :root[data-theme="light"] .eb .faq-list details p .faq-hl { background: linear-gradient(transparent 55%, rgba(255, 157, 46, .32) 55%); }
+/* Screen wall stats: frosted glass instead of a flat black band (owner, 15 Nov 2026). The screens show through,
+   blurred, and the glass fades out slowly at the bottom. */
+.wall-stats {
+  background: linear-gradient(180deg, color-mix(in srgb, var(--sec-bg) 80%, transparent) 0%, color-mix(in srgb, var(--sec-bg) 70%, transparent) 50%, color-mix(in srgb, var(--sec-bg) 34%, transparent) 76%, transparent 100%);
+  -webkit-backdrop-filter: blur(26px) saturate(170%); backdrop-filter: blur(26px) saturate(170%);
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 55%, rgba(0, 0, 0, .55) 78%, transparent 100%); mask-image: linear-gradient(180deg, #000 0%, #000 55%, rgba(0, 0, 0, .55) 78%, transparent 100%);
+}
+.wall-stats::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; background: radial-gradient(60% 80% at 50% 0%, rgba(255, 255, 255, .07), transparent 70%), linear-gradient(90deg, transparent, rgba(255, 255, 255, .16) 30%, rgba(255, 255, 255, .16) 70%, transparent) top / 100% 1px no-repeat; }
+.wall-stats b, .wall-stats span { text-shadow: 0 1px 12px color-mix(in srgb, var(--sec-bg) 70%, transparent); }
+:root[data-theme="light"] .wall-stats::before { background: radial-gradient(60% 80% at 50% 0%, rgba(255, 255, 255, .5), transparent 70%), linear-gradient(90deg, transparent, rgba(0, 0, 0, .08) 30%, rgba(0, 0, 0, .08) 70%, transparent) top / 100% 1px no-repeat; }
