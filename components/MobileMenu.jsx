@@ -20,10 +20,19 @@ export default function MobileMenu() {
   const path = usePathname() || "";
   const btn = useRef(null);
   const [ready, setReady] = useState(false);
+  const [spot, setSpot] = useState(null);
   useEffect(() => setReady(true), []);
   const onBook = path.replace(/\/$/, "") === "/ebook";
 
   useEffect(() => { setOpen(false); }, [path]);
+  // The close button sits exactly where the hamburger was, so the menu closes without moving the pointer or thumb.
+  const place = () => { const r = btn.current?.getBoundingClientRect(); if (r) setSpot({ "--bx-t": `${r.top}px`, "--bx-l": `${r.left}px`, "--bx-s": `${r.width}px` }); };
+  useEffect(() => {
+    if (!open) return;
+    place();
+    window.addEventListener("resize", place);
+    return () => window.removeEventListener("resize", place);
+  }, [open]);
   useEffect(() => {
     document.documentElement.classList.toggle("mm-open", open);
     if (!open) return;
@@ -34,10 +43,10 @@ export default function MobileMenu() {
 
   return (
     <>
-      <button ref={btn} type="button" className="mm-btn" aria-expanded={open} aria-controls="mm-sheet" aria-label="Open menu" onClick={() => setOpen(true)}>
+      <button ref={btn} type="button" className="mm-btn" aria-expanded={open} aria-controls="mm-sheet" aria-label="Open menu" onClick={() => { place(); setOpen(true); }}>
         <span aria-hidden="true" /><span aria-hidden="true" />
       </button>
-      {ready ? createPortal(<div id="mm-sheet" className={`mm-sheet${open ? " is-open" : ""}`} hidden={!open} onClick={(e) => { if (e.target === e.currentTarget) { setOpen(false); btn.current?.focus(); } }}>
+      {ready ? createPortal(<div id="mm-sheet" className={`mm-sheet${open ? " is-open" : ""}${spot ? " has-spot" : ""}`} style={spot || undefined} hidden={!open} onClick={(e) => { if (e.target === e.currentTarget) { setOpen(false); btn.current?.focus(); } }}>
         <div className="mm-panel" role="dialog" aria-modal="true" aria-label="Menu">
           <div className="mm-top">
             <span>Menu</span>
