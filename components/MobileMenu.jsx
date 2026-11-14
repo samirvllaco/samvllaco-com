@@ -26,7 +26,7 @@ const LINKS = [
   { href: "/services/", label: "Services" },
   { href: "/work/", label: "Work" },
   { href: "/resources/", label: "Resources" },
-  { href: "/ebook/", label: "E-book", tag: "$6.99" },
+  { href: "/ebook/", label: "E-book", tag: "$12.99" },
   { href: "/about/", label: "About" },
   { href: "/book/", label: "Contact", dot: true },
 ];
@@ -127,7 +127,7 @@ export default function MobileMenu() {
           </nav>
           <div className="mm-cta">
             {onBook
-              ? <a className="hero2-btn hero2-btn-primary" href={BOOK_URL} target="_blank" rel="noopener">Buy the e-book for $6.99</a>
+              ? <a className="hero2-btn hero2-btn-primary" href={BOOK_URL} target="_blank" rel="noopener">Buy the e-book for $12.99</a>
               : <a className="hero2-btn hero2-btn-primary" href="/book/"><CallIcon />Book a call</a>}
           </div>
         </div>

@@ -37,14 +37,14 @@ export default function Resources() {
           <h1>Learn and borrow <span className="t2">what I use with clients</span></h1>
           <p className="sv-lede">The prompts, rules files and notes I use on real products, written down so you can fix your own app tonight. <em className="scr">Take what helps.</em></p>
           <div className="sv-cta">
-            <Link prefetch={false} className="hero2-btn hero2-btn-primary" href="/ebook/">Get the book for $6.99</Link>
+            <Link prefetch={false} className="hero2-btn hero2-btn-primary" href="/ebook/">Get the book for $12.99</Link>
             <Link prefetch={false} className="hero2-btn hero2-btn-light" href="/ebook/#free">Try 2 free prompts</Link>
           </div>
         </div>
         <Link prefetch={false} className="sv-hero-art rs-book" href="/ebook/">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/book-cover.webp?v=2" width="300" height="400" alt="Cover of 27 Copy-Paste Prompts to Fix AI Slop UI" loading="eager" fetchPriority="high" />
-          <span className="sv-art-tag"><b>27 Copy-Paste Prompts</b><span>Ebook, 80% off</span></span>
+          <span className="sv-art-tag"><b>27 Copy-Paste Prompts</b><span>Ebook, 63% off</span></span>
         </Link>
       </header>
 

@@ -8,12 +8,14 @@ import FreePrompts from "../../components/FreePrompts";
 import JsonLd from "../../components/JsonLd";
 import Faq from "../../components/Faq";
 import EbookBar from "../../components/EbookBar";
+import FlipBook from "../../components/FlipBook";
+import FreePagesForm from "../../components/FreePagesForm";
 import { share, PERSON_ID } from "../../lib/seo";
-import { SITE, EMAIL } from "../../lib/site";
+import { SITE, EMAIL, REVIEW_URL } from "../../lib/site";
 
 const BUY_URL = BOOK_URL;
-const PRICE = "$6.99";
-const WAS = "$34.95"; // compare-at price set on Whop (Save 80%)
+const PRICE = "$12.99";
+const WAS = "$34.95"; // compare-at price set on Whop (Save 63%)
 
 export const metadata = {
   title: "27 Copy-Paste Prompts to Fix AI Slop UI",
@@ -35,7 +37,7 @@ const BOOK_LD = {
   brand: { "@type": "Brand", name: "Sam Vllaco" },
   author: { "@id": PERSON_ID },
   url: `${SITE.url}/ebook/`,
-  offers: { "@type": "Offer", price: "6.99", priceCurrency: "USD", availability: "https://schema.org/InStock", url: BOOK_URL, seller: { "@id": PERSON_ID } },
+  offers: { "@type": "Offer", price: "12.99", priceCurrency: "USD", availability: "https://schema.org/InStock", url: BOOK_URL, seller: { "@id": PERSON_ID } },
 };
 
 const TOOLS = ["claude", "lovable", "v0", "codex", "cursor", "bolt", "chatgpt", "gemini"];
@@ -103,6 +105,7 @@ const GET = [
   ["motion", "Motion prompt: 12 animation principles in subtle values, plus a block to paste into DESIGN.md", "Bonus"],
   ["hand", "UX principles prompt: 8 rules that check every button, link and list", "Bonus"],
   ["compass", "A list of places to find good design references"],
+  ["repeat", "Lifetime updates: the book is updated every week, every new version is yours"],
 ];
 const FILES = ["DESIGN.md", "SCORECARD.md", "PROMPTS.md", "UX-LAWS.md"];
 
@@ -111,12 +114,14 @@ const FAQ = [
   ["What is the private video?", "A 15 to 30 minute screen recording where I take an AI-built page and turn it into a real product, live, using the prompts from the book. You see every decision and why I make it, so you can pause, copy my steps and learn how I think."],
   ["Which AI tools does it work with?", "Any tool that takes a prompt, such as Claude, Lovable, v0, Codex, Cursor and Bolt. The prompts are plain language."],
   ["Do I need design skills?", "Nope. Each step tells you what to do, why it matters and what to check before you say yes to the AI's change."],
-  ["How long does it take?", "About an hour per page. Start with color, type and spacing. That is where you will see the biggest jump."],
+  ["How long does it take?", "Two speeds. The 30-minute quick start covers color, type, spacing and the hero, where you see the biggest jump. The full 27 steps take about an hour per page."],
   ["Why not just ask the AI to make it look better?", "You can, and you usually get another gradient. Vague asks get average results. These prompts give your AI exact values and rules, and the scorecard shows what still looks off."],
-  ["Is $6.99 too cheap to be any good?", "It is priced to be an easy yes. Inside are the same rules I use on client projects."],
-  ["My app already looks okay. Do I need this?", "Run the scorecard first. If your page already scores a 10, you lost the price of a coffee. If not, you know exactly what to fix."],
+  ["Why is it only $12.99?", "It is priced to be an easy yes. Inside are the same rules I use on client projects."],
+  ["My app already looks okay. Do I need this?", "Run the scorecard first. If your page already scores a 10, you know it is ready. If not, you know exactly what to fix."],
   ["Will it work on my next project?", "Yes. That is the point of the system: rules, fix, rate, re-run, on any page you build."],
-  ["Will it break my app?", "No. Every prompt keeps your content and features and only touches the design."],
+  ["Can it break something in my app?", "Every prompt asks your AI to keep your content and features and change only the design. AI tools still make mistakes, so work on a copy or a new branch, review each change before you accept it and click through the page after. Each step tells you what to check."],
+  ["What if the AI changes something important?", "Undo it and run the step again with the part to leave alone named in the prompt. Commit or save a backup before each step, so going back is one click. The checks in each step help you catch it before you accept the change."],
+  ["Do I get updates?", "Yes. I update the book every week, and every new version is yours for free. Download it again from your Whop library."],
 ];
 
 function Buy({ label }) {
@@ -135,7 +140,7 @@ export default function Ebook() {
 
       <header className="eb-hero" data-bg="#111112">
         <div className="eb-copy">
-          <p className="eb-sale"><b>80% OFF</b><span><s aria-label={`was ${WAS}`}>{WAS}</s> now {PRICE}, video included</span></p>
+          <p className="eb-sale"><b>63% OFF</b><span><s aria-label={`was ${WAS}`}>{WAS}</s> now {PRICE}, video included</span></p>
           <p className="eb-kick">Designed, not generated.</p>
           <h1><span className="eb-27">27 copy-paste prompts</span> to fix AI slop UI</h1>
           <p className="eb-sub">You built it fast. It works. Then you open it next to a real product and something feels off: the purple gradient, the three little cards, the glow. Visitors notice it <em className="scr">before they read a word.</em> These prompts fix that, one step at a time, without rebuilding anything.</p>
@@ -167,6 +172,8 @@ export default function Ebook() {
         </div>
       </section>
 
+      <BeforeAfter />
+
       <section className="eb-sec eb-feel pain" aria-labelledby="eb-feel-h">
         <h2 id="eb-feel-h">Sound <span className="t2">familiar?</span></h2>
         <ul className="eb-pains pain-seg">
@@ -182,8 +189,6 @@ export default function Ebook() {
         </div>
         <p className="pain-cta"><Buy label={<>Get the prompts <span className="eb-pill">{PRICE}</span></>} /><span>27 prompts, one evening. Yours to keep.</span></p>
       </section>
-
-      <BeforeAfter />
 
       <section className="eb-sec eb-vid" aria-labelledby="eb-vid-h">
         <div className="eb-vid-in">
@@ -212,7 +217,7 @@ export default function Ebook() {
 
       <section className="eb-sec eb-road" aria-labelledby="eb-road-h">
         <h2 id="eb-road-h">Your first <span className="t2">30 minutes</span></h2>
-        <p className="eb-why-lede">You do not need a free weekend. Open your app, open the book, and follow this. <em className="scr">Most of the change shows up here.</em></p>
+        <p className="eb-why-lede">This is the quick start. Open your app, open the book, and follow it. <em className="scr">Most of the change shows up here.</em> The full 27 steps take about an hour per page when you want to go further.</p>
         <ol className="eb-road-l">
           <li><b>0 to 5 min</b><span><strong>Audit your colors</strong>Run prompt 1. The AI lists every color and what to cut, without changing anything yet.</span></li>
           <li><b>5 to 10 min</b><span><strong>Set your rules</strong>Fill in DESIGN.md with prompt 15, so your AI uses one gray base and one accent from now on.</span></li>
@@ -304,7 +309,7 @@ export default function Ebook() {
 
 
       <section className="eb-sec eb-bn" id="bonus">
-        <p className="eb-bn-tag">Included in the same $6.99 purchase</p>
+        <p className="eb-bn-tag">Included in the same $12.99 purchase</p>
         <h2>Bonus: <span className="t2">motion and UX principles</span></h2>
         <p className="eb-bn-lede">Once the page looks designed, <em className="scr">make it feel designed.</em> Two more copy-paste prompts add small, quick motion and check every control, and a short block saves the rules in DESIGN.md so every new screen follows them. Works for apps, marketing sites and landing pages.</p>
         <div className="eb-bn-grid">
@@ -347,12 +352,18 @@ export default function Ebook() {
 
       <section className="eb-sec">
         <h2>Look <span className="t2">inside</span></h2>
-        <div className="eb-pages">
-          {[1, 2, 3, 4].map((i) => (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img key={i} src={`/ebook/page-${i}.webp?v=2`} width="936" height="1326" alt={`Sample page ${i} from the book`} loading="lazy" />
-          ))}
-        </div>
+        <FlipBook pages={[1, 2, 3, 4].map((i) => `/ebook/page-${i}.webp?v=2`)}>
+          <p className="fb-k">55 more pages inside</p>
+          <h3>All 27 prompts, <span className="t2">ready to paste</span></h3>
+          <ul>
+            <li>27 prompts in 4 phases, with the UX laws behind each</li>
+            <li>100 UX laws in plain words</li>
+            <li>DESIGN.md, the rules file your AI follows</li>
+            <li>Bonus motion and UX prompts</li>
+          </ul>
+          <Buy label={<>Get it for <span className="eb-pill">{PRICE}</span></>} />
+          <p className="fb-note"><em className="scr">You finished the preview.</em> The rest is one click away.</p>
+        </FlipBook>
         <div className="eb-more">
           <p><b>4 of 59 pages shown</b><span>55 more pages inside: all 27 prompts, 100 UX laws, DESIGN.md and the bonus motion and UX prompts.</span></p>
           <Buy label={<>Buy now for <span className="eb-pill">{PRICE}</span></>} />
@@ -385,11 +396,51 @@ export default function Ebook() {
               <li className="eb-f-bn"><b>▶</b>Private video, 15 to 30 min</li>
             </ul>
           </div>
-          <p className="eb-was"><s aria-label={`was ${WAS}`}>{WAS}</s><b>Save 80%</b></p>
+          <p className="eb-was"><s aria-label={`was ${WAS}`}>{WAS}</s><b>Save 63%</b></p>
           <p className="eb-price">{PRICE}<span>one-time</span></p>
           <Buy label="Get your copy" />
-          <p className="eb-note">One PDF, four text files and a private video. Yours to keep.</p>
+          <p className="eb-note">One-time purchase. Downloadable files you can keep and reuse.</p>
+          <p className="eb-note eb-note-2">Right after checkout, Whop opens your library: the PDF, four .md files and the video link. Every weekly update lands there too.</p>
         </aside>
+      </section>
+
+      <section className="eb-sec eb-pk" id="options" aria-labelledby="eb-pk-h">
+        <h2 id="eb-pk-h">Pick what <span className="t2">fits you</span></h2>
+        <p className="eb-why-lede">Start free, get the full system, or have me look at your product with you.</p>
+        <div className="eb-pk-grid">
+          <article className="eb-pk-card">
+            <p className="eb-pk-k">Free sample</p>
+            <h3>10 free pages</h3>
+            <p className="eb-pk-price">$0</p>
+            <p>The first 10 pages of the book: what makes a page look AI-made, the first tells and the first prompts. I send them to your inbox.</p>
+            <FreePagesForm />
+          </article>
+          <article className="eb-pk-card is-main">
+            <p className="eb-pk-k">The full book</p>
+            <h3>27 Copy-Paste Prompts</h3>
+            <p className="eb-pk-price">{PRICE}<span>one-time</span></p>
+            <ul className="eb-ticks eb-ico">
+              <li data-i="book">59 pages, 27 steps, one prompt each</li>
+              <li data-i="file">DESIGN.md, SCORECARD.md, PROMPTS.md, UX-LAWS.md</li>
+              <li data-i="play">Private video of me fixing a real AI build</li>
+              <li data-i="repeat">Lifetime updates, every week</li>
+            </ul>
+            <Buy label={<>Get the book <span className="eb-pill">{PRICE}</span></>} />
+            <p className="eb-pk-small">One-time purchase. Downloadable files you can keep and reuse.</p>
+          </article>
+          <article className="eb-pk-card">
+            <p className="eb-pk-k">Personal review</p>
+            <h3>Mini UI review</h3>
+            <p className="eb-pk-price">$99<span>one-time</span></p>
+            <ul className="eb-ticks eb-ico">
+              <li data-i="play">A video of me going through your product</li>
+              <li data-i="list">A fix list in order, with the prompt to run for each</li>
+              <li data-i="book">The full book included</li>
+            </ul>
+            {REVIEW_URL ? <a className="hero2-btn hero2-btn-light" href={REVIEW_URL} target="_blank" rel="noopener">Get a review</a> : <a className="hero2-btn hero2-btn-light" href="/book/">Ask about a review</a>}
+            <p className="eb-pk-small">Send me your link after checkout. Want me to fix it for you instead? <Link prefetch={false} href="/book/">Book a call</Link>.</p>
+          </article>
+        </div>
       </section>
 
       <section className="hp eb-hp" aria-labelledby="eb-author-h" data-bg="#111112">
@@ -418,7 +469,7 @@ export default function Ebook() {
           <div className="hp-shade" aria-hidden="true" />
           <div className="hp-body">
             <h3>10 years of product design,<br /><em>now in 59 pages you can copy and paste.</em></h3>
-            <p>Every prompt keeps your content and features and changes only the design.</p>
+            <p>Every prompt asks your AI to keep your content and features and change only the design.</p>
             <div className="hp-cta"><Buy label={<>Buy now for <span className="eb-pill">{PRICE}</span></>} /></div>
           </div>
         </div>
@@ -436,8 +487,9 @@ export default function Ebook() {
       </div>
 
       <section className="eb-sec eb-end">
-        <h2>You did the hard part. <span className="t2">Now make it look the part.</span></h2>
-        <p className="eb-end-sub">Your product already works. Give it the hour it deserves and send the link with confidence.</p>
+        <p className="eb-end-k">Built with AI. Finished with taste.</p>
+        <h2>You did the hard part. You built it. <span className="t2">Now give it the polish it deserves.</span></h2>
+        <p className="eb-end-sub">Your product already works. Give it one focused hour and send the link with confidence.</p>
         <div className="btn-row"><Buy label={<>Buy now for <span className="eb-pill">{PRICE}</span></>} /></div>
       </section>
     </div>

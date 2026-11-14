@@ -37,7 +37,7 @@ export default function BookPopup() {
         onClick={() => { if (ptr.current !== "mouse") setOpen((v) => !v); ptr.current = ""; }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="/book-cover.webp?v=2" width="300" height="400" alt="" />
-        <span className="bw-price">$6.99</span>
+        <span className="bw-price">$12.99</span>
         <span className="sr-only">Show my book</span>
       </button>
       <div id="bw-card" className="bw-card">
@@ -48,7 +48,7 @@ export default function BookPopup() {
           <li>DESIGN.md and 100 UX laws</li>
           <li>Bonus motion and UX prompts</li>
         </ul>
-        <a className="hero2-btn hero2-btn-primary bw-buy" href={BOOK_URL} target="_blank" rel="noopener" tabIndex={open ? 0 : -1}>Buy for $6.99</a>
+        <a className="hero2-btn hero2-btn-primary bw-buy" href={BOOK_URL} target="_blank" rel="noopener" tabIndex={open ? 0 : -1}>Buy for $12.99</a>
         <a className="bw-more" href="/ebook/" tabIndex={open ? 0 : -1}>See what's inside</a>
       </div>
     </aside>

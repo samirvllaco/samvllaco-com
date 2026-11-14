@@ -22,8 +22,8 @@ export default function EbookBar() {
     <div className={`eb-bar${on ? " is-on" : ""}`} aria-hidden={!on}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img src="/book-cover.webp?v=2" width="300" height="400" alt="" loading="lazy" />
-      <p><b>27 Copy-Paste Prompts to Fix AI Slop UI</b><span><s>$34.95</s> 80% off</span></p>
-      <a className="hero2-btn hero2-btn-primary" href={BOOK_URL} target="_blank" rel="noopener" tabIndex={on ? 0 : -1}>Get it, $6.99</a>
+      <p><b>27 Copy-Paste Prompts to Fix AI Slop UI</b><span><s>$34.95</s> 63% off</span></p>
+      <a className="hero2-btn hero2-btn-primary" href={BOOK_URL} target="_blank" rel="noopener" tabIndex={on ? 0 : -1}>Get it, $12.99</a>
     </div>
   );
 }

@@ -41,11 +41,11 @@ export default function ResourcesMenu() {
             <div className="mx-book-art">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src="/book-cover.webp?v=2" width="300" height="400" alt="Cover of 27 Copy-Paste Prompts to Fix AI Slop UI" loading="lazy" />
-              <span className="mx-live mx-sale">80% off</span>
+              <span className="mx-live mx-sale">63% off</span>
             </div>
             <p className="mx-side-t">Fix your AI-built app tonight</p>
             <p className="mx-side-p">27 copy-paste prompts for Claude, Cursor, Lovable and v0, the rules file I use with clients, and a private video.</p>
-            <Link prefetch={false} className="hero2-btn hero2-btn-primary" href="/ebook/" onClick={close}>Get the book for $6.99</Link>
+            <Link prefetch={false} className="hero2-btn hero2-btn-primary" href="/ebook/" onClick={close}>Get the book for $12.99</Link>
           </aside>
           <Link prefetch={false} className="mx-all" href="/resources/" onClick={close}>
             <span><b>All resources</b><em>Prompts, the ebook, kits and stories in one place</em></span>

@@ -20,7 +20,7 @@ function Slider({ label, h, before, after, beforeAlt, afterAlt }) {
       <div className="ba-layer ba-a"><img src={after} alt={afterAlt} width="1280" height={h} loading="lazy" decoding="async" /><span>After</span></div>
       <div className="ba-line" aria-hidden="true"><i /></div>
       <input type="range" min="0" max="100" value={v} onChange={(e) => setV(+e.target.value)} aria-label={`Compare before and after: ${label}`} />
-      <a className="hero2-btn hero2-btn-primary ba-buy" href={BOOK_URL} target="_blank" rel="noopener" tabIndex={mode === " is-after" ? 0 : -1} aria-hidden={mode !== " is-after"}>Get the book for $6.99</a>
+      <a className="hero2-btn hero2-btn-primary ba-buy" href={BOOK_URL} target="_blank" rel="noopener" tabIndex={mode === " is-after" ? 0 : -1} aria-hidden={mode !== " is-after"}>Get the book for $12.99</a>
       <span className="ba-warn" aria-hidden="true">First AI draft</span>
     </div>
   );
@@ -32,7 +32,7 @@ export default function BeforeAfter() {
   return (
     <section className="eb-sec ba" aria-labelledby="ba-h">
       <div className="eb-cov-h"><h2 id="ba-h">Before and <span className="t2">after</span></h2><img className="eb-cov" src="/book-cover.webp?v=2" width="300" height="400" alt="" loading="lazy" aria-hidden="true" /></div>
-      <p className="eb-why-lede">Four sample products in four niches. Left is the first AI draft, breaking every rule in DESIGN.md. Right is the same screen with the rules applied. <em className="scr">Drag to compare.</em></p>
+      <p className="eb-why-lede"><b className="ba-line">Same app. Same features. Better design decisions.</b> Four sample products in four niches. Left is the first AI draft, breaking every rule in DESIGN.md. Right is the same screen with the rules applied. <em className="scr">Drag to compare.</em></p>
       <div className="ba-tabs" role="tablist" aria-label="Pick a niche">
         {PAIRS.map((p) => (
           <button key={p.id} type="button" role="tab" id={`ba-t-${p.id}`} aria-selected={tab === p.id} aria-controls="ba-panel" onClick={() => setTab(p.id)}>{p.label}</button>
