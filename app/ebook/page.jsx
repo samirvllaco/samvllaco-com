@@ -128,6 +128,12 @@ function Buy({ label }) {
   return <a className="hero2-btn hero2-btn-primary" href={BUY_URL} target="_blank" rel="noopener">{label}</a>;
 }
 
+// Raised icon tile inside the hero headline, the same tiles as the home page headline.
+function EbIco({ n }) {
+  // eslint-disable-next-line @next/next/no-img-element
+  return <span className="eb-ico-t" aria-hidden="true"><img src={`/hero/${n}.webp?v=4`} width="256" height="256" alt="" /></span>;
+}
+
 export default function Ebook() {
   let n = 0;
   return (
@@ -141,7 +147,7 @@ export default function Ebook() {
         <div className="eb-copy">
           <p className="eb-sale"><b>63% OFF</b><span><s aria-label={`was ${WAS}`}>{WAS}</s> now {PRICE}, video included</span></p>
           <p className="eb-kick">Designed, not generated.</p>
-          <h1><span className="eb-27">27 copy-paste prompts</span> to fix AI slop UI</h1>
+          <h1 className="eb-h1"><span className="eb-27">27 copy-paste prompts</span> to fix <EbIco n="wand" /> <span className="t2">AI slop UI</span> <EbIco n="sparkle" /></h1>
           <p className="eb-sub">You built it fast. It works. Then you open it next to a real product and something feels off: the purple gradient, the three little cards, the glow. Visitors notice it <em className="scr">before they read a word.</em> These prompts fix that, one step at a time, without rebuilding anything.</p>
           <div className="btn-row">
             <Buy label={<>Buy now for <span className="eb-pill"><s aria-label={`was ${WAS}`}>{WAS}</s> {PRICE}</span></>} />
@@ -155,9 +161,20 @@ export default function Ebook() {
             <li data-i="hand">No design skills needed. Nothing gets rebuilt</li>
           </ul>
         </div>
-        <div className="eb-cover">
+        <div className="eb-cover eb-stage">
+          {/* Before and after of a sample page, with the book in front */}
+          <figure className="eb-shot eb-shot-b" aria-hidden="true">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/ebook/ba-before-768.webp?v=3" width="768" height="768" alt="" loading="eager" decoding="async" />
+            <figcaption>First AI draft</figcaption>
+          </figure>
+          <figure className="eb-shot eb-shot-a" aria-hidden="true">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/ebook/ba-after-768.webp?v=3" width="768" height="768" alt="" loading="eager" decoding="async" />
+            <figcaption>After the book</figcaption>
+          </figure>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/ebook/cover.webp?v=2" srcSet="/ebook/cover-520.webp?v=1 520w, /ebook/cover.webp?v=2 936w" sizes="(max-width: 720px) 260px, 440px" width="936" height="1326" alt="Cover of 27 Copy-Paste Prompts to Fix AI Slop UI" loading="eager" fetchPriority="high" />
+          <img className="eb-book" src="/ebook/cover.webp?v=2" srcSet="/ebook/cover-520.webp?v=1 520w, /ebook/cover.webp?v=2 936w" sizes="(max-width: 720px) 200px, 300px" width="936" height="1326" alt="Cover of 27 Copy-Paste Prompts to Fix AI Slop UI" loading="eager" fetchPriority="high" />
         </div>
       </header>
 
