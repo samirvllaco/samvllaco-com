@@ -21,7 +21,7 @@ const FEATURED = [
 
 export default function ServicesMenu() {
   return (
-    <MegaShell id="mega-services" label="Services">
+    <MegaShell id="mega-services" label="Services" href="/services/">
       {(close) => (
         <div className="wrap mx-in">
           <div className="mx-main">

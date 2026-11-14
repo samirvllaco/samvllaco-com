@@ -14,6 +14,7 @@
 - [27 Copy-Paste Prompts to Fix AI Slop UI](https://samvllaco.com/ebook/): an ebook for founders who built an app with Claude, Cursor, Lovable or v0 and want it to look designed. Includes a DESIGN.md rules file and a private video. $6.99.
 
 ## Writing
+- [Resources](https://samvllaco.com/resources/): free UI prompts, the AI slop UI ebook, design kits and stories, in one place.
 - [Insights](https://samvllaco.com/writing/): articles on AI-built apps, UX fixes and accessibility.
 - [Medium](https://medium.com/@samvllaco)
 

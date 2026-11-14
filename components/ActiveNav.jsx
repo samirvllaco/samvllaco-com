@@ -13,7 +13,7 @@ export default function ActiveNav() {
       const h = href.endsWith("/") ? href : `${href}/`;
       if (h === here) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current");
     });
-    const groups = { "mega-services": ["/services/"], "mega-resources": ["/writing/", "/ebook/", "/products/", "/building/"] };
+    const groups = { "mega-services": ["/services/"], "mega-resources": ["/resources/", "/writing/", "/ebook/", "/products/", "/building/"] };
     Object.entries(groups).forEach(([id, roots]) => {
       const btn = document.querySelector(`.mega-btn[aria-controls="${id}"]`);
       if (btn) btn.classList.toggle("is-current", roots.some((r) => here.startsWith(r)));

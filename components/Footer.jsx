@@ -45,7 +45,7 @@ const ICON = {
 const MAP = [
   { h: "Services", links: [...svc(["saas-product-design", "dashboard-design", "mobile-app-design", "ux-audit", "design-systems", "website-design"]), ["All services", "/services/"]] },
   { h: "Work", links: [...WORK.slice(0, 5).map((w) => [w.title, `/work/${w.slug}/`]), ["All case studies", "/work/"]] },
-  { h: "Resources", links: [["Insights", "/writing/"], ["AI slop UI ebook", "/ebook/", null, "$6.99"], ["Free UI prompts", "/ebook/#free"], ["FAQs", "/#faq"], ["Products", "/products/"]] },
+  { h: "Resources", links: [["All resources", "/resources/"], ["Insights", "/writing/"], ["AI slop UI ebook", "/ebook/", null, "$6.99"], ["Free UI prompts", "/ebook/#free"], ["FAQs", "/#faq"], ["Products", "/products/"]] },
   { h: "Company", links: [["About Sam", "/about/"], ["Book a call", "/book/"], ["What I'm building", "/building/"]] },
   { h: "Social", links: [["X", SITE.links.x, "x"], ["Medium", SITE.links.medium, "medium"], ["Dribbble", SITE.links.dribbble, "dribbble"]] },
 ];
