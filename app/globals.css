@@ -1473,8 +1473,8 @@ body::after { content: ""; position: fixed; right: 0; bottom: 0; width: 280px; h
 @media (max-width: 640px) { body::after { width: 200px; height: 190px; } }
 
 /* Dotted texture on a few backgrounds, faded out toward the edges */
-.hero2, .faq, .book-band, .bx-sec:has(.ms-grid), .bx-sec:has(.pr-grid) { position: relative; isolation: isolate; }
-.hero2::before, .faq::before, .book-band::before, .bx-sec:has(.ms-grid)::before, .bx-sec:has(.pr-grid)::before {
+.hero2, .faq, .book-band, .eb-end, .bx-sec:has(.ms-grid), .bx-sec:has(.pr-grid) { position: relative; isolation: isolate; }
+.hero2::before, .faq::before, .book-band::before, .eb-end::before, .bx-sec:has(.ms-grid)::before, .bx-sec:has(.pr-grid)::before {
   content: ""; position: absolute; inset: -40px calc(50% - 50vw); z-index: -1; pointer-events: none;
   background-image: radial-gradient(circle, color-mix(in srgb, var(--text) 22%, transparent) 1px, transparent 1.5px);
   background-size: 22px 22px;
@@ -4255,3 +4255,6 @@ html.js .hero3 h1.h3-flip.h3-in .h3-slot { opacity: 1; scale: 1; rotate: 0deg; t
 .eb-hp .hp-cols .hp-hand .hp-ico li::after { background: #ff9d2e; }
 .eb-hp .hp-hand .hp-label { color: #ff9d2e; }
 :root[data-theme="light"]:not(.on-dark) .eb-hp .hp-hand .hp-label { color: #a8590a; }
+
+/* Ebook closing section: the dots sit behind the headline and button, fading out toward the edges (owner, 15 Nov 2026) */
+.eb-end::before { background-image: radial-gradient(circle, color-mix(in srgb, var(--text) 34%, transparent) 1.1px, transparent 1.6px); -webkit-mask-image: radial-gradient(ellipse 60% 80% at 50% 45%, #000 10%, transparent 80%); mask-image: radial-gradient(ellipse 60% 80% at 50% 45%, #000 10%, transparent 80%); opacity: 1; }
