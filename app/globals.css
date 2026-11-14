@@ -4121,3 +4121,27 @@ html:not(.eb-bar-on) .bk { bottom: calc(max(16px, env(safe-area-inset-bottom, 0p
 .mega { max-height: calc(100dvh - 120px); }
 @media (prefers-reduced-motion: reduce) { :is(.blog-card, .ms-card, .sv-work a, .rs-grid a, .bx-mini, .bx-work, .mx-grid a, .tags button, .work-tabs button, .crumb-pop a):active { scale: none; } }
 @media (hover: hover) and (pointer: fine) { .tg-warm .tg-note, .tg-warm .tg-btn:hover + .tg-note { transition: none !important; } }
+
+/* Resources menu: the $99 review + book upgrade row, with every benefit visible (owner, 14 Nov 2026) */
+.mx-up { --eo: #ff9d2e; grid-column: 1 / -1; display: grid; grid-template-columns: auto minmax(240px, 300px) minmax(0, 1fr) auto; align-items: center; gap: 16px 28px; padding: 14px 20px 14px 16px; border-radius: 20px; background: var(--card); }
+.mx-up-art { position: relative; width: 104px; height: 88px; }
+.mx-up-art .mx-up-me { width: 84px; height: 84px; border-radius: 20px; object-fit: cover; object-position: 50% 15%; background: #1c1c1e; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .1); }
+.mx-up-art .mx-up-bk { position: absolute; right: 0; bottom: 0; width: 42px; height: 58px; border-radius: 3px 7px 7px 3px; object-fit: cover; rotate: 6deg; box-shadow: 0 10px 20px -8px rgba(0, 0, 0, .8); transition: rotate .5s cubic-bezier(.34, 1.56, .64, 1); }
+.mx-up-art i { position: absolute; left: 70px; top: 50%; display: grid; place-items: center; width: 24px; height: 24px; margin-top: -24px; border-radius: 50%; font-style: normal; font-size: .875rem; font-weight: 700; color: #1a0f00; background: var(--eo); }
+@media (hover: hover) and (pointer: fine) { .mx-up:hover .mx-up-bk { rotate: 0deg; } }
+.mx-up-copy { display: grid; gap: 4px; min-width: 0; }
+.mx-up-k { margin: 0; font-size: .75rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--eo); }
+.mx-up-t { margin: 0; font-size: 1.0625rem; font-weight: 600; letter-spacing: -.01em; line-height: 1.3; }
+.mx-up-t span { color: var(--muted); font-weight: 500; }
+.mx-up-p { margin: 0; font-size: .8125rem; line-height: 1.45; color: var(--muted); }
+.mx-up-p b { color: var(--text); font-size: .9375rem; }
+.mx-up-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 20px; margin: 0; padding: 0; list-style: none; min-width: 0; }
+.mx-up-list li { display: flex; gap: 8px; align-items: flex-start; font-size: .8125rem; line-height: 1.4; color: var(--text); }
+.mx-up-list li::before { content: ""; flex: none; width: 16px; height: 16px; margin-top: 1px; border-radius: 50%; background: var(--eo) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M7 12.5l3.300 3.300L17 9' fill='none' stroke='%23000' stroke-width='2.600' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 100% no-repeat; }
+.head-nav .mx .mx-up .hero2-btn { margin: 0; white-space: nowrap; }
+@media (max-width: 1280px) { .mx-up { grid-template-columns: auto minmax(0, 1fr) auto; } .mx-up-list { grid-column: 1 / -1; grid-row: 2; grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 1100px) { .mx-up-list { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 981px) and (prefers-reduced-motion: no-preference) {
+  .site-header .mega .mx-up { opacity: 0; translate: 0 8px; transition: opacity .14s var(--ease-in), translate .14s var(--ease-in); }
+  .site-header .mega.is-on .mx-up { opacity: 1; translate: 0 0; transition: opacity .42s var(--ease-out) 180ms, translate .42s var(--ease-out) 180ms; }
+}
