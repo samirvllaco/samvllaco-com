@@ -4102,3 +4102,5 @@ html:not(.eb-bar-on) .bk { bottom: calc(max(16px, env(safe-area-inset-bottom, 0p
 .eb-pk-me span { display: grid; gap: 2px; font-size: .9375rem; color: var(--muted); }
 .eb-pk-me b { color: var(--text); font-size: 1.0625rem; }
 @media (max-width: 760px) { .eb-pk-grid { grid-template-columns: minmax(0, 1fr); } }
+.eb-pk-me .eb-pk-plus { font-style: normal; font-size: 1.25rem; font-weight: 600; color: var(--muted); margin-inline: -6px; }
+.eb-pk-me img.eb-pk-mini { width: 46px; height: 64px; border-radius: 3px 7px 7px 3px; object-fit: cover; rotate: -4deg; box-shadow: 0 10px 20px -10px rgba(0, 0, 0, .7); }
