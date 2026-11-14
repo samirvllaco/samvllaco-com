@@ -16,6 +16,9 @@ export default function MegaShell({ id, label, href, children }) {
   useEffect(() => { setOpen(false); }, [path]);
   useEffect(() => {
     if (open) {
+      // Grow the panel from the button that opened it.
+      const btn = wrap.current?.querySelector(".mega-btn"); const panel = document.getElementById(id);
+      if (btn && panel) { const b = btn.getBoundingClientRect(); const pr = panel.getBoundingClientRect(); if (pr.width) panel.style.setProperty("--mx-ox", `${Math.round(b.left + b.width / 2 - pr.left)}px`); }
       was.current = true; setShut(false);
       window.dispatchEvent(new CustomEvent("mega:open", { detail: id }));
       return;

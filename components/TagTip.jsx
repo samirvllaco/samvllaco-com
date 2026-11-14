@@ -29,9 +29,12 @@ export default function TagTip({ label, id }) {
     note.style.setProperty("--ax", `${Math.round(ax)}px`);
     note.style.transformOrigin = `${Math.round(ax + 6)}px 100%`;
   };
+  // Once one note is showing, the next ones in the same row appear at once, so moving along the row feels quick.
+  const warm = () => { const ul = me.current?.parentElement; if (!ul) return; clearTimeout(ul.__cool); ul.__warm = setTimeout(() => ul.classList.add("tg-warm"), 160); };
+  const cool = () => { const ul = me.current?.parentElement; if (!ul) return; clearTimeout(ul.__warm); ul.__cool = setTimeout(() => ul.classList.remove("tg-warm"), 300); };
   if (!w) return <li><span className="tg-btn">{label}</span></li>;
   return (
-    <li ref={me} className={`tg${open ? " is-open" : ""}`} onPointerEnter={place} onFocus={place}>
+    <li ref={me} className={`tg${open ? " is-open" : ""}`} onPointerEnter={() => { place(); warm(); }} onPointerLeave={cool} onFocus={place}>
       <button type="button" className="tg-btn" aria-expanded={open} aria-describedby={id} onClick={() => { place(); setOpen((v) => !v); }}>
         <i className="tg-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d={w.d} /></svg></i>{label}
       </button>
