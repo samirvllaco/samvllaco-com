@@ -4981,3 +4981,11 @@ body:has(.rv-ty) .top-note { display: none; }
   html.is-scrolled .brand-role { display: none; }
 }
 .bb-alt-row > .hp-copy .cc { --cc: var(--text); color: var(--text); }
+/* Footer map: more air between groups, quieter rows, and a small "New" tag tight to its link (owner, 15 Nov 2026). */
+.site-footer .foot-map { row-gap: 48px; padding-top: 48px; padding-bottom: 64px; }
+.foot-map-h { margin-bottom: 16px; }
+.foot-map ul { gap: 8px; }
+.site-footer .foot-map a { gap: 6px; line-height: 1.35; }
+.fm-new { flex: none; display: inline-flex; align-items: center; height: 18px; padding: 0 7px; border-radius: 999px; font-size: .625rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: #ffd38a; background: rgba(255, 179, 92, .14); box-shadow: inset 0 0 0 1px rgba(255, 179, 92, .35); }
+/* Calendar block uses the same 20px corners as the "Not a fan of calendars?" box below it. */
+.book-cal, .book-cal iframe { border-radius: 20px; overflow: hidden; }

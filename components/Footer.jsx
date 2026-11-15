@@ -45,7 +45,7 @@ const ICON = {
 const MAP = [
   { h: "Services", links: [...svc(["saas-product-design", "dashboard-design", "mobile-app-design", "ux-audit", "design-systems", "website-design"]), ["All services", "/services/"]] },
   { h: "Work", links: [...WORK.slice(0, 5).map((w) => [w.title, `/work/${w.slug}/`]), ["All case studies", "/work/"]] },
-  { h: "Resources", links: [["All resources", "/resources/"], ["Insights", "/writing/"], ["AI slop UI ebook", "/fix-ai-slop-ui/", null, "$12.99"], ["UI/UX review", "/fix-ai-slop-ui/#options", null, "$49"], ["Free UI prompts", "/fix-ai-slop-ui/#free"], ["FAQs", "/#faq"], ["Products", "/products/"]] },
+  { h: "Resources", links: [["All resources", "/resources/"], ["Insights", "/writing/"], ["AI slop UI ebook", "/fix-ai-slop-ui/", null, "New"], ["UI/UX review", "/fix-ai-slop-ui/#options"], ["Free UI prompts", "/fix-ai-slop-ui/#free"], ["FAQs", "/#faq"], ["Products", "/products/"]] },
   { h: "Company", links: [["About Sam", "/about/"], ["Book a call", "/book/"], ["What I'm building", "/building/"]] },
   { h: "Social", links: [["X", SITE.links.x, "x"], ["Medium", SITE.links.medium, "medium"], ["Dribbble", SITE.links.dribbble, "dribbble"]] },
 ];
@@ -67,7 +67,7 @@ function FootMap() {
               <li key={href}>
                 {href.startsWith("http") ? (
                   <a href={href} target="_blank" rel="me noopener">{icon ? <svg className="fm-ico" viewBox="0 0 24 24" aria-hidden="true"><path d={ICON[icon]} /></svg> : null}{t}{icon ? null : <Ext />}<span className="sr-only"> (opens in a new tab)</span></a>
-                ) : <a href={href}>{t}{tag ? <span className="mega-pdf mega-gold">{tag}</span> : null}</a>}
+                ) : <a href={href}>{t}{tag ? <span className="fm-new">{tag}</span> : null}</a>}
               </li>
             ))}
           </ul>
