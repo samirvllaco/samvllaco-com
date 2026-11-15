@@ -12,7 +12,7 @@ import EbookBar from "../../components/EbookBar";
 import HeroReviews from "../../components/HeroReviews";
 import FlipBook from "../../components/FlipBook";
 import { share, PERSON_ID } from "../../lib/seo";
-import { SITE, EMAIL, REVIEW_URL } from "../../lib/site";
+import { SITE, EMAIL, REVIEW_URL, PERSONAL_REVIEW_URL } from "../../lib/site";
 
 const BUY_URL = BOOK_URL;
 const PRICE = "$12.99";
@@ -477,7 +477,7 @@ export default function Ebook() {
 
       <section className="eb-sec eb-pk eb-band" id="options" aria-labelledby="eb-pk-h">
         <h2 id="eb-pk-h">Pick what <span className="t2">fits you</span></h2>
-        <p className="eb-why-lede">Get the full system, or have me review your product with you.</p>
+        <p className="eb-why-lede">Some founders want to fix it on their own. Others want a designer to sit with their product and say what he sees. You don't have to keep guessing either way.</p>
         <div className="eb-pk-grid">
           <article className="eb-pk-card is-main dark-island">
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -498,26 +498,43 @@ export default function Ebook() {
             <div className="eb-pk-me">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src="/sam-hire.webp?v=2" width="1000" height="1250" alt="Sam Vllaco" loading="lazy" />
+              <span><b>Sam Vllaco <em className="eb-pk-role">Product Designer</em></b>10+ years, 570+ clients</span>
+            </div>
+            <p className="eb-pk-k">Personal review</p>
+            <h3>Personal UI review <span className="t2">of your landing page</span></h3>
+            <p className="eb-pk-price">$49<span>one-time</span></p>
+            <p>You built it on nights and weekends. I go through your landing page the way I would for a paying client, and record all of it for you.</p>
+            <ul className="eb-ticks eb-ico">
+              <li data-i="play">A personal Loom video, made only for your page</li>
+              <li data-i="compass">My way of thinking, so you see why, not only what</li>
+              <li data-i="file">An actionable steps document, fixes in order</li>
+              <li data-i="spark">Custom prompts written for your page</li>
+            </ul>
+            <a className="hero2-btn hero2-btn-light" href={PERSONAL_REVIEW_URL} target="_blank" rel="noopener">Get my review</a>
+            <p className="eb-pk-small">Delivered within 3 working days. Full refund if it does not help.</p>
+          </article>
+          <article className="eb-pk-card dark-island">
+            <div className="eb-pk-me">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/sam-hire.webp?v=2" width="1000" height="1250" alt="Sam Vllaco" loading="lazy" />
               <i className="eb-pk-plus" aria-hidden="true">+</i>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img className="eb-pk-mini" src="/ebook/cover-520.webp?v=1" width="936" height="1326" alt="The book" loading="lazy" />
-              <span><b>Sam Vllaco <em className="eb-pk-role">Product Designer</em></b>10+ years in product design, 570+ clients, 10,000+ screens</span>
+              <span><b>Sam Vllaco</b>Review + the book</span>
             </div>
-            <p className="eb-pk-k">Personal review</p>
+            <p className="eb-pk-k">Complete review</p>
             <h3>Complete UI/UX review <span className="t2">+ the book</span></h3>
             <p className="eb-pk-price">$99<span>one-time</span></p>
-            <p>An in-depth review of your product by a designer with 10+ years of experience.</p>
+            <p>Every page of your site and the key screens of your app, start to finish. A complete change in how you see your product.</p>
             <ul className="eb-ticks eb-ico">
+              <li data-i="play">A 30 to 60 min Loom of your whole product</li>
               <li data-i="gauge">Your scorecard today, out of 10</li>
-              <li data-i="list">What's wrong, and the exact fix for each</li>
-              <li data-i="steps">A step-by-step plan from your score to 10/10</li>
-              <li data-i="play">A Loom video walking you through it</li>
+              <li data-i="steps">An action plan document, biggest impact first</li>
               <li data-i="spark">Custom prompts written for your product</li>
-              <li data-i="web">Before and after screenshots of your site, showing what improved</li>
               <li data-i="book">The full book included</li>
             </ul>
-            {REVIEW_URL ? <a className="hero2-btn hero2-btn-light" href={REVIEW_URL} target="_blank" rel="noopener">Get a review</a> : <a className="hero2-btn hero2-btn-light" href="/book/">Ask about a review</a>}
-            <p className="eb-pk-small">Send me your link after checkout. Want a full redesign instead? <Link prefetch={false} href="/book/">Book a call</Link>.</p>
+            <a className="hero2-btn hero2-btn-light" href={REVIEW_URL} target="_blank" rel="noopener">Get the complete review</a>
+            <p className="eb-pk-small">Delivered within 5 working days. Want a full redesign instead? <Link prefetch={false} href="/book/">Book a call</Link>.</p>
           </article>
         </div>
       </section>
