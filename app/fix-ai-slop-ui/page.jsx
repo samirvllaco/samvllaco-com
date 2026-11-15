@@ -464,7 +464,7 @@ export default function Ebook() {
           <p className="eo-k">Bonuses</p>
           <ul className="eb-ticks eb-ico eo-list">{BONUS.map(([i, t, d]) => <li key={t} data-i={i}><b>{t}</b><span>{d}</span></li>)}</ul>
         </div>
-        <aside className="eo-card">
+        <aside className="eo-card dark-island">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img className="eo-cover" src="/ebook/cover.webp?v=2" width="936" height="1326" alt="The book cover" loading="lazy" />
           <p className="eb-was"><s aria-label={`was ${WAS}`}>{WAS}</s><b>Save 63%</b></p>
@@ -479,7 +479,7 @@ export default function Ebook() {
         <h2 id="eb-pk-h">Pick what <span className="t2">fits you</span></h2>
         <p className="eb-why-lede">Get the full system, or have me review your product with you.</p>
         <div className="eb-pk-grid">
-          <article className="eb-pk-card is-main">
+          <article className="eb-pk-card is-main dark-island">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img className="eb-pk-media eb-pk-book" src="/ebook/cover-520.webp?v=1" width="936" height="1326" alt="" loading="lazy" />
             <p className="eb-pk-k">The full book</p>
@@ -494,7 +494,7 @@ export default function Ebook() {
             <Buy label={<>Get the book <span className="eb-pill">{PRICE}</span></>} />
             <p className="eb-pk-small">One-time purchase. Downloadable files you can keep and reuse.</p>
           </article>
-          <article className="eb-pk-card">
+          <article className="eb-pk-card dark-island">
             <div className="eb-pk-me">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src="/sam-hire.webp?v=2" width="1000" height="1250" alt="Sam Vllaco" loading="lazy" />
