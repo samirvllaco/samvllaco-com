@@ -477,7 +477,7 @@ export default function Ebook() {
 
       <section className="eb-sec eb-pk eb-band" id="options" aria-labelledby="eb-pk-h">
         <h2 id="eb-pk-h">Pick what <span className="t2">fits you</span></h2>
-        <p className="eb-why-lede">Some founders want to fix it on their own. Others want a designer to sit with their product and say what he sees. You don't have to keep guessing either way.</p>
+        <p className="eb-why-lede">Some founders want to fix it on their own. Others want a senior designer to look at their product and say honestly what works and what doesn't. Either way, you can start fixing today.</p>
         <div className="eb-pk-grid">
           <article className="eb-pk-card is-main dark-island">
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -498,20 +498,20 @@ export default function Ebook() {
             <div className="eb-pk-me">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src="/sam-hire.webp?v=2" width="1000" height="1250" alt="Sam Vllaco" loading="lazy" />
-              <span><b>Sam Vllaco <em className="eb-pk-role">Product Designer</em></b>10+ years, 570+ clients</span>
+              <span><b>Sam Vllaco <em className="eb-pk-role">Senior Designer</em></b>10+ years, 570+ clients</span>
             </div>
             <p className="eb-pk-k">Personal review</p>
-            <h3>Personal UI review <span className="t2">of your landing page</span></h3>
+            <h3>Personal UI review <span className="t2">+ the book</span></h3>
             <p className="eb-pk-price">$49<span>one-time</span></p>
-            <p>You built it on nights and weekends. I go through your landing page the way I would for a paying client, and record all of it for you.</p>
+            <p>Your website, SaaS, web app or mobile app, seen through a senior designer's eyes. What works, what doesn't, and why.</p>
             <ul className="eb-ticks eb-ico">
-              <li data-i="play">A personal Loom video, made only for your page</li>
-              <li data-i="compass">My way of thinking, so you see why, not only what</li>
+              <li data-i="play">A 20 to 30 min Loom, made only for your product</li>
+              <li data-i="compass">My honest opinion and my way of thinking</li>
               <li data-i="file">An actionable steps document, fixes in order</li>
-              <li data-i="spark">Custom prompts written for your page</li>
+              <li data-i="book">The full book included</li>
             </ul>
             <a className="hero2-btn hero2-btn-light" href={PERSONAL_REVIEW_URL} target="_blank" rel="noopener">Get my review</a>
-            <p className="eb-pk-small">Delivered within 3 working days. Full refund if it does not help.</p>
+            <p className="eb-pk-small">Your Loom arrives in under 12 hours. Full refund if it does not help.</p>
           </article>
           <article className="eb-pk-card dark-island">
             <div className="eb-pk-me">
@@ -525,16 +525,16 @@ export default function Ebook() {
             <p className="eb-pk-k">Complete review</p>
             <h3>Complete UI/UX review <span className="t2">+ the book</span></h3>
             <p className="eb-pk-price">$99<span>one-time</span></p>
-            <p>Every page of your site and the key screens of your app, start to finish. A complete change in how you see your product.</p>
+            <p>Your whole product, start to finish: website, landing page and the key screens of your SaaS, web or mobile app. A complete change in how you see it.</p>
             <ul className="eb-ticks eb-ico">
-              <li data-i="play">A 30 to 60 min Loom of your whole product</li>
-              <li data-i="gauge">Your scorecard today, out of 10</li>
+              <li data-i="play">A 45 min to 1 hour Loom of your whole product</li>
+              <li data-i="gauge">Your UI/UX scorecard today, out of 10</li>
               <li data-i="steps">An action plan document, biggest impact first</li>
               <li data-i="spark">Custom prompts written for your product</li>
               <li data-i="book">The full book included</li>
             </ul>
             <a className="hero2-btn hero2-btn-light" href={REVIEW_URL} target="_blank" rel="noopener">Get the complete review</a>
-            <p className="eb-pk-small">Delivered within 5 working days. Want a full redesign instead? <Link prefetch={false} href="/book/">Book a call</Link>.</p>
+            <p className="eb-pk-small">Your Loom arrives in under 12 hours. Want a full redesign instead? <Link prefetch={false} href="/book/">Book a call</Link>.</p>
           </article>
         </div>
       </section>

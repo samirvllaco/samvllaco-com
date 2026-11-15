@@ -48,18 +48,18 @@ export default function ResourcesMenu() {
               <i>+</i>
             </div>
             <div className="mx-up-copy">
-              <p className="mx-up-k">Upgrade: I do it with you</p>
-              <p className="mx-up-t">Complete UI/UX review <span>+ the book</span></p>
-              <p className="mx-up-price"><b>$99</b> one-time</p>
-              <p className="mx-up-p">By a designer with 10+ years and 570+ clients</p>
+              <p className="mx-up-k">Upgrade: a senior designer reviews it</p>
+              <p className="mx-up-t">UI/UX review <span>+ the book</span></p>
+              <p className="mx-up-price">from <b>$49</b> one-time</p>
+              <p className="mx-up-p">Your Loom in under 12 hours, from a designer with 10+ years</p>
             </div>
             <ul className="mx-up-list">
-              <li>Your scorecard, out of 10</li>
-              <li>Step-by-step plan to 10/10</li>
-              <li>Loom video walkthrough</li>
+              <li>What works and what does not</li>
+              <li>Actionable steps document</li>
+              <li>Loom, 20 min to 1 hour</li>
               <li>The full book included</li>
             </ul>
-            <Link prefetch={false} className="hero2-btn hero2-btn-light" href="/fix-ai-slop-ui/#options" onClick={close}>See the review</Link>
+            <Link prefetch={false} className="hero2-btn hero2-btn-light" href="/fix-ai-slop-ui/#options" onClick={close}>See the reviews</Link>
           </div>
         </div>
       )}

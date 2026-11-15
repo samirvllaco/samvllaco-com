@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Crumbs from "../../components/Crumbs";
 import { SITE } from "../../lib/site";
 
@@ -8,11 +9,13 @@ export const metadata = {
   alternates: { canonical: "/products/" },
 };
 
+const live = [
+  { name: "27 Copy-Paste Prompts to Fix AI Slop UI, $12.99", body: "27 steps and 27 prompts that make an AI-built website or app look designed, plus DESIGN.md and a private video.", href: "/fix-ai-slop-ui/", cta: "See the book" },
+  { name: "Personal UI review + the book, $49", body: "A senior designer's honest take on your website, SaaS, web app or mobile app: a 20 to 30 min Loom and a steps document, in under 12 hours.", href: "/fix-ai-slop-ui/#options", cta: "See the review" },
+  { name: "Complete UI/UX review + the book, $99", body: "Your whole product reviewed in a 45 min to 1 hour Loom, with a scorecard, an action plan and custom prompts, in under 12 hours.", href: "/fix-ai-slop-ui/#options", cta: "See the review" },
+];
+
 const planned = [
-  {
-    name: "27 Copy-Paste Prompts to Fix AI Slop UI (book), $12.99",
-    body: "27 steps and 27 prompts that make an AI-built app look designed, plus a bonus on motion and UX principles. See the book page at /fix-ai-slop-ui/.",
-  },
   {
     name: "DESIGN.md starter pack",
     body: "A rules file you drop into your project so Claude, Cursor or Codex follow the same colors, spacing and type every time.",
@@ -34,9 +37,19 @@ export default function Products() {
       <div className="stack prose">
         <h1>Digital products</h1>
         <p className="lede">
-          Nothing is for sale yet. These are the things I plan to release first, built from what I
-          already use on my own products.
+          The book and two reviews are available now. Below them is what I plan to release next,
+          built from what I already use on my own products.
         </p>
+      </div>
+      <div className="grid">
+        {live.map((p) => (
+          <article className="card" key={p.name}>
+            <span className="tag">Available</span>
+            <h2 style={{ fontSize: "1.2rem" }}>{p.name}</h2>
+            <p>{p.body}</p>
+            <p><Link prefetch={false} href={p.href}>{p.cta}</Link></p>
+          </article>
+        ))}
       </div>
       <div className="grid">
         {planned.map((p) => (
@@ -48,7 +61,7 @@ export default function Products() {
         ))}
       </div>
       <p>
-        To hear when the first one is out, follow <a href={SITE.links.x} rel="me noopener">@samvllaco on X</a>.
+        To hear when the next one is out, follow <a href={SITE.links.x} rel="me noopener">@samvllaco on X</a>.
       </p>
     </div>
   );

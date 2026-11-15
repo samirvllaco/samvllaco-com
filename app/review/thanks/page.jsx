@@ -11,9 +11,9 @@ export const metadata = {
 };
 
 const STEPS = [
-  { k: "Today", t: "Check your email", d: "Whop sends your receipt. With the complete review, the book is already waiting in your Whop library, so you can start tonight." },
+  { k: "Today", t: "Check your email", d: "Whop sends your receipt. The book is already waiting in your Whop library, so you can start tonight." },
   { k: "Today", t: "I read what you sent", d: <>The link and notes from checkout reach me straight away. Want to add more, like key screens, a TestFlight invite or a test account? Reply to your receipt or write to <b>{EMAIL}</b>. Never send me your real passwords. A test account with demo data is enough.</> },
-  { k: "Within 3 to 5 days", t: "Your Loom arrives", d: "Personal review within 3 working days, complete review within 5. You get the video, the steps document and your custom prompts in one email." },
+  { k: "In under 12 hours", t: "Your Loom arrives", d: "One email with your Loom and your steps document, plus your scorecard and custom prompts with the complete review. You can start fixing the same day." },
 ];
 
 export default function ReviewThanks() {
