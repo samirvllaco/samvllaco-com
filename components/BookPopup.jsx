@@ -45,14 +45,16 @@ export default function BookPopup() {
           <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" /></svg>
           <span className="sr-only">Close</span>
         </button>
-        <p className="bw-k">My book</p>
-        <p className="bw-t">27 copy-paste prompts to fix AI slop UI</p>
-        <ul className="bw-l">
-          <li>59 pages, one prompt per step</li>
-          <li>DESIGN.md and 100 UX laws</li>
-          <li>Bonus motion and UX prompts</li>
-        </ul>
-        <a className="hero2-btn hero2-btn-primary bw-buy" href={BOOK_URL} target="_blank" rel="noopener" tabIndex={open ? 0 : -1}>Buy for $12.99</a>
+        <div className="bw-top">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img className="bw-cover" src="/ebook/cover-520.webp?v=1" width="936" height="1326" alt="" loading="lazy" />
+          <div>
+            <p className="bw-k">Quick fix</p>
+            <p className="bw-t">Fix the AI look tonight.</p>
+          </div>
+        </div>
+        <p className="bw-s">27 copy-paste prompts. Paste, run, done.</p>
+        <a className="hero2-btn hero2-btn-primary bw-buy" href={BOOK_URL} target="_blank" rel="noopener" tabIndex={open ? 0 : -1}>Fix it for $12.99</a>
         <a className="bw-more" href="/fix-ai-slop-ui/" tabIndex={open ? 0 : -1}>See what's inside</a>
       </div>
     </aside>

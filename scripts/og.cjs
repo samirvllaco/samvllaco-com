@@ -44,7 +44,7 @@ pages.push(["fix-ai-slop-ui", shell(`<style>
 <div class="l" style="width:540px;gap:26px">
 <p class="k" style="color:#ff9d2e">Designed, not generated.</p>
 <h1 class="eb-h"><span class="eb-m">27 copy-paste prompts</span> to fix <span class="eb-g">AI slop UI</span></h1>
-<div class="eb-row"><span class="eb-p"><s>$34.95</s> $12.99</span><span class="eb-st">★★★★★</span><span>5.0 · 200+ reviews</span></div>
+<div class="eb-row"><span class="eb-p"><s>$17.32</s> $12.99</span><span class="eb-st">★★★★★</span><span>5.0 · 200+ reviews</span></div>
 </div>
 <div class="shot" style="right:190px;top:60px;width:300px;transform:rotate(-7deg)"><img src="${BASE}/ebook/ba-before-768.webp"><b style="background:rgba(0,0,0,.6);color:#fff">First AI draft</b></div>
 <div class="shot" style="right:30px;top:150px;width:300px;transform:rotate(4deg)"><img src="${BASE}/ebook/ba-after-768.webp"><b style="background:#ff9d2e;color:#1a0f00">After the book</b></div>

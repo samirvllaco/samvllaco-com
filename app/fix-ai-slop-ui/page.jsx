@@ -16,7 +16,7 @@ import { SITE, EMAIL, REVIEW_URL, PERSONAL_REVIEW_URL } from "../../lib/site";
 
 const BUY_URL = BOOK_URL;
 const PRICE = "$12.99";
-const WAS = "$34.95"; // compare-at price set on Whop (Save 63%)
+const WAS = "$17.32"; // compare-at price Whop shows for its 25% discount (owner, 15 Nov 2026)
 
 export const metadata = {
   title: "27 Copy-Paste Prompts to Fix AI Slop UI",
@@ -166,7 +166,7 @@ export default function Ebook() {
 
       <header className="eb-hero" data-bg="#111112">
         <div className="eb-copy">
-          <p className="eb-sale"><b>63% OFF</b><span><s aria-label={`was ${WAS}`}>{WAS}</s> now {PRICE}, video included</span></p>
+          <p className="eb-sale"><b>25% OFF</b><span><s aria-label={`was ${WAS}`}>{WAS}</s> now {PRICE}, video included</span></p>
           <p className="eb-kick">Designed, not generated.</p>
           <h1 className="eb-h1"><span className="eb-27">27 copy-paste prompts</span> to fix <EbIco n="wand" /> <span className="t2">AI slop UI</span> <EbIco n="sparkle" /></h1>
           <p className="eb-sub">You built it fast. It works. Then you open it next to a real product and something feels off: the purple gradient, the three little cards, the glow. Visitors notice it <em className="scr">before they read a word.</em> These prompts fix that, one step at a time, without rebuilding anything.</p>
@@ -467,7 +467,7 @@ export default function Ebook() {
         <aside className="eo-card dark-island">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img className="eo-cover" src="/ebook/cover.webp?v=2" width="936" height="1326" alt="The book cover" loading="lazy" />
-          <p className="eb-was"><s aria-label={`was ${WAS}`}>{WAS}</s><b>Save 63%</b></p>
+          <p className="eb-was"><s aria-label={`was ${WAS}`}>{WAS}</s><b>Save 25%</b></p>
           <p className="eb-price">{PRICE}<span>one-time</span></p>
           <Buy label="Get your copy" />
           <p className="pn-trust eb-guar"><span className="pn-shield" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.2-3 7.6-7 9-4-1.4-7-4.8-7-9V6zM8.5 12l2.5 2.5 4.5-5" /></svg></span><span><b>Money-back guarantee.</b> Full refund, no questions.</span></p>
