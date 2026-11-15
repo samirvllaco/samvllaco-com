@@ -20,6 +20,7 @@
 - [Resources](https://samvllaco.com/resources/): free UI prompts, the AI slop UI ebook, design kits and stories, in one place.
 - [Insights](https://samvllaco.com/writing/): articles on AI-built apps, UX fixes and accessibility.
 - [AI Slop UI: 25 UX fixes for vibe-coded apps](https://samvllaco.com/writing/ai-slop-ui-fixes/): why AI-built apps look the same, 25 fixes with the UX law behind each, copy-paste prompts and a DESIGN.md starter file.
+- [Vibe coding accessibility: 12 fixes for WCAG 2.2 AA](https://samvllaco.com/writing/vibe-coding-accessibility-wcag-22-aa/): 12 copy-paste fixes and prompts for keyboard, screen reader and touch use in AI-built apps, with an ACCESSIBILITY.md rules file.
 - [Medium](https://medium.com/@samvllaco)
 
 ## Elsewhere

@@ -26,7 +26,7 @@ export default function ArticleBody({ blocks, post }) {
     if (b.t === "code") return <CopyBlock key={i} text={b.text} />;
     if (b.t === "img") {
       const n = Number(b.ref.replace("IMG", ""));
-      if (n === 1) return null;
+      if (n === 1 && post.coverIsFirst) return null;
       const [file, w, h] = post.images[n - 1];
       // eslint-disable-next-line @next/next/no-img-element
       return <figure key={i} className="art-fig"><img src={`${post.imageDir}${file}`} width={w} height={h} alt={b.alt} loading="lazy" decoding="async" /></figure>;
