@@ -5019,3 +5019,26 @@ body:has(.rv-ty) .top-note { display: none; }
 @media (max-width: 760px) { .eb-rv-card { grid-template-columns: minmax(0, 1fr); gap: 24px; padding: 16px; } }
 /* X icon inside the round contact pill is round too. */
 .bb-x .tg-ico { border-radius: 50%; }
+/* Hero badge: fixed width, the words swap inside it. */
+.hero-badge-t { display: inline-grid; justify-items: center; }
+.hero-badge-t > span { grid-area: 1 / 1; white-space: nowrap; }
+.hero-badge-t > .br-size { visibility: hidden; }
+@media (max-width: 480px) { .hero-badge-t > span { white-space: normal; text-align: center; } }
+
+/* Buttons: a touch bigger and bolder (owner, 15 Nov 2026). */
+.hero2-btn { font-weight: 700; }
+@media (min-width: 641px) { .hero3 .hero2-btn { font-size: 1rem; min-height: 46px; } }
+
+/* Hero dot grid: dots near the pointer light up in the brand blue. One masked layer moved by a CSS variable,
+   updated in requestAnimationFrame only while the pointer is over the hero, so no layout work and no cost at rest. */
+.hero2::after { content: ""; position: absolute; inset: -40px calc(50% - 50vw); z-index: -1; pointer-events: none; opacity: 0; transition: opacity .4s var(--ease-out);
+  background-image: radial-gradient(circle, rgba(98, 193, 253, .95) 1.2px, transparent 1.8px); background-size: 22px 22px;
+  -webkit-mask-image: radial-gradient(220px circle at var(--mx, 50%) var(--my, 50%), #000, transparent 70%); mask-image: radial-gradient(220px circle at var(--mx, 50%) var(--my, 50%), #000, transparent 70%); }
+.hero2.dots-on::after { opacity: .9; }
+@media (hover: none), (prefers-reduced-motion: reduce) { .hero2::after { display: none; } }
+
+/* Work fan cards: soft brand-blue glow on hover. */
+@media (hover: hover) and (pointer: fine) {
+  .fan a { transition: box-shadow .35s var(--ease-out), transform .35s var(--ease-out); }
+  .fan li:hover a, .fan a:focus-visible { box-shadow: 0 0 0 1px rgba(98, 193, 253, .55), 0 0 32px -4px rgba(37, 99, 235, .55), 0 18px 48px -18px rgba(98, 193, 253, .45); }
+}

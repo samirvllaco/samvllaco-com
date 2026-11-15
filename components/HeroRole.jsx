@@ -38,7 +38,8 @@ export default function HeroRole() {
   return (
     <p className="hero-badge" ref={box} tabIndex={0}>
       <span className="sr-only">{`${say(0)}. ${HOVER}`}</span>
-      <span className="hero-badge-t" aria-hidden="true"><span ref={ref}>{say(0)}</span></span>
+      {/* The longest text sits invisibly in the same cell, so the badge keeps one width while the words change. */}
+      <span className="hero-badge-t" aria-hidden="true"><span className="br-size">{[HOVER, ...HELP.map((_, k) => say(k))].reduce((a, b) => (b.length > a.length ? b : a))}</span><span ref={ref}>{say(0)}</span></span>
     </p>
   );
 }

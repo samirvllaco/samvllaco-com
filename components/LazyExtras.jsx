@@ -8,7 +8,8 @@ const BookPopup = dynamic(() => import("./BookPopup"), { ssr: false });
 const VideoBubble = dynamic(() => import("./VideoBubble"), { ssr: false });
 const Delight = dynamic(() => import("./Delight"), { ssr: false });
 const SmoothScroll = dynamic(() => import("./SmoothScroll"), { ssr: false });
+const HeroDots = dynamic(() => import("./HeroDots"), { ssr: false });
 
 export default function LazyExtras() {
-  return (<><SmoothScroll /><ActiveNav /><ToTop /><BookPopup /><VideoBubble /><Delight /></>);
+  return (<><SmoothScroll /><ActiveNav /><ToTop /><BookPopup /><VideoBubble /><Delight /><HeroDots /></>);
 }
