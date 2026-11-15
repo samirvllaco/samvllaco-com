@@ -46,10 +46,6 @@ const CLIPS = ["hd-kestrel", "hd-veyra", "hd-sublio", "hd-aruma"].map((n) => `/w
 
 export default function Bento() {
   const clip = WORK.find((w) => w.video) || WORK[0];
-  // Plain product screens only, no annotated UX breakdowns.
-  const pick = (n) => `/work/wall/${n}.webp`;
-  const colA = ["kestrel-d-07", "mobile-banking-01", "room-editor-01", "eye-care-ios-app-01", "freelance-marketplace-01", "trip-planner-01"].map(pick);
-  const colB = ["language-player-01", "supplements-store-01", "eye-care-web-app-01", "golf-swing-recorder-01", "eye-care-marketing-site-01", "freelance-marketplace-05"].map(pick);
   return (
     <section className="bx-sec bx-soft" aria-labelledby="bx-h" data-bg="#000000">
       <h2 id="bx-h" className="bx-title">One designer<br /><span className="t2">for the whole product.</span></h2>
@@ -70,15 +66,35 @@ export default function Bento() {
           <GlobeLazy />
           <WorldFacts />
         </div>
-        <Link prefetch={false} href="/work/" className="dark-island bx-card bx-mini bx-screens" data-reveal>
-          <h3 className="bx-t">Screens</h3>
-          <div className="bx-cols" aria-hidden="true">
-            {[colA, colB].map((col, k) => (
-              <div className="bx-col" key={k}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                {[...col, ...col].map((src, i) => <span key={i}><img className="sd-l" src={src} width="960" height="540" alt="" loading="lazy" /><img className="sd-d" src={src.replace("/wall/", "/wall/dark/").split("?")[0]} width="960" height="540" alt="" loading="lazy" /></span>)}
+        <Link prefetch={false} href="/services/" className="dark-island bx-card bx-mini bx-proc" data-reveal>
+          <h3 className="bx-t">Behind the screens</h3>
+          <div className="pr-grid" aria-hidden="true">
+            <div className="pr-tile pr-research">
+              <p className="pr-k">User research</p>
+              <div className="pr-quotes">
+                <span><i className="pr-av" />"I couldn't find the pricing."</span>
+                <span><i className="pr-av pr-av2" />"Too many steps to sign up."</span>
+                <span><i className="pr-av pr-av3" />"What does it actually do?"</span>
               </div>
-            ))}
+            </div>
+            <div className="pr-tile pr-flow">
+              <p className="pr-k">UX flows</p>
+              <div className="pr-nodes">
+                <span>Landing</span><i /><span>Sign up</span><i /><span>Onboarding</span><i /><span className="pr-goal">First win</span>
+              </div>
+            </div>
+            <div className="pr-tile pr-copy">
+              <p className="pr-k">UX copywriting</p>
+              <p className="pr-before">Revolutionize your workflow with AI</p>
+              <p className="pr-after">Send your first invoice in 30 seconds</p>
+            </div>
+            <div className="pr-tile pr-ab">
+              <p className="pr-k">A/B testing</p>
+              <div className="pr-bars">
+                <span className="pr-a"><b>A</b><i /></span>
+                <span className="pr-b"><b>B</b><i /><em>Winner</em></span>
+              </div>
+            </div>
           </div>
         </Link>
         <Link prefetch={false} href={`/work/${clip.slug}/`} className="dark-island bx-card bx-mini bx-motion" data-reveal>

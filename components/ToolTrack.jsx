@@ -12,10 +12,17 @@ export default function ToolTrack({ children }) {
     const half = () => el.scrollWidth / 2;
     const wrap = () => { const h = half(); if (el.scrollLeft <= 1) el.scrollLeft += h; else if (el.scrollLeft >= h + 1) el.scrollLeft -= h; };
     el.scrollLeft = half(); pos = el.scrollLeft;
+    const live = () => document.documentElement.classList.contains("is-live");
+    // pos keeps the sub-pixel position itself: the browser rounds scrollLeft, so reading it back each frame stalls the drift.
     const step = (now) => {
       const dt = Math.min(50, now - last); last = now;
-      if (!held && now > resume && on && !reduce) { pos = el.scrollLeft - dt * 0.035; el.scrollLeft = pos; }
-      wrap();
+      if (!held && now > resume && on && !reduce && live()) {
+        if (Math.abs(el.scrollLeft - pos) > 2) pos = el.scrollLeft;
+        pos -= dt * 0.04;
+        const h = half();
+        if (pos <= 1) pos += h; else if (pos >= h + 1) pos -= h;
+        el.scrollLeft = pos;
+      } else { wrap(); pos = el.scrollLeft; }
       raf = requestAnimationFrame(step);
     };
     const hold = () => { held = true; };

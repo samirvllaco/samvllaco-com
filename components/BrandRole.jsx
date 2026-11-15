@@ -35,5 +35,7 @@ export default function BrandRole() {
       };
     });
   }, []);
-  return <span className="brand-role" aria-hidden="true"><span ref={ref}>{ROLES[0]}</span></span>;
+  // The longest role sits invisibly in the same cell, so the badge keeps one width while the words change.
+  const longest = ROLES.reduce((a, b) => (b.length > a.length ? b : a));
+  return <span className="brand-role" aria-hidden="true"><span className="br-size">{longest}</span><span ref={ref}>{ROLES[0]}</span></span>;
 }

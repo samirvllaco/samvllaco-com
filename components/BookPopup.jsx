@@ -49,11 +49,11 @@ export default function BookPopup() {
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img className="bw-cover" src="/ebook/cover-520.webp?v=1" width="936" height="1326" alt="" loading="lazy" />
           <div>
-            <p className="bw-k">Quick fix</p>
-            <p className="bw-t">Fix the AI look tonight.</p>
+            <p className="bw-k">AI slop fix</p>
+            <p className="bw-t">Your AI design looks generated?</p>
           </div>
         </div>
-        <p className="bw-s">27 copy-paste prompts. Paste, run, done.</p>
+        <p className="bw-s">Improve it tonight with 27 copy-paste prompts that fix AI slop UI.</p>
         <a className="hero2-btn hero2-btn-primary bw-buy" href={BOOK_URL} target="_blank" rel="noopener" tabIndex={open ? 0 : -1}>Fix it for $12.99</a>
         <a className="bw-more" href="/fix-ai-slop-ui/" tabIndex={open ? 0 : -1}>See what's inside</a>
       </div>
