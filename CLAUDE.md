@@ -62,6 +62,13 @@ Every change is checked in dark AND light mode before publishing. Light mode bro
   It checks every page in both themes on phone and desktop (WCAG AA, axe-core plus gradient text) and must end with 0 failures.
 - Also look at each touched page in light mode yourself, phone and desktop: images, icons and borders the script cannot judge.
 
+## Type and spacing system (owner, 15 Nov 2026, locked)
+Tokens and role rules are the last block of `app/globals.css` ("Type and spacing system"). Use them; never set a one-off heading size.
+- Spacing: 4px base, only 4, 8, 12, 16, 20, 24, 32, 40, 48, 64, 80, 96, 128. Sections use `--space-section` (64px on phones, 128px at 1440), gutters `--gutter` (16 to 40px). Intro blocks (eyebrow, title, lede) 12px apart; card grids 20px.
+- Widths: content 1200px (`--max`), prose 760px (`--prose`), hero headline 800px.
+- Type roles: display h1 56/60, section title h2 42/48, panel headline 28/36, subhead 24/32, card title 20/28, lede 18/28. Tracking -0.027em on display and titles. No heading heavier than 600.
+- One ink, one accent; secondary text is the ink at lower opacity or `--muted`.
+
 ## Buttons (owner, 13 Nov 2026, locked)
 - Only the two button classes in DESIGN.md (Buttons), with the hover and state rules defined there. Check every new or moved button on hover before calling a change done.
 - Buttons side by side are the same width (owner, 14 Nov 2026). Put them alone in one row container: the global rule in `globals.css` sizes every button in a row of only `hero2-btn` buttons to the widest one, and stacks them full width on phones.

@@ -5378,3 +5378,55 @@ body:has(.rv-ty) .top-note { display: none; }
 /* The enlarged QR and its label sit above the footer that follows */
 .book-band:has(.bb-qr:hover), .bb-alt:has(.bb-qr:hover) { position: relative; z-index: 5; }
 .book-cal:has(.bb-qr:hover) { overflow: visible; }
+
+/* ==========================================================================
+   Type and spacing system (owner, 15 Nov 2026). One scale, no exceptions.
+   Spacing: 4px base; steps 4 8 12 16 20 24 32 40 48 64 80 96 128.
+   Sections: --space-section (64px on phones, 128px at 1440). Gutter: --gutter (16 to 40px).
+   Width: content 1200px, prose 760px, hero headline 800px.
+   Type: display 56/60, title 42/48, headline 28/36, subhead 24/32, card 20/28, lede 18/28.
+   No heading is bolder than 600. Line heights land on the 4px grid.
+   ========================================================================== */
+:root {
+  --space-section: clamp(4rem, 2.592rem + 6.009vw, 8rem);
+  --gutter: clamp(1rem, .789rem + .901vw, 2.5rem);
+  --sec: var(--space-section);
+  --max: calc(1200px + 2 * var(--gutter));
+  --prose: 760px;
+  --fs-display: clamp(2.25rem, 1.81rem + 1.878vw, 3.5rem);
+  --fs-title: clamp(2rem, 1.78rem + .939vw, 2.625rem);
+  --fs-headline: clamp(1.5rem, 1.412rem + .376vw, 1.75rem);
+  --fs-subhead: clamp(1.25rem, 1.162rem + .376vw, 1.5rem);
+  --fs-card: 1.25rem;
+  --fs-lede: clamp(1.0625rem, 1.04rem + .094vw, 1.125rem);
+  --gap-intro: 12px;
+  --gap-grid: 20px;
+}
+:root:root .wrap { padding-left: max(var(--gutter), env(safe-area-inset-left, 0px)); padding-right: max(var(--gutter), env(safe-area-inset-right, 0px)); }
+
+/* Display: every page h1 */
+:root:root:root h1 { font-size: var(--fs-display); line-height: 1.072; font-weight: 600; letter-spacing: -.027em; max-width: 800px; }
+:root:root:root .hero3 h1 { margin-inline: auto; }
+/* Title: every section h2 */
+:root:root:root h2 { font-size: var(--fs-title); line-height: 1.143; font-weight: 600; letter-spacing: -.027em; text-wrap: balance; }
+/* Headline: the big heading inside a panel */
+:root:root:root :is(.hp-left h2, .eb-hp .hp-left h2, .ab-part h2, .pn-fix-copy h3, .ef-one-copy h3, .eb-grp-h h3) { font-size: var(--fs-headline); line-height: 1.286; font-weight: 600; letter-spacing: -.02em; }
+/* Subhead: the second heading in a photo panel and the FAQ card */
+:root:root:root :is(.hp-body h3, .faq-card h3) { font-size: var(--fs-subhead); line-height: 1.333; font-weight: 600; letter-spacing: -.02em; }
+/* Card title: every card, tile and list heading */
+:root:root:root :is(h3, h4, .pr-proj h2):not(.hp-body h3, .faq-card h3, .pn-fix-copy h3, .ef-one-copy h3, .eb-grp-h h3) { font-size: var(--fs-card); line-height: 1.4; font-weight: 600; letter-spacing: -.01em; }
+/* Lede: the line under a title, always 12px below it */
+:root:root:root :is(.bx-lede, .pn-head > p, .hp-lede, .ph > p, .ph .lede, .case-head .lede, .sv-sec > h2 + p, .eb-why-lede, .book-band-head p:not(.bb-sub):not(.case-eyebrow)) { font-size: var(--fs-lede); line-height: 1.556; max-width: var(--prose); }
+:root:root:root :is(h2 + .bx-lede, .pn-head > h2 + p, .sv-sec > h2 + p, .ph h1 + p, .book-band-head h2 + p, .eb-sec > h2 + p) { margin-top: var(--gap-intro) !important; }
+:root:root .pn-head { gap: var(--gap-intro); }
+/* Eyebrow, headline and lede group: 12px apart */
+:root:root:root :is(.case-eyebrow, .hp-kick, .eb-kick) + :is(h1, h2, h3) { margin-top: var(--gap-intro); }
+
+/* Sections: one rhythm */
+:root:root .sv-sec { padding-block: calc(var(--space-section) / 2); }
+:root:root .book-band { padding-top: var(--space-section); padding-bottom: calc(var(--space-section) / 2); }
+:root:root .stack-lg > .home-writing { margin-top: var(--space-section); }
+:root:root .hp { margin-top: var(--space-section); }
+:root:root .eb-hp { margin-top: var(--space-section); }
+/* Light mode: the scrolled header pill stays light enough over dark cards for its dark links */
+@media (min-width: 1261px) { :root[data-theme="light"].is-scrolled:not(.on-dark):not(.is-end) .site-header .wrap.head-row { background: rgba(255, 255, 255, .86); } }
