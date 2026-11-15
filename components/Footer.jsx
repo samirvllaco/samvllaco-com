@@ -46,7 +46,7 @@ const MAP = [
   { h: "Services", links: [...svc(["saas-product-design", "dashboard-design", "mobile-app-design", "ux-audit", "design-systems", "website-design"]), ["All services", "/services/"]] },
   { h: "Work", links: [...WORK.slice(0, 5).map((w) => [w.title, `/work/${w.slug}/`]), ["All case studies", "/work/"]] },
   { h: "Resources", links: [["All resources", "/resources/"], ["Insights", "/writing/"], ["AI slop UI ebook", "/fix-ai-slop-ui/", null, "New"], ["UI/UX review", "/fix-ai-slop-ui/#options"], ["Free UI prompts", "/fix-ai-slop-ui/#free"], ["FAQs", "/#faq"], ["Products", "/products/"]] },
-  { h: "Company", links: [["About Sam", "/about/"], ["Book a call", "/book/"], ["What I'm building", "/building/"]] },
+  { h: "Company", links: [["About Sam", "/about/"], ["Pricing", "/pricing/"], ["Book a call", "/book/"], ["What I'm building", "/building/"]] },
   { h: "Social", links: [["X", SITE.links.x, "x"], ["Medium", SITE.links.medium, "medium"], ["Dribbble", SITE.links.dribbble, "dribbble"]] },
 ];
 const Ext = () => <svg className="fm-ext" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5" /></svg>;
