@@ -12,7 +12,7 @@ export function BookAlt() {
         <p className="bb-alt-h"><b>Not a fan of calendars?</b> <span>Me neither. Just say hi.</span></p>
         <div className="bb-alt-row">
           <a className="bb-x" href={SITE.links.x} target="_blank" rel="me noopener noreferrer"><i className="tg-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path style={{ fill: "#fff", stroke: "none" }} d="M17.75 3h3.07l-6.71 7.67L22 21h-6.18l-4.84-6.33L5.44 21H2.37l7.18-8.2L2 3h6.34l4.37 5.78zm-1.08 16.2h1.7L7.4 4.73H5.58z" /></svg></i>Message me on X<span className="sr-only"> (opens in a new tab)</span></a>
-          <CopyEmailInline />
+          <CopyEmailInline icon />
         </div>
       </div>
       <figure className="bb-qr">
