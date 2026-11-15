@@ -5334,3 +5334,19 @@ body:has(.rv-ty) .top-note { display: none; }
   .switches .device-switch button { justify-content: center; height: 44px; }
 }
 @media (max-width: 420px) { .switches { grid-template-columns: minmax(0, 1fr); } }
+
+/* Hire panel: eight photos of Sam at work. The first is static; the others crossfade in turn (6 s each), held still until html.is-live */
+.hp-photos { position: absolute; inset: 0; z-index: -2; }
+.hp-photos .hp-photo { z-index: auto; }
+.hp-photos .hp-photo:not(:first-child) { opacity: 0; }
+html.is-live .hp-photos .hp-photo:not(:first-child) { animation: hp-swap 48s ease-in-out infinite; }
+html.is-live .hp-photos .hp-photo:nth-child(2) { animation-delay: 6s; }
+html.is-live .hp-photos .hp-photo:nth-child(3) { animation-delay: 12s; }
+html.is-live .hp-photos .hp-photo:nth-child(4) { animation-delay: 18s; }
+html.is-live .hp-photos .hp-photo:nth-child(5) { animation-delay: 24s; }
+html.is-live .hp-photos .hp-photo:nth-child(6) { animation-delay: 30s; }
+html.is-live .hp-photos .hp-photo:nth-child(7) { animation-delay: 36s; }
+html.is-live .hp-photos .hp-photo:nth-child(8) { animation-delay: 42s; }
+@keyframes hp-swap { 0% { opacity: 0; } 3%, 12.5% { opacity: 1; } 15.5%, 100% { opacity: 0; } }
+@media (max-width: 960px) { .hp-photos { inset: 0 0 auto; height: var(--hp-ph); } }
+@media (prefers-reduced-motion: reduce) { html.is-live .hp-photos .hp-photo:not(:first-child) { animation: none; } }

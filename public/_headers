@@ -16,6 +16,9 @@
 /hero/*
   ! Cache-Control
   Cache-Control: public, max-age=31536000
+/me/ai/*
+  ! Cache-Control
+  Cache-Control: public, max-age=31536000
 /work/cut/*
   ! Cache-Control
   Cache-Control: public, max-age=31536000
