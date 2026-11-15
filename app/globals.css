@@ -5161,3 +5161,6 @@ body:has(.rv-ty) .top-note { display: none; }
 @media (prefers-reduced-motion: reduce) { .eb-rv-view img { animation: none; } }
 /* Hero hover fade v4: exact page colour, much wider and softer edge, eased in and out. */
 .hero2::after, .hero2.dots-on::after, :root[data-theme="light"] .hero2::after { background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), var(--fade, var(--bg)) 0%, color-mix(in srgb, var(--fade, var(--bg)) 85%, transparent) 25%, color-mix(in srgb, var(--fade, var(--bg)) 45%, transparent) 55%, transparent 100%); transition: opacity .8s var(--ease-out); }
+/* Match the Cal.com card inside the frame: it stops at 1040px and centres, and sits 20px in on small screens. */
+.bb-alt, .book-split .bb-alt { max-width: 1040px; margin-inline: auto; }
+@media (max-width: 900px) { .book-band .bb-alt { width: auto; margin-inline: 20px; } }
