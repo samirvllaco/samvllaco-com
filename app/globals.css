@@ -4883,3 +4883,9 @@ body:has(.rv-ty) .top-note { display: none; }
 .rv-mail { margin: 16px 0 0; font-size: .9375rem; color: var(--muted); }
 .rv-mail a { color: var(--text); }
 @media (max-width: 560px) { .rv-box { padding: 24px; } .rv-form .hero2-btn { justify-self: stretch; } }
+/* Wall stats band runs from the very top of the sticky frame, under the header, so no strip of wall shows above it (owner, 15 Nov 2026). */
+.wall-stats { top: 0; padding-top: 100px; }
+.hero2 + .wall { margin-top: 0; }
+.wall-stats::before { background: radial-gradient(60% 80% at 50% 30%, rgba(255, 255, 255, .07), transparent 70%); }
+:root[data-theme="light"] .wall-stats::before { background: radial-gradient(60% 80% at 50% 30%, rgba(255, 255, 255, .5), transparent 70%); }
+@media (max-width: 640px) { .wall-stats { padding-top: 96px; } }
