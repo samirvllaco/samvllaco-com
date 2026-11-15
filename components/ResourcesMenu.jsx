@@ -2,11 +2,11 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import MegaShell from "./MegaShell";
-import { ARTICLES, articleLink } from "../lib/site";
 import { RESOURCES } from "../lib/resources";
 
 // "Resources" in the header: writing, the book, free prompts and answers, then the $99 review + book as one compact row.
-const ITEMS = RESOURCES.map((r) => [r.href, r.title, r.text, r.icon, r.tag]);
+// Owner, 15 Nov 2026: the menu shows only Insights and the book.
+const ITEMS = RESOURCES.filter((r) => ["/writing/", "/fix-ai-slop-ui/"].includes(r.href)).map((r) => [r.href, r.title, r.text, r.icon]);
 
 export default function ResourcesMenu() {
   const path = (usePathname() || "/").replace(/\/?$/, "/");
@@ -17,49 +17,15 @@ export default function ResourcesMenu() {
           <div className="mx-main">
             <div className="mx-k-row"><p className="mx-k">Learn and borrow</p><Link prefetch={false} className="mx-view" href="/resources/" onClick={close}>View all resources<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" /></svg></Link></div>
             <ul className="mx-grid">
-              {ITEMS.map(([href, t, d, icon, tag]) => (
+              {ITEMS.map(([href, t, d, icon]) => (
                 <li key={href}>
                   <Link prefetch={false} href={href} aria-current={path === href ? "page" : undefined} onClick={close}>
                     <i className="tg-ico mx-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d={icon} /></svg></i>
-                    <span><b>{t}{tag ? <span className="mega-pdf mega-gold">{tag}</span> : null}</b><em>{d}</em></span>
+                    <span><b>{t}</b><em>{d}</em></span>
                   </Link>
                 </li>
               ))}
             </ul>
-            <p className="mx-k mx-k2">Latest stories</p>
-            <ul className="mx-posts">
-              {ARTICLES.slice(0, 2).map((a) => (
-                <li key={a.url}>
-                  <a href={articleLink(a).href} {...(articleLink(a).external ? { target: "_blank", rel: "noopener noreferrer" } : {})} onClick={close}>
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={a.cover} width="1400" height="788" alt="" loading="lazy" decoding="async" />
-                    <span><b>{a.short}</b><em>{articleLink(a).label}{articleLink(a).external ? <span className="sr-only"> (opens in a new tab)</span> : null}</em></span>
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className="mx-up dark-island">
-            <div className="mx-up-art" aria-hidden="true">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img className="mx-up-me" src="/sam-hire.webp?v=2" width="1000" height="1250" alt="" loading="lazy" />
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img className="mx-up-bk" src="/book-cover.webp?v=2" width="300" height="400" alt="" loading="lazy" />
-              <i>+</i>
-            </div>
-            <div className="mx-up-copy">
-              <p className="mx-up-k">Upgrade: a senior designer reviews it</p>
-              <p className="mx-up-t">UI/UX review <span>+ the book</span></p>
-              <p className="mx-up-price">from <b>$49</b> one-time</p>
-              <p className="mx-up-p">Your Loom in under 12 hours, from a designer with 10+ years</p>
-            </div>
-            <ul className="mx-up-list">
-              <li>What works and what does not</li>
-              <li>Actionable steps document</li>
-              <li>30-min or all-inclusive Loom</li>
-              <li>The full book included</li>
-            </ul>
-            <Link prefetch={false} className="hero2-btn hero2-btn-light" href="/fix-ai-slop-ui/#options" onClick={close}>See the reviews</Link>
           </div>
         </div>
       )}

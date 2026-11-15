@@ -27,6 +27,7 @@ const LINKS = [
   { href: "/work/", label: "Work" },
   { href: "/resources/", label: "Resources" },
   { href: "/fix-ai-slop-ui/", label: "E-book", tag: "$12.99" },
+  { href: "/pricing/", label: "Pricing" },
   { href: "/about/", label: "About" },
   { href: "/book/", label: "Contact", dot: true },
 ];
