@@ -82,7 +82,7 @@ export default function WorkGrid() {
             aria-selected={tab === t.id}
             aria-controls="work-panel"
             tabIndex={tab === t.id ? 0 : -1}
-            onClick={() => { setTab(tab === t.id ? "all" : t.id); play("tab"); }}
+            onClick={(e) => { setTab(tab === t.id ? "all" : t.id); play("tab"); e.currentTarget.scrollIntoView({ block: "nearest", inline: "center", behavior: "smooth" }); }}
             onKeyDown={(e) => onKey(e, i)}
           >
             {t.label}
@@ -91,19 +91,19 @@ export default function WorkGrid() {
       </div>
       <div className="switches">
       <div className="device-switch" role="group" aria-label="Show desktop or mobile work">
-        <button type="button" aria-pressed={device === "desktop"} aria-label="Desktop work" title="Desktop" onClick={() => { setDevice(device === "desktop" ? "all" : "desktop"); play("tab"); }}>
-          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="12" rx="2" /><path d="M8 20h8M12 16v4" /></svg>
+        <button type="button" aria-pressed={device === "desktop"} title="Desktop" onClick={() => { setDevice(device === "desktop" ? "all" : "desktop"); play("tab"); }}>
+          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="12" rx="2" /><path d="M8 20h8M12 16v4" /></svg><span className="sw-l">Desktop</span>
         </button>
-        <button type="button" aria-pressed={device === "mobile"} aria-label="Mobile work" title="Mobile" onClick={() => { setDevice(device === "mobile" ? "all" : "mobile"); play("tab"); }}>
-          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="7" y="2.5" width="10" height="19" rx="2.5" /><path d="M11 18.500h2" /></svg>
+        <button type="button" aria-pressed={device === "mobile"} title="Mobile" onClick={() => { setDevice(device === "mobile" ? "all" : "mobile"); play("tab"); }}>
+          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="7" y="2.5" width="10" height="19" rx="2.5" /><path d="M11 18.500h2" /></svg><span className="sw-l">Mobile</span>
         </button>
       </div>
       <div className="device-switch" role="group" aria-label="Show light or dark designs">
-        <button type="button" aria-pressed={look === "light"} aria-label="Light designs" title="Light designs" onClick={() => { setLook(look === "light" ? "all" : "light"); play("tab"); }}>
-          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="4" /><path d="M12 2.500v2M12 19.500v2M2.500 12h2M19.500 12h2M5.300 5.300l1.400 1.400M17.300 17.300l1.400 1.400M5.300 18.700l1.400-1.400M17.300 6.700l1.400-1.400" /></svg>
+        <button type="button" aria-pressed={look === "light"} title="Light designs" onClick={() => { setLook(look === "light" ? "all" : "light"); play("tab"); }}>
+          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="4" /><path d="M12 2.500v2M12 19.500v2M2.500 12h2M19.500 12h2M5.300 5.300l1.400 1.400M17.300 17.300l1.400 1.400M5.300 18.700l1.400-1.400M17.300 6.700l1.400-1.400" /></svg><span className="sw-l">Light<span className="sr-only"> designs</span></span>
         </button>
-        <button type="button" aria-pressed={look === "dark"} aria-label="Dark designs" title="Dark designs" onClick={() => { setLook(look === "dark" ? "all" : "dark"); play("tab"); }}>
-          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M20 14.500A8 8 0 0 1 9.500 4a8 8 0 1 0 10.500 10.500z" /></svg>
+        <button type="button" aria-pressed={look === "dark"} title="Dark designs" onClick={() => { setLook(look === "dark" ? "all" : "dark"); play("tab"); }}>
+          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M20 14.500A8 8 0 0 1 9.500 4a8 8 0 1 0 10.500 10.500z" /></svg><span className="sw-l">Dark<span className="sr-only"> designs</span></span>
         </button>
       </div>
       </div>
