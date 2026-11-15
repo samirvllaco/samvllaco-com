@@ -5,8 +5,7 @@ import MegaShell from "./MegaShell";
 import { ARTICLES } from "../lib/site";
 import { RESOURCES } from "../lib/resources";
 
-// "Resources" in the header: writing, the book, free prompts and answers, with the book as the side card
-// and the $99 review + book as a full-width upgrade row under them.
+// "Resources" in the header: writing, the book, free prompts and answers, then the $99 review + book as one compact row.
 const ITEMS = RESOURCES.map((r) => [r.href, r.title, r.text, r.icon, r.tag]);
 
 export default function ResourcesMenu() {
@@ -14,7 +13,7 @@ export default function ResourcesMenu() {
   return (
     <MegaShell id="mega-resources" label="Resources" href="/resources/">
       {(close) => (
-        <div className="wrap mx-in">
+        <div className="wrap mx-in mx-res">
           <div className="mx-main">
             <p className="mx-k">Learn and borrow</p>
             <ul className="mx-grid">
@@ -40,17 +39,7 @@ export default function ResourcesMenu() {
               ))}
             </ul>
           </div>
-          <aside className="mx-side mx-book">
-            <div className="mx-book-art">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/book-cover.webp?v=2" width="300" height="400" alt="Cover of 27 Copy-Paste Prompts to Fix AI Slop UI" loading="lazy" />
-              <span className="mx-live mx-sale">63% off</span>
-            </div>
-            <p className="mx-side-t">Fix your AI-built app tonight</p>
-            <p className="mx-side-p">27 copy-paste prompts for Claude, Cursor, Lovable and v0, the rules file I use with clients, and a private video.</p>
-            <Link prefetch={false} className="hero2-btn hero2-btn-primary" href="/ebook/" onClick={close}>Get the book for $12.99</Link>
-          </aside>
-          <div className="mx-up">
+          <div className="mx-up dark-island">
             <div className="mx-up-art" aria-hidden="true">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img className="mx-up-me" src="/sam-hire.webp?v=2" width="1000" height="1250" alt="" loading="lazy" />
@@ -65,11 +54,8 @@ export default function ResourcesMenu() {
             </div>
             <ul className="mx-up-list">
               <li>Your scorecard, out of 10</li>
-              <li>What's wrong and how to fix it</li>
               <li>Step-by-step plan to 10/10</li>
               <li>Loom video walkthrough</li>
-              <li>Custom prompts for your product</li>
-              <li>Before and after screenshots</li>
               <li>The full book included</li>
             </ul>
             <Link prefetch={false} className="hero2-btn hero2-btn-light" href="/ebook/#options" onClick={close}>See the review</Link>

@@ -529,7 +529,8 @@ export default function Ebook() {
 
       <section className="hp eb-hp" aria-labelledby="eb-author-h" data-bg="#111112">
         <div className="hp-left">
-          <h2 id="eb-author-h">About <span className="t2">the author</span><br /><em>Sam Vllaco, product designer.</em></h2>
+          <p className="hp-label hp-kick">About the author</p>
+          <h2 id="eb-author-h">Sam Vllaco, <em>product designer.</em></h2>
           <p className="hp-lede">I design SaaS products, dashboards and mobile apps, and I build my own products with the same AI tools you use. This book is the set of rules and prompts I use on them.</p>
           <ul className="hp-proof">
             <li><div><b>10,000+</b><span>screens</span></div></li>
@@ -572,8 +573,13 @@ export default function Ebook() {
 
       <section className="eb-sec eb-end">
         <p className="eb-end-k">Built with AI. Finished with taste.</p>
-        <h2>You did the hard part. You built it. <span className="t2">Now give it the polish it deserves.</span></h2>
-        <p className="eb-end-sub">Your product already works. Give it one focused hour and send the link with confidence.</p>
+        <h2>You built it. <span className="t2">Now make it look like you meant it.</span></h2>
+        <p className="eb-end-sub">Picture tomorrow morning. You open your link next to the products you admire, and <em className="scr">it holds up.</em> No &ldquo;it&rsquo;s just an MVP&rdquo; in the post.</p>
+        <ol className="eb-end-path">
+          <li><b>Tonight</b><span>Open the book and run prompt 1 on your app.</span></li>
+          <li><b>One hour later</b><span>Colors, type, spacing and the hero are fixed.</span></li>
+          <li><b>Tomorrow</b><span>You share the link without a disclaimer.</span></li>
+        </ol>
         <div className="btn-row"><Buy label={<>Buy now for <span className="eb-pill">{PRICE}</span></>} /></div>
         <p className="pn-trust eb-guar"><span className="pn-shield" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.2-3 7.6-7 9-4-1.4-7-4.8-7-9V6zM8.5 12l2.5 2.5 4.5-5" /></svg></span><span><b>Money-back guarantee.</b> Not happy with the book? Full refund, no questions.</span></p>
       </section>

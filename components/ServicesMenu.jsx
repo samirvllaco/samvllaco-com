@@ -47,14 +47,15 @@ export default function ServicesMenu() {
               {SERVICES.map((g) => <Link prefetch={false} key={g.id} href={`/services/#${g.id}`} onClick={close}>{g.title}</Link>)}
             </div>
           </div>
-          <aside className="mx-side">
-            <div className="mx-photo">
+          <aside className="mx-side mx-call dark-island">
+            <i className="mx-aura" aria-hidden="true"><span /><span /><span /></i>
+            <div className="mx-call-who">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/sam-sky.webp" width="1891" height="832" alt="Sam Vllaco, product designer" loading="lazy" decoding="async" />
-              <span className="mx-live"><i aria-hidden="true" />1 to 2 new projects at a time</span>
+              <img src="/sam-sky.webp" width="1891" height="832" alt="" loading="lazy" decoding="async" />
+              <span><b>Sam Vllaco</b><em><i aria-hidden="true" />1 to 2 new projects at a time</em></span>
             </div>
-            <p className="mx-side-t">Not sure what you need?</p>
-            <p className="mx-side-p">Tell me what you're building. In 30 minutes I'll point to the screens that will help most.</p>
+            <p className="mx-side-t">Users get lost. Sign-ups stall. <span>It still looks unfinished.</span></p>
+            <p className="mx-side-p">That is a design problem, and design fixes it. In 30 minutes I&rsquo;ll show you which screens to fix first.</p>
             <a className="hero2-btn hero2-btn-primary" href="/book/"><CallIcon />Book a call</a>
           </aside>
           <Link prefetch={false} className="mx-all" href="/services/" onClick={close}>
