@@ -2449,12 +2449,11 @@ html.js .foot-sig-w[data-reveal], html.js .foot-sig-w[data-reveal].is-shown { op
   html.is-scrolled .site-header .wrap.head-row { max-width: min(1040px, calc(100vw - 32px)); }
 }
 @media (min-width: 981px) and (max-width: 1180px) {
-  html.is-scrolled .site-header .wrap.head-row { padding-left: 14px; }
-  html.is-scrolled .brand-me { display: none; }
-  html.is-scrolled .head-nav a { padding: 0 10px; }
+  html.is-scrolled .site-header .wrap.head-row { padding-left: 8px; }
+  html.is-scrolled .head-nav a { padding: 0 9px; }
 }
 @media (min-width: 981px) and (max-width: 1180px) {
-  html.is-scrolled .site-header .wrap.head-row { width: fit-content; grid-template-columns: auto auto; column-gap: 8px; }
+  html.is-scrolled .site-header .wrap.head-row { width: fit-content; grid-template-columns: auto auto auto; column-gap: 6px; }
 }
 
 /* Footer signature runs past the photo instead of being cut at its edges; the footer clips it at the page edge */
@@ -3533,7 +3532,7 @@ html.is-end .bk { bottom: max(16px, env(safe-area-inset-bottom, 0px)); }
 .pain .eb-story p { text-wrap: pretty; }
 .pain .eb-story-sign { margin-top: 4px; transform: rotate(-4deg); }
 .pain .pain-cta { margin-top: clamp(24px, 3vw, 36px); }
-#work.work > h2 + .work-lede { margin-top: -8px !important; }
+#work.work > h2 + .work-lede { margin-top: -16px !important; }
 .tg-note::after, .tm-tags li.tg:last-child:not(:first-child) .tg-note::after { left: var(--ax, 22px); right: auto; }
 /* Reviews: hovering one card dims the others, like the FAQ and work grid (owner, 13 Nov 2026) */
 .tm-card { transition: opacity .35s var(--ease-out), filter .35s var(--ease-out), translate .5s var(--spring); }
@@ -4589,3 +4588,120 @@ s[data-mark] { text-decoration: none; }
 .mx-call .mx-side-p { color: rgba(255, 255, 255, .78); }
 .mx-call .mx-side-t span { color: rgba(255, 255, 255, .72); }
 @media (max-width: 1100px) { .mx-call { padding-top: 20px; } .mx-call-sky { display: none; } }
+/* "Is this for you?": one accent only (owner, 15 Nov 2026). Same orange for every card, neutral labels, default icon tiles. */
+.eb-for2 { --ef-d: var(--ef-f); --ef-s: var(--ef-f); }
+.ef-card { background: linear-gradient(180deg, #19191c, #121214); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .07), inset 0 1px 0 rgba(255, 255, 255, .06); }
+.ef-hf dt, .ef-hf div + div dt { color: var(--muted); }
+.ef-ico { flex: none; width: 44px; height: 44px; border-radius: 12px; }
+
+/* What you get: two groups, a bold title and one muted line per item, and a calm price card */
+.eb-offer.eb-offer2 { grid-template-columns: minmax(0, 1.35fr) minmax(280px, 380px); align-items: start; gap: clamp(32px, 5vw, 72px); padding: clamp(28px, 4.5vw, 56px); }
+.eo-main h2 { margin: 0 0 clamp(24px, 3vw, 36px); }
+.eo-k { margin: 0 0 14px; font-size: .75rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.eo-list + .eo-k { margin-top: 32px; padding-top: 28px; border-top: 1px solid var(--line); }
+.eb-offer2 .eo-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px 28px; margin: 0; padding: 0; list-style: none; }
+.eb-offer2 .eo-list li { display: grid; gap: 3px; align-content: start; min-height: 40px; padding-left: 54px; font-size: 1rem; line-height: 1.4; }
+.eb-offer2 .eo-list li b { font-weight: 600; color: var(--text); }
+.eb-offer2 .eo-list li span { font-size: .875rem; line-height: 1.5; color: var(--muted); }
+.eb-offer2 .eo-list li::before, .eb-offer2 .eo-list li::after { top: 0; }
+.eo-card { position: sticky; top: 120px; display: grid; justify-items: start; gap: 14px; padding: 24px; border-radius: 24px; background: linear-gradient(180deg, rgba(255, 255, 255, .06), rgba(255, 255, 255, .02)); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .08); }
+.eo-cover { width: 112px; height: auto; margin-bottom: 6px; border-radius: 6px 10px 10px 6px; rotate: -3deg; box-shadow: 0 24px 40px -18px rgba(0, 0, 0, .8), 0 0 0 1px rgba(255, 255, 255, .08); }
+.eo-card .eb-was { margin: 0; font-size: 1rem; }
+.eo-card .eb-price { font-size: clamp(2.75rem, 4.4vw, 3.5rem); }
+.eo-card .hero2-btn { width: 100%; justify-content: center; }
+.eo-card .pn-trust { font-size: .875rem; }
+.eo-card .eb-note { font-size: .8125rem; line-height: 1.5; }
+:root[data-theme="light"] .eo-card { background: #fff; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .06), 0 24px 50px -30px rgba(0, 0, 0, .25); }
+@media (max-width: 960px) { .eb-offer.eb-offer2 { grid-template-columns: minmax(0, 1fr); } .eo-card { position: static; justify-items: center; text-align: center; } .eo-card .pn-trust { text-align: left; } }
+@media (max-width: 640px) { .eb-offer2 .eo-list { grid-template-columns: minmax(0, 1fr); gap: 18px; } }
+.ef-ico svg { width: 20px; height: 20px; }
+.eb-offer2 .eo-list li { gap: 4px; padding-left: 52px; }
+.eb-offer2 .eo-list li::before, .eb-offer2 .eo-list li::after { top: 2px; margin-top: 0; width: 36px; height: 36px; }
+
+/* Title to paragraph: 8px at most, everywhere (owner, 15 Nov 2026, 4-point grid) */
+:is(h1, h2, h3, h4):has(+ p) { margin-bottom: 0 !important; }
+:is(h1, h2, h3, h4) + p { margin-top: 8px !important; }
+
+/* Title to paragraph: 8px inside grid and flex blocks too, where the container gap adds space (measured on every page; owner rule 15 Nov 2026) */
+.eb-copy > h1 + p { margin-top: -8px !important; }
+.eb-phases > article > h3 + p { margin-top: 0px !important; }
+.eb-grp-h > h3 + p { margin-top: 4px !important; }
+.eb-sec.eb-bn > h2 + p { margin-top: -12px !important; }
+.eb-bn-grid > article > h3 + p { margin-top: -2px !important; }
+.ef-head > h2 + p { margin-top: -6px !important; }
+.ef-one-copy > h3 + p { margin-top: -6px !important; }
+.eb-pk-card.is-main > h3 + p { margin-top: -8px !important; }
+.eb-pk-card > h3 + p { margin-top: -8px !important; }
+.hp-body > h3 + p { margin-top: -8px !important; }
+.faq-card > h3 + p { margin-top: -6px !important; }
+.book-band-head > h2 + p { margin-top: 8px !important; }
+.ph > h1 + p { margin-top: -4px !important; }
+.pn-head > h2 + p { margin-top: -4px !important; }
+.pn-fix-copy > h3 + p { margin-top: -6px !important; }
+.stack.work > h2 + p { margin-top: -16px !important; }
+.hp-left > h2 + p { margin-top: -16px !important; }
+.bx-sec > h2 + p { margin-top: 8px !important; }
+.card > h2 + p { margin-top: 0px !important; }
+.case-head > h1 + p { margin-top: -8px !important; }
+.case-section.case-overview > h2 + p { margin-top: -16px !important; }
+.case-cards > article > h3 + p { margin-top: 0px !important; }
+.case-chapter-head > h2 + p { margin-top: -4px !important; }
+.case-part-text > h3 + p { margin-top: 0px !important; }
+.case-cards.case-cards-4 > article > h3 + p { margin-top: 0px !important; }
+.case-section.case-close > h2 + p { margin-top: -4px !important; }
+.md-club > h2 + p { margin-top: -6px !important; }
+.bx-sec > h2 + p.bx-lede { margin-top: 4px !important; }
+/* Resources hero: the book on its own, no card behind it (owner, 15 Nov 2026) */
+.sv-hero-art.rs-book { aspect-ratio: auto; display: grid; justify-items: center; gap: 20px; overflow: visible; border-radius: 0; background: none; box-shadow: none; }
+.rs-book img { width: min(100%, 340px); height: auto; border-radius: 6px 14px 14px 6px; rotate: -5deg; box-shadow: inset 3px 0 0 rgba(255, 255, 255, .25), 0 40px 60px -28px rgba(0, 0, 0, .7), 0 0 0 1px rgba(255, 255, 255, .06); }
+.rs-book .sv-art-tag { position: static; }
+:root[data-theme="light"] .rs-book img { box-shadow: inset 3px 0 0 rgba(255, 255, 255, .25), 0 40px 60px -28px rgba(0, 0, 0, .35); }
+:root[data-theme="light"] .rs-book .sv-art-tag { color: var(--text); background: rgba(0, 0, 0, .05); }
+:root[data-theme="light"] .rs-book .sv-art-tag span { color: var(--muted); }
+/* Light mode secondary button: same keycap, softer edge and base line (owner, 15 Nov 2026) */
+:root[data-theme="light"] .hero2-btn-light { --k-top: #ffffff; --k-mid: #f6f6f8; --k-low: #e9e9ee; --k-edge: #c9c9d1; --k-line: #b4b4bd; --k-glow: rgba(0, 0, 0, .06); }
+/* Light mode stats: soft, natural shadows instead of the dark-mode glow (owner, 15 Nov 2026) */
+:root[data-theme="light"] :is(.wall-stats, .hp-proof) b { filter: drop-shadow(0 2px 6px rgba(0, 0, 0, .06)); text-shadow: none; }
+:root[data-theme="light"] :is(.wall-stats, .hp-proof) span { text-shadow: none; }
+:root[data-theme="light"] :is(.wall-stats, .hp-proof) .ws-lr { filter: drop-shadow(0 2px 4px rgba(0, 0, 0, .1)); }
+/* Floating circles share one size (owner, 15 Nov 2026): back to top, video avatar and the book tab are all 44px */
+.to-top, html.is-scrolled .to-top { width: 44px !important; height: 44px !important; }
+.vid-bubble, .vid-bubble .vid-face { width: 44px !important; height: 44px !important; }
+.bw-tab, .bw.is-open .bw-tab { width: 44px; height: 44px; }
+.bw-tab img, .bw.is-open .bw-tab img { width: 22px; height: 29px; }
+
+/* Big menus: "View all" sits next to the section label; no bottom row (owner, 15 Nov 2026) */
+.mx-k-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin: 0 0 12px; }
+.mx-k-row .mx-k { margin: 0; }
+.mx-view { display: inline-flex; align-items: center; gap: 6px; min-height: 32px; padding: 0 4px; font-size: .875rem; font-weight: 600; color: #62c1fd; text-decoration: none; }
+.mx-view svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; transition: translate .3s var(--ease-out); }
+@media (hover: hover) and (pointer: fine) { .mx-view:hover svg { translate: 3px 0; } }
+:root[data-theme="light"] .mx-view { color: #0b62c4; }
+/* Wide call card (tablets): the sky photo sits on the right, the words on deep sky blue */
+@media (max-width: 1100px) {
+  .mx-call { display: block; padding: 24px 46% 24px 24px; }
+  .mx-call > * + * { margin-top: 12px; }
+  .mx-call-sky { display: block; position: absolute; inset: 0 0 0 auto; width: 52%; height: 100%; margin: 0; z-index: -1; }
+  .mx-call-sky img { -webkit-mask-image: linear-gradient(90deg, transparent, #000 40%); mask-image: linear-gradient(90deg, transparent, #000 40%); object-position: 60% 25%; }
+  .mx-call-sky .mx-live { left: auto; right: 14px; bottom: 14px; }
+  .mx-call .hero2-btn { display: inline-flex; margin-top: 16px; }
+}
+@media (max-width: 640px) { .mx-call { padding: 20px; } .mx-call-sky { display: none; } }
+/* Upgrade row in Resources: same deep sky blue as the call card */
+.mx-up.dark-island, :root[data-theme="light"] .mx-up.dark-island { background: linear-gradient(100deg, #0a1f45 0%, #0f3f86 60%, #1f6fd1 130%); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .1); }
+.site-header .mega .mx-view { color: #62c1fd; }
+:root[data-theme="light"] .site-header .mega .mx-view { color: #0b62c4; }
+
+/* Reviews: black cards in light mode too, on the white page (owner, 15 Nov 2026) */
+:root[data-theme="light"] .tm-card.dark-island { --bx-bg: #0b0b0c; --bx-bg-2: #141416; background: #0b0b0c; color: var(--text); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .08), 0 24px 50px -30px rgba(0, 0, 0, .35); border-color: transparent; }
+/* The card with an open tag tip sits above its neighbours, so the tip is never covered */
+.tm-card:hover, .tm-card:focus-within { position: relative; z-index: 5; }
+
+/* Bento "One designer for the whole product": white page in light mode, each card black (owner, 15 Nov 2026) */
+:root[data-theme="light"] .bx-soft .bx-card.dark-island { --bx-bg: #0b0b0c; --bx-bg-2: #141416; color: var(--text); box-shadow: 0 30px 60px -36px rgba(0, 0, 0, .4); }
+/* "Still have a question?" card: left aligned */
+.faq .faq-card, .eb-faqwrap .faq-card { justify-items: start; text-align: left; }
+.faq-card h3, .faq-card > p { text-align: left; }
+.faq-pts { justify-content: flex-start; flex-direction: column; align-items: flex-start; }
+.faq-card .faq-go { justify-content: flex-start; }
+.faq-card > :not(.faq-photo):not(.sky) { margin-inline: 12px !important; }

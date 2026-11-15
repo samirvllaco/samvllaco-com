@@ -27,7 +27,7 @@ export default function ServicesMenu() {
       {(close) => (
         <div className="wrap mx-in">
           <div className="mx-main">
-            <p className="mx-k">What I design</p>
+            <div className="mx-k-row"><p className="mx-k">What I design</p><Link prefetch={false} className="mx-view" href="/services/" onClick={close}>View all {ITEMS.length} services<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" /></svg></Link></div>
             <ul className="mx-grid">
               {FEATURED.map(([id, d, short]) => {
                 const it = ITEMS.find((x) => x.id === id);
@@ -42,10 +42,6 @@ export default function ServicesMenu() {
                 );
               })}
             </ul>
-            <div className="mx-more">
-              <span>Also:</span>
-              {SERVICES.map((g) => <Link prefetch={false} key={g.id} href={`/services/#${g.id}`} onClick={close}>{g.title}</Link>)}
-            </div>
           </div>
           <aside className="mx-side mx-call dark-island">
             <div className="mx-call-sky">
@@ -57,10 +53,6 @@ export default function ServicesMenu() {
             <p className="mx-side-p">That is a design problem, and design fixes it. In 30 minutes I&rsquo;ll show you which screens to fix first.</p>
             <a className="hero2-btn hero2-btn-primary" href="/book/"><CallIcon />Book a call</a>
           </aside>
-          <Link prefetch={false} className="mx-all" href="/services/" onClick={close}>
-            <span><b>All 32 services</b><em>Design, development, marketing and SEO</em></span>
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" /></svg>
-          </Link>
         </div>
       )}
     </MegaShell>

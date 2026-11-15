@@ -91,21 +91,21 @@ const STEPS = [
 
 const FOR = [
   {
-    k: "f", ico: "rocket", t: "The founder", who: "Built it with Lovable, Bolt or Cursor",
+    k: "f", ico: "M5 15c-1.5 1.5-2 5-2 5s3.5-.5 5-2M9 12l3 3M14.5 4.5c2-2 5-1.5 5-1.5s.5 3-1.5 5L12 14l-4-4zM9 10H5l3-3h4M14 15v4l3-3v-4", t: "The founder", who: "Built it with Lovable, Bolt or Cursor",
     q: "I'll fix the design after launch.",
     hope: "People trust it enough to pay on the first visit.",
     fear: "Someone posts it next to Linear, and the replies say \"AI slop\".",
     fix: "A page that looks like a funded product, for less than one hour of a designer's time.",
   },
   {
-    k: "d", ico: "systems", t: "The developer", who: "Ships fast, hates guessing",
+    k: "d", ico: "M8 8l-4 4 4 4M16 8l4 4-4 4M14 5l-4 14", t: "The developer", who: "Ships fast, hates guessing",
     q: "It works. Why does it look wrong?",
     hope: "Design rules as clear as a spec, with real numbers.",
     fear: "Every \"make it nicer\" adds another gradient, and you can't say why.",
     fix: "DESIGN.md turns taste into numbers: one spacing scale, four text sizes, one accent.",
   },
   {
-    k: "s", ico: "pen", t: "The designer", who: "Knows what good looks like",
+    k: "s", ico: "M12 19l7-7 2 2-7 7zM18 13l-1.5-7.5L2 2l3.5 14.5L13 18zM2 2l7.6 7.6M11 13a2 2 0 1 0 0-4 2 2 0 0 0 0 4z", t: "The designer", who: "Knows what good looks like",
     q: "I could fix it. Just not again, every time.",
     hope: "AI that keeps your standard, so you keep the speed.",
     fear: "Your name ends up on work that looks generated.",
@@ -114,19 +114,20 @@ const FOR = [
 ];
 
 const GET = [
-  ["book", "The book: 27 steps, one prompt per step, 59 pages"],
-  ["play", "A private 15 to 30 minute video: watch me turn an AI-built page into a real product, live", "Bonus"],
-  ["list", "All 27 prompts in one list, numbered and ready to copy"],
-  ["spark", "An all-in-one prompt that asks first and waits for your go-ahead", "Bonus"],
-  ["file", "DESIGN.md: a full rules file for spacing, color, icons, copy and states"],
-  ["gauge", "SCORECARD.md and PROMPTS.md as plain files for your project"],
-  ["scale", "100 UX laws, each one matched to the prompt that uses it"],
-  ["motion", "Motion prompt: 12 animation principles in subtle values, plus a block to paste into DESIGN.md", "Bonus"],
-  ["hand", "UX principles prompt: 8 rules that check every button, link and list", "Bonus"],
-  ["compass", "A list of places to find good design references"],
-  ["repeat", "Lifetime updates: the book is updated every week, every new version is yours"],
+  ["book", "27 steps, 59 pages", "One prompt per step, with why it works and what to check."],
+  ["list", "All 27 prompts in one list", "Numbered and ready to copy."],
+  ["file", "DESIGN.md rules file", "Spacing, color, icons, copy and states your AI reads every session."],
+  ["gauge", "SCORECARD.md and PROMPTS.md", "Plain files to drop into your project."],
+  ["scale", "100 UX laws", "Each one matched to the prompt that uses it."],
+  ["compass", "Design references", "Where to find good examples to copy from."],
+  ["repeat", "Lifetime updates", "Updated every week. Every new version is yours."],
 ];
-const FILES = ["DESIGN.md", "SCORECARD.md", "PROMPTS.md", "UX-LAWS.md"];
+const BONUS = [
+  ["play", "Private video, 15 to 30 min", "Watch me turn an AI-built page into a real product, live."],
+  ["spark", "All-in-one prompt", "Asks first and waits for your go-ahead."],
+  ["motion", "Motion prompt", "12 animation principles in subtle values."],
+  ["hand", "UX principles prompt", "8 rules that check every button, link and list."],
+];
 
 const FAQ = [
   ["What format is it?", "**A PDF** plus **four plain text files** (DESIGN.md, SCORECARD.md, PROMPTS.md and UX-LAWS.md) you can drop into your project, and ==a private video link==."],
@@ -418,8 +419,7 @@ export default function Ebook() {
           {FOR.map((f) => (
             <article key={f.t} className={`ef-card ef-${f.k}`}>
               <div className="ef-who">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={`/hero/${f.ico}.webp?v=4`} width="256" height="256" alt="" loading="lazy" decoding="async" />
+                <i className="tg-ico ef-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d={f.ico} /></svg></i>
                 <div><h3>{f.t}</h3><span>{f.who}</span></div>
               </div>
               <p className="ef-q">&ldquo;{f.q}&rdquo;</p>
@@ -456,28 +456,22 @@ export default function Ebook() {
         </div>
       </section>
 
-      <section className="eb-sec eb-offer" data-bg="#000000">
-        <div>
-          <h2>What <span className="t2">you get</span></h2>
-          <ul className="eb-ticks eb-ico">{GET.map(([i, g, tag]) => <li key={g} data-i={i}><span>{g}{tag ? <em className="eb-tag">{tag}</em> : null}</span></li>)}</ul>
+      <section className="eb-sec eb-offer eb-offer2" data-bg="#000000" aria-labelledby="eb-get-h">
+        <div className="eo-main">
+          <h2 id="eb-get-h">What <span className="t2">you get</span></h2>
+          <p className="eo-k">In the book</p>
+          <ul className="eb-ticks eb-ico eo-list">{GET.map(([i, t, d]) => <li key={t} data-i={i}><b>{t}</b><span>{d}</span></li>)}</ul>
+          <p className="eo-k">Bonuses</p>
+          <ul className="eb-ticks eb-ico eo-list">{BONUS.map(([i, t, d]) => <li key={t} data-i={i}><b>{t}</b><span>{d}</span></li>)}</ul>
         </div>
-        <aside>
-          <div className="eb-bundle" aria-label="The full bundle">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/ebook/cover.webp?v=2" width="936" height="1326" alt="The book cover" loading="lazy" />
-            <ul>
-              <li className="eb-f-pdf"><b>PDF</b>59 pages</li>
-              {FILES.map((f) => <li key={f}><b>MD</b>{f}</li>)}
-              <li className="eb-f-bn"><b>+</b>2 bonus prompts</li>
-              <li className="eb-f-bn"><b>▶</b>Private video, 15 to 30 min</li>
-            </ul>
-          </div>
+        <aside className="eo-card">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img className="eo-cover" src="/ebook/cover.webp?v=2" width="936" height="1326" alt="The book cover" loading="lazy" />
           <p className="eb-was"><s aria-label={`was ${WAS}`}>{WAS}</s><b>Save 63%</b></p>
           <p className="eb-price">{PRICE}<span>one-time</span></p>
           <Buy label="Get your copy" />
-          <p className="pn-trust eb-guar"><span className="pn-shield" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.2-3 7.6-7 9-4-1.4-7-4.8-7-9V6zM8.5 12l2.5 2.5 4.5-5" /></svg></span><span><b>Money-back guarantee.</b> Not happy with the book? Full refund, no questions.</span></p>
-          <p className="eb-note">One-time purchase. Downloadable files you can keep and reuse.</p>
-          <p className="eb-note eb-note-2">Right after checkout, Whop opens your library: the PDF, four .md files and the video link. Every weekly update lands there too.</p>
+          <p className="pn-trust eb-guar"><span className="pn-shield" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.2-3 7.6-7 9-4-1.4-7-4.8-7-9V6zM8.5 12l2.5 2.5 4.5-5" /></svg></span><span><b>Money-back guarantee.</b> Full refund, no questions.</span></p>
+          <p className="eb-note">PDF, four .md files and the video link open in your Whop library right after checkout.</p>
         </aside>
       </section>
 

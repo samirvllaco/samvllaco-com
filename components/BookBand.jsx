@@ -32,7 +32,6 @@ export default function BookBand() {
       <div className="book-band-head">
         <p className="case-eyebrow">Available for new projects</p>
         <h2 id="book-band-h">Tell me <span className="t2">what you are building</span></h2>
-        <p>You've been staring at your product for months. Give me 30 minutes and I'll show you what fresh eyes see. You leave with a scope, a timeline and one clear next step, whether we work together or not.</p>
         <p className="bb-sub scr">No pitch. Just you, me and your product.</p>
       </div>
       <div className="book-cal">

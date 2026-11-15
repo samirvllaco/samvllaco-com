@@ -51,26 +51,26 @@ export default function Bento() {
   const colA = ["kestrel-d-07", "mobile-banking-01", "room-editor-01", "eye-care-ios-app-01", "freelance-marketplace-01", "trip-planner-01"].map(pick);
   const colB = ["language-player-01", "supplements-store-01", "eye-care-web-app-01", "golf-swing-recorder-01", "eye-care-marketing-site-01", "freelance-marketplace-05"].map(pick);
   return (
-    <section className="bx-sec bx-soft dark-island" aria-labelledby="bx-h" data-bg="#000000">
+    <section className="bx-sec bx-soft" aria-labelledby="bx-h" data-bg="#000000">
       <h2 id="bx-h" className="bx-title">One designer<br /><span className="t2">for the whole product.</span></h2>
       <div className="bx-grid">
         <div className="bx-stats">
-          <div className="bx-card bx-stat"><i className="lr lr-l" aria-hidden="true" /><i className="lr lr-r" aria-hidden="true" /><b>10</b><span>Years of experience</span></div>
-          <div className="bx-card bx-stat"><i className="lr lr-l" aria-hidden="true" /><i className="lr lr-r" aria-hidden="true" /><b>573</b><span>Clients served</span></div>
-          <div className="bx-card bx-stat"><i className="lr lr-l" aria-hidden="true" /><i className="lr lr-r" aria-hidden="true" /><b>10,000+</b><span>Screens designed</span></div>
+          <div className="dark-island bx-card bx-stat"><i className="lr lr-l" aria-hidden="true" /><i className="lr lr-r" aria-hidden="true" /><b>10</b><span>Years of experience</span></div>
+          <div className="dark-island bx-card bx-stat"><i className="lr lr-l" aria-hidden="true" /><i className="lr lr-r" aria-hidden="true" /><b>573</b><span>Clients served</span></div>
+          <div className="dark-island bx-card bx-stat"><i className="lr lr-l" aria-hidden="true" /><i className="lr lr-r" aria-hidden="true" /><b>10,000+</b><span>Screens designed</span></div>
         </div>
-        <div className="bx-card bx-work bx-deck" data-reveal>
+        <div className="dark-island bx-card bx-work bx-deck" data-reveal>
           <h3 className="bx-t">Work</h3>
           <SwipeDeck items={WORK.map((w) => ({ slug: w.slug, title: w.title, small: w.small, cut: `/work/cut/${w.small.split("?")[0].split("/").pop()}?v=5`, round: w.platform === "desktop", alt: w.alt, platform: w.platform, tags: w.tags }))} />
         </div>
-        <div className="bx-card bx-world" data-reveal>
+        <div className="dark-island bx-card bx-world" data-reveal>
           <h3 className="bx-t">Worldwide</h3>
           <p className="bx-world-s"><i />Based in {SITE.city || "Tirana, Albania"}. 573 clients across four continents</p>
           <WorldFlags />
           <GlobeLazy />
           <WorldFacts />
         </div>
-        <Link prefetch={false} href="/work/" className="bx-card bx-mini bx-screens" data-reveal>
+        <Link prefetch={false} href="/work/" className="dark-island bx-card bx-mini bx-screens" data-reveal>
           <h3 className="bx-t">Screens</h3>
           <div className="bx-cols" aria-hidden="true">
             {[colA, colB].map((col, k) => (
@@ -81,7 +81,7 @@ export default function Bento() {
             ))}
           </div>
         </Link>
-        <Link prefetch={false} href={`/work/${clip.slug}/`} className="bx-card bx-mini bx-motion" data-reveal>
+        <Link prefetch={false} href={`/work/${clip.slug}/`} className="dark-island bx-card bx-mini bx-motion" data-reveal>
           <h3 className="bx-t">Animations</h3>
           <div className="bx-frame"><BuildIn screens={CLIPS} /></div>
         </Link>

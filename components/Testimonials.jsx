@@ -15,7 +15,7 @@ export default function Testimonials() {
       <div className="tm-wrap">
       <div className="of-grid tm-grid">
         {TESTIMONIALS.map((t, i) => (
-          <figure className="bx-card tm-card" key={i} data-reveal>
+          <figure className="bx-card tm-card dark-island" key={i} data-reveal>
             <span className="tm-stars" role="img" aria-label={`Rated ${t.rating || "5.0"} out of 5`}><Star /><Star /><Star /><Star /><Star /><b>{t.rating || "5.0"}</b></span>
             <blockquote>“{t.quote}”</blockquote>
             <ul className="tm-tags" aria-label="Endorsed by the client">{t.tags.map((g, j) => <TagTip key={g} label={g} id={`tg-${i}-${j}`} />)}</ul>

@@ -15,7 +15,7 @@ export default function ResourcesMenu() {
       {(close) => (
         <div className="wrap mx-in mx-res">
           <div className="mx-main">
-            <p className="mx-k">Learn and borrow</p>
+            <div className="mx-k-row"><p className="mx-k">Learn and borrow</p><Link prefetch={false} className="mx-view" href="/resources/" onClick={close}>View all resources<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" /></svg></Link></div>
             <ul className="mx-grid">
               {ITEMS.map(([href, t, d, icon, tag]) => (
                 <li key={href}>
@@ -60,10 +60,6 @@ export default function ResourcesMenu() {
             </ul>
             <Link prefetch={false} className="hero2-btn hero2-btn-light" href="/ebook/#options" onClick={close}>See the review</Link>
           </div>
-          <Link prefetch={false} className="mx-all" href="/resources/" onClick={close}>
-            <span><b>All resources</b><em>Prompts, the ebook, kits and stories in one place</em></span>
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" /></svg>
-          </Link>
         </div>
       )}
     </MegaShell>
