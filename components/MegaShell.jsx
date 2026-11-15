@@ -4,7 +4,12 @@ import { usePathname } from "next/navigation";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 
 // A header item that opens a wide panel on hover, click or keyboard. children(close) renders the panel content.
+// Pages that count as "inside" each menu, so its button shows as the current page.
+const ROOTS = { "mega-services": ["/services/"], "mega-resources": ["/resources/", "/writing/", "/fix-ai-slop-ui/", "/products/", "/building/"] };
+
 export default function MegaShell({ id, label, href, children }) {
+  const here = (usePathname() || "/").replace(/\/?$/, "/");
+  const cur = (ROOTS[id] || [href]).some((r) => here.startsWith(r)) ? " is-current" : "";
   const [open, setOpen] = useState(false);
   // shown: the panel is in the page. on: the panel sits in its open state. The panel moves with CSS transitions,
   // so opening and closing quickly reverses from wherever it is instead of jumping back to the start.
@@ -75,13 +80,13 @@ export default function MegaShell({ id, label, href, children }) {
     <span className="mega-wrap" ref={wrap} onMouseEnter={enter} onMouseLeave={leave}>
       {href ? (
         // A real link to the section page; hover (or ArrowDown on the keyboard) opens the panel.
-        <Link prefetch={false} href={href} className={`mega-btn${open ? " is-open" : ""}`} aria-expanded={open} aria-controls={id}
+        <Link prefetch={false} href={href} className={`mega-btn${open ? " is-open" : ""}${cur}`} aria-expanded={open} aria-controls={id}
           onKeyDown={(e) => { if (e.key === "ArrowDown") { e.preventDefault(); setOpen(true); requestAnimationFrame(() => wrap.current?.querySelector(`#${id} a`)?.focus()); } }}
           onClick={(e) => { if (!hoverable() && !open) { e.preventDefault(); setOpen(true); } else setOpen(false); }}>
           {label}
         </Link>
       ) : (
-        <button type="button" className={`mega-btn${open ? " is-open" : ""}`} aria-expanded={open} aria-controls={id} onClick={() => setOpen((v) => !v)}>
+        <button type="button" className={`mega-btn${open ? " is-open" : ""}${cur}`} aria-expanded={open} aria-controls={id} onClick={() => setOpen((v) => !v)}>
           {label}
         </button>
       )}

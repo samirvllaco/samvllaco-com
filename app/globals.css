@@ -4805,3 +4805,10 @@ html:not(.is-live) :is(.scr, .mk-l) { filter: grayscale(1); }
 .faq-link:hover { color: #62c1fd; }
 :root[data-theme="light"] .faq-link { text-decoration-color: #0b62c4; }
 :root[data-theme="light"] .faq-link:hover { color: #0b62c4; }
+/* Pressed current item: drawn 4px inside the 44px tap area so it never touches the bar edges (owner, 15 Nov 2026) */
+.head-nav > a[aria-current="page"], .head-nav .mega-btn.is-current,
+:root[data-theme="light"]:not(.on-dark) .head-nav > a[aria-current="page"], :root[data-theme="light"]:not(.on-dark) .head-nav .mega-btn.is-current { background: none; box-shadow: none; isolation: isolate; }
+.head-nav > a[aria-current="page"]::before, .head-nav .mega-btn.is-current::before { content: ""; position: absolute; inset: 4px 0; z-index: -1; border-radius: 999px; background: rgba(0, 0, 0, .32); box-shadow: inset 0 2px 4px rgba(0, 0, 0, .55), inset 0 -1px 0 rgba(255, 255, 255, .08); }
+:root[data-theme="light"]:not(.on-dark) .head-nav > a[aria-current="page"]::before, :root[data-theme="light"]:not(.on-dark) .head-nav .mega-btn.is-current::before { background: rgba(0, 0, 0, .06); box-shadow: inset 0 2px 4px rgba(0, 0, 0, .12), inset 0 -1px 0 rgba(255, 255, 255, .9); }
+.head-nav > a[aria-current="page"]::after, .head-nav .mega-btn.is-current::after { bottom: 8px; }
+.head-nav .mega-btn { isolation: isolate; }
