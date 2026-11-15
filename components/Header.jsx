@@ -15,6 +15,7 @@ import MobileMenu from "./MobileMenu";
 const NAV = [
   { href: "/work/", label: "Work" },
   { href: "/pricing/", label: "Pricing" },
+  { href: "/tools/", label: "Free tools" },
   { href: "/about/", label: "About" },
   { href: "/book/", label: "Contact", dot: true },
 ];
