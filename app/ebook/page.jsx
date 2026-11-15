@@ -2,6 +2,7 @@ import BeforeAfter from "../../components/BeforeAfter";
 import Link from "next/link";
 import { BOOK_URL } from "../../lib/site";
 import { PeopleStack } from "../../components/ClientAvatars";
+import { MarkerText, Mark } from "../../components/MarkerText";
 import Crumbs from "../../components/Crumbs";
 import SectionColors from "../../components/SectionColors";
 import FreePrompts from "../../components/FreePrompts";
@@ -218,12 +219,12 @@ export default function Ebook() {
           <li><i className="pain-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><defs><linearGradient id="ef-2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#fff" /><stop offset="1" stopColor="#fff" stopOpacity=".2" /></linearGradient></defs><g stroke="url(#ef-2)"><path d="M4 20 15 9M14 4l1.5 3L19 8.5 15.5 10 14 13l-1.5-3L9 8.5 12.5 7zM19 14l.7 1.3L21 16l-1.3.7L19 18l-.7-1.3L17 16l1.3-.7z" /></g></svg></i><b>"Make it look better" added another gradient.</b><em>The AI tries. It just doesn't know what better means.</em></li>
           <li><i className="pain-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><defs><linearGradient id="ef-3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#fff" /><stop offset="1" stopColor="#fff" stopOpacity=".2" /></linearGradient></defs><g stroke="url(#ef-3)"><path d="M8 8h11v11H8zM5 16V5h11" /></g></svg></i><b>It looks like every other AI-built site.</b><em>And you can't quite say why.</em></li>
         </ul>
-        <div className="eb-story">
-          <p>It's 1 a.m. The app works. Then you open it next to Linear or Stripe, and yours suddenly looks like a template.</p>
-          <p><em className="scr">I've been there.</em> I've designed products for 10 years, and I build my own with Claude and Cursor. They hand me the same purple, glowing first drafts they hand you. The difference is I know what to ask for next.</p>
+        <MarkerText className="eb-story">
+          <p>It's 1 a.m. The app works. Then you open it next to Linear or Stripe, and <Mark color="#ff9d2e">yours suddenly looks like a template.</Mark></p>
+          <p><em className="scr">I've been there.</em> I've designed products for 10 years, and I build my own with Claude and Cursor. They hand me the same purple, glowing first drafts they hand you. The difference is <Mark type="underline" color="#ff9d2e">I know what to ask for next.</Mark></p>
           <p>So I wrote down the rules I use with clients, turned each one into a copy-paste prompt, and explained why it works. <em className="scr">That's this book.</em></p>
           <p className="eb-story-sign scr">Sam</p>
-        </div>
+        </MarkerText>
         <p className="pain-cta"><Buy label={<>Get the prompts <span className="eb-pill">{PRICE}</span></>} /><span>27 prompts, one evening. Yours to keep.</span></p>
       </section>
 
@@ -441,7 +442,7 @@ export default function Ebook() {
           <div className="ef-one-copy">
             <p className="pn-k">One fix for all three</p>
             <h3>Different fears. <span className="t2">Same cause.</span></h3>
-            <p>Your AI was never given design rules, so it guesses. Every time. This book gives it the rules in one evening, and the scorecard keeps them there on every page you build next.</p>
+            <MarkerText as="p">Your AI was <Mark color="#ff9d2e">never given design rules</Mark>, so it guesses. Every time. This book gives it the rules in <Mark type="circle" color="#ff9d2e">one evening</Mark>, and the scorecard keeps them there on every page you build next.</MarkerText>
             <ul className="ef-ticks">
               <li><i className="ef-dot ef-f" aria-hidden="true" /><span><b>Founders</b> stop apologising for the design.</span></li>
               <li><i className="ef-dot ef-d" aria-hidden="true" /><span><b>Developers</b> get numbers, not opinions.</span></li>
@@ -574,14 +575,14 @@ export default function Ebook() {
       <section className="eb-sec eb-end">
         <p className="eb-end-k">Built with AI. Finished with taste.</p>
         <h2>You built it. <span className="t2">Now make it look like you meant it.</span></h2>
-        <p className="eb-end-sub">Picture tomorrow morning. You open your link next to the products you admire, and <em className="scr">it holds up.</em> No &ldquo;it&rsquo;s just an MVP&rdquo; in the post.</p>
+        <MarkerText as="p" className="eb-end-sub">Picture tomorrow morning. You open your link next to the products you admire, and <em className="scr">it holds up.</em> No more <Mark type="strike" color="#ff9d2e">&ldquo;it&rsquo;s just an MVP&rdquo;</Mark> in the post.</MarkerText>
         <ol className="eb-end-path">
           <li><b>Tonight</b><span>Open the book and run prompt 1 on your app.</span></li>
           <li><b>One hour later</b><span>Colors, type, spacing and the hero are fixed.</span></li>
           <li><b>Tomorrow</b><span>You share the link without a disclaimer.</span></li>
         </ol>
         <div className="btn-row"><Buy label={<>Buy now for <span className="eb-pill">{PRICE}</span></>} /></div>
-        <p className="pn-trust eb-guar"><span className="pn-shield" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.2-3 7.6-7 9-4-1.4-7-4.8-7-9V6zM8.5 12l2.5 2.5 4.5-5" /></svg></span><span><b>Money-back guarantee.</b> Not happy with the book? Full refund, no questions.</span></p>
+        <MarkerText as="p" className="pn-trust eb-guar"><span className="pn-shield" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.2-3 7.6-7 9-4-1.4-7-4.8-7-9V6zM8.5 12l2.5 2.5 4.5-5" /></svg></span><span><b>Money-back guarantee.</b> Not happy with the book? <Mark type="box" color="#30d158">Full refund</Mark>, no questions.</span></MarkerText>
       </section>
     </div>
   );

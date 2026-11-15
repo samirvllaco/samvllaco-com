@@ -4552,3 +4552,23 @@ html.is-live .ef-paths path { animation: ef-flow 1.6s linear infinite; }
 /* The upgrade row stays dark in light mode, like the call card */
 :root[data-theme="light"] .mx-up.dark-island { background: #0b0d14; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .08); color: var(--text); }
 :root[data-theme="light"] .mx-up.dark-island .mx-up-k { color: #ff9d2e; }
+
+/* Copy prompt: "Loading to success" motion (springs in FreePrompts.jsx). The pill closes into a spinner,
+   opens into the warm Copied pill and the check draws itself. Layers are moved by the spring loop only. */
+.fp-copy { position: relative; overflow: hidden; isolation: isolate; flex: none; }
+.fp-c-lbl { display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; will-change: transform, opacity; }
+.fp-c-fill { position: absolute; inset: 0; z-index: -1; opacity: 0; border-radius: inherit; background: linear-gradient(180deg, #ffe0a8, #ffc56b); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .6); }
+.fp-c-spin { position: absolute; left: 50%; top: 50%; width: 18px; height: 18px; margin: -9px 0 0 -9px; border-radius: 50%; opacity: 0; background: conic-gradient(from 0deg, transparent 0 10%, #1a1206 85%, transparent 85%); -webkit-mask: radial-gradient(circle closest-side, transparent 64%, #000 70%); mask: radial-gradient(circle closest-side, transparent 64%, #000 70%); will-change: transform, opacity; }
+.fp-c-done { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; gap: 6px; white-space: nowrap; opacity: 0; color: #1a1206; will-change: transform, opacity; }
+.fp-c-done svg { flex: none; fill: none; stroke: currentColor; stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; }
+.fp-copy .fp-c-lbl svg { fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+
+/* Marker text (components/MarkerText.jsx): hand-drawn highlights, underlines, circles and boxes that draw in reading order */
+.mk { position: relative; isolation: isolate; }
+span.mk { display: inline; }
+.mk-l { position: absolute; top: 0; left: 0; overflow: visible; pointer-events: none; }
+.mk-u { z-index: -1; }
+.mk-o { z-index: 1; }
+mark[data-mark] { background: transparent; color: inherit; }
+s[data-mark] { text-decoration: none; }
+[data-mark="circle"], [data-mark="box"] { white-space: nowrap; }

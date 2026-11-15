@@ -1,8 +1,10 @@
 "use client";
 import { useEffect, useRef } from "react";
+import { MarkerText, Mark } from "./MarkerText";
 
 // Big text whose words go from dim to full strength as the block scrolls through the screen.
-export default function ScrollText({ text, className }) {
+// Optional `mark` ({ p: "exact phrase", type, color }) draws a hand-made marker over that phrase when it comes into view.
+export default function ScrollText({ text, className, mark }) {
   const ref = useRef(null);
   const words = text.split(" ");
   useEffect(() => {
@@ -24,5 +26,17 @@ export default function ScrollText({ text, className }) {
     window.addEventListener("resize", on);
     return () => { window.removeEventListener("scroll", on); window.removeEventListener("resize", on); cancelAnimationFrame(raf); };
   }, [text]);
-  return <p ref={ref} className={className}>{words.map((w, i) => <span key={i}>{w}{i < words.length - 1 ? " " : ""}</span>)}</p>;
+  const w = (list, from, last) => list.map((x, i) => <span key={from + i}>{x}{i < list.length - 1 || !last ? " " : ""}</span>);
+  const at = mark ? text.indexOf(mark.p) : -1;
+  if (at < 0) return <p ref={ref} className={className}>{w(words, 0, true)}</p>;
+  const pre = text.slice(0, at).trim(), post = text.slice(at + mark.p.length);
+  const a = pre ? pre.split(" ") : [], b = mark.p.split(" "), c = post.trim() ? post.trim().split(" ") : [];
+  const glue = post && !post.startsWith(" ") ? c.shift() : "";
+  return (
+    <MarkerText>
+      <p ref={ref} className={className}>
+        {w(a, 0, false)}<Mark type={mark.type} color={mark.color}>{w(b, a.length, true)}</Mark>{glue ? <span>{glue}</span> : null}{c.length ? " " : ""}{w(c, a.length + b.length + 1, true)}
+      </p>
+    </MarkerText>
+  );
 }
