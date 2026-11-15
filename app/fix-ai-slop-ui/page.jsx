@@ -456,6 +456,22 @@ export default function Ebook() {
         </div>
       </section>
 
+      <section className="eb-sec eb-rv" aria-labelledby="eb-rv-h">
+        <h2 id="eb-rv-h">From a founder <span className="t2">who used it</span></h2>
+        <figure className="eb-rv-card dark-island">
+          <a className="eb-rv-shot" href="https://www.cookinbuddy.com/" target="_blank" rel="noopener">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/ebook/review-cookinbuddy.webp?v=1" width="960" height="600" alt="CookinBuddy homepage after the fixes: a clear headline, App Store button and a real app screenshot" loading="lazy" />
+            <span className="eb-rv-tag">After</span>
+            <span className="sr-only"> (opens cookinbuddy.com in a new tab)</span>
+          </a>
+          <div className="eb-rv-body">
+            <blockquote><p>"It does look so much better!"</p></blockquote>
+            <figcaption><b>Błażej Kustra</b><span>CookinBuddy, recipe app for iPhone</span></figcaption>
+          </div>
+        </figure>
+      </section>
+
       <section className="eb-sec eb-offer eb-offer2" data-bg="#000000" aria-labelledby="eb-get-h">
         <div className="eo-main">
           <h2 id="eb-get-h">What <span className="t2">you get</span></h2>
