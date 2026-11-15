@@ -229,7 +229,7 @@ export default function Ebook() {
         <p className="pain-cta"><Buy label={<>Get the prompts <span className="eb-pill">{PRICE}</span></>} /><span>27 prompts, one evening. Yours to keep.</span></p>
       </section>
 
-      <section className="eb-sec eb-vid" aria-labelledby="eb-vid-h">
+      <section className="eb-sec eb-vid eb-band" aria-labelledby="eb-vid-h">
         <div className="eb-vid-in">
           <div>
             <p className="eb-grp-k">Bonus with every copy</p>
@@ -254,7 +254,7 @@ export default function Ebook() {
 
       <FreePrompts />
 
-      <section className="eb-sec eb-road" aria-labelledby="eb-road-h">
+      <section className="eb-sec eb-road eb-band" aria-labelledby="eb-road-h">
         <h2 id="eb-road-h">Your first <span className="t2">30 minutes</span></h2>
         <p className="eb-why-lede">This is the quick start. Open your app, open the book, and follow it. <em className="scr">Most of the change shows up here.</em> The full 27 steps take about an hour per page when you want to go further.</p>
         <ol className="eb-road-l">
@@ -282,7 +282,7 @@ export default function Ebook() {
         </div>
       </section>
 
-      <section className="eb-sec eb-why">
+      <section className="eb-sec eb-why eb-band">
         <div className="eb-cov-h"><h2>Why this book is <span className="t2">different</span></h2><img className="eb-cov" src="/book-cover.webp?v=2" width="300" height="400" alt="" loading="lazy" aria-hidden="true" /></div>
         <p className="eb-why-lede">I started with prompt packs too. Paste, get a nicer page, move on. Then the next page looked just as AI-made, and I had no idea why. The fix was not a better prompt. It was <em className="scr">knowing the rules behind it.</em></p>
         <p className="eb-why-lede">So this book does not just hand you prompts. It teaches you why each fix works, so you can repeat it on anything you build.</p>
@@ -324,7 +324,7 @@ export default function Ebook() {
         </ol>
       </section>
 
-      <section className="eb-sec">
+      <section className="eb-sec eb-band">
         <div className="eb-cov-h"><h2>All 27 <span className="t2">steps</span></h2><img className="eb-cov" src="/book-cover.webp?v=2" width="300" height="400" alt="" loading="lazy" aria-hidden="true" /></div>
         <div className="eb-steps">
           {STEPS.map(([title, sub, items], gi) => {
@@ -475,7 +475,7 @@ export default function Ebook() {
         </aside>
       </section>
 
-      <section className="eb-sec eb-pk" id="options" aria-labelledby="eb-pk-h">
+      <section className="eb-sec eb-pk eb-band" id="options" aria-labelledby="eb-pk-h">
         <h2 id="eb-pk-h">Pick what <span className="t2">fits you</span></h2>
         <p className="eb-why-lede">Get the full system, or have me review your product with you.</p>
         <div className="eb-pk-grid">
@@ -555,7 +555,7 @@ export default function Ebook() {
         </div>
       </section>
 
-      <div className="eb-sec eb-faqwrap">
+      <div className="eb-sec eb-faqwrap eb-band">
         <Faq items={FAQ.map(([q, a]) => ({ q, a }))} a="Questions" b="before you buy" bg="#111112">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img className="faq-photo eb-faq-cov" src="/book-cover.webp?v=2" width="300" height="400" alt="" loading="lazy" />

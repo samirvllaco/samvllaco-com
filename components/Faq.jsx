@@ -2,10 +2,12 @@
 // Uses <details>, so it works without JavaScript, and adds FAQPage structured data.
 // Answers can carry light markup: **bold**, ==highlight== and _hand-written emphasis_.
 // The FAQ structured data gets the same text without the marks.
-const MARK = /(\*\*[^*]+\*\*|==[^=]+==|_[^_]+_)/g;
-const plain = (t) => t.replace(/\*\*([^*]+)\*\*/g, "$1").replace(/==([^=]+)==/g, "$1").replace(/_([^_]+)_/g, "$1");
+const MARK = /(\[[^\]]+\]\([^)]+\)|\*\*[^*]+\*\*|==[^=]+==|_[^_]+_)/g;
+const plain = (t) => t.replace(/\[([^\]]+)\]\([^)]+\)/g, "$1").replace(/\*\*([^*]+)\*\*/g, "$1").replace(/==([^=]+)==/g, "$1").replace(/_([^_]+)_/g, "$1");
 function Rich({ t }) {
   return t.split(MARK).map((part, i) => {
+    const ln = part.match(/^\[([^\]]+)\]\(([^)]+)\)$/);
+    if (ln) return <a key={i} className="faq-link" href={ln[2]}>{ln[1]}</a>;
     if (part.startsWith("**")) return <b key={i}>{part.slice(2, -2)}</b>;
     if (part.startsWith("==")) return <mark key={i} className="faq-hl">{part.slice(2, -2)}</mark>;
     if (part.length > 2 && part.startsWith("_") && part.endsWith("_")) return <em key={i} className="scr">{part.slice(1, -1)}</em>;

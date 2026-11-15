@@ -50,7 +50,8 @@ export default function ResourcesMenu() {
             <div className="mx-up-copy">
               <p className="mx-up-k">Upgrade: I do it with you</p>
               <p className="mx-up-t">Complete UI/UX review <span>+ the book</span></p>
-              <p className="mx-up-p"><b>$99</b> one-time, by a designer with 10+ years and 570+ clients</p>
+              <p className="mx-up-price"><b>$99</b> one-time</p>
+              <p className="mx-up-p">By a designer with 10+ years and 570+ clients</p>
             </div>
             <ul className="mx-up-list">
               <li>Your scorecard, out of 10</li>

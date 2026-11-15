@@ -8,7 +8,7 @@ export default function ToneShift({ target = "#work" }) {
     const root = document.documentElement;
     if (!el || !("IntersectionObserver" in window)) return;
     let timer;
-    const own = () => { try { return JSON.parse(localStorage.getItem("sv:theme")) === "light" ? "light" : null; } catch (e) { return null; } };
+    const own = () => { try { return JSON.parse(sessionStorage.getItem("sv:theme")) === "light" ? "light" : null; } catch (e) { return null; } };
     const set = (light) => {
       const want = light ? "light" : own();
       if ((root.dataset.theme || null) === want) return;

@@ -432,8 +432,14 @@ export function MarkerText({
     const view = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setSeen(true);
           view.disconnect();
+          // Draw only once the visitor has scrolled or interacted (html.is-live), so the first screen stays calm.
+          const root = document.documentElement;
+          if (root.classList.contains("is-live")) { setSeen(true); return; }
+          const watch = new MutationObserver(() => {
+            if (root.classList.contains("is-live")) { watch.disconnect(); setSeen(true); }
+          });
+          watch.observe(root, { attributes: true, attributeFilter: ["class"] });
         }
       },
       { threshold: 0.6 }

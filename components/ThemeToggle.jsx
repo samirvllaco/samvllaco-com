@@ -1,15 +1,17 @@
 "use client";
 import { useEffect, useState } from "react";
-import { load, save, play } from "../lib/delight";
+import { play } from "../lib/delight";
 
-// Dark by default. The choice is remembered on this device.
+// Dark by default. Light lasts only for this visit (owner, 15 Nov 2026): a new visit always opens dark.
+const getTheme = () => { try { return JSON.parse(sessionStorage.getItem("sv:theme")); } catch { return null; } };
+const setTheme = (t) => { try { sessionStorage.setItem("sv:theme", JSON.stringify(t)); } catch {} };
 export default function ThemeToggle() {
   const [light, setLight] = useState(false);
-  useEffect(() => { setLight(load("theme", "dark") === "light"); }, []);
+  useEffect(() => { setLight(getTheme() === "light"); }, []);
   function flip() {
     const next = !light;
     setLight(next);
-    save("theme", next ? "light" : "dark");
+    setTheme(next ? "light" : "dark");
     if (next) document.documentElement.dataset.theme = "light";
     else delete document.documentElement.dataset.theme;
     window.dispatchEvent(new Event("sv:theme"));

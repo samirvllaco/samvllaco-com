@@ -44,7 +44,7 @@ const SIZES = [{ name: "phone", width: 390, height: 844 }, { name: "desktop", wi
     const k = size.name + theme;
     if (!ctxs[k]) {
       ctxs[k] = browser.newContext({ viewport: { width: size.width, height: size.height } }).then(async (ctx) => {
-        await ctx.addInitScript((t) => { try { localStorage.setItem("sv:theme", JSON.stringify(t)); } catch (e) {} }, theme);
+        await ctx.addInitScript((t) => { try { sessionStorage.setItem("sv:theme", JSON.stringify(t)); } catch (e) {} }, theme);
         return ctx;
       });
     }
