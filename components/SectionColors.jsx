@@ -4,7 +4,7 @@ import { useEffect } from "react";
 // Fades the page background to the color of the section sitting at the 60% line of the screen.
 // Works both ways: scrolling back up restores the earlier colors.
 // The same sections in light mode.
-const LIGHT = { "#111112": "#f5f5f7", "#000000": "#ffffff", "#1d1d1f": "#ececf0", "#1f1f22": "#ececf0" };
+const LIGHT = { "#111112": "#ffffff", "#000000": "#ffffff", "#1d1d1f": "#f5f5f7", "#1f1f22": "#f5f5f7" };
 
 export default function SectionColors() {
   useEffect(() => {
@@ -29,7 +29,7 @@ export default function SectionColors() {
       if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) pick = els[els.length - 1];
       const light = document.documentElement.dataset.theme === "light";
       // Sections marked data-dark stay dark in light mode too.
-      const c = light && !pick.hasAttribute("data-dark") ? (LIGHT[pick.dataset.bg.toLowerCase()] || "#f5f5f7") : pick.dataset.bg;
+      const c = light && !pick.hasAttribute("data-dark") ? (LIGHT[pick.dataset.bg.toLowerCase()] || "#ffffff") : pick.dataset.bg;
       if (c !== current) {
         current = c;
         body.style.backgroundColor = c;

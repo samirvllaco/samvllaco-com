@@ -1017,10 +1017,10 @@ body:has(.case-wrap) .book-pop { display: none; }
 :root { --page: #111112; --card: #1d1d1f; --card-2: #2a2a2c; --card-3: #3a3a3c; --card-low: #151516; --socket: #08080a; --line: rgba(255, 255, 255, .12); --text-2: #d4d4d8; --glass: rgba(17, 17, 18, .82); --glass-card: rgba(39, 39, 41, .86); --inv-bg: #f5f5f7; --inv-ink: #111112; }
 :root[data-theme="light"] {
   color-scheme: light;
-  --bg: #f5f5f7; --page: #f5f5f7; --surface: #ffffff; --card: #ffffff; --card-2: #ececf0; --card-3: #dcdce2; --card-low: #fbfbfd; --socket: #c4c4cc;
+  --bg: #ffffff; --page: #ffffff; --surface: #f5f5f7; --card: #f5f5f7; --card-2: #ebebef; --card-3: #dcdce2; --card-low: #fafafa; --socket: #c4c4cc;
   --text: #111112; --text-2: #2c2c2e; --muted: #5c5c63; --border: #d2d2d7; --line: rgba(0, 0, 0, .12); --hl: rgba(0, 0, 0, .06);
   --accent: #0b62c4; --accent-soft: #e3effb; --eng-dark: rgba(0, 0, 0, .16); --eng-light: rgba(255, 255, 255, .95);
-  --glass: rgba(245, 245, 247, .82); --glass-card: rgba(255, 255, 255, .9); --inv-bg: #111112; --inv-ink: #ffffff;
+  --glass: rgba(255, 255, 255, .82); --glass-card: rgba(255, 255, 255, .9); --inv-bg: #111112; --inv-ink: #ffffff;
 }
 .tags button[aria-selected="true"], .top-badge { background: var(--inv-bg); color: var(--inv-ink); }
 .show-dots button span { background: var(--inv-bg); }
