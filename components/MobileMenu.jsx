@@ -26,7 +26,7 @@ const LINKS = [
   { href: "/services/", label: "Services" },
   { href: "/work/", label: "Work" },
   { href: "/resources/", label: "Resources" },
-  { href: "/ebook/", label: "E-book", tag: "$12.99" },
+  { href: "/fix-ai-slop-ui/", label: "E-book", tag: "$12.99" },
   { href: "/about/", label: "About" },
   { href: "/book/", label: "Contact", dot: true },
 ];
@@ -43,7 +43,7 @@ export default function MobileMenu() {
   const was = useRef(false);
   // The sheet is built the first time the menu opens, so it costs nothing on page load.
   useEffect(() => { if (open) setReady(true); }, [open]);
-  const onBook = path.replace(/\/$/, "") === "/ebook";
+  const onBook = path.replace(/\/$/, "") === "/fix-ai-slop-ui";
   const isHere = (href) => !href.includes("#") && path.replace(/\/?$/, "/") === href;
 
   useEffect(() => { setOpen(false); }, [path]);

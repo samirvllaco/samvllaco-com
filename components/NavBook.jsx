@@ -16,7 +16,7 @@ export function Book3D() {
 
 export default function NavBook() {
   const p = usePathname() || "";
-  const here = p.replace(/\/$/, "") === "/ebook";
+  const here = p.replace(/\/$/, "") === "/fix-ai-slop-ui";
   if (here) {
     return (
       <a href={BOOK_URL} target="_blank" rel="noopener">
@@ -25,7 +25,7 @@ export default function NavBook() {
     );
   }
   return (
-    <Link prefetch={false} href="/ebook/">
+    <Link prefetch={false} href="/fix-ai-slop-ui/">
       <Book3D />E-book <span className="top-badge">$12.99</span>
     </Link>
   );

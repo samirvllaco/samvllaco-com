@@ -14,7 +14,7 @@ export default function FreePagesForm() {
       const r = await fetch(LEADS_ENDPOINT, {
         method: "POST",
         headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify({ email, _subject: "10 free pages request (samvllaco.com/ebook)", _template: "table", _captcha: "false", page: "samvllaco.com/ebook/" }),
+        body: JSON.stringify({ email, _subject: "10 free pages request (samvllaco.com/fix-ai-slop-ui)", _template: "table", _captcha: "false", page: "samvllaco.com/fix-ai-slop-ui/" }),
       });
       setState(r.ok ? "done" : "error");
     } catch { setState("error"); }

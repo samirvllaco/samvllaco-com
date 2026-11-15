@@ -37,11 +37,11 @@ export default function Resources() {
           <h1>Learn and borrow <span className="t2">what I use with clients</span></h1>
           <p className="sv-lede">The prompts, rules files and notes I use on real products, written down so you can fix your own app tonight. <em className="scr">Take what helps.</em></p>
           <div className="sv-cta">
-            <Link prefetch={false} className="hero2-btn hero2-btn-primary" href="/ebook/">Get the book for $12.99</Link>
-            <Link prefetch={false} className="hero2-btn hero2-btn-light" href="/ebook/#free">Try 2 free prompts</Link>
+            <Link prefetch={false} className="hero2-btn hero2-btn-primary" href="/fix-ai-slop-ui/">Get the book for $12.99</Link>
+            <Link prefetch={false} className="hero2-btn hero2-btn-light" href="/fix-ai-slop-ui/#free">Try 2 free prompts</Link>
           </div>
         </div>
-        <Link prefetch={false} className="sv-hero-art rs-book" href="/ebook/">
+        <Link prefetch={false} className="sv-hero-art rs-book" href="/fix-ai-slop-ui/">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/ebook/cover.webp?v=2" srcSet="/ebook/cover-520.webp?v=2 520w, /ebook/cover.webp?v=2 936w" sizes="(max-width: 760px) 60vw, 360px" width="936" height="1326" alt="Cover of 27 Copy-Paste Prompts to Fix AI Slop UI" loading="eager" fetchPriority="high" />
           <span className="sv-art-tag"><b>27 Copy-Paste Prompts</b><span>Ebook, 63% off</span></span>

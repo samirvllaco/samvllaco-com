@@ -58,7 +58,7 @@ export default function ResourcesMenu() {
               <li>Loom video walkthrough</li>
               <li>The full book included</li>
             </ul>
-            <Link prefetch={false} className="hero2-btn hero2-btn-light" href="/ebook/#options" onClick={close}>See the review</Link>
+            <Link prefetch={false} className="hero2-btn hero2-btn-light" href="/fix-ai-slop-ui/#options" onClick={close}>See the review</Link>
           </div>
         </div>
       )}

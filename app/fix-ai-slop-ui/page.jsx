@@ -22,22 +22,22 @@ export const metadata = {
   title: "27 Copy-Paste Prompts to Fix AI Slop UI",
   description:
     "27 copy-paste prompts by product designer Sam Vllaco that make an AI-built app or site look designed, plus a DESIGN.md rules file and a private video.",
-  keywords: ["AI slop UI", "fix AI generated website design", "vibe coding design", "DESIGN.md", "copy-paste UI prompts", "Lovable Cursor v0 Claude design prompts", "UX laws", "private video tutorial", "live AI design demo", "Sam Vllaco"],
-  alternates: { canonical: "/ebook/" },
-  ...share({ title: "27 Copy-Paste Prompts to Fix AI Slop UI", description: "Make your Claude, Cursor, Lovable or v0 app look designed. 27 prompts, a DESIGN.md rules file and a private video.", url: "/ebook/", image: "/og/ebook.jpg", alt: "The book 27 Copy-Paste Prompts to Fix AI Slop UI by Sam Vllaco" }),
+  keywords: ["fix AI slop UI", "AI slop UI", "fix AI slop design", "fix AI generated website design", "vibe coding design", "DESIGN.md", "copy-paste UI prompts", "Lovable Cursor v0 Claude design prompts", "UX laws", "private video tutorial", "live AI design demo", "Sam Vllaco"],
+  alternates: { canonical: "/fix-ai-slop-ui/" },
+  ...share({ title: "27 Copy-Paste Prompts to Fix AI Slop UI", description: "Make your Claude, Cursor, Lovable or v0 app look designed. 27 prompts, a DESIGN.md rules file and a private video.", url: "/fix-ai-slop-ui/", image: "/og/fix-ai-slop-ui.jpg", alt: "The book 27 Copy-Paste Prompts to Fix AI Slop UI by Sam Vllaco" }),
 };
 
 const BOOK_LD = {
   "@context": "https://schema.org",
   "@type": "Product",
-  "@id": `${SITE.url}/ebook/#product`,
+  "@id": `${SITE.url}/fix-ai-slop-ui/#product`,
   name: "27 Copy-Paste Prompts to Fix AI Slop UI",
   description: "An ebook with 27 steps and copy-paste prompts that make an AI-built website or app look designed, a DESIGN.md rules file, PROMPTS.md, SCORECARD.md, UX-LAWS.md and a private 15 to 30 minute video.",
-  image: [`${SITE.url}/og/ebook.jpg`, `${SITE.url}/book-cover.webp`],
+  image: [`${SITE.url}/og/fix-ai-slop-ui.jpg`, `${SITE.url}/book-cover.webp`],
   category: "Ebook",
   brand: { "@type": "Brand", name: "Sam Vllaco" },
   author: { "@id": PERSON_ID },
-  url: `${SITE.url}/ebook/`,
+  url: `${SITE.url}/fix-ai-slop-ui/`,
   offers: { "@type": "Offer", price: "12.99", priceCurrency: "USD", availability: "https://schema.org/InStock", url: BOOK_URL, seller: { "@id": PERSON_ID } },
 };
 
@@ -160,7 +160,7 @@ export default function Ebook() {
   return (
     <div className="wrap page pg eb">
       <SectionColors />
-      <Crumbs items={[{ name: "Book", href: "/ebook/" }]} />
+      <Crumbs items={[{ name: "Book", href: "/fix-ai-slop-ui/" }]} />
       <JsonLd data={BOOK_LD} />
       <EbookBar />
 

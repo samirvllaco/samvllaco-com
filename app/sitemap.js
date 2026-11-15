@@ -4,7 +4,7 @@ import { WORK } from "../lib/work";
 import { SERVICES } from "../lib/services";
 
 const base = "https://samvllaco.com";
-const paths = ["/", "/work/", "/writing/", "/services/", "/book/", "/products/", "/resources/", "/ebook/", "/globe/", "/about/", "/building/", "/building/ocufuse/", ...WORK.map((w) => `/work/${w.slug}/`), ...SERVICES.flatMap((g) => g.items.map((it) => `/services/${it.id}/`))];
+const paths = ["/", "/work/", "/writing/", "/services/", "/book/", "/products/", "/resources/", "/fix-ai-slop-ui/", "/globe/", "/about/", "/building/", "/building/ocufuse/", ...WORK.map((w) => `/work/${w.slug}/`), ...SERVICES.flatMap((g) => g.items.map((it) => `/services/${it.id}/`))];
 
 export default function sitemap() {
   const lastModified = new Date();
@@ -12,6 +12,6 @@ export default function sitemap() {
     url: `${base}${p}`,
     lastModified,
     changeFrequency: "weekly",
-    priority: p === "/" ? 1 : ["/ebook/", "/book/", "/work/", "/services/", "/about/"].includes(p) ? 0.9 : 0.7,
+    priority: p === "/" ? 1 : ["/fix-ai-slop-ui/", "/book/", "/work/", "/services/", "/about/"].includes(p) ? 0.9 : 0.7,
   }));
 }

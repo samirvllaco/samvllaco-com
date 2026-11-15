@@ -28,7 +28,7 @@ export default function BookPopup() {
     return () => { document.removeEventListener("pointerdown", out); window.removeEventListener("keydown", key); };
   }, [open]);
 
-  if (!show || path.replace(/\/$/, "") === "/ebook") return null;
+  if (!show || path.replace(/\/$/, "") === "/fix-ai-slop-ui") return null;
   return (
     <aside ref={box} className={`bw${open ? " is-open" : ""}`} aria-label="My book, 27 prompts to fix AI slop UI"
       onPointerEnter={(e) => { if (e.pointerType === "mouse") { clearTimeout(box.t); setOpen(true); } }} onPointerLeave={(e) => { if (e.pointerType === "mouse") { clearTimeout(box.t); box.t = setTimeout(() => setOpen(false), 220); } }}
@@ -53,7 +53,7 @@ export default function BookPopup() {
           <li>Bonus motion and UX prompts</li>
         </ul>
         <a className="hero2-btn hero2-btn-primary bw-buy" href={BOOK_URL} target="_blank" rel="noopener" tabIndex={open ? 0 : -1}>Buy for $12.99</a>
-        <a className="bw-more" href="/ebook/" tabIndex={open ? 0 : -1}>See what's inside</a>
+        <a className="bw-more" href="/fix-ai-slop-ui/" tabIndex={open ? 0 : -1}>See what's inside</a>
       </div>
     </aside>
   );

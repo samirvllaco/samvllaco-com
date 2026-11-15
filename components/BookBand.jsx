@@ -26,7 +26,7 @@ export function BookAlt() {
 
 export default function BookBand() {
   const path = usePathname() || "";
-  if (!BOOKING_URL || path.startsWith("/book") || path.startsWith("/ebook")) return null;
+  if (!BOOKING_URL || path.startsWith("/book") || path.startsWith("/fix-ai-slop-ui")) return null;
   return (
     <section className="wrap book-band" id="book" aria-labelledby="book-band-h">
       <div className="book-band-head">

@@ -4,7 +4,9 @@
 /call /book/ 301
 /meet /book/ 301
 /hire /book/ 301
-/prompts /ebook/ 301
+/prompts /fix-ai-slop-ui/ 301
+/ebook /fix-ai-slop-ui/ 301
+/ebook/ /fix-ai-slop-ui/ 301
 /buy https://whop.com/sam-vllaco/products/27-copy-paste-prompts-to-fix-ai-slop-ui/ 302
 /x https://x.com/samvllaco 302
 /twitter https://x.com/samvllaco 302

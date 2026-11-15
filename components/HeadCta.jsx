@@ -7,7 +7,7 @@ import { BOOK_URL } from "../lib/site";
 // Main header button. On the book page it is the book purchase, everywhere else it books a call.
 export default function HeadCta() {
   const p = usePathname() || "";
-  if (p.replace(/\/$/, "") === "/ebook") {
+  if (p.replace(/\/$/, "") === "/fix-ai-slop-ui") {
     return (
       <a className="head-cta head-cta-book" href={BOOK_URL} target="_blank" rel="noopener"><DownloadIcon />Download e-book</a>
     );

@@ -28,11 +28,28 @@ pages.push(["default", shell(`<p class="brand">SAM VLLACO</p>
 <p class="s">10 years designing SaaS, AI, fintech and health products. One designer from first call to handover.</p></div>
 <img src="${BASE}/sam-footer-cut.webp" style="position:absolute;right:-40px;bottom:-60px;width:690px">
 <p class="url">samvllaco.com</p>`)]);
-pages.push(["ebook", shell(`<p class="brand">SAM VLLACO</p>
-<div class="l"><p class="k">The book</p><h1>27 copy-paste prompts to fix <span>AI slop UI</span></h1>
-<p class="s">For Claude, Cursor, Lovable and v0. With a DESIGN.md rules file and a private video.</p></div>
-<img src="${BASE}/book-cover.webp" style="position:absolute;right:120px;top:85px;width:345px;border-radius:6px 14px 14px 6px;transform:rotate(-4deg);box-shadow:0 40px 80px -20px rgba(0,0,0,.8),inset 0 0 0 1px rgba(255,255,255,.1)">
-<p class="url">samvllaco.com/ebook</p>`)]);
+pages.push(["fix-ai-slop-ui", shell(`<style>
+.eb-h{font-size:56px;line-height:1.14;letter-spacing:-.045em;font-weight:700}
+.eb-m{padding:0 .14em;margin-left:-.1em;border-radius:.36em .2em .4em .24em;color:#1a0f00;background:linear-gradient(104deg,rgba(255,182,85,.85),#ffad45 6%,#ff9d2e 55%,#f5901c 94%,rgba(240,138,20,.8));-webkit-box-decoration-break:clone;box-decoration-break:clone;box-shadow:0 14px 40px -12px rgba(255,157,46,.55)}
+.eb-g{color:#8e8e93;white-space:nowrap}
+.eb-row{display:flex;align-items:center;gap:12px;font-size:20px;color:#c7c7cc;white-space:nowrap}
+.eb-p{display:inline-flex;align-items:center;gap:10px;padding:8px 18px;border-radius:999px;font-weight:700;color:#fff;background:linear-gradient(180deg,#5b8cff,#2f6bff);box-shadow:inset 0 1px 0 rgba(255,255,255,.4),0 10px 30px -10px rgba(47,107,255,.7)}
+.eb-p s{font-weight:500;opacity:.7}
+.eb-st{color:#ffb020;letter-spacing:2px}
+.shot{position:absolute;width:330px;border-radius:14px;box-shadow:0 30px 60px -20px rgba(0,0,0,.8),0 0 0 1px rgba(255,255,255,.1);overflow:hidden}
+.shot img{display:block;width:100%}
+.shot b{position:absolute;left:12px;top:12px;padding:5px 12px;border-radius:999px;font-size:15px;font-weight:600}
+</style>
+<p class="brand">SAM VLLACO</p>
+<div class="l" style="width:540px;gap:26px">
+<p class="k" style="color:#ff9d2e">Designed, not generated.</p>
+<h1 class="eb-h"><span class="eb-m">27 copy-paste prompts</span> to fix <span class="eb-g">AI slop UI</span></h1>
+<div class="eb-row"><span class="eb-p"><s>$34.95</s> $12.99</span><span class="eb-st">★★★★★</span><span>5.0 · 200+ reviews</span></div>
+</div>
+<div class="shot" style="right:190px;top:60px;width:300px;transform:rotate(-7deg)"><img src="${BASE}/ebook/ba-before-768.webp"><b style="background:rgba(0,0,0,.6);color:#fff">First AI draft</b></div>
+<div class="shot" style="right:30px;top:150px;width:300px;transform:rotate(4deg)"><img src="${BASE}/ebook/ba-after-768.webp"><b style="background:#ff9d2e;color:#1a0f00">After the book</b></div>
+<img src="${BASE}/ebook/cover.webp" style="position:absolute;right:250px;bottom:-110px;width:230px;border-radius:6px 14px 14px 6px;transform:rotate(-5deg);box-shadow:inset 3px 0 0 rgba(255,255,255,.25),0 40px 80px -20px rgba(0,0,0,.9),0 0 0 1px rgba(255,255,255,.1)">
+<p class="url">samvllaco.com/fix-ai-slop-ui</p>`)]);
 
 (async () => {
 const { WORK } = await import(path.join(__dirname, "..", "lib", "work.js"));
