@@ -3,7 +3,7 @@ import { useEffect, useRef } from "react";
 
 // Header avatar: starts as the normal photo, then rotates through Sam doing different things.
 // Idle: one change every 10 seconds. Hovering the logo flips through them quickly.
-const FACES = ["/sam-graphite-144.webp?v=1", "/me/wave2.webp", "/me/laptop.webp", "/me/coffee2.webp", "/me/sketch2.webp", "/me/think2.webp"];
+const FACES = ["/sam-face-144.webp?v=1", "/me/wave2.webp", "/me/laptop.webp", "/me/coffee2.webp", "/me/sketch2.webp", "/me/think2.webp"];
 
 export default function BrandFace({ className = "brand-face" }) {
   const ref = useRef(null);
@@ -28,5 +28,5 @@ export default function BrandFace({ className = "brand-face" }) {
     return () => { clearTimeout(start); clearInterval(slow); clearInterval(fast); link?.removeEventListener("pointerenter", over); link?.removeEventListener("pointerleave", out); };
   }, []);
   // eslint-disable-next-line @next/next/no-img-element
-  return <img ref={ref} className={className} src="/sam-graphite-144.webp?v=1" width="72" height="72" alt="" />;
+  return <img ref={ref} className={className} src="/sam-face-144.webp?v=1" width="72" height="72" alt="" />;
 }

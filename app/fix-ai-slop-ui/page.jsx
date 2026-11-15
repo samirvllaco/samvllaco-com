@@ -525,7 +525,7 @@ export default function Ebook() {
           <article className="eb-pk-card dark-island">
             <div className="eb-pk-me">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/sam-hire.webp?v=2" width="1000" height="1250" alt="Sam Vllaco" loading="lazy" />
+              <img src="/me/ai/ai5-128.webp?v=1" width="128" height="128" alt="Sam Vllaco" loading="lazy" />
               <span><b>Sam Vllaco <em className="eb-pk-role">Senior Designer</em></b>10+ years, 570+ clients</span>
             </div>
             <p className="eb-pk-k">Focused review</p>
@@ -544,7 +544,7 @@ export default function Ebook() {
           <article className="eb-pk-card dark-island">
             <div className="eb-pk-me">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/sam-hire.webp?v=2" width="1000" height="1250" alt="Sam Vllaco" loading="lazy" />
+              <img src="/me/ai/ai5-128.webp?v=1" width="128" height="128" alt="Sam Vllaco" loading="lazy" />
               <i className="eb-pk-plus" aria-hidden="true">+</i>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img className="eb-pk-mini" src="/ebook/cover-520.webp?v=1" width="936" height="1326" alt="The book" loading="lazy" />
@@ -591,7 +591,7 @@ export default function Ebook() {
         </div>
         <div className="hp-right">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img className="hp-photo" src="/sam-hire.webp?v=2" width="1000" height="1250" alt="" loading="lazy" />
+          <img className="hp-photo" src="/me/ai/ai3.webp?v=1" width="1000" height="1000" alt="" loading="lazy" style={{ objectPosition: "60% 20%" }} />
           <div className="hp-shade" aria-hidden="true" />
           <div className="hp-body">
             <h3>10 years of product design,<br /><em>now in 59 pages you can copy and paste.</em></h3>

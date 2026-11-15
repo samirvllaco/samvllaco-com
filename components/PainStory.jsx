@@ -21,7 +21,7 @@ export default function PainStory() {
       </svg>
       <div className="pn-fix">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img className="pn-me" src="/sam-hire.webp?v=2" width="1000" height="1250" alt="Sam Vllaco, product designer" loading="lazy" decoding="async" />
+        <img className="pn-me" src="/me/ai/ai6-tall.webp?v=1" width="800" height="999" alt="Sam Vllaco, product designer, explaining a design" loading="lazy" decoding="async" />
         <div className="pn-fix-copy">
           <p className="pn-k">The fix for all three</p>
           <h3>The product is almost never the problem. <span className="t2">It just isn't clear yet.</span></h3>
