@@ -459,15 +459,27 @@ export default function Ebook() {
       <section className="eb-sec eb-rv" aria-labelledby="eb-rv-h">
         <h2 id="eb-rv-h">From a founder <span className="t2">who used it</span></h2>
         <figure className="eb-rv-card dark-island">
-          <a className="eb-rv-shot" href="https://www.cookinbuddy.com/" target="_blank" rel="noopener">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/ebook/review-cookinbuddy.webp?v=1" width="960" height="600" alt="CookinBuddy homepage after the fixes: a clear headline, App Store button and a real app screenshot" loading="lazy" />
-            <span className="eb-rv-tag">After</span>
-            <span className="sr-only"> (opens cookinbuddy.com in a new tab)</span>
-          </a>
+          <div className="eb-rv-ba">
+            {[["Before", "/ebook/cb-before-full.webp?v=1", 4744, "9,500px tall, with large empty gaps"], ["After", "/ebook/cb-after-full.webp?v=1", 3054, "6,100px tall, every section earns its place"]].map(([k, src, h, cap]) => (
+              <figure className={`eb-rv-win ${k === "After" ? "is-after" : ""}`} key={k}>
+                <p className="eb-rv-chrome"><i /><i /><i /><span>cookinbuddy.com</span></p>
+                <div className="eb-rv-view">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={src} width="720" height={h} alt={`CookinBuddy full homepage ${k.toLowerCase()} the fixes`} loading="lazy" />
+                </div>
+                <figcaption><b>{k}</b>{cap}</figcaption>
+              </figure>
+            ))}
+          </div>
           <div className="eb-rv-body">
             <blockquote><p>"It does look so much better!"</p></blockquote>
             <figcaption><b>Błażej Kustra</b><span>CookinBuddy, recipe app for iPhone</span></figcaption>
+            <ul className="eb-rv-wins">
+              <li><b>36%</b> shorter page</li>
+              <li>Reviews <b>1,500px</b> sooner</li>
+              <li>Empty gaps <b>gone</b></li>
+            </ul>
+            <a className="eb-rv-link" href="https://www.cookinbuddy.com/" target="_blank" rel="noopener">See the live site<span className="sr-only"> (opens in a new tab)</span> <span aria-hidden="true">↗</span></a>
           </div>
         </figure>
       </section>
