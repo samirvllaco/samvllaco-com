@@ -33,6 +33,18 @@ One icon style everywhere: a line glyph (24 grid, 1.8 to 2 stroke, round caps) o
 - Script accent (Caveat, class `scr`): only for 2 to 5 words inside a paragraph to direct attention, at most one per paragraph and a few per page. Never in titles, buttons or navigation. Self-hosted in `public/fonts`.
 - Titles use the two-tone pattern: first part white, second part gray (`.t2`).
 
+## Spacing: the 4-point scale (owner, 15 Nov 2026, locked)
+
+Every margin, padding and gap uses one of these values: **4, 8, 16, 24, 32, 48, 64**. Never a value in between (no 6, 10, 12, 14, 20, 28, 40).
+
+- Close means related, far means separate.
+- Card padding 16 (24 or 32 on large cards). Image to title 16. **Title to its paragraph 8 at most**, everywhere. Text to action 24. Between cards 16.
+- Touch targets 44px tall (a size, not a spacing step). Button side padding 16.
+- Inside `clamp()`, the px ends are scale values; the middle `vw` part can be fluid.
+- Negative margins use the same steps (-4, -8, -16).
+- Values above 64 are only for section rhythm and header clearance, and need the owner's OK.
+- Full audit with every old and new value: `SPACING_AUDIT.md`.
+
 ## Surfaces
 
 - No visible strokes on cards. Separate with a slightly lighter or darker gray.
