@@ -71,7 +71,7 @@ export default function MegaShell({ id, label, href, children }) {
     return () => { window.removeEventListener("keydown", onKey); document.removeEventListener("pointerdown", onDown); };
   }, [open]);
 
-  const hoverable = () => window.matchMedia && window.matchMedia("(hover: hover) and (min-width: 981px)").matches;
+  const hoverable = () => window.matchMedia && window.matchMedia("(hover: hover) and (min-width: 1261px)").matches;
   function enter() { if (hoverable()) { clearTimeout(timer.current); setOpen(true); } }
   function leave() { if (hoverable()) { clearTimeout(timer.current); timer.current = setTimeout(() => setOpen(false), 180); } }
   const close = () => setOpen(false);

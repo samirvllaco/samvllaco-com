@@ -102,6 +102,10 @@ export default function Home() {
             <HeroReviews />
             {/* Client avatars and "Trusted by" row hidden until real client photos are added. */}
           </div>
+          <figure className="hero-quote">
+            <blockquote><p>&ldquo;Good design is good business.&rdquo;</p></blockquote>
+            <figcaption>Thomas J. Watson Jr., IBM</figcaption>
+          </figure>
         </div>
         <ScreenFan items={[["activity", "Activity", "marketing-dashboard"], ["contacts", "Contacts", "marketing-dashboard"], ["campaigns", "Campaigns", "marketing-dashboard"], ["dashboard", "Marketing dashboard", "marketing-dashboard"], ["messages", "Freelance marketplace", "freelance-marketplace"], ["aidraft", "AI draft reply", "marketing-dashboard"], ["discover", "Discover", "freelance-marketplace"], ["subliohome", "Language player", "language-player"], ["approve", "Approve work", "freelance-marketplace"], ["arumahome", "Room planner", "room-editor"], ["upgrade", "Upgrade plan", "marketing-dashboard"], ["review", "Review words", "language-player"], ["table", "Furniture detail", "room-editor"], ["vr", "Room in VR", "room-editor"]].map(([id, title, slug]) => ({ id, slug, title, src: `/work/fan/${id}.webp?v=2` }))} />
         <div className="trust trust-on" aria-labelledby="trust-h">

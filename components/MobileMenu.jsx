@@ -133,7 +133,7 @@ export default function MobileMenu() {
           <div className="mm-cta">
             {onBook
               ? <a className="hero2-btn hero2-btn-primary" href={BOOK_URL} target="_blank" rel="noopener">Buy the e-book for $12.99</a>
-              : <a className="hero2-btn hero2-btn-primary" href="/book/"><CallIcon />Book a call</a>}
+              : <a className="hero2-btn hero2-btn-primary" href="/book/"><CallIcon />Book a design strategy call</a>}
           </div>
         </div>
       </div>, document.body) : null}
