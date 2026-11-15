@@ -68,32 +68,29 @@ export default function Bento() {
         </div>
         <Link prefetch={false} href="/services/" className="dark-island bx-card bx-mini bx-proc" data-reveal>
           <h3 className="bx-t">Behind the screens</h3>
-          <div className="pr-grid" aria-hidden="true">
-            <div className="pr-tile pr-research">
-              <p className="pr-k">User research</p>
-              <div className="pr-quotes">
-                <span><i className="pr-av" />"I couldn't find the pricing."</span>
-                <span><i className="pr-av pr-av2" />"Too many steps to sign up."</span>
-                <span><i className="pr-av pr-av3" />"What does it actually do?"</span>
-              </div>
+          <div className="pw" aria-hidden="true">
+            <div className="pw-card pw-notes">
+              <p className="pw-top"><span>User interviews</span><b>12 calls</b></p>
+              <p className="pw-h">What users said</p>
+              <ul>
+                <li className="on">"I couldn't find the pricing."</li>
+                <li className="on">"Too many steps to sign up."</li>
+                <li>"What does it actually do?"</li>
+              </ul>
             </div>
-            <div className="pr-tile pr-flow">
-              <p className="pr-k">UX flows</p>
-              <div className="pr-nodes">
-                <span>Landing</span><i /><span>Sign up</span><i /><span>Onboarding</span><i /><span className="pr-goal">First win</span>
-              </div>
+            <div className="pw-card pw-ab">
+              <p className="pw-h">A/B test, signup page</p>
+              <div className="pw-bars"><i style={{ "--h": "38%" }} /><i style={{ "--h": "52%" }} /><i style={{ "--h": "44%" }} /><i className="win" style={{ "--h": "92%" }}><em>+38%</em></i><i style={{ "--h": "47%" }} /></div>
             </div>
-            <div className="pr-tile pr-copy">
-              <p className="pr-k">UX copywriting</p>
-              <p className="pr-before">Revolutionize your workflow with AI</p>
-              <p className="pr-after">Send your first invoice in 30 seconds</p>
+            <div className="pw-card pw-flow">
+              <p className="pw-h">Signup flow</p>
+              <div className="pw-steps"><span>Visit</span><i /><span>Sign up</span><i /><span className="win">First win</span></div>
+              <p className="pw-cap">Cut from 6 steps to 3</p>
             </div>
-            <div className="pr-tile pr-ab">
-              <p className="pr-k">A/B testing</p>
-              <div className="pr-bars">
-                <span className="pr-a"><b>A</b><i /></span>
-                <span className="pr-b"><b>B</b><i /><em>Winner</em></span>
-              </div>
+            <div className="pw-card pw-copy">
+              <p className="pw-h">Headline</p>
+              <p className="pw-old">Revolutionize your workflow with AI</p>
+              <p className="pw-new">Send your first invoice in 30 seconds</p>
             </div>
           </div>
         </Link>
