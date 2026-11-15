@@ -4927,3 +4927,6 @@ body:has(.rv-ty) .top-note { display: none; }
 .art-code pre code { padding: 0; background: none; font-size: inherit; }
 .art-copy { position: absolute; right: 12px; bottom: 12px; }
 .art-related { margin-top: 48px; }
+/* Marker highlights: full-strength text over a softer pen so marked words stay readable (4.5:1+) in both themes. */
+.mk mark[data-mark="highlight"] { background: none; color: var(--text); font-weight: 600; }
+.mk-u { opacity: .45; }
