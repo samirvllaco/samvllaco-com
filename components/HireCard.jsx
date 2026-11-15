@@ -1,16 +1,15 @@
 "use client";
-import { useState } from "react";
 import CallIcon from "./CallIcon";
 import { EMAIL, SITE } from "../lib/site";
+import { useCopyChip } from "./CopyChip";
 
 // Card with Sam's photo and ways to get in touch. `wide` lays it out in one row.
 export default function HireCard({ wide = false }) {
-  const [copied, setCopied] = useState(false);
+  const { chip, live, start } = useCopyChip();
   async function copy() {
     try {
       await navigator.clipboard.writeText(EMAIL);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 1800);
+      start();
     } catch {}
   }
   return (
@@ -27,8 +26,9 @@ export default function HireCard({ wide = false }) {
         <a className="hero2-btn hero2-btn-primary hire-btn" href="/book/"><CallIcon />Book a call</a>
         <button type="button" className="hire-copy" onClick={copy}>
           <span>{EMAIL}</span>
-          <span className="hire-copied" role="status">{copied ? "Copied" : "Copy"}</span>
+          <span className="sr-only">Copy email</span>{chip}
         </button>
+        {live}
         <a className="hire-x" href={SITE.links.x} rel="me noopener">Or message me on X</a>
       </div>
   );

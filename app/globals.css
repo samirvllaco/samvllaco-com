@@ -4572,3 +4572,12 @@ span.mk { display: inline; }
 mark[data-mark] { background: transparent; color: inherit; }
 s[data-mark] { text-decoration: none; }
 [data-mark="circle"], [data-mark="box"] { white-space: nowrap; }
+
+/* Email copy chip: the same loading to success motion as the prompt copy button, in the site blue */
+.cc { --cc: var(--hp-accent, var(--accent, #62c1fd)); position: relative; isolation: isolate; flex: none; display: inline-grid; place-items: center; height: 32px; margin-right: -6px; padding: 0 10px; border-radius: 999px; overflow: hidden; color: var(--cc); font-weight: 600; }
+.cc-fill { position: absolute; inset: 0; z-index: -1; opacity: 0; border-radius: inherit; background: color-mix(in srgb, var(--cc) 20%, transparent); }
+.cc-lbl, .cc-done { white-space: nowrap; will-change: transform, opacity; }
+.cc-done { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; gap: 5px; opacity: 0; }
+.cc-done svg { flex: none; fill: none; stroke: currentColor; stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; }
+.cc-spin { position: absolute; left: 50%; top: 50%; width: 16px; height: 16px; margin: -8px 0 0 -8px; border-radius: 50%; opacity: 0; background: conic-gradient(from 0deg, transparent 0 10%, var(--cc) 85%, transparent 85%); -webkit-mask: radial-gradient(circle closest-side, transparent 62%, #000 68%); mask: radial-gradient(circle closest-side, transparent 62%, #000 68%); will-change: transform, opacity; }
+.hire-copy .cc { --cc: var(--accent, #62c1fd); }
