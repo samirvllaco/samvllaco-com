@@ -16,8 +16,11 @@ export function BookAlt() {
         </div>
       </div>
       <figure className="bb-qr">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/cal-qr.svg?v=1" width="96" height="96" alt="QR code that opens the booking calendar" loading="lazy" />
+        <span className="bb-qr-pic">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/cal-qr.svg?v=1" width="96" height="96" alt="QR code that opens the booking calendar" loading="lazy" />
+          <span className="bb-qr-tag" aria-hidden="true">Scan to book</span>
+        </span>
         <figcaption><b>On your phone anyway?</b><span>Scan it and book in a minute, from the couch.</span></figcaption>
       </figure>
     </div>

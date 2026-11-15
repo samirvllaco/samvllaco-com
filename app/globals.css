@@ -3862,7 +3862,7 @@ a.mega-btn { text-decoration: none; }
 @media (hover: hover) { .rs-grid:has(a:hover) li:not(:hover) { opacity: .55; } .rs-grid li { transition: opacity .35s var(--ease-out); } }
 @media (max-width: 720px) { .rs-grid { grid-template-columns: minmax(0, 1fr); } .rs-grid a { padding: 20px; } }
 :root[data-theme="light"] .rs-grid a { box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .07); }
-.rs .sv-work { grid-template-columns: repeat(2, minmax(0, 1fr)); } @media (max-width: 960px) { .rs .sv-work { grid-template-columns: minmax(0, 1fr); } }
+.rs .sv-work { grid-template-columns: repeat(3, minmax(0, 1fr)); } @media (max-width: 960px) { .rs .sv-work { grid-template-columns: repeat(2, minmax(0, 1fr)); } } @media (max-width: 600px) { .rs .sv-work { grid-template-columns: minmax(0, 1fr); } }
 
 /* Mobile menu: the close button opens on the exact spot of the hamburger, and the panel's top row lines up with it (owner, 14 Nov 2026) */
 @media (max-width: 1260px) {
@@ -4935,14 +4935,14 @@ body:has(.rv-ty) .top-note { display: none; }
 @media (hover: hover) and (pointer: fine) { .tb .tb-track li:hover .tb-ico { transform: translateY(-4px) scale(1.06); } }
 @media (prefers-reduced-motion: reduce) { .tb-ico { transition: none; } }
 /* "Not a fan of calendars?" contact pills: same width, same surface, same text colour, so neither outranks the other (owner, 15 Nov 2026). */
-.bb-alt-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); width: min(100%, 560px); }
+.bb-alt-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); width: 640px; max-width: 100%; }
 .bb-alt-row > .bb-x, .bb-alt-row > .hp-copy { justify-content: center; width: 100%; min-height: 48px; background: rgba(255, 255, 255, .08); color: var(--text); }
 .bb-alt-row > .bb-x:hover, .bb-alt-row > .hp-copy:hover { background: rgba(255, 255, 255, .14); }
 .bb-alt-row > .hp-copy b { color: var(--text); --hp-accent: var(--text); }
 :root[data-theme="light"] .bb-alt-row > .bb-x, :root[data-theme="light"] .bb-alt-row > .hp-copy { background: rgba(0, 0, 0, .06); }
 :root[data-theme="light"] :is(.site-footer, .book-band, .dark-island) .bb-alt-row > :is(.bb-x, .hp-copy) { background: rgba(255, 255, 255, .08); }
 :root[data-theme="light"] .bb-alt-row > .hp-copy b, :root[data-theme="light"] :is(.site-footer, .book-band, .dark-island) .bb-alt-row > .hp-copy b { --hp-accent: var(--text); color: var(--text); }
-@media (max-width: 560px) { .bb-alt-row { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 760px) { .bb-alt-row { grid-template-columns: minmax(0, 1fr); width: 100%; } .bb-alt > div:has(> .bb-alt-row) { min-width: 0; width: 100%; } }
 /* Home bento "Behind the screens": research, flows, copy and A/B tests, drawn in code (owner, 15 Nov 2026). */
 .bx-proc .pr-grid { flex: 1; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin: 24px 24px 0; }
 .pr-tile { display: flex; flex-direction: column; gap: 12px; min-width: 0; padding: 16px; border-radius: 16px; background: rgba(255, 255, 255, .04); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .07); overflow: hidden; transition: transform .5s var(--ease-out), background .3s; }
@@ -5247,9 +5247,17 @@ body:has(.rv-ty) .top-note { display: none; }
 .bb-alt-row > .hp-copy > span:not(.cc):not(.sr-only) { margin-right: auto; }
 
 /* QR code grows on hover so it is easier to scan from a phone. */
-.bb-qr img { position: relative; z-index: 1; transform-origin: left center; transition: transform .45s var(--ease-out), box-shadow .45s var(--ease-out); }
-@media (hover: hover) and (pointer: fine) { .bb-qr:hover img { transform: scale(1.9); box-shadow: 0 24px 48px -12px rgba(0, 0, 0, .6); } }
-@media (prefers-reduced-motion: reduce) { .bb-qr img { transition: none; } }
+.bb-qr-pic { position: relative; z-index: 1; flex: none; display: block; width: 96px; height: 96px; }
+.bb-qr img { position: relative; z-index: 1; display: block; transform-origin: 50% 50%; transition: transform .6s cubic-bezier(.22, 1, .36, 1), box-shadow .6s cubic-bezier(.22, 1, .36, 1); }
+.bb-qr-tag { position: absolute; z-index: 2; left: 50%; top: calc(50% + 96px * .95 + 12px); padding: 6px 14px; border-radius: 999px; background: #fff; color: #0b0b0c; font-size: .8125rem; font-weight: 600; white-space: nowrap; visibility: hidden; opacity: 0; transform: translate(-50%, -8px) scale(.9); transition: opacity .3s ease, transform .5s cubic-bezier(.22, 1, .36, 1), visibility 0s linear .5s; box-shadow: 0 12px 24px -12px rgba(0, 0, 0, .5); }
+@media (hover: hover) and (pointer: fine) {
+  .bb-qr:hover img { transform: scale(1.9); box-shadow: 0 24px 48px -12px rgba(0, 0, 0, .6); }
+  .bb-qr:hover .bb-qr-tag { visibility: visible; opacity: 1; transform: translate(-50%, 0) scale(1); transition: opacity .3s ease .1s, transform .5s cubic-bezier(.22, 1, .36, 1) .1s, visibility 0s; }
+}
+@media (prefers-reduced-motion: reduce) { .bb-qr img, .bb-qr-tag { transition: none; } }
+/* Email pills: a long address gives way to the Copied chip instead of pushing it outside the pill */
+.hp-copy > span:not(.cc):not(.sr-only) { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.hp-copy { max-width: 100%; }
 /* Free tools (owner, 15 Nov 2026). */
 .tl-box { max-width: 960px; margin: 0 auto; padding: clamp(20px, 3vw, 32px); border-radius: 24px; background: var(--card); box-shadow: inset 0 0 0 1px var(--line); }
 .tl-how { max-width: 720px; margin: 64px auto 0; }
@@ -5357,3 +5365,12 @@ body:has(.rv-ty) .top-note { display: none; }
 .tb-grid .tb-name { font-size: .625rem; letter-spacing: .04em; text-align: center; white-space: normal; line-height: 1.3; }
 @media (max-width: 720px) { .bx-tools .tb-grid { grid-template-columns: repeat(4, 64px); } .tb-all-panel { bottom: auto; top: calc(100% + 12px); transform-origin: 24px 0; } .tb-all-panel::after { top: auto; bottom: 100%; } }
 @media (prefers-reduced-motion: reduce) { .tb-all-panel { transition: none; transform: none; } }
+
+/* Hero quote of the day: a fixed box (three lines, four on phones) so a longer quote never moves the page.
+   The words slide up inside their own clipped line box, never fade. */
+.hero-quote { margin: clamp(32px, 4vw, 48px) auto 0; max-width: 62ch; min-height: calc(1.0625rem * 1.5 * 3 + 4px + .875rem * 1.5); text-align: center; }
+.hero-quote blockquote { margin: 0; }
+.hero-quote p { display: block; margin: 0; overflow: hidden; font-size: 1.0625rem; line-height: 1.5; font-weight: 500; letter-spacing: -.01em; color: var(--text); text-wrap: balance; }
+.hero-quote figcaption { margin-top: 4px; overflow: hidden; font-size: .875rem; line-height: 1.5; color: var(--muted); }
+.hq-t, .hq-by { display: block; }
+@media (max-width: 600px) { .hero-quote { min-height: calc(1rem * 1.5 * 4 + 4px + .875rem * 1.5); } .hero-quote p { font-size: 1rem; } }

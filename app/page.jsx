@@ -17,6 +17,7 @@ import { MEDIUM_PATH } from "../lib/medium-logo";
 import ArticleMark from "../components/ArticleMark";
 import WorkGrid from "../components/WorkGrid";
 import HirePanel from "../components/HirePanel";
+import HeroQuote, { QUOTE_DAY } from "../components/HeroQuote";
 import PainStory from "../components/PainStory";
 import HeroReviews from "../components/HeroReviews";
 import HeroShow from "../components/HeroShow";
@@ -102,10 +103,12 @@ export default function Home() {
             <HeroReviews />
             {/* Client avatars and "Trusted by" row hidden until real client photos are added. */}
           </div>
-          <figure className="hero-quote">
-            <blockquote><p>&ldquo;Good design is good business.&rdquo;</p></blockquote>
-            <figcaption>Thomas J. Watson Jr., IBM</figcaption>
+          <figure className="hero-quote" id="hq">
+            <blockquote><p><span className="hq-t" suppressHydrationWarning>&ldquo;Good design is good business.&rdquo;</span></p></blockquote>
+            <figcaption><span className="hq-by" suppressHydrationWarning>Thomas J. Watson Jr., IBM</span></figcaption>
           </figure>
+          <script dangerouslySetInnerHTML={{ __html: QUOTE_DAY }} />
+          <HeroQuote />
         </div>
         <ScreenFan items={[["activity", "Activity", "marketing-dashboard"], ["contacts", "Contacts", "marketing-dashboard"], ["campaigns", "Campaigns", "marketing-dashboard"], ["dashboard", "Marketing dashboard", "marketing-dashboard"], ["messages", "Freelance marketplace", "freelance-marketplace"], ["aidraft", "AI draft reply", "marketing-dashboard"], ["discover", "Discover", "freelance-marketplace"], ["subliohome", "Language player", "language-player"], ["approve", "Approve work", "freelance-marketplace"], ["arumahome", "Room planner", "room-editor"], ["upgrade", "Upgrade plan", "marketing-dashboard"], ["review", "Review words", "language-player"], ["table", "Furniture detail", "room-editor"], ["vr", "Room in VR", "room-editor"]].map(([id, title, slug]) => ({ id, slug, title, src: `/work/fan/${id}.webp?v=2` }))} />
         <div className="trust trust-on" aria-labelledby="trust-h">
