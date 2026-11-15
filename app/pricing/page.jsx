@@ -42,6 +42,8 @@ export default function Pricing() {
       </ul>
 
       <section className="pr-proj" aria-labelledby="pr-proj-h">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img className="pr-proj-pic" src="/me/ai/ai6-224.webp?v=1" width="224" height="224" alt="" loading="lazy" decoding="async" />
         <div>
           <h2 id="pr-proj-h">Fixed-price projects</h2>
           <p>A full website, app or brand, scoped on a call. Projects start at <b>$1,000</b>, and larger product work runs from <b>$5,000 to $25,000</b>. You get a fixed price and a timeline in writing before we start.</p>

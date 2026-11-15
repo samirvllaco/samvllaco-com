@@ -24,7 +24,7 @@ export default function ReviewThanks() {
       <header className="ph">
         <div className="rv-me">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/sam-hire.webp?v=2" width="1000" height="1250" alt="Sam Vllaco" fetchPriority="high" />
+          <img src="/me/ai/ai5-112.webp?v=1" width="112" height="112" alt="Sam Vllaco" fetchPriority="high" />
           <span><b>Sam Vllaco</b>Senior product designer</span>
         </div>
         <h1>Thank you. <span className="t2">I'm on it.</span></h1>

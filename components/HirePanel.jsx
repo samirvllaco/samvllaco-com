@@ -3,8 +3,7 @@ import CopyEmailInline from "./HirePanelCopy";
 
 // Two panel "why work with me" section on the home page.
 // Left: what AI speeds up and what is designed by hand. Right: photo, industries and the call to action.
-// Photos: public/me/ai/ai1-8.webp. The first shows at once; the rest crossfade over it after the first interaction.
-const PHOTOS = [["ai1", "50% 22%"], ["ai2", "52% 20%"], ["ai3", "60% 20%"], ["ai4", "48% 18%"], ["ai5", "52% 22%"], ["ai6", "50% 20%"], ["ai7", "50% 22%"], ["ai8", "48% 18%"]];
+// Photo: public/me/ai/ai1.webp (the other /me/ai photos are used on About, Services, Pricing and the review thank-you page).
 const AUTO = [["system", "Design system upkeep"], ["layers", "Screen variants and states"], ["text", "Copy and clarity checks"], ["ruler", "Consistency rules"], ["access", "Accessibility checks"]];
 const HAND = [["flow", "Core user flows"], ["screen", "What goes on the first screen"], ["spark", "Signature interactions"], ["wave", "Onboarding and empty states"], ["cart", "Signup and checkout steps"]];
 const FIELDS = [
@@ -14,7 +13,7 @@ const FIELDS = [
   ["Editorial", "M5 4h11l3 3v13H5zM8 9h8M8 13h8M8 17h5"], ["Sports", "M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM3.5 9h17M3.5 15h17M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"], ["Marketing sites", "M3 5h18v14H3zM3 9h18M7 7h.01M10 7h.01"], ["Design systems", "M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM16.5 13a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7z"],
 ];
 
-export default function HirePanel() {
+export default function HirePanel({ photo = "/me/ai/ai1.webp?v=1" }) {
   return (
     <section className="hp" aria-labelledby="hp-h" data-bg="#1f1f22">
       <div className="hp-left">
@@ -37,9 +36,7 @@ export default function HirePanel() {
       </div>
       <div className="hp-right">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <div className="hp-photos" aria-hidden="true">
-          {PHOTOS.map(([id, pos]) => <img key={id} className="hp-photo" src={`/me/ai/${id}.webp?v=1`} width="1000" height="1000" alt="" loading="lazy" decoding="async" style={{ objectPosition: pos }} />)}
-        </div>
+        <img className="hp-photo" src={photo} width="1000" height="1000" alt="" loading="lazy" decoding="async" />
         <div className="hp-shade" aria-hidden="true" />
         <div className="hp-body">
           <h3>You found the designer,<br /><em>not another agency.</em></h3>
