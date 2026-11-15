@@ -56,7 +56,7 @@ function FootMap() {
     <nav className="foot-map" aria-label="Site map">
       <div className="fm-brand">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/sam-144.webp" width="40" height="40" alt="" loading="lazy" />
+        <img src="/sam-graphite-144.webp?v=1" width="40" height="40" alt="" loading="lazy" />
         <p><b>Sam Vllaco</b><span>Product designer for SaaS and AI products</span></p>
       </div>
       {MAP.map((c) => (
