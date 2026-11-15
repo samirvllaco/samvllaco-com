@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import ToolTrack from "./ToolTrack";
+import ToolAll from "./ToolAll";
 
 // Tools row that scrolls left to right. A tile shows the tool's logo when its official SVG is saved
 // as public/tools/<id>.svg; tools without a file are left out.
@@ -23,7 +24,12 @@ export default function Toolbox() {
   );
   return (
     <div className="bx-card bx-tools tb" data-reveal>
-      <p><b>Everyday toolbox</b><span>Used on every project.</span></p>
+      <div className="tb-head">
+        <p><b>Everyday toolbox</b><span>Used on every project.</span></p>
+        <ToolAll count={SHOWN.length}>
+          <ul className="tb-grid">{SHOWN.map(([id, name]) => <li key={id}><span className="tb-ico" aria-hidden="true" dangerouslySetInnerHTML={{ __html: svg(id) }} /><span className="tb-name">{name}</span></li>)}</ul>
+        </ToolAll>
+      </div>
       <ToolTrack>
         <ul className="tb-track">{SHOWN.map((t) => tile(t, t[0]))}</ul>
         <ul className="tb-track" aria-hidden="true">{SHOWN.map((t) => tile(t, `${t[0]}-2`))}</ul>
