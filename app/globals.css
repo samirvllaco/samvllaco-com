@@ -5075,3 +5075,16 @@ body:has(.rv-ty) .top-note { display: none; }
 @media (prefers-reduced-motion: reduce) { .pw-bars i, .pw-steps i { animation: none; } }
 .pw-bars { margin-top: 28px; }
 .pw-cap { margin: 12px 0 0; font-size: .6875rem; color: #a1a1a6; }
+/* Contrast fixes in the process widgets. */
+.pw-top b { opacity: 1; color: #fff; }
+.pw-old { color: #6e6e73; }
+
+/* "View case study" pill: smaller. */
+.work-open { height: 40px; padding: 0 16px; gap: 8px; font-size: .875rem; }
+.work-open svg { width: 16px; height: 16px; }
+
+/* Hero hover dots v2: white, softer, and the dots themselves drift slowly. */
+.hero2::after { background-image: radial-gradient(circle, rgba(255, 255, 255, .9) 1.1px, transparent 1.7px); }
+.hero2.dots-on::after { opacity: .45; animation: dots-drift 6s linear infinite; }
+:root[data-theme="light"] .hero2::after { background-image: radial-gradient(circle, rgba(0, 0, 0, .55) 1.1px, transparent 1.7px); }
+@keyframes dots-drift { from { background-position: 0 0; } to { background-position: 22px 22px; } }
