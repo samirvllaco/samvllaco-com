@@ -4857,3 +4857,5 @@ html:not(.is-live) :is(.scr, .mk-l) { filter: grayscale(1); }
 .rv-cta { margin-top: 32px; }
 .eb-pk .eb-pk-card .hero2-btn { align-self: stretch; justify-content: center; }
 :root[data-theme="light"] .dark-island .eb-pk-role { color: color-mix(in srgb, var(--eo) 70%, #fff); }
+/* Review thank-you page: buyers already have the book, so no book banner. */
+body:has(.rv-ty) .top-note { display: none; }

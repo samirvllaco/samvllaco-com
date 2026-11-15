@@ -28,7 +28,7 @@ export default function BookPopup() {
     return () => { document.removeEventListener("pointerdown", out); window.removeEventListener("keydown", key); };
   }, [open]);
 
-  if (!show || path.replace(/\/$/, "") === "/fix-ai-slop-ui") return null;
+  if (!show || ["/fix-ai-slop-ui", "/review/thanks"].includes(path.replace(/\/$/, ""))) return null;
   return (
     <aside ref={box} className={`bw${open ? " is-open" : ""}`} aria-label="My book, 27 prompts to fix AI slop UI"
       onPointerEnter={(e) => { if (e.pointerType === "mouse") { clearTimeout(box.t); setOpen(true); } }} onPointerLeave={(e) => { if (e.pointerType === "mouse") { clearTimeout(box.t); box.t = setTimeout(() => setOpen(false), 220); } }}
