@@ -5374,3 +5374,7 @@ body:has(.rv-ty) .top-note { display: none; }
 .hero-quote figcaption { margin-top: 4px; overflow: hidden; font-size: .875rem; line-height: 1.5; color: var(--muted); }
 .hq-t, .hq-by { display: block; }
 @media (max-width: 600px) { .hero-quote { min-height: calc(1rem * 1.5 * 4 + 4px + .875rem * 1.5); } .hero-quote p { font-size: 1rem; } }
+
+/* The enlarged QR and its label sit above the footer that follows */
+.book-band:has(.bb-qr:hover), .bb-alt:has(.bb-qr:hover) { position: relative; z-index: 5; }
+.book-cal:has(.bb-qr:hover) { overflow: visible; }
