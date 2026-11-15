@@ -32,8 +32,11 @@ export default function Services() {
           <ul className="svc-list">
             {g.items.map((it) => (
               <li id={it.id} key={it.id}>
-                <h3><Link prefetch={false} href={svcHref(it.id)}>{it.name}</Link></h3>
-                <p>{it.text}</p>
+                <Link prefetch={false} href={svcHref(it.id)} className="svc-card">
+                  <h3>{it.name}<span className="svc-arr" aria-hidden="true">→</span></h3>
+                  <p>{it.text}</p>
+                  {it.ex ? <p className="svc-ex"><span>Example</span>{it.ex}</p> : null}
+                </Link>
               </li>
             ))}
           </ul>
