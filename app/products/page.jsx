@@ -34,13 +34,13 @@ export default function Products() {
   return (
     <div className="wrap page stack-lg">
       <Crumbs items={[{ name: "Products", href: "/products/" }]} />
-      <div className="stack prose">
+      <header className="ph">
         <h1>Digital products</h1>
-        <p className="lede">
+        <p>
           The book and two reviews are available now. Below them is what I plan to release next,
           built from what I already use on my own products.
         </p>
-      </div>
+      </header>
       <div className="grid">
         {live.map((p) => (
           <article className="card" key={p.name}>

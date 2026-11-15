@@ -15,7 +15,7 @@ export default function Services() {
   return (
     <div className="wrap page svc">
       <Crumbs items={[{ name: "Services", href: "/services/" }]} />
-      <header className="case-head">
+      <header className="case-head ph-std">
         <p className="case-eyebrow">Services</p>
         <h1>Design, branding, marketing and SEO</h1>
         <p className="lede">Confusing screens, a brand nobody remembers, a site nobody finds. Whatever's holding your product back, this is where we fix it. Four areas, one goal: a product people understand, remember and can find.</p>

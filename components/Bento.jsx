@@ -68,29 +68,27 @@ export default function Bento() {
         </div>
         <Link prefetch={false} href="/services/" className="dark-island bx-card bx-mini bx-proc" data-reveal>
           <h3 className="bx-t">Behind the screens</h3>
-          <div className="pw" aria-hidden="true">
-            <div className="pw-card pw-notes">
-              <p className="pw-top"><span>User interviews</span><b>12 calls</b></p>
-              <p className="pw-h">What users said</p>
-              <ul>
-                <li className="on">"I couldn't find the pricing."</li>
-                <li className="on">"Too many steps to sign up."</li>
-                <li>"What does it actually do?"</li>
-              </ul>
+          <div className="p3" aria-hidden="true">
+            <div className="p3-folder">
+              <i className="p3-tab" /><i className="p3-paper" />
+              <div className="p3-front">
+                <p className="p3-ft">User research</p>
+                <p className="p3-fs">Interviews and tests</p>
+                <p className="p3-fc">12 interviews</p>
+              </div>
             </div>
-            <div className="pw-card pw-ab">
-              <p className="pw-h">A/B test, signup page</p>
-              <div className="pw-bars"><i style={{ "--h": "38%" }} /><i style={{ "--h": "52%" }} /><i style={{ "--h": "44%" }} /><i className="win" style={{ "--h": "92%" }}><em>+38%</em></i><i style={{ "--h": "47%" }} /></div>
-            </div>
-            <div className="pw-card pw-flow">
-              <p className="pw-h">Signup flow</p>
-              <div className="pw-steps"><span>Visit</span><i /><span>Sign up</span><i /><span className="win">First win</span></div>
-              <p className="pw-cap">Cut from 6 steps to 3</p>
-            </div>
-            <div className="pw-card pw-copy">
-              <p className="pw-h">Headline</p>
-              <p className="pw-old">Revolutionize your workflow with AI</p>
-              <p className="pw-new">Send your first invoice in 30 seconds</p>
+            <div className="p3-note">
+              <p className="p3-bar"><span>Signup page</span><b>v2</b></p>
+              <div className="p3-body">
+                <p className="p3-h">Fixes to ship</p>
+                <ul>
+                  <li className="on">Map the signup flow</li>
+                  <li>Rewrite the headline</li>
+                  <li className="on">Cut 6 steps to 3</li>
+                  <li>A/B test the pricing</li>
+                </ul>
+                <p className="p3-foot">Version B wins <b>+38%</b></p>
+              </div>
             </div>
           </div>
         </Link>

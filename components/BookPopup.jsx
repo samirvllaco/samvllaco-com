@@ -37,7 +37,7 @@ export default function BookPopup() {
         onClick={() => { if (ptr.current !== "mouse") setOpen((v) => !v); ptr.current = ""; }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="/book-cover.webp?v=2" width="300" height="400" alt="" />
-        <span className="bw-price">$12.99</span>
+        <span className="bw-price">27 AI slop fixes</span>
         <span className="sr-only">Show my book</span>
       </button>
       <div id="bw-card" className="bw-card">
@@ -53,8 +53,8 @@ export default function BookPopup() {
             <p className="bw-t">Your AI design looks generated?</p>
           </div>
         </div>
-        <p className="bw-s">Improve it tonight with 27 copy-paste prompts that fix AI slop UI.</p>
-        <a className="hero2-btn hero2-btn-primary bw-buy" href={BOOK_URL} target="_blank" rel="noopener" tabIndex={open ? 0 : -1}>Fix it for $12.99</a>
+        <p className="bw-s">Improve it tonight with <b>27 copy-paste prompts</b> that fix AI slop UI.</p>
+        <a className="hero2-btn hero2-btn-primary bw-buy" href={BOOK_URL} target="_blank" rel="noopener" tabIndex={open ? 0 : -1}>Fix it for <span className="bw-pill">$12.99</span></a>
         <a className="bw-more" href="/fix-ai-slop-ui/" tabIndex={open ? 0 : -1}>See what's inside</a>
       </div>
     </aside>

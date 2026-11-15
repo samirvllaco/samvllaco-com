@@ -12,12 +12,12 @@ export default function Building() {
   return (
     <div className="wrap page stack-lg">
       <Crumbs items={[{ name: "Building", href: "/building/" }]} />
-      <div className="stack prose">
+      <header className="ph">
         <h1>What I am building</h1>
-        <p className="lede">
+        <p>
           Everything I ship lives here, with what worked, what did not and what I would do again.
         </p>
-      </div>
+      </header>
       <div className="product-row">
         <OcufuseMark href="/building/ocufuse/" text="A calm eye journal with screen break games, routines and free tools." cta="Read the build story" />
       </div>
