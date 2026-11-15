@@ -4888,4 +4888,4 @@ body:has(.rv-ty) .top-note { display: none; }
 .hero2 + .wall { margin-top: 0; }
 .wall-stats::before { background: radial-gradient(60% 80% at 50% 30%, rgba(255, 255, 255, .07), transparent 70%); }
 :root[data-theme="light"] .wall-stats::before { background: radial-gradient(60% 80% at 50% 30%, rgba(255, 255, 255, .5), transparent 70%); }
-@media (max-width: 640px) { .wall-stats { padding-top: 96px; } }
+@media (max-width: 980px) { .wall-stats { padding-top: 132px; } }

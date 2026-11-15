@@ -32,7 +32,7 @@ export default function FreePagesForm() {
       <label className="sr-only" htmlFor="fp-email">Your email</label>
       <input id="fp-email" type="email" required autoComplete="email" placeholder="you@company.com" value={email} onChange={(e) => setEmail(e.target.value)} />
       <button type="submit" className="hero2-btn hero2-btn-light" disabled={state === "busy"}>{state === "busy" ? "Sending..." : "Send me the 10 pages"}</button>
-      {state === "error" ? <p className="fp-err" role="alert">That didn't go through. Try again, or email hello@samvllaco.com.</p> : null}
+      {state === "error" ? <p className="fp-err" role="alert">That didn't go through. Try again, or email sam@samvllaco.com.</p> : null}
       <p className="fp-small">No newsletter. Just the pages, from me.</p>
     </form>
   );

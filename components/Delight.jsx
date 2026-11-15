@@ -121,7 +121,7 @@ export default function Delight() {
       window.sam = {
         hire() {
           unlock("console", "Secret found: Inspector", "You read the console. We would get along.");
-          return "hello@samvllaco.com";
+          return "sam@samvllaco.com";
         },
       };
       console.log("%cHi, curious one.", "font: 600 16px system-ui; color: #62c1fd");

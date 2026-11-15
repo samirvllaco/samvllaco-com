@@ -1,7 +1,6 @@
 // Where Whop sends buyers after paying for a review (?plan=personal or ?plan=complete).
 // The plan line and confetti run in the browser; the rest is static, so the first frame never moves.
 import Link from "next/link";
-import { EMAIL } from "../../../lib/site";
 import { PlanLine, Confetti, DetailsForm } from "../../../components/ReviewThanks";
 import CopyEmailInline from "../../../components/HirePanelCopy";
 
@@ -55,7 +54,6 @@ export default function ReviewThanks() {
         <h2 id="rv-contact-h">Questions? <span className="t2">Write to me directly.</span></h2>
         <p>Anything at all, before or after your Loom. I answer every email myself.</p>
         <CopyEmailInline />
-        <p className="rv-mail">Or email <a href={`mailto:${EMAIL}`}>{EMAIL}</a></p>
       </section>
 
       <div className="rv-cta">
