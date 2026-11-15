@@ -14,7 +14,7 @@ export const metadata = {
   },
   description: SITE.description,
   alternates: { canonical: "/" },
-  ...share({ title: "Sam Vllaco: Product Designer for SaaS and AI Products", description: SITE.description, url: SITE.url }),
+  ...share({ title: "Sam Vllaco: App UI/UX Designer for SaaS and AI Products", description: SITE.description, url: SITE.url }),
   robots: { index: true, follow: true },
   verification: { google: "cTF2I8D5vrDc_uRlNMciCbaRGVuMYVJehzlbn4wBAqA" },
   other: { "color-scheme": "dark light" },
@@ -37,7 +37,7 @@ const personSchema = {
       homeLocation: { "@type": "Place", name: "Tirana, Albania" },
       address: { "@type": "PostalAddress", addressLocality: "Tirana", addressCountry: "AL" },
       description: SITE.description,
-      knowsAbout: ["Product design", "UI design", "UX design", "SaaS product design", "Dashboard design", "Mobile app design", "Design systems", "AI product UX", "Website design", "Figma", "AI-built app design", "Accessibility"],
+      knowsAbout: ["Product design", "UI design", "UX design", "SaaS product design", "Dashboard design", "Mobile app design", "Design systems", "AI product UX", "Website design", "Figma", "AI-built app design", "Vibe-coded app design", "AI slop UI", "App UI/UX design", "Landing page design", "Accessibility"],
       sameAs: [SITE.links.x, SITE.links.medium, SITE.links.dribbble, SITE.links.figma],
     },
     {

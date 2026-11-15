@@ -5,9 +5,9 @@ import { share, PERSON_ID } from "../../lib/seo";
 import JsonLd from "../../components/JsonLd";
 
 export const metadata = {
-  title: "Writing on AI, Design and Building Apps",
+  title: "Insights: Fixing AI Slop UI, UX and Accessibility",
   description:
-    "Stories by Sam Vllaco on AI-built apps, UX fixes you can paste into your product, and what he learns shipping software.",
+    "Articles by Sam Vllaco on fixing AI slop UI, UX fixes you can paste into your AI-built app, and accessibility for vibe-coded products.",
   alternates: { canonical: "/writing/" },
   ...share({ title: "Writing on AI, Design and Building Apps", description: "Stories by Sam Vllaco on AI-built apps and UX fixes you can paste into your product.", url: "/writing/" }),
 };

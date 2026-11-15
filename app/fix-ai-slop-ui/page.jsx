@@ -19,7 +19,7 @@ const PRICE = "$12.99";
 const WAS = "$17.32"; // compare-at price Whop shows for its 25% discount (owner, 15 Nov 2026)
 
 export const metadata = {
-  title: "27 Copy-Paste Prompts to Fix AI Slop UI",
+  title: "Fix AI Slop UI and Design: 27 Copy-Paste Prompts",
   description:
     "27 copy-paste prompts by product designer Sam Vllaco that make an AI-built app or site look designed, plus a DESIGN.md rules file and a private video.",
   keywords: ["fix AI slop UI", "AI slop UI", "fix AI slop design", "fix AI generated website design", "vibe coding design", "DESIGN.md", "copy-paste UI prompts", "Lovable Cursor v0 Claude design prompts", "UX laws", "private video tutorial", "live AI design demo", "Sam Vllaco"],

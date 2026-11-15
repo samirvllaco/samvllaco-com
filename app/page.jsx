@@ -24,7 +24,7 @@ import HeroRole from "../components/HeroRole";
 import { LocalTime, CountUp } from "../components/Greeting";
 
 export const metadata = {
-  title: { absolute: "Sam Vllaco: Product Designer for SaaS and AI Products" },
+  title: { absolute: "Sam Vllaco: App UI/UX Designer for SaaS and AI Products" },
   alternates: { canonical: "/" },
 };
 

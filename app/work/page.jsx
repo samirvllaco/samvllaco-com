@@ -2,7 +2,7 @@ import PageHead from "../../components/PageHead";
 import WorkGrid from "../../components/WorkGrid";
 
 export const metadata = {
-  title: "Product Design Case Studies",
+  title: "UI/UX Design Portfolio: App and SaaS Case Studies",
   description: "UI/UX case studies by Sam Vllaco: SaaS dashboards, web apps, mobile apps and marketing sites across fintech, health, AI and e-commerce.",
   alternates: { canonical: "/work/" },
 };

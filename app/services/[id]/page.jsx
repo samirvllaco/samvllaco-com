@@ -8,7 +8,7 @@ import SkyPhoto from "../../../components/SkyPhoto";
 import { SERVICES, GROUP_PAGES, groupOf, svcHref } from "../../../lib/services";
 import ServiceGroup from "../../../components/ServiceGroup";
 import { DETAILS, PROCESS } from "../../../lib/service-details";
-import { PAGES, GET_ICONS, PAIN_ICONS, SVC_FAQ } from "../../../lib/service-pages";
+import { PAGES, GET_ICONS, PAIN_ICONS, SVC_FAQ, SEO } from "../../../lib/service-pages";
 import { WORK } from "../../../lib/work";
 import { TESTIMONIALS } from "../../../lib/testimonials";
 import { SITE, EMAIL } from "../../../lib/site";
@@ -38,9 +38,10 @@ export async function generateMetadata({ params }) {
   if (!s) return {};
   const p = PAGES[id];
   const title = `${s.name} ${p ? p.tail : "for SaaS and AI teams"}`;
-  const description = `${s.text} By Sam Vllaco, product designer for SaaS and AI products. Fixed price after a 30-minute call.`;
+  const seo = SEO[id];
+  const description = seo ? seo.desc : `${s.text} By Sam Vllaco, product designer for SaaS and AI products. Fixed price after a 30-minute call.`;
   return {
-    title: `${s.name} for SaaS and AI teams`,
+    title: seo ? seo.title : `${s.name} for SaaS and AI teams`,
     description,
     alternates: { canonical: `/services/${id}/` },
     ...share({ title: `${title} | Sam Vllaco`, description, url: `/services/${id}/` }),
@@ -67,7 +68,7 @@ export default async function ServicePage({ params }) {
   const schema = {
     "@context": "https://schema.org",
     "@graph": [
-      { "@type": "Service", name: s.name, description: `${s.text} ${d.for}`.trim(), serviceType: s.name, category: s.group.title, provider: { "@id": PERSON_ID }, areaServed: ["United States", "Europe", "Canada", "Australia", "United Arab Emirates"], url: `${SITE.url}/services/${id}/` },
+      { "@type": "Service", name: s.name, description: `${s.text} ${d.for}`.trim(), serviceType: s.name, ...(SEO[id] ? { alternateName: SEO[id].alt } : {}), category: s.group.title, provider: { "@id": PERSON_ID }, areaServed: ["United States", "Europe", "Canada", "Australia", "United Arab Emirates"], url: `${SITE.url}/services/${id}/` },
     ],
   };
 
@@ -152,7 +153,7 @@ export default async function ServicePage({ params }) {
       ) : null}
 
       <div className="sv-sec sv-faqwrap">
-        <Faq items={SVC_FAQ} a="Questions" b="before we start" bg="#111112">
+        <Faq items={[...((SEO[id] || {}).faq || []), ...SVC_FAQ]} a="Questions" b="before we start" bg="#111112">
           <SkyPhoto className="faq-photo" />
           <h3>Still have a question? <em className="scr">Good, ask me.</em></h3>
           <p>Bring it to a 30-minute call. It's just you and me, and you can ask anything about your {lower} project.</p>

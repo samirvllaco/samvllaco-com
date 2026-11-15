@@ -5,9 +5,9 @@ import { SERVICES, svcHref } from "../../lib/services";
 import { EMAIL } from "../../lib/site";
 
 export const metadata = {
-  title: "Services: Design, Branding, Marketing and SEO",
+  title: "UI/UX Design Services for Apps, SaaS and AI Products",
   description:
-    "Product design, branding, marketing design and SEO for SaaS and AI teams. SaaS product design, dashboards, design systems, brand identity, landing pages and SEO audits by Sam Vllaco.",
+    "UI/UX design services by Sam Vllaco: app and SaaS product design, dashboards, landing pages, design fixes for AI-built apps, design systems, branding and SEO.",
   alternates: { canonical: "/services/" },
 };
 
