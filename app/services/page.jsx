@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Crumbs from "../../components/Crumbs";
 import CallIcon from "../../components/CallIcon";
-import { SERVICES } from "../../lib/services";
+import { SERVICES, svcHref } from "../../lib/services";
 import { EMAIL } from "../../lib/site";
 
 export const metadata = {
@@ -32,7 +32,7 @@ export default function Services() {
           <ul className="svc-list">
             {g.items.map((it) => (
               <li id={it.id} key={it.id}>
-                <h3><Link prefetch={false} href={`/services/${it.id}/`}>{it.name}</Link></h3>
+                <h3><Link prefetch={false} href={svcHref(it.id)}>{it.name}</Link></h3>
                 <p>{it.text}</p>
               </li>
             ))}

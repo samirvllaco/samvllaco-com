@@ -5,6 +5,8 @@
 ## Hire Sam
 - [Book a 30-minute call](https://samvllaco.com/book/): talk through your product and leave with a scope, a timeline and one next step.
 - [Services](https://samvllaco.com/services/): SaaS product design, dashboards, AI product UX, mobile app design, UX audits, design systems, websites, landing pages, branding and SEO.
+- [SaaS product design](https://samvllaco.com/services/saas-product-design/), [dashboard design](https://samvllaco.com/services/dashboard-design/), [AI product UX](https://samvllaco.com/services/ai-product-ux/), [mobile app design](https://samvllaco.com/services/mobile-app-design/), [UX audit](https://samvllaco.com/services/ux-audit/), [design systems](https://samvllaco.com/services/design-systems/), [prototyping and motion](https://samvllaco.com/services/prototyping-motion/), [website design](https://samvllaco.com/services/website-design/).
+- [Branding](https://samvllaco.com/services/brand/), [development](https://samvllaco.com/services/build/), [marketing design](https://samvllaco.com/services/marketing-design/) and [SEO](https://samvllaco.com/services/seo/).
 - Email: sam@samvllaco.com
 
 ## Work
@@ -16,6 +18,7 @@
 ## Writing
 - [Resources](https://samvllaco.com/resources/): free UI prompts, the AI slop UI ebook, design kits and stories, in one place.
 - [Insights](https://samvllaco.com/writing/): articles on AI-built apps, UX fixes and accessibility.
+- [AI Slop UI: 25 UX fixes for vibe-coded apps](https://samvllaco.com/writing/ai-slop-ui-fixes/): why AI-built apps look the same, 25 fixes with the UX law behind each, copy-paste prompts and a DESIGN.md starter file.
 - [Medium](https://medium.com/@samvllaco)
 
 ## Elsewhere

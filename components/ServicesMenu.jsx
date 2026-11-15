@@ -3,7 +3,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import MegaShell from "./MegaShell";
 import CallIcon from "./CallIcon";
-import { SERVICES } from "../lib/services";
+import { SERVICES, svcHref } from "../lib/services";
 
 // "Services" in the header. Opens a wide panel on hover, click or keyboard.
 
@@ -34,7 +34,7 @@ export default function ServicesMenu() {
                 if (!it) return null;
                 return (
                   <li key={id}>
-                    <Link prefetch={false} href={`/services/${id}/`} aria-current={path === `/services/${id}/` ? "page" : undefined} onClick={close}>
+                    <Link prefetch={false} href={svcHref(id)} aria-current={path === `/services/${id}/` ? "page" : undefined} onClick={close}>
                       <i className="tg-ico mx-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d={d} /></svg></i>
                       <span><b>{it.name}</b><em>{short}</em></span>
                     </Link>

@@ -1,10 +1,11 @@
 export const dynamic = "force-static";
 
 import { WORK } from "../lib/work";
-import { SERVICES } from "../lib/services";
+import { SERVICE_PATHS } from "../lib/services";
+import { POSTS } from "../lib/articles";
 
 const base = "https://samvllaco.com";
-const paths = ["/", "/work/", "/writing/", "/services/", "/book/", "/products/", "/resources/", "/fix-ai-slop-ui/", "/globe/", "/about/", "/building/", "/building/ocufuse/", ...WORK.map((w) => `/work/${w.slug}/`), ...SERVICES.flatMap((g) => g.items.map((it) => `/services/${it.id}/`))];
+const paths = ["/", "/work/", "/writing/", "/services/", "/book/", "/products/", "/resources/", "/fix-ai-slop-ui/", "/globe/", "/about/", "/building/", "/building/ocufuse/", ...WORK.map((w) => `/work/${w.slug}/`), ...SERVICE_PATHS, ...Object.keys(POSTS).map((s) => `/writing/${s}/`)];
 
 export default function sitemap() {
   const lastModified = new Date();

@@ -5,7 +5,8 @@ import CallIcon from "../../../components/CallIcon";
 import JsonLd from "../../../components/JsonLd";
 import Faq from "../../../components/Faq";
 import SkyPhoto from "../../../components/SkyPhoto";
-import { SERVICES } from "../../../lib/services";
+import { SERVICES, GROUP_PAGES, groupOf, svcHref } from "../../../lib/services";
+import ServiceGroup from "../../../components/ServiceGroup";
 import { DETAILS, PROCESS } from "../../../lib/service-details";
 import { PAGES, GET_ICONS, PAIN_ICONS, SVC_FAQ } from "../../../lib/service-pages";
 import { WORK } from "../../../lib/work";
@@ -13,16 +14,26 @@ import { TESTIMONIALS } from "../../../lib/testimonials";
 import { SITE, EMAIL } from "../../../lib/site";
 import { share, PERSON_ID } from "../../../lib/seo";
 
-const ALL = SERVICES.flatMap((g) => g.items.map((it) => ({ ...it, group: g })));
+const ALL = SERVICES.flatMap((g) => g.items.map((it) => ({ ...it, group: g }))).filter((it) => !groupOf(it.id));
 const STEP_ICONS = ["M4 5h16v11H9l-5 4z", "M6 3h9l4 4v14H6zM9 11h7M9 15h7", "M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z", "M12 3v12M7 10l5 5 5-5M5 21h14"];
 
 export function generateStaticParams() {
-  return ALL.map((s) => ({ id: s.id }));
+  return [...ALL.map((s) => ({ id: s.id })), ...Object.keys(GROUP_PAGES).map((id) => ({ id }))];
 }
 export const dynamicParams = false;
 
 export async function generateMetadata({ params }) {
   const { id } = await params;
+  const grp = GROUP_PAGES[id];
+  if (grp) {
+    const description = grp.description;
+    return {
+      title: grp.title,
+      description,
+      alternates: { canonical: `/services/${id}/` },
+      ...share({ title: `${grp.name} ${grp.tail} | Sam Vllaco`, description, url: `/services/${id}/` }),
+    };
+  }
   const s = ALL.find((x) => x.id === id);
   if (!s) return {};
   const p = PAGES[id];
@@ -40,6 +51,7 @@ const Ico = ({ d, cls = "tg-ico" }) => <i className={cls} aria-hidden="true"><sv
 
 export default async function ServicePage({ params }) {
   const { id } = await params;
+  if (GROUP_PAGES[id]) return <ServiceGroup id={id} />;
   const s = ALL.find((x) => x.id === id);
   if (!s) notFound();
   const d = DETAILS[id] || { for: "", get: [] };
@@ -48,7 +60,7 @@ export default async function ServicePage({ params }) {
   const hero = work[0];
   const idx = ALL.findIndex((x) => x.id === id);
   const quote = TESTIMONIALS[idx % TESTIMONIALS.length];
-  const related = s.group.items.filter((x) => x.id !== id).slice(0, 8);
+  const related = [...ALL.filter((x) => x.id !== id).map((x) => ({ id: x.id, name: x.name, href: svcHref(x.id) })), ...Object.entries(GROUP_PAGES).map(([k, v]) => ({ id: k, name: v.name, href: `/services/${k}/` }))];
   const first = s.name.split(" ")[0];
   const lower = /[A-Z].*[A-Z]/.test(first) ? s.name : s.name.charAt(0).toLowerCase() + s.name.slice(1);
 
@@ -156,9 +168,9 @@ export default async function ServicePage({ params }) {
       </section>
 
       {related.length ? (
-        <nav className="sv-sec sv-more" aria-label={`More in ${s.group.title}`}>
-          <p className="mx-k">More in {s.group.title}</p>
-          <ul>{related.map((r) => <li key={r.id}><Link prefetch={false} href={`/services/${r.id}/`}>{r.name}</Link></li>)}</ul>
+        <nav className="sv-sec sv-more" aria-label="More services">
+          <p className="mx-k">More services</p>
+          <ul>{related.map((r) => <li key={r.id}><Link prefetch={false} href={r.href}>{r.name}</Link></li>)}</ul>
         </nav>
       ) : null}
     </div>

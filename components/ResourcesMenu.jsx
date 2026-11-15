@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import MegaShell from "./MegaShell";
-import { ARTICLES } from "../lib/site";
+import { ARTICLES, articleLink } from "../lib/site";
 import { RESOURCES } from "../lib/resources";
 
 // "Resources" in the header: writing, the book, free prompts and answers, then the $99 review + book as one compact row.
@@ -30,10 +30,10 @@ export default function ResourcesMenu() {
             <ul className="mx-posts">
               {ARTICLES.slice(0, 2).map((a) => (
                 <li key={a.url}>
-                  <a href={a.url} target="_blank" rel="noopener noreferrer" onClick={close}>
+                  <a href={articleLink(a).href} {...(articleLink(a).external ? { target: "_blank", rel: "noopener noreferrer" } : {})} onClick={close}>
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img src={a.cover} width="1400" height="788" alt="" loading="lazy" decoding="async" />
-                    <span><b>{a.short}</b><em>Read on Medium<span className="sr-only"> (opens in a new tab)</span></em></span>
+                    <span><b>{a.short}</b><em>{articleLink(a).label}{articleLink(a).external ? <span className="sr-only"> (opens in a new tab)</span> : null}</em></span>
                   </a>
                 </li>
               ))}

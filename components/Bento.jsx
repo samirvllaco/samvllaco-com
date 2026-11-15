@@ -25,7 +25,7 @@ export function MainServices() {
           </div>
           <h3>Product design</h3>
         </Link>
-        <Link prefetch={false} href="/services/#branding" className="bx-card ms-card">
+        <Link prefetch={false} href="/services/brand/" className="bx-card ms-card">
           <div className="ms-art ms-brand" aria-hidden="true"><span className="ms-dots"><i /><i /><i /><i /><i /><i /></span><span className="ms-aa">Aa</span></div>
           <h3>Branding</h3>
         </Link>
@@ -33,7 +33,7 @@ export function MainServices() {
           <div className="ms-art ms-mkt" aria-hidden="true"><i /><i /><i /><i /><i /></div>
           <h3>Marketing design</h3>
         </Link>
-        <Link prefetch={false} href="/services/#seo" className="bx-card ms-card">
+        <Link prefetch={false} href="/services/seo/" className="bx-card ms-card">
           <div className="ms-art ms-seo" aria-hidden="true"><span className="ms-bar" /><span className="ms-res"><i /><i /><i /></span></div>
           <h3>SEO</h3>
         </Link>

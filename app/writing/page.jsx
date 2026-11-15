@@ -16,8 +16,8 @@ export default function Writing() {
   return (
     <div className="wrap page pg">
       <JsonLd data={{ "@context": "https://schema.org", "@type": "CollectionPage", name: "Insights by Sam Vllaco", url: `${SITE.url}/writing/`, author: { "@id": PERSON_ID },
-        mainEntity: { "@type": "ItemList", itemListElement: ARTICLES.map((a, i) => ({ "@type": "ListItem", position: i + 1, item: { "@type": "BlogPosting", headline: a.title, url: a.url, image: `${SITE.url}${a.cover.split("?")[0]}`, description: a.summary, author: { "@id": PERSON_ID } } })) } }} />
-      <PageHead crumb="Insights" href="/writing/" a="Insights" b="on AI, design and building apps" lede="Practical stories for founders and designers building with AI. Most are on Medium." />
+        mainEntity: { "@type": "ItemList", itemListElement: ARTICLES.map((a, i) => ({ "@type": "ListItem", position: i + 1, item: { "@type": "BlogPosting", headline: a.title, url: a.slug ? `${SITE.url}/writing/${a.slug}/` : a.url, image: `${SITE.url}${a.cover.split("?")[0]}`, description: a.summary, author: { "@id": PERSON_ID } } })) } }} />
+      <PageHead crumb="Insights" href="/writing/" a="Insights" b="on AI, design and building apps" lede="Practical stories for founders and designers building with AI. Read them here or on Medium." />
       <WritingGrid />
     </div>
   );

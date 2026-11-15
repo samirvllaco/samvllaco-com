@@ -2,7 +2,7 @@ import Link from "next/link";
 import Crumbs from "../../components/Crumbs";
 import CallIcon from "../../components/CallIcon";
 import JsonLd from "../../components/JsonLd";
-import { ARTICLES, SITE } from "../../lib/site";
+import { ARTICLES, SITE, articleLink } from "../../lib/site";
 import { RESOURCES } from "../../lib/resources";
 import { share, PERSON_ID } from "../../lib/seo";
 
@@ -68,10 +68,10 @@ export default function Resources() {
         <ul className="sv-work">
           {ARTICLES.slice(0, 3).map((a) => (
             <li key={a.url}>
-              <a href={a.url} target="_blank" rel="noopener noreferrer">
+              <a href={articleLink(a).href} {...(articleLink(a).external ? { target: "_blank", rel: "noopener noreferrer" } : {})}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={a.cover} width="1400" height="788" alt="" loading="lazy" decoding="async" />
-                <b>{a.short || a.title}</b><span>{a.category}, read on Medium<span className="sr-only"> (opens in a new tab)</span></span>
+                <b>{a.short || a.title}</b><span>{a.category}, {articleLink(a).label.toLowerCase()}{articleLink(a).external ? <span className="sr-only"> (opens in a new tab)</span> : null}</span>
               </a>
             </li>
           ))}

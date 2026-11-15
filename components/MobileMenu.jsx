@@ -6,14 +6,14 @@ import { createPortal } from "react-dom";
 import { BOOK_URL } from "../lib/site";
 import CallIcon from "./CallIcon";
 import { FEATURED } from "./ServicesMenu";
-import { SERVICES } from "../lib/services";
+import { SERVICES, svcHref } from "../lib/services";
 import { RESOURCES } from "../lib/resources";
 
 const ALL_SERVICES = SERVICES.flatMap((g) => g.items);
 // Nested pages for the two menus that open a big panel on desktop.
 const SUB = {
   "/services/": {
-    items: FEATURED.map(([id, d]) => ({ href: `/services/${id}/`, label: ALL_SERVICES.find((x) => x.id === id)?.name || id, icon: d })),
+    items: FEATURED.map(([id, d]) => ({ href: svcHref(id), label: ALL_SERVICES.find((x) => x.id === id)?.name || id, icon: d })),
     all: { href: "/services/", label: `All ${ALL_SERVICES.length} services` },
   },
   "/resources/": {
