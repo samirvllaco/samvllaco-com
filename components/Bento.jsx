@@ -68,26 +68,29 @@ export default function Bento() {
         </div>
         <Link prefetch={false} href="/services/" className="dark-island bx-card bx-mini bx-proc" data-reveal>
           <h3 className="bx-t">Behind the screens</h3>
-          <div className="p3" aria-hidden="true">
-            <div className="p3-folder">
-              <i className="p3-tab" /><i className="p3-paper" />
-              <div className="p3-front">
-                <p className="p3-ft">User research</p>
-                <p className="p3-fs">Interviews and tests</p>
-                <p className="p3-fc">12 interviews</p>
+          <div className="w4" aria-hidden="true">
+            <div className="w4-card w4-blue">
+              <p className="w4-k">User research</p>
+              <div className="w4-quotes">
+                <span>"I couldn't find the pricing."</span>
+                <span>"Too many steps to sign up."</span>
               </div>
+              <p className="w4-foot">12 interviews</p>
             </div>
-            <div className="p3-note">
-              <p className="p3-bar"><span>Signup page</span><b>v2</b></p>
-              <div className="p3-body">
-                <p className="p3-h">Fixes to ship</p>
-                <ul>
-                  <li className="on">Map the signup flow</li>
-                  <li>Rewrite the headline</li>
-                  <li className="on">Cut 6 steps to 3</li>
-                  <li>A/B test the pricing</li>
-                </ul>
-                <p className="p3-foot">Version B wins <b>+38%</b></p>
+            <div className="w4-card w4-white w4-dots">
+              <p className="w4-k">UX flow</p>
+              <div className="w4-flow"><span>Visit</span><i /><span>Sign up</span><i /><span className="win">First win</span></div>
+              <p className="w4-foot">6 steps cut to 3</p>
+            </div>
+            <div className="w4-card w4-black">
+              <p className="w4-k">A/B test</p>
+              <div className="w4-bars"><i style={{ "--h": "40%" }} /><i style={{ "--h": "55%" }} /><i style={{ "--h": "46%" }} /><i className="win" style={{ "--h": "92%" }}><em>B +38%</em></i></div>
+            </div>
+            <div className="w4-card w4-white w4-note">
+              <p className="w4-bar">Headline</p>
+              <div className="w4-in">
+                <p className="w4-old">Revolutionize your workflow with AI</p>
+                <p className="w4-new">Send your first invoice in 30 seconds</p>
               </div>
             </div>
           </div>
