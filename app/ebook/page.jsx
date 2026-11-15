@@ -89,9 +89,27 @@ const STEPS = [
 ];
 
 const FOR = [
-  { t: "Founders who built with AI", d: "You shipped. People can use it. You just wish it did not look like a template, and a designer is not in the budget yet." },
-  { t: "Developers", d: "You can build anything, but \"make it look nicer\" is not a spec. You want real numbers for spacing, color and type to hand your AI." },
-  { t: "Designers who use AI", d: "You know what good looks like. You are tired of fixing the same AI habits by hand every single time." },
+  {
+    k: "f", ico: "rocket", t: "The founder", who: "Built it with Lovable, Bolt or Cursor",
+    q: "I'll fix the design after launch.",
+    hope: "People trust it enough to pay on the first visit.",
+    fear: "Someone posts it next to Linear, and the replies say \"AI slop\".",
+    fix: "A page that looks like a funded product, for less than one hour of a designer's time.",
+  },
+  {
+    k: "d", ico: "systems", t: "The developer", who: "Ships fast, hates guessing",
+    q: "It works. Why does it look wrong?",
+    hope: "Design rules as clear as a spec, with real numbers.",
+    fear: "Every \"make it nicer\" adds another gradient, and you can't say why.",
+    fix: "DESIGN.md turns taste into numbers: one spacing scale, four text sizes, one accent.",
+  },
+  {
+    k: "s", ico: "pen", t: "The designer", who: "Knows what good looks like",
+    q: "I could fix it. Just not again, every time.",
+    hope: "AI that keeps your standard, so you keep the speed.",
+    fear: "Your name ends up on work that looks generated.",
+    fix: "Your taste written down once, as rules your AI follows on every page.",
+  },
 ];
 
 const GET = [
@@ -389,13 +407,51 @@ export default function Ebook() {
         </div>
       </section>
 
-      <section className="eb-sec">
-        <h2>Is this <span className="t2">for you?</span></h2>
-        <p className="eb-people"><PeopleStack /><span>For founders, developers and designers who build with AI.</span></p>
-        <div className="eb-for">
+      <section className="eb-sec eb-for2 dark-island" aria-labelledby="eb-for-h">
+        <div className="ef-head">
+          <h2 id="eb-for-h">Is this <span className="t2">for you?</span></h2>
+          <p className="ef-hook">Three kinds of people buy this book. They worry about different things. <em className="scr">They all have the same problem.</em></p>
+          <p className="eb-people"><PeopleStack /><span>For founders, developers and designers who build with AI.</span></p>
+        </div>
+        <div className="ef-cards">
           {FOR.map((f) => (
-            <article key={f.t}><h3>{f.t}</h3><p>{f.d}</p></article>
+            <article key={f.t} className={`ef-card ef-${f.k}`}>
+              <div className="ef-who">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={`/hero/${f.ico}.webp?v=4`} width="256" height="256" alt="" loading="lazy" decoding="async" />
+                <div><h3>{f.t}</h3><span>{f.who}</span></div>
+              </div>
+              <p className="ef-q">&ldquo;{f.q}&rdquo;</p>
+              <dl className="ef-hf">
+                <div><dt>You hope</dt><dd>{f.hope}</dd></div>
+                <div><dt>You fear</dt><dd>{f.fear}</dd></div>
+              </dl>
+              <p className="ef-fix"><b>With the book</b>{f.fix}</p>
+            </article>
           ))}
+        </div>
+        <svg className="pn-paths ef-paths" viewBox="0 0 1200 140" preserveAspectRatio="none" aria-hidden="true">
+          <path className="ef-pf" d="M200 0 C200 80 600 50 600 140" />
+          <path className="ef-pd" d="M600 0 L600 140" />
+          <path className="ef-ps" d="M1000 0 C1000 80 600 50 600 140" />
+        </svg>
+        <div className="ef-one">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img className="ef-book" src="/book-cover.webp?v=2" width="300" height="400" alt="" loading="lazy" decoding="async" aria-hidden="true" />
+          <div className="ef-one-copy">
+            <p className="pn-k">One fix for all three</p>
+            <h3>Different fears. <span className="t2">Same cause.</span></h3>
+            <p>Your AI was never given design rules, so it guesses. Every time. This book gives it the rules in one evening, and the scorecard keeps them there on every page you build next.</p>
+            <ul className="ef-ticks">
+              <li><i className="ef-dot ef-f" aria-hidden="true" /><span><b>Founders</b> stop apologising for the design.</span></li>
+              <li><i className="ef-dot ef-d" aria-hidden="true" /><span><b>Developers</b> get numbers, not opinions.</span></li>
+              <li><i className="ef-dot ef-s" aria-hidden="true" /><span><b>Designers</b> stop fixing the same habits by hand.</span></li>
+            </ul>
+            <div className="ef-cta">
+              <Buy label={<>Get the book <span className="eb-pill">{PRICE}</span></>} />
+              <p className="pn-trust eb-guar"><span className="pn-shield" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.2-3 7.6-7 9-4-1.4-7-4.8-7-9V6zM8.5 12l2.5 2.5 4.5-5" /></svg></span><span><b>Money-back guarantee.</b> Not happy? Full refund.</span></p>
+            </div>
+          </div>
         </div>
       </section>
 

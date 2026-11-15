@@ -4394,3 +4394,57 @@ html.mega-open :is(.vid, .bw, .to-top, .eb-bar) { opacity: 0 !important; visibil
 @media (max-width: 560px) { .eb-bar { padding-left: 16px; } }
 /* Light mode: the "What you get" and bundle chips get soft depth instead of flat grey */
 :root[data-theme="light"] .eb-bundle li { background: #fff; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .06), 0 6px 16px -12px rgba(0, 0, 0, .18); }
+
+/* Ebook "Is this for you?": three people, their hopes and fears, one fix. Stays dark in light mode. */
+.eb-for2 { --ef-f: #ff9d2e; --ef-d: #62c1fd; --ef-s: #ff8fc8; position: relative; }
+:root[data-theme="light"] .eb-for2.dark-island { background: #0b0b0c; box-shadow: 0 0 0 100vmax #0b0b0c; clip-path: inset(0 -100vmax); color: var(--text); }
+.ef-head { display: grid; justify-items: center; gap: 14px; text-align: center; max-width: 760px; margin: 0 auto clamp(28px, 4vw, 44px); }
+.ef-head h2 { margin: 0; }
+.ef-hook { margin: 0; font-size: clamp(1.125rem, 1.6vw, 1.375rem); line-height: 1.5; color: var(--muted); text-wrap: balance; }
+.ef-hook .scr { color: #f3b25a; }
+.ef-head .eb-people { margin: 4px 0 0; justify-content: center; }
+.ef-cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.ef-card { --c: var(--ef-f); position: relative; display: flex; flex-direction: column; gap: 18px; padding: 24px 24px 22px; border-radius: 24px; background: radial-gradient(120% 70% at 0% 0%, color-mix(in srgb, var(--c) 13%, transparent), transparent 60%), linear-gradient(180deg, #19191c, #121214); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .07), inset 0 1px 0 rgba(255, 255, 255, .06), 0 30px 60px -40px color-mix(in srgb, var(--c) 45%, transparent); }
+.ef-card.ef-d { --c: var(--ef-d); } .ef-card.ef-s { --c: var(--ef-s); }
+.ef-card::after { content: ""; position: absolute; left: 50%; bottom: -6px; width: 12px; height: 12px; margin-left: -6px; border-radius: 50%; background: var(--c); box-shadow: 0 0 0 5px color-mix(in srgb, var(--c) 20%, transparent); }
+.ef-who { display: flex; align-items: center; gap: 12px; }
+.ef-who img { flex: none; width: 48px; height: 48px; border-radius: 14px; }
+.ef-who div { display: grid; gap: 2px; min-width: 0; }
+.ef-who h3 { margin: 0; font-size: 1.0625rem; font-weight: 600; letter-spacing: -.01em; color: var(--text); }
+.ef-who span { font-size: .8125rem; color: var(--muted); }
+.ef-q { margin: 0; font-size: clamp(1.375rem, 2vw, 1.625rem); line-height: 1.2; letter-spacing: -.025em; font-weight: 600; color: var(--text); text-wrap: balance; }
+.ef-hf { display: grid; gap: 12px; margin: 0; }
+.ef-hf div { display: grid; gap: 4px; padding: 12px 14px; border-radius: 14px; background: rgba(255, 255, 255, .04); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .05); }
+.ef-hf dt { font-size: .6875rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #8ee3a5; }
+.ef-hf div + div dt { color: #ffab8a; }
+.ef-hf dd { margin: 0; font-size: .9375rem; line-height: 1.5; color: var(--text); }
+.ef-fix { display: grid; gap: 4px; margin: auto 0 0; padding-top: 16px; border-top: 1px dashed rgba(255, 255, 255, .14); font-size: .9375rem; line-height: 1.5; color: var(--muted); }
+.ef-fix b { font-size: .6875rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--c); }
+.ef-paths path.ef-pf { stroke: color-mix(in srgb, var(--ef-f) 55%, transparent); }
+.ef-paths path.ef-pd { stroke: color-mix(in srgb, var(--ef-d) 55%, transparent); }
+.ef-paths path.ef-ps { stroke: color-mix(in srgb, var(--ef-s) 55%, transparent); }
+html.is-live .ef-paths path { animation: ef-flow 1.6s linear infinite; }
+@keyframes ef-flow { to { stroke-dashoffset: -20; } }
+.ef-one { position: relative; display: grid; grid-template-columns: minmax(150px, 220px) minmax(0, 1fr); gap: clamp(24px, 4vw, 48px); align-items: center; max-width: 980px; margin: 0 auto; padding: clamp(24px, 3.4vw, 40px); border-radius: 28px; background: radial-gradient(80% 90% at 15% 50%, rgba(255, 157, 46, .12), transparent 60%), linear-gradient(180deg, #19191c, #111113); box-shadow: inset 0 0 0 1px rgba(255, 157, 46, .3), 0 40px 90px -50px rgba(255, 157, 46, .45); }
+.ef-one::before { content: ""; position: absolute; left: 50%; top: -7px; width: 14px; height: 14px; margin-left: -7px; border-radius: 50%; background: #ff9d2e; box-shadow: 0 0 0 6px rgba(255, 157, 46, .22); }
+.ef-book { width: 100%; height: auto; border-radius: 6px 12px 12px 6px; rotate: -4deg; box-shadow: 0 30px 50px -24px rgba(0, 0, 0, .8), 0 0 0 1px rgba(255, 255, 255, .06); }
+.ef-one-copy { display: grid; gap: 14px; min-width: 0; }
+.ef-one .pn-k, :root[data-theme="light"] .ef-one .pn-k { color: #ff9d2e; }
+.ef-one h3 { margin: 0; font-size: clamp(1.625rem, 2.8vw, 2.25rem); line-height: 1.12; letter-spacing: -.03em; font-weight: 600; text-wrap: balance; }
+.ef-one-copy > p { margin: 0; font-size: 1rem; line-height: 1.6; color: var(--muted); }
+.ef-ticks { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.ef-ticks li { display: flex; align-items: center; gap: 10px; font-size: .9375rem; line-height: 1.45; color: var(--muted); }
+.ef-ticks b { color: var(--text); font-weight: 600; }
+.ef-dot { flex: none; width: 10px; height: 10px; border-radius: 50%; background: var(--ef-f); }
+.ef-dot.ef-d { background: var(--ef-d); } .ef-dot.ef-s { background: var(--ef-s); }
+.ef-cta { display: grid; justify-items: start; gap: 12px; margin-top: 6px; }
+@media (max-width: 900px) {
+  .ef-cards { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+  .ef-paths { display: none; }
+  .ef-cards { margin-bottom: 36px; }
+  .ef-one { grid-template-columns: minmax(0, 1fr); justify-items: start; }
+  .ef-book { width: 140px; }
+  .ef-cta { justify-items: stretch; width: 100%; }
+}
+@media (prefers-reduced-motion: reduce) { html.is-live .ef-paths path { animation: none; } }
+:root[data-theme="light"] .eb-for2.dark-island { padding-block: clamp(56px, 7vw, 96px); }
