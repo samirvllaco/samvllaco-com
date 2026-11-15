@@ -42,7 +42,7 @@ function WorkCard({ w, seen, first }) {
         <span className="work-open" aria-hidden="true"><span className="work-open-t">View case study</span><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M7 17L17 7M9 7h8v8" /></svg></span>
       </span>
       <span className="work-meta">
-        <span className="work-title">{w.title}<span className="work-arrow" aria-hidden="true">→</span></span>
+        <span className="work-title">{w.title}</span>
         <span className="work-tags">{w.tags.map((t) => <span key={t}>{t}</span>)}</span>
       </span>
     </Link>
