@@ -56,7 +56,7 @@ export default function ResourcesMenu() {
             <ul className="mx-up-list">
               <li>What works and what does not</li>
               <li>Actionable steps document</li>
-              <li>Loom, 20 min to 1 hour</li>
+              <li>30-min or all-inclusive Loom</li>
               <li>The full book included</li>
             </ul>
             <Link prefetch={false} className="hero2-btn hero2-btn-light" href="/fix-ai-slop-ui/#options" onClick={close}>See the reviews</Link>

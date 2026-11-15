@@ -11,8 +11,8 @@ export const metadata = {
 
 const live = [
   { name: "27 Copy-Paste Prompts to Fix AI Slop UI, $12.99", body: "27 steps and 27 prompts that make an AI-built website or app look designed, plus DESIGN.md and a private video.", href: "/fix-ai-slop-ui/", cta: "See the book" },
-  { name: "Personal UI review + the book, $49", body: "A senior designer's honest take on your website, SaaS, web app or mobile app: a 20 to 30 min Loom and a steps document, in under 12 hours.", href: "/fix-ai-slop-ui/#options", cta: "See the review" },
-  { name: "Complete UI/UX review + the book, $99", body: "Your whole product reviewed in a 45 min to 1 hour Loom, with a scorecard, an action plan and custom prompts, in under 12 hours.", href: "/fix-ai-slop-ui/#options", cta: "See the review" },
+  { name: "30-min UI/UX review + the book, $49", body: "A senior designer's honest take on your website, SaaS, web app or mobile app: a 20 to 30 min Loom and a steps document, in under 12 hours.", href: "/fix-ai-slop-ui/#options", cta: "See the review" },
+  { name: "All-inclusive UI/UX review + branding tips + the book, $99", body: "Your whole product reviewed in a 45 min to 1 hour Loom, with a scorecard, an action plan, custom prompts and branding tips, in under 12 hours.", href: "/fix-ai-slop-ui/#options", cta: "See the review" },
 ];
 
 const planned = [

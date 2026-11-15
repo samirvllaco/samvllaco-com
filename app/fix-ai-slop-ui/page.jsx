@@ -500,8 +500,8 @@ export default function Ebook() {
               <img src="/sam-hire.webp?v=2" width="1000" height="1250" alt="Sam Vllaco" loading="lazy" />
               <span><b>Sam Vllaco <em className="eb-pk-role">Senior Designer</em></b>10+ years, 570+ clients</span>
             </div>
-            <p className="eb-pk-k">Personal review</p>
-            <h3>Personal UI review <span className="t2">+ the book</span></h3>
+            <p className="eb-pk-k">Focused review</p>
+            <h3>30-min UI/UX review <span className="t2">+ the book</span></h3>
             <p className="eb-pk-price">$49<span>one-time</span></p>
             <p>Your website, SaaS, web app or mobile app, seen through a senior designer's eyes. What works, what doesn't, and why.</p>
             <ul className="eb-ticks eb-ico">
@@ -522,18 +522,19 @@ export default function Ebook() {
               <img className="eb-pk-mini" src="/ebook/cover-520.webp?v=1" width="936" height="1326" alt="The book" loading="lazy" />
               <span><b>Sam Vllaco</b>Review + the book</span>
             </div>
-            <p className="eb-pk-k">Complete review</p>
-            <h3>Complete UI/UX review <span className="t2">+ the book</span></h3>
+            <p className="eb-pk-k">Most complete</p>
+            <h3>All-inclusive UI/UX review <span className="t2">+ branding tips + the book</span></h3>
             <p className="eb-pk-price">$99<span>one-time</span></p>
-            <p>Your whole product, start to finish: website, landing page and the key screens of your SaaS, web or mobile app. A complete change in how you see it.</p>
+            <p>Your whole product, start to finish: UI, UX and brand, across your website and the key screens of your SaaS, web or mobile app.</p>
             <ul className="eb-ticks eb-ico">
               <li data-i="play">A 45 min to 1 hour Loom of your whole product</li>
               <li data-i="gauge">Your UI/UX scorecard today, out of 10</li>
               <li data-i="steps">An action plan document, biggest impact first</li>
               <li data-i="spark">Custom prompts written for your product</li>
+              <li data-i="compass">Branding tips: colors, type and logo use</li>
               <li data-i="book">The full book included</li>
             </ul>
-            <a className="hero2-btn hero2-btn-light" href={REVIEW_URL} target="_blank" rel="noopener">Get the complete review</a>
+            <a className="hero2-btn hero2-btn-light" href={REVIEW_URL} target="_blank" rel="noopener">Get the all-inclusive review</a>
             <p className="eb-pk-small">Your Loom arrives in under 12 hours. Want a full redesign instead? <Link prefetch={false} href="/book/">Book a call</Link>.</p>
           </article>
         </div>
