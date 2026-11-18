@@ -4,6 +4,10 @@ import { useEffect, useRef } from "react";
 // Small badge beside the logo that cycles through what Sam does.
 export const ROLES = ["UI/UX Designer", "Product Designer", "Web Designer", "Landing Page Designer", "SaaS Designer", "Figma Expert", "UX Designer", "UI Designer", "Website Designer", "Mobile App Designer", "iOS App Designer", "Web App Designer", "Dashboard Designer", "CRO Specialist", "Conversion Designer", "UX Consultant", "Design Systems Expert", "UX Writer", "UX Researcher", "Interaction Designer", "Ecommerce Designer", "Shopify Designer", "Startup Designer", "B2B SaaS Designer", "AI Product Designer", "AI UI Designer", "UX Strategist", "Website Redesign Expert", "Prototyping Expert", "AI Slop Fixer"];
 
+// The header badge is narrow, so the longer roles show a short form there (16 characters at most).
+const SHORT = { "B2B SaaS Designer": "B2B SaaS", "Dashboard Designer": "Dashboards", "Ecommerce Designer": "Ecommerce UX", "Prototyping Expert": "Prototyping", "AI Product Designer": "AI Products", "Conversion Designer": "Conversion UX", "Mobile App Designer": "Mobile Apps", "Interaction Designer": "Interaction", "Design Systems Expert": "Design Systems", "Landing Page Designer": "Landing Pages", "Website Redesign Expert": "Redesigns" };
+const short = (r) => SHORT[r] || r;
+
 // One shared clock, so every role badge on the page shows the same keyword at the same moment.
 const BEAT = 2400;
 const subs = new Set();
@@ -29,13 +33,13 @@ export default function BrandRole() {
       i = n;
       const out = el.animate([{ transform: "none", filter: "none" }, { transform: "translateY(-130%)", filter: "blur(4px)" }], { duration: 260, easing: "ease-in", fill: "forwards" });
       out.onfinish = () => {
-        el.textContent = ROLES[i];
+        el.textContent = short(ROLES[i]);
         out.cancel();
         el.animate([{ transform: "translateY(130%)", filter: "blur(4px)" }, { transform: "none", filter: "none" }], { duration: 420, easing: "cubic-bezier(.2,.8,.2,1)" });
       };
     });
   }, []);
   // The longest role sits invisibly in the same cell, so the badge keeps one width while the words change.
-  const longest = ROLES.reduce((a, b) => (b.length > a.length ? b : a));
+  const longest = ROLES.map(short).reduce((a, b) => (b.length > a.length ? b : a));
   return <span className="brand-role" aria-hidden="true"><span className="br-size">{longest}</span><span ref={ref}>{ROLES[0]}</span></span>;
 }
