@@ -2,15 +2,13 @@
 import CallIcon from "./CallIcon";
 import { EMAIL, SITE } from "../lib/site";
 import { useCopyChip } from "./CopyChip";
+import { copyText } from "../lib/copy";
 
 // Card with Sam's photo and ways to get in touch. `wide` lays it out in one row.
 export default function HireCard({ wide = false }) {
   const { chip, live, start } = useCopyChip();
-  async function copy() {
-    try {
-      await navigator.clipboard.writeText(EMAIL);
-      start();
-    } catch {}
+  async function copy(e) {
+    if (await copyText(EMAIL, e.currentTarget.querySelector("span"))) start();
   }
   return (
       <div className={`hire${wide ? " hire-wide" : ""}`}>

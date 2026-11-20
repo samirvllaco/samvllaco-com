@@ -1,11 +1,12 @@
 "use client";
 import { EMAIL } from "../lib/site";
 import { useCopyChip } from "./CopyChip";
+import { copyText } from "../lib/copy";
 
 export default function CopyEmailInline({ icon = false }) {
   const { chip, live, start } = useCopyChip();
-  async function copy() {
-    try { await navigator.clipboard.writeText(EMAIL); start(); } catch {}
+  async function copy(e) {
+    if (await copyText(EMAIL, e.currentTarget.querySelector("span"))) start();
   }
   return (
     <>

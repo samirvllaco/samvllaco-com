@@ -4,9 +4,16 @@
 /_next/static/*
   ! Cache-Control
   Cache-Control: public, max-age=31536000, immutable
-/work/*
+
+# Images and videos beside the case study and article pages: one day. The pages themselves keep the /* rule.
+/work/*.webp
+  ! Cache-Control
   Cache-Control: public, max-age=86400
-/writing/*
+/work/*.mp4
+  ! Cache-Control
+  Cache-Control: public, max-age=86400
+/writing/*.webp
+  ! Cache-Control
   Cache-Control: public, max-age=86400
 
 # Long cache for fonts and images. Files are versioned with ?v= when they change.

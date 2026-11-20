@@ -58,13 +58,16 @@ export function DetailsForm() {
     setState("busy");
     let plan = "";
     try { plan = PLANS[new URLSearchParams(location.search).get("plan")] || ""; } catch {}
+    const link = /^https?:\/\//i.test(f.link.trim()) ? f.link.trim() : `https://${f.link.trim()}`;
     try {
       const r = await fetch(LEADS_ENDPOINT, {
         method: "POST",
         headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify({ email: f.email, link: f.link, notes: f.notes, plan, _subject: `Review details: ${f.link}`, _template: "table", _captcha: "false", _replyto: f.email, page: "samvllaco.com/review/thanks/" }),
+        body: JSON.stringify({ email: f.email, link, notes: f.notes, plan, _subject: `Review details: ${link}`, _honey: e.target.elements._honey?.value || "", _template: "table", _captcha: "false", _replyto: f.email, page: "samvllaco.com/review/thanks/" }),
       });
-      setState(r.ok ? "done" : "error");
+      // FormSubmit can answer 200 with success "false" (inbox not confirmed, send blocked), so read the body.
+      const j = await r.json().catch(() => ({}));
+      if (r.ok && String(j.success) === "true") { setF({ ...f, link }); setState("done"); } else setState("error");
     } catch { setState("error"); }
   }
   if (state === "done") {
@@ -82,8 +85,10 @@ export function DetailsForm() {
   return (
     <form className="rv-form" onSubmit={send}>
       <label><span>Your email</span><input type="email" required autoComplete="email" placeholder="you@company.com" value={f.email} onChange={set("email")} /></label>
-      <label><span>Your site or app link</span><input type="url" required placeholder="https://yourapp.com" value={f.link} onChange={set("link")} /></label>
+      <label><span>Your site or app link</span><input type="text" inputMode="url" autoCapitalize="none" spellCheck={false} required placeholder="yourapp.com" value={f.link} onChange={set("link")} /></label>
       <label><span>What bugs you most, and which screens matter most? <em>Optional</em></span><textarea rows={3} placeholder="Onboarding feels long, the dashboard looks generic" value={f.notes} onChange={set("notes")} /></label>
+      {/* Spam trap: hidden from people, bots fill it and FormSubmit drops the send */}
+      <input type="text" name="_honey" tabIndex={-1} autoComplete="off" aria-hidden="true" className="sr-only" />
       <button type="submit" className="hero2-btn hero2-btn-light" disabled={state === "busy"}>{state === "busy" ? "Sending..." : "Send to Sam"}</button>
       {state === "error" ? <p className="rv-err" role="alert">That didn't go through. Email it to {EMAIL} instead.</p> : null}
     </form>
