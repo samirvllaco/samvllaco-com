@@ -475,7 +475,7 @@ Without shared rules, every new prompt starts from zero, so screen 12 drifts awa
 Fix it once, in files the AI reads every time:
 
 - DESIGN.md: your design rules in one file. Color, spacing, motion, shadows, writing and process. Give every rule a date, and let the newest decision win.
-- CLAUDE.md: the instructions Claude Code reads at the start of every session. Point it at DESIGN.md and tell it to check its own work. Using another tool? Codex and Cursor read AGENTS.md, and Cursor also has project rules. In Lovable, paste the same text into your project’s Knowledge.
+- CLAUDE.md: the instructions Claude Code reads at the start of every session. Point it at DESIGN.md and tell it to check its own work. Using another tool? Codex and Cursor read AGENTS.md, and Cursor also has project rules. In Lovable, paste the same text into Project settings, Instructions. Lovable called this Knowledge until recently.
 - Figma first: design your key screens and base components in Figma before you build. Name your Figma variables the same as your CSS tokens, then give the AI the link or a screenshot as a reference. It builds from a picture, not from the average.
 
 Start with this DESIGN.md. Swap the [brackets] for your own.
@@ -612,5 +612,7 @@ When anyone can generate a decent screen in seconds, “decent” stops being wo
 So make choices.
 
 The 25 fixes above are the public version. The full system, with all 27 prompts ready to paste into Claude Code, Cursor or Lovable, is in my short book: [27 Copy-Paste Prompts to Fix AI Slop UI](/fix-ai-slop-ui/)
+
+Would you rather hand it over? I [fix the design of AI-built apps](/services/ai-app-design-fix/) for founders who shipped with Cursor, Lovable or v0.
 
 ![Cover of the book 27 Copy-Paste Prompts to Fix AI Slop UI](IMG9)

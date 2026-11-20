@@ -563,7 +563,7 @@ export default function Ebook() {
               <li data-i="book">The full book included</li>
             </ul>
             <a className="hero2-btn hero2-btn-light" href={REVIEW_URL} target="_blank" rel="noopener">Get the all-inclusive review</a>
-            <p className="eb-pk-small">Your Loom arrives in under 12 hours. Want a full redesign instead? <Link prefetch={false} href="/book/">Book a call</Link>.</p>
+            <p className="eb-pk-small">Your Loom arrives in under 12 hours. Want a full redesign instead? See the <Link prefetch={false} href="/services/ai-app-design-fix/">AI-built app design fix</Link> or <Link prefetch={false} href="/book/">book a call</Link>.</p>
           </article>
         </div>
       </section>

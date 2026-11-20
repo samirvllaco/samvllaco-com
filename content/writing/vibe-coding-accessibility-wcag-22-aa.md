@@ -30,7 +30,7 @@ The standard behind all of this is WCAG 2.2, level AA. It is the version most gu
 
 AI forgets. Rules in a file do not.
 
-Save this as ACCESSIBILITY.md in your project root. Then add one line to your CLAUDE.md, your AGENTS.md or your Cursor project rules: Read ACCESSIBILITY.md before you change any UI. In Lovable, paste it into project Knowledge.
+Save this as ACCESSIBILITY.md in your project root. Then add one line to your CLAUDE.md, your AGENTS.md or your Cursor project rules: Read ACCESSIBILITY.md before you change any UI. In Lovable, paste it into Project settings, Instructions, which Lovable called Knowledge until recently.
 
 ```
 # ACCESSIBILITY.md
