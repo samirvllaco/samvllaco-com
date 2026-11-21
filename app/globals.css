@@ -5443,3 +5443,27 @@ body:has(.rv-ty) .top-note { display: none; }
   .brand-me > .logo-mark, .brand-me > .brand-word, .brand-me > .brand-role { flex: none; }
   .brand-role { margin-left: 0; }
 }
+
+/* QR on tablets: grow up and to the right from its own corner, so it never leaves the screen; the label sits above it, inside the band */
+@media (max-width: 1260px) and (hover: hover) and (pointer: fine) {
+  .bb-qr img { transform-origin: 0 100%; }
+  .bb-qr:hover img { transform: scale(1.6); }
+  .bb-qr-tag { top: auto; bottom: calc(96px * 1.6 + 8px); left: calc(96px * .8); }
+}
+
+/* Email pill: the Copy / Copied chip sits 8px in from the pill's end, the same as top and bottom */
+.bb-alt-row > .hp-copy { padding-right: 8px; }
+.bb-alt-row > .hp-copy .cc { margin-right: 0; }
+
+/* Footer social: profile link and a small Follow action on each row */
+.foot-map .fm-soc { gap: 8px; }
+.fm-soc li { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-width: 0; }
+.site-footer .foot-map .fm-soc li > a:first-child { min-width: 0; }
+.site-footer .foot-map a.fm-follow { flex: none; min-height: 28px; padding: 0 12px; font-size: .75rem; }
+
+/* Book page, stacked (phone and tablet): 40px between the intro and the calendar */
+@media (max-width: 1179px) { .book-split > .book-cal { margin-top: 40px; } }
+
+/* Card grids: 20px gaps; the three pain cards stack on tablets instead of squeezing into three narrow columns */
+.eb-pains { gap: var(--gap-grid, 20px); }
+@media (max-width: 960px) { .eb-pains { grid-template-columns: minmax(0, 1fr); } .pn-paths { display: none; } }

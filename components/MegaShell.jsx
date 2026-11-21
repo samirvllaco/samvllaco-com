@@ -5,7 +5,7 @@ import { useEffect, useLayoutEffect, useRef, useState } from "react";
 
 // A header item that opens a wide panel on hover, click or keyboard. children(close) renders the panel content.
 // Pages that count as "inside" each menu, so its button shows as the current page.
-const ROOTS = { "mega-services": ["/services/"], "mega-resources": ["/resources/", "/writing/", "/fix-ai-slop-ui/", "/products/", "/building/"] };
+const ROOTS = { "mega-services": ["/services/"], "mega-resources": ["/resources/", "/writing/", "/fix-ai-slop-ui/", "/products/"] };
 
 export default function MegaShell({ id, label, href, children }) {
   const here = (usePathname() || "/").replace(/\/?$/, "/");

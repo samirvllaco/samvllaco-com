@@ -16,7 +16,7 @@ export default function ToTop() {
       const row = document.querySelectorAll(".site-footer > .wrap > p, .site-footer > .wrap > .ask-ai, .site-footer > .wrap > .foot-links");
       let top = Infinity;
       row.forEach((n) => { const b = n.getBoundingClientRect(); if (b.height && b.top < top) top = b.top; });
-      const lift = top < window.innerHeight ? Math.max(0, Math.round(window.innerHeight - top)) : 0;
+      const lift = top < window.innerHeight ? Math.max(0, Math.round(window.innerHeight - top) + 32) : 0; // 32px clears the divider above the row
       document.documentElement.style.setProperty("--float-lift", `${lift}px`);
       // Sit just left of the video avatar, bottom aligned with it (and with the book on the left).
       const bub = document.querySelector(".vid-bubble");
