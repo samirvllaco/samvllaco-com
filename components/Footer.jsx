@@ -67,7 +67,7 @@ function FootMap() {
               {c.social.map(([t, href, icon, handle, follow]) => (
                 <li key={href}>
                   <a href={href} target="_blank" rel="me noopener"><svg className="fm-ico" viewBox="0 0 24 24" aria-hidden="true"><path d={ICON[icon]} /></svg><span>{t}</span><span className="sr-only"> {handle}</span><span className="sr-only"> (opens in a new tab)</span></a>
-                  <a className="hero2-btn hero2-btn-light fm-follow" href={follow} target="_blank" rel="noopener">Follow<span className="sr-only"> on {t} (opens in a new tab)</span></a>
+                  {icon === "x" ? <a className="hero2-btn hero2-btn-light fm-follow" href={follow} target="_blank" rel="noopener">Follow<span className="sr-only"> on {t} (opens in a new tab)</span></a> : null}
                 </li>
               ))}
             </ul>
