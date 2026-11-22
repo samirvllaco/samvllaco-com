@@ -7,6 +7,7 @@ import { BOOK_URL } from "../lib/site";
 import CallIcon from "./CallIcon";
 import { FEATURED } from "./ServicesMenu";
 import { SERVICES, svcHref } from "../lib/services";
+import { RESOURCES } from "../lib/resources";
 
 const ALL_SERVICES = SERVICES.flatMap((g) => g.items);
 // Nested pages for the two menus that open a big panel on desktop.
@@ -15,15 +16,20 @@ const SUB = {
     items: FEATURED.map(([id, d]) => ({ href: svcHref(id), label: ALL_SERVICES.find((x) => x.id === id)?.name || id, icon: d })),
     all: { href: "/services/", label: `All ${ALL_SERVICES.length} services` },
   },
+  "/resources/": {
+    items: RESOURCES.map((r) => ({ href: r.href, label: r.title, icon: r.icon, tag: r.tag })),
+    all: { href: "/resources/", label: "All resources" },
+  },
 };
 
 const LINKS = [
+  { href: "/services/", label: "Services" },
   { href: "/work/", label: "Work" },
-  { href: "/#how", label: "How it works" },
-  { href: "/pricing/", label: "Pricing" },
-  { href: "/#faq", label: "FAQ" },
-  { href: "/about/", label: "About" },
+  { href: "/resources/", label: "Resources" },
   { href: "/fix-ai-slop-ui/", label: "E-book", tag: "$12.99" },
+  { href: "/pricing/", label: "Pricing" },
+  { href: "/tools/", label: "Free tools" },
+  { href: "/about/", label: "About" },
   { href: "/book/", label: "Contact", dot: true },
 ];
 

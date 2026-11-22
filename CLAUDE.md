@@ -53,14 +53,14 @@ Every new section, component or page must keep this. Check it before calling a c
 - `public/_headers` sets long caching for `/_next/static`, `/fonts`, `/hero`, `/work/*` image folders. New image folders get a rule there too. Never long-cache HTML.
 
 ## One theme (owner, 22 Nov 2026; replaces "Both themes")
-The light/dark switch is gone. The site is one look: a dark page with light panels.
+The light/dark switch is gone. The site is one look: dark.
 - A light panel is a section with the `lite` class (tokens swapped at the end of `app/globals.css`). Use tokens inside it; do not use `hero2-btn-light` inside a `lite` panel.
 - Old `:root[data-theme="light"]` rules are dead code; do not add new ones.
 - Before calling a change done: `npm run build`, `npx serve out -l 4173`, then
   `NODE_PATH=$(npm root -g) node scripts/contrast.cjs` (all pages) or `... scripts/contrast.cjs /page/ /other/`. It must end with 0 failures.
 
 ## Offer (owner, 22 Nov 2026)
-The site sells a design subscription: weekly sprint $1,000, monthly $3,000 (`lib/plans.js` is the one source). No hourly rate. Promise: one request at a time, most back in about 48 hours, pause or cancel anytime. No refund terms are published until the owner sets them.
+This site is the main portfolio, as before (the design-subscription home page was rolled back the same day; it may move to its own domain). Pricing keeps two plans: weekly sprint $1,000, monthly $3,000 (`lib/plans.js` is the one source). No hourly rate. No refund terms are published until the owner sets them.
 
 ## Type and spacing system (owner, 15 Nov 2026, locked)
 Tokens and role rules are the last block of `app/globals.css` ("Type and spacing system"). Use them; never set a one-off heading size.
