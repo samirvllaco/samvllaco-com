@@ -65,8 +65,8 @@ const personSchema = {
   ],
 };
 
-// Applies the saved theme before the first paint, so there is no flash.
-const THEME_BOOT = `document.documentElement.classList.add("js");try{localStorage.removeItem("sv:theme");if(JSON.parse(sessionStorage.getItem("sv:theme"))==="light")document.documentElement.dataset.theme="light"}catch(e){}`;
+// One theme only (owner, 22 Nov 2026): clears any theme saved by the old switch.
+const THEME_BOOT = `document.documentElement.classList.add("js");try{localStorage.removeItem("sv:theme");sessionStorage.removeItem("sv:theme")}catch(e){}`;
 
 export default function RootLayout({ children }) {
   return (

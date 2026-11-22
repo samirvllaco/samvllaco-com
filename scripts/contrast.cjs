@@ -27,7 +27,7 @@ function pages() {
   return list.filter((p) => !/testimonials-preview|_newsletter/.test(p)).sort();
 }
 
-const THEMES = ["dark", "light"];
+const THEMES = ["dark"]; // one theme since 22 Nov 2026
 const SIZES = [{ name: "phone", width: 390, height: 844 }, { name: "desktop", width: 1280, height: 900 }];
 
 (async () => {

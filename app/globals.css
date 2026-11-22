@@ -5467,3 +5467,39 @@ body:has(.rv-ty) .top-note { display: none; }
 /* Card grids: 20px gaps; the three pain cards stack on tablets instead of squeezing into three narrow columns */
 .eb-pains { gap: var(--gap-grid, 20px); }
 @media (max-width: 960px) { .eb-pains { grid-template-columns: minmax(0, 1fr); } .pn-paths { display: none; } }
+
+/* ==========================================================================
+   One theme (owner, 22 Nov 2026): a dark page with light panels. No switch.
+   .lite turns a section into a light panel by swapping the colour tokens.
+   ========================================================================== */
+.lite {
+  color-scheme: light;
+  --bg: #ffffff; --page: #ffffff; --surface: #f5f5f7; --card: #ffffff; --card-2: #ebebef; --card-3: #dcdce2; --card-low: #fafafa;
+  --text: #111112; --text-2: #2c2c2e; --muted: #5c5c63; --border: #d2d2d7; --line: rgba(0, 0, 0, .1); --hl: rgba(0, 0, 0, .06);
+  --accent: #0b62c4; --accent-soft: #e3effb;
+  background: #f5f5f7; color: var(--text); border-radius: 32px;
+}
+:root:root:root .lite h2 { color: var(--text); }
+:root:root:root .lite h2 .t2 { color: #86868b; }
+
+/* Design subscription sections */
+.sub-sec { padding: clamp(40px, 6vw, 80px) clamp(20px, 5vw, 64px); }
+.sub-head { display: grid; gap: var(--gap-intro); justify-items: center; text-align: center; margin: 0 auto 48px; max-width: var(--prose); }
+.sub-head h2, .sub-head p { margin: 0; }
+.sub-head p { font-size: var(--fs-lede); line-height: 1.556; color: var(--muted); }
+.sub-steps, .sub-why, .sub-req ul { list-style: none; margin: 0; padding: 0; }
+.sub-steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--gap-grid); counter-reset: none; }
+.sub-steps li, .sub-why li { display: grid; align-content: start; gap: 8px; padding: 24px; border-radius: 20px; background: var(--card); box-shadow: inset 0 0 0 1px var(--line); }
+.sub-steps i { display: grid; place-items: center; width: 32px; height: 32px; margin-bottom: 8px; border-radius: 50%; background: #111112; color: #fff; font-style: normal; font-size: .875rem; font-weight: 600; }
+.sub-steps h3, .sub-why h3, .sub-req h3 { margin: 0; color: var(--text); }
+.sub-steps p, .sub-why p { margin: 0; font-size: 1rem; line-height: 1.5; color: var(--muted); }
+.sub-req { margin-top: 48px; display: grid; gap: 20px; justify-items: center; text-align: center; }
+.sub-req ul { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; max-width: 880px; }
+.sub-req li { padding: 8px 16px; border-radius: 999px; background: var(--card); box-shadow: inset 0 0 0 1px var(--line); font-size: .9375rem; font-weight: 500; color: var(--text-2); }
+.sub-why { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--gap-grid); }
+.sub-plans .sub-head p { color: var(--muted); }
+.pr-plans.pr-two { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--gap-grid); max-width: 880px; margin-inline: auto; }
+.sub-note { margin: 32px auto 0; max-width: var(--prose); text-align: center; font-size: 1rem; line-height: 1.5; color: var(--muted); }
+.sub-note a { color: var(--text); text-decoration: underline; text-underline-offset: 3px; }
+@media (max-width: 900px) { .sub-steps, .sub-why { grid-template-columns: minmax(0, 1fr); } .sub-head { margin-bottom: 32px; } }
+@media (max-width: 760px) { .pr-plans.pr-two { grid-template-columns: minmax(0, 1fr); max-width: 560px; } .lite { border-radius: 24px; } }

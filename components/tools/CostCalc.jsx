@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 
-// Rough estimate from Sam's real rates: $1,500 per design sprint week, $50 per hour for small jobs.
+// Rough estimate from Sam's real rates: $1,000 per design sprint week (lib/plans.js).
 const TYPES = { site: ["Marketing website", 5], app: ["Web or mobile app", 3], landing: ["Landing page", 0] };
 export default function CostCalc() {
   const [type, setType] = useState("site");
@@ -13,7 +13,7 @@ export default function CostCalc() {
   const days = type === "landing" ? 3 : type === "app" ? count * 0.6 + 2 : count * 0.8 + 1;
   const total = days + (brand ? 4 : 0) + (build ? days * 0.8 : 0);
   const weeks = Math.max(1, Math.ceil(total / 5));
-  const low = weeks * 1500, high = Math.round(weeks * 1500 * 1.3 / 100) * 100;
+  const low = weeks * 1000, high = Math.round(weeks * 1000 * 1.3 / 100) * 100;
   const f = (n) => "$" + n.toLocaleString("en-US");
   return (
     <div className="tl-box cc2">
@@ -30,7 +30,7 @@ export default function CostCalc() {
       <div className="cc2-out" aria-live="polite">
         <p className="cc2-k">Estimated cost</p>
         <p className="cc2-price">{f(low)}<span> to {f(high)}</span></p>
-        <p className="cc2-w">About {weeks} {weeks === 1 ? "week" : "weeks"} of design sprints at $1,500 a week</p>
+        <p className="cc2-w">About {weeks} {weeks === 1 ? "week" : "weeks"} of design sprints at $1,000 a week</p>
         <p className="cc2-n">A rough guide, not a quote. You get a fixed price in writing after a short call.</p>
       </div>
     </div>

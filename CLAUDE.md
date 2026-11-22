@@ -52,15 +52,15 @@ Every new section, component or page must keep this. Check it before calling a c
 **Caching**
 - `public/_headers` sets long caching for `/_next/static`, `/fonts`, `/hero`, `/work/*` image folders. New image folders get a rule there too. Never long-cache HTML.
 
-## Both themes (owner, 14 Nov 2026, locked)
-Every change is checked in dark AND light mode before publishing. Light mode broke unnoticed more than once.
-- Colours come from tokens (`--text`, `--muted`, `--card`, `--line`, ...). A literal colour needs a light-mode partner rule (`:root[data-theme="light"] ...`) in the same change.
-- Sections that stay dark in light mode (`.site-footer`, `.book-band`, or anything marked `.dark-island`) get the dark tokens back automatically. A new always-dark block gets the `dark-island` class instead of one-off colour fixes.
-- Gradient text (`background-clip: text`) needs a light-mode gradient too.
+## One theme (owner, 22 Nov 2026; replaces "Both themes")
+The light/dark switch is gone. The site is one look: a dark page with light panels.
+- A light panel is a section with the `lite` class (tokens swapped at the end of `app/globals.css`). Use tokens inside it; do not use `hero2-btn-light` inside a `lite` panel.
+- Old `:root[data-theme="light"]` rules are dead code; do not add new ones.
 - Before calling a change done: `npm run build`, `npx serve out -l 4173`, then
-  `NODE_PATH=$(npm root -g) node scripts/contrast.cjs` (all pages) or `... scripts/contrast.cjs /page/ /other/` (pages you touched).
-  It checks every page in both themes on phone and desktop (WCAG AA, axe-core plus gradient text) and must end with 0 failures.
-- Also look at each touched page in light mode yourself, phone and desktop: images, icons and borders the script cannot judge.
+  `NODE_PATH=$(npm root -g) node scripts/contrast.cjs` (all pages) or `... scripts/contrast.cjs /page/ /other/`. It must end with 0 failures.
+
+## Offer (owner, 22 Nov 2026)
+The site sells a design subscription: weekly sprint $1,000, monthly $3,000 (`lib/plans.js` is the one source). No hourly rate. Promise: one request at a time, most back in about 48 hours, pause or cancel anytime. No refund terms are published until the owner sets them.
 
 ## Type and spacing system (owner, 15 Nov 2026, locked)
 Tokens and role rules are the last block of `app/globals.css` ("Type and spacing system"). Use them; never set a one-off heading size.

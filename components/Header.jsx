@@ -2,9 +2,6 @@ import Link from "next/link";
 import { BOOK_URL } from "../lib/site";
 import CallIcon from "./CallIcon";
 import SoundToggle from "./SoundToggle";
-import ServicesMenu from "./ServicesMenu";
-import ResourcesMenu from "./ResourcesMenu";
-import ThemeToggle from "./ThemeToggle";
 import HeaderScroll from "./HeaderScroll";
 import BrandFace from "./BrandFace";
 import BrandRole from "./BrandRole";
@@ -14,10 +11,10 @@ import MobileMenu from "./MobileMenu";
 
 const NAV = [
   { href: "/work/", label: "Work" },
+  { href: "/#how", label: "How it works" },
   { href: "/pricing/", label: "Pricing" },
-  { href: "/tools/", label: "Free tools" },
+  { href: "/#faq", label: "FAQ" },
   { href: "/about/", label: "About" },
-  { href: "/book/", label: "Contact", dot: true },
 ];
 
 export default function Header() {
@@ -36,9 +33,7 @@ export default function Header() {
           <BrandRole />
         </Link>
         <nav className="head-nav" aria-label="Main">
-          <ServicesMenu />
           <Link prefetch={false} href="/work/">Work</Link>
-          <ResourcesMenu />
           {NAV.filter((n) => n.href !== "/work/").map((n) => (
             <Link prefetch={false} key={n.href} href={n.href}>
               {n.dot ? <i className="nav-dot" aria-hidden="true" /> : null}
@@ -49,7 +44,6 @@ export default function Header() {
         </nav>
         <div className="head-end">
           <SoundToggle />
-          <ThemeToggle />
           <HeadCta />
           <MobileMenu />
         </div>
