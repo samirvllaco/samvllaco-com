@@ -17,6 +17,7 @@ let schemaReady = false;
 async function ensureSchema(env) { if (schemaReady || !env.DB) return; await env.DB.exec(SCHEMA); schemaReady = true; }
 
 const json = (data, status = 200, extra = {}) => new Response(JSON.stringify(data), { status, headers: { "content-type": "application/json", "cache-control": "no-store", ...extra } });
+// App errors use 4xx: Cloudflare replaces a 502 or 503 body from a Function with its own "error code" page.
 const fail = (code, status = 400) => json({ error: code }, status);
 const ID_CHARS = "23456789abcdefghijkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ";
 const newId = (n = 10) => [...crypto.getRandomValues(new Uint8Array(n))].map((b) => ID_CHARS[b % ID_CHARS.length]).join("");
@@ -68,7 +69,7 @@ async function count(env, ip) {
 let stage = ""; // last step a scan reached, reported with "server" errors so failures can be traced
 async function scan({ request, env }) {
   stage = "start";
-  if (!ready(env)) return fail("setup", 503);
+  if (!ready(env)) return fail("setup", 409);
   const body = await request.json().catch(() => ({}));
   const ip = ipOf(request);
   const owner = admin(request, env); // Sam testing with ADMIN_TOKEN: no captcha, no visitor limits (the $ guard still applies)
@@ -87,13 +88,13 @@ async function scan({ request, env }) {
   await bump(env, `sc:t:${ip}:${new Date().toISOString().slice(0, 10)}`, 90000);
   let page;
   stage = "render";
-  try { page = await render(env, u.url); } catch (e) { await settle(env, EST.scan, SLOP.model, {}); return fail(e instanceof ScanError ? e.code : "load", 502); }
+  try { page = await render(env, u.url); } catch (e) { await settle(env, EST.scan, SLOP.model, {}); return fail(e instanceof ScanError ? e.code : "load", 422); }
   stage = "score";
   const id = newId();
   const det = deterministic(page.metrics, page.axe);
   stage = "review";
   let ai;
-  try { ai = await review(env, { shots: page.shots, metrics: page.metrics, det, axe: page.axe, url: u.url }); } catch (e) { console.error(JSON.stringify({ id, err: String(e.message).slice(0, 80) })); return fail("review", 502); }
+  try { ai = await review(env, { shots: page.shots, metrics: page.metrics, det, axe: page.axe, url: u.url }); } catch (e) { const err = String(e.message).slice(0, 120); console.error(JSON.stringify({ id, err })); return json({ error: "review", detail: owner ? err : undefined }, 422); }
   stage = "save";
   await settle(env, EST.scan, ai.model, ai.usage);
   const fin = finalize(det, { adjustments: ai.adjustments, originality: ai.originality });
@@ -109,14 +110,14 @@ async function scan({ request, env }) {
 }
 
 async function report(env, id) {
-  if (!env.DB) return fail("setup", 503);
+  if (!env.DB) return fail("setup", 409);
   if (!/^[A-Za-z0-9]{10}$/.test(id)) return fail("not_found", 404);
   const r = await env.DB.prepare("SELECT * FROM reports WHERE id = ?").bind(id).first();
   return r ? json(view(r)) : fail("not_found", 404);
 }
 
 async function lead({ request, env }) {
-  if (!env.DB) return fail("setup", 503);
+  if (!env.DB) return fail("setup", 409);
   const b = await request.json().catch(() => ({}));
   if (!EMAIL.test(String(b.email || ""))) return fail("email");
   if (env.TURNSTILE_SECRET_KEY) { const bad = await turnstile(env, b.token, ipOf(request)); if (bad) return tsFail(bad); }
@@ -134,11 +135,11 @@ async function event({ request, env }) {
 }
 
 async function checkout({ request, env }) {
-  if (!payments(env)) return fail("setup", 503);
+  if (!payments(env)) return fail("setup", 409);
   const b = await request.json().catch(() => ({}));
   const r = /^[A-Za-z0-9]{10}$/.test(b.id || "") && (await env.DB.prepare("SELECT id FROM reports WHERE id = ?").bind(b.id).first());
   if (!r) return fail("not_found", 404);
-  try { return json({ url: await createCheckout(env, b.id, new URL(request.url).origin) }); } catch { return fail("checkout", 502); }
+  try { return json({ url: await createCheckout(env, b.id, new URL(request.url).origin) }); } catch { return fail("checkout", 422); }
 }
 
 async function webhook({ request, env }) {
@@ -154,7 +155,7 @@ async function webhook({ request, env }) {
 
 // Fallback when a payment arrived without the report id: match the checkout email to an unused purchase.
 async function claim({ request, env }) {
-  if (!env.DB) return fail("setup", 503);
+  if (!env.DB) return fail("setup", 409);
   const b = await request.json().catch(() => ({}));
   if (!/^[A-Za-z0-9]{10}$/.test(b.id || "") || !EMAIL.test(String(b.email || ""))) return fail("invalid");
   if (env.TURNSTILE_SECRET_KEY) { const bad = await turnstile(env, b.token, ipOf(request)); if (bad) return tsFail(bad); }
@@ -206,7 +207,7 @@ export async function handleApi(ctx) {
     if (path === "claim" && m === "POST") return await claim(ctx);
     if (path.startsWith("admin/")) {
       if (!admin(request, env)) return fail("unauthorized", 401);
-      if (!env.DB) return fail("setup", 503);
+      if (!env.DB) return fail("setup", 409);
       if (path === "admin/leads.csv") return await leadsCsv(env);
       if (path === "admin/stats") return await stats(env);
     }
@@ -214,7 +215,7 @@ export async function handleApi(ctx) {
   } catch (e) {
     const err = String(e && e.message).slice(0, 120);
     console.error(JSON.stringify({ path, stage, err }));
-    return json({ error: "server", stage: path === "scan" ? stage : undefined, detail: admin(request, env) ? err : undefined }, 500);
+    return json({ error: "server", stage: path === "scan" ? stage : undefined, detail: admin(request, env) ? err : undefined }, 422); // Cloudflare swaps 5xx bodies for its own page
   }
 }
 
@@ -232,7 +233,7 @@ async function askLimited(env, ip) {
 
 async function ask(ctx) {
   const { request, env } = ctx;
-  if (!askReady(env)) return fail("setup", 503);
+  if (!askReady(env)) return fail("setup", 409);
   const b = await request.json().catch(() => ({}));
   const msgs = cleanMessages(b.messages);
   if (!msgs) return fail("invalid");
@@ -253,7 +254,7 @@ async function ask(ctx) {
     headers: { "x-api-key": env.ANTHROPIC_API_KEY, "anthropic-version": "2023-06-01", "content-type": "application/json" },
     body: JSON.stringify({ model: env.ASK_MODEL || ASK.model, max_tokens: ASK.maxTokens, stream: true, system: [{ type: "text", text: SYSTEM, cache_control: { type: "ephemeral" } }], messages: msgs }),
   });
-  if (!res.ok || !res.body) { console.error(JSON.stringify({ ask: res.status })); await settle(env, EST.ask, ASK.model, {}); return fail("model", 502); }
+  if (!res.ok || !res.body) { console.error(JSON.stringify({ ask: res.status })); await settle(env, EST.ask, ASK.model, {}); return fail("model", 422); }
   const question = msgs[msgs.length - 1].content, page = String(b.page || "").slice(0, 200);
   const log = (answer, meta) => {
     const p = Promise.all([
@@ -279,14 +280,14 @@ export async function handleAsk(ctx) {
     if (path === "" && request.method === "POST") return await ask(ctx);
     if (path === "admin/questions.csv") {
       if (!admin(request, env)) return fail("unauthorized", 401);
-      if (!env.DB) return fail("setup", 503);
+      if (!env.DB) return fail("setup", 409);
       await ensureSchema(env);
       return await asksCsv(env);
     }
     return fail("not_found", 404);
   } catch (e) {
     console.error(JSON.stringify({ ask: path, err: String(e && e.message).slice(0, 120) }));
-    return fail("server", 500);
+    return fail("server", 422);
   }
 }
 
