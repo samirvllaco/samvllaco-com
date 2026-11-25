@@ -32,9 +32,6 @@
 /work/wall/*
   ! Cache-Control
   Cache-Control: public, max-age=31536000
-/work/fix/*
-  ! Cache-Control
-  Cache-Control: public, max-age=31536000
 /work/fan/*
   ! Cache-Control
   Cache-Control: public, max-age=2592000
