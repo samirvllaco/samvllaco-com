@@ -42,6 +42,27 @@ const TAG_ICON = {
   bolt: "M13 2 4 14h7l-1 8 9-12h-7z",
 };
 
+// Real work at the foot of each plan card, rising from the bottom edge like a product shot (owner, 25 Nov 2026).
+function PlanMock({ kind }) {
+  /* eslint-disable @next/next/no-img-element */
+  return (
+    <span className={`pr-pic pr-pic-${kind}`} aria-hidden="true">
+      {kind === "phones" ? (
+        <>
+          <img className="pr-ph pr-ph-a" src="/work/plan-phone-home.webp?v=1" width="390" height="846" alt="" loading="lazy" decoding="async" />
+          <img className="pr-ph pr-ph-b" src="/work/plan-phone-spend.webp?v=1" width="390" height="846" alt="" loading="lazy" decoding="async" />
+        </>
+      ) : (
+        <span className="pr-browser">
+          <span className="pr-bar"><i /><i /><i /></span>
+          <img src="/work/marketing-dashboard-full.webp" width="1800" height="1012" alt="" loading="lazy" decoding="async" />
+        </span>
+      )}
+    </span>
+  );
+  /* eslint-enable @next/next/no-img-element */
+}
+
 export function PlanCards() {
   return (
     <ul className="pr-plans pr-two">
@@ -55,8 +76,7 @@ export function PlanCards() {
           <ul className="pr-items">{p.items.map((t) => <li key={t}>{t}</li>)}</ul>
           <p className="pr-eg"><b>For example</b>{p.eg}</p>
           <Link prefetch={false} className={`hero2-btn ${p.hot ? "hero2-btn-primary" : "hero2-btn-light"}`} href="/book/">{p.hot ? <CallIcon /> : null}Book a call<span className="sr-only"> about the {p.k.toLowerCase()} plan</span></Link>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <span className="pr-pic" aria-hidden="true"><img src={p.pic[0]} width={p.pic[1]} height={p.pic[2]} alt="" loading="lazy" decoding="async" /></span>
+          <PlanMock kind={p.mock} />
         </li>
       ))}
     </ul>

@@ -5682,18 +5682,28 @@ body:has(.eb) .site-footer .fd-talk { display: none; }
 @media (max-width: 560px) { .site-footer .fd-talk { padding: 20px; } .fd-talk .hero2-btn { width: 100%; justify-content: center; } }
 
 /* Branded plan cards (owner, 25 Nov 2026, after orizon.co): who it's for first, then the plan, with real work at the foot of the card. */
-.pr-plans.pr-two:has(.pr-brand) { max-width: 1040px; }
+.pr-plans.pr-two:has(.pr-brand) { max-width: none; }
 .pr-brand { position: relative; overflow: hidden; padding: 32px 32px 0; }
 .pr-tag { display: inline-flex; align-items: center; gap: 8px; align-self: flex-start; margin: 0; padding: 8px 16px; border-radius: 999px; font-size: .9375rem; font-weight: 500; color: var(--text-2); background: var(--card-2); box-shadow: inset 0 0 0 1px var(--line); }
 .pr-tag svg { fill: none; stroke: var(--accent); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 .pr-who { margin: 20px 0 24px; font-size: var(--fs-title); line-height: 1.143; font-weight: 600; letter-spacing: -.027em; color: var(--text); text-wrap: balance; }
 .pr-brand .pr-items li { font-size: 1rem; color: var(--text-2); }
 .pr-brand > .hero2-btn { margin-top: 32px !important; align-self: flex-start; }
-.pr-pic { display: block; margin: 32px -32px 0; height: clamp(200px, 22vw, 260px); overflow: hidden; -webkit-mask-image: linear-gradient(180deg, transparent, #000 28%); mask-image: linear-gradient(180deg, transparent, #000 28%); }
-.pr-pic img { display: block; width: 112%; max-width: none; height: auto; margin: 0 -6%; transition: transform .6s var(--ease-out); }
-.pr-brand:hover .pr-pic img { transform: translateY(-8px); }
-@media (prefers-reduced-motion: reduce) { .pr-pic img { transition: none; } }
-@media (max-width: 760px) { .pr-brand { padding: 24px 24px 0; } .pr-pic { margin-inline: -24px; height: 200px; } .pr-brand > .hero2-btn { align-self: stretch; justify-content: center; } }
+.pr-pic { position: relative; display: block; margin: 40px -32px 0; height: clamp(240px, 22vw, 300px); overflow: hidden; background: radial-gradient(60% 90% at 50% 100%, rgba(98, 193, 253, .14), transparent 70%); }
+.pr-ph { position: absolute; top: 28px; left: 50%; width: 44%; max-width: 220px; height: auto; border-radius: 13% / 6%; box-shadow: 0 0 0 1px rgba(255, 255, 255, .08), 0 24px 48px -16px rgba(0, 0, 0, .7); transition: transform .6s var(--ease-out); }
+.pr-ph-a { transform: translateX(-96%) rotate(-7deg); }
+.pr-ph-b { z-index: 1; top: 52px; transform: translateX(-4%) rotate(6deg); }
+.pr-browser { position: absolute; left: 10%; right: -8%; bottom: -24px; display: block; border-radius: 14px 14px 0 0; overflow: hidden; background: #0e0e10; box-shadow: 0 0 0 1px rgba(255, 255, 255, .12), 0 24px 48px -16px rgba(0, 0, 0, .7); transform: perspective(1400px) rotateX(12deg) rotateY(-12deg); transform-origin: 50% 100%; transition: transform .6s var(--ease-out); }
+.pr-bar { display: flex; gap: 6px; padding: 10px 12px; }
+.pr-bar i { width: 8px; height: 8px; border-radius: 50%; background: rgba(255, 255, 255, .22); }
+.pr-browser img { display: block; width: 100%; max-width: none; height: auto; }
+@media (hover: hover) and (pointer: fine) {
+  .pr-brand:hover .pr-ph-a { transform: translateX(-98%) translateY(-10px) rotate(-8deg); }
+  .pr-brand:hover .pr-ph-b { transform: translateX(-2%) translateY(-14px) rotate(7deg); }
+  .pr-brand:hover .pr-browser { transform: perspective(1400px) rotateX(8deg) rotateY(-8deg) translateY(-8px); }
+}
+@media (prefers-reduced-motion: reduce) { .pr-ph, .pr-browser { transition: none; } }
+@media (max-width: 760px) { .pr-brand { padding: 24px 24px 0; } .pr-pic { margin-inline: -24px; height: 240px; } .pr-brand > .hero2-btn { align-self: stretch; justify-content: center; } }
 
 /* "Ask Sam's AI" chat (owner, 25 Nov 2026, after glow.team and designme.agency): a pill at the bottom centre that opens a small chat. */
 .ask-pill { position: fixed; z-index: 50; left: 50%; bottom: max(16px, env(safe-area-inset-bottom, 0px)); translate: -50% 0; display: inline-flex; align-items: center; gap: 8px; min-height: 48px; padding: 0 20px 0 16px; border: 0; border-radius: 999px; font: inherit; font-size: .9375rem; font-weight: 600; color: #f5f5f7; background: rgba(29, 29, 31, .92); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .14), 0 16px 40px -16px rgba(0, 0, 0, .6); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); cursor: pointer; animation: ask-in .5s var(--ease-out) both; transition: background-color .2s var(--ease-out), scale .12s ease-out; }
