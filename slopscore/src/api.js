@@ -166,6 +166,54 @@ async function maybeDrip(ctx) {
   ctx.waitUntil(ensureSchema(env).then(() => runDrip(env)).catch((e) => console.error(JSON.stringify({ drip: String(e.message).slice(0, 120) }))));
 }
 
+async function event({ request, env }) {
+  if (!env.DB) return json({ ok: false });
+  const b = await request.json().catch(() => ({}));
+  if (!EVENT_TYPES.includes(b.type)) return fail("type");
+  await env.DB.prepare("INSERT INTO events (id, report_id, type, created_at) VALUES (?, ?, ?, ?)").bind(newId(), /^[A-Za-z0-9]{10}$/.test(b.id || "") ? b.id : null, b.type, new Date().toISOString()).run();
+  return json({ ok: true });
+}
+
+async function checkout({ request, env }) {
+  if (!payments(env)) return fail("setup", 409);
+  const b = await request.json().catch(() => ({}));
+  const r = /^[A-Za-z0-9]{10}$/.test(b.id || "") && (await env.DB.prepare("SELECT id FROM reports WHERE id = ?").bind(b.id).first());
+  if (!r) return fail("not_found", 404);
+  try { return json({ url: await createCheckout(env, b.id, new URL(request.url).origin) }); } catch { return fail("checkout", 422); }
+}
+
+async function webhook({ request, env }) {
+  const body = await request.text();
+  if (!(await verifyWebhook(env.WHOP_WEBHOOK_SECRET, request.headers, body))) return fail("signature", 401);
+  const e = JSON.parse(body);
+  if (e.type !== "payment.succeeded") return json({ ok: true, ignored: e.type });
+  const p = paymentOf(e);
+  await env.DB.prepare("INSERT OR IGNORE INTO purchases (id, report_id, whop_payment_id, email, created_at) VALUES (?, ?, ?, ?, ?)").bind(newId(), p.reportId, p.id, p.email, new Date().toISOString()).run();
+  if (p.reportId) await env.DB.prepare("UPDATE reports SET unlocked = 1 WHERE id = ?").bind(p.reportId).run();
+  return json({ ok: true });
+}
+
+// Fallback when a payment arrived without the report id: match the checkout email to an unused purchase.
+async function claim({ request, env }) {
+  if (!env.DB) return fail("setup", 409);
+  const b = await request.json().catch(() => ({}));
+  if (!/^[A-Za-z0-9]{10}$/.test(b.id || "") || !EMAIL.test(String(b.email || ""))) return fail("invalid");
+  if (env.TURNSTILE_SECRET_KEY) { const bad = await turnstile(env, b.token, ipOf(request)); if (bad) return tsFail(bad); }
+  const email = String(b.email).toLowerCase();
+  const p = await env.DB.prepare("SELECT id FROM purchases WHERE email = ? AND (report_id IS NULL OR report_id = ?) ORDER BY created_at DESC LIMIT 1").bind(email, b.id).first();
+  if (!p) return fail("no_purchase", 404);
+  await env.DB.batch([env.DB.prepare("UPDATE purchases SET report_id = ? WHERE id = ?").bind(b.id, p.id), env.DB.prepare("UPDATE reports SET unlocked = 1 WHERE id = ?").bind(b.id)]);
+  return json({ ok: true });
+}
+
+function admin(request, env) {
+  const want = `Bearer ${env.ADMIN_TOKEN || ""}`, got = request.headers.get("authorization") || "";
+  if (!env.ADMIN_TOKEN || got.length !== want.length) return false;
+  let d = 0; for (let i = 0; i < want.length; i++) d |= want.charCodeAt(i) ^ got.charCodeAt(i);
+  return d === 0;
+}
+const csv = (v) => `"${String(v ?? "").replace(/"/g, '""')}"`;
+
 async function leadsCsv(env) {
   const { results } = await env.DB.prepare("SELECT email, url, report_id, consent_marketing, created_at FROM leads ORDER BY created_at DESC").all();
   const rows = ["email,url,report_id,consent_marketing,created_at", ...results.map((r) => [r.email, r.url, r.report_id, r.consent_marketing, r.created_at].map(csv).join(","))];

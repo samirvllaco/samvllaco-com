@@ -104,9 +104,15 @@ const details = (row, report) => {
 };
 
 // Sends whatever is due: the report email to everyone, follow-ups only with consent. Small batches, safe to run often.
+// Resend's free plan allows 100 emails a day; stop at 90 so nothing ever needs a paid plan.
+export const DAILY_MAX = 90;
+
 export async function runDrip(env, limit = 15) {
   if (!env.DB || !env.RESEND_API_KEY) return 0;
-  const now = Date.now();
+  const now = Date.now(), dayKey = `mail:${new Date(now).toISOString().slice(0, 10)}`;
+  let today = env.CACHE ? Number((await env.CACHE.get(dayKey)) || 0) : 0;
+  if (today >= DAILY_MAX) return 0;
+  limit = Math.min(limit, DAILY_MAX - today);
   const { results } = await env.DB.prepare("SELECT * FROM drip WHERE unsub = 0 AND next_at <= ? AND step < ? AND (step = 0 OR consent = 1) ORDER BY next_at LIMIT ?").bind(now, STEPS.length, limit).all();
   let sent = 0;
   for (const row of results) {
@@ -115,9 +121,13 @@ export async function runDrip(env, limit = 15) {
     try {
       await send(env, row.email, step, details(row, report));
       sent++;
+      today++;
     } catch (e) {
-      console.error(JSON.stringify({ drip: row.id, step, err: String(e.message).slice(0, 120) }));
-      // Retry in an hour; give up on this email after 3 failed tries.
+      const err = String(e.message).slice(0, 120);
+      console.error(JSON.stringify({ drip: row.id, step, err }));
+      // Over the provider's quota: try the whole batch again later, no strike against this address.
+      if (/^resend 429/.test(err)) { await env.DB.prepare("UPDATE drip SET next_at = ? WHERE id = ?").bind(now + 3600000, row.id).run(); break; }
+      // Anything else: retry in an hour, give up on this address after 3 failed tries.
       const tries = (row.tries || 0) + 1;
       await env.DB.prepare("UPDATE drip SET tries = ?, next_at = ?, unsub = ? WHERE id = ?").bind(tries, now + 3600000, tries >= 3 ? 1 : 0, row.id).run();
       continue;
@@ -126,5 +136,6 @@ export async function runDrip(env, limit = 15) {
     const at = next < STEPS.length ? row.created_ms + STEPS[next] * DAY : now;
     await env.DB.prepare("UPDATE drip SET step = ?, next_at = ?, tries = 0, last_sent = ? WHERE id = ?").bind(next, Math.max(at, now), now, row.id).run();
   }
+  if (sent && env.CACHE) await env.CACHE.put(dayKey, String(today), { expirationTtl: 90000 });
   return sent;
 }
