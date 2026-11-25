@@ -3047,7 +3047,7 @@ body:has(.case-fab) .to-top { display: none; }
   @keyframes mm-drop { from { opacity: 0; translate: 0 -12px; scale: .98; } to { opacity: 1; translate: 0 0; scale: 1; } }
 }
 /* Back to top lines up with the video avatar (position set from the avatar in ToTop.jsx) */
-html .to-top, html.is-scrolled .to-top, html.is-end .to-top { left: auto !important; right: var(--tt-r, 16px) !important; bottom: var(--tt-b, 96px) !important; transition: opacity .3s ease, transform .4s cubic-bezier(.22, 1, .36, 1), bottom .5s cubic-bezier(.22, 1, .36, 1); }
+html .to-top, html.is-scrolled .to-top, html.is-end .to-top { left: auto !important; right: max(16px, env(safe-area-inset-right, 0px)) !important; bottom: max(16px, env(safe-area-inset-bottom, 0px)) !important; }
 
 /* Home: pain points and story */
 .pain { max-width: 100%; }
@@ -5802,3 +5802,26 @@ body:has(.eb) .site-footer .fd-talk { display: none; }
 /* Slop Score email gate (owner, 25 Nov 2026): the email form sits inside the locked teaser, right under the hidden fixes. */
 .sx-gate { margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--line); }
 .sx-sent { max-width: 960px; margin: 16px auto 0; text-align: center; }
+
+/* Floating buttons (owner, 25 Nov 2026): the book (left), Ask Sam's AI (center) and the video bubble (right) sit on one
+   baseline, all 44px tall. At the end of the page they step aside and only back-to-top shows, bottom right on that baseline. */
+html { --float-lift: 0px !important; --float-b: max(16px, env(safe-area-inset-bottom, 0px)); }
+html:not(.eb-bar-on) :is(.bw, .vid), .ask-pill { bottom: var(--float-b); }
+.ask-pill { min-height: 44px; }
+:is(.bw, .vid, .ask-pill) { transition: opacity .2s ease-out, visibility 0s; }
+html.is-end :is(.bw:not(.is-open), .vid:not(.is-open), .ask-pill:not(.is-open)) { opacity: 0; visibility: hidden; pointer-events: none; transition: opacity .2s ease-in, visibility 0s .2s; }
+html .to-top, html.is-scrolled .to-top, html.is-end .to-top { width: 44px; height: 44px; padding: 0; justify-content: center; border-radius: 50%; opacity: 0; pointer-events: none; transform: translateY(8px); transition: opacity .2s ease-in, transform .2s ease-in; }
+html .to-top.is-on { opacity: 1; pointer-events: auto; transform: none; transition: opacity .25s ease-out, transform .25s ease-out; }
+
+/* Ask Sam's AI pill (owner, 25 Nov 2026): a slow gradient ring with a soft glow. Still until the first interaction, off for reduced motion. */
+@property --ask-a { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
+.ask-pill { isolation: isolate; box-shadow: 0 16px 40px -16px rgba(0, 0, 0, .6); }
+.ask-pill::before, .ask-pill::after { content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; background: conic-gradient(from var(--ask-a), #62c1fd, #8f7dff 25%, #f08fd8 45%, #62c1fd 60%, rgba(98, 193, 253, .15) 80%, #62c1fd); animation: ask-spin 7s linear infinite paused; }
+.ask-pill::before { padding: 1px; -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; }
+.ask-pill::after { z-index: -1; inset: 6px 10px; filter: blur(16px); opacity: .35; transition: opacity .25s ease-out; }
+html.is-live .ask-pill::before, html.is-live .ask-pill::after { animation-play-state: running; }
+@media (hover: hover) and (pointer: fine) { .ask-pill:hover::after { opacity: .55; } }
+@keyframes ask-spin { to { --ask-a: 360deg; } }
+@media (prefers-reduced-motion: reduce) { .ask-pill::before, .ask-pill::after { animation: none; } }
+/* Room under the footer's last row for the back-to-top button, so nothing overlaps at any width. */
+.site-footer > .wrap { padding-bottom: calc(var(--float-b) + 44px + 16px); }

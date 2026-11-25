@@ -1,33 +1,16 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
-// Back to top button. Shows on small screens once the reader is 40 percent down the page.
+// Back to top: only at the end of the page, bottom right on the same baseline as the other floating buttons
+// (owner, 25 Nov 2026). The book, the chat pill and the video bubble step aside there (html.is-end, set by HeaderScroll).
 export default function ToTop() {
   const [show, setShow] = useState(false);
-  const me = useRef(null);
   useEffect(() => {
     let raf = 0;
     const check = () => {
       raf = 0;
       const max = document.documentElement.scrollHeight - window.innerHeight;
-      const on40 = max > 0 && window.scrollY / max >= 0.4;
-      setShow(on40);
-      // At the bottom of the page, lift the floating buttons (avatar, book, back to top) above the footer's last row.
-      const row = document.querySelectorAll(".site-footer > .wrap > p, .site-footer > .wrap > .ask-ai, .site-footer > .wrap > .foot-links");
-      let top = Infinity;
-      row.forEach((n) => { const b = n.getBoundingClientRect(); if (b.height && b.top < top) top = b.top; });
-      const lift = top < window.innerHeight ? Math.max(0, Math.round(window.innerHeight - top) + 32) : 0; // 32px clears the divider above the row
-      document.documentElement.style.setProperty("--float-lift", `${lift}px`);
-      // Sit just left of the video avatar, bottom aligned with it (and with the book on the left).
-      const bub = document.querySelector(".vid-bubble");
-      const el = me.current;
-      if (bub && el && on40) {
-        const r = bub.getBoundingClientRect();
-        if (r.width) {
-          el.style.setProperty("--tt-r", `${Math.round(window.innerWidth - r.left + 12)}px`);
-          el.style.setProperty("--tt-b", `${Math.round(window.innerHeight - r.bottom)}px`);
-        }
-      }
+      setShow(max > 400 && window.scrollY >= max - 220);
     };
     const on = () => { if (!raf) raf = requestAnimationFrame(check); };
     check();
@@ -40,7 +23,7 @@ export default function ToTop() {
     window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" });
   };
   return (
-    <button ref={me} type="button" className={`to-top${show ? " is-on" : ""}`} onClick={up} aria-label="Back to top" tabIndex={show ? 0 : -1} aria-hidden={!show}>
+    <button type="button" className={`to-top${show ? " is-on" : ""}`} onClick={up} aria-label="Back to top" tabIndex={show ? 0 : -1} aria-hidden={!show}>
       <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 19V5m0 0-6 6m6-6 6 6" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
     </button>
   );
