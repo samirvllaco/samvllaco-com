@@ -1,0 +1,44 @@
+-- Slop Score D1 schema, for reference. The API creates these tables itself on first use (slopscore/src/schema.js).
+CREATE TABLE IF NOT EXISTS reports (
+  id TEXT PRIMARY KEY,
+  url TEXT NOT NULL,
+  url_hash TEXT NOT NULL,
+  score INTEGER NOT NULL,
+  label TEXT NOT NULL,
+  verdict TEXT,
+  categories TEXT NOT NULL,
+  issues TEXT NOT NULL,
+  metrics TEXT,
+  unlocked INTEGER NOT NULL DEFAULT 0,
+  model TEXT,
+  created_at TEXT NOT NULL
+);
+CREATE INDEX IF NOT EXISTS reports_hash ON reports (url_hash);
+CREATE INDEX IF NOT EXISTS reports_created ON reports (created_at);
+
+CREATE TABLE IF NOT EXISTS leads (
+  id TEXT PRIMARY KEY,
+  email TEXT NOT NULL,
+  report_id TEXT,
+  url TEXT,
+  consent_marketing INTEGER NOT NULL DEFAULT 0,
+  created_at TEXT NOT NULL
+);
+CREATE INDEX IF NOT EXISTS leads_created ON leads (created_at);
+
+CREATE TABLE IF NOT EXISTS purchases (
+  id TEXT PRIMARY KEY,
+  report_id TEXT,
+  whop_payment_id TEXT UNIQUE,
+  email TEXT,
+  created_at TEXT NOT NULL
+);
+CREATE INDEX IF NOT EXISTS purchases_email ON purchases (email);
+
+CREATE TABLE IF NOT EXISTS events (
+  id TEXT PRIMARY KEY,
+  report_id TEXT,
+  type TEXT NOT NULL,
+  created_at TEXT NOT NULL
+);
+CREATE INDEX IF NOT EXISTS events_created ON events (created_at);

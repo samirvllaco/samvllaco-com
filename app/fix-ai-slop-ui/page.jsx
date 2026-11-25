@@ -138,7 +138,7 @@ const FAQ = [
   ["How long does it take?", "Two speeds. The **30-minute quick start** covers color, type, spacing and the hero, where you see ==the biggest jump==. The **full 27 steps** take about an hour per page."],
   ["Why not just ask the AI to make it look better?", "You can, and you usually get _another gradient_. Vague asks get average results. These prompts give your AI ==exact values and rules==, and **the scorecard** shows what still looks off."],
   ["Why is it only $12.99?", "It is priced to be ==an easy yes==. Inside are **the same rules I use on client projects**."],
-  ["My app already looks okay. Do I need this?", "**Run the scorecard first.** If your page already scores a 10, you know it is ready. If not, you know ==exactly what to fix==."],
+  ["My app already looks okay. Do I need this?", "**Run the scorecard first.** If your page already scores a 10, you know it is ready. If not, you know ==exactly what to fix==. Want a quick outside check? Paste your URL into the free [Slop Score](/slop-score/)."],
   ["Will it work on my next project?", "**Yes.** That is the point of the system: ==rules, fix, rate, re-run==, on any page you build."],
   ["Can it break something in my app?", "Every prompt asks your AI to ==keep your content and features and change only the design==. AI tools still make mistakes, so **work on a copy or a new branch**, review each change before you accept it and click through the page after. Each step tells you what to check."],
   ["What if the AI changes something important?", "**Undo it** and run the step again with the part to leave alone named in the prompt. Commit or save a backup before each step, so ==going back is one click==. The checks in each step help you catch it _before_ you accept the change."],

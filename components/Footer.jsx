@@ -45,7 +45,7 @@ const ICON = {
 const MAP = [
   { h: "Services", links: [...svc(["saas-product-design", "dashboard-design", "mobile-app-design", "ux-audit", "design-systems", "website-design"]), ["EAA accessibility audit", "/eaa-audit/"], ["Managed accessibility", "/accessibility/"], ["All services", "/services/"]] },
   { h: "Work", links: [...WORK.slice(0, 5).map((w) => [w.title, `/work/${w.slug}/`]), ["All case studies", "/work/"]] },
-  { h: "Resources", links: [["All resources", "/resources/"], ["Insights", "/writing/"], ["AI slop UI ebook", "/fix-ai-slop-ui/", null, "New"], ["UI/UX review", "/fix-ai-slop-ui/#options"], ["Free tools", "/tools/", null, "New"], ["Free UI prompts", "/fix-ai-slop-ui/#free"], ["FAQs", "/#faq"], ["Products", "/products/"]] },
+  { h: "Resources", links: [["All resources", "/resources/"], ["Insights", "/writing/"], ["AI slop UI ebook", "/fix-ai-slop-ui/", null, "New"], ["UI/UX review", "/fix-ai-slop-ui/#options"], ["Free tools", "/tools/"], ["Slop Score", "/slop-score/", null, "New"], ["Free UI prompts", "/fix-ai-slop-ui/#free"], ["FAQs", "/#faq"], ["Products", "/products/"]] },
   { h: "Company", links: [["About Sam", "/about/"], ["Pricing", "/pricing/"], ["Book a call", "/book/"]] },
   { h: "Social", social: [["X", SITE.links.x, "x", "@samvllaco", "https://x.com/intent/follow?screen_name=samvllaco"], ["Medium", SITE.links.medium, "medium", "@samvllaco", SITE.links.medium], ["Dribbble", SITE.links.dribbble, "dribbble", "samirvllaco", SITE.links.dribbble]] },
 ];

@@ -14,7 +14,9 @@
     "react-dom": "19.0.0"
   },
   "devDependencies": {
+    "@cloudflare/puppeteer": "^2.0.1",
     "d3-geo": "^3.1.1",
+    "esbuild": "^0.25.12",
     "simple-icons": "^16.37.0",
     "topojson-client": "^3.1.0",
     "world-atlas": "^2.0.2"
