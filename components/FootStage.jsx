@@ -3,7 +3,6 @@ import fs from "fs";
 import path from "path";
 import FootSeq from "./FootSeq";
 import FootSig from "./FootSig";
-import { SITE } from "../lib/site";
 
 // Laptop animation frames, if any have been added to public/footer-frames.
 let FRAMES = [];
@@ -19,7 +18,6 @@ const SPOTS = [
   { id: "chatgpt", x: 80.1, y: 16.8, w: 12, h: 12, place: "below", align: "end", title: "ChatGPT", text: "Also in the toolbox." },
   { id: "coffee", x: 89.7, y: 27.5, w: 12.500, h: 10, place: "above", align: "end", title: "Coffee", text: "A product designer turns coffee into design." },
   { id: "claude", x: 82.1, y: 38.1, w: 11, h: 11, place: "below", align: "end", title: "Claude", text: "My daily AI tool." },
-  { id: "ocufuse", x: 69.2, y: 64.2, w: 7, h: 7, place: "above", align: "center", title: "Ocufuse", text: "My side project for eye health.", href: SITE.links.ocufuse, cta: "Visit ocufuse.com" },
   { id: "ace", x: 12.8, y: 60.2, w: 8.500, h: 10, place: "above", align: "start", title: "Ace", text: "My dog. Head of morale." },
 ];
 

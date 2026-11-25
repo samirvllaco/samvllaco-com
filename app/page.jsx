@@ -140,7 +140,6 @@ export default function Home() {
       <Fixes />
 
 
-      {/* Product (Ocufuse) section hidden for now */}
 
 
       {/* Globe section hidden for now: <Globe bg="#000000" /> */}

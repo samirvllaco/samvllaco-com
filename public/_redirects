@@ -67,7 +67,4 @@
 /services/seo-page-design /services/seo/#seo-page-design 301
 /services/seo-page-design/ /services/seo/#seo-page-design 301
 
-# What I'm building page removed (owner, 21 Nov 2026)
-/building/ocufuse/ /products/ 301
-/building/* /products/ 301
-/building /products/ 301
+# What I'm building page (about Ocufuse) removed (owner, 21 Nov 2026): it now answers 410 Gone from functions/building/, so search engines drop it (owner, 25 Nov 2026).
