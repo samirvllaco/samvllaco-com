@@ -16,7 +16,7 @@ export const metadata = {
   alternates: { canonical: "/" },
   ...share({ title: "Sam Vllaco: App UI/UX Designer for SaaS and AI Products", description: SITE.description, url: SITE.url }),
   robots: { index: true, follow: true },
-  verification: { google: "cTF2I8D5vrDc_uRlNMciCbaRGVuMYVJehzlbn4wBAqA" },
+  verification: { google: "cTF2I8D5vrDc_uRlNMciCbaRGVuMYVJehzlbn4wBAqA", other: { "msvalidate.01": "248C11196A3C1BE249DB82263A6FCF0D" } },
   other: { "color-scheme": "dark light" },
 };
 
