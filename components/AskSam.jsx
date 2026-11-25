@@ -6,7 +6,21 @@ import { EMAIL } from "../lib/site";
 
 // "Ask Sam's AI" (owner, 25 Nov 2026): a small pill at the bottom of the page that opens a chat answering from the site's
 // own facts (slopscore/src/ask.js). Shows after the first scroll and only once the API is switched on.
-const CHIPS = ["What does a weekly sprint include?", "How fast can you start?", "Can you fix my AI-built app?"];
+// Quick links (owner, 25 Nov 2026: "add more quick links"): always shown above the input in one swipeable row.
+// [label, question to send] or [label, null, page to open].
+const CHIPS = [
+  ["Book a call", null, "/book/"],
+  ["Pricing", "What does it cost to work with you?"],
+  ["UX audit", "What do I get from a UX audit?"],
+  ["UI/UX sprint", "What does a weekly sprint include?"],
+  ["Redesign my app", "Can you redesign our existing app without changing its features?"],
+  ["From zero", "Can you design a new product from scratch?"],
+  ["AI-built app", "Can you fix my AI-built app?"],
+  ["How fast can you start?", "How fast can you start?"],
+  ["Case studies", null, "/work/"],
+];
+// The empty input suggests what to ask, one idea at a time.
+const HINTS = ["Ask about pricing", "Ask what a UX audit covers", "Ask how a sprint works", "Ask how fast Sam can start"];
 // Thinking state (owner, 25 Nov 2026): a 3x3 grid of dots breathing in a diagonal wave, and the status words under a slow
 // light sweep. The words change as the answer is prepared; each new one rises in from below inside a clipped line.
 const STEPS = ["Reading Sam's site", "Checking his work and reviews", "Writing your answer"];
@@ -61,6 +75,9 @@ export default function AskSam() {
   const pill = useRef(null);
   const list = useRef(null);
   const panel = useRef(null);
+  const drag = useRef(null);
+  const asked = useRef(0);
+  const [hint, setHint] = useState(0);
   const ts = useTurnstile(open && on && !sid.current ? on.siteKey : null, { appearance: "interaction-only" });
 
   useEffect(() => {
@@ -86,9 +103,40 @@ export default function AskSam() {
     return () => { window.removeEventListener("keydown", key); document.removeEventListener("pointerdown", out); };
   }, [open]);
 
+  useEffect(() => {
+    if (!open || text) return;
+    const t = setInterval(() => setHint((n) => (n + 1) % HINTS.length), 3200);
+    return () => clearInterval(t);
+  }, [open, text]);
+
+  // Phones: drag the sheet down by its top edge to close it. It follows the finger and springs back if let go early.
+  const grab = (e) => {
+    if (e.pointerType === "mouse" || e.target.closest("button")) return;
+    drag.current = { y: e.clientY, t: performance.now(), dy: 0 };
+    panel.current.style.transition = "none";
+    e.currentTarget.setPointerCapture?.(e.pointerId);
+  };
+  const pull = (e) => {
+    const d = drag.current;
+    if (!d) return;
+    d.dy = Math.max(0, e.clientY - d.y);
+    panel.current.style.transform = `translateY(${d.dy}px)`;
+  };
+  const drop = () => {
+    const d = drag.current, el = panel.current;
+    drag.current = null;
+    if (!d || !el) return;
+    const fast = d.dy / Math.max(1, performance.now() - d.t) > 0.5;
+    el.style.transition = "transform .26s cubic-bezier(.22, 1, .36, 1)";
+    if (d.dy > 96 || (fast && d.dy > 24)) {
+      el.style.transform = "translateY(110%)";
+      setTimeout(() => { setOpen(false); pill.current?.focus({ preventScroll: true }); }, 220);
+    } else el.style.transform = "";
+  };
+  const clear = () => { setMsgs([]); setNote(""); asked.current = 0; input.current?.focus(); };
+
   // Focus on the answer: when a question goes out, bring it to the top of the list and let the answer grow under it,
   // so the visitor reads from the first line instead of chasing the end of the text.
-  const asked = useRef(0);
   useEffect(() => {
     const el = list.current;
     if (!el) return;
@@ -165,7 +213,8 @@ export default function AskSam() {
       </button>
       {open ? (
         <section ref={panel} id="ask-panel" className="ask-panel" role="dialog" aria-modal="false" aria-labelledby="ask-h" data-lenis-prevent="">
-          <header className="ask-head">
+          <header className="ask-head" onPointerDown={grab} onPointerMove={pull} onPointerUp={drop} onPointerCancel={drop}>
+            <i className="ask-handle" aria-hidden="true" />
             <span className="ask-badge" aria-hidden="true">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src="/sam-face-144.webp?v=1" width="40" height="40" alt="" />
@@ -173,8 +222,9 @@ export default function AskSam() {
             </span>
             <div>
               <p id="ask-h" className="ask-title">Ask Sam's AI</p>
-              <p><i className="ask-live" aria-hidden="true" />Answers from this site. Sam reads chats.</p>
+              <p><i className="ask-live" aria-hidden="true" />Answers from this site</p>
             </div>
+            {msgs.length ? <button type="button" className="ask-clear" onClick={clear}>Clear</button> : null}
             <button type="button" className="ask-x" onClick={() => { setOpen(false); pill.current?.focus(); }} aria-label="Close the chat">
               <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" /></svg>
             </button>
@@ -188,14 +238,14 @@ export default function AskSam() {
               </p>
             ))}
           </div>
-          {msgs.length ? null : (
-            <ul className="ask-chips" aria-label="Suggested questions">
-              {CHIPS.map((c) => <li key={c}><button type="button" onClick={() => send(c)}>{c}</button></li>)}
-            </ul>
-          )}
+          <ul className="ask-chips" aria-label="Quick questions" onWheel={(e) => { if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) e.currentTarget.scrollLeft += e.deltaY; }}>
+            {CHIPS.map(([label, q, href]) => (
+              <li key={label}>{href ? <a href={href}>{label}</a> : <button type="button" disabled={busy} onClick={() => send(q)}>{label}</button>}</li>
+            ))}
+          </ul>
           <form className="ask-form" onSubmit={(e) => { e.preventDefault(); send(text); }}>
             <label htmlFor="ask-in" className="sr-only">Your question</label>
-            <input ref={input} id="ask-in" type="text" autoComplete="off" maxLength={800} placeholder="Ask about pricing, process, timelines" value={text} onChange={(e) => setText(e.target.value)} />
+            <input ref={input} id="ask-in" type="text" autoComplete="off" maxLength={800} placeholder={`${HINTS[hint]}…`} value={text} onChange={(e) => setText(e.target.value)} />
             <button type="submit" className="ask-send" disabled={busy || !text.trim()} aria-label="Send">
               <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6" /></svg>
             </button>

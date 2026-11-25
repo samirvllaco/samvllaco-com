@@ -2,7 +2,6 @@ import Link from "next/link";
 import CallIcon from "./CallIcon";
 import SoundToggle from "./SoundToggle";
 import ServicesMenu from "./ServicesMenu";
-import ResourcesMenu from "./ResourcesMenu";
 import ToolsMenu from "./ToolsMenu";
 import HeaderScroll from "./HeaderScroll";
 import BrandFace from "./BrandFace";
@@ -11,9 +10,10 @@ import { EMAIL } from "../lib/site";
 import HeadCta from "./HeadCta";
 import MobileMenu from "./MobileMenu";
 
+// Order (owner, 25 Nov 2026): Services, Pricing, Work. Resources left the nav the same day; its page still exists.
 const NAV = [
-  { href: "/work/", label: "Work" },
   { href: "/pricing/", label: "Pricing" },
+  { href: "/work/", label: "Work" },
   { href: "/tools/", label: "Free tools" },
   { href: "/about/", label: "About" },
   { href: "/book/", label: "Contact" },
@@ -36,9 +36,7 @@ export default function Header() {
         </Link>
         <nav className="head-nav" aria-label="Main">
           <ServicesMenu />
-          <Link prefetch={false} href="/work/">Work</Link>
-          <ResourcesMenu />
-          {NAV.filter((n) => n.href !== "/work/").map((n) => n.href === "/tools/" ? <ToolsMenu key={n.href} /> : (
+          {NAV.map((n) => n.href === "/tools/" ? <ToolsMenu key={n.href} /> : (
             <Link prefetch={false} key={n.href} href={n.href}>
               {n.dot ? <i className="nav-dot" aria-hidden="true" /> : null}
               {n.label}
