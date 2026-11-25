@@ -4,6 +4,7 @@ import WorldFacts, { WorldFlags } from "./WorldFacts";
 import SwipeDeck from "./SwipeDeck";
 import Toolbox from "./Toolbox";
 import BuildIn from "./BuildIn";
+import FactRow from "./FactRow";
 import { WALL } from "../lib/wall";
 import { WORK } from "../lib/work";
 import { SITE } from "../lib/site";
@@ -49,6 +50,7 @@ export default function Bento() {
   return (
     <section className="bx-sec bx-soft" aria-labelledby="bx-h" data-bg="#000000">
       <h2 id="bx-h" className="bx-title">One designer<br /><span className="t2">for the whole product.</span></h2>
+      <FactRow />
       <div className="bx-grid">
         <div className="bx-stats">
           <div className="dark-island bx-card bx-stat"><i className="lr lr-l" aria-hidden="true" /><i className="lr lr-r" aria-hidden="true" /><b>10</b><span>Years of experience</span></div>

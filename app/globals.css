@@ -5750,3 +5750,27 @@ main > .page > .hero-dots-cv { height: clamp(560px, 86vh, 860px); }
 .ask-foot a { color: #f5f5f7; text-decoration: underline; text-underline-offset: 3px; }
 @media (max-width: 640px) { .ask-panel { left: 8px; right: 8px; bottom: max(8px, env(safe-area-inset-bottom, 0px)); width: auto; translate: none; padding: 16px; max-height: calc(100dvh - 88px); } @keyframes ask-up { from { opacity: 0; translate: 0 12px; } } }
 @media (prefers-reduced-motion: reduce) { .ask-pill, .ask-panel, .ask-dots i { animation: none; } }
+
+/* Quick facts with quiet animated line icons (owner, 25 Nov 2026, after lp.cosmos.studio). FactRow.jsx */
+.fr-row { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px 32px; max-width: 1200px; margin: 0 auto 48px; padding: 0; list-style: none; }
+.fr-row li { display: flex; align-items: flex-start; gap: 12px; }
+.fr-row p { display: grid; gap: 2px; margin: 0; }
+.fr-row b { font-size: 1.0625rem; line-height: 1.4; font-weight: 600; letter-spacing: -.01em; color: var(--text); }
+.fr-row span { font-size: .9375rem; line-height: 1.5; color: var(--muted); }
+.fr-ico { flex: none; margin-top: 1px; fill: none; stroke: var(--text); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; overflow: visible; }
+.fr-ico * { transform-box: fill-box; transform-origin: center; }
+.fr-m1 { animation: fr-turn 6s linear infinite; }
+.fr-m2 { animation: fr-turn 6s linear -3s infinite; }
+@keyframes fr-turn { 0% { transform: scaleX(1); } 25% { transform: scaleX(0); } 50% { transform: scaleX(-1); opacity: .35; } 75% { transform: scaleX(0); } 100% { transform: scaleX(1); } }
+.fr-orbit .fr-dot { fill: var(--text); stroke: none; }
+.fr-orbit .fr-core { fill: var(--accent); }
+.fr-spin { transform-box: view-box !important; transform-origin: 12px 12px !important; animation: fr-spin 8s linear infinite; }
+@keyframes fr-spin { to { transform: rotate(1turn); } }
+.fr-clock .fr-min, .fr-clock .fr-hour { transform-box: view-box; transform-origin: 12px 12px; }
+.fr-clock .fr-min { animation: fr-spin 10s linear infinite; }
+.fr-clock .fr-hour { animation: fr-spin 120s linear infinite; }
+.fr-tick { stroke: var(--accent); stroke-dasharray: 1; stroke-dashoffset: 0; animation: fr-draw 4s var(--ease-out) infinite; }
+@keyframes fr-draw { 0%, 12% { stroke-dashoffset: 1; } 40%, 100% { stroke-dashoffset: 0; } }
+@media (max-width: 1100px) { .fr-row { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 560px) { .fr-row { grid-template-columns: minmax(0, 1fr); gap: 20px; } }
+@media (prefers-reduced-motion: reduce) { .fr-ico * { animation: none !important; } }
