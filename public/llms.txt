@@ -35,6 +35,36 @@
 - [Insights](https://samvllaco.com/writing/): all articles on AI-built apps, UX fixes and accessibility.
 - [Resources](https://samvllaco.com/resources/): free UI prompts, the ebook, design kits and stories, in one place.
 
+## Writing: fix the design of an AI-built app
+- [How to fix the design of an AI-built app](https://samvllaco.com/writing/how-to-fix-ai-built-app-design/): Why apps built with Cursor, Lovable or v0 all look alike, the 12 tells to check first, a Cursor audit prompt, and three ways to fix the design.
+- [Why Your Lovable App Looks Generic, and 7 Fixes You Can Paste In Today](https://samvllaco.com/writing/lovable-app-looks-generic/): Your Lovable app looks generic because nobody chose the design. 7 fixes with copy-paste prompts, and where to save the rules so Lovable keeps them.
+- [Your v0 app looks generic. 6 fixes that make it yours](https://samvllaco.com/writing/v0-app-looks-generic/): Every v0 app starts from the same shadcn/ui starter. Six copy-paste prompts and one saved Instruction that make yours look designed, not generated.
+- [Your Bolt app looks generic. Fix it with one block of project knowledge](https://samvllaco.com/writing/bolt-app-looks-generic/): Bolt sends your project knowledge with every prompt. Paste one block of design rules there, run four prompts, and your app stops looking generated.
+- [Cursor Rules for UI Design: One File So Every Screen Matches](https://samvllaco.com/writing/cursor-rules-for-ui-design/): Give Cursor one rules file for spacing, type, color and states so every screen matches. The exact file location, a paste-ready rule and 3 prompts.
+- [Claude Code UI Design: Why Your Screens Look Generic and the DESIGN.md Setup That Fixes It](https://samvllaco.com/writing/claude-code-ui-design/): Why Claude Code UI looks generic, and the fix: a DESIGN.md with exact values, one import line in CLAUDE.md, and 3 copy-paste prompts to audit and review.
+- [The replit.md design section that stops Replit Agent apps looking generic](https://samvllaco.com/writing/replit-md-design-rules/): Replit Agent reads replit.md on every request. Add this design section to it, run three cleanup prompts, and your app stops looking like a template.
+
+## Writing: hiring a designer
+- [How to hire a product designer for a SaaS or AI app](https://samvllaco.com/writing/how-to-hire-a-product-designer/): A working designer's guide to hiring one: what to decide first, where to look, how to read a portfolio, 8 questions for the call, and what it costs.
+- [What a product designer costs for a SaaS or AI app](https://samvllaco.com/writing/product-designer-cost/): Real 2026 price ranges for hiring a product designer: hourly, weekly, monthly and fixed price, what moves the number, and what each budget buys you.
+- [Freelance designer vs agency: which one should a SaaS or AI startup hire?](https://samvllaco.com/writing/freelance-designer-vs-agency/): Freelance product designer or design agency for your SaaS or AI startup? A fair comparison of cost, speed, skills and risk, and when to pick each.
+- [Do you need a designer if you build with AI? Hiring a designer vs vibe coding it yourself](https://samvllaco.com/writing/designer-vs-vibe-coding/): Hire a designer or vibe code the design yourself? A fair comparison for founders, plus a middle path: a $12.99 ebook, a $49 review, then a full hire.
+
+## Writing: SaaS dashboards and data tables
+- [SaaS dashboard design: how to make a dashboard people can read at a glance](https://samvllaco.com/writing/saas-dashboard-design-guide/): How to design a SaaS dashboard people can read at a glance: start from the question, set the hierarchy, pick the right charts and build tables for real data.
+- [9 dashboard UX mistakes that send your users back to Excel](https://samvllaco.com/writing/dashboard-ux-mistakes/): Nine dashboard design mistakes common in SaaS products, why each one makes people export to a spreadsheet, and the fix, with a prompt for AI-built apps.
+- [Data table design: 10 rules for tables that hold 10,000 rows](https://samvllaco.com/writing/data-table-design/): Your table worked with ten rows in the demo. Ten rules for SaaS data tables that stay readable and fast with real data, plus a prompt for AI-built apps.
+- [What a SaaS dashboard design costs, and what moves the price](https://samvllaco.com/writing/dashboard-design-cost/): A dashboard can cost $1,500 or $25,000 to design. The six things that decide which, what each budget gets you, and how to scope yours before a call.
+
+## Writing: AI product UX
+- [AI product UX design: how to make AI features people use](https://samvllaco.com/writing/ai-product-ux-design-guide/): How to design AI features people keep using: where the AI sits, when it speaks, how to design the wait, show sources, make correction cheap, what to measure.
+- [Your AI feature does not have to be a chat box. 7 patterns that get used](https://samvllaco.com/writing/ai-features-beyond-chat/): Chat is one way to put AI in a product, and often the weakest. Seven AI UX patterns that sit inside the workflow, when to use each, and how to design them.
+- [AI loading states: how to design a wait that takes 20 seconds](https://samvllaco.com/writing/ai-loading-states/): A spinner works for one second. AI responses take ten or more. Seven ways to design the wait so people stay, with the copy and timing for each stage.
+- [How to show users how sure the AI is, without a percentage](https://samvllaco.com/writing/ai-confidence-ux/): "87% confident" tells users nothing. Six ways to show how sure an AI answer is, so people know when to trust it, when to check it and how to fix it.
+
+## Seasonal
+- [Black Friday Deals for Designers and Vibe Coders 2026, Checked One by One](https://samvllaco.com/writing/black-friday-deals-for-designers-2026/): design tool and course deals checked on each seller's own page, with codes and end dates. No affiliate links.
+
 ## Elsewhere
 - LinkedIn: https://www.linkedin.com/in/samirvllaco/
 - X: https://x.com/samvllaco
