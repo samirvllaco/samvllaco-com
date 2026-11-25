@@ -4,7 +4,6 @@ import CopyEmail from "./CopyEmail";
 import FootStage from "./FootStage";
 import { SecretCount } from "./Seen";
 import { SITE, CERTS } from "../lib/site";
-import { WORK } from "../lib/work";
 import { SERVICES, svcHref } from "../lib/services";
 import CallIcon from "./CallIcon";
 
@@ -43,44 +42,17 @@ const ICON = {
   dribbble: "M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm6.6 4.6a8.5 8.5 0 0 1 1.9 5.2c-2.8-.6-5.3-.6-7.6-.1l-.7-1.6c2.6-1.1 4.8-2.2 6.4-3.5zM12 3.5c2 0 3.9.7 5.4 1.9-1.4 1.2-3.5 2.2-5.9 3.2-1.2-2.2-2.5-4-3.6-5a8.5 8.5 0 0 1 4.1-.1zM6.4 4.4c1.1.9 2.4 2.7 3.6 4.8-2.6.8-5.4 1.2-6.4 1.3a8.5 8.5 0 0 1 2.8-6.1zM3.5 12v-.1c1.3-.1 4.4-.5 7.2-1.4l.7 1.5c-3.1 1-5.6 3-7 5.3A8.4 8.4 0 0 1 3.5 12zm3.3 6.9c1.3-2 3.6-3.8 6.3-4.7.9 2.4 1.5 4.9 1.7 6.4a8.5 8.5 0 0 1-8-1.7zm9.4.8c-.3-1.6-.8-3.8-1.6-6 2-.3 4.2-.2 6.7.3a8.5 8.5 0 0 1-5.1 5.7z",
   figma: "M9 3h3v6H9a3 3 0 0 1 0-6zm3 0h3a3 3 0 0 1 0 6h-3zm-3 6h3v6H9a3 3 0 0 1 0-6zm6 0a3 3 0 1 1 0 6 3 3 0 0 1 0-6zm-6 6h3v3a3 3 0 1 1-3-3z",
 };
+// One footer map (owner, 25 Nov 2026: "combine, it looks like 2x footer"): the brand column holds company and social links,
+// then services grouped the way buyers search, work by industry and resources, and one closing call line.
 const MAP = [
-  { h: "Services", links: [...svc(["saas-product-design", "dashboard-design", "mobile-app-design", "ux-audit", "design-systems", "website-design"]), ["EAA accessibility audit", "/eaa-audit/"], ["Managed accessibility", "/accessibility/"], ["All services", "/services/"]] },
-  { h: "Work", links: [...WORK.slice(0, 5).map((w) => [w.title, `/work/${w.slug}/`]), ["All case studies", "/work/"]] },
-  { h: "Resources", links: [["All resources", "/resources/"], ["Insights", "/writing/"], ["AI slop UI ebook", "/fix-ai-slop-ui/", null, "New"], ["UI/UX review", "/fix-ai-slop-ui/#options"], ["Free tools", "/tools/"], ["Slop Score", "/slop-score/", null, "New"], ["Free UI prompts", "/fix-ai-slop-ui/#free"], ["FAQs", "/#faq"], ["Products", "/products/"]] },
-  { h: "Company", links: [["About Sam", "/about/"], ["Pricing", "/pricing/"], ["Book a call", "/book/"]] },
-  { h: "Social", social: [["X", SITE.links.x, "x", "@samvllaco", "https://x.com/intent/follow?screen_name=samvllaco"], ["Medium", SITE.links.medium, "medium", "@samvllaco", SITE.links.medium], ["Dribbble", SITE.links.dribbble, "dribbble", "samirvllaco", SITE.links.dribbble]] },
+  { h: "Product design", links: [...svc(["saas-product-design", "dashboard-design", "mobile-app-design", "ai-product-ux"]), ["AI-built app design fix", svcHref("ai-app-design-fix")], ["Design systems", svcHref("design-systems")], ["UX audit", svcHref("ux-audit")], ["All services", "/services/"]] },
+  { h: "Websites and growth", links: [["Website design", svcHref("website-design")], ["Landing pages", svcHref("landing-pages")], ["Conversion optimization", svcHref("conversion-optimization")], ["Website development", svcHref("website-development")], ["SEO audit", svcHref("seo-audit")], ["AI search visibility", svcHref("ai-search")]] },
+  { h: "Accessibility and brand", links: [["EAA accessibility audit", "/eaa-audit/"], ["Managed accessibility", "/accessibility/"], ["Brand identity", svcHref("brand-identity")], ["Logo design", svcHref("logo-design")], ["Pitch deck design", svcHref("pitch-decks")]] },
+  { h: "Work", links: [["B2B SaaS", "/work/marketing-dashboard/"], ["Marketplaces", "/work/freelance-marketplace/"], ["Fintech", "/work/mobile-banking/"], ["Health", "/work/eye-care-web-app/"], ["EdTech", "/work/language-player/"], ["E-commerce", "/work/supplements-store/"], ["Legal", "/work/law-firm-website/"], ["All case studies", "/work/"]] },
+  { h: "Resources", links: [["Insights", "/writing/"], ["AI slop UI ebook", "/fix-ai-slop-ui/", null, "New"], ["UI/UX review", "/fix-ai-slop-ui/#options"], ["Slop Score", "/slop-score/", null, "New"], ["Free tools", "/tools/"], ["FAQs", "/#faq"], ["All resources", "/resources/"]] },
 ];
-// Every service, grouped the way buyers search for them, plus industries linked to real case studies (owner, 25 Nov 2026).
-const DIR = [
-  { h: "Product design", links: [["SaaS product design", "saas-product-design"], ["Dashboard design", "dashboard-design"], ["Mobile app design", "mobile-app-design"], ["AI product UX", "ai-product-ux"], ["AI-built app design fix", "ai-app-design-fix"], ["Design systems", "design-systems"], ["Prototyping and motion", "prototyping-motion"], ["UX audit", "ux-audit"]] },
-  { h: "Websites and growth", links: [["Website design", "website-design"], ["Landing pages", "landing-pages"], ["Conversion optimization", "conversion-optimization"], ["Website development", "website-development"], ["MVP build", "mvp-build"], ["SEO audit", "seo-audit"], ["AI search visibility", "ai-search"]] },
-  { h: "Accessibility and brand", links: [["EAA audit", "/eaa-audit/"], ["WCAG 2.2 AA audit", "/eaa-audit/"], ["Managed accessibility", "/accessibility/"], ["Brand identity", "brand-identity"], ["Logo design", "logo-design"], ["Pitch deck design", "pitch-decks"]] },
-  { h: "Industries", links: [["B2B SaaS", "/work/marketing-dashboard/"], ["Marketplaces", "/work/freelance-marketplace/"], ["Fintech", "/work/mobile-banking/"], ["Health", "/work/eye-care-web-app/"], ["EdTech", "/work/language-player/"], ["E-commerce", "/work/supplements-store/"], ["Travel", "/work/trip-planner/"], ["Legal", "/work/law-firm-website/"], ["Sports", "/work/golf-swing-recorder/"]] },
-];
-const dirHref = (v) => (v.startsWith("/") ? v : svcHref(v));
-
-function FootDir() {
-  return (
-    <nav className="foot-dir" aria-labelledby="foot-dir-h">
-      <div className="fd-head">
-        <p id="foot-dir-h" className="foot-map-h">All services</p>
-        <p className="fd-lede">Product design, websites, accessibility and brand for SaaS and AI teams, by one senior designer.</p>
-      </div>
-      {DIR.map((c) => (
-        <div key={c.h}>
-          <p className="fd-h">{c.h}</p>
-          <ul>{c.links.map(([t, v]) => <li key={t}><a href={dirHref(v)}>{t}</a></li>)}</ul>
-        </div>
-      ))}
-      <div className="fd-talk">
-        <p>Talk to the designer who does the work.</p>
-        <a className="hero2-btn hero2-btn-primary" href="/book/"><CallIcon />Book a call</a>
-      </div>
-    </nav>
-  );
-}
-
-const Ext = () => <svg className="fm-ext" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5" /></svg>;
+const COMPANY = [["About Sam", "/about/"], ["Pricing", "/pricing/"], ["Book a call", "/book/"]];
+const SOCIAL = [["X", SITE.links.x, "x", "@samvllaco", "https://x.com/intent/follow?screen_name=samvllaco"], ["Medium", SITE.links.medium, "medium", "@samvllaco", SITE.links.medium], ["Dribbble", SITE.links.dribbble, "dribbble", "samirvllaco", SITE.links.dribbble]];
 
 function FootMap() {
   return (
@@ -88,31 +60,25 @@ function FootMap() {
       <div className="fm-brand">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="/sam-face-144.webp?v=1" width="40" height="40" alt="" loading="lazy" />
-        <p><b>Sam Vllaco</b><span>Product designer for SaaS and AI products</span></p>
+        <p><b>Sam Vllaco</b><span>UI/UX and product designer for SaaS and AI products</span></p>
+        <ul className="fm-co">{COMPANY.map(([t, href]) => <li key={href}><a href={href}>{t}</a></li>)}</ul>
+        <ul className="fm-soc">
+          {SOCIAL.map(([t, href, icon, handle, follow]) => (
+            <li key={href}>
+              <a href={href} target="_blank" rel="me noopener"><svg className="fm-ico" viewBox="0 0 24 24" aria-hidden="true"><path d={ICON[icon]} /></svg><span>{t}</span><span className="sr-only"> {handle}</span><span className="sr-only"> (opens in a new tab)</span></a>
+              {icon === "x" ? <a className="hero2-btn hero2-btn-light fm-follow" href={follow} target="_blank" rel="noopener">Follow<span className="sr-only"> on {t} (opens in a new tab)</span></a> : null}
+            </li>
+          ))}
+        </ul>
       </div>
       {MAP.map((c) => (
         <div key={c.h}>
           <p className="foot-map-h">{c.h}</p>
-          {c.social ? (
-            <ul className="fm-soc">
-              {c.social.map(([t, href, icon, handle, follow]) => (
-                <li key={href}>
-                  <a href={href} target="_blank" rel="me noopener"><svg className="fm-ico" viewBox="0 0 24 24" aria-hidden="true"><path d={ICON[icon]} /></svg><span>{t}</span><span className="sr-only"> {handle}</span><span className="sr-only"> (opens in a new tab)</span></a>
-                  {icon === "x" ? <a className="hero2-btn hero2-btn-light fm-follow" href={follow} target="_blank" rel="noopener">Follow<span className="sr-only"> on {t} (opens in a new tab)</span></a> : null}
-                </li>
-              ))}
-            </ul>
-          ) : (
           <ul>
             {c.links.map(([t, href, icon, tag]) => (
-              <li key={href}>
-                {href.startsWith("http") ? (
-                  <a href={href} target="_blank" rel="me noopener">{icon ? <svg className="fm-ico" viewBox="0 0 24 24" aria-hidden="true"><path d={ICON[icon]} /></svg> : null}{t}{icon ? null : <Ext />}<span className="sr-only"> (opens in a new tab)</span></a>
-                ) : <a href={href}>{t}{tag ? <span className="fm-new">{tag}</span> : null}</a>}
-              </li>
+              <li key={t}><a href={href}>{t}{tag ? <span className="fm-new">{tag}</span> : null}</a></li>
             ))}
           </ul>
-          )}
         </div>
       ))}
     </nav>
@@ -175,7 +141,10 @@ export default function Footer() {
         </div>
         ) : null}
         <FootMap />
-        <FootDir />
+        <div className="fd-talk">
+          <p>Talk to the designer who does the work.</p>
+          <a className="hero2-btn hero2-btn-primary" href="/book/"><CallIcon />Book a call</a>
+        </div>
         <p>© {new Date().getFullYear()} Sam Vllaco<span className="foot-tagline">, your close design partner</span></p>
         <AskAI inline name="Sam Vllaco" prompt="Tell me about Sam Vllaco, the product designer at samvllaco.com. What does he do, who does he work with and how do I hire him?" />
 
