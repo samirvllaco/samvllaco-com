@@ -37,17 +37,26 @@ export function WhySub() {
   );
 }
 
+const TAG_ICON = {
+  rocket: "M5 15c-1.5 1.5-2 5-2 5s3.5-.5 5-2M9.5 14.5l-2-2M14.5 4.5C17 2 21 3 21 3s1 4-1.5 6.5L13 16l-5-5zM15.5 9.5h.01",
+  bolt: "M13 2 4 14h7l-1 8 9-12h-7z",
+};
+
 export function PlanCards() {
   return (
     <ul className="pr-plans pr-two">
       {PLANS.map((p) => (
-        <li key={p.k} className={`pr-plan${p.hot ? " is-hot" : ""}`}>
+        <li key={p.k} className={`pr-plan pr-brand${p.hot ? " is-hot" : ""}`}>
+          <p className="pr-tag">{p.tag}<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d={TAG_ICON[p.icon]} /></svg></p>
+          <p className="pr-who">{p.who}</p>
           <p className="pr-k">{p.k}{p.hot ? <span>Most picked</span> : null}</p>
           <p className="pr-price">{p.price}<span>{p.per}</span></p>
           <p className="pr-lead">{p.lead}</p>
           <ul className="pr-items">{p.items.map((t) => <li key={t}>{t}</li>)}</ul>
           <p className="pr-eg"><b>For example</b>{p.eg}</p>
           <Link prefetch={false} className={`hero2-btn ${p.hot ? "hero2-btn-primary" : "hero2-btn-light"}`} href="/book/">{p.hot ? <CallIcon /> : null}Book a call<span className="sr-only"> about the {p.k.toLowerCase()} plan</span></Link>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <span className="pr-pic" aria-hidden="true"><img src={p.pic[0]} width={p.pic[1]} height={p.pic[2]} alt="" loading="lazy" decoding="async" /></span>
         </li>
       ))}
     </ul>
