@@ -193,7 +193,7 @@ export default function CaseStudy({ params }) {
                   <p>{c.text}</p>
                 </div>
                 <Shot image={c.image} />
-                <div className="case-parts">
+                {c.parts.length ? <div className="case-parts">
                   {c.parts.map((pt) => (
                     <article className={`case-part${pt.image.h > pt.image.w ? " is-tall" : ""}`} key={pt.title}>
                       <div className="case-part-text">
@@ -203,7 +203,7 @@ export default function CaseStudy({ params }) {
                       <Shot image={pt.image} light />
                     </article>
                   ))}
-                </div>
+                </div> : null}
               </section>
             ))}
 
