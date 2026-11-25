@@ -5933,3 +5933,5 @@ html.is-live .ask-pill::before { animation-play-state: running; }
 .sx-cats li .sx-cat-n { color: var(--band, var(--text)); }
 .sx-score .sx-ring circle:last-child { stroke: var(--band, #62c1fd); filter: drop-shadow(0 0 6px color-mix(in srgb, var(--band, #62c1fd) 45%, transparent)); }
 .sx-score .sx-lab { background: var(--band, #62c1fd); }
+/* Buttons and fields use the page font (browsers default them to Arial). */
+:where(button, input, select, textarea) { font-family: inherit; }

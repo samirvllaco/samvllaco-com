@@ -2,12 +2,16 @@
 // Measures visible elements only and returns plain JSON.
 export function collectMetrics(buzzwords) {
   const vh = innerHeight;
+  // Only what a visitor can see: not decorative (aria-hidden), not inside a hidden or faded-out menu or popup,
+  // not off to the side of the page, not a 1px screen-reader-only label.
   const visible = (el) => {
     if (el.closest("[aria-hidden='true']")) return false;
+    if (el.checkVisibility && !el.checkVisibility({ opacityProperty: true, visibilityProperty: true })) return false;
     const cs = getComputedStyle(el);
     if (cs.display === "none" || cs.visibility !== "visible" || +cs.opacity === 0) return false;
     const r = el.getBoundingClientRect();
-    return r.width > 0 && r.height > 0;
+    if (r.right <= 0 || r.left >= innerWidth) return false;
+    return r.width > 2 && r.height > 2;
   };
   const rgb = (s) => (s.match(/[\d.]+/g) || []).map(Number);
   const isClear = (c) => !c || c === "transparent" || /rgba\(.*,\s*0\)$/.test(c);
@@ -30,7 +34,7 @@ export function collectMetrics(buzzwords) {
   for (const el of vis) {
     const cs = getComputedStyle(el);
     if (ownText(el)) {
-      sizes.add(cs.fontSize);
+      sizes.add(Math.round(parseFloat(cs.fontSize))); // fluid (clamp) sizes count by the whole pixel
       families.add(cs.fontFamily.split(",")[0].trim().replace(/["']/g, "").toLowerCase());
       textColors.add(cs.color);
     }
@@ -41,7 +45,7 @@ export function collectMetrics(buzzwords) {
     }
     for (const p of ["marginTop", "marginBottom", "marginLeft", "marginRight", "paddingTop", "paddingBottom", "paddingLeft", "paddingRight", "rowGap", "columnGap"]) {
       const v = parseFloat(cs[p]);
-      if (v > 0 && v < 400) spacingVals.push(Math.round(v * 10) / 10);
+      if (v > 0 && v < 400) spacingVals.push(Math.round(v));
     }
     if (parseFloat(cs.borderTopLeftRadius) > 0) radii.add(cs.borderTopLeftRadius);
     if (cs.boxShadow && cs.boxShadow !== "none") shadows.add(cs.boxShadow);
@@ -66,7 +70,8 @@ export function collectMetrics(buzzwords) {
     if (s > 0.25) accents.add(Math.floor(h / 20));
   }
   const distinctSpacing = new Set(spacingVals);
-  const onGrid = [...distinctSpacing].filter((v) => Math.abs(v / 4 - Math.round(v / 4)) < 0.01).length;
+  // On the 4px grid within a pixel, so fluid spacing that rounds onto the grid isn't punished.
+  const onGrid = [...distinctSpacing].filter((v) => Math.abs(v - Math.round(v / 4) * 4) <= 1).length;
 
   // Filled, button-like controls in the first screen.
   let filledButtons = 0;
@@ -97,7 +102,9 @@ export function collectMetrics(buzzwords) {
   const heads = [...document.querySelectorAll("h1, h2, h3")].filter(visible).map((h) => h.innerText.trim()).filter(Boolean).slice(0, 20);
   const buttons = [...document.querySelectorAll("button, [role=button], a")].filter(visible).filter((b) => { const cs = getComputedStyle(b); return !isClear(cs.backgroundColor) || b.tagName === "BUTTON"; }).map((b) => b.innerText.trim()).filter((t) => t && t.length < 40).slice(0, 20);
   const text = (document.body.innerText || "").replace(/\s+/g, " ").trim().slice(0, 1500);
-  const lower = (document.body.innerText || "").toLowerCase();
+  // Crossed-out text is a bad example on purpose (before and after), so it doesn't count as the site's copy.
+  let lower = (document.body.innerText || "").toLowerCase();
+  for (const el of all) if (el.matches("del, s") || /line-through/.test(getComputedStyle(el).textDecorationLine)) lower = lower.split(el.innerText.toLowerCase()).join(" ");
   const buzz = buzzwords.filter((w) => new RegExp(`\\b${w.replace("-", "[- ]")}`, "i").test(lower));
   const emoji = (heads.join(" ").match(/\p{Extended_Pictographic}/gu) || []).length;
   const imagesNoAlt = [...document.querySelectorAll("img")].filter(visible).filter((i) => !i.hasAttribute("alt")).length;
@@ -122,10 +129,13 @@ export function mobileTargets() {
   for (const el of document.querySelectorAll("a, button, input, select, textarea, [role=button], [tabindex]:not([tabindex='-1'])")) {
     const cs = getComputedStyle(el);
     if (cs.display === "none" || cs.visibility !== "visible" || el.closest("[aria-hidden='true']")) continue;
+    if (el.checkVisibility && !el.checkVisibility({ opacityProperty: true, visibilityProperty: true })) continue;
     const r = el.getBoundingClientRect();
-    if (!r.width || !r.height) continue;
+    if (r.width <= 2 || r.height <= 2 || r.right <= 0 || r.left >= innerWidth) continue;
     if (el.tagName === "A" && cs.display === "inline" && el.closest("p, li")) continue;
-    if (r.width < 44 || r.height < 44) out.push((el.getAttribute("aria-label") || el.innerText || el.getAttribute("name") || el.tagName).trim().slice(0, 40));
+    // Links in a list or nav follow WCAG 2.2 AA (24px); buttons and fields need 44px.
+    const min = el.tagName === "A" && el.closest("li, nav") ? 24 : 44;
+    if (r.width < min || r.height < min) out.push((el.getAttribute("aria-label") || el.innerText || el.getAttribute("name") || el.tagName).trim().slice(0, 40));
   }
   return { smallTargets: out.length, smallTargetExamples: out.slice(0, 3) };
 }
