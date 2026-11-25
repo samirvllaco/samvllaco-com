@@ -9,6 +9,7 @@ export const SLOP = {
   axeVersion: "4.10.2", // axe-core build injected into the scanned page
   perHour: 2, // scans per IP per hour
   perDay: 2, // scans per IP per day (owner: one or two per person)
+  triesPerDay: 6, // scan attempts per IP per day, finished or not
   dailyCap: 100, // scans per day for the whole tool; the $ guard in src/budget.js sits on top
   cacheHours: 24, // same URL inside this window returns the last report
   budgetMs: 45000, // whole browser step, hard stop

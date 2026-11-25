@@ -50,17 +50,19 @@ async function bump(env, key, ttl) {
   await env.CACHE.put(key, String(n), { expirationTtl: ttl });
   return n;
 }
+// Only finished scans count toward a visitor's limit; tries are capped separately so failing scans can't run forever.
 async function limited(env, ip) {
   const now = new Date(), hour = now.toISOString().slice(0, 13), day = now.toISOString().slice(0, 10);
-  const [h, d, g] = await Promise.all([env.CACHE.get(`rl:h:${ip}:${hour}`), env.CACHE.get(`rl:d:${ip}:${day}`), env.CACHE.get(`cap:${day}`)]);
+  const [h, d, g, t] = await Promise.all([env.CACHE.get(`sc:h:${ip}:${hour}`), env.CACHE.get(`sc:d:${ip}:${day}`), env.CACHE.get(`cap:${day}`), env.CACHE.get(`sc:t:${ip}:${day}`)]);
   if (Number(g || 0) >= SLOP.dailyCap) return "cap";
+  if (Number(t || 0) >= SLOP.triesPerDay) return "rate_day";
   if (Number(d || 0) >= SLOP.perDay) return "rate_day";
   if (Number(h || 0) >= SLOP.perHour) return "rate_hour";
   return null;
 }
 async function count(env, ip) {
   const now = new Date(), hour = now.toISOString().slice(0, 13), day = now.toISOString().slice(0, 10);
-  await Promise.all([bump(env, `rl:h:${ip}:${hour}`, 3700), bump(env, `rl:d:${ip}:${day}`, 90000), bump(env, `cap:${day}`, 90000)]);
+  await Promise.all([bump(env, `sc:h:${ip}:${hour}`, 3700), bump(env, `sc:d:${ip}:${day}`, 90000), bump(env, `cap:${day}`, 90000)]);
 }
 
 async function scan({ request, env }) {
@@ -79,7 +81,7 @@ async function scan({ request, env }) {
   const lim = await limited(env, ip);
   if (lim) return fail(lim, 429);
   if (!(await take(env, EST.scan))) return fail("cap", 429); // free credit guard
-  await count(env, ip);
+  await bump(env, `sc:t:${ip}:${new Date().toISOString().slice(0, 10)}`, 90000);
   let page;
   try { page = await render(env, u.url); } catch (e) { await settle(env, EST.scan, SLOP.model, {}); return fail(e instanceof ScanError ? e.code : "load", 502); }
   const id = newId();
@@ -94,6 +96,7 @@ async function scan({ request, env }) {
   await env.DB.prepare("INSERT INTO reports (id, url, url_hash, score, label, verdict, categories, issues, metrics, unlocked, model, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 0, ?, ?)")
     .bind(id, u.url, hash, fin.score, fin.label, ai.verdict || "", JSON.stringify(fin.categories), JSON.stringify(ai.issues || []), JSON.stringify(metrics), ai.model, new Date().toISOString()).run();
   await env.CACHE.put(`u:${hash}`, id, { expirationTtl: SLOP.cacheHours * 3600 });
+  await count(env, ip); // a finished scan is what counts
   const r = await env.DB.prepare("SELECT * FROM reports WHERE id = ?").bind(id).first();
   return json(view(r));
 }
