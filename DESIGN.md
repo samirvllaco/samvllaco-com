@@ -20,6 +20,10 @@ Two buttons side by side are the same width.
 - Container link styles (`.head-nav a`, `.mega li a`, `.foot-map a`, `.socials a`) must exclude buttons with `:not(.hero2-btn)`. When adding any new link style for a container, add that exclusion.
 - Never use `btn btn-primary` or `btn-ghost` in new markup. Use the two classes above.
 
+## Page hero position (owner, 25 Nov 2026)
+
+Every inner page puts its H1 at the same height so nothing jumps when moving between pages: page top 40px, breadcrumbs on one 32px line, 20px gap, then the hero header with 40px top padding on desktop and 16px on phones, and no margin above the H1. The rule lives at the end of `app/globals.css` ("One hero rhythm") and applies to any `header` with an H1 after the breadcrumbs. Do not add top margin or padding to a new hero; the H1 top sits at 241px at 1440 wide and 217px at 390 wide with the top bar showing.
+
 ## Icons (locked, 14 Nov 2026)
 
 One icon style everywhere: a line glyph (24 grid, 1.8 to 2 stroke, round caps) on the graphite 3D tile used in the Services and Resources menus (radial graphite gradient, top highlight, soft drop shadow, corners about 30% of the size). Sizes 28, 32, 36, 44 px.
