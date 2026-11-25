@@ -3,6 +3,7 @@ import CallIcon from "./CallIcon";
 import SoundToggle from "./SoundToggle";
 import ServicesMenu from "./ServicesMenu";
 import ResourcesMenu from "./ResourcesMenu";
+import ToolsMenu from "./ToolsMenu";
 import HeaderScroll from "./HeaderScroll";
 import BrandFace from "./BrandFace";
 import BrandRole from "./BrandRole";
@@ -37,7 +38,7 @@ export default function Header() {
           <ServicesMenu />
           <Link prefetch={false} href="/work/">Work</Link>
           <ResourcesMenu />
-          {NAV.filter((n) => n.href !== "/work/").map((n) => (
+          {NAV.filter((n) => n.href !== "/work/").map((n) => n.href === "/tools/" ? <ToolsMenu key={n.href} /> : (
             <Link prefetch={false} key={n.href} href={n.href}>
               {n.dot ? <i className="nav-dot" aria-hidden="true" /> : null}
               {n.label}
