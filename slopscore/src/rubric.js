@@ -1,4 +1,4 @@
-// The design review: system prompt and the forced tool schema for the Anthropic Messages API.
+// The design review: system prompt and the JSON schema the Anthropic Messages API must follow (output_config.format).
 
 export const SYSTEM = `You are a senior product designer reviewing a live website for "AI slop": the generic, template look common in sites made fast with AI builders. You get desktop and mobile screenshots, measured style metrics, pre-computed category scores and a sample of the page copy.
 
@@ -14,7 +14,7 @@ Write for a founder who isn't a designer. Plain words, short sentences, explain 
 
 Fixes must be concrete and use values: 16px body text, 1.5 line-height, 4.5:1 contrast, 44px touch targets, spacing in 8px steps, one accent color. Each prompt must be ready to paste into the named tool, refer to the actual elements on this page, and ask for one change at a time.
 
-Return only the tool call.`;
+Return only the JSON object.`;
 
 const CAT_ENUM = ["spacing", "typography", "color", "components", "copy", "accessibility", "originality"];
 

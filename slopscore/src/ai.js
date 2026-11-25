@@ -1,4 +1,5 @@
-// One Anthropic Messages API call with a forced tool, so the review always comes back as structured JSON.
+// One Anthropic Messages API call with a JSON schema (structured outputs), so the review always comes back as JSON.
+// Sonnet 5.5 rejects a forced tool_choice, so the schema goes in output_config.format instead.
 import { SYSTEM, TOOL } from "./rubric.js";
 import { SLOP } from "../config.js";
 
@@ -8,6 +9,15 @@ export const undash = (v) => {
   if (Array.isArray(v)) return v.map(undash);
   if (v && typeof v === "object") return Object.fromEntries(Object.entries(v).map(([k, x]) => [k, undash(x)]));
   return v;
+};
+
+// Structured outputs need additionalProperties: false on every object.
+export const strict = (v) => {
+  if (Array.isArray(v)) return v.map(strict);
+  if (!v || typeof v !== "object") return v;
+  const o = Object.fromEntries(Object.entries(v).map(([k, x]) => [k, strict(x)]));
+  if (o.type === "object") o.additionalProperties = false;
+  return o;
 };
 
 export async function review(env, { shots, metrics, det, axe, url }) {
@@ -26,16 +36,16 @@ export async function review(env, { shots, metrics, det, axe, url }) {
       model: env.SLOP_MODEL || SLOP.model,
       max_tokens: 8000,
       system: SYSTEM,
-      tools: [TOOL],
-      tool_choice: { type: "tool", name: TOOL.name },
+      output_config: { format: { type: "json_schema", schema: strict(TOOL.input_schema) } },
       messages: [{ role: "user", content: [...images, { type: "text", text: `Screenshots in order: desktop first screen, desktop full page (first 3000px), mobile first screen.\n\nPage data (JSON):\n${JSON.stringify(facts)}` }] }],
     }),
   });
   if (!res.ok) { const t = await res.text().catch(() => ""); let m = t; try { m = JSON.parse(t).error.message; } catch { /* raw */ } throw new Error(`anthropic ${res.status}: ${String(m).slice(0, 160)}`); }
   const out = await res.json();
-  const call = (out.content || []).find((c) => c.type === "tool_use");
-  if (!call) throw new Error("anthropic no tool call");
-  const r = undash(call.input);
+  const text = (out.content || []).filter((c) => c.type === "text").map((c) => c.text).join("");
+  let parsed;
+  try { parsed = JSON.parse(text); } catch { throw new Error(`anthropic bad json (${out.stop_reason || "?"})`); }
+  const r = undash(parsed);
   r.issues = (r.issues || []).slice(0, 15).map((x, i) => ({ ...x, id: x.id || `i${i + 1}` }));
   return { ...r, model: out.model || SLOP.model, usage: out.usage };
 }
