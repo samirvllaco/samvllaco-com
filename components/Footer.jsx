@@ -89,7 +89,7 @@ function FootMap() {
 export default function Footer() {
   return (
     <footer className="site-footer">
-      {/* Free tools and the contact page: no portrait scene, no site map, no photo (see RouteHide). */}
+      {/* Lean pages (free tools, contact, work, pricing): no portrait scene, no site map, no photo (see RouteHide). */}
       <RouteHide><FootStage /></RouteHide>
       <div className="wrap">
         {SHOW_CERTS ? (

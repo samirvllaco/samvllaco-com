@@ -2,6 +2,7 @@ import Link from "next/link";
 import CallIcon from "./CallIcon";
 import SoundToggle from "./SoundToggle";
 import ServicesMenu from "./ServicesMenu";
+import ResourcesMenu from "./ResourcesMenu";
 import ToolsMenu from "./ToolsMenu";
 import HeaderScroll from "./HeaderScroll";
 import BrandFace from "./BrandFace";
@@ -10,7 +11,7 @@ import { EMAIL } from "../lib/site";
 import HeadCta from "./HeadCta";
 import MobileMenu from "./MobileMenu";
 
-// Order (owner, 25 Nov 2026): Services, Pricing, Work. Resources left the nav the same day; its page still exists.
+// Order (owner, 25 Nov 2026): Services, Pricing, Work, Resources, Free tools. Resources and Free tools only open their menus.
 const NAV = [
   { href: "/pricing/", label: "Pricing" },
   { href: "/work/", label: "Work" },
@@ -36,7 +37,7 @@ export default function Header() {
         </Link>
         <nav className="head-nav" aria-label="Main">
           <ServicesMenu />
-          {NAV.map((n) => n.href === "/tools/" ? <ToolsMenu key={n.href} /> : (
+          {NAV.flatMap((n) => (n.href === "/tools/" ? [{ res: true }, n] : [n])).map((n) => n.res ? <ResourcesMenu key="res" /> : n.href === "/tools/" ? <ToolsMenu key={n.href} /> : (
             <Link prefetch={false} key={n.href} href={n.href}>
               {n.dot ? <i className="nav-dot" aria-hidden="true" /> : null}
               {n.label}

@@ -4,15 +4,15 @@ import { usePathname } from "next/navigation";
 import MegaShell from "./MegaShell";
 import { TOOLS } from "../lib/tools";
 
-// "Free tools" in the header opens on hover like Services and Resources (owner, 25 Nov 2026).
+// "Free tools" in the header opens on hover like Services and Resources (owner, 25 Nov 2026). The label only opens the menu, no hub page link.
 export default function ToolsMenu() {
   const path = (usePathname() || "/").replace(/\/?$/, "/");
   return (
-    <MegaShell id="mega-tools" label="Free tools" href="/tools/">
+    <MegaShell id="mega-tools" label="Free tools">
       {(close) => (
         <div className="wrap mx-in mx-res">
           <div className="mx-main">
-            <div className="mx-k-row"><p className="mx-k">Free, no sign-up</p><Link prefetch={false} className="mx-view" href="/tools/" onClick={close}>View all tools<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" /></svg></Link></div>
+            <div className="mx-k-row"><p className="mx-k">Free, no sign-up</p></div>
             <ul className="mx-grid mx-grid-3">
               {TOOLS.map((t) => {
                 const href = t.href || `/tools/${t.slug}/`;

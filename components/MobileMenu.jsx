@@ -7,6 +7,8 @@ import { BOOK_URL } from "../lib/site";
 import CallIcon from "./CallIcon";
 import { FEATURED } from "./ServicesMenu";
 import { SERVICES, svcHref } from "../lib/services";
+import { RESOURCES } from "../lib/resources";
+import { TOOLS } from "../lib/tools";
 
 const ALL_SERVICES = SERVICES.flatMap((g) => g.items);
 // Nested pages for the two menus that open a big panel on desktop.
@@ -15,14 +17,18 @@ const SUB = {
     items: FEATURED.map(([id, d]) => ({ href: svcHref(id), label: ALL_SERVICES.find((x) => x.id === id)?.name || id, icon: d })),
     all: { href: "/services/", label: `All ${ALL_SERVICES.length} services` },
   },
+  // Resources and Free tools only open their list here; they no longer link to a hub page (owner, 25 Nov 2026).
+  "/resources/": { items: RESOURCES.map((r) => ({ href: r.href, label: r.title, icon: r.icon, tag: r.tag })) },
+  "/tools/": { items: TOOLS.map((t) => ({ href: t.href || `/tools/${t.slug}/`, label: t.name, icon: t.icon })) },
 };
 
 const LINKS = [
   { href: "/services/", label: "Services" },
   { href: "/pricing/", label: "Pricing" },
   { href: "/work/", label: "Work" },
+  { href: "/resources/", label: "Resources", menu: true },
   { href: "/fix-ai-slop-ui/", label: "E-book", tag: "$12.99" },
-  { href: "/tools/", label: "Free tools" },
+  { href: "/tools/", label: "Free tools", menu: true },
   { href: "/about/", label: "About" },
   { href: "/book/", label: "Contact" },
 ];
@@ -87,6 +93,14 @@ export default function MobileMenu() {
                 const here = path.startsWith(l.href);
                 return (
                   <li key={l.href} className={SUB[l.href] ? `mm-has${sub === l.href ? " is-sub" : ""}` : undefined}>
+                    {l.menu ? (
+                      <div className="mm-row">
+                        <button type="button" className="mm-name" aria-expanded={sub === l.href} aria-controls={`mm-sub-${l.label}`} onClick={() => setSub(sub === l.href ? null : l.href)}>
+                          {l.label}
+                          <svg className="mm-chev" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                        </button>
+                      </div>
+                    ) : (
                     <div className="mm-row">
                       <Link prefetch={false} href={l.href} aria-current={here ? "page" : undefined} onClick={() => setOpen(false)}>
                         {l.dot ? <i className="nav-dot" aria-hidden="true" /> : null}
@@ -101,6 +115,7 @@ export default function MobileMenu() {
                         </button>
                       ) : null}
                     </div>
+                    )}
                     {SUB[l.href] ? (
                       <div className="mm-sub" id={`mm-sub-${l.label}`} hidden={sub !== l.href}>
                         <ul>
@@ -113,9 +128,11 @@ export default function MobileMenu() {
                               </Link>
                             </li>
                           ))}
+                          {SUB[l.href].all ? (
                           <li className="mm-sub-all">
                             <Link prefetch={false} href={SUB[l.href].all.href} onClick={() => setOpen(false)}>{SUB[l.href].all.label}<svg className="mm-arr" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg></Link>
                           </li>
+                          ) : null}
                         </ul>
                       </div>
                     ) : null}

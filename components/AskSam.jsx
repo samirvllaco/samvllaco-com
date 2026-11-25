@@ -224,7 +224,7 @@ export default function AskSam() {
               <p id="ask-h" className="ask-title">Ask Sam's AI</p>
               <p><i className="ask-live" aria-hidden="true" />Answers from this site</p>
             </div>
-            {msgs.length ? <button type="button" className="ask-clear" onClick={clear}>Clear</button> : null}
+            <button type="button" className="ask-clear" onClick={clear} disabled={!msgs.length || busy}>Clear</button>
             <button type="button" className="ask-x" onClick={() => { setOpen(false); pill.current?.focus(); }} aria-label="Close the chat">
               <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" /></svg>
             </button>
@@ -232,10 +232,13 @@ export default function AskSam() {
           <div ref={list} className="ask-list" aria-live="polite">
             <p className="ask-msg is-ai">Hi. Ask me about Sam's services, prices, process or past work.</p>
             {msgs.map((m, i) => (
-              <p key={i} className={`ask-msg ${m.role === "user" ? "is-me" : "is-ai"}`}>
-                {m.role === "user" ? <span className="sr-only">You: </span> : <span className="sr-only">Assistant: </span>}
-                {m.content ? <Text t={m.content} /> : <Thinking />}
-              </p>
+              <div key={i} className={`ask-turn ${m.role === "user" ? "is-me" : "is-ai"}`}>
+                <p className={`ask-msg ${m.role === "user" ? "is-me" : "is-ai"}`}>
+                  {m.role === "user" ? <span className="sr-only">You: </span> : <span className="sr-only">Assistant: </span>}
+                  {m.content ? <Text t={m.content} /> : <Thinking />}
+                </p>
+                {m.role === "assistant" && m.content && !(busy && i === msgs.length - 1) ? <p className="ask-meta" aria-hidden="true">Sam&apos;s AI · Just now</p> : null}
+              </div>
             ))}
           </div>
           <ul className="ask-chips" aria-label="Quick questions" onWheel={(e) => { if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) e.currentTarget.scrollLeft += e.deltaY; }}>
