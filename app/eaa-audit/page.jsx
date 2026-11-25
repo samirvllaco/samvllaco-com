@@ -8,8 +8,8 @@ import { share, PERSON_ID } from "../../lib/seo";
 import { WEEK_PRICE, EAA_AUDIT_PRICE, usd } from "../../lib/plans";
 import { SRC, CHECKS, EAA_FAQ } from "../../lib/accessibility";
 
-const TITLE = "EAA Audit and Fix Sprint for WCAG 2.2 AA";
-const DESC = "Find where your site or app fails the European Accessibility Act, then fix it. A WCAG 2.2 AA audit in 5 days and design fixes in weekly sprints.";
+const TITLE = "EAA Audit: WCAG 2.2 Accessibility Audit for Europe";
+const DESC = "An EAA audit for teams selling in Europe: a WCAG 2.2 AA accessibility audit of your site or app in 5 days, then design and code fixes in weekly sprints.";
 
 export const metadata = {
   title: TITLE,

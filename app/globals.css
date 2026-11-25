@@ -5774,3 +5774,16 @@ main > .page > .hero-dots-cv { height: clamp(560px, 86vh, 860px); }
 @media (max-width: 1100px) { .fr-row { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 560px) { .fr-row { grid-template-columns: minmax(0, 1fr); gap: 20px; } }
 @media (prefers-reduced-motion: reduce) { .fr-ico * { animation: none !important; } }
+
+/* About: how I work and the practical details (owner, 25 Nov 2026) */
+.ab-more .fr-row { margin-bottom: 40px; }
+.ab-steps { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+@media (max-width: 1100px) { .ab-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 640px) { .ab-steps { grid-template-columns: minmax(0, 1fr); } }
+.ab-details { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--gap-grid); max-width: 1200px; margin: 0; }
+.ab-details > div { display: grid; gap: 4px; align-content: start; padding: 20px 24px; border-radius: 20px; background: var(--card); box-shadow: inset 0 0 0 1px var(--line); }
+.ab-details dt { font-size: .875rem; font-weight: 600; color: var(--muted); }
+.ab-details dd { margin: 0; font-size: 1rem; line-height: 1.5; color: var(--text); }
+.ab-details a { color: var(--text); text-decoration: underline; text-underline-offset: 3px; }
+@media (max-width: 640px) { .ab-details { grid-template-columns: minmax(0, 1fr); } }
+.ab-more .ab-end { margin-top: 40px; }

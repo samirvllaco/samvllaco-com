@@ -8,8 +8,8 @@ import { CATS } from "../../slopscore/config";
 import { SITE, EMAIL } from "../../lib/site";
 import { share, PERSON_ID } from "../../lib/seo";
 
-const TITLE = "Slop Score: Free AI UI Checker for Vibe-Coded Sites";
-const DESC = "Paste your URL and see how AI-generated your site looks. A free score, the top fixes and copy-paste prompts for Lovable, Cursor and Claude Code.";
+const TITLE = "Slop Score: Free AI Slop Checker for Your Website";
+const DESC = "A free AI slop checker: paste your URL and see how AI-generated your site looks, with the top fixes and copy-paste prompts for Lovable, Cursor and Claude Code.";
 
 export const metadata = {
   title: TITLE,
@@ -41,7 +41,7 @@ export default function SlopScorePage() {
   return (
     <div className="wrap page pg sx-page">
       <JsonLd data={schema} />
-      <PageHead crumb="Slop Score" href="/slop-score/" a="Does your site" b="look AI-generated?" lede="Paste your URL. In about 30 seconds you get a Slop Score, what's dragging it down, and how to fix it. Free.">
+      <PageHead crumb="Slop Score" href="/slop-score/" a="Does your site" b="look AI-generated?" lede="A free AI slop checker. Paste your URL, and in about 30 seconds you get a Slop Score, what's dragging it down, and how to fix it.">
         <SlopScan />
       </PageHead>
 
