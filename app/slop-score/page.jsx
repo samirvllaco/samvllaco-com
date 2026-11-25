@@ -58,7 +58,6 @@ export default function SlopScorePage() {
       <section className="sv-sec" aria-labelledby="sx-how-h">
         <h2 id="sx-how-h">How the score <span className="t2">works</span></h2>
         <p className="ax-me-p">Measured checks plus an AI review trained on my design rules. The checks count font sizes, grays, spacing values, buttons, gradients and accessibility problems on your live page. The review looks at screenshots like a designer would. It's a good first look, not a replacement for a designer.</p>
-        <p className="ax-me-p sx-quiz">No live site yet? Try the <a href="/tools/ai-slop-ui-score/">12-question AI slop quiz</a> instead.</p>
       </section>
 
       <div className="sv-sec sv-faqwrap">

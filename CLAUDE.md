@@ -77,6 +77,7 @@ Tokens and role rules are the last block of `app/globals.css` ("Type and spacing
 
 ## Buttons (owner, 13 Nov 2026, locked)
 - Only the two button classes in DESIGN.md (Buttons), with the hover and state rules defined there. Check every new or moved button on hover before calling a change done.
+- Buttons follow the alignment of the text above them: centered under centered text (owner, 25 Nov 2026; DESIGN.md Buttons). Run `NODE_PATH=$(npm root -g) node scripts/btn-align.cjs` after touching buttons or layout; it must list no rows.
 - Buttons side by side are the same width (owner, 14 Nov 2026). Put them alone in one row container: the global rule in `globals.css` sizes every button in a row of only `hero2-btn` buttons to the widest one, and stacks them full width on phones.
 
 ## SEO (owner, 13 Nov 2026)

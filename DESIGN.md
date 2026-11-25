@@ -11,6 +11,7 @@ Two button styles only. Both are fully rounded pills with the raised "key" look.
 
 Do not use `btn-ghost` (blue text on graphite) for page actions. It is not the secondary button.
 Two buttons side by side are the same width.
+**Buttons follow the text above them (owner, 25 Nov 2026).** Under a centered heading or lede, the button or button row is centered; under left-aligned text it starts at the left edge. A row made only of `hero2-btn` buttons is an `inline-grid`, so it takes the alignment of its parent: give the parent `text-align: center` (or use a centered flex/grid parent) and the row follows. Never leave a row left-aligned under centered text. Buttons never overflow their container on phones. Check: `node scripts/btn-align.cjs` (with `npx serve out -l 4173` running) must report no rows.
 
 **Hover and states (locked, 13 Nov 2026).** A button looks and behaves the same everywhere: in the header, mega menu, cards, footer and popups.
 - Hover: the key lifts slightly brighter (`filter: brightness(1.08)`), same color family. Never a flat grey or `--hl` fill.

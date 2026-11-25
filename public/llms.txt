@@ -25,7 +25,6 @@
 
 ## Free tools
 - [Slop Score](https://samvllaco.com/slop-score/): a free AI slop checker. Paste a URL and get a score from 0 to 100 (lower is better) for how AI-generated the site looks, with the top fixes.
-- [AI slop UI score](https://samvllaco.com/tools/ai-slop-ui-score/): 12 yes or no questions that score how AI-generated an app looks, out of 100, with the fixes to make first.
 - [Color contrast checker](https://samvllaco.com/tools/contrast-checker/): tests text and background colors against WCAG 2.2 AA and AAA and suggests the closest passing color.
 - [Design cost calculator](https://samvllaco.com/tools/design-cost-calculator/): estimates what a website, app, landing page or brand design costs and how many weeks it takes.
 

@@ -14,12 +14,27 @@ function fix(fg, bg, target) {
   return dir ? "#ffffff" : "#000000";
 }
 
+// What each rule looks like in the chosen colors: body text, large text, or an icon with a control outline.
+function Sample({ k, fg, bg }) {
+  return (
+    <span className={`cc-s cc-s-${k}`} style={{ color: fg, background: bg }} aria-hidden="true">
+      {k === "u" ? (
+        <>
+          <svg viewBox="0 0 24 24" width="22" height="22"><path d="M12 3l2.6 5.6 6.1.7-4.5 4.2 1.2 6L12 16.6 6.6 19.5l1.2-6L3.3 9.3l6.1-.7z" /></svg>
+          <i className="cc-s-box" style={{ borderColor: fg }} />
+          <i className="cc-s-tog" style={{ borderColor: fg }}><i style={{ background: fg }} /></i>
+        </>
+      ) : k === "l" ? "Large text" : "Body text at 16px"}
+    </span>
+  );
+}
+
 export default function ContrastChecker() {
   const [fgIn, setFg] = useState("#8e8e93");
   const [bgIn, setBg] = useState("#1c1c1e");
   const fg = hex(fgIn), bg = hex(bgIn);
   const r = useMemo(() => (fg && bg ? ratio(fg, bg) : null), [fg, bg]);
-  const rows = r ? [["Normal text, AA", 4.5], ["Large text, AA", 3], ["Normal text, AAA", 7], ["Large text, AAA", 4.5], ["Icons and UI parts", 3]] : [];
+  const rows = r ? [["Normal text, AA", 4.5, "n"], ["Large text, AA", 3, "l"], ["Normal text, AAA", 7, "n"], ["Large text, AAA", 4.5, "l"], ["Icons and UI parts", 3, "u"]] : [];
   const sug = r && r < 4.5 ? fix(fg, bg, 4.5) : null;
   return (
     <div className="tl-box cc-tool">
@@ -37,7 +52,7 @@ export default function ContrastChecker() {
       {r ? (
         <>
           <p className="cc-ratio" aria-live="polite"><b>{r.toFixed(2)}:1</b> contrast ratio</p>
-          <ul className="cc-rows">{rows.map(([l, t]) => <li key={l} className={r >= t ? "ok" : "no"}><span>{l}</span><span>needs {t}:1</span><b>{r >= t ? "Pass" : "Fail"}</b></li>)}</ul>
+          <ul className="cc-rows">{rows.map(([l, t, k]) => <li key={l} className={r >= t ? "ok" : "no"}><Sample k={k} fg={fg} bg={bg} /><span><span>{l}</span><span>needs {t}:1</span></span><b>{r >= t ? "Pass" : "Fail"}</b></li>)}</ul>
           {sug ? <p className="cc-sug">Closest passing text color for AA: <button type="button" onClick={() => setFg(sug)}><i style={{ background: sug }} />{sug}</button></p> : null}
         </>
       ) : <p className="cc-ratio">Enter two hex colors, like #1d1d1f.</p>}

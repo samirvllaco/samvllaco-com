@@ -56,9 +56,11 @@ export default function ReviewThanks() {
         <CopyEmailInline />
       </section>
 
+      <div className="rv-end">
       <div className="rv-cta">
         <Link prefetch={false} className="hero2-btn hero2-btn-primary" href="/fix-ai-slop-ui/">See the book page</Link>
         <Link prefetch={false} className="hero2-btn hero2-btn-light" href="/">Back to the site</Link>
+      </div>
       </div>
     </div>
   );

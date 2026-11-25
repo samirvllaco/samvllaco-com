@@ -4,7 +4,7 @@ import { TOOLS } from "../../lib/tools";
 
 export const metadata = {
   title: "Free UI/UX Design Tools",
-  description: "Free design tools from Sam Vllaco: Slop Score for live sites, an AI slop UI quiz, a WCAG color contrast checker and a website and app design cost calculator.",
+  description: "Free design tools from Sam Vllaco: Slop Score, an automatic AI slop checker for live sites, a WCAG color contrast checker and a website and app design cost calculator.",
   alternates: { canonical: "/tools/" },
 };
 
