@@ -31,7 +31,7 @@ export async function review(env, { shots, metrics, det, axe, url }) {
       messages: [{ role: "user", content: [...images, { type: "text", text: `Screenshots in order: desktop first screen, desktop full page (first 3000px), mobile first screen.\n\nPage data (JSON):\n${JSON.stringify(facts)}` }] }],
     }),
   });
-  if (!res.ok) throw new Error(`anthropic ${res.status}`);
+  if (!res.ok) { const t = await res.text().catch(() => ""); let m = t; try { m = JSON.parse(t).error.message; } catch { /* raw */ } throw new Error(`anthropic ${res.status}: ${String(m).slice(0, 160)}`); }
   const out = await res.json();
   const call = (out.content || []).find((c) => c.type === "tool_use");
   if (!call) throw new Error("anthropic no tool call");
