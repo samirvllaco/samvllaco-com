@@ -284,7 +284,7 @@ async function ask(ctx) {
   // One Turnstile pass opens a short session, so every message after the first needs no new challenge.
   let sid = /^[A-Za-z0-9]{16}$/.test(b.sid || "") && (await env.CACHE.get(`ask:s:${b.sid}`)) ? b.sid : "";
   if (!sid) {
-    { const bad = await turnstile(env, b.token, ip); if (bad) return tsFail(bad); }
+    if (!admin(request, env)) { const bad = await turnstile(env, b.token, ip); if (bad) return tsFail(bad); }
     sid = newId(16);
     await env.CACHE.put(`ask:s:${sid}`, "1", { expirationTtl: ASK.sessionHours * 3600 });
   }
