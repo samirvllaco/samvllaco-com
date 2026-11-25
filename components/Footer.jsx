@@ -5,7 +5,8 @@ import FootStage from "./FootStage";
 import { SecretCount } from "./Seen";
 import { SITE, CERTS } from "../lib/site";
 import { WORK } from "../lib/work";
-import { SERVICES } from "../lib/services";
+import { SERVICES, svcHref } from "../lib/services";
+import CallIcon from "./CallIcon";
 
 // 16 point scalloped seal, drawn once and filled with a shared gold gradient
 function sealPath() {
@@ -49,6 +50,36 @@ const MAP = [
   { h: "Company", links: [["About Sam", "/about/"], ["Pricing", "/pricing/"], ["Book a call", "/book/"]] },
   { h: "Social", social: [["X", SITE.links.x, "x", "@samvllaco", "https://x.com/intent/follow?screen_name=samvllaco"], ["Medium", SITE.links.medium, "medium", "@samvllaco", SITE.links.medium], ["Dribbble", SITE.links.dribbble, "dribbble", "samirvllaco", SITE.links.dribbble]] },
 ];
+// Every service, grouped the way buyers search for them, plus industries linked to real case studies (owner, 25 Nov 2026).
+const DIR = [
+  { h: "Product design", links: [["SaaS product design", "saas-product-design"], ["Dashboard design", "dashboard-design"], ["Mobile app design", "mobile-app-design"], ["AI product UX", "ai-product-ux"], ["AI-built app design fix", "ai-app-design-fix"], ["Design systems", "design-systems"], ["Prototyping and motion", "prototyping-motion"], ["UX audit", "ux-audit"]] },
+  { h: "Websites and growth", links: [["Website design", "website-design"], ["Landing pages", "landing-pages"], ["Conversion optimization", "conversion-optimization"], ["Website development", "website-development"], ["MVP build", "mvp-build"], ["SEO audit", "seo-audit"], ["AI search visibility", "ai-search"]] },
+  { h: "Accessibility and brand", links: [["EAA audit", "/eaa-audit/"], ["WCAG 2.2 AA audit", "/eaa-audit/"], ["Managed accessibility", "/accessibility/"], ["Brand identity", "brand-identity"], ["Logo design", "logo-design"], ["Pitch deck design", "pitch-decks"]] },
+  { h: "Industries", links: [["B2B SaaS", "/work/marketing-dashboard/"], ["Marketplaces", "/work/freelance-marketplace/"], ["Fintech", "/work/mobile-banking/"], ["Health", "/work/eye-care-web-app/"], ["EdTech", "/work/language-player/"], ["E-commerce", "/work/supplements-store/"], ["Travel", "/work/trip-planner/"], ["Legal", "/work/law-firm-website/"], ["Sports", "/work/golf-swing-recorder/"]] },
+];
+const dirHref = (v) => (v.startsWith("/") ? v : svcHref(v));
+
+function FootDir() {
+  return (
+    <nav className="foot-dir" aria-labelledby="foot-dir-h">
+      <div className="fd-head">
+        <p id="foot-dir-h" className="foot-map-h">All services</p>
+        <p className="fd-lede">Product design, websites, accessibility and brand for SaaS and AI teams, by one senior designer.</p>
+      </div>
+      {DIR.map((c) => (
+        <div key={c.h}>
+          <p className="fd-h">{c.h}</p>
+          <ul>{c.links.map(([t, v]) => <li key={t}><a href={dirHref(v)}>{t}</a></li>)}</ul>
+        </div>
+      ))}
+      <div className="fd-talk">
+        <p>Talk to the designer who does the work.</p>
+        <a className="hero2-btn hero2-btn-primary" href="/book/"><CallIcon />Book a call</a>
+      </div>
+    </nav>
+  );
+}
+
 const Ext = () => <svg className="fm-ext" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5" /></svg>;
 
 function FootMap() {
@@ -144,6 +175,7 @@ export default function Footer() {
         </div>
         ) : null}
         <FootMap />
+        <FootDir />
         <p>© {new Date().getFullYear()} Sam Vllaco<span className="foot-tagline">, your close design partner</span></p>
         <AskAI inline name="Sam Vllaco" prompt="Tell me about Sam Vllaco, the product designer at samvllaco.com. What does he do, who does he work with and how do I hire him?" />
 

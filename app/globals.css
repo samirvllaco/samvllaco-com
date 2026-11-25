@@ -5681,3 +5681,17 @@ main > .page > .hero-dots-cv { height: clamp(560px, 86vh, 860px); }
 @media (max-width: 1200px) { .sx-up.pr-plans { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 880px; margin-inline: auto; } }
 @media (max-width: 640px) { .sx-up.pr-plans { grid-template-columns: minmax(0, 1fr); max-width: 560px; } }
 .sx-up .pr-price { font-size: clamp(2rem, 3vw, 2.5rem); }
+
+/* Footer "All services" directory (owner, 25 Nov 2026): every service grouped as buyers search, industries linked to case studies. */
+.site-footer .foot-dir { grid-column: 1 / -1; justify-self: stretch; display: grid; grid-template-columns: 1.2fr repeat(4, minmax(0, 1fr)); gap: 32px clamp(24px, 3vw, 48px); width: 100%; padding: 40px 0 48px; margin-bottom: 8px; border-bottom: 1px solid rgba(255, 255, 255, .08); text-align: left; }
+.fd-head .foot-map-h { margin-bottom: 12px; }
+.fd-lede { margin: 0; max-width: 30ch; font-size: .9375rem; line-height: 1.5; color: #98989d; }
+.fd-h { margin: 0 0 16px; font-size: .9375rem; font-weight: 500; color: #f5f5f7; }
+.foot-dir ul { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.site-footer .foot-dir ul a { display: inline-flex; align-items: center; min-height: 28px; font-size: .9375rem; color: #98989d; text-decoration: none; background: none; transition: color .2s; }
+.site-footer .foot-dir ul a:hover { color: #f5f5f7; background: none; }
+.foot-dir ul a:focus-visible { outline: 2px solid rgba(98, 193, 253, .7); outline-offset: 3px; border-radius: 4px; }
+.fd-talk { grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px 32px; margin-top: 8px; padding: 24px 32px; border-radius: 20px; background: #1d1d1f; }
+.fd-talk p { margin: 0; font-size: var(--fs-subhead); line-height: 1.333; font-weight: 600; letter-spacing: -.01em; color: #f5f5f7; }
+@media (max-width: 1100px) { .site-footer .foot-dir { grid-template-columns: repeat(2, minmax(0, 1fr)); } .fd-head { grid-column: 1 / -1; } }
+@media (max-width: 560px) { .fd-talk { padding: 20px; } .fd-talk .hero2-btn { width: 100%; justify-content: center; } }

@@ -88,7 +88,7 @@ export default function Home() {
         <div className="hero3">
           <HeroRole />
           <h1 className="h3-flip">
-            <W t="I design" /> <Ico id="a" gap="r" tiles={[["figma", 12], ["photoshop", 5], ["chatgpt", 2.5], ["illustrator", 5], ["pen", 5], ["claude", 2.5], ["systems", 5], ["wand", 4]]} /><W t="digital products" />{" "}<br />
+            <W t="I design UI/UX" /> <Ico id="a" gap="r" tiles={[["figma", 12], ["photoshop", 5], ["chatgpt", 2.5], ["illustrator", 5], ["pen", 5], ["claude", 2.5], ["systems", 5], ["wand", 4]]} /><W t="for products" />{" "}<br />
             <W t="people" /> <span className="h3-nw"><W t="love" /><Ico id="b" gap="l" tiles={[["love", 9], "star", "smile", "like", "chat"]} delay={2} at={1} /><W t="," /></span> <W t="and" />{" "}<br />
             <span className="t2"><W t="experiences that convert" /></span> <Ico id="c" tiles={["growth", "money", "target", "bolt", "rocket", "click"]} delay={4} at={2} />
           </h1>
