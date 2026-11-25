@@ -18,7 +18,7 @@ export const metadata = {
 };
 
 const FAQ = [
-  { q: "Is it free?", a: "**Yes.** The score, the top 3 fixes and the accessibility check are free. The full report with every fix and copy-paste prompts is a small one-time payment, and only if you want it." },
+  { q: "Is it free?", a: "**Yes.** The score, the top 3 fixes and the accessibility check are free. The full report with every fix and copy-paste prompts is **$5**, one time, and only if you want it." },
   { q: "Do you store my site?", a: "I store the URL, the score and the report. ==Not your page content, not screenshots.== The screenshots are used for the review and then thrown away." },
   { q: "Why is lower better?", a: "It measures slop, so it works like golf: **0 is hand-crafted, 100 is pure AI slop.** Most well-designed sites land under 30." },
   { q: "Can I check a competitor's site?", a: "Yes. Any public URL works. It's a good way to see what a polished site in your space does differently." },
@@ -40,7 +40,7 @@ export default function SlopScorePage() {
   return (
     <div className="wrap page pg sx-page">
       <JsonLd data={schema} />
-      <PageHead crumb="Slop Score" href="/slop-score/" a="Does your site" b="look AI-generated?" lede="A free AI slop checker. Paste your URL, and in about 30 seconds you get a Slop Score, what's dragging it down, and how to fix it.">
+      <PageHead crumb="Slop Score" href="/slop-score/" a="Does your site" b="look AI-generated?" lede="A free AI slop checker. Paste your URL, and in under a minute you get a Slop Score, what's dragging it down, and how to fix it.">
         <SlopScan />
       </PageHead>
 

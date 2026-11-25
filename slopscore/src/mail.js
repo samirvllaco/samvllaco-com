@@ -21,14 +21,29 @@ function layout(paras, unsub) {
 const text = (paras, unsub) => `${paras.map((p) => p.replace(/<li[^>]*>/g, "- ").replace(/<a [^>]*href="([^"]+)"[^>]*>([^<]*)<\/a>/g, "$2 ($1)").replace(/<[^>]+>/g, "")).join("\n\n")}\n\nUnsubscribe: ${unsub}`;
 const link = (href, label) => `<a href="${href}" style="color:#2f6bff">${esc(label)}</a>`;
 
-// d: { domain, score, label, report, fixes: [titles], unsub }
+// d: { domain, score, label, report, fixes: [titles], unsub, unlocked, locked }
 export function render(step, d) {
   const sign = "Sam";
+  if (step === 0 && !d.unlocked) {
+    const list = `<ol style="margin:0 0 16px;padding-left:20px">${d.fixes.map((f) => `<li style="margin:0 0 6px">${esc(f)}</li>`).join("")}</ol>`;
+    return {
+      subject: `Your Slop Score: ${d.score}/100 for ${d.domain}`,
+      paras: [
+        "Hi,",
+        `Here's your Slop Score for ${esc(d.domain)}: <b>${d.score}/100</b> (${esc(d.label)}). Lower is better.`,
+        "The 3 fixes with the biggest impact:",
+        list,
+        d.locked ? `I found ${d.locked} more issues. ${link(d.report, `Unlock all ${d.fixes.length + d.locked} fixes for $5`)}, each with copy-paste prompts for Lovable, Cursor and Claude Code. I'll email you the full report too.` : `Your report: ${link(d.report, "open it here")}.`,
+        "Reply if anything is unclear. I read every reply.",
+        sign,
+      ],
+    };
+  }
   if (step === 0) {
     const list = `<ol style="margin:0 0 16px;padding-left:20px">${d.fixes.map((f) => `<li style="margin:0 0 6px">${esc(f)}</li>`).join("")}</ol>`;
     const paras = [
       "Hi,",
-      `Here's your full Slop Score report for ${esc(d.domain)}. It scored <b>${d.score}/100</b> (${esc(d.label)}). Lower is better.`,
+      `Thanks for unlocking it. Here's your full Slop Score report for ${esc(d.domain)}. It scored <b>${d.score}/100</b> (${esc(d.label)}). Lower is better.`,
       "The fixes with the biggest impact:",
       list,
       `Every fix has copy-paste prompts for Lovable, Cursor and Claude Code: ${link(d.report, "open your report")}.`,
@@ -98,7 +113,8 @@ const details = (row, report) => {
   return {
     domain: row.domain, score: report?.score ?? row.score, label: report?.label || "",
     report: `${SITE}/slop-score/r/${row.report_id}`,
-    fixes: issues.slice(0, 3).map((x) => x.title).filter(Boolean),
+    fixes: issues.slice(0, report?.unlocked ? 5 : 3).map((x) => x.title).filter(Boolean),
+    unlocked: Boolean(report?.unlocked), locked: report?.unlocked ? 0 : Math.max(0, issues.length - 3),
     unsub: `${SITE}/api/slop-score/unsubscribe?t=${row.token}`,
   };
 };
@@ -116,7 +132,7 @@ export async function runDrip(env, limit = 15) {
   const { results } = await env.DB.prepare("SELECT * FROM drip WHERE unsub = 0 AND next_at <= ? AND step < ? AND (step = 0 OR consent = 1) ORDER BY next_at LIMIT ?").bind(now, STEPS.length, limit).all();
   let sent = 0;
   for (const row of results) {
-    const report = await env.DB.prepare("SELECT score, label, issues FROM reports WHERE id = ?").bind(row.report_id).first();
+    const report = await env.DB.prepare("SELECT score, label, issues, unlocked FROM reports WHERE id = ?").bind(row.report_id).first();
     const step = row.step;
     try {
       await send(env, row.email, step, details(row, report));
@@ -138,4 +154,15 @@ export async function runDrip(env, limit = 15) {
   }
   if (sent && env.CACHE) await env.CACHE.put(dayKey, String(today), { expirationTtl: 90000 });
   return sent;
+}
+
+// The paid report, sent right away (not through the queue). Counts toward the daily cap.
+export async function sendReportNow(env, email, reportId) {
+  if (!env.RESEND_API_KEY) return false;
+  const row = await env.DB.prepare("SELECT * FROM drip WHERE email = ? AND report_id = ?").bind(email, reportId).first();
+  const report = await env.DB.prepare("SELECT score, label, issues, unlocked FROM reports WHERE id = ?").bind(reportId).first();
+  if (!row || !report) return false;
+  await send(env, email, 0, details(row, report));
+  if (env.CACHE) { const k = `mail:${new Date().toISOString().slice(0, 10)}`; await env.CACHE.put(k, String(Number((await env.CACHE.get(k)) || 0) + 1), { expirationTtl: 90000 }); }
+  return true;
 }

@@ -3,7 +3,7 @@
 import { SLOP_REPORT_PRICE, WEEK_PRICE } from "../lib/plans.js";
 
 export const SLOP = {
-  reportPrice: SLOP_REPORT_PRICE, // full AI report, one-time, sold on Whop
+  reportPrice: SLOP_REPORT_PRICE, // full AI report, one-time, paid through a Stripe Payment Link
   sprintPrice: WEEK_PRICE,
   model: "claude-sonnet-5-5", // Anthropic model for the design review
   axeVersion: "4.10.2", // axe-core build injected into the scanned page

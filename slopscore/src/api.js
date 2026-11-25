@@ -1,7 +1,7 @@
 // Slop Score API on Cloudflare Pages Functions. Routed from functions/api/slop-score/[[path]].js.
 // Bindings: SCANNER (service binding to the samvllaco-scanner Worker, which holds Browser Rendering; or BROWSER directly), DB (D1 "slop_score"), CACHE (KV).
 // Secrets: ANTHROPIC_API_KEY, TURNSTILE_SECRET_KEY, RESEND_API_KEY (report and follow-up emails), WHOP_API_KEY, WHOP_WEBHOOK_SECRET, ADMIN_TOKEN.
-// Variables: TURNSTILE_SITE_KEY, WHOP_ACCOUNT_ID, WHOP_REPORT_PLAN_ID (optional: WHOP_API_BASE, SLOP_MODEL).
+// Variables: TURNSTILE_SITE_KEY, STRIPE_REPORT_LINK ($5 report Payment Link; secret STRIPE_WEBHOOK_SECRET), WHOP_ACCOUNT_ID, WHOP_REPORT_PLAN_ID (optional: WHOP_API_BASE, SLOP_MODEL).
 import { SLOP } from "../config.js";
 import { checkUrl } from "./url.js";
 import { deterministic, finalize } from "./scoring.js";
@@ -12,7 +12,8 @@ import { SCHEMA } from "./schema.js";
 import { view } from "./view.js";
 import { ASK, SYSTEM, cleanMessages, sseToText } from "./ask.js";
 import { EST, take, settle, hasBudget } from "./budget.js";
-import { runDrip } from "./mail.js";
+import { runDrip, sendReportNow } from "./mail.js";
+import { verifyStripe, paidSession } from "./stripe.js";
 
 let schemaReady = false;
 async function ensureSchema(env) { if (schemaReady || !env.DB) return; await env.DB.exec(SCHEMA); schemaReady = true; }
@@ -29,6 +30,7 @@ const EMAIL = /^[^\s@]{1,64}@[^\s@]{1,255}\.[a-z]{2,24}$/i;
 
 export const ready = (env) => Boolean((env.BROWSER || env.SCANNER) && env.DB && env.CACHE && env.ANTHROPIC_API_KEY && env.TURNSTILE_SECRET_KEY && env.TURNSTILE_SITE_KEY);
 const payments = (env) => Boolean(env.WHOP_API_KEY && env.WHOP_ACCOUNT_ID && env.WHOP_REPORT_PLAN_ID && env.DB);
+const payLink = (env) => (env.STRIPE_REPORT_LINK && env.STRIPE_WEBHOOK_SECRET && env.DB ? env.STRIPE_REPORT_LINK : null);
 
 // Returns null when the visitor passed, or Turnstile's error codes (safe to show: they name no secret).
 async function turnstile(env, token, ip) {
@@ -68,7 +70,12 @@ async function count(env, ip) {
 }
 
 let stage = ""; // last step a scan reached, reported with "server" errors so failures can be traced
-async function scan({ request, env }) {
+
+// A scan answers with JSON for anything decided up front (bad URL, limits, a cached report). A real scan streams
+// NDJSON so the page can show the visitor's site while the review runs: {t:"shot"} after the page renders,
+// {t:"step"} as it moves on, then {t:"done", report} or {t:"error", error}.
+async function scan(ctx) {
+  const { request, env } = ctx;
   stage = "start";
   if (!ready(env)) return fail("setup", 409);
   const body = await request.json().catch(() => ({}));
@@ -87,15 +94,44 @@ async function scan({ request, env }) {
   if (lim) return fail(lim, 429);
   if (!(await take(env, EST.scan))) return fail("cap", 429); // free credit guard
   await bump(env, `sc:t:${ip}:${new Date().toISOString().slice(0, 10)}`, 90000);
-  let page;
+  const streaming = body.stream === true;
+  if (!streaming) {
+    const out = await run(env, u, hash, ip, owner, () => {});
+    return out.error ? json(out, 422) : json(out);
+  }
+  const { readable, writable } = new TransformStream();
+  const w = writable.getWriter(), enc = new TextEncoder();
+  const send = (o) => w.write(enc.encode(`${JSON.stringify(o)}\n`)).catch(() => {});
+  const job = (async () => {
+    try {
+      const out = await run(env, u, hash, ip, owner, send);
+      await send(out.error ? { t: "error", ...out } : { t: "done", report: out });
+    } catch (e) {
+      console.error(JSON.stringify({ path: "scan", stage, err: String(e && e.message).slice(0, 120) }));
+      await send({ t: "error", error: "server", stage });
+    }
+    await w.close().catch(() => {});
+  })();
+  if (ctx.waitUntil) ctx.waitUntil(job);
+  return new Response(readable, { headers: { "content-type": "application/x-ndjson; charset=utf-8", "cache-control": "no-store", "x-accel-buffering": "no" } });
+}
+
+// The scan itself: render, measure, review, save. Returns the report view or { error }.
+async function run(env, u, hash, ip, owner, send) {
   stage = "render";
-  try { page = await render(env, u.url); } catch (e) { await settle(env, EST.scan, SLOP.model, {}); return fail(e instanceof ScanError ? e.code : "load", 422); }
+  await send({ t: "step", i: 0 });
+  let page;
+  try { page = await render(env, u.url); } catch (e) { await settle(env, EST.scan, SLOP.model, {}); return { error: e instanceof ScanError ? e.code : "load" }; }
+  if (page.shots && page.shots[0]) await send({ t: "shot", img: `data:image/jpeg;base64,${page.shots[0]}`, mobile: page.shots[2] ? `data:image/jpeg;base64,${page.shots[2]}` : null });
   stage = "score";
+  await send({ t: "step", i: 1 });
   const id = newId();
   const det = deterministic(page.metrics, page.axe);
+  await send({ t: "step", i: 2, axe: page.axe.length });
   stage = "review";
+  await send({ t: "step", i: 3 });
   let ai;
-  try { ai = await review(env, { shots: page.shots, metrics: page.metrics, det, axe: page.axe, url: u.url }); } catch (e) { const err = String(e.message).slice(0, 120); console.error(JSON.stringify({ id, err })); if (/^anthropic 4\d\d/.test(err)) await settle(env, EST.scan, SLOP.model, {}); /* a rejected request costs nothing */ return json({ error: "review", detail: owner ? err : undefined }, 422); }
+  try { ai = await review(env, { shots: page.shots, metrics: page.metrics, det, axe: page.axe, url: u.url }); } catch (e) { const err = String(e.message).slice(0, 120); console.error(JSON.stringify({ id, err })); if (/^anthropic 4\d\d/.test(err)) await settle(env, EST.scan, SLOP.model, {}); /* a rejected request costs nothing */ return { error: "review", detail: owner ? err : undefined }; }
   stage = "save";
   await settle(env, EST.scan, ai.model, ai.usage);
   const fin = finalize(det, { adjustments: ai.adjustments, originality: ai.originality });
@@ -107,7 +143,7 @@ async function scan({ request, env }) {
   await env.CACHE.put(`u:${hash}`, id, { expirationTtl: SLOP.cacheHours * 3600 });
   await count(env, ip); // a finished scan is what counts
   const r = await env.DB.prepare("SELECT * FROM reports WHERE id = ?").bind(id).first();
-  return json(view(r));
+  return view(r);
 }
 
 async function report(env, id) {
@@ -117,7 +153,7 @@ async function report(env, id) {
   return r ? json(view(r)) : fail("not_found", 404);
 }
 
-// Email gate: an email unlocks the full report at once, sends it by email, and (with consent) starts the follow-ups.
+// Free email: sends the score and top fixes by email and (with consent) starts the follow-ups. The full report is the $5 unlock.
 async function lead(ctx) {
   const { request, env } = ctx;
   if (!env.DB) return fail("setup", 409);
@@ -135,13 +171,37 @@ async function lead(ctx) {
     writes.push(
       env.DB.prepare("INSERT INTO drip (id, email, report_id, domain, score, consent, token, step, next_at, created_ms) VALUES (?, ?, ?, ?, ?, ?, ?, 0, ?, ?) ON CONFLICT(email, report_id) DO UPDATE SET consent = MAX(consent, excluded.consent), unsub = 0")
         .bind(newId(), email, report.id, domain, report.score, consent, newId(24), now, now),
-      env.DB.prepare("UPDATE reports SET unlocked = 1 WHERE id = ?").bind(report.id),
     );
   }
   await env.DB.batch(writes);
   if (report && ctx.waitUntil) ctx.waitUntil(runDrip(env).catch(() => {}));
   if (!report) return json({ ok: true });
-  return json({ ok: true, report: view({ ...report, unlocked: 1 }), emailing: Boolean(env.RESEND_API_KEY) });
+  return json({ ok: true, emailing: Boolean(env.RESEND_API_KEY) });
+}
+
+// Stripe: a paid $5 Payment Link session unlocks its report and emails the full report to the buyer.
+async function stripeHook(ctx) {
+  const { request, env } = ctx;
+  if (!env.DB) return fail("setup", 409);
+  const body = await request.text();
+  if (!(await verifyStripe(env.STRIPE_WEBHOOK_SECRET, request.headers.get("stripe-signature"), body))) return fail("signature", 401);
+  let e; try { e = JSON.parse(body); } catch { return fail("invalid"); }
+  const p = paidSession(e);
+  if (!p) return json({ ok: true, ignored: e.type });
+  const writes = [env.DB.prepare("INSERT OR IGNORE INTO purchases (id, report_id, whop_payment_id, email, created_at) VALUES (?, ?, ?, ?, ?)").bind(newId(), p.reportId, p.id, p.email || null, new Date().toISOString())];
+  const report = p.reportId ? await env.DB.prepare("SELECT id, url, score FROM reports WHERE id = ?").bind(p.reportId).first() : null;
+  if (report) {
+    writes.push(env.DB.prepare("UPDATE reports SET unlocked = 1 WHERE id = ?").bind(report.id));
+    if (p.email) {
+      const now = Date.now(), domain = new URL(report.url).hostname.replace(/^www\./, "");
+      // The full report goes out now; the row then waits for the day-2 follow-up (sent only with consent).
+      writes.push(env.DB.prepare("INSERT INTO drip (id, email, report_id, domain, score, consent, token, step, next_at, created_ms) VALUES (?, ?, ?, ?, ?, ?, ?, 1, ?, ?) ON CONFLICT(email, report_id) DO UPDATE SET consent = MAX(consent, excluded.consent), unsub = 0")
+        .bind(newId(), p.email, report.id, domain, report.score, p.consent ? 1 : 0, newId(24), now + 2 * 86400000, now));
+    }
+  }
+  await env.DB.batch(writes);
+  if (report && p.email && ctx.waitUntil) ctx.waitUntil(sendReportNow(env, p.email, report.id).catch((x) => console.error(JSON.stringify({ paidmail: String(x.message).slice(0, 120) }))));
+  return json({ ok: true });
 }
 
 // One click stops every email to that address. GET from the link, POST from mail apps (List-Unsubscribe-Post).
@@ -238,7 +298,7 @@ export async function handleApi(ctx) {
   try {
     if (path !== "status") await ensureSchema(env);
     if (path === "status" && m === "GET") await maybeDrip(ctx).catch(() => {});
-    if (path === "status" && m === "GET") return json({ ready: ready(env) && (await ensureSchema(env), await hasBudget(env, EST.scan)), siteKey: env.TURNSTILE_SITE_KEY || null, payments: payments(env), price: SLOP.reportPrice });
+    if (path === "status" && m === "GET") return json({ ready: ready(env) && (await ensureSchema(env), await hasBudget(env, EST.scan)), siteKey: env.TURNSTILE_SITE_KEY || null, payments: payments(env), payLink: payLink(env), price: SLOP.reportPrice });
     if (path === "scan" && m === "POST") return await scan(ctx);
     if (path.startsWith("report/") && m === "GET") return await report(env, path.slice(7));
     if (path === "lead" && m === "POST") return await lead(ctx);
@@ -246,6 +306,7 @@ export async function handleApi(ctx) {
     if (path === "event" && m === "POST") return await event(ctx);
     if (path === "checkout" && m === "POST") return await checkout(ctx);
     if (path === "whop-webhook" && m === "POST") return await webhook(ctx);
+    if (path === "stripe-webhook" && m === "POST") return await stripeHook(ctx);
     if (path === "claim" && m === "POST") return await claim(ctx);
     if (path.startsWith("admin/")) {
       if (!admin(request, env)) return fail("unauthorized", 401);

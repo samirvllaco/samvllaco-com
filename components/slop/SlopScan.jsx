@@ -3,8 +3,19 @@ import { useEffect, useRef, useState } from "react";
 import { useTurnstile } from "./useTurnstile";
 import { LEADS_ENDPOINT } from "../../lib/site";
 
-const STEPS = ["Opening your site", "Measuring spacing, type and color", "Running accessibility checks", "Looking at it like a designer"];
-const STEP_AT = [0, 6000, 14000, 22000];
+const STEPS = ["Opening your site", "Measuring spacing, type and color", "Running accessibility checks", "Looking at it like a designer", "Writing your fixes"];
+// Rules from my book, shown one at a time while the scan runs.
+const TIPS = [
+  "One filled primary button per task. Everything else is outline or a text link.",
+  "Spacing from one scale: 4, 8, 16, 24, 32, 48, 64. Groups sit further apart than the items inside them.",
+  "Body text at 16px with 1.5 line height. Size makes hierarchy, not color.",
+  "No card inside a card. Use space, a divider or a heading instead.",
+  "Text needs 4.5:1 contrast. Muted gray on gray is the most common miss.",
+  "Real screenshots beat 3D blobs and gradient orbs every time.",
+  "Button labels are a verb plus an object: Start free trial, never Submit.",
+  "Touch targets of 44px with 8px between them.",
+];
+const EXPECT = 50; // seconds a full scan usually takes
 
 export const ERRORS = {
   invalid: "That doesn't look like a web address. Try something like yoursite.com.",
@@ -22,11 +33,51 @@ export const ERRORS = {
   server: "Something went wrong on my side. Try again in a minute.",
 };
 
+// The wait, made worth watching: the visitor's own site in a browser frame as soon as it renders, a scan line over it,
+// real steps from the server, an honest progress bar and one rule from my book at a time.
+function Live({ url, shot, step, secs }) {
+  const domain = url.replace(/^https?:\/\//, "").replace(/\/.*$/, "") || "your site";
+  // The review is the long step; after 18 seconds in it, show the last step so the list keeps moving.
+  const at = step >= 3 && secs > 30 ? 4 : step;
+  const pct = Math.min(96, Math.max(((at + (shot ? 1 : 0.4)) / (STEPS.length + 1)) * 100, (secs / EXPECT) * 100));
+  const tip = TIPS[Math.floor(secs / 6) % TIPS.length];
+  return (
+    <div className="sx-live" aria-live="polite" aria-busy="true">
+      <div className="sx-browser">
+        <div className="sx-chrome">
+          <span className="sx-lights" aria-hidden="true"><i /><i /><i /></span>
+          <span className="sx-addr">{/* eslint-disable-next-line @next/next/no-img-element */}<img src={`https://icons.duckduckgo.com/ip3/${encodeURIComponent(domain)}.ico`} width="14" height="14" alt="" onError={(e) => { e.currentTarget.style.visibility = "hidden"; }} />{domain}</span>
+          <span className="sx-secs" aria-hidden="true">{secs}s</span>
+        </div>
+        <div className={`sx-view${shot ? " has-shot" : ""}`}>
+          {shot ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img src={shot} alt={`${domain} as my checker sees it`} width="1440" height="900" />
+          ) : (
+            <div className="sx-skel" aria-hidden="true"><i /><i /><i /><span><i /><i /><i /></span></div>
+          )}
+          <span className="sx-beam" aria-hidden="true" />
+          {shot ? <span className="sx-marks" aria-hidden="true"><i /><i /><i /><i /></span> : null}
+        </div>
+      </div>
+      <div className="sx-prog" role="progressbar" aria-label="Scan progress" aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(pct)}><span style={{ transform: `scaleX(${pct / 100})` }} /></div>
+      <div className="sx-steps">
+        <ol>
+          {STEPS.map((s, i) => <li key={s} className={i < at ? "is-done" : i === at ? "is-now" : ""}>{s}{i < at ? <span className="sr-only"> (done)</span> : null}</li>)}
+        </ol>
+        <p className="sx-tip" key={tip}><b>While you wait</b>{tip}</p>
+      </div>
+    </div>
+  );
+}
+
 export default function SlopScan() {
   const [status, setStatus] = useState(null); // null while checking, then { ready, siteKey }
   const [url, setUrl] = useState("");
   const [busy, setBusy] = useState(false);
   const [step, setStep] = useState(0);
+  const [shot, setShot] = useState("");
+  const [secs, setSecs] = useState(0);
   const [code, setCode] = useState("");
   const err = code ? ERRORS[code] || ERRORS.server : "";
   const setErr = setCode;
@@ -35,8 +86,9 @@ export default function SlopScan() {
   const ts = useTurnstile(status?.ready ? status.siteKey : null);
 
   useEffect(() => {
+    try { const q = new URLSearchParams(location.search).get("url"); if (q) setUrl(q.slice(0, 300)); } catch { /* optional */ }
     fetch("/api/slop-score/status").then((r) => (r.ok ? r.json() : { ready: false })).then(setStatus).catch(() => setStatus({ ready: false }));
-    return () => timers.current.forEach(clearTimeout);
+    return () => timers.current.forEach(clearInterval);
   }, []);
 
   const scan = async (e) => {
@@ -44,20 +96,45 @@ export default function SlopScan() {
     setErr("");
     if (!url.trim()) { setErr("invalid"); return; }
     if (!ts.token) { setErr("turnstile"); return; }
-    setBusy(true); setStep(0);
-    timers.current = STEP_AT.map((t, i) => setTimeout(() => setStep(i), t));
+    setBusy(true); setStep(0); setShot(""); setSecs(0);
+    const t0 = Date.now();
+    timers.current = [setInterval(() => setSecs(Math.round((Date.now() - t0) / 1000)), 1000)];
+    const done = (j) => {
+      try { sessionStorage.setItem(`ss:${j.id}`, JSON.stringify(j)); } catch { /* optional */ }
+      location.assign(`/slop-score/r/${j.id}`);
+    };
+    let j = {}, img = "";
     try {
-      const r = await fetch("/api/slop-score/scan", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ url, token: ts.token }) });
-      const j = await r.json().catch(() => ({ error: "server" }));
-      if (j.id) {
-        try { sessionStorage.setItem(`ss:${j.id}`, JSON.stringify(j)); } catch { /* optional */ }
-        location.assign(`/slop-score/r/${j.id}`);
+      const r = await fetch("/api/slop-score/scan", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ url, token: ts.token, stream: true }) });
+      if ((r.headers.get("content-type") || "").includes("ndjson") && r.body) {
+        // Live scan: the server sends the rendered page first, then the steps, then the report.
+        const rd = r.body.getReader(), dec = new TextDecoder();
+        let buf = "";
+        for (;;) {
+          const { value, done: end } = await rd.read();
+          if (end) break;
+          buf += dec.decode(value, { stream: true });
+          const lines = buf.split("\n"); buf = lines.pop();
+          for (const line of lines) {
+            if (!line.trim()) continue;
+            let ev; try { ev = JSON.parse(line); } catch { continue; }
+            if (ev.t === "shot" && ev.img) { img = ev.img; setShot(ev.img); }
+            if (ev.t === "step") setStep((n) => Math.max(n, ev.i));
+            if (ev.t === "done") j = ev.report;
+            if (ev.t === "error") j = { error: ev.error };
+          }
+        }
+      } else j = await r.json().catch(() => ({ error: "server" }));
+      if (j && j.id) {
+        if (img) { try { sessionStorage.setItem(`ss:shot:${j.id}`, img); } catch { /* optional */ } }
+        setStep(STEPS.length);
+        setTimeout(() => done(j), img ? 500 : 0);
         return;
       }
       if (j.error === "setup") setStatus({ ready: false });
       setErr(ERRORS[j.error] ? j.error : "server");
     } catch { setErr("server"); }
-    timers.current.forEach(clearTimeout);
+    timers.current.forEach(clearInterval);
     setBusy(false); ts.reset();
   };
 
@@ -75,13 +152,7 @@ export default function SlopScan() {
   return (
     <div className="sx-tool">
       {busy ? (
-        <div className="sx-steps" aria-live="polite">
-          <p className="sx-steps-h">Checking {url.replace(/^https?:\/\//, "")}</p>
-          <ol>
-            {STEPS.map((s, i) => <li key={s} className={i < step ? "is-done" : i === step ? "is-now" : ""}>{s}{i < step ? <span className="sr-only"> (done)</span> : null}</li>)}
-          </ol>
-          <p className="sx-note">This takes about 30 seconds.</p>
-        </div>
+        <Live url={url} shot={shot} step={step} secs={secs} />
       ) : status && !status.ready ? (
         <form className="sx-form" onSubmit={notify}>
           <p className="sx-soon"><b>Slop Score opens soon.</b> Leave your site and email, and I'll send you your score myself the day it's live.</p>

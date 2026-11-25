@@ -50,7 +50,7 @@ ${plans}
 
 EVERY OFFER, SMALLEST FIRST
 ${ladder}
-- Slop Score (/slop-score/) is a free tool: paste a URL, get a score from 0 to 100 (lower is better) and the top 3 fixes. Leaving an email unlocks every fix with copy-paste prompts, free, and sends the report by email. Two scans per person a day.
+- Slop Score (/slop-score/) is a free tool: paste a URL, get a score from 0 to 100 (lower is better) and the top 3 fixes. Every fix with copy-paste prompts unlocks for ${usd(SLOP_REPORT_PRICE)} (paid by card through Stripe) and the full report is emailed. Two scans per person a day.
 - The book, "27 Copy-Paste Prompts to Fix AI Slop UI" (/fix-ai-slop-ui/): $12.99. Prompts for Lovable, Cursor, Claude Code and other AI builders, plus the design rules behind every fix.
 - Loom reviews (/fix-ai-slop-ui/#options): $49 is a 30-min Loom of your product, a steps document and the book. $99 is a 45 min to 1 hour Loom of the whole product with a scorecard, an action plan, custom prompts, branding tips and the book. Both arrive in under 12 hours.
 - EAA audit (/eaa-audit/): ${usd(EAA_AUDIT_PRICE)}, 5 working days, checks against WCAG 2.2 AA. Managed accessibility (/accessibility/): from ${usd(MANAGED_FROM)} a month.
