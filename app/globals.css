@@ -5029,13 +5029,11 @@ body:has(.rv-ty) .top-note { display: none; }
 .hero2-btn { font-weight: 700; }
 @media (min-width: 641px) { .hero3 .hero2-btn { font-size: 1rem; min-height: 46px; } }
 
-/* Hero dot grid: dots near the pointer light up in the brand blue. One masked layer moved by a CSS variable,
-   updated in requestAnimationFrame only while the pointer is over the hero, so no layout work and no cost at rest. */
-.hero2::after { content: ""; position: absolute; inset: -40px calc(50% - 50vw); z-index: -1; pointer-events: none; opacity: 0; transition: opacity .4s var(--ease-out);
-  background-image: radial-gradient(circle, rgba(98, 193, 253, .95) 1.2px, transparent 1.8px); background-size: 22px 22px;
-  -webkit-mask-image: radial-gradient(220px circle at var(--mx, 50%) var(--my, 50%), #000, transparent 70%); mask-image: radial-gradient(220px circle at var(--mx, 50%) var(--my, 50%), #000, transparent 70%); }
-.hero2.dots-on::after { opacity: .9; }
-@media (hover: none), (prefers-reduced-motion: reduce) { .hero2::after { display: none; } }
+/* Hero dot grid that reacts to the pointer (HeroDots.jsx): a canvas copies the ::before grid dot for dot on the
+   first pointer move over the hero and takes over; dots near the pointer light up, get pushed aside and spring back. */
+.hero2::after { content: none; }
+.hero-dots-cv { position: absolute; top: -40px; left: calc(50% - 50vw); width: 100vw; height: calc(100% + 80px); z-index: -1; pointer-events: none; }
+.hero2.dots-cv::before { visibility: hidden; }
 
 /* Work fan cards: soft brand-blue glow on hover. */
 @media (hover: hover) and (pointer: fine) {
@@ -5083,11 +5081,6 @@ body:has(.rv-ty) .top-note { display: none; }
 .work-open { height: 40px; padding: 0 16px; gap: 8px; font-size: .875rem; }
 .work-open svg { width: 16px; height: 16px; }
 
-/* Hero hover dots v2: white, softer, and the dots themselves drift slowly. */
-.hero2::after { background-image: radial-gradient(circle, rgba(255, 255, 255, .9) 1.1px, transparent 1.7px); }
-.hero2.dots-on::after { opacity: .45; animation: dots-drift 6s linear infinite; }
-:root[data-theme="light"] .hero2::after { background-image: radial-gradient(circle, rgba(0, 0, 0, .55) 1.1px, transparent 1.7px); }
-@keyframes dots-drift { from { background-position: 0 0; } to { background-position: 22px 22px; } }
 /* One hero standard on every inner page, matching the home hero: centred, same title scale and weight,
    same intro size and width, buttons centred (owner, 15 Nov 2026). Case studies, articles and the book keep their own layouts. */
 .ph, .case-head.ph-std { justify-items: center; text-align: center; gap: 0; margin: 0 auto clamp(40px, 5vw, 64px); padding-top: clamp(16px, 3vw, 40px); max-width: 980px; }
@@ -5103,10 +5096,6 @@ body:has(.rv-ty) .top-note { display: none; }
 .bw-s b { font-weight: 600; color: var(--text); }
 .bw-pill { display: inline-flex; align-items: center; height: 26px; margin-left: 6px; padding: 0 10px; border-radius: 999px; background: rgba(255, 255, 255, .18); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .22); }
 .bw-tab > .bw-price { white-space: nowrap; }
-/* Hero hover v3 (owner, 15 Nov 2026): no dot motion; a soft dark fade follows the pointer and hides the dots under it, so text near the cursor gets more contrast. */
-.hero2::after, .hero2.dots-on::after { animation: none; background: radial-gradient(260px circle at var(--mx, 50%) var(--my, 50%), var(--bg) 0%, color-mix(in srgb, var(--bg) 80%, transparent) 40%, transparent 72%); -webkit-mask-image: none; mask-image: none; }
-.hero2.dots-on::after { opacity: 1; }
-:root[data-theme="light"] .hero2::after { background: radial-gradient(260px circle at var(--mx, 50%) var(--my, 50%), var(--bg) 0%, color-mix(in srgb, var(--bg) 80%, transparent) 40%, transparent 72%); }
 /* "Behind the screens" v3: a 3D research folder and a checklist note, in the style of iOS widgets (owner, 15 Nov 2026). */
 .p3 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: center; gap: 20px; margin: 28px 28px 8px; }
 .p3-folder { position: relative; aspect-ratio: 1 / .95; }
@@ -5159,8 +5148,6 @@ body:has(.rv-ty) .top-note { display: none; }
 .eb-rv-link:hover { text-decoration: underline; text-underline-offset: 4px; }
 @media (max-width: 900px) { .eb-rv-card { grid-template-columns: minmax(0, 1fr); } }
 @media (prefers-reduced-motion: reduce) { .eb-rv-view img { animation: none; } }
-/* Hero hover fade v4: exact page colour, much wider and softer edge, eased in and out. */
-.hero2::after, .hero2.dots-on::after, :root[data-theme="light"] .hero2::after { background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), var(--fade, var(--bg)) 0%, color-mix(in srgb, var(--fade, var(--bg)) 85%, transparent) 25%, color-mix(in srgb, var(--fade, var(--bg)) 45%, transparent) 55%, transparent 100%); transition: opacity .8s var(--ease-out); }
 /* Match the Cal.com card inside the frame: it stops at 1040px and centres, and sits 20px in on small screens. */
 .bb-alt, .book-split .bb-alt { max-width: 1040px; margin-inline: auto; }
 @media (max-width: 900px) { .book-band .bb-alt { width: auto; margin-inline: 20px; } }
