@@ -18,7 +18,8 @@ export async function verifyStripe(secret, header, body, now = Date.now()) {
 
 // The paid session, or null for anything else.
 export function paidSession(e) {
-  if (!e || e.type !== "checkout.session.completed") return null;
+  // Delayed payment methods (bank debits) complete unpaid and send async_payment_succeeded later.
+  if (!e || !["checkout.session.completed", "checkout.session.async_payment_succeeded"].includes(e.type)) return null;
   const s = e.data && e.data.object;
   if (!s || s.payment_status !== "paid") return null;
   return {

@@ -21,5 +21,6 @@ test("paidSession reads the report id, email and consent from a paid session onl
   assert.deepEqual(paidSession(e), { id: "cs_1", reportId: "AbCdEfGhIj", email: "a@b.co", consent: true });
   assert.equal(paidSession({ ...e, data: { object: { ...e.data.object, payment_status: "unpaid" } } }), null);
   assert.equal(paidSession({ type: "payment_intent.succeeded" }), null);
+  assert.equal(paidSession({ ...e, type: "checkout.session.async_payment_succeeded" }).reportId, "AbCdEfGhIj");
   assert.equal(paidSession({ ...e, data: { object: { ...e.data.object, client_reference_id: "../x" } } }).reportId, null);
 });
