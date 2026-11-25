@@ -150,6 +150,12 @@ export default function SlopResult() {
               <p className="sx-note" role="status">{buyErr}</p>
             </li>
             <li className="pr-plan">
+              <p className="pr-k">Fix it yourself</p>
+              <p className="pr-price">$12.99<span>ebook</span></p>
+              <p className="pr-lead">27 copy-paste prompts and the rules behind every fix, for any AI builder. Use it on every page you make next.</p>
+              <a className="hero2-btn hero2-btn-light" href="/fix-ai-slop-ui/" onClick={() => track("book_click", r.id)}>See the book</a>
+            </li>
+            <li className="pr-plan">
               <p className="pr-k">Designer review</p>
               <p className="pr-price">$49 or $99</p>
               <p className="pr-lead">I record a Loom going through your site and tell you what I'd change first. In your inbox in under 12 hours. Includes my book.</p>

@@ -3,6 +3,7 @@ import PageHead from "../../components/PageHead";
 import CallIcon from "../../components/CallIcon";
 import { PlanCards } from "../../components/Sub";
 import { BOOK_URL, PERSONAL_REVIEW_URL, REVIEW_URL } from "../../lib/site";
+import { LADDER } from "../../lib/plans";
 
 export const metadata = {
   title: "Pricing: Design Subscription Plans",
@@ -48,6 +49,23 @@ export default function Pricing() {
             </li>
           ))}
         </ul>
+      </section>
+
+      <section className="pr-ladder" aria-labelledby="pr-ladder-h">
+        <h2 id="pr-ladder-h">Every way to work with me, <span className="t2">smallest step first</span></h2>
+        <p>Start where you are. Each step is useful on its own, and you only move up if you want more.</p>
+        <ol>
+          {LADDER.map((s, i) => (
+            <li key={s.name}>
+              <Link prefetch={false} href={s.href}>
+                <i aria-hidden="true">{i + 1}</i>
+                <span className="pr-l-copy"><b>{s.name}</b><span>{s.who}</span></span>
+                <span className="pr-l-price">{s.price}</span>
+                <span className="tl-arr" aria-hidden="true">→</span>
+              </Link>
+            </li>
+          ))}
+        </ol>
       </section>
     </div>
   );
