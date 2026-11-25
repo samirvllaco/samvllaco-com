@@ -5034,13 +5034,8 @@ body:has(.rv-ty) .top-note { display: none; }
 .hero2::after { content: none; }
 .hero-dots-cv { position: absolute; top: -40px; left: calc(50% - 50vw); width: 100vw; height: calc(100% + 80px); z-index: -1; pointer-events: none; }
 .dots-cv::before { visibility: hidden; }
-/* The same dot grid behind the first hero of every inner page (owner, 25 Nov 2026), faded on both sides like the home hero. */
-:is(.page > .ph, .page > .sv-hero, .page > .eb-hero, .page > .case-head, .case > .case-head, .book-split) { position: relative; isolation: isolate; }
-:is(.page > .ph, .page > .sv-hero, .page > .eb-hero, .page > .case-head, .case > .case-head, .book-split)::before {
-  content: ""; position: absolute; inset: -40px calc(50% - 50vw); z-index: -1; pointer-events: none; opacity: .5;
-  background-image: radial-gradient(circle, color-mix(in srgb, var(--text) 22%, transparent) 1px, transparent 1.5px); background-size: 22px 22px;
-  -webkit-mask-image: radial-gradient(ellipse 46% 80% at 86% 30%, #000 0%, transparent 75%), radial-gradient(ellipse 46% 80% at 14% 30%, #000 0%, transparent 75%);
-  mask-image: radial-gradient(ellipse 46% 80% at 86% 30%, #000 0%, transparent 75%), radial-gradient(ellipse 46% 80% at 14% 30%, #000 0%, transparent 75%); }
+/* Inner pages: the canvas covers the same box as the page dot layer (main > .page::before, 14 Nov 2026). */
+main > .page > .hero-dots-cv { height: clamp(560px, 86vh, 860px); }
 
 /* Work fan cards: soft brand-blue glow on hover. */
 @media (hover: hover) and (pointer: fine) {

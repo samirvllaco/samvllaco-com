@@ -6,7 +6,8 @@ import { useEffect } from "react";
 // dot for dot (same spacing, colour and edge fade) and takes over. Only the area around the pointer is
 // redrawn, and the loop stops as soon as every dot is back home.
 const RADIUS = 110, PUSH = 28, SPRING = 0.12, DAMP = 0.78;
-const HERO = ".hero2, .page > .ph, .page > .sv-hero, .page > .eb-hero, .page > .case-head, .case > .case-head, .book-split";
+// Home: the hero section. Inner pages: the page wrapper, which carries the dot layer behind every page hero.
+const HERO = ".hero2, main > .page:not(:has(> .hero2))";
 
 // Reads the edge fade of hero::before ("radial-gradient(46% 80% at 86% 30%, ... 75%)") so the canvas fades the same way.
 const fadesOf = (el) => {
