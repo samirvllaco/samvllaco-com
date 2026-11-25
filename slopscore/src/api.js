@@ -1,5 +1,5 @@
 // Slop Score API on Cloudflare Pages Functions. Routed from functions/api/slop-score/[[path]].js.
-// Bindings: BROWSER (Browser Rendering), DB (D1 "slop_score"), CACHE (KV).
+// Bindings: SCANNER (service binding to the samvllaco-scanner Worker, which holds Browser Rendering; or BROWSER directly), DB (D1 "slop_score"), CACHE (KV).
 // Secrets: ANTHROPIC_API_KEY, TURNSTILE_SECRET_KEY, WHOP_API_KEY, WHOP_WEBHOOK_SECRET, ADMIN_TOKEN.
 // Variables: TURNSTILE_SITE_KEY, WHOP_ACCOUNT_ID, WHOP_REPORT_PLAN_ID (optional: WHOP_API_BASE, SLOP_MODEL).
 import { SLOP } from "../config.js";
@@ -24,7 +24,7 @@ const ipOf = (req) => req.headers.get("cf-connecting-ip") || "0.0.0.0";
 const EVENT_TYPES = ["unlock_click", "review_click", "sprint_click", "share_click", "eaa_click", "book_click"];
 const EMAIL = /^[^\s@]{1,64}@[^\s@]{1,255}\.[a-z]{2,24}$/i;
 
-export const ready = (env) => Boolean(env.BROWSER && env.DB && env.CACHE && env.ANTHROPIC_API_KEY && env.TURNSTILE_SECRET_KEY && env.TURNSTILE_SITE_KEY);
+export const ready = (env) => Boolean((env.BROWSER || env.SCANNER) && env.DB && env.CACHE && env.ANTHROPIC_API_KEY && env.TURNSTILE_SECRET_KEY && env.TURNSTILE_SITE_KEY);
 const payments = (env) => Boolean(env.WHOP_API_KEY && env.WHOP_ACCOUNT_ID && env.WHOP_REPORT_PLAN_ID && env.DB);
 
 async function turnstile(env, token, ip) {

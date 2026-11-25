@@ -50,7 +50,15 @@ async function steps(browser, env, url) {
   return { shots: [desk, full, mob], metrics: { ...metrics, ...targets }, axe: axe || [], axeOk: axe !== null };
 }
 
+// Pages Functions cannot bind Browser Rendering, so the site reaches it through the samvllaco-scanner Worker
+// (scanner/, service binding SCANNER). Inside that Worker, BROWSER is bound and the page renders here directly.
 export async function render(env, url) {
+  if (!env.BROWSER && env.SCANNER) {
+    const r = await env.SCANNER.fetch("https://scanner/render", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ url }) });
+    const j = await r.json().catch(() => ({ error: "load" }));
+    if (j.error) throw new ScanError(j.error);
+    return j;
+  }
   let browser;
   try { browser = await puppeteer.launch(env.BROWSER); } catch (e) { throw new ScanError(/429|limit/i.test(e.message) ? "busy" : "load"); }
   let timer;

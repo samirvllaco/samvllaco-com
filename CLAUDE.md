@@ -67,6 +67,7 @@ Accessibility and Slop Score offers (owner, 25 Nov 2026): EAA audit $1,500 (5 wo
 - The offer ladder is `LADDER` in `lib/plans.js` (shown on /pricing/). Prices stay in `lib/plans.js` only.
 - Slop Score (/slop-score/) and the "Ask Sam's AI" chat run on Pages Functions bundled from `slopscore/` into `functions/_slop/api.js`. The chat answers only from facts built out of `lib/` (plans, services, work, FAQ). After changing prices, services, work or FAQ, run `node slopscore/build.mjs` and commit the bundle, or the chat keeps the old facts. Tests: `node --test slopscore/test/*.test.js`.
 - Both stay off until the Cloudflare keys and bindings are set (see `slopscore/src/api.js` header). The chat pill only shows when `/api/ask/status` says ready.
+- Pages Functions cannot bind Browser Rendering, so page renders run in a separate Worker, `samvllaco-scanner` (`scanner/`, deployed by Workers Builds from this repo), reached through the Pages service binding `SCANNER`. `node slopscore/build.mjs` rebuilds both `functions/_slop/api.js` and `scanner/worker.js`; commit both.
 
 ## Type and spacing system (owner, 15 Nov 2026, locked)
 Tokens and role rules are the last block of `app/globals.css` ("Type and spacing system"). Use them; never set a one-off heading size.

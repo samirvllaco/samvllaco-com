@@ -1,0 +1,12 @@
+{
+  // samvllaco-scanner: Browser Rendering for Slop Score. Deployed by Workers Builds from this folder.
+  // The site calls it through the SCANNER service binding; it has no public URL.
+  "name": "samvllaco-scanner",
+  "main": "worker.js",
+  "compatibility_date": "2026-11-11",
+  "workers_dev": false,
+  "preview_urls": false,
+  "browser": { "binding": "BROWSER" },
+  "kv_namespaces": [{ "binding": "CACHE", "id": "26d2f4186edf46369ae7caf527ea5b0a" }],
+  "observability": { "enabled": true }
+}
