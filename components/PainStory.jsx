@@ -31,7 +31,7 @@ export default function PainStory() {
             <li><b>Fix</b> the screens that cost you users.</li>
             <li><b>Keep it fixed</b> with a system your team and your AI follow.</li>
           </ol>
-          <p className="pn-me-line">No agency, no handoffs. You talk to me from the first call to the last file. <span className="pn-sign scr">Sam</span></p>
+          <p className="pn-me-line">The process of an agency, without the handoffs. You talk to me from the first call to the last file. <span className="pn-sign scr">Sam</span></p>
         </div>
         <div className="pn-cta">
           <a className="hero2-btn hero2-btn-primary" href="/book/"><CallIcon />Show me what you're building</a>

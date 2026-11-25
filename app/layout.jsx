@@ -71,7 +71,6 @@ const THEME_BOOT = `document.documentElement.classList.add("js");try{localStorag
 export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head><link rel="preload" href="/fonts/unbounded-sam.woff2" as="font" type="font/woff2" crossOrigin="" /></head>
       <body>
         <script dangerouslySetInnerHTML={{ __html: THEME_BOOT }} />
         <a className="skip" href="#main">Skip to content</a>

@@ -16,9 +16,9 @@ import SectionColors from "../components/SectionColors";
 import { MEDIUM_PATH } from "../lib/medium-logo";
 import ArticleMark from "../components/ArticleMark";
 import WorkGrid from "../components/WorkGrid";
-import HirePanel from "../components/HirePanel";
 import HeroQuote, { QUOTE_DAY } from "../components/HeroQuote";
 import PainStory from "../components/PainStory";
+import HowIWork from "../components/HowIWork";
 import Fixes from "../components/Fixes";
 import HeroReviews from "../components/HeroReviews";
 import HeroShow from "../components/HeroShow";
@@ -94,9 +94,9 @@ export default function Home() {
           </h1>
           {/* Runs before the first paint: the headline first reads as plain text, then the icons open their space. */}
           <script dangerouslySetInnerHTML={{ __html: H1_FLIP }} />
-          <p className="hero2-sub">You built something people need. If they can't see it in five seconds, they leave. I make your product clear, beautiful and easy to say yes to.</p>
+          <p className="hero2-sub">UX audits, UI/UX sprints and redesigns for SaaS, fintech, healthcare and e-commerce products. I find the gaps in your app and fix them, or design it from zero.</p>
           <div className="hero2-cta">
-            <a className="hero2-btn hero2-btn-primary" href="/book/"><CallIcon />Book a 30-min design strategy call</a>
+            <a className="hero2-btn hero2-btn-primary" href="/book/"><CallIcon />Book a 30-min strategy call</a>
           </div>
           <div className="hero-proof">
             <p className="hero-award"><i className="lr lr-l" aria-hidden="true" /><i className="lr lr-r" aria-hidden="true" /><span>Award-winning</span><span>UI/UX designer</span></p>
@@ -128,13 +128,14 @@ export default function Home() {
 
       <ScreenWall />
 
+      <HowIWork />
+
       <PainStory />
 
       <section id="work" className="stack work" data-bg="#000000">
           <h2>Work <span className="t2">that shipped</span></h2>
           <p className="work-lede">Real products with real users. Some names are changed because the work is under NDA.</p>
           <WorkGrid />
-          <HirePanel />
       </section>
 
       <Fixes />

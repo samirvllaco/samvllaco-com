@@ -7,6 +7,23 @@ import { EMAIL } from "../lib/site";
 // "Ask Sam's AI" (owner, 25 Nov 2026): a small pill at the bottom of the page that opens a chat answering from the site's
 // own facts (slopscore/src/ask.js). Shows after the first scroll and only once the API is switched on.
 const CHIPS = ["What does a weekly sprint include?", "How fast can you start?", "Can you fix my AI-built app?"];
+// Thinking state (owner, 25 Nov 2026): a 3x3 grid of dots breathing in a diagonal wave, and the status words under a slow
+// light sweep. The words change as the answer is prepared; each new one rises in from below inside a clipped line.
+const STEPS = ["Reading Sam's site", "Checking his work and reviews", "Writing your answer"];
+function Thinking() {
+  const [i, setI] = useState(0);
+  useEffect(() => {
+    const t = setInterval(() => setI((n) => Math.min(n + 1, STEPS.length - 1)), 1600);
+    return () => clearInterval(t);
+  }, []);
+  return (
+    <span className="ask-think">
+      <span className="ask-grid" aria-hidden="true">{Array.from({ length: 9 }, (_, k) => <i key={k} style={{ "--d": (k % 3) + Math.floor(k / 3) }} />)}</span>
+      <span className="ask-think-line"><span className="ask-think-size" aria-hidden="true">{STEPS.reduce((a, b) => (b.length > a.length ? b : a))}</span><span key={i} className="ask-think-t">{STEPS[i]}</span></span>
+      <span className="sr-only">Writing</span>
+    </span>
+  );
+}
 const HIDE = ["/fix-ai-slop-ui/", "/book/"];
 const ERR = {
   rate: "You've asked a lot this hour. Book a call and ask Sam directly.",
@@ -167,7 +184,7 @@ export default function AskSam() {
             {msgs.map((m, i) => (
               <p key={i} className={`ask-msg ${m.role === "user" ? "is-me" : "is-ai"}`}>
                 {m.role === "user" ? <span className="sr-only">You: </span> : <span className="sr-only">Assistant: </span>}
-                {m.content ? <Text t={m.content} /> : <span className="ask-dots"><i /><i /><i /><span className="sr-only">Writing</span></span>}
+                {m.content ? <Text t={m.content} /> : <Thinking />}
               </p>
             ))}
           </div>
