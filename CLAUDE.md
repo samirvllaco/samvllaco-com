@@ -63,6 +63,11 @@ The light/dark switch is gone. The site is one look: dark.
 This site is the main portfolio, as before (the design-subscription home page was rolled back the same day; it may move to its own domain). Pricing keeps two plans: weekly sprint $1,000, monthly $3,000 (`lib/plans.js` is the one source). No hourly rate. No refund terms are published until the owner sets them.
 Accessibility and Slop Score offers (owner, 25 Nov 2026): EAA audit $1,500 (5 working days) on `/eaa-audit/`, managed accessibility from $3,000 a month on `/accessibility/`, full Slop Score report $9. Also set in `lib/plans.js`. True claims the owner confirmed for these pages: screen reader testing with VoiceOver and NVDA, web, iOS and Android, designs compliance software, and can code front-end fixes himself.
 
+## Slop Score, Ask Sam's AI and the offer ladder (owner, 25 Nov 2026)
+- The offer ladder is `LADDER` in `lib/plans.js` (shown on /pricing/). Prices stay in `lib/plans.js` only.
+- Slop Score (/slop-score/) and the "Ask Sam's AI" chat run on Pages Functions bundled from `slopscore/` into `functions/_slop/api.js`. The chat answers only from facts built out of `lib/` (plans, services, work, FAQ). After changing prices, services, work or FAQ, run `node slopscore/build.mjs` and commit the bundle, or the chat keeps the old facts. Tests: `node --test slopscore/test/*.test.js`.
+- Both stay off until the Cloudflare keys and bindings are set (see `slopscore/src/api.js` header). The chat pill only shows when `/api/ask/status` says ready.
+
 ## Type and spacing system (owner, 15 Nov 2026, locked)
 Tokens and role rules are the last block of `app/globals.css` ("Type and spacing system"). Use them; never set a one-off heading size.
 - Spacing: 4px base, only 4, 8, 12, 16, 20, 24, 32, 40, 48, 64, 80, 96, 128. Sections use `--space-section` (64px on phones, 128px at 1440), gutters `--gutter` (16 to 40px). Intro blocks (eyebrow, title, lede) 12px apart; card grids 20px.
