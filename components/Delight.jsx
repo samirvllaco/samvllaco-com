@@ -54,7 +54,7 @@ export default function Delight() {
     const seen = new WeakSet();
     // Blocks that fade in without being marked by hand. Only ones still below the fold are tagged,
     // so nothing already on screen flickers. Siblings get a small stagger.
-    const AUTO = "main h2, main section > p, main details, main .card, .eb article, .eb-steps > div, .eb-pages img, .eb-offer, .eb-author, .eb-faq > div, .eb-tools, .ab-wrap section, .trust";
+    const AUTO = "main h2, main section > p, main details, main .card, .eb article, .eb-steps > div, .eb-pages img, .eb-offer, .eb-author, .eb-faq > div, .eb-tools, .ab-wrap section, .trust, .hw-start > li, .hw-grid > li, .hw-steps > li, .fx-row, .pn-cards > li";
     const tag = () => document.querySelectorAll(AUTO).forEach((e) => {
       if (e.dataset.rv || e.hasAttribute("data-reveal") || e.closest("[data-reveal], .site-footer, .site-header")) return;
       e.dataset.rv = "1";

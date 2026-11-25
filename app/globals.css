@@ -6013,3 +6013,28 @@ html.is-live .ask-pill::before { animation-play-state: running; }
 :where(b, strong) { font-weight: 600; }
 /* Button labels: one size and weight on every button, in the header, menus, cards and popups (the footer Follow chip stays small). */
 :root:root:root :is(.hero2-btn, .head-cta):not(.fm-follow) { font-size: 1rem; font-weight: 600; }
+
+/* Micro-interactions (owner, 25 Nov 2026: "micro animations ... on all pages"). Plain CSS on transform-type properties only,
+   behind hover and reduced-motion queries: nothing moves on load, nothing costs layout or paint time, text never fades. */
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  /* Info cards: the icon tile tilts up a little while its card is hovered (one secondary action, rule 8). */
+  :is(.hw-grid li, .hw-start li, .fx-row, .pn-cards li, .sub-why > *, .sub-steps > *) :is(.tg-ico, .pain-ico) { transition: rotate .45s var(--spring), scale .45s var(--spring), translate .45s var(--spring); }
+  :is(.hw-grid li, .hw-start li, .fx-row, .pn-cards li, .sub-why > *, .sub-steps > *):hover :is(.tg-ico, .pain-ico) { rotate: -6deg; scale: 1.08; translate: 0 -2px; }
+  .hw-grid li .hw-get, .fx-fix { transition: background-color .3s var(--ease-out); }
+  .hw-grid li:hover .hw-get, .fx-row:hover .fx-fix { background: #242426; }
+  /* The calendar icon on call buttons gives a small turn on hover. */
+  :is(.hero2-btn, .head-cta) .call-ico { transition: rotate .35s var(--spring); }
+  :is(.hero2-btn, .head-cta):hover .call-ico { rotate: -10deg; }
+  /* Plain text links open their underline gap slightly. */
+  :is(p, li) > a:not([class]) { text-underline-offset: 3px; transition: text-underline-offset .2s var(--ease-out); }
+  :is(p, li) > a:not([class]):hover { text-underline-offset: 5px; }
+  /* Engagement steps: the hairline and number light up in the accent. */
+  .hw-steps li { transition: box-shadow .3s var(--ease-out); }
+  .hw-steps li:hover { box-shadow: inset 0 1px 0 rgba(98, 193, 253, .9); }
+  .hw-n { transition: color .2s var(--ease-out); }
+  .hw-steps li:hover .hw-n { color: #62c1fd; }
+  /* Chips and small pills press in like keys. */
+  :is(.hw-terms li, .ask-clear) { transition: background-color .2s var(--ease-out), scale .09s ease-out; }
+  .ask-clear:active { scale: .95; }
+}
+
