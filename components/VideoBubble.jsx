@@ -2,11 +2,14 @@
 import BrandFace from "./BrandFace";
 import { useEffect, useRef, useState } from "react";
 import { VIDEO_EMBED } from "../lib/site";
+import { usePathname } from "next/navigation";
+import { isLean } from "./RouteHide";
 
 // Bottom right intro video bubble. Hover to peek, click to open the player.
 export default function VideoBubble() {
   const [open, setOpen] = useState(false);
   const btn = useRef(null);
+  const path = usePathname();
 
   useEffect(() => {
     if (!open) return;
@@ -20,6 +23,7 @@ export default function VideoBubble() {
     return () => window.removeEventListener("keydown", onKey);
   }, [open]);
 
+  if (isLean(path)) return null; // no photo bubble on free tools and the contact page
   return (
     <div className={`vid${open ? " is-open" : ""}`}>
       <div className="vid-panel" role="dialog" aria-label="Intro video from Sam" aria-hidden={!open}>

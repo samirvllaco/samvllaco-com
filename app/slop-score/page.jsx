@@ -1,7 +1,6 @@
 import PageHead from "../../components/PageHead";
 import JsonLd from "../../components/JsonLd";
 import Faq from "../../components/Faq";
-import SkyPhoto from "../../components/SkyPhoto";
 import CallIcon from "../../components/CallIcon";
 import SlopScan from "../../components/slop/SlopScan";
 import { CATS } from "../../slopscore/config";
@@ -62,7 +61,6 @@ export default function SlopScorePage() {
 
       <div className="sv-sec sv-faqwrap">
         <Faq items={FAQ} a="Questions" b="about Slop Score" bg="#111112">
-          <SkyPhoto className="faq-photo" />
           <h3>Want a real designer on it? <em className="scr">That's me.</em></h3>
           <p>Bring your site to a 30-minute call. I'll show you what I'd change first.</p>
           <p className="faq-go"><a className="hero2-btn hero2-btn-primary" href="/book/"><CallIcon />Book a call</a></p>

@@ -6,6 +6,7 @@ import { SecretCount } from "./Seen";
 import { SITE, CERTS } from "../lib/site";
 import { SERVICES, svcHref } from "../lib/services";
 import CallIcon from "./CallIcon";
+import RouteHide from "./RouteHide";
 
 // 16 point scalloped seal, drawn once and filled with a shared gold gradient
 function sealPath() {
@@ -88,7 +89,8 @@ function FootMap() {
 export default function Footer() {
   return (
     <footer className="site-footer">
-      <FootStage />
+      {/* Free tools and the contact page: no portrait scene, no site map, no photo (see RouteHide). */}
+      <RouteHide><FootStage /></RouteHide>
       <div className="wrap">
         {SHOW_CERTS ? (
         <div className="certs" role="group" aria-label="Certificates">
@@ -140,13 +142,15 @@ export default function Footer() {
           </ul>
         </div>
         ) : null}
-        <FootMap />
-        <div className="fd-talk">
-          <p>Talk to the designer who does the work.</p>
-          <a className="hero2-btn hero2-btn-primary" href="/book/"><CallIcon />Book a call</a>
-        </div>
+        <RouteHide><FootMap /></RouteHide>
+        <RouteHide on={["/book/"]}>
+          <div className="fd-talk">
+            <p>Talk to the designer who does the work.</p>
+            <a className="hero2-btn hero2-btn-primary" href="/book/"><CallIcon />Book a call</a>
+          </div>
+        </RouteHide>
         <p>© {new Date().getFullYear()} Sam Vllaco<span className="foot-tagline">, your close design partner</span></p>
-        <AskAI inline name="Sam Vllaco" prompt="Tell me about Sam Vllaco, the product designer at samvllaco.com. What does he do, who does he work with and how do I hire him?" />
+        <RouteHide><AskAI inline name="Sam Vllaco" prompt="Tell me about Sam Vllaco, the product designer at samvllaco.com. What does he do, who does he work with and how do I hire him?" /></RouteHide>
 
         <div className="foot-links">
           <CopyEmail />
