@@ -275,7 +275,7 @@ Update the design tokens, not individual components.
 Never use color alone for status. Pair every status color with an icon or a word.
 ```
 
-Check it: open the WebAIM Contrast Checker, or the color picker in Chrome DevTools, and test your three most-used text colors. It takes two minutes.
+Check it: open my free [contrast checker](/tools/contrast-checker/), the WebAIM Contrast Checker, or the color picker in Chrome DevTools, and test your three most-used text colors. It takes two minutes.
 
 ### Fix 9: Make Targets Easy to Hit
 
@@ -413,7 +413,7 @@ You can run this before every release.
 1. Zoom to 400 percent. Does anything vanish or overlap?
 1. Turn on Reduce Motion. Does anything still move?
 1. Run Lighthouse in Chrome DevTools and axe DevTools or WAVE on your three main screens.
-1. Check your three most-used text colors in a contrast checker.
+1. Check your three most-used text colors in a [contrast checker](/tools/contrast-checker/).
 1. Turn on a screen reader for one minute. Is every button named?
 
 One honest limit: automated tools only find part of the problems. They cannot tell you if your error message makes sense or if your focus order feels logical. Use them for the basics, then do the keyboard and zoom checks by hand.

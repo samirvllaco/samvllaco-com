@@ -30,6 +30,8 @@ So your job changes. You stop asking the AI to “make it look good.” You give
 
 Here are the 25 that matter most. If you only have 20 minutes, start with Fixes 1, 3, 6 and 25. They change the most for the least effort. Each fix also names the UX law behind it, so you know why it works, not just what to do.
 
+Want a number first? The free [AI slop UI score](/tools/ai-slop-ui-score/) asks 12 yes or no questions and tells you which fixes to make first.
+
 Save this checklist. Each fix is explained below.
 
 ```
@@ -597,6 +599,7 @@ One warning: a stronger model is not a guarantee. Check its output the same way 
 
 - [Refactoring UI](https://refactoringui.com): a short paid book on visual design for developers, with free sample chapters
 - [Laws of UX](https://lawsofux.com): the psychology behind hierarchy, choice and speed
+- [Contrast checker](/tools/contrast-checker/): my free tool for Fix 13, tests against WCAG 2.2 AA and suggests the closest passing color
 - [WebAIM Contrast Checker](https://webaim.org/resources/contrastchecker/): test Fix 13 in seconds
 - [Lucide](https://lucide.dev) and [Phosphor](https://phosphoricons.com): consistent icon sets for Fix 14
 - [Nielsen Norman Group](https://www.nngroup.com/articles/): research-backed articles on forms, navigation and onboarding
