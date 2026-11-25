@@ -37,5 +37,5 @@ export async function review(env, { shots, metrics, det, axe, url }) {
   if (!call) throw new Error("anthropic no tool call");
   const r = undash(call.input);
   r.issues = (r.issues || []).slice(0, 15).map((x, i) => ({ ...x, id: x.id || `i${i + 1}` }));
-  return { ...r, model: out.model || SLOP.model };
+  return { ...r, model: out.model || SLOP.model, usage: out.usage };
 }

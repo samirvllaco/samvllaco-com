@@ -12,9 +12,9 @@ export const ASK = {
   maxTokens: 450,
   maxTurns: 10, // messages sent to the model, newest last
   maxChars: 800, // per visitor message
-  perHour: 30, // messages per IP per hour
-  perDay: 100, // messages per IP per day
-  dailyCap: 2000, // messages per day for the whole site
+  perHour: 10, // messages per IP per hour
+  perDay: 20, // messages per IP per day
+  dailyCap: 1000, // messages per day for the whole site; the $ guard in src/budget.js sits on top
   sessionHours: 2, // a Turnstile pass covers this long
 };
 
@@ -84,6 +84,8 @@ export function cleanMessages(list) {
 export function sseToText(onDone) {
   const dec = new TextDecoder(), enc = new TextEncoder();
   let buf = "", out = "";
+  const meta = { model: "", usage: null }; // token usage for the spend guard; message_delta counts are cumulative
+  const use = (u) => { if (!u) return; meta.usage = meta.usage || {}; for (const [k, v] of Object.entries(u)) if (typeof v === "number") meta.usage[k] = Math.max(meta.usage[k] || 0, v); };
   return new TransformStream({
     transform(chunk, ctl) {
       buf += dec.decode(chunk, { stream: true });
@@ -93,6 +95,8 @@ export function sseToText(onDone) {
         if (!line.startsWith("data:")) continue;
         let e;
         try { e = JSON.parse(line.slice(5)); } catch { continue; }
+        if (e.type === "message_start" && e.message) { meta.model = e.message.model || ""; use(e.message.usage); }
+        if (e.type === "message_delta") use(e.usage);
         if (e.type === "content_block_delta" && e.delta && typeof e.delta.text === "string") {
           const t = e.delta.text.replace(/ ?\u2014 ?/g, ", ");
           out += t;
@@ -100,6 +104,6 @@ export function sseToText(onDone) {
         }
       }
     },
-    flush() { if (onDone) onDone(out); },
+    flush() { if (onDone) onDone(out, meta); },
   });
 }

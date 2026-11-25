@@ -11,6 +11,7 @@ import { createCheckout, verifyWebhook, paymentOf } from "./whop.js";
 import { SCHEMA } from "./schema.js";
 import { view } from "./view.js";
 import { ASK, SYSTEM, cleanMessages, sseToText } from "./ask.js";
+import { EST, take, settle, hasBudget } from "./budget.js";
 
 let schemaReady = false;
 async function ensureSchema(env) { if (schemaReady || !env.DB) return; await env.DB.exec(SCHEMA); schemaReady = true; }
@@ -27,15 +28,22 @@ const EMAIL = /^[^\s@]{1,64}@[^\s@]{1,255}\.[a-z]{2,24}$/i;
 export const ready = (env) => Boolean((env.BROWSER || env.SCANNER) && env.DB && env.CACHE && env.ANTHROPIC_API_KEY && env.TURNSTILE_SECRET_KEY && env.TURNSTILE_SITE_KEY);
 const payments = (env) => Boolean(env.WHOP_API_KEY && env.WHOP_ACCOUNT_ID && env.WHOP_REPORT_PLAN_ID && env.DB);
 
+// Returns null when the visitor passed, or Turnstile's error codes (safe to show: they name no secret).
 async function turnstile(env, token, ip) {
-  if (!env.TURNSTILE_SECRET_KEY || !token) return false;
+  if (!env.TURNSTILE_SECRET_KEY) return ["missing-secret"];
+  if (!token) return ["missing-input-response"];
   const f = new FormData();
   f.append("secret", env.TURNSTILE_SECRET_KEY);
   f.append("response", token);
   if (ip) f.append("remoteip", ip);
   const r = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", { method: "POST", body: f });
-  return Boolean((await r.json()).success);
+  const j = await r.json().catch(() => ({}));
+  if (j.success) return null;
+  const codes = (j["error-codes"] || ["unknown"]).slice(0, 4);
+  console.error(JSON.stringify({ turnstile: codes }));
+  return codes;
 }
+const tsFail = (codes) => json({ error: "turnstile", codes }, 403);
 
 async function bump(env, key, ttl) {
   const n = Number((await env.CACHE.get(key)) || 0) + 1;
@@ -46,8 +54,8 @@ async function limited(env, ip) {
   const now = new Date(), hour = now.toISOString().slice(0, 13), day = now.toISOString().slice(0, 10);
   const [h, d, g] = await Promise.all([env.CACHE.get(`rl:h:${ip}:${hour}`), env.CACHE.get(`rl:d:${ip}:${day}`), env.CACHE.get(`cap:${day}`)]);
   if (Number(g || 0) >= SLOP.dailyCap) return "cap";
-  if (Number(h || 0) >= SLOP.perHour) return "rate_hour";
   if (Number(d || 0) >= SLOP.perDay) return "rate_day";
+  if (Number(h || 0) >= SLOP.perHour) return "rate_hour";
   return null;
 }
 async function count(env, ip) {
@@ -59,7 +67,7 @@ async function scan({ request, env }) {
   if (!ready(env)) return fail("setup", 503);
   const body = await request.json().catch(() => ({}));
   const ip = ipOf(request);
-  if (!(await turnstile(env, body.token, ip))) return fail("turnstile", 403);
+  { const bad = await turnstile(env, body.token, ip); if (bad) return tsFail(bad); }
   const u = checkUrl(body.url);
   if (!u.ok) return fail(u.reason);
   const hash = await sha(u.url);
@@ -70,13 +78,15 @@ async function scan({ request, env }) {
   }
   const lim = await limited(env, ip);
   if (lim) return fail(lim, 429);
+  if (!(await take(env, EST.scan))) return fail("cap", 429); // free credit guard
   await count(env, ip);
   let page;
-  try { page = await render(env, u.url); } catch (e) { return fail(e instanceof ScanError ? e.code : "load", 502); }
+  try { page = await render(env, u.url); } catch (e) { await settle(env, EST.scan, SLOP.model, {}); return fail(e instanceof ScanError ? e.code : "load", 502); }
   const id = newId();
   const det = deterministic(page.metrics, page.axe);
   let ai;
   try { ai = await review(env, { shots: page.shots, metrics: page.metrics, det, axe: page.axe, url: u.url }); } catch (e) { console.error(JSON.stringify({ id, err: String(e.message).slice(0, 80) })); return fail("review", 502); }
+  await settle(env, EST.scan, ai.model, ai.usage);
   const fin = finalize(det, { adjustments: ai.adjustments, originality: ai.originality });
   const oe = fin.categories.find((c) => c.k === "originality");
   if (oe && ai.originality_evidence) oe.evidence = ai.originality_evidence;
@@ -99,7 +109,7 @@ async function lead({ request, env }) {
   if (!env.DB) return fail("setup", 503);
   const b = await request.json().catch(() => ({}));
   if (!EMAIL.test(String(b.email || ""))) return fail("email");
-  if (env.TURNSTILE_SECRET_KEY && !(await turnstile(env, b.token, ipOf(request)))) return fail("turnstile", 403);
+  if (env.TURNSTILE_SECRET_KEY) { const bad = await turnstile(env, b.token, ipOf(request)); if (bad) return tsFail(bad); }
   await env.DB.prepare("INSERT INTO leads (id, email, report_id, url, consent_marketing, created_at) VALUES (?, ?, ?, ?, ?, ?)")
     .bind(newId(), String(b.email).toLowerCase().slice(0, 320), b.id || null, String(b.url || "").slice(0, 2048), b.consent ? 1 : 0, new Date().toISOString()).run();
   return json({ ok: true });
@@ -137,7 +147,7 @@ async function claim({ request, env }) {
   if (!env.DB) return fail("setup", 503);
   const b = await request.json().catch(() => ({}));
   if (!/^[A-Za-z0-9]{10}$/.test(b.id || "") || !EMAIL.test(String(b.email || ""))) return fail("invalid");
-  if (env.TURNSTILE_SECRET_KEY && !(await turnstile(env, b.token, ipOf(request)))) return fail("turnstile", 403);
+  if (env.TURNSTILE_SECRET_KEY) { const bad = await turnstile(env, b.token, ipOf(request)); if (bad) return tsFail(bad); }
   const email = String(b.email).toLowerCase();
   const p = await env.DB.prepare("SELECT id FROM purchases WHERE email = ? AND (report_id IS NULL OR report_id = ?) ORDER BY created_at DESC LIMIT 1").bind(email, b.id).first();
   if (!p) return fail("no_purchase", 404);
@@ -176,7 +186,7 @@ export async function handleApi(ctx) {
   const m = request.method;
   try {
     if (path !== "status") await ensureSchema(env);
-    if (path === "status" && m === "GET") return json({ ready: ready(env), siteKey: env.TURNSTILE_SITE_KEY || null, payments: payments(env), price: SLOP.reportPrice });
+    if (path === "status" && m === "GET") return json({ ready: ready(env) && (await ensureSchema(env), await hasBudget(env, EST.scan)), siteKey: env.TURNSTILE_SITE_KEY || null, payments: payments(env), price: SLOP.reportPrice });
     if (path === "scan" && m === "POST") return await scan(ctx);
     if (path.startsWith("report/") && m === "GET") return await report(env, path.slice(7));
     if (path === "lead" && m === "POST") return await lead(ctx);
@@ -197,8 +207,8 @@ export async function handleApi(ctx) {
   }
 }
 
-// "Ask Sam's AI" chat, routed from functions/api/ask/[[path]].js. The site facts are prompt-cached (5 min), so repeat messages read them at a tenth of the input price. Needs CACHE, ANTHROPIC_API_KEY and Turnstile; DB is optional (question log).
-export const askReady = (env) => Boolean(env.CACHE && env.ANTHROPIC_API_KEY && env.TURNSTILE_SECRET_KEY && env.TURNSTILE_SITE_KEY);
+// "Ask Sam's AI" chat, routed from functions/api/ask/[[path]].js. The site facts are prompt-cached (5 min), so repeat messages read them at a tenth of the input price. Needs CACHE, DB (question log and the spend guard), ANTHROPIC_API_KEY and Turnstile.
+export const askReady = (env) => Boolean(env.CACHE && env.DB && env.ANTHROPIC_API_KEY && env.TURNSTILE_SECRET_KEY && env.TURNSTILE_SITE_KEY);
 
 async function askLimited(env, ip) {
   const now = new Date(), hour = now.toISOString().slice(0, 13), day = now.toISOString().slice(0, 10);
@@ -219,22 +229,26 @@ async function ask(ctx) {
   // One Turnstile pass opens a short session, so every message after the first needs no new challenge.
   let sid = /^[A-Za-z0-9]{16}$/.test(b.sid || "") && (await env.CACHE.get(`ask:s:${b.sid}`)) ? b.sid : "";
   if (!sid) {
-    if (!(await turnstile(env, b.token, ip))) return fail("turnstile", 403);
+    { const bad = await turnstile(env, b.token, ip); if (bad) return tsFail(bad); }
     sid = newId(16);
     await env.CACHE.put(`ask:s:${sid}`, "1", { expirationTtl: ASK.sessionHours * 3600 });
   }
   const lim = await askLimited(env, ip);
   if (lim) return fail(lim, 429);
+  await ensureSchema(env);
+  if (!(await take(env, EST.ask))) return fail("cap", 429); // free credit guard
   const res = await fetch("https://api.anthropic.com/v1/messages", {
     method: "POST",
     headers: { "x-api-key": env.ANTHROPIC_API_KEY, "anthropic-version": "2023-06-01", "content-type": "application/json" },
     body: JSON.stringify({ model: env.ASK_MODEL || ASK.model, max_tokens: ASK.maxTokens, stream: true, system: [{ type: "text", text: SYSTEM, cache_control: { type: "ephemeral" } }], messages: msgs }),
   });
-  if (!res.ok || !res.body) { console.error(JSON.stringify({ ask: res.status })); return fail("model", 502); }
+  if (!res.ok || !res.body) { console.error(JSON.stringify({ ask: res.status })); await settle(env, EST.ask, ASK.model, {}); return fail("model", 502); }
   const question = msgs[msgs.length - 1].content, page = String(b.page || "").slice(0, 200);
-  const log = (answer) => {
-    if (!env.DB) return;
-    const p = ensureSchema(env).then(() => env.DB.prepare("INSERT INTO asks (id, session, page, question, answer, created_at) VALUES (?, ?, ?, ?, ?, ?)").bind(newId(), sid, page, question, answer.slice(0, 2000), new Date().toISOString()).run()).catch(() => {});
+  const log = (answer, meta) => {
+    const p = Promise.all([
+      env.DB.prepare("INSERT INTO asks (id, session, page, question, answer, created_at) VALUES (?, ?, ?, ?, ?, ?)").bind(newId(), sid, page, question, answer.slice(0, 2000), new Date().toISOString()).run(),
+      settle(env, EST.ask, (meta && meta.model) || ASK.model, meta && meta.usage),
+    ]).catch(() => {});
     if (ctx.waitUntil) ctx.waitUntil(p);
   };
   return new Response(res.body.pipeThrough(sseToText(log)), { headers: { "content-type": "text/plain; charset=utf-8", "cache-control": "no-store", "x-ask-sid": sid } });
@@ -250,7 +264,7 @@ export async function handleAsk(ctx) {
   const { request, env } = ctx;
   const path = new URL(request.url).pathname.replace(/^\/api\/ask\/?/, "").replace(/\/$/, "");
   try {
-    if (path === "status" && request.method === "GET") return json({ ready: askReady(env), siteKey: env.TURNSTILE_SITE_KEY || null });
+    if (path === "status" && request.method === "GET") return json({ ready: askReady(env) && (await ensureSchema(env), await hasBudget(env, EST.ask)), siteKey: env.TURNSTILE_SITE_KEY || null });
     if (path === "" && request.method === "POST") return await ask(ctx);
     if (path === "admin/questions.csv") {
       if (!admin(request, env)) return fail("unauthorized", 401);

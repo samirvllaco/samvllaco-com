@@ -7,9 +7,9 @@ export const SLOP = {
   sprintPrice: WEEK_PRICE,
   model: "claude-sonnet-5-5", // Anthropic model for the design review
   axeVersion: "4.10.2", // axe-core build injected into the scanned page
-  perHour: 3, // scans per IP per hour
-  perDay: 10, // scans per IP per day
-  dailyCap: 300, // scans per day for the whole tool
+  perHour: 2, // scans per IP per hour
+  perDay: 2, // scans per IP per day (owner: one or two per person)
+  dailyCap: 100, // scans per day for the whole tool; the $ guard in src/budget.js sits on top
   cacheHours: 24, // same URL inside this window returns the last report
   budgetMs: 45000, // whole browser step, hard stop
   gotoMs: 20000, // page load timeout
