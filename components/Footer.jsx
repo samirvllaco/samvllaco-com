@@ -43,7 +43,7 @@ const ICON = {
   figma: "M9 3h3v6H9a3 3 0 0 1 0-6zm3 0h3a3 3 0 0 1 0 6h-3zm-3 6h3v6H9a3 3 0 0 1 0-6zm6 0a3 3 0 1 1 0 6 3 3 0 0 1 0-6zm-6 6h3v3a3 3 0 1 1-3-3z",
 };
 const MAP = [
-  { h: "Services", links: [...svc(["saas-product-design", "dashboard-design", "mobile-app-design", "ux-audit", "design-systems", "website-design"]), ["All services", "/services/"]] },
+  { h: "Services", links: [...svc(["saas-product-design", "dashboard-design", "mobile-app-design", "ux-audit", "design-systems", "website-design"]), ["EAA accessibility audit", "/eaa-audit/"], ["Managed accessibility", "/accessibility/"], ["All services", "/services/"]] },
   { h: "Work", links: [...WORK.slice(0, 5).map((w) => [w.title, `/work/${w.slug}/`]), ["All case studies", "/work/"]] },
   { h: "Resources", links: [["All resources", "/resources/"], ["Insights", "/writing/"], ["AI slop UI ebook", "/fix-ai-slop-ui/", null, "New"], ["UI/UX review", "/fix-ai-slop-ui/#options"], ["Free tools", "/tools/", null, "New"], ["Free UI prompts", "/fix-ai-slop-ui/#free"], ["FAQs", "/#faq"], ["Products", "/products/"]] },
   { h: "Company", links: [["About Sam", "/about/"], ["Pricing", "/pricing/"], ["Book a call", "/book/"]] },

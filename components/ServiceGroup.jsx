@@ -101,6 +101,7 @@ export default function ServiceGroup({ id }) {
                 </ul>
               </>
             ) : null}
+            {s.id === "speed-accessibility" ? <p className="ax-also">Selling to customers in the EU? See the <a href="/eaa-audit/">EAA audit and fix sprint</a>, or <a href="/accessibility/">managed accessibility</a> for teams that ship every week.</p> : null}
           </section>
         );
       })}
