@@ -31,7 +31,7 @@ export default function Pricing() {
         <img className="pr-proj-pic" src="/me/ai/ai6-224.webp?v=1" width="224" height="224" alt="" loading="lazy" decoding="async" />
         <div>
           <h2 id="pr-proj-h">Fixed-price projects</h2>
-          <p>A full website, app or brand, scoped on a call. Projects start at <b>$1,000</b>, and larger product work runs from <b>$5,000 to $25,000</b>. Pick this when you want one finished thing for one price, with a timeline in writing before I start.</p>
+          <p>A full website, app or brand, scoped on a call. Projects start at <b>$1,000</b>, and larger product work runs from <b>$5,000 to $25,000</b>. Pick this when you want one finished thing for one price, with a timeline in writing before I start. Want a number first? Try the free <Link prefetch={false} href="/tools/design-cost-calculator/">design cost calculator</Link>.</p>
         </div>
         <Link prefetch={false} className="hero2-btn hero2-btn-light" href="/book/">Get a quote</Link>
       </section>
