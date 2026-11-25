@@ -65,11 +65,14 @@ async function count(env, ip) {
   await Promise.all([bump(env, `sc:h:${ip}:${hour}`, 3700), bump(env, `sc:d:${ip}:${day}`, 90000), bump(env, `cap:${day}`, 90000)]);
 }
 
+let stage = ""; // last step a scan reached, reported with "server" errors so failures can be traced
 async function scan({ request, env }) {
+  stage = "start";
   if (!ready(env)) return fail("setup", 503);
   const body = await request.json().catch(() => ({}));
   const ip = ipOf(request);
-  { const bad = await turnstile(env, body.token, ip); if (bad) return tsFail(bad); }
+  const owner = admin(request, env); // Sam testing with ADMIN_TOKEN: no captcha, no visitor limits (the $ guard still applies)
+  if (!owner) { const bad = await turnstile(env, body.token, ip); if (bad) return tsFail(bad); }
   const u = checkUrl(body.url);
   if (!u.ok) return fail(u.reason);
   const hash = await sha(u.url);
@@ -78,16 +81,20 @@ async function scan({ request, env }) {
     const r = await env.DB.prepare("SELECT * FROM reports WHERE id = ?").bind(cached).first();
     if (r) return json(view(r));
   }
-  const lim = await limited(env, ip);
+  const lim = owner ? null : await limited(env, ip);
   if (lim) return fail(lim, 429);
   if (!(await take(env, EST.scan))) return fail("cap", 429); // free credit guard
   await bump(env, `sc:t:${ip}:${new Date().toISOString().slice(0, 10)}`, 90000);
   let page;
+  stage = "render";
   try { page = await render(env, u.url); } catch (e) { await settle(env, EST.scan, SLOP.model, {}); return fail(e instanceof ScanError ? e.code : "load", 502); }
+  stage = "score";
   const id = newId();
   const det = deterministic(page.metrics, page.axe);
+  stage = "review";
   let ai;
   try { ai = await review(env, { shots: page.shots, metrics: page.metrics, det, axe: page.axe, url: u.url }); } catch (e) { console.error(JSON.stringify({ id, err: String(e.message).slice(0, 80) })); return fail("review", 502); }
+  stage = "save";
   await settle(env, EST.scan, ai.model, ai.usage);
   const fin = finalize(det, { adjustments: ai.adjustments, originality: ai.originality });
   const oe = fin.categories.find((c) => c.k === "originality");
@@ -205,8 +212,9 @@ export async function handleApi(ctx) {
     }
     return fail("not_found", 404);
   } catch (e) {
-    console.error(JSON.stringify({ path, err: String(e && e.message).slice(0, 120) }));
-    return fail("server", 500);
+    const err = String(e && e.message).slice(0, 120);
+    console.error(JSON.stringify({ path, stage, err }));
+    return json({ error: "server", stage: path === "scan" ? stage : undefined, detail: admin(request, env) ? err : undefined }, 500);
   }
 }
 
