@@ -10,4 +10,6 @@ export const SCHEMA = [
   "CREATE INDEX IF NOT EXISTS purchases_email ON purchases (email);",
   "CREATE TABLE IF NOT EXISTS events (id TEXT PRIMARY KEY, report_id TEXT, type TEXT NOT NULL, created_at TEXT NOT NULL);",
   "CREATE INDEX IF NOT EXISTS events_created ON events (created_at);",
+  "CREATE TABLE IF NOT EXISTS asks (id TEXT PRIMARY KEY, session TEXT, page TEXT, question TEXT NOT NULL, answer TEXT, created_at TEXT NOT NULL);",
+  "CREATE INDEX IF NOT EXISTS asks_created ON asks (created_at);",
 ].join("\n");

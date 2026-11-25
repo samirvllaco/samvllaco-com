@@ -2,7 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 
 // Cloudflare Turnstile, loaded only when a form that needs it is on screen. Returns the widget box and the token.
-export function useTurnstile(siteKey) {
+export function useTurnstile(siteKey, opts = {}) {
   const box = useRef(null);
   const wid = useRef(null);
   const [token, setToken] = useState("");
@@ -11,7 +11,7 @@ export function useTurnstile(siteKey) {
     let gone = false;
     const draw = () => {
       if (gone || !window.turnstile || wid.current !== null || !box.current) return;
-      wid.current = window.turnstile.render(box.current, { sitekey: siteKey, theme: "dark", size: "flexible", callback: setToken, "expired-callback": () => setToken(""), "error-callback": () => setToken("") });
+      wid.current = window.turnstile.render(box.current, { sitekey: siteKey, theme: "dark", size: "flexible", ...opts, callback: setToken, "expired-callback": () => setToken(""), "error-callback": () => setToken("") });
     };
     if (window.turnstile) draw();
     else {

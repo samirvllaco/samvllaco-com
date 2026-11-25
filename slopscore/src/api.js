@@ -10,6 +10,7 @@ import { review } from "./ai.js";
 import { createCheckout, verifyWebhook, paymentOf } from "./whop.js";
 import { SCHEMA } from "./schema.js";
 import { view } from "./view.js";
+import { ASK, SYSTEM, cleanMessages, sseToText } from "./ask.js";
 
 let schemaReady = false;
 async function ensureSchema(env) { if (schemaReady || !env.DB) return; await env.DB.exec(SCHEMA); schemaReady = true; }
@@ -192,6 +193,74 @@ export async function handleApi(ctx) {
     return fail("not_found", 404);
   } catch (e) {
     console.error(JSON.stringify({ path, err: String(e && e.message).slice(0, 120) }));
+    return fail("server", 500);
+  }
+}
+
+// "Ask Sam's AI" chat, routed from functions/api/ask/[[path]].js. Needs CACHE, ANTHROPIC_API_KEY and Turnstile; DB is optional (question log).
+export const askReady = (env) => Boolean(env.CACHE && env.ANTHROPIC_API_KEY && env.TURNSTILE_SECRET_KEY && env.TURNSTILE_SITE_KEY);
+
+async function askLimited(env, ip) {
+  const now = new Date(), hour = now.toISOString().slice(0, 13), day = now.toISOString().slice(0, 10);
+  const [h, d, g] = await Promise.all([env.CACHE.get(`ask:h:${ip}:${hour}`), env.CACHE.get(`ask:d:${ip}:${day}`), env.CACHE.get(`ask:cap:${day}`)]);
+  if (Number(g || 0) >= ASK.dailyCap) return "cap";
+  if (Number(h || 0) >= ASK.perHour || Number(d || 0) >= ASK.perDay) return "rate";
+  await Promise.all([bump(env, `ask:h:${ip}:${hour}`, 3700), bump(env, `ask:d:${ip}:${day}`, 90000), bump(env, `ask:cap:${day}`, 90000)]);
+  return null;
+}
+
+async function ask(ctx) {
+  const { request, env } = ctx;
+  if (!askReady(env)) return fail("setup", 503);
+  const b = await request.json().catch(() => ({}));
+  const msgs = cleanMessages(b.messages);
+  if (!msgs) return fail("invalid");
+  const ip = ipOf(request);
+  // One Turnstile pass opens a short session, so every message after the first needs no new challenge.
+  let sid = /^[A-Za-z0-9]{16}$/.test(b.sid || "") && (await env.CACHE.get(`ask:s:${b.sid}`)) ? b.sid : "";
+  if (!sid) {
+    if (!(await turnstile(env, b.token, ip))) return fail("turnstile", 403);
+    sid = newId(16);
+    await env.CACHE.put(`ask:s:${sid}`, "1", { expirationTtl: ASK.sessionHours * 3600 });
+  }
+  const lim = await askLimited(env, ip);
+  if (lim) return fail(lim, 429);
+  const res = await fetch("https://api.anthropic.com/v1/messages", {
+    method: "POST",
+    headers: { "x-api-key": env.ANTHROPIC_API_KEY, "anthropic-version": "2023-06-01", "content-type": "application/json" },
+    body: JSON.stringify({ model: env.ASK_MODEL || ASK.model, max_tokens: ASK.maxTokens, stream: true, system: SYSTEM, messages: msgs }),
+  });
+  if (!res.ok || !res.body) { console.error(JSON.stringify({ ask: res.status })); return fail("model", 502); }
+  const question = msgs[msgs.length - 1].content, page = String(b.page || "").slice(0, 200);
+  const log = (answer) => {
+    if (!env.DB) return;
+    const p = ensureSchema(env).then(() => env.DB.prepare("INSERT INTO asks (id, session, page, question, answer, created_at) VALUES (?, ?, ?, ?, ?, ?)").bind(newId(), sid, page, question, answer.slice(0, 2000), new Date().toISOString()).run()).catch(() => {});
+    if (ctx.waitUntil) ctx.waitUntil(p);
+  };
+  return new Response(res.body.pipeThrough(sseToText(log)), { headers: { "content-type": "text/plain; charset=utf-8", "cache-control": "no-store", "x-ask-sid": sid } });
+}
+
+async function asksCsv(env) {
+  const { results } = await env.DB.prepare("SELECT created_at, page, question, answer FROM asks ORDER BY created_at DESC LIMIT 2000").all();
+  const rows = ["created_at,page,question,answer", ...results.map((r) => [r.created_at, r.page, r.question, r.answer].map(csv).join(","))];
+  return new Response(rows.join("\n"), { headers: { "content-type": "text/csv; charset=utf-8", "cache-control": "no-store" } });
+}
+
+export async function handleAsk(ctx) {
+  const { request, env } = ctx;
+  const path = new URL(request.url).pathname.replace(/^\/api\/ask\/?/, "").replace(/\/$/, "");
+  try {
+    if (path === "status" && request.method === "GET") return json({ ready: askReady(env), siteKey: env.TURNSTILE_SITE_KEY || null });
+    if (path === "" && request.method === "POST") return await ask(ctx);
+    if (path === "admin/questions.csv") {
+      if (!admin(request, env)) return fail("unauthorized", 401);
+      if (!env.DB) return fail("setup", 503);
+      await ensureSchema(env);
+      return await asksCsv(env);
+    }
+    return fail("not_found", 404);
+  } catch (e) {
+    console.error(JSON.stringify({ ask: path, err: String(e && e.message).slice(0, 120) }));
     return fail("server", 500);
   }
 }
