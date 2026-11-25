@@ -95,7 +95,7 @@ async function scan({ request, env }) {
   const det = deterministic(page.metrics, page.axe);
   stage = "review";
   let ai;
-  try { ai = await review(env, { shots: page.shots, metrics: page.metrics, det, axe: page.axe, url: u.url }); } catch (e) { const err = String(e.message).slice(0, 120); console.error(JSON.stringify({ id, err })); return json({ error: "review", detail: owner ? err : undefined }, 422); }
+  try { ai = await review(env, { shots: page.shots, metrics: page.metrics, det, axe: page.axe, url: u.url }); } catch (e) { const err = String(e.message).slice(0, 120); console.error(JSON.stringify({ id, err })); if (/^anthropic 4\d\d/.test(err)) await settle(env, EST.scan, SLOP.model, {}); /* a rejected request costs nothing */ return json({ error: "review", detail: owner ? err : undefined }, 422); }
   stage = "save";
   await settle(env, EST.scan, ai.model, ai.usage);
   const fin = finalize(det, { adjustments: ai.adjustments, originality: ai.originality });
