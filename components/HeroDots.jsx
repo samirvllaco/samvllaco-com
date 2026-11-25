@@ -2,12 +2,13 @@
 import { useEffect } from "react";
 
 // Hero dot grid that reacts to the pointer: dots near it light up and get pushed aside, then spring back.
-// The CSS grid (.hero2::before) paints first; on the first pointer move over the hero this canvas copies it
+// Works on the first hero of every page (HERO). The CSS grid (hero::before) paints first; on the first pointer move over the hero this canvas copies it
 // dot for dot (same spacing, colour and edge fade) and takes over. Only the area around the pointer is
 // redrawn, and the loop stops as soon as every dot is back home.
 const RADIUS = 110, PUSH = 28, SPRING = 0.12, DAMP = 0.78;
+const HERO = ".hero2, .page > .ph, .page > .sv-hero, .page > .eb-hero, .page > .case-head, .case > .case-head, .book-split";
 
-// Reads the edge fade of .hero2::before ("radial-gradient(46% 80% at 86% 30%, ... 75%)") so the canvas fades the same way.
+// Reads the edge fade of hero::before ("radial-gradient(46% 80% at 86% 30%, ... 75%)") so the canvas fades the same way.
 const fadesOf = (el) => {
   const cs = getComputedStyle(el, "::before");
   const img = cs.webkitMaskImage || cs.maskImage || "none";
@@ -18,12 +19,13 @@ const fadesOf = (el) => {
   }).filter(Boolean);
 };
 
-function mount(hero) {
+function mount(hero, onGone) {
   const cv = document.createElement("canvas");
   cv.className = "hero-dots-cv"; cv.setAttribute("aria-hidden", "true");
   hero.prepend(cv);
   const ctx = cv.getContext("2d");
   const color = getComputedStyle(hero).getPropertyValue("--text").trim() || "#f5f5f7";
+  const dim = 0.22 * (parseFloat(getComputedStyle(hero, "::before").opacity) || 0.5); // ::before: --text at 22% in a faded layer
   let W = 0, H = 0, dpr = 1, step = 22, cols = 0, rows = 0, base = [], ox, oy, vx, vy;
   let active = new Set(), px = -1e4, py = -1e4, raf = 0, box = null;
 
@@ -39,7 +41,7 @@ function mount(hero) {
       const x = (i + 0.5) / cols, y = (j + 0.5) / rows;
       let a = fades.length ? 0 : 1;
       for (const f of fades) { const d = Math.hypot((x - f.cx) / f.rx, (y - f.cy) / f.ry); const m = Math.max(0, 1 - d / f.end); a = a + m * (1 - a); }
-      base[j * cols + i] = 0.11 * a; // ::before: --text at 22% inside a layer at 50% opacity
+      base[j * cols + i] = dim * a;
     }
     active = new Set(); box = null;
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.clearRect(0, 0, W, H); ctx.fillStyle = color;
@@ -87,6 +89,7 @@ function mount(hero) {
   };
 
   const move = (e) => {
+    if (!cv.isConnected) return api.stop(true); // the page changed under us
     const b = cv.getBoundingClientRect();
     const x = e.clientX - b.left, y = e.clientY - b.top, inside = x >= 0 && y >= 0 && x <= b.width && y <= b.height;
     if (!inside && px < -1e3) return;
@@ -102,20 +105,28 @@ function mount(hero) {
   obs.observe(cv);
   document.addEventListener("pointermove", move, { passive: true });
   document.documentElement.addEventListener("pointerleave", out);
-  return { move, stop() { cancelAnimationFrame(raf); cancelAnimationFrame(ro); obs.disconnect(); document.removeEventListener("pointermove", move); document.documentElement.removeEventListener("pointerleave", out); hero.classList.remove("dots-cv"); cv.remove(); } };
+  const api = { move, stop(gone) { cancelAnimationFrame(raf); cancelAnimationFrame(ro); obs.disconnect(); document.removeEventListener("pointermove", move); document.documentElement.removeEventListener("pointerleave", out); hero.classList.remove("dots-cv"); cv.remove(); if (gone) onGone(); } };
+  return api;
 }
 
 export default function HeroDots() {
   useEffect(() => {
     if (!matchMedia("(hover: hover) and (pointer: fine)").matches || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     let live = null;
-    // The canvas is made only when the pointer first reaches the hero, so first paint stays pure CSS.
-    const first = (e) => {
-      const hero = e.target.closest?.(".hero2");
-      if (!hero) return;
+    // The canvas is made only when the pointer first reaches a hero, so first paint stays pure CSS.
+    // After a client-side page change the old canvas is gone, so the wait for the next hero starts again.
+    // The dot area spans the full width, so the check is the hero's height band, read once per frame at most.
+    let pending = null;
+    const check = () => {
+      const e = pending; pending = null;
+      const hero = document.querySelector(HERO);
+      if (!hero || live) return;
+      const r = hero.getBoundingClientRect();
+      if (e.clientY < r.top - 40 || e.clientY > r.bottom + 40) return;
       document.removeEventListener("pointermove", first);
-      live = mount(hero); live.move(e);
+      live = mount(hero, () => { live = null; document.addEventListener("pointermove", first, { passive: true }); }); live.move(e);
     };
+    const first = (e) => { if (!pending) requestAnimationFrame(check); pending = e; };
     document.addEventListener("pointermove", first, { passive: true });
     return () => { document.removeEventListener("pointermove", first); live?.stop(); };
   }, []);

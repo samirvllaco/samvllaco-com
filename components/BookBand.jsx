@@ -1,11 +1,13 @@
 "use client";
 import CalFrame from "./CalFrame";
 import CopyEmailInline from "./HirePanelCopy";
+import { useRef } from "react";
 import { usePathname } from "next/navigation";
 import { BOOKING_URL, SITE } from "../lib/site";
 
 /* Booking calendar shown above the footer on every page except /book, which has its own. */
 export function BookAlt() {
+  const dlg = useRef(null);
   return (
     <div className="bb-alt">
       <div className="bb-alt-l">
@@ -16,13 +18,23 @@ export function BookAlt() {
         </div>
       </div>
       <figure className="bb-qr">
-        <span className="bb-qr-pic">
+        {/* Small in the row; click opens it big in the middle of the screen for a clean scan. */}
+        <button type="button" className="bb-qr-pic" onClick={() => dlg.current?.showModal()} aria-haspopup="dialog">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/cal-qr.svg?v=1" width="96" height="96" alt="QR code that opens the booking calendar" loading="lazy" />
-          <span className="bb-qr-tag" aria-hidden="true">Scan to book</span>
-        </span>
-        <figcaption><b>On your phone anyway?</b><span>Scan it and book in a minute, from the couch.</span></figcaption>
+          <img src="/cal-qr.svg?v=1" width="96" height="96" alt="" loading="lazy" />
+          <span className="sr-only">Show the booking QR code larger</span>
+        </button>
+        <figcaption><b>On your phone anyway?</b><span>Scan it and book in a minute. Click to enlarge.</span></figcaption>
       </figure>
+      <dialog className="qr-dlg" ref={dlg} aria-labelledby="qr-dlg-h" onClick={(e) => { if (e.target === e.currentTarget) e.currentTarget.close(); }}>
+        <div className="qr-card">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/cal-qr.svg?v=1" width="280" height="280" alt="QR code that opens the booking calendar" loading="lazy" />
+          <p id="qr-dlg-h" className="qr-h">Scan to book</p>
+          <p className="qr-p">Point your phone camera at the code. My calendar opens on your phone.</p>
+          <button type="button" className="hero2-btn hero2-btn-light" onClick={() => dlg.current?.close()}>Close</button>
+        </div>
+      </dialog>
     </div>
   );
 }
