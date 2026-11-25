@@ -460,7 +460,7 @@ export default function Ebook() {
         <h2 id="eb-rv-h">From a founder <span className="t2">who used it</span></h2>
         <figure className="eb-rv-card dark-island">
           <div className="eb-rv-ba">
-            {[["Before", "/ebook/cb-before-full.webp?v=1", 4744, "9,500px tall, with large empty gaps"], ["After", "/ebook/cb-after-full.webp?v=1", 3054, "6,100px tall, every section earns its place"]].map(([k, src, h, cap]) => (
+            {[["Before", "/ebook/cb-before-full.webp?v=1", 4744, "9,500px tall, with large empty gaps"], ["After", "/ebook/cb-after-full.webp?v=2", 2044, "6,100px tall, every section earns its place"]].map(([k, src, h, cap]) => (
               <figure className={`eb-rv-win ${k === "After" ? "is-after" : ""}`} key={k}>
                 <p className="eb-rv-chrome"><i /><i /><i /><span>cookinbuddy.com</span></p>
                 <div className="eb-rv-view">
@@ -479,7 +479,6 @@ export default function Ebook() {
               <li>Reviews <b>1,500px</b> sooner</li>
               <li>Empty gaps <b>gone</b></li>
             </ul>
-            <a className="eb-rv-link" href="https://www.cookinbuddy.com/" target="_blank" rel="noopener">See the live site<span className="sr-only"> (opens in a new tab)</span> <span aria-hidden="true">↗</span></a>
           </div>
         </figure>
       </section>

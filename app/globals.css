@@ -5146,8 +5146,6 @@ main > .page > .hero-dots-cv { height: clamp(560px, 86vh, 860px); }
 .eb-rv-wins { display: grid; gap: 8px; margin: 24px 0 0; padding: 0; list-style: none; }
 .eb-rv-wins li { font-size: .9375rem; color: #a1a1a6; }
 .eb-rv-wins b { color: #f5f5f7; }
-.eb-rv-link { display: inline-block; margin-top: 20px; font-size: .9375rem; font-weight: 600; color: #62c1fd; text-decoration: none; }
-.eb-rv-link:hover { text-decoration: underline; text-underline-offset: 4px; }
 @media (max-width: 900px) { .eb-rv-card { grid-template-columns: minmax(0, 1fr); } }
 @media (prefers-reduced-motion: reduce) { .eb-rv-view img { animation: none; } }
 /* Match the Cal.com card inside the frame: it stops at 1040px and centres, and sits 20px in on small screens. */
