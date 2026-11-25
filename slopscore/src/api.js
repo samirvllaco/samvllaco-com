@@ -1,6 +1,6 @@
 // Slop Score API on Cloudflare Pages Functions. Routed from functions/api/slop-score/[[path]].js.
 // Bindings: SCANNER (service binding to the samvllaco-scanner Worker, which holds Browser Rendering; or BROWSER directly), DB (D1 "slop_score"), CACHE (KV).
-// Secrets: ANTHROPIC_API_KEY, TURNSTILE_SECRET_KEY, WHOP_API_KEY, WHOP_WEBHOOK_SECRET, ADMIN_TOKEN.
+// Secrets: ANTHROPIC_API_KEY, TURNSTILE_SECRET_KEY, RESEND_API_KEY (report and follow-up emails), WHOP_API_KEY, WHOP_WEBHOOK_SECRET, ADMIN_TOKEN.
 // Variables: TURNSTILE_SITE_KEY, WHOP_ACCOUNT_ID, WHOP_REPORT_PLAN_ID (optional: WHOP_API_BASE, SLOP_MODEL).
 import { SLOP } from "../config.js";
 import { checkUrl } from "./url.js";
@@ -12,6 +12,7 @@ import { SCHEMA } from "./schema.js";
 import { view } from "./view.js";
 import { ASK, SYSTEM, cleanMessages, sseToText } from "./ask.js";
 import { EST, take, settle, hasBudget } from "./budget.js";
+import { runDrip } from "./mail.js";
 
 let schemaReady = false;
 async function ensureSchema(env) { if (schemaReady || !env.DB) return; await env.DB.exec(SCHEMA); schemaReady = true; }
@@ -23,7 +24,7 @@ const ID_CHARS = "23456789abcdefghijkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ";
 const newId = (n = 10) => [...crypto.getRandomValues(new Uint8Array(n))].map((b) => ID_CHARS[b % ID_CHARS.length]).join("");
 const sha = async (s) => [...new Uint8Array(await crypto.subtle.digest("SHA-256", new TextEncoder().encode(s)))].map((b) => b.toString(16).padStart(2, "0")).join("");
 const ipOf = (req) => req.headers.get("cf-connecting-ip") || "0.0.0.0";
-const EVENT_TYPES = ["unlock_click", "review_click", "sprint_click", "share_click", "eaa_click", "book_click"];
+const EVENT_TYPES = ["unlock_click", "review_click", "sprint_click", "share_click", "eaa_click", "book_click", "email_unlock"];
 const EMAIL = /^[^\s@]{1,64}@[^\s@]{1,255}\.[a-z]{2,24}$/i;
 
 export const ready = (env) => Boolean((env.BROWSER || env.SCANNER) && env.DB && env.CACHE && env.ANTHROPIC_API_KEY && env.TURNSTILE_SECRET_KEY && env.TURNSTILE_SITE_KEY);
@@ -116,63 +117,54 @@ async function report(env, id) {
   return r ? json(view(r)) : fail("not_found", 404);
 }
 
-async function lead({ request, env }) {
+// Email gate: an email unlocks the full report at once, sends it by email, and (with consent) starts the follow-ups.
+async function lead(ctx) {
+  const { request, env } = ctx;
   if (!env.DB) return fail("setup", 409);
   const b = await request.json().catch(() => ({}));
   if (!EMAIL.test(String(b.email || ""))) return fail("email");
-  if (env.TURNSTILE_SECRET_KEY) { const bad = await turnstile(env, b.token, ipOf(request)); if (bad) return tsFail(bad); }
-  await env.DB.prepare("INSERT INTO leads (id, email, report_id, url, consent_marketing, created_at) VALUES (?, ?, ?, ?, ?, ?)")
-    .bind(newId(), String(b.email).toLowerCase().slice(0, 320), b.id || null, String(b.url || "").slice(0, 2048), b.consent ? 1 : 0, new Date().toISOString()).run();
-  return json({ ok: true });
+  const ip = ipOf(request);
+  if (env.TURNSTILE_SECRET_KEY && !admin(request, env)) { const bad = await turnstile(env, b.token, ip); if (bad) return tsFail(bad); }
+  if ((await bump(env, `ld:${ip}:${new Date().toISOString().slice(0, 13)}`, 3700)) > 10) return fail("rate_hour", 429);
+  const email = String(b.email).toLowerCase().slice(0, 320), consent = b.consent ? 1 : 0;
+  const report = /^[A-Za-z0-9]{10}$/.test(b.id || "") ? await env.DB.prepare("SELECT * FROM reports WHERE id = ?").bind(b.id).first() : null;
+  const writes = [env.DB.prepare("INSERT INTO leads (id, email, report_id, url, consent_marketing, created_at) VALUES (?, ?, ?, ?, ?, ?)")
+    .bind(newId(), email, report ? report.id : null, String((report && report.url) || b.url || "").slice(0, 2048), consent, new Date().toISOString())];
+  if (report) {
+    const now = Date.now(), domain = new URL(report.url).hostname.replace(/^www\./, "");
+    writes.push(
+      env.DB.prepare("INSERT INTO drip (id, email, report_id, domain, score, consent, token, step, next_at, created_ms) VALUES (?, ?, ?, ?, ?, ?, ?, 0, ?, ?) ON CONFLICT(email, report_id) DO UPDATE SET consent = MAX(consent, excluded.consent), unsub = 0")
+        .bind(newId(), email, report.id, domain, report.score, consent, newId(24), now, now),
+      env.DB.prepare("UPDATE reports SET unlocked = 1 WHERE id = ?").bind(report.id),
+    );
+  }
+  await env.DB.batch(writes);
+  if (report && ctx.waitUntil) ctx.waitUntil(runDrip(env).catch(() => {}));
+  if (!report) return json({ ok: true });
+  return json({ ok: true, report: view({ ...report, unlocked: 1 }), emailing: Boolean(env.RESEND_API_KEY) });
 }
 
-async function event({ request, env }) {
-  if (!env.DB) return json({ ok: false });
-  const b = await request.json().catch(() => ({}));
-  if (!EVENT_TYPES.includes(b.type)) return fail("type");
-  await env.DB.prepare("INSERT INTO events (id, report_id, type, created_at) VALUES (?, ?, ?, ?)").bind(newId(), /^[A-Za-z0-9]{10}$/.test(b.id || "") ? b.id : null, b.type, new Date().toISOString()).run();
-  return json({ ok: true });
+// One click stops every email to that address. GET from the link, POST from mail apps (List-Unsubscribe-Post).
+async function unsubscribe(request, env) {
+  const t = new URL(request.url).searchParams.get("t") || "";
+  let ok = false;
+  if (/^[A-Za-z0-9]{24}$/.test(t)) {
+    const row = await env.DB.prepare("SELECT email FROM drip WHERE token = ?").bind(t).first();
+    if (row) { await env.DB.prepare("UPDATE drip SET unsub = 1 WHERE email = ?").bind(row.email).run(); ok = true; }
+  }
+  if (request.method === "POST") return json({ ok });
+  const msg = ok ? "You're unsubscribed. You won't get more emails from me about your report." : "That link didn't work. Reply to any of my emails and I'll take you off the list myself.";
+  return new Response(`<!doctype html><meta name="viewport" content="width=device-width,initial-scale=1"><title>Unsubscribe | Sam Vllaco</title><body style="margin:0;padding:48px 24px;background:#121214;color:#f5f5f7;font:17px/1.6 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif"><main style="max-width:560px;margin:0 auto"><p>${msg}</p><p><a style="color:#8ab4ff" href="/">Back to samvllaco.com</a></p></main>`, { headers: { "content-type": "text/html; charset=utf-8", "cache-control": "no-store" } });
 }
 
-async function checkout({ request, env }) {
-  if (!payments(env)) return fail("setup", 409);
-  const b = await request.json().catch(() => ({}));
-  const r = /^[A-Za-z0-9]{10}$/.test(b.id || "") && (await env.DB.prepare("SELECT id FROM reports WHERE id = ?").bind(b.id).first());
-  if (!r) return fail("not_found", 404);
-  try { return json({ url: await createCheckout(env, b.id, new URL(request.url).origin) }); } catch { return fail("checkout", 422); }
+// Pages has no cron, so due emails go out on site traffic: at most every 10 minutes, after the response is sent.
+async function maybeDrip(ctx) {
+  const { env } = ctx;
+  if (!env.RESEND_API_KEY || !env.DB || !env.CACHE || !ctx.waitUntil) return;
+  if (await env.CACHE.get("drip:lock")) return;
+  await env.CACHE.put("drip:lock", "1", { expirationTtl: 600 });
+  ctx.waitUntil(ensureSchema(env).then(() => runDrip(env)).catch((e) => console.error(JSON.stringify({ drip: String(e.message).slice(0, 120) }))));
 }
-
-async function webhook({ request, env }) {
-  const body = await request.text();
-  if (!(await verifyWebhook(env.WHOP_WEBHOOK_SECRET, request.headers, body))) return fail("signature", 401);
-  const e = JSON.parse(body);
-  if (e.type !== "payment.succeeded") return json({ ok: true, ignored: e.type });
-  const p = paymentOf(e);
-  await env.DB.prepare("INSERT OR IGNORE INTO purchases (id, report_id, whop_payment_id, email, created_at) VALUES (?, ?, ?, ?, ?)").bind(newId(), p.reportId, p.id, p.email, new Date().toISOString()).run();
-  if (p.reportId) await env.DB.prepare("UPDATE reports SET unlocked = 1 WHERE id = ?").bind(p.reportId).run();
-  return json({ ok: true });
-}
-
-// Fallback when a payment arrived without the report id: match the checkout email to an unused purchase.
-async function claim({ request, env }) {
-  if (!env.DB) return fail("setup", 409);
-  const b = await request.json().catch(() => ({}));
-  if (!/^[A-Za-z0-9]{10}$/.test(b.id || "") || !EMAIL.test(String(b.email || ""))) return fail("invalid");
-  if (env.TURNSTILE_SECRET_KEY) { const bad = await turnstile(env, b.token, ipOf(request)); if (bad) return tsFail(bad); }
-  const email = String(b.email).toLowerCase();
-  const p = await env.DB.prepare("SELECT id FROM purchases WHERE email = ? AND (report_id IS NULL OR report_id = ?) ORDER BY created_at DESC LIMIT 1").bind(email, b.id).first();
-  if (!p) return fail("no_purchase", 404);
-  await env.DB.batch([env.DB.prepare("UPDATE purchases SET report_id = ? WHERE id = ?").bind(b.id, p.id), env.DB.prepare("UPDATE reports SET unlocked = 1 WHERE id = ?").bind(b.id)]);
-  return json({ ok: true });
-}
-
-function admin(request, env) {
-  const want = `Bearer ${env.ADMIN_TOKEN || ""}`, got = request.headers.get("authorization") || "";
-  if (!env.ADMIN_TOKEN || got.length !== want.length) return false;
-  let d = 0; for (let i = 0; i < want.length; i++) d |= want.charCodeAt(i) ^ got.charCodeAt(i);
-  return d === 0;
-}
-const csv = (v) => `"${String(v ?? "").replace(/"/g, '""')}"`;
 
 async function leadsCsv(env) {
   const { results } = await env.DB.prepare("SELECT email, url, report_id, consent_marketing, created_at FROM leads ORDER BY created_at DESC").all();
@@ -197,10 +189,12 @@ export async function handleApi(ctx) {
   const m = request.method;
   try {
     if (path !== "status") await ensureSchema(env);
+    if (path === "status" && m === "GET") await maybeDrip(ctx).catch(() => {});
     if (path === "status" && m === "GET") return json({ ready: ready(env) && (await ensureSchema(env), await hasBudget(env, EST.scan)), siteKey: env.TURNSTILE_SITE_KEY || null, payments: payments(env), price: SLOP.reportPrice });
     if (path === "scan" && m === "POST") return await scan(ctx);
     if (path.startsWith("report/") && m === "GET") return await report(env, path.slice(7));
     if (path === "lead" && m === "POST") return await lead(ctx);
+    if (path === "unsubscribe" && (m === "GET" || m === "POST")) return await unsubscribe(request, env);
     if (path === "event" && m === "POST") return await event(ctx);
     if (path === "checkout" && m === "POST") return await checkout(ctx);
     if (path === "whop-webhook" && m === "POST") return await webhook(ctx);
@@ -210,6 +204,7 @@ export async function handleApi(ctx) {
       if (!env.DB) return fail("setup", 409);
       if (path === "admin/leads.csv") return await leadsCsv(env);
       if (path === "admin/stats") return await stats(env);
+      if (path === "admin/drip") return json({ sent: await runDrip(env, 50) });
     }
     return fail("not_found", 404);
   } catch (e) {
@@ -276,6 +271,7 @@ export async function handleAsk(ctx) {
   const { request, env } = ctx;
   const path = new URL(request.url).pathname.replace(/^\/api\/ask\/?/, "").replace(/\/$/, "");
   try {
+    if (path === "status" && request.method === "GET") await maybeDrip(ctx).catch(() => {});
     if (path === "status" && request.method === "GET") return json({ ready: askReady(env) && (await ensureSchema(env), await hasBudget(env, EST.ask)), siteKey: env.TURNSTILE_SITE_KEY || null });
     if (path === "" && request.method === "POST") return await ask(ctx);
     if (path === "admin/questions.csv") {

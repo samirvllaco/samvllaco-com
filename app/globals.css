@@ -5798,3 +5798,7 @@ body:has(.eb) .site-footer .fd-talk { display: none; }
 /* Slop Score form keeps its height while it checks whether scanning is on, so nothing below it jumps (owner, 25 Nov 2026). */
 .sx-tool { min-height: 266px; }
 @media (max-width: 560px) { .sx-tool { min-height: 350px; } }
+
+/* Slop Score email gate (owner, 25 Nov 2026): the email form sits inside the locked teaser, right under the hidden fixes. */
+.sx-gate { margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--line); }
+.sx-sent { max-width: 960px; margin: 16px auto 0; text-align: center; }

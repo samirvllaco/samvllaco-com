@@ -36,12 +36,10 @@ export default function SlopResult() {
   const [r, setR] = useState(null);
   const [state, setState] = useState("loading"); // loading | ok | missing | error
   const [paying, setPaying] = useState(false);
-  const [buyErr, setBuyErr] = useState("");
   const [copied, setCopied] = useState(false);
   const [status, setStatus] = useState({});
-  const [mail, setMail] = useState({ email: "", consent: false, sent: false, sending: false });
-  const [claim, setClaim] = useState({ email: "", msg: "", sending: false });
-  const ts = useTurnstile(r && status.siteKey ? status.siteKey : null);
+  const [mail, setMail] = useState({ email: "", consent: false, sent: false, sending: false, msg: "" });
+  const ts = useTurnstile(r && !r.unlocked && status.siteKey ? status.siteKey : null);
 
   useEffect(() => {
     const i = idFromUrl(); setId(i);
@@ -73,29 +71,27 @@ export default function SlopResult() {
   const shareText = `My site got a Slop Score of ${r.score}/100 (lower is better). Check yours: ${TOOL}`;
   const pageUrl = `https://samvllaco.com/slop-score/r/${r.id}`;
 
-  const buy = async () => {
-    track("unlock_click", r.id);
-    const x = await fetch("/api/slop-score/checkout", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ id: r.id }) }).then((y) => y.json()).catch(() => ({}));
-    if (x.url) location.assign(x.url); else setBuyErr("Checkout didn't open. Try again in a minute.");
-  };
+  // Email gate: the full report unlocks on the page at once and goes out by email.
   const sendMail = async (e) => {
     e.preventDefault();
-    setMail((m) => ({ ...m, sending: true }));
+    if (!ts.token) { setMail((m) => ({ ...m, msg: "Please finish the quick check above the button, then try again." })); return; }
+    setMail((m) => ({ ...m, sending: true, msg: "" }));
     const body = { email: mail.email, id: r.id, url: r.url, consent: mail.consent, token: ts.token };
-    await Promise.allSettled([
-      fetch("/api/slop-score/lead", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(body) }),
-      fetch(LEADS_ENDPOINT, { method: "POST", headers: { "content-type": "application/json", accept: "application/json" }, body: JSON.stringify({ _subject: `Slop Score report for ${r.domain}`, email: mail.email, report: pageUrl, score: `${r.score}/100`, tips: mail.consent ? "yes" : "no", _template: "table" }) }),
+    const [x] = await Promise.allSettled([
+      fetch("/api/slop-score/lead", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(body) }).then((y) => y.json()),
+      fetch(LEADS_ENDPOINT, { method: "POST", headers: { "content-type": "application/json", accept: "application/json" }, body: JSON.stringify({ _subject: `Slop Score lead: ${r.domain} (${r.score}/100)`, email: mail.email, report: pageUrl, score: `${r.score}/100`, tips: mail.consent ? "yes" : "no", _template: "table" }) }),
     ]);
-    setMail((m) => ({ ...m, sent: true, sending: false }));
+    const j = x.status === "fulfilled" ? x.value : {};
+    if (j.report) {
+      track("email_unlock", r.id);
+      setR(j.report);
+      try { sessionStorage.setItem(`ss:${r.id}`, JSON.stringify(j.report)); } catch { /* optional */ }
+      setMail((m) => ({ ...m, sent: true, sending: false }));
+      requestAnimationFrame(() => document.getElementById("sx-fix-h")?.scrollIntoView({ behavior: "smooth", block: "start" }));
+      return;
+    }
     ts.reset();
-  };
-  const sendClaim = async (e) => {
-    e.preventDefault();
-    setClaim((c) => ({ ...c, sending: true, msg: "" }));
-    const x = await fetch("/api/slop-score/claim", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ id: r.id, email: claim.email, token: ts.token }) }).then((y) => y.json()).catch(() => ({}));
-    if (x.ok) { const j = await fetch(`/api/slop-score/report/${r.id}`).then((y) => y.json()); setR(j); setClaim({ email: "", msg: "", sending: false }); }
-    else setClaim((c) => ({ ...c, sending: false, msg: x.error === "no_purchase" ? "I couldn't find a payment with that email yet. Payments can take a minute; try again shortly, or email me." : "That didn't work. Check the email and try again." }));
-    ts.reset();
+    setMail((m) => ({ ...m, sending: false, msg: j.error === "email" ? "That email doesn't look right. Check it and try again." : j.error === "rate_hour" ? "Too many tries from here. Try again in an hour." : j.error === "turnstile" ? "The quick check expired. Try again." : "That didn't work. Try again in a minute." }));
   };
 
   return (
@@ -134,73 +130,54 @@ export default function SlopResult() {
           <div className="sx-locked">
             <p className="sx-locked-h">I found {r.locked} more issues</p>
             <div className="sx-fake" aria-hidden="true">{Array.from({ length: Math.min(4, r.locked) }, (_, i) => <span key={i}><i /><i /><i /></span>)}</div>
+            <form className="sx-form sx-gate" onSubmit={sendMail}>
+              <label className="sx-label" htmlFor="sx-mail">See all {r.issues.length + r.locked} fixes with copy-paste prompts. Free, I'll email you the report too.</label>
+              <div className="sx-row">
+                <input id="sx-mail" className="sx-input" type="email" autoComplete="email" placeholder="you@company.com" value={mail.email} onChange={(e) => setMail((m) => ({ ...m, email: e.target.value }))} required />
+                <button className="hero2-btn hero2-btn-primary" type="submit" disabled={mail.sending}>{mail.sending ? "Unlocking…" : "Show all fixes"}</button>
+              </div>
+              <label className="sx-check"><input type="checkbox" checked={mail.consent} onChange={(e) => setMail((m) => ({ ...m, consent: e.target.checked }))} /> Also send me 3 short emails with fixes and offers. Unsubscribe anytime.</label>
+              <div className="sx-ts" ref={ts.box} />
+              <p className="sx-note" role="status">{mail.msg}</p>
+            </form>
           </div>
-        ) : null}
+        ) : mail.sent ? <p className="sx-note sx-sent" role="status">Unlocked. The full report is on its way to {mail.email}.</p> : null}
       </section>
 
-      {!r.unlocked ? (
-        <section className="sv-sec" aria-labelledby="sx-up-h">
-          <h2 id="sx-up-h">Want <span className="t2">the rest?</span></h2>
-          <ul className="pr-plans sx-up">
-            <li className="pr-plan">
-              <p className="pr-k">Full AI report</p>
-              <p className="pr-price">{usd(SLOP.reportPrice)}<span>one time</span></p>
-              <p className="pr-lead">Every issue ranked, with copy-paste fix prompts for Lovable, Cursor and Claude Code. Instant.</p>
-              <button type="button" className="hero2-btn hero2-btn-light" onClick={buy} disabled={!status.payments}>{status.payments ? "Get the full report" : "Coming soon"}</button>
-              <p className="sx-note" role="status">{buyErr}</p>
-            </li>
-            <li className="pr-plan">
-              <p className="pr-k">Fix it yourself</p>
-              <p className="pr-price">$12.99<span>ebook</span></p>
-              <p className="pr-lead">27 copy-paste prompts and the rules behind every fix, for any AI builder. Use it on every page you make next.</p>
-              <a className="hero2-btn hero2-btn-light" href="/fix-ai-slop-ui/" onClick={() => track("book_click", r.id)}>See the book</a>
-            </li>
-            <li className="pr-plan">
-              <p className="pr-k">Designer review</p>
-              <p className="pr-price">$49 or $99</p>
-              <p className="pr-lead">I record a Loom going through your site and tell you what I'd change first. In your inbox in under 12 hours. Includes my book.</p>
-              <div className="sx-two">
-                <a className="hero2-btn hero2-btn-light" href={PERSONAL_REVIEW_URL} target="_blank" rel="noopener" onClick={() => track("review_click", r.id)}>$49 review<span className="sr-only"> (opens in a new tab)</span></a>
-                <a className="hero2-btn hero2-btn-light" href={REVIEW_URL} target="_blank" rel="noopener" onClick={() => track("review_click", r.id)}>$99 review<span className="sr-only"> (opens in a new tab)</span></a>
-              </div>
-              <p className="sx-order">Paste your site in the order note: <code>{r.url}</code> <CopyButton text={r.url} label="Copy" className="sx-copy" extra={<span className="sr-only"> your site address</span>} /></p>
-            </li>
-            <li className="pr-plan is-hot">
-              <p className="pr-k">Fix it for me</p>
-              <p className="pr-price">{usd(SLOP.sprintPrice)}<span>per week</span></p>
-              <p className="pr-lead">I redesign the problem screens in a one-week sprint.</p>
-              <a className="hero2-btn hero2-btn-primary" href="/book/" onClick={() => track("sprint_click", r.id)}><CallIcon />Book a call</a>
-            </li>
-          </ul>
-          {paying ? null : (
-            <form className="sx-claim" onSubmit={sendClaim}>
-              <label className="sx-label" htmlFor="sx-claim">Already paid? Enter your checkout email.</label>
-              <div className="sx-row">
-                <input id="sx-claim" className="sx-input" type="email" autoComplete="email" value={claim.email} onChange={(e) => setClaim((c) => ({ ...c, email: e.target.value }))} required />
-                <button className="hero2-btn hero2-btn-light" type="submit" disabled={claim.sending}>Unlock my report</button>
-              </div>
-              <p className="sx-note" role="status">{claim.msg}</p>
-            </form>
-          )}
-        </section>
-      ) : null}
+      <section className="sv-sec" aria-labelledby="sx-up-h">
+        <h2 id="sx-up-h">Fix it <span className="t2">your way</span></h2>
+        <ul className="pr-plans sx-up">
+          <li className="pr-plan">
+            <p className="pr-k">Fix it yourself</p>
+            <p className="pr-price">$12.99<span>ebook</span></p>
+            <p className="pr-lead">27 copy-paste prompts and the rules behind every fix, for any AI builder. Use it on every page you make next.</p>
+            <a className="hero2-btn hero2-btn-light" href="/fix-ai-slop-ui/" onClick={() => track("book_click", r.id)}>See the book</a>
+          </li>
+          <li className="pr-plan">
+            <p className="pr-k">Designer review</p>
+            <p className="pr-price">$49 or $99</p>
+            <p className="pr-lead">I record a Loom going through your site and tell you what I'd change first. In your inbox in under 12 hours. Includes my book.</p>
+            <div className="sx-two">
+              <a className="hero2-btn hero2-btn-light" href={PERSONAL_REVIEW_URL} target="_blank" rel="noopener" onClick={() => track("review_click", r.id)}>$49 review<span className="sr-only"> (opens in a new tab)</span></a>
+              <a className="hero2-btn hero2-btn-light" href={REVIEW_URL} target="_blank" rel="noopener" onClick={() => track("review_click", r.id)}>$99 review<span className="sr-only"> (opens in a new tab)</span></a>
+            </div>
+            <p className="sx-order">Paste your site in the order note: <code>{r.url}</code> <CopyButton text={r.url} label="Copy" className="sx-copy" extra={<span className="sr-only"> your site address</span>} /></p>
+          </li>
+          <li className="pr-plan is-hot">
+            <p className="pr-k">Fix it for me</p>
+            <p className="pr-price">{usd(SLOP.sprintPrice)}<span>per week</span></p>
+            <p className="pr-lead">I redesign the problem screens in a one-week sprint.</p>
+            <a className="hero2-btn hero2-btn-primary" href="/book/" onClick={() => track("sprint_click", r.id)}><CallIcon />Book a call</a>
+          </li>
+        </ul>
+      </section>
 
       {r.a11y?.nudge ? (
         <p className="ax-banner sx-eaa">Selling to customers in the EU? I found {r.a11y.issues} accessibility issues that could matter under the European Accessibility Act. <a href="/eaa-audit/" onClick={() => track("eaa_click", r.id)}>See the EAA audit</a></p>
       ) : null}
 
       <section className="sv-sec sx-keep" aria-labelledby="sx-keep-h">
-        <h2 id="sx-keep-h">Keep <span className="t2">this report</span></h2>
-        <form className="sx-form" onSubmit={sendMail}>
-          <label className="sx-label" htmlFor="sx-mail">Email me this report and 10 free pages of my book.</label>
-          <div className="sx-row">
-            <input id="sx-mail" className="sx-input" type="email" autoComplete="email" placeholder="you@company.com" value={mail.email} onChange={(e) => setMail((m) => ({ ...m, email: e.target.value }))} required disabled={mail.sent} />
-            <button className="hero2-btn hero2-btn-primary" type="submit" disabled={mail.sending || mail.sent}>{mail.sent ? "Sent" : "Email me"}</button>
-          </div>
-          <label className="sx-check"><input type="checkbox" checked={mail.consent} onChange={(e) => setMail((m) => ({ ...m, consent: e.target.checked }))} /> Send me occasional design tips. Unsubscribe anytime.</label>
-          <div className="sx-ts" ref={ts.box} />
-          <p className="sx-note" role="status">{mail.sent ? "Got it. I'll send them myself within a day." : ""}</p>
-        </form>
+        <h2 id="sx-keep-h">Share <span className="t2">this report</span></h2>
         <div className="sx-share">
           <a className="hero2-btn hero2-btn-light" href={`https://x.com/intent/post?text=${encodeURIComponent(shareText)}`} target="_blank" rel="noopener" onClick={() => track("share_click", r.id)}>Share on X<span className="sr-only"> (opens in a new tab)</span></a>
           <button type="button" className="hero2-btn hero2-btn-light" onClick={() => copyText(pageUrl).then((ok) => { if (ok) { setCopied(true); setTimeout(() => setCopied(false), 2000); } })}>{copied ? "Link copied" : "Copy link"}</button>
