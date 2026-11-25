@@ -11,11 +11,15 @@ export const undash = (v) => {
   return v;
 };
 
-// Structured outputs need additionalProperties: false on every object.
+// Structured outputs need additionalProperties: false on every object and reject number and length limits,
+// so limits move into the description (the code clamps the values anyway).
+const LIMITS = ["minimum", "maximum", "exclusiveMinimum", "exclusiveMaximum", "minLength", "maxLength", "minItems", "maxItems", "pattern", "format"];
 export const strict = (v) => {
   if (Array.isArray(v)) return v.map(strict);
   if (!v || typeof v !== "object") return v;
-  const o = Object.fromEntries(Object.entries(v).map(([k, x]) => [k, strict(x)]));
+  const o = Object.fromEntries(Object.entries(v).filter(([k]) => !LIMITS.includes(k)).map(([k, x]) => [k, k === "properties" ? Object.fromEntries(Object.entries(x).map(([n, y]) => [n, strict(y)])) : strict(x)]));
+  const lim = LIMITS.filter((k) => k in v && typeof v[k] !== "object").map((k) => `${k} ${v[k]}`);
+  if (lim.length) o.description = `${o.description ? `${o.description} ` : ""}(${lim.join(", ")})`;
   if (o.type === "object") o.additionalProperties = false;
   return o;
 };
