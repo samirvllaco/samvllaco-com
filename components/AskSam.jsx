@@ -72,6 +72,8 @@ export default function AskSam() {
   useEffect(() => { if (list.current) list.current.scrollTop = list.current.scrollHeight; }, [msgs]);
 
   if (!show || HIDE.some((h) => path.startsWith(h))) return null;
+  // After the first full answer, the panel offers the call: the one next step that converts.
+  const answered = !busy && msgs.some((m) => m.role === "assistant" && m.content);
 
   const send = async (q) => {
     q = q.trim();
@@ -114,9 +116,10 @@ export default function AskSam() {
       {open ? (
         <section ref={panel} id="ask-panel" className="ask-panel" role="dialog" aria-modal="false" aria-labelledby="ask-h">
           <header className="ask-head">
+            <span className="ask-badge" aria-hidden="true"><svg viewBox="0 0 24 24" width="16" height="16"><path d="M12 3l1.8 4.9L18.7 9.7 13.8 11.5 12 16.4 10.2 11.5 5.3 9.7 10.2 7.9zM18.5 14.5l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8z" /></svg></span>
             <div>
               <p id="ask-h" className="ask-title">Ask Sam's AI</p>
-              <p>An AI that answers from this site. Sam reads the questions to improve it.</p>
+              <p><i className="ask-live" aria-hidden="true" />Answers from this site. Sam reads chats.</p>
             </div>
             <button type="button" className="ask-x" onClick={() => { setOpen(false); pill.current?.focus(); }} aria-label="Close the chat">
               <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" /></svg>
@@ -145,7 +148,12 @@ export default function AskSam() {
           </form>
           <div className="ask-ts" ref={ts.box} />
           <p className="ask-note" role="status">{note}</p>
-          <p className="ask-foot">Rather talk to Sam? <a href="/book/">Book a 30-min call</a></p>
+          {answered ? (
+            <div className="ask-cta">
+              <p><b>Want Sam on your product?</b> 30 minutes, free, you leave with a next step.</p>
+              <a className="hero2-btn hero2-btn-primary" href="/book/">Book a call</a>
+            </div>
+          ) : <p className="ask-foot">Rather talk to Sam? <a href="/book/">Book a 30-min call</a></p>}
         </section>
       ) : null}
     </>

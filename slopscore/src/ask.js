@@ -5,7 +5,11 @@ import { SERVICES, svcHref } from "../../lib/services.js";
 import { WORK } from "../../lib/work.js";
 import { FAQ } from "../../lib/faq.js";
 import { EAA_FAQ, MANAGED_FAQ } from "../../lib/accessibility.js";
-import { EMAIL } from "../../lib/site.js";
+import { EMAIL, ARTICLES } from "../../lib/site.js";
+import { TESTIMONIALS, LIVE as REVIEWS_LIVE } from "../../lib/testimonials.js";
+import { PROCESS } from "../../lib/service-details.js";
+import { STUDIES } from "../../lib/work-studies.js";
+import { TOOLS } from "../../lib/tools.js";
 
 export const ASK = {
   model: "claude-haiku-5-5", // fast and cheap; override with the ASK_MODEL variable
@@ -26,6 +30,11 @@ export function facts() {
   const plans = PLANS.map((p) => `- ${p.k}, ${p.price} ${p.per}, for ${p.who.toLowerCase()}: ${p.lead} Includes: ${p.items.join("; ")}. Example: ${p.eg}`).join("\n");
   const ladder = LADDER.map((s, i) => `${i + 1}. ${s.name}, ${s.price} (${s.href}): ${s.who}`).join("\n");
   const work = WORK.map((w) => `- ${w.title} (/work/${w.slug}/), ${w.tags.join(", ")}: ${w.sub}`).join("\n");
+  // Everything below is read from the site's own data at bundle time, so the chat knows what the site says (owner, 25 Nov 2026).
+  const reviews = REVIEWS_LIVE ? TESTIMONIALS.map((t) => `- "${t.quote}" (${t.project}, ${t.when}${t.tags && t.tags.length ? `; ${t.tags.join(", ")}` : ""})`).join("\n") : "";
+  const studies = Object.entries(STUDIES).map(([slug, st]) => `- /work/${slug}/ (${[st.kind, st.industry, st.year].filter(Boolean).join(", ")}): ${[].concat(st.about || []).join(" ")}${Array.isArray(st.facts) ? ` Facts: ${st.facts.map((f) => `${f.value} ${f.label}`).join("; ")}.` : ""}`).join("\n");
+  const tools = TOOLS.map((t) => `- ${t.name} (${t.href || `/tools/${t.slug}/`}): ${t.text}`).join("\n");
+  const articles = ARTICLES.filter((x) => x.slug).map((x) => `- ${x.title} (/writing/${x.slug}/)`).join("\n");
   return `ABOUT SAM
 - Sam Vllaco (Samir Vllaco), independent UI/UX and product designer. One senior designer, not an agency.
 - Designing since 2013, from Prizren, Kosovo. Based in Tirana, Albania. Works in Central European Time and takes calls in US business hours.
@@ -41,7 +50,9 @@ ${plans}
 
 EVERY OFFER, SMALLEST FIRST
 ${ladder}
-- Slop Score (/slop-score/) is a free tool: paste a URL, get a score from 0 to 100 (lower is better) and the top fixes. The full AI report is ${usd(SLOP_REPORT_PRICE)}.
+- Slop Score (/slop-score/) is a free tool: paste a URL, get a score from 0 to 100 (lower is better) and the top 3 fixes. Leaving an email unlocks every fix with copy-paste prompts, free, and sends the report by email. Two scans per person a day.
+- The book, "27 Copy-Paste Prompts to Fix AI Slop UI" (/fix-ai-slop-ui/): $12.99. Prompts for Lovable, Cursor, Claude Code and other AI builders, plus the design rules behind every fix.
+- Loom reviews (/fix-ai-slop-ui/#options): $49 is a 30-min Loom of your product, a steps document and the book. $99 is a 45 min to 1 hour Loom of the whole product with a scorecard, an action plan, custom prompts, branding tips and the book. Both arrive in under 12 hours.
 - EAA audit (/eaa-audit/): ${usd(EAA_AUDIT_PRICE)}, 5 working days, checks against WCAG 2.2 AA. Managed accessibility (/accessibility/): from ${usd(MANAGED_FROM)} a month.
 
 SERVICES (/services/)
@@ -49,6 +60,21 @@ ${services}
 
 CASE STUDIES (/work/)
 ${work}
+
+DEEP CASE STUDIES
+${studies}
+
+HOW A PROJECT RUNS
+${PROCESS.map((x, i) => `${i + 1}. ${x.t}: ${x.d}`).join("\n")}
+
+CLIENT REVIEWS (real reviews, quoted word for word; client names are not shown)
+${reviews || "- None published yet."}
+
+FREE TOOLS (/tools/)
+${tools}
+
+ARTICLES (/writing/)
+${articles}
 
 FAQ
 ${qa(FAQ)}
@@ -60,7 +86,7 @@ export const SYSTEM = `You are the AI assistant on samvllaco.com, the site of Sa
 
 Rules:
 - Answer in 1 to 4 short sentences. Plain, friendly words. No em dashes, no hype, no exclamation marks.
-- Use only the facts below. If the answer is not there, say you're not sure and suggest a 30-min call at /book/ or an email to ${EMAIL}. Never invent prices, timelines, clients, numbers, reviews or results.
+- Use only the facts below. If the answer is not there, say you're not sure and suggest a 30-min call at /book/ or an email to ${EMAIL}. Never invent prices, timelines, clients, numbers, reviews or results. When asked about reviews, quote one or two of the real reviews below word for word and say they're on the home page.
 - You are an AI assistant, not Sam. Talk about Sam in the third person. Say so plainly if asked.
 - Link pages as markdown links with site paths from the facts, for example [Pricing](/pricing/). Never link other sites.
 - When someone describes a project or a problem, name the one offer that fits best and why, then link /book/.

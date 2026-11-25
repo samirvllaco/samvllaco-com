@@ -3,10 +3,10 @@
 // from the API's usage numbers. New calls stop once the running total or today's share would pass its limit.
 // A call cut off midway keeps its estimate, so the guard can only stop early, never late. No DB means no calls.
 
-// $ per million tokens: input, output, 5-minute cache write, cache read (platform.claude.com pricing, Nov 2026).
+// $ per million tokens: input, output, cache write (1-hour writes cost more; priced at that rate to err high), cache read (platform.claude.com pricing, Nov 2026).
 const PRICES = {
-  "claude-sonnet-5-5": [2, 10, 2.5, 0.1],
-  "claude-haiku-5-5": [0.1, 0.5, 0.125, 0.01],
+  "claude-sonnet-5-5": [2, 10, 4, 0.1],
+  "claude-haiku-5-5": [0.1, 0.5, 0.2, 0.01],
 };
 const UNKNOWN = [4, 20, 5, 0.2]; // a model not listed is priced like Opus, so the guard errs high
 

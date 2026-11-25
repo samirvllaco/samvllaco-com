@@ -262,7 +262,7 @@ export async function handleApi(ctx) {
   }
 }
 
-// "Ask Sam's AI" chat, routed from functions/api/ask/[[path]].js. The site facts are prompt-cached (5 min), so repeat messages read them at a tenth of the input price. Needs CACHE, DB (question log and the spend guard), ANTHROPIC_API_KEY and Turnstile.
+// "Ask Sam's AI" chat, routed from functions/api/ask/[[path]].js. The site facts are prompt-cached for an hour, so repeat messages read them at a tenth of the input price. Needs CACHE, DB (question log and the spend guard), ANTHROPIC_API_KEY and Turnstile.
 export const askReady = (env) => Boolean(env.CACHE && env.DB && env.ANTHROPIC_API_KEY && env.TURNSTILE_SECRET_KEY && env.TURNSTILE_SITE_KEY);
 
 async function askLimited(env, ip) {
@@ -295,7 +295,7 @@ async function ask(ctx) {
   const res = await fetch("https://api.anthropic.com/v1/messages", {
     method: "POST",
     headers: { "x-api-key": env.ANTHROPIC_API_KEY, "anthropic-version": "2023-06-01", "content-type": "application/json" },
-    body: JSON.stringify({ model: env.ASK_MODEL || ASK.model, max_tokens: ASK.maxTokens, stream: true, system: [{ type: "text", text: SYSTEM, cache_control: { type: "ephemeral" } }], messages: msgs }),
+    body: JSON.stringify({ model: env.ASK_MODEL || ASK.model, max_tokens: ASK.maxTokens, stream: true, system: [{ type: "text", text: SYSTEM, cache_control: { type: "ephemeral", ttl: "1h" } }], messages: msgs }),
   });
   if (!res.ok || !res.body) { console.error(JSON.stringify({ ask: res.status })); await settle(env, EST.ask, ASK.model, {}); return fail("model", 422); }
   const question = msgs[msgs.length - 1].content, page = String(b.page || "").slice(0, 200);
