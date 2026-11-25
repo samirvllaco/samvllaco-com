@@ -1821,7 +1821,7 @@ html.js .foot-sig-w[data-reveal], .foot-sig-w { opacity: 1; transform: translate
 @media (min-width: 1261px) {
   .site-header .wrap.head-row { border-radius: 999px; transition: max-width .6s cubic-bezier(.3, .9, .25, 1), padding .45s var(--ease-out), background-color .45s var(--ease-out), box-shadow .45s var(--ease-out); }
   html.is-scrolled :is(.brand-me, .head-nav, .head-end) { background: none !important; -webkit-backdrop-filter: none; backdrop-filter: none; box-shadow: none !important; }
-  html.is-scrolled .site-header .wrap.head-row { pointer-events: auto; max-width: 900px; padding: 8px 12px 8px 24px; background: color-mix(in srgb, var(--card, #1c1c1e) 66%, transparent); -webkit-backdrop-filter: blur(22px) saturate(180%); backdrop-filter: blur(22px) saturate(180%); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .1), inset 0 1px 0 rgba(255, 255, 255, .12), 0 14px 34px -14px rgba(0, 0, 0, .55); }
+  html.is-scrolled .site-header .wrap.head-row { pointer-events: auto; max-width: 900px; padding: 8px 12px 8px 24px; background: color-mix(in srgb, var(--card, #1c1c1e) 86%, transparent); -webkit-backdrop-filter: blur(22px) saturate(180%); backdrop-filter: blur(22px) saturate(180%); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .1), inset 0 1px 0 rgba(255, 255, 255, .12), 0 14px 34px -14px rgba(0, 0, 0, .55); }
   :root[data-theme="light"].is-scrolled .site-header .wrap.head-row { box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .08), 0 14px 34px -14px rgba(0, 0, 0, .25); }
   html.is-scrolled .brand-me { padding: 4px 8px; min-height: 44px; }
   html.is-scrolled .head-nav, html.is-scrolled .head-end { padding: 0; }
@@ -5136,9 +5136,17 @@ main > .page > .hero-dots-cv { height: clamp(560px, 86vh, 860px); }
 .eb-rv-chrome i { width: 7px; height: 7px; border-radius: 50%; background: rgba(255, 255, 255, .25); }
 .eb-rv-chrome span { margin-left: 6px; padding: 2px 8px; border-radius: 6px; font-size: .625rem; color: #a1a1a6; background: rgba(255, 255, 255, .06); }
 .eb-rv-view { position: relative; aspect-ratio: 4 / 5; overflow: hidden; border-radius: 0 0 12px 12px; background: #faf7f2; box-shadow: 0 0 0 1px rgba(255, 255, 255, .1); }
-.eb-rv-view img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 0%; animation: rv-scroll 26s ease-in-out infinite alternate; }
+.eb-rv-view { overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: rgba(0, 0, 0, .25) transparent; }
+.eb-rv-view:focus-visible { outline: 3px solid rgba(98, 193, 253, .6); outline-offset: 2px; }
+.eb-rv-page { position: relative; }
+.eb-rv-page > img { display: block; width: 100%; height: auto; }
+/* After window, "From any recipe to dinner": the four step frames take turns, like the live page's phone. */
+.eb-rv-steps { position: absolute; left: 0; right: 0; pointer-events: none; }
+.eb-rv-steps img { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; animation: rv-step 12s linear infinite; }
+.eb-rv-steps img:nth-child(1) { animation-delay: 3s; } .eb-rv-steps img:nth-child(2) { animation-delay: 6s; } .eb-rv-steps img:nth-child(3) { animation-delay: 9s; }
+@keyframes rv-step { 0% { opacity: 0; } 3%, 25% { opacity: 1; } 28%, 100% { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .eb-rv-steps { display: none; } }
 .eb-rv-win.is-after .eb-rv-view { box-shadow: 0 0 0 1px rgba(98, 193, 253, .5), 0 0 40px -10px rgba(37, 99, 235, .55); }
-@keyframes rv-scroll { 0%, 6% { object-position: 50% 0%; } 94%, 100% { object-position: 50% 100%; } }
 @media (hover: hover) and (pointer: fine) { .eb-rv-ba:hover .eb-rv-view img { animation-play-state: paused; } }
 .eb-rv-win figcaption { display: grid; gap: 2px; margin-top: 10px; font-size: .8125rem; color: #a1a1a6; }
 .eb-rv-win figcaption b { font-size: .75rem; letter-spacing: .08em; text-transform: uppercase; color: #f5f5f7; }
