@@ -607,7 +607,7 @@ a.cert:active, .cert:active { transition-duration: 0s; transform: scale(.98); }
 .case-meta { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 20px 32px; margin: 16px 0 0; padding: 24px 0 0; border-top: 1px solid var(--line); }
 .case-meta dt { font-size: .75rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
 .case-meta dd { margin: 0; font-weight: 600; line-height: 1.35; }
-.case-hero { border-radius: 10px; overflow: hidden; background: #e6e6e9; }
+.case-hero { border-radius: 10px; overflow: hidden; background: #1c1c1e; }
 .case-hero img, .case-hero video { display: block; width: 100%; height: auto; }
 .case-section { display: grid; gap: 24px; margin-top: 96px; }
 .case-section > h2 { margin: 0; font-size: 1.75rem; letter-spacing: -.02em; }
@@ -741,7 +741,7 @@ a.cert:active, .cert:active { transition-duration: 0s; transform: scale(.98); }
 .case-chapter-head p { margin: 0; font-size: 1.125rem; line-height: 1.6; color: var(--muted); }
 .case-fig { border-radius: 10px; overflow: hidden; background: var(--card); }
 .case-fig img { display: block; width: 100%; height: auto; }
-.case-fig-light { background: #e6e6e9; padding: clamp(16px, 4%, 40px); display: grid; place-items: center; }
+.case-fig-light { background: #1c1c1e; padding: clamp(16px, 4%, 40px); display: grid; place-items: center; }
 .case-fig-light img { border-radius: 8px; max-width: 100%; width: auto; max-height: 520px; }
 .case-parts { display: grid; gap: 64px; margin-top: 32px; }
 .case-part { display: grid; gap: 20px; }
@@ -3498,7 +3498,7 @@ html.is-end .bk { bottom: max(16px, env(safe-area-inset-bottom, 0px)); }
 .bb-alt-h { margin: 0; font-size: 1rem; } .bb-alt-h span { color: var(--muted); }
 .bb-alt-row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
 .bb-x { display: inline-flex; align-items: center; gap: 12px; min-height: 44px; padding: 4px 16px 4px 4px; border-radius: 999px; color: var(--text); font-size: .9375rem; font-weight: 500; text-decoration: none; background: rgba(255, 255, 255, .08); transition: background .25s; }
-.bb-x:hover { background: rgba(255, 255, 255, .14); } @media (hover: hover) and (pointer: fine) { .bb-x:hover .tg-ico { transform: rotate(-10deg) scale(1.08); } }
+.bb-x:hover { background: rgba(255, 255, 255, .14); } @media (hover: hover) and (pointer: fine) { :is(.bb-x, .hp-copy):hover .tg-ico { transform: rotate(-10deg) scale(1.08); } }
 .bb-x .tg-ico { width: 36px; height: 36px; } .bb-x .tg-ico svg { width: 16px; height: 16px; }
 .bb-qr { display: flex; align-items: center; gap: 16px; margin: 0; }
 .bb-qr img { flex: none; width: 96px; height: 96px; padding: 8px; border-radius: 12px; background: #fff; }
@@ -5018,7 +5018,7 @@ body:has(.rv-ty) .top-note { display: none; }
 .eb-rv figcaption span { color: #a1a1a6; font-size: .9375rem; }
 @media (max-width: 760px) { .eb-rv-card { grid-template-columns: minmax(0, 1fr); gap: 24px; padding: 16px; } }
 /* X icon inside the round contact pill is round too. */
-.bb-x .tg-ico { border-radius: 50%; }
+.bb-x .tg-ico, .bb-alt-row > .hp-copy .tg-ico { border-radius: 50%; }
 /* Hero badge: fixed width, the words swap inside it. */
 .hero-badge-t { display: inline-grid; justify-items: center; }
 .hero-badge-t > span { grid-area: 1 / 1; white-space: nowrap; }
