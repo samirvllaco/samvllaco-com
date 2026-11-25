@@ -461,11 +461,11 @@ export default function Ebook() {
         <h2 id="eb-rv-h">From a founder <span className="t2">who used it</span></h2>
         <figure className="eb-rv-card dark-island">
           <div className="eb-rv-ba">
-            {[["Before", "/ebook/cb-before-full.webp?v=1", 4744, "9,500px tall, with large empty gaps"], ["After", "/ebook/cb-after-full.webp?v=3", 2120, "6,100px tall, every section earns its place"]].map(([k, src, h, cap]) => (
+            {[["Before", "/ebook/cb-before-full.webp?v=1", 4744, "9,500px tall, with large empty gaps"], ["After", "/ebook/cb-after-full.webp?v=4", 2444, "5,300px tall, every section earns its place"]].map(([k, src, h, cap]) => (
               <figure className={`eb-rv-win ${k === "After" ? "is-after" : ""}`} key={k}>
                 <p className="eb-rv-chrome"><i /><i /><i /><span>cookinbuddy.com</span></p>
                 <RvWindow src={src} height={h} alt={`CookinBuddy full homepage ${k.toLowerCase()} the fixes`} label={`CookinBuddy homepage ${k.toLowerCase()} the fixes. Scroll to see the whole page.`}
-                  {...(k === "After" ? { frames: [2, 3, 4].map((n) => `/ebook/cb-after-step${n}.webp?v=1`), at: [354 / 21.2, 320 / 21.2] } : {})} />
+                  {...(k === "After" ? { frames: [2, 3, 4].map((n) => `/ebook/cb-after-step${n}.webp?v=2`), at: [848 / 47.89, 722 / 47.89] } : {})} />
                 <figcaption><b>{k}</b>{cap}</figcaption>
               </figure>
             ))}

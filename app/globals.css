@@ -5416,7 +5416,7 @@ main > .page > .hero-dots-cv { height: clamp(560px, 86vh, 860px); }
 :root:root:root :is(h2 + .bx-lede, .pn-head > h2 + p, .sv-sec > h2 + p, .ph h1 + p, .book-band-head h2 + p, .eb-sec > h2 + p) { margin-top: var(--gap-intro) !important; }
 :root:root .pn-head { gap: var(--gap-intro); }
 /* Eyebrow, headline and lede group: 12px apart */
-:root:root:root :is(.case-eyebrow, .hp-kick, .eb-kick) + :is(h1, h2, h3) { margin-top: var(--gap-intro); }
+:root:root:root :is(.hp-kick, .eb-kick) + :is(h1, h2, h3) { margin-top: var(--gap-intro); }
 
 /* Sections: one rhythm */
 :root:root .sv-sec { padding-block: calc(var(--space-section) / 2); }
@@ -5783,3 +5783,18 @@ body:has(.eb) .site-footer .fd-talk { display: none; }
 .ab-details a { color: var(--text); text-decoration: underline; text-underline-offset: 3px; }
 @media (max-width: 640px) { .ab-details { grid-template-columns: minmax(0, 1fr); } }
 .ab-more .ab-end { margin-top: 40px; }
+
+/* One hero rhythm on every inner page (owner, 25 Nov 2026: "no content shift between pages, same top margin").
+   Page top 40px, breadcrumbs on one 32px line, 20px gap, then the hero header: 40px on desktop, 16px on phones.
+   The H1 lands at the same height on every page that has breadcrumbs. */
+:root:root .wrap.page:has(.crumbs) { padding-top: 40px; }
+:root:root .crumbs { flex-wrap: nowrap; min-height: 32px; margin: 0 0 20px; }
+:root:root .crumbs > .crumb:last-child { min-width: 0; }
+:root:root .crumbs [aria-current] { display: block; min-width: 0; max-width: 100%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; line-height: 32px; }
+:root:root :is(.crumbs ~ header:has(h1)) { margin-top: 0; padding-top: 40px; }
+:root:root :is(.crumbs ~ header:has(h1)) h1 { margin-top: 0; }
+:root:root :is(.crumbs ~ header:has(h1)).sv-hero { align-items: start; }
+@media (max-width: 760px) { :root:root :is(.crumbs ~ header:has(h1)) { padding-top: 16px; } }
+/* Slop Score form keeps its height while it checks whether scanning is on, so nothing below it jumps (owner, 25 Nov 2026). */
+.sx-tool { min-height: 266px; }
+@media (max-width: 560px) { .sx-tool { min-height: 350px; } }

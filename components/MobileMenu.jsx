@@ -30,7 +30,7 @@ const LINKS = [
   { href: "/pricing/", label: "Pricing" },
   { href: "/tools/", label: "Free tools" },
   { href: "/about/", label: "About" },
-  { href: "/book/", label: "Contact", dot: true },
+  { href: "/book/", label: "Contact" },
 ];
 
 // Hamburger menu for phones and small tablets. The desktop nav is hidden at the same width.
