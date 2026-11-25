@@ -66,6 +66,7 @@ export default function AskSam() {
   const [on, setOn] = useState(null); // { siteKey } once the API is ready
   const [show, setShow] = useState(false);
   const [open, setOpen] = useState(false);
+  const [closing, setClosing] = useState(false);
   const [msgs, setMsgs] = useState([]);
   const [text, setText] = useState("");
   const [busy, setBusy] = useState(false);
@@ -76,6 +77,14 @@ export default function AskSam() {
   const list = useRef(null);
   const panel = useRef(null);
   const drag = useRef(null);
+  // Close with an exit animation (iOS sheet curve), then unmount. Reduced motion closes at once.
+  const shut = (focusPill) => {
+    const calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const done = () => { setClosing(false); setOpen(false); if (focusPill) pill.current?.focus({ preventScroll: true }); };
+    if (calm) return done();
+    setClosing(true);
+    setTimeout(done, 200);
+  };
   const asked = useRef(0);
   const [hint, setHint] = useState(0);
   const ts = useTurnstile(open && on && !sid.current ? on.siteKey : null, { appearance: "interaction-only" });
@@ -96,8 +105,8 @@ export default function AskSam() {
   useEffect(() => {
     if (!open) return;
     input.current?.focus();
-    const key = (e) => { if (e.key === "Escape") { setOpen(false); pill.current?.focus(); } };
-    const out = (e) => { if (panel.current && !panel.current.contains(e.target) && !pill.current?.contains(e.target)) setOpen(false); };
+    const key = (e) => { if (e.key === "Escape") shut(true); };
+    const out = (e) => { if (panel.current && !panel.current.contains(e.target) && !pill.current?.contains(e.target)) shut(false); };
     window.addEventListener("keydown", key);
     document.addEventListener("pointerdown", out);
     return () => { window.removeEventListener("keydown", key); document.removeEventListener("pointerdown", out); };
@@ -207,12 +216,12 @@ export default function AskSam() {
 
   return (
     <>
-      <button ref={pill} type="button" className={`ask-pill${open ? " is-open" : ""}`} aria-expanded={open} aria-controls="ask-panel" onClick={() => setOpen((v) => !v)}>
+      <button ref={pill} type="button" className={`ask-pill${open ? " is-open" : ""}`} aria-expanded={open} aria-controls="ask-panel" onClick={() => (open ? shut(false) : setOpen(true))}>
         <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 3l1.8 4.9L18.7 9.7 13.8 11.5 12 16.4 10.2 11.5 5.3 9.7 10.2 7.9zM18.5 14.5l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8z" /></svg>
         Ask Sam's AI
       </button>
       {open ? (
-        <section ref={panel} id="ask-panel" className="ask-panel" role="dialog" aria-modal="false" aria-labelledby="ask-h" data-lenis-prevent="">
+        <section ref={panel} id="ask-panel" className={`ask-panel${closing ? " is-closing" : ""}${busy ? " is-busy" : ""}`} role="dialog" aria-modal="false" aria-labelledby="ask-h" data-lenis-prevent="">
           <header className="ask-head" onPointerDown={grab} onPointerMove={pull} onPointerUp={drop} onPointerCancel={drop}>
             <i className="ask-handle" aria-hidden="true" />
             <span className="ask-badge" aria-hidden="true">
@@ -225,7 +234,7 @@ export default function AskSam() {
               <p><i className="ask-live" aria-hidden="true" />Answers from this site</p>
             </div>
             <button type="button" className="ask-clear" onClick={clear} disabled={!msgs.length || busy}>Clear</button>
-            <button type="button" className="ask-x" onClick={() => { setOpen(false); pill.current?.focus(); }} aria-label="Close the chat">
+            <button type="button" className="ask-x" onClick={() => shut(true)} aria-label="Close the chat">
               <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" /></svg>
             </button>
           </header>
@@ -242,8 +251,8 @@ export default function AskSam() {
             ))}
           </div>
           <ul className="ask-chips" aria-label="Quick questions" onWheel={(e) => { if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) e.currentTarget.scrollLeft += e.deltaY; }}>
-            {CHIPS.map(([label, q, href]) => (
-              <li key={label}>{href ? <a href={href}>{label}</a> : <button type="button" disabled={busy} onClick={() => send(q)}>{label}</button>}</li>
+            {CHIPS.map(([label, q, href], k) => (
+              <li key={label} style={{ "--i": k }}>{href ? <a href={href}>{label}</a> : <button type="button" disabled={busy} onClick={() => send(q)}>{label}</button>}</li>
             ))}
           </ul>
           <form className="ask-form" onSubmit={(e) => { e.preventDefault(); send(text); }}>
