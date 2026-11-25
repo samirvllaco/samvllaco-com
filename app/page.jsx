@@ -19,6 +19,7 @@ import WorkGrid from "../components/WorkGrid";
 import HirePanel from "../components/HirePanel";
 import HeroQuote, { QUOTE_DAY } from "../components/HeroQuote";
 import PainStory from "../components/PainStory";
+import Fixes from "../components/Fixes";
 import HeroReviews from "../components/HeroReviews";
 import HeroShow from "../components/HeroShow";
 import HeroRole from "../components/HeroRole";
@@ -135,6 +136,8 @@ export default function Home() {
           <WorkGrid />
           <HirePanel />
       </section>
+
+      <Fixes />
 
 
       {/* Product (Ocufuse) section hidden for now */}
