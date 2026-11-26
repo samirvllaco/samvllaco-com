@@ -78,6 +78,7 @@ export default function SlopScan() {
   const [step, setStep] = useState(0);
   const [shot, setShot] = useState("");
   const [secs, setSecs] = useState(0);
+  const [owner, setOwner] = useState(false); // owner mode: no captcha, no limits (see the status effect)
   const [code, setCode] = useState("");
   const err = code ? ERRORS[code] || ERRORS.server : "";
   const setErr = setCode;
@@ -88,6 +89,14 @@ export default function SlopScan() {
   useEffect(() => {
     try { const q = new URLSearchParams(location.search).get("url"); if (q) setUrl(q.slice(0, 300)); } catch { /* optional */ }
     fetch("/api/slop-score/status").then((r) => (r.ok ? r.json() : { ready: false })).then(setStatus).catch(() => setStatus({ ready: false }));
+    // Owner mode (owner, 26 Nov 2026): open /slop-score/#owner=<ADMIN_TOKEN> once. The token stays in this browser only,
+    // is removed from the address bar at once, and lets the owner test without the captcha or the daily limits.
+    try {
+      const m = location.hash.match(/^#owner=([A-Za-z0-9._~-]{16,})$/);
+      if (m) { localStorage.setItem("ss:owner", m[1]); history.replaceState(null, "", location.pathname + location.search); }
+      if (location.hash === "#owner-off") { localStorage.removeItem("ss:owner"); history.replaceState(null, "", location.pathname + location.search); }
+      setOwner(!!localStorage.getItem("ss:owner"));
+    } catch { /* storage blocked */ }
     return () => timers.current.forEach(clearInterval);
   }, []);
 
@@ -95,7 +104,7 @@ export default function SlopScan() {
     e.preventDefault();
     setErr("");
     if (!url.trim()) { setErr("invalid"); return; }
-    if (!ts.token) { setErr("turnstile"); return; }
+    if (!ts.token && !owner) { setErr("turnstile"); return; }
     setBusy(true); setStep(0); setShot(""); setSecs(0);
     const t0 = Date.now();
     timers.current = [setInterval(() => setSecs(Math.round((Date.now() - t0) / 1000)), 1000)];
@@ -105,7 +114,8 @@ export default function SlopScan() {
     };
     let j = {}, img = "";
     try {
-      const r = await fetch("/api/slop-score/scan", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ url, token: ts.token, stream: true }) });
+      let auth = {}; try { const o = localStorage.getItem("ss:owner"); if (o) auth = { authorization: `Bearer ${o}` }; } catch { /* none */ }
+      const r = await fetch("/api/slop-score/scan", { method: "POST", headers: { "content-type": "application/json", ...auth }, body: JSON.stringify({ url, token: ts.token, stream: true }) });
       if ((r.headers.get("content-type") || "").includes("ndjson") && r.body) {
         // Live scan: the server sends the rendered page first, then the steps, then the report.
         const rd = r.body.getReader(), dec = new TextDecoder();
@@ -176,6 +186,7 @@ export default function SlopScan() {
           <p id="sx-err" className="sx-err" role="alert">{err}</p>
           <p id="sx-hint" className="sx-note">Lower is better. 0 is hand-crafted, 100 is pure AI slop.</p>
           <p className="sx-note">I store the URL, the score and the report. Not your page content, not screenshots.</p>
+          {owner ? <p className="sx-note" role="status">Owner mode: no captcha, no daily limit. Turn off with #owner-off.</p> : null}
         </form>
       )}
       {showNotify && status?.ready && !busy ? (
