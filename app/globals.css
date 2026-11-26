@@ -6368,3 +6368,29 @@ html.is-live .ask-pill::before { animation-play-state: running; }
 :root:root:root .hero3 h1 { max-width: 920px; }
 /* Rows that were capped at the old 1200px follow the content box. */
 :root:root :is(.fr-row, .ab-details, .eb-pk .eb-pk-grid, .foot-stage-art, .hero2 .fan) { max-width: none; }
+
+/* ==========================================================================
+   Structure lines (owner, 26 Nov 2026: "use strokes as well, all the way until the end, to show structure", like the
+   hairline frames on grafit.agency and designme.agency). Two rails run just outside the content box from the top of
+   the page to the end of the footer, and a divider crosses between every section, halfway through the gap, from rail
+   to rail. Drawn with a body pseudo-element and border-image outsets, so no layout moves and no section pseudo-element
+   is taken. Phones keep the dividers only.
+   ========================================================================== */
+:root { --rail-out: 0px; --rule-up: calc(var(--sec) / 2); --rule: rgba(255, 255, 255, .12); }
+@media (min-width: 1024px) { :root { --rail-out: 24px; } }
+@media (min-width: 1024px) {
+  body { position: relative; }
+  body::before { content: ""; position: absolute; top: 0; bottom: 0; left: 50%; z-index: 0; pointer-events: none;
+    width: calc(min(1280px, 100% - 2 * var(--gutter)) + 2 * var(--rail-out)); transform: translateX(-50%);
+    border-inline: 1px solid var(--rule); }
+}
+/* Dividers between sections. Sections spaced by padding (service pages, case-study "More work") draw theirs at their own top edge. */
+:root:root :is(.wrap.page, .page, .case, .ab) > section + section:not(.lite, .rv-box, .tl-cta, .pr-proj, .case-close, .wall, .book-band) {
+  border-top: 1px solid transparent;
+  border-image: linear-gradient(var(--rule), var(--rule)) 1 0 0 0 / 1px 0 0 0 / var(--rule-up) var(--rail-out) 0 var(--rail-out);
+}
+:root:root :is(.sv-sec, .svc-group, .case-more) { --rule-up: 0px; }
+:root:root .sv-sec { border-top: 1px solid transparent; border-image: linear-gradient(var(--rule), var(--rule)) 1 0 0 0 / 1px 0 0 0 / 0 var(--rail-out) 0 var(--rail-out); }
+/* The footer: its top line and the line under the site map run rail to rail too. */
+:root:root .site-footer > .wrap::before { left: 50%; width: calc(min(1280px, 100% - 2 * var(--gutter)) + 2 * var(--rail-out)); max-width: none; background: var(--rule); }
+:root:root .site-footer .foot-map { border-bottom: 1px solid transparent; border-image: linear-gradient(var(--rule), var(--rule)) 0 0 1 0 / 0 0 1px 0 / 0 var(--rail-out) 0 var(--rail-out); }

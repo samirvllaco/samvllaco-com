@@ -91,6 +91,7 @@ One value per job, kept in the last block of `app/globals.css` ("Feel consistenc
 - Surfaces: three card tones (#111112, #1c1c1e, #2a2a2c) and one glass (rgba(28,28,30,.86)) for floating bars. Lines: 8% white for card edges, 12% for dividers, 20% strong.
 - Motion: `--ease-out` for everything, `--spring` (one bounce) for pops and presses, durations .15 / .25 / .35 / .5s. Ambient loops stay linear. The scroll reveal keeps its own timing (owner: "keep our scroll animation").
 - No smooth-scroll library: Locomotive Scroll was removed on 26 Nov 2026; the page scrolls natively.
+- Structure lines (owner, 26 Nov 2026: "use strokes all the way until the end to show structure"): two 12% rails 24px outside the content box run from the top of the page to the end of the footer (1024px and up), and a divider crosses from rail to rail halfway between every two sections, the footer top and the line under the site map included. Last block of `app/globals.css` ("Structure lines"). A new section gets its divider automatically when it follows another section; a painted panel or band (`lite`, `book-band`, closing panels) does not.
 
 ## Buttons (owner, 13 Nov 2026, locked)
 - Only the two button classes in DESIGN.md (Buttons), with the hover and state rules defined there. Check every new or moved button on hover before calling a change done.
