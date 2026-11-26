@@ -81,6 +81,10 @@ Tokens and role rules are the last block of `app/globals.css` ("Type and spacing
 - Type roles: display h1 56/60, section title h2 42/48, panel headline 28/36, subhead 24/32, card title 20/28, lede 18/28. Tracking -0.027em on display and titles. No heading heavier than 600.
 - One ink, one accent; secondary text is the ink at lower opacity or `--muted`.
 
+## Layout check (owner, 26 Nov 2026: "do full layout check, make sure we follow it strictly")
+Inside every section: 12px between eyebrow, title and lede (`--gap-intro`); 48px from the intro to the content, between content groups and from the content to its button (`--gap-content`, 32px on phones); 20px between cards and between a card grid and its chips or filters (`--gap-grid`); card padding on the spacing scale (24 for cards, 32 for big panels). Sections sit `--space-section` apart; where sections have padding and a hairline divider, the line sits halfway. Every panel, grid and card row spans the 1200px content box or starts at its left edge; only text, product shots and mockups are centered narrower. The rules live in the last blocks of `app/globals.css` ("Layout system, strict").
+Before calling a layout change done, with `npx serve out -l 4173` running: `NODE_PATH=$(npm root -g) node scripts/layout.cjs` (all pages) or `... scripts/layout.cjs /page/`. It must end with 0 layout problems.
+
 ## Buttons (owner, 13 Nov 2026, locked)
 - Only the two button classes in DESIGN.md (Buttons), with the hover and state rules defined there. Check every new or moved button on hover before calling a change done.
 - Buttons follow the alignment of the text above them: centered under centered text (owner, 25 Nov 2026; DESIGN.md Buttons). Run `NODE_PATH=$(npm root -g) node scripts/btn-align.cjs` after touching buttons or layout; it must list no rows.

@@ -6148,7 +6148,6 @@ html.is-live .ask-pill::before { animation-play-state: running; }
 }
 @media (min-width: 1100px) {
   .hw { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 0 64px; align-items: start; }
-  .hw-side { gap: 32px; }
   .hw-head { margin: 0; text-align: left; justify-items: start; }
   .hw-head p { max-width: 34em; }
   .hw-go { justify-items: start; text-align: left; }
@@ -6156,13 +6155,13 @@ html.is-live .ask-pill::before { animation-play-state: running; }
   .hw-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 /* Pinned only when the left column fits on the screen. */
-@media (min-width: 1100px) and (min-height: 760px) {
+@media (min-width: 1100px) and (min-height: 800px) {
   .hw-side { position: sticky; top: 112px; }
 }
 /* While you scroll the cards, the rail fills and each step number lights up in turn (scroll timeline, no JS).
    Text keeps its full contrast the whole time; only the rail and the small numbers change colour. */
 @supports (animation-timeline: view()) {
-  @media (min-width: 1100px) and (min-height: 760px) and (prefers-reduced-motion: no-preference) {
+  @media (min-width: 1100px) and (min-height: 800px) and (prefers-reduced-motion: no-preference) {
     .hw { view-timeline: --hw block; }
     .hw-side .hw-steps::after { content: ""; position: absolute; left: 0; top: 14px; bottom: 14px; width: 2px; border-radius: 2px; background: #62c1fd; transform-origin: 50% 0; animation: hw-rail linear both; animation-timeline: --hw; animation-range: contain 0% contain 90%; }
     .hw-steps li .hw-n { animation: hw-on linear both; animation-timeline: --hw; }
@@ -6195,3 +6194,141 @@ html.is-live .ask-pill::before { animation-play-state: running; }
 @media (max-width: 1099px) { .work-grid.is-capped > :nth-child(n+7) { display: none; } }
 @media (max-width: 819px) { .work-grid.is-capped > :nth-child(n+5) { display: none; } }
 .work-more { margin: 32px 0 0; }
+
+/* ==========================================================================
+   Layout system, strict (owner, 26 Nov 2026: "do full layout check, make sure we follow it strictly").
+   Checked by scripts/layout.cjs. Inside every section:
+     12px  between eyebrow, title and lede (--gap-intro)
+     48px  from the intro to the content, between content groups, and from the content to its button
+           (--gap-content, 32px on phones)
+     20px  between cards, and between a card grid and the chips or filters that belong to it (--gap-grid)
+     card padding on the scale: 24px for cards, 32px for large panels
+   Every panel, grid and card row spans the 1200px content box or starts at its left edge; only text is centered narrower.
+   ========================================================================== */
+:root { --gap-content: 48px; }
+@media (max-width: 767px) { :root { --gap-content: 32px; } }
+
+/* Intro blocks: title and lede 12px apart, nothing else adding to it. */
+:root:root :is(.hw-head, .fx-head, .pain2 .pn-head) { gap: var(--gap-intro); }
+/* !important: older optical tweaks (h2 + p margins) are !important too; this block replaces them for these headers. */
+:root:root:root:root :is(.hw-head, .fx-head, .pain2 .pn-head) > * { margin: 0 !important; }
+:root:root .hw-head { margin: 0 auto; }
+:root:root:root #work.work > h2 + .work-lede { margin-top: var(--gap-intro) !important; }
+
+/* Intro to content: 48px (32px on phones). */
+:root:root .pain2 .pn-head, :root:root .fx-head { margin-bottom: var(--gap-content); }
+:root:root .bx-soft .bx-title { margin-bottom: var(--gap-content); }
+:root:root .faq-side h2 { margin: 0 0 var(--gap-content); }
+:root:root .book-band-head { margin-bottom: var(--gap-content); }
+
+/* Work: title, lede, filters, grid and button on one rhythm. */
+:root:root #work.work { gap: 0; }
+:root:root #work.work > h2 { margin: 0; }
+:root:root #work.work > .work-lede { margin-bottom: 0; }
+:root:root #work.work > .work-bar { margin-top: var(--gap-content); }
+:root:root #work.work > .active-filters, :root:root #work.work > .work-panel { margin-top: var(--gap-grid); }
+:root:root .work-more { margin: var(--gap-content) 0 0; }
+
+/* How I work: one rhythm in the pinned column; on one column the call button sits 48px above the cards. */
+:root:root .hw { row-gap: var(--gap-content); }
+:root:root .hw-side { gap: var(--gap-content); }
+:root:root .hw .hw-steps li, :root:root .hw .hw-steps li:hover { padding-block: 8px; }
+
+/* Fixes: content to button. */
+:root:root .fx-go { margin-top: var(--gap-content); }
+:root:root .fx-list { gap: var(--gap-grid); }
+:root:root .fx-row { padding: 24px; }
+
+/* Pain: the "fix for all three" panel spans the content box like the cards above it. */
+:root:root .pn-fix { max-width: none; justify-self: stretch; margin-inline: 0; }
+
+/* Reviews: 20px between cards, 24px padding. */
+:root:root .tm-grid { gap: var(--gap-grid); }
+:root:root .tm-card { padding: 24px; }
+:root:root .bx-sec > .bx-lede:has(+ .tm-wrap) { margin-bottom: 0; }
+:root:root .bx-sec > .bx-lede + .tm-wrap { margin-top: var(--gap-content); }
+
+/* "One designer for the whole product": the bento spans the content box and lines up with the facts row above it. */
+:root:root .bx-soft .bx-grid { max-width: none; margin-inline: 0; margin-top: var(--gap-content); gap: var(--gap-grid); }
+:root:root .bx-soft .bx-stats { gap: var(--gap-grid); }
+
+/* Trusted-by logos run across the full content width. */
+:root:root .trust-run { max-width: none; }
+/* The wider fix panel keeps its text at a readable line length. */
+:root:root .pn-fix-copy > p:not(.pn-k) { max-width: 62ch; }
+
+/* --- The same system on every other page (layout check, 26 Nov 2026). --- */
+/* Card grids: 20px between cards. */
+:root:root :is(.sv-pains, .sv-get, .sv-how, .sv-work, .rs-grid, .ax-checks, .case-cards, .eb-road-l, .eb-phases, .eb-why-grid, .eb-sys-l, .eb-steps, .eb-bn-grid, .ef-cards, .eb-pk-grid) { gap: var(--gap-grid); }
+/* Card padding on the scale. */
+:root:root .pr-plan { padding: 24px; }
+:root:root .eb-pk-card { padding: 32px; }
+:root:root .md-club { padding: 24px; }
+:root:root .case-fig-light { padding: 32px; }
+@media (max-width: 640px) { :root:root .case-fig-light { padding: 16px; } }
+:root:root .faq-list { gap: var(--gap-grid); }
+:root:root :is(.pr-start > ul, .pr-ladder > ol, .svc-list) { gap: var(--gap-grid); }
+/* Panels span the content box. */
+:root:root :is(.pr-plans.pr-two, .ef-one) { max-width: none; margin-inline: 0; }
+
+/* Intro headers: title and lede 12px apart. */
+:root:root:root:root :is(.svc-head, .eo-main, .hp-left, .fp-box) > h2 + p { margin-top: var(--gap-intro) !important; }
+:root:root:root:root :is(.sub-head, .ef-head, .case-chapter-head) > :is(h2, p) { margin: 0 !important; }
+:root:root .case-chapter-head { gap: var(--gap-intro); }
+:root:root .ef-head { gap: var(--gap-intro); }
+:root:root .sub-head { margin-bottom: var(--gap-content); }
+
+/* Sections that stack in one column with a grid gap: the gap is the content gap, the lede pulls up to 12px. */
+:root:root :is(.case-section:not(.case-close), .ab-part, .eb-feel, .eb-bn) { gap: var(--gap-content); }
+:root:root :is(.eb-feel) > h2 { margin-bottom: 0; }
+:root:root:root:root :is(.case-section:not(.case-close), .ab-part, .eb-bn) > h2 + p { margin-top: calc(var(--gap-intro) - var(--gap-content)) !important; }
+/* Closing panels (title, line, button): 12px, then 48px to the button. */
+:root:root:root:root .case-close > h2 + p { margin: 0 !important; }
+:root:root .case-close > .btn-row { margin-top: calc(var(--gap-content) - 12px); }
+
+/* Sections in normal flow: title 0 below when a lede follows, lede 12px below the title, content 48px below either. */
+:root:root:root :is(.sv-sec, .tl-how, .tl-cta, .pr-start, .pr-ladder, .rv-box, .eb-sec:not(.eb-feel, .eb-bn, .eb-why, .eb-sys), .fp-box, .eo-main, .hp-left) > h2 { margin-top: 0; margin-bottom: var(--gap-content); }
+:root:root:root :is(.sv-sec, .tl-how, .tl-cta, .pr-start, .pr-ladder, .rv-box, .eb-sec, .fp-box, .eo-main, .hp-left) > h2:has(+ p) { margin-bottom: 0; }
+:root:root:root:root :is(.eb-feel, .eb-bn) > :is(h2, .pn-head) { margin-bottom: 0 !important; }
+:root:root:root :is(.eb-feel, .eb-bn) > :is(.pain-cta, .eb-bn-cta) { margin-top: 0; }
+:root:root:root:root :is(.sv-sec, .tl-how, .tl-cta, .pr-start, .pr-ladder, .pr-proj, .rv-box, .eb-sec, .fp-box, .eo-main, .hp-left, .eb-vid-in > div) > h2 + p { margin-top: var(--gap-intro) !important; }
+:root:root:root:root :is(.sv-sec, .tl-how, .tl-cta, .pr-ladder, .rv-box, .eb-road, .eb-vid, .eb-pk, .eb-offer, .fp-box, .eo-main, .hp-left, .eb-vid-in > div) > h2 + p:not(:last-child) { margin-bottom: var(--gap-content); }
+:root:root:root :is(.sv-sec, .tl-how, .tl-cta, .pr-ladder, .rv-box, .eb-road, .eb-vid, .eb-pk, .eo-main, .hp-left, .eb-vid-in > div) > h2 + p + * { margin-top: 0; }
+:root:root:root :is(.eb-sec, .eb-for2) > :is(.ef-head, .eb-ph-lede, .eb-end-sub) + * { margin-top: var(--gap-content); }
+:root:root:root :is(.ef-head, .eb-sec > .eb-ph-lede, .eb-sec > .eb-end-sub) { margin-bottom: 0; }
+:root:root .eb-rv-card { margin-top: 0; }
+/* The older group-spacing variable (--grp-next) now follows the content gap where a lede leads into content. */
+:root:root :is(.eb-sec > .eb-ph-lede + .eb-phases, .eb-why-lede + .eb-ticks.eb-ico, .eo-main > .eo-k + .eb-ticks) { --grp-next: var(--gap-content); }
+:root:root .eb-sec.eb-bn > .eb-bn-lede + .eb-bn-grid { --grp-next: 0px; }
+:root:root .sub-req { margin-top: var(--gap-content); }
+/* About: the four parts are chapters, a section gap apart. */
+:root:root .ab-wrap .ab { gap: var(--sec); }
+:root:root:root .ab > .ab-end { margin-top: calc(var(--gap-content) - var(--sec)); }
+/* The divider above "How I work" sits halfway between the button and the next title, like every other section line. */
+:root:root .ab-wrap { margin-bottom: calc(var(--sec) / 2); row-gap: var(--sec); }
+:root:root .svc-pic + .svc-group { margin-top: calc(var(--sec) / 2); }
+/* Case studies: the "More work" hairline sits halfway, like the service page dividers. */
+:root:root:root .case-section.case-more { margin-top: calc(var(--sec) / 2); padding-top: calc(var(--sec) / 2); }
+:root:root .fb { margin-top: 0; }
+
+/* Content to its button row: 48px (32px on phones). */
+:root:root :is(.sv-end .sv-cta, .tl-cta .btn-row, .eb-vid .btn-row, .eb-end .btn-row, .eb-bn-cta, .pain-cta, .ab-end) { margin-top: var(--gap-content); }
+:root:root .eb-end-path { margin-bottom: 0; }
+:root:root .sv-end > h2 { margin-bottom: 0; }
+
+/* Sections sit var(--space-section) apart: margins where sections have no padding, half on each side next to padded ones. */
+:root:root :is(.case-section, .tl-how, .tl-cta, .pr-proj, .pr-start, .pr-ladder, .rv-box) { margin-top: var(--sec); }
+:root:root .sub-sec.lite { margin-block: calc(var(--sec) / 2); }
+:root:root:root .sv-faqwrap > .faq { margin-block: 0 !important; }
+/* Case studies: the "More work" block keeps its hairline, with the section gap above the line and 48px below it. */
+:root:root .case-more-head + .case-more-grid { margin-top: 0; }
+/* Services index: each group is half a section gap above and below, so groups sit a full gap apart. */
+:root:root .svc-group { padding-block: calc(var(--sec) / 2); row-gap: var(--gap-content); }
+/* Pricing: the project panel stacks with the content gap on phones. */
+:root:root .pr-proj { row-gap: var(--gap-content); }
+:root:root:root:root .pr-proj h2 + p { margin-top: var(--gap-intro) !important; }
+/* Writing index. */
+:root:root .md-club { gap: var(--gap-intro); }
+:root:root:root:root .md-club > h2 + p { margin-top: 0 !important; }
+:root:root .md-club > p + :not(p) { margin-top: calc(var(--gap-content) - var(--gap-intro)); }
+:root:root .home-writing > .blog-head + * { margin-top: var(--gap-content); }
