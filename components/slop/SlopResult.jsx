@@ -173,16 +173,17 @@ export default function SlopResult() {
           <div className="sx-locked">
             <ol className="sx-blur" aria-hidden="true">{Array.from({ length: Math.min(5, r.locked) }, (_, i) => <li key={i}><span /><b>{["Fix the spacing scale across sections", "One primary button per task in the hero", "Raise contrast on the muted gray text", "Replace generic feature icons", "Tighten the type scale to 6 sizes"][i]}</b><i /><i /></li>)}</ol>
             <div className="sx-unlock">
-              <p className="sx-unlock-h">Unlock all {total} fixes</p>
-              <ul>
-                <li>Every issue ranked by impact, with the exact fix</li>
-                <li>Copy-paste prompts for Lovable, Cursor and Claude Code</li>
-                <li>The full report emailed to you, yours to keep</li>
+              {/* Exactly what the $5 buys, counted from this report (owner, 26 Nov 2026: make Stripe feel connected to the product). */}
+              <p className="sx-unlock-h">Unlock all {total} fixes and {total * 3} prompts</p>
+              <ul className="sx-unlock-get">
+                <li><b>{r.locked}</b> more fixes for {r.domain}, ranked by impact, each with the exact fix</li>
+                <li><b>{total * 3}</b> copy-paste prompts, one each for Lovable, Cursor and Claude Code on every fix</li>
+                <li><b>1</b> full report emailed to you, yours to keep</li>
               </ul>
               {status.payLink ? (
-                <button type="button" className="hero2-btn hero2-btn-primary" onClick={pay}>Unlock for {usd(SLOP.reportPrice)}</button>
+                <button type="button" className="hero2-btn hero2-btn-primary" onClick={pay}>Unlock {total} fixes for {usd(SLOP.reportPrice)}</button>
               ) : <p className="sx-note">Paid unlock opens shortly. Leave your email below and I'll send your score.</p>}
-              <p className="sx-note">One-time payment by card through Stripe. No account.</p>
+              <p className="sx-note">One-time {usd(SLOP.reportPrice)} by card through Stripe, no account. You come straight back here with everything unlocked.</p>
             </div>
             {!mail.sent ? (
               <form className="sx-form sx-gate" onSubmit={sendMail}>
