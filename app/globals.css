@@ -6332,3 +6332,24 @@ html.is-live .ask-pill::before { animation-play-state: running; }
 :root:root:root:root .md-club > h2 + p { margin-top: 0 !important; }
 :root:root .md-club > p + :not(p) { margin-top: calc(var(--gap-content) - var(--gap-intro)); }
 :root:root .home-writing > .blog-head + * { margin-top: var(--gap-content); }
+
+/* --- Booking band and footer on the same grid as the page (owner, 26 Nov 2026: "still some layout issues"). --- */
+/* The Cal.com calendar has a fixed 1040px card, so on wider screens it sits in a hairline frame that spans the content box;
+   the "Not a fan of calendars?" panel and the footer line up with that panel and with every section above. */
+@media (min-width: 1280px) {
+  /* Top padding equals the space Cal leaves at the sides (80px at full width), so the card sits evenly in the frame. */
+  :root:root .book-band .book-cal { position: relative; padding: max(0px, calc((100% - 1040px) / 2)) 0 0; border-radius: 20px; background: transparent; box-shadow: none; overflow: hidden; }
+  :root:root .book-band .book-cal::after { content: ""; position: absolute; inset: 0; border-radius: inherit; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .08); pointer-events: none; }
+}
+:root:root:root .book-band .bb-alt { max-width: none; width: auto; margin-inline: 0; margin-top: var(--gap-grid); }
+@media (max-width: 760px) { :root:root .bb-alt { padding: 20px; } }
+/* The email never breaks mid-word. */
+:root:root .bb-alt .hp-copy { white-space: nowrap; }
+
+/* Footer: the page gutter, so its content box is the same 1200px as every section. */
+:root:root:root .site-footer > .wrap { padding-left: max(var(--gutter), env(safe-area-inset-left, 0px)) !important; padding-right: max(var(--gutter), env(safe-area-inset-right, 0px)) !important; }
+/* Its rhythm: the top line halfway between the booking band and the first footer content, 48px between the site map,
+   the call panel and the bottom row. */
+:root:root:root .site-footer > .wrap { padding-top: calc(var(--sec) / 2); row-gap: var(--gap-content) !important; }
+:root:root:root .site-footer .foot-map { padding-top: 0; padding-bottom: var(--gap-content); margin-bottom: 0; }
+:root:root:root .site-footer .fd-talk { margin: 0; }

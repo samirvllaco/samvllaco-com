@@ -82,7 +82,7 @@ function check(vw) {
         const left = near(r.left, L), right = near(r.right, R);
         const centered = Math.abs((r.left - L) - (R - r.right)) <= 3;
         if (full || left || right) continue;
-        if (centered && (r.width <= 820 || isText(b) || isMedia(b))) continue;
+        if (centered && (isText(b) || isMedia(b) || (!isCard(b) && r.width <= 820))) continue; // a centered card or panel is never fine
         bad.push(`edge   ${where(b)}${name(b)}  x${Math.round(r.left)}..${Math.round(r.right)} (content ${Math.round(L)}..${Math.round(R)})`);
       }
     }
@@ -147,6 +147,22 @@ function check(vw) {
       const off = pads.filter((p) => p !== 0 && !SCALE.includes(p));
       if (off.length) bad.push(`pad    ${where(c)}${name(c)}  ${pads.join(" ")}`);
     }
+  }
+  // The booking band and the footer sit outside the page sections and use the site-wide content box
+  // (a plain .wrap: 1200px plus gutters), even on pages whose own wrap is narrower.
+  const probe0 = document.createElement("div"); probe0.className = "wrap"; probe0.style.cssText = "position:absolute;left:0;right:0;top:0;height:1px;visibility:hidden"; document.body.appendChild(probe0);
+  const pr0 = box(probe0), ps0 = getComputedStyle(probe0); const G = { l: pr0.left + parseFloat(ps0.paddingLeft), r: pr0.right - parseFloat(ps0.paddingRight) }; probe0.remove();
+  for (const b of document.querySelectorAll(".book-band > *, .site-footer > .wrap > *")) {
+    if (!seen(b) || floats(b) || /^(SCRIPT|STYLE|DIALOG)$/.test(b.tagName)) continue;
+    const r = box(b), par = b.parentElement, ps = getComputedStyle(par);
+    if (r.width < 40) continue;
+    const L = box(par).left + parseFloat(ps.paddingLeft), R = box(par).right - parseFloat(ps.paddingRight);
+    if (Math.abs(L - G.l) > 2 || Math.abs(R - G.r) > 2) { bad.push(`edge   ${name(par)} content box x${Math.round(L)}..${Math.round(R)} (site ${Math.round(G.l)}..${Math.round(G.r)})`); break; }
+    const full = near(r.left, L) && near(r.right, R), left = near(r.left, L);
+    const centered = Math.abs((r.left - L) - (R - r.right)) <= 3;
+    const inRow = r.width < (R - L) * 0.6 && !centered; // the footer bottom row: copyright, chat link, links
+    if (full || left || inRow || (centered && (isText(b) || isMedia(b) || (!isCard(b) && r.width <= 820)))) continue;
+    bad.push(`edge   ${name(par)} > ${name(b)}  x${Math.round(r.left)}..${Math.round(r.right)} (content ${Math.round(L)}..${Math.round(R)})`);
   }
   // Section to section.
   const probe = document.createElement("div"); probe.style.cssText = "position:absolute;height:var(--space-section)"; document.body.appendChild(probe); const S = Math.round(probe.getBoundingClientRect().height); probe.remove();
