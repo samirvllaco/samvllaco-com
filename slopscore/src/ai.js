@@ -33,23 +33,47 @@ export async function review(env, { shots, metrics, det, axe, url }) {
     accessibility_violations: axe.map((v) => ({ rule: v.id, impact: v.impact, elements: v.nodes, help: v.help })),
     copy_sample: metrics.copy,
   };
-  const res = await fetch("https://api.anthropic.com/v1/messages", {
-    method: "POST",
-    headers: { "x-api-key": env.ANTHROPIC_API_KEY, "anthropic-version": "2023-06-01", "content-type": "application/json" },
-    body: JSON.stringify({
-      model: env.SLOP_MODEL || SLOP.model,
-      max_tokens: 8000,
-      system: SYSTEM,
-      output_config: { format: { type: "json_schema", schema: strict(TOOL.input_schema) } },
-      messages: [{ role: "user", content: [...images, { type: "text", text: `Screenshots in order: desktop first screen, desktop full page (first 3000px), mobile first screen.\n\nPage data (JSON):\n${JSON.stringify(facts)}` }] }],
-    }),
+  // Up to 3 tries (owner, 26 Nov 2026: scans failed now and then at this step): a busy or failing API (429, 5xx, 529),
+  // a dropped connection, or an answer cut off before the JSON closed. Each try has its own time limit.
+  // Usage of every try is added up, so the spend guard books what was really used.
+  const body = (max) => JSON.stringify({
+    model: env.SLOP_MODEL || SLOP.model,
+    max_tokens: max,
+    system: SYSTEM,
+    output_config: { format: { type: "json_schema", schema: strict(TOOL.input_schema) } },
+    messages: [{ role: "user", content: [...images, { type: "text", text: `Screenshots in order: desktop first screen, desktop full page (first 3000px), mobile first screen.\n\nPage data (JSON):\n${JSON.stringify(facts)}` }] }],
   });
-  if (!res.ok) { const t = await res.text().catch(() => ""); let m = t; try { m = JSON.parse(t).error.message; } catch { /* raw */ } throw new Error(`anthropic ${res.status}: ${String(m).slice(0, 160)}`); }
-  const out = await res.json();
-  const text = (out.content || []).filter((c) => c.type === "text").map((c) => c.text).join("");
-  let parsed;
-  try { parsed = JSON.parse(text); } catch { throw new Error(`anthropic bad json (${out.stop_reason || "?"})`); }
+  const used = { input_tokens: 0, output_tokens: 0, cache_creation_input_tokens: 0, cache_read_input_tokens: 0 };
+  const add = (u) => { for (const k of Object.keys(used)) used[k] += Number(u?.[k] || 0); };
+  let out, parsed, last = "", max = 8000;
+  for (let attempt = 1; attempt <= 3; attempt++) {
+    if (attempt > 1) await new Promise((r) => setTimeout(r, 1500 * (attempt - 1)));
+    let res;
+    try {
+      res = await fetch("https://api.anthropic.com/v1/messages", {
+        method: "POST",
+        headers: { "x-api-key": env.ANTHROPIC_API_KEY, "anthropic-version": "2023-06-01", "content-type": "application/json" },
+        body: body(max),
+        signal: AbortSignal.timeout(100000),
+      });
+    } catch (e) { last = `anthropic network: ${String(e && e.message).slice(0, 80)}`; continue; }
+    if (!res.ok) {
+      const t = await res.text().catch(() => "");
+      let m = t; try { m = JSON.parse(t).error.message; } catch { /* raw */ }
+      last = `anthropic ${res.status}: ${String(m).slice(0, 160)}`;
+      if (res.status === 429 || res.status >= 500) continue; // busy or failing: try again
+      const err = new Error(last); err.usage = used; throw err; // a rejected request: no point retrying
+    }
+    out = await res.json();
+    add(out.usage);
+    const text = (out.content || []).filter((c) => c.type === "text").map((c) => c.text).join("");
+    try { parsed = JSON.parse(text); break; } catch {
+      last = `anthropic bad json (${out.stop_reason || "?"})`;
+      if (out.stop_reason === "max_tokens") max = 12000; // give the answer room to finish next time
+    }
+  }
+  if (!parsed) { const err = new Error(last || "anthropic failed"); err.usage = used; throw err; }
   const r = undash(parsed);
   r.issues = (r.issues || []).slice(0, 15).map((x, i) => ({ ...x, id: x.id || `i${i + 1}` }));
-  return { ...r, model: out.model || SLOP.model, usage: out.usage };
+  return { ...r, model: out.model || SLOP.model, usage: used };
 }

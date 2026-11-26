@@ -16,6 +16,15 @@ import { runDrip, sendReportNow } from "./mail.js";
 import { verifyStripe, paidSession } from "./stripe.js";
 
 let schemaReady = false;
+// Failed scans are written down (owner, 26 Nov 2026) so the cause is visible later: stage, error code, a short detail and
+// the scanned site's host. No IPs, no emails. Query in D1: SELECT * FROM scan_errors ORDER BY created_at DESC LIMIT 20.
+async function logFail(env, stage, code, detail, url) {
+  try {
+    let host = ""; try { host = new URL(url).host; } catch { /* bad url */ }
+    await ensureSchema(env);
+    await env.DB.prepare("INSERT INTO scan_errors (id, stage, code, detail, host, created_at) VALUES (?, ?, ?, ?, ?, ?)").bind(newId(), stage, code, String(detail || "").slice(0, 160), host, new Date().toISOString()).run();
+  } catch { /* logging never breaks a scan */ }
+}
 async function ensureSchema(env) { if (schemaReady || !env.DB) return; await env.DB.exec(SCHEMA); schemaReady = true; }
 
 const json = (data, status = 200, extra = {}) => new Response(JSON.stringify(data), { status, headers: { "content-type": "application/json", "cache-control": "no-store", ...extra } });
@@ -108,6 +117,7 @@ async function scan(ctx) {
       await send(out.error ? { t: "error", ...out } : { t: "done", report: out });
     } catch (e) {
       console.error(JSON.stringify({ path: "scan", stage, err: String(e && e.message).slice(0, 120) }));
+      await logFail(env, stage, "server", e && e.message, u.url);
       await send({ t: "error", error: "server", stage });
     }
     await w.close().catch(() => {});
@@ -121,7 +131,7 @@ async function run(env, u, hash, ip, owner, send) {
   stage = "render";
   await send({ t: "step", i: 0 });
   let page;
-  try { page = await render(env, u.url); } catch (e) { await settle(env, EST.scan, SLOP.model, {}); return { error: e instanceof ScanError ? e.code : "load" }; }
+  try { page = await render(env, u.url); } catch (e) { await settle(env, EST.scan, SLOP.model, {}); const code = e instanceof ScanError ? e.code : "load"; await logFail(env, "render", code, e && e.message, u.url); return { error: code }; }
   if (page.shots && page.shots[0]) await send({ t: "shot", img: `data:image/jpeg;base64,${page.shots[0]}`, mobile: page.shots[2] ? `data:image/jpeg;base64,${page.shots[2]}` : null });
   stage = "score";
   await send({ t: "step", i: 1 });
@@ -131,7 +141,14 @@ async function run(env, u, hash, ip, owner, send) {
   stage = "review";
   await send({ t: "step", i: 3 });
   let ai;
-  try { ai = await review(env, { shots: page.shots, metrics: page.metrics, det, axe: page.axe, url: u.url }); } catch (e) { const err = String(e.message).slice(0, 120); console.error(JSON.stringify({ id, err })); if (/^anthropic 4\d\d/.test(err)) await settle(env, EST.scan, SLOP.model, {}); /* a rejected request costs nothing */ return { error: "review", detail: owner ? err : undefined }; }
+  try { ai = await review(env, { shots: page.shots, metrics: page.metrics, det, axe: page.axe, url: u.url }); } catch (e) {
+    const err = String(e.message).slice(0, 120);
+    console.error(JSON.stringify({ id, err }));
+    // Book what the tries really used; a request the API rejected outright used nothing.
+    await settle(env, EST.scan, SLOP.model, e.usage || {});
+    await logFail(env, "review", "review", err, u.url);
+    return { error: "review", detail: owner ? err : undefined };
+  }
   stage = "save";
   await settle(env, EST.scan, ai.model, ai.usage);
   const fin = finalize(det, { adjustments: ai.adjustments, originality: ai.originality });

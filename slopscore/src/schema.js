@@ -16,4 +16,6 @@ export const SCHEMA = [
   "CREATE TABLE IF NOT EXISTS drip (id TEXT PRIMARY KEY, email TEXT NOT NULL, report_id TEXT NOT NULL, domain TEXT, score INTEGER, consent INTEGER NOT NULL DEFAULT 0, token TEXT NOT NULL UNIQUE, step INTEGER NOT NULL DEFAULT 0, next_at INTEGER NOT NULL, created_ms INTEGER NOT NULL, last_sent INTEGER, tries INTEGER NOT NULL DEFAULT 0, unsub INTEGER NOT NULL DEFAULT 0);",
   "CREATE UNIQUE INDEX IF NOT EXISTS drip_email_report ON drip (email, report_id);",
   "CREATE INDEX IF NOT EXISTS drip_due ON drip (unsub, next_at);",
+  "CREATE TABLE IF NOT EXISTS scan_errors (id TEXT PRIMARY KEY, stage TEXT NOT NULL, code TEXT NOT NULL, detail TEXT, host TEXT, created_at TEXT NOT NULL);",
+  "CREATE INDEX IF NOT EXISTS scan_errors_created ON scan_errors (created_at);",
 ].join("\n");
