@@ -49,13 +49,25 @@ function WorkCard({ w, seen, first }) {
   );
 }
 
-export default function WorkGrid() {
+// cap: on the home page show two rows first, with a button for the rest (owner, 26 Nov 2026: about one screen per section).
+export default function WorkGrid({ cap = false }) {
   const [tab, setTab] = useState("all");
+  const [more, setMore] = useState(false);
+  const grid = useRef(null);
   const [device, setDevice] = useState("all");
   const [look, setLook] = useState("all");
   const refs = useRef({});
   const seenList = useSeen();
   const items = WORK.filter((w) => (tab === "all" || w.tags.includes(tab)) && (device === "all" || w.platform === device) && (look === "all" || (DARK.includes(w.slug) ? "dark" : "light") === look));
+  // Filters always show every match; the cap only applies to the unfiltered list.
+  const capped = cap && !more && tab === "all" && device === "all" && look === "all";
+
+  function showAll() {
+    const shown = grid.current ? [...grid.current.querySelectorAll(".work-card")].filter((a) => a.offsetParent !== null).length : 0;
+    setMore(true);
+    // Move focus to the first card that just appeared, so keyboard users carry on where they were.
+    requestAnimationFrame(() => grid.current?.querySelectorAll(".work-card")[shown]?.focus());
+  }
 
   function onKey(e, i) {
     let n = null;
@@ -122,12 +134,15 @@ export default function WorkGrid() {
         {items.length === 0 ? (
           <p className="work-empty">More projects are coming soon.</p>
         ) : (
-          <div className={`work-grid${items.length === 1 ? " is-single" : ""}`}>
+          <div ref={grid} className={`work-grid${items.length === 1 ? " is-single" : ""}${capped ? " is-capped" : ""}`}>
             {items.map((w, i) => (
               <WorkCard key={w.slug} w={w} first={i < 2} seen={seenList.includes(w.slug)} />
             ))}
           </div>
         )}
+        {capped ? (
+          <p className="work-more"><button type="button" className="hero2-btn hero2-btn-light" onClick={showAll}>Show all {WORK.length} projects</button></p>
+        ) : null}
       </div>
     </>
   );

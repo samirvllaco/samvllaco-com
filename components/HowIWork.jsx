@@ -3,6 +3,8 @@ import CallIcon from "./CallIcon";
 // Home: what Sam does for product teams, said plainly (owner, 25 Nov 2026: audits, UI/UX sprints, fixing gaps,
 // improving the product, redesigning from zero or picking up an existing app; "design agency, me style").
 // Two starting points, the six services with what each hands over, then the steps every engagement follows.
+// Desktop (26 Nov 2026, after grafit.agency): heading, steps and the call button stay pinned on the left while the cards
+// scroll on the right, and the steps light up one by one as you scroll (CSS scroll timeline, no JS).
 // Server component, no JS. Icons are the shared graphite tile (tg-ico).
 const IC = {
   app: "M5 4h14a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1zM4 9h16M9 13l2 2 4-4",
@@ -41,46 +43,52 @@ const STEPS = [
 export default function HowIWork() {
   return (
     <section className="hw" id="how" aria-labelledby="hw-h" data-bg="#000000">
-      <header className="hw-head">
-        <h2 id="hw-h">UX audits, sprints and redesigns <span className="t2">for product teams</span></h2>
-        <p>I find the gaps in your product&apos;s UI and UX and fix them, whether you have an app already or are starting from zero. You get the process of a design agency, with one senior designer doing every part of it.</p>
-      </header>
+      {/* Desktop: this column stays pinned while the cards on the right scroll past (owner, 26 Nov 2026). */}
+      <div className="hw-side">
+        <header className="hw-head">
+          <h2 id="hw-h">UX audits, sprints and redesigns <span className="t2">for product teams</span></h2>
+          <p>I find the gaps in your product&apos;s UI and UX and fix them, whether you have an app already or are starting from zero. You get the process of a design agency, with one senior designer doing every part of it.</p>
+        </header>
 
-      <ul className="hw-start">
-        {START.map((s) => (
-          <li key={s.t}>
-            <Ico d={IC[s.i]} />
-            <h3>{s.t}</h3>
-            <p>{s.d}</p>
-          </li>
-        ))}
-      </ul>
-      <ul className="hw-terms" aria-label="Ways to work together">
-        <li>Fixed-scope audits</li>
-        <li>Weekly sprints</li>
-        <li>Monthly, inside your team</li>
-      </ul>
+        <ol className="hw-steps" aria-label="How every engagement runs">
+          {STEPS.map(([t, d], i) => (
+            <li key={t}><span className="hw-n" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span><b>{t}</b><span>{d}</span></li>
+          ))}
+        </ol>
 
-      <ul className="hw-grid">
-        {WORK.map((w) => (
-          <li key={w.t}>
-            <Ico d={IC[w.i]} />
-            <h3>{w.t}</h3>
-            <p>{w.d}</p>
-            <p className="hw-get"><b>You get</b>{w.g}</p>
-          </li>
-        ))}
-      </ul>
+        <div className="hw-go">
+          <a className="hero2-btn hero2-btn-primary" href="/book/"><CallIcon />Book a 30-min strategy call</a>
+          <p>You get a plan and a fixed price after the call.</p>
+        </div>
+      </div>
 
-      <ol className="hw-steps" aria-label="How every engagement runs">
-        {STEPS.map(([t, d], i) => (
-          <li key={t}><span className="hw-n" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span><b>{t}</b><span>{d}</span></li>
-        ))}
-      </ol>
+      <div className="hw-main">
+        <ul className="hw-start">
+          {START.map((s) => (
+            <li key={s.t}>
+              <Ico d={IC[s.i]} />
+              <h3>{s.t}</h3>
+              <p>{s.d}</p>
+            </li>
+          ))}
+        </ul>
+        <ul className="hw-terms" aria-label="Ways to work together">
+          <li>Fixed-scope audits</li>
+          <li>Weekly sprints</li>
+          <li>Monthly, inside your team</li>
+        </ul>
 
-      <div className="hw-go">
-        <a className="hero2-btn hero2-btn-primary" href="/book/"><CallIcon />Book a 30-min strategy call</a>
-        <p>You get a plan and a fixed price after the call.</p>
+        {/* tabIndex: on phones this row scrolls sideways, so keyboard users can focus it and use the arrow keys. */}
+        <ul className="hw-grid" aria-label="Services" tabIndex={0}>
+          {WORK.map((w) => (
+            <li key={w.t}>
+              <Ico d={IC[w.i]} />
+              <h3>{w.t}</h3>
+              <p>{w.d}</p>
+              <p className="hw-get"><b>You get</b>{w.g}</p>
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
   );

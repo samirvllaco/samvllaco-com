@@ -135,7 +135,7 @@ export default function Home() {
       <section id="work" className="stack work" data-bg="#000000">
           <h2>Work <span className="t2">that shipped</span></h2>
           <p className="work-lede">Real products with real users. Some names are changed because the work is under NDA.</p>
-          <WorkGrid />
+          <WorkGrid cap />
       </section>
 
       <Fixes />
