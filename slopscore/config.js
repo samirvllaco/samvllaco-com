@@ -29,7 +29,10 @@ export const CATS = [
   { k: "originality", name: "Originality", d: "A visual idea that belongs to this brand, not a template." },
 ];
 
-export const WEIGHTS = { spacing: 15, typography: 15, color: 15, components: 15, copy: 10, accessibility: 15, originality: 15 };
+// Recalibrated 26 Nov 2026 (owner: "it shows sloppy even on good human-built sites"). The overall score is mostly the
+// AI's judgment of how generated the page looks (originality, ORIGINALITY_SHARE); the six measured categories make up
+// the rest with these weights. See slopscore/CALIBRATION.md.
+export const WEIGHTS = { spacing: 10, typography: 10, color: 12, components: 8, copy: 10, accessibility: 10 };
 
 // Lower is better. Upper bound of each band.
 export const LABELS = [[20, "Designed"], [40, "A little sloppy"], [60, "Sloppy"], [80, "Very sloppy"], [100, "Pure slop"]];
@@ -37,40 +40,52 @@ export const labelFor = (s) => (LABELS.find(([max]) => s <= max) || LABELS[LABEL
 
 export const BUZZWORDS = ["unlock", "elevate", "seamless", "supercharge", "revolutionize", "empower", "next-level", "game-changer", "all-in-one", "effortless", "cutting-edge", "leverage"];
 
-// Starting values from the spec. Calibration notes: see slopscore/CALIBRATION.md.
+// Version 2 (26 Nov 2026), tuned on linear.app, bolt.new, samvllaco.com and cookingbuddy.ai: bigger free allowances,
+// smaller steps and a ceiling per signal, because rich hand-made pages (product UI in the hero, charts, dark themes)
+// naturally have more sizes, grays, radii and buttons. Signals that really mark AI output (purple or blue gradients,
+// gradient text, buzzwords, emoji headings) keep their weight.
 export const T = {
-  TYPE_SIZES_FREE: 6, // up to 6 distinct font sizes cost nothing
-  TYPE_SIZE_EACH: 8, // each size beyond that
+  TYPE_SIZES_FREE: 10, // up to 10 distinct font sizes cost nothing
+  TYPE_SIZE_EACH: 4,
+  TYPE_SIZE_CAP: 40,
   FAMILIES_FREE: 2, // up to 2 font families cost nothing
-  FAMILY_EACH: 20, // each family beyond that
+  FAMILY_EACH: 15,
   LINE_HEIGHT_MIN: 1.4, // median body line-height below this looks cramped
-  LINE_HEIGHT_PENALTY: 15,
-  GRAYS_FREE: 5, // up to 5 distinct grays cost nothing
-  GRAY_EACH: 8,
-  ACCENTS_FREE: 2, // up to 2 accent hue groups cost nothing
-  ACCENT_EACH: 15,
-  AI_GRADIENT: 25, // purple, blue or pink gradient in the first screen
+  LINE_HEIGHT_PENALTY: 10,
+  GRAYS_FREE: 8,
+  GRAY_EACH: 4,
+  GRAY_CAP: 24,
+  ACCENTS_FREE: 4, // accent hue groups
+  ACCENT_EACH: 4,
+  ACCENT_CAP: 20,
+  AI_GRADIENT: 30, // purple, blue or pink gradient in the first screen
   GRADIENT_TEXT: 20, // gradient-filled text anywhere
-  GRID_SHARE_OK: 0.9, // 90% of spacing values on the 4px grid is fine
-  GRID_POINT: 2, // per percentage point below that
-  SPACING_VALUES_FREE: 12,
-  SPACING_EACH: 3,
-  RADII_FREE: 3,
-  RADIUS_EACH: 10,
-  SHADOWS_FREE: 3,
-  SHADOW_EACH: 10,
-  BUTTONS_FREE: 1, // filled buttons in the first screen
-  BUTTON_EACH: 25,
-  NEST_DEPTH: 2, // cards inside cards from this depth
-  NEST_PENALTY: 30,
-  BUZZ_EACH: 6,
-  BUZZ_CAP: 60,
+  GRID_SHARE_OK: 0.75, // share of spacing values on the 4px grid
+  GRID_POINT: 1, // per percentage point below that
+  SPACING_VALUES_FREE: 28,
+  SPACING_EACH: 1,
+  SPACING_CAP: 20,
+  RADII_FREE: 8,
+  RADIUS_EACH: 3,
+  RADIUS_CAP: 20,
+  SHADOWS_FREE: 8,
+  SHADOW_EACH: 3,
+  SHADOW_CAP: 20,
+  BUTTONS_FREE: 2, // filled buttons in the first screen (a nav sign-up plus a hero action is normal)
+  BUTTON_EACH: 6,
+  BUTTON_CAP: 24,
+  NEST_DEPTH: 3, // cards inside cards inside cards
+  NEST_PENALTY: 15,
+  BUZZ_EACH: 10,
+  BUZZ_CAP: 50,
   EMOJI_EACH: 10,
   EMOJI_CAP: 30,
-  AXE: { critical: 12, serious: 8, moderate: 4, minor: 1 }, // per rule violated, not per element
-  SMALL_TARGET_EACH: 2,
-  SMALL_TARGET_CAP: 30,
+  AXE: { critical: 10, serious: 6, moderate: 3, minor: 1 }, // per rule violated, not per element
+  SMALL_TARGET_EACH: 1,
+  SMALL_TARGET_CAP: 20,
   NO_ALT_EACH: 2,
   NO_ALT_CAP: 20,
+  ADJUST_MAX: 30, // how far the AI review may move a measured category, with evidence
+  ORIGINALITY_SHARE: 0.55, // share of the overall score that is the AI's "does this look generated" judgment
   EAA_NUDGE: 50, // show the EAA link from this accessibility score up
 };

@@ -3,17 +3,18 @@ import { T, WEIGHTS, CATS, labelFor } from "../config.js";
 
 const clamp = (n) => Math.max(0, Math.min(100, Math.round(n)));
 const over = (n, free) => Math.max(0, (n || 0) - free);
+const capped = (n, free, each, cap) => Math.min(cap, over(n, free) * each);
 
 export function typography(m) {
-  let s = over(m.fontSizes, T.TYPE_SIZES_FREE) * T.TYPE_SIZE_EACH;
+  let s = capped(m.fontSizes, T.TYPE_SIZES_FREE, T.TYPE_SIZE_EACH, T.TYPE_SIZE_CAP);
   s += over(m.fontFamilies, T.FAMILIES_FREE) * T.FAMILY_EACH;
   if (m.bodyLineHeight && m.bodyLineHeight < T.LINE_HEIGHT_MIN) s += T.LINE_HEIGHT_PENALTY;
   return clamp(s);
 }
 
 export function color(m) {
-  let s = over(m.grays, T.GRAYS_FREE) * T.GRAY_EACH;
-  s += over(m.accentHues, T.ACCENTS_FREE) * T.ACCENT_EACH;
+  let s = capped(m.grays, T.GRAYS_FREE, T.GRAY_EACH, T.GRAY_CAP);
+  s += capped(m.accentHues, T.ACCENTS_FREE, T.ACCENT_EACH, T.ACCENT_CAP);
   if (m.aiGradient) s += T.AI_GRADIENT;
   if (m.gradientText) s += T.GRADIENT_TEXT;
   return clamp(s);
@@ -23,14 +24,14 @@ export function spacing(m) {
   let s = 0;
   const share = m.gridShare ?? 1;
   if (share < T.GRID_SHARE_OK) s += Math.round((T.GRID_SHARE_OK - share) * 100) * T.GRID_POINT;
-  s += over(m.spacingValues, T.SPACING_VALUES_FREE) * T.SPACING_EACH;
-  s += over(m.radii, T.RADII_FREE) * T.RADIUS_EACH;
-  s += over(m.shadows, T.SHADOWS_FREE) * T.SHADOW_EACH;
+  s += capped(m.spacingValues, T.SPACING_VALUES_FREE, T.SPACING_EACH, T.SPACING_CAP);
+  s += capped(m.radii, T.RADII_FREE, T.RADIUS_EACH, T.RADIUS_CAP);
+  s += capped(m.shadows, T.SHADOWS_FREE, T.SHADOW_EACH, T.SHADOW_CAP);
   return clamp(s);
 }
 
 export function components(m) {
-  let s = over(m.filledButtons, T.BUTTONS_FREE) * T.BUTTON_EACH;
+  let s = capped(m.filledButtons, T.BUTTONS_FREE, T.BUTTON_EACH, T.BUTTON_CAP);
   if ((m.cardDepth || 0) >= T.NEST_DEPTH) s += T.NEST_PENALTY;
   return clamp(s);
 }
@@ -59,10 +60,13 @@ export function finalize(det, ai = {}) {
   const categories = CATS.map(({ k }) => {
     if (k === "originality") return { k, score: clamp(ai.originality ?? 50), evidence: adj.originality?.evidence || "" };
     const a = adj[k] || {};
-    const d = Math.max(-15, Math.min(15, Math.round(a.adjust || 0)));
+    const d = Math.max(-T.ADJUST_MAX, Math.min(T.ADJUST_MAX, Math.round(a.adjust || 0)));
     return { k, score: clamp((det[k] || 0) + d), evidence: a.evidence || "" };
   });
+  // Overall: mostly the AI's "does this look generated" judgment, the rest from the six measured categories.
   const total = Object.values(WEIGHTS).reduce((x, y) => x + y, 0);
-  const overall = clamp(categories.reduce((sum, c) => sum + c.score * (WEIGHTS[c.k] || 0), 0) / total);
+  const rest = categories.reduce((sum, c) => sum + c.score * (WEIGHTS[c.k] || 0), 0) / total;
+  const orig = categories.find((c) => c.k === "originality").score;
+  const overall = clamp(T.ORIGINALITY_SHARE * orig + (1 - T.ORIGINALITY_SHARE) * rest);
   return { categories, score: overall, label: labelFor(overall) };
 }

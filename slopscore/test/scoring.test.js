@@ -11,31 +11,38 @@ test("a clean page scores 0 everywhere", () => {
 });
 
 test("each rule adds what the config says", () => {
-  assert.equal(typography({ ...clean, fontSizes: 8 }), 16);
-  assert.equal(typography({ ...clean, fontFamilies: 3 }), 20);
-  assert.equal(typography({ ...clean, bodyLineHeight: 1.3 }), 15);
-  assert.equal(color({ ...clean, grays: 7, aiGradient: true }), 16 + 25);
-  assert.equal(spacing({ ...clean, gridShare: 0.8 }), 20);
-  assert.equal(components({ ...clean, filledButtons: 3, cardDepth: 2 }), 50 + 30);
-  assert.equal(copy({ ...clean, buzzwords: ["a", "b"], headingEmoji: 1 }), 12 + 10);
-  assert.equal(accessibility(clean, [{ impact: "critical" }, { impact: "serious" }, { impact: "minor" }]), 21);
+  assert.equal(typography({ ...clean, fontSizes: 12 }), 8);
+  assert.equal(typography({ ...clean, fontSizes: 40 }), 40); // capped
+  assert.equal(typography({ ...clean, fontFamilies: 3 }), 15);
+  assert.equal(typography({ ...clean, bodyLineHeight: 1.3 }), 10);
+  assert.equal(color({ ...clean, grays: 10, aiGradient: true }), 8 + 30);
+  assert.equal(spacing({ ...clean, gridShare: 0.65 }), 10);
+  assert.equal(components({ ...clean, filledButtons: 4, cardDepth: 3 }), 12 + 15);
+  assert.equal(copy({ ...clean, buzzwords: ["a", "b"], headingEmoji: 1 }), 20 + 10);
+  assert.equal(accessibility(clean, [{ impact: "critical" }, { impact: "serious" }, { impact: "minor" }]), 17);
 });
 
 test("scores are capped at 100", () => {
   const d = deterministic(sloppy, Array.from({ length: 20 }, () => ({ impact: "critical" })));
   for (const v of Object.values(d)) assert.ok(v <= 100 && v >= 0);
-  assert.equal(d.color, 100);
+  assert.ok(d.color >= 60); // purple gradient + gradient text + many grays
 });
 
 test("finalize applies clamped AI adjustments, weights and labels", () => {
   const det = deterministic(clean, []);
   const f = finalize(det, { adjustments: [{ category: "copy", adjust: 40, evidence: "x" }], originality: 10 });
-  assert.equal(f.categories.find((c) => c.k === "copy").score, 15); // adjustment clamped to +15
+  assert.equal(f.categories.find((c) => c.k === "copy").score, 30); // adjustment clamped to +30
   assert.equal(f.categories.find((c) => c.k === "originality").score, 10);
-  assert.equal(f.score, Math.round((15 * 10 + 10 * 15) / 100));
+  assert.equal(f.score, Math.round(0.55 * 10 + 0.45 * ((30 * 10) / 60)));
   assert.equal(f.label, "Designed");
   assert.equal(labelFor(21), "A little sloppy");
   assert.equal(labelFor(100), "Pure slop");
+});
+
+test("hand-made rich pages land low, the AI-builder look lands high", () => {
+  const linear = { fontSizes: 12, fontFamilies: 2, bodyLineHeight: 1.5, grays: 10, accentHues: 10, aiGradient: false, gradientText: false, spacingValues: 37, gridShare: 0.78, radii: 11, shadows: 12, filledButtons: 6, cardDepth: 4, buzzwords: [], headingEmoji: 0, imagesNoAlt: 0, smallTargets: 16 };
+  assert.ok(finalize(deterministic(linear, [{ impact: "serious" }]), { originality: 10 }).score <= 20);
+  assert.ok(finalize(deterministic(sloppy, [{ impact: "serious" }]), { originality: 75 }).score > 40); // "Sloppy" or worse
 });
 
 import { view } from "../src/view.js";

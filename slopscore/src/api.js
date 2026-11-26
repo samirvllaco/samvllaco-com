@@ -94,7 +94,7 @@ async function scan(ctx) {
   const u = checkUrl(body.url);
   if (!u.ok) return fail(u.reason);
   const hash = await sha(u.url);
-  const cached = await env.CACHE.get(`u:${hash}`);
+  const cached = await env.CACHE.get(`u2:${hash}`);
   if (cached) {
     const r = await env.DB.prepare("SELECT * FROM reports WHERE id = ?").bind(cached).first();
     if (r) return json(view(r));
@@ -157,7 +157,7 @@ async function run(env, u, hash, ip, owner, send) {
   const metrics = { ...page.metrics, copy: undefined, axeOk: page.axeOk, axeRules: page.axe.length, axeElements: page.axe.reduce((s, v) => s + (v.nodes || 0), 0), axeCritical: page.axe.some((v) => v.impact === "critical") };
   await env.DB.prepare("INSERT INTO reports (id, url, url_hash, score, label, verdict, categories, issues, metrics, unlocked, model, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 0, ?, ?)")
     .bind(id, u.url, hash, fin.score, fin.label, ai.verdict || "", JSON.stringify(fin.categories), JSON.stringify(ai.issues || []), JSON.stringify(metrics), ai.model, new Date().toISOString()).run();
-  await env.CACHE.put(`u:${hash}`, id, { expirationTtl: SLOP.cacheHours * 3600 });
+  await env.CACHE.put(`u2:${hash}`, id, { expirationTtl: SLOP.cacheHours * 3600 });
   await count(env, ip); // a finished scan is what counts
   const r = await env.DB.prepare("SELECT * FROM reports WHERE id = ?").bind(id).first();
   return view(r);
