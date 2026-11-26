@@ -175,7 +175,7 @@ export default function Globe({ full = false, bg }) {
 
   return (
     <section className={`globe-wrap${full ? " is-full" : ""}`} aria-label="Places I have been" data-bg={bg}>
-      <div className="globe-stage" ref={box} data-lenis-prevent>
+      <div className="globe-stage" ref={box}>
         <canvas ref={cv} aria-hidden="true" />
         {PLACES.map((pl, i) => (
           <button

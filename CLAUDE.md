@@ -77,13 +77,20 @@ Accessibility and Slop Score offers (owner, 25 Nov 2026): EAA audit $1,500 (5 wo
 ## Type and spacing system (owner, 15 Nov 2026, locked)
 Tokens and role rules are the last block of `app/globals.css` ("Type and spacing system"). Use them; never set a one-off heading size.
 - Spacing: 4px base, only 4, 8, 12, 16, 20, 24, 32, 40, 48, 64, 80, 96, 128. Sections use `--space-section` (64px on phones, 128px at 1440), gutters `--gutter` (16 to 40px). Intro blocks (eyebrow, title, lede) 12px apart; card grids 20px.
-- Widths: content 1200px (`--max`), prose 760px (`--prose`), hero headline 800px.
-- Type roles: display h1 56/60, section title h2 42/48, panel headline 28/36, subhead 24/32, card title 20/28, lede 18/28. Tracking -0.027em on display and titles. No heading heavier than 600.
+- Widths: content 1280px (`--max`; was 1200 until 26 Nov 2026), prose 760px (`--prose`), hero headline 920px.
+- Type roles: display h1 64/68, section title h2 48/56 (both raised 26 Nov 2026), panel headline 28/36, subhead 24/32, card title 20/28, lede 18/28. Tracking -0.027em on display and titles. Nothing on the site heavier than 600.
 - One ink, one accent; secondary text is the ink at lower opacity or `--muted`.
 
 ## Layout check (owner, 26 Nov 2026: "do full layout check, make sure we follow it strictly")
-Inside every section: 12px between eyebrow, title and lede (`--gap-intro`); 48px from the intro to the content, between content groups and from the content to its button (`--gap-content`, 32px on phones); 20px between cards and between a card grid and its chips or filters (`--gap-grid`); card padding on the spacing scale (24 for cards, 32 for big panels). Sections sit `--space-section` apart; where sections have padding and a hairline divider, the line sits halfway. Every panel, grid and card row spans the 1200px content box or starts at its left edge; only text, product shots and mockups are centered narrower. The rules live in the last blocks of `app/globals.css` ("Layout system, strict").
+Inside every section: 12px between eyebrow, title and lede (`--gap-intro`); 48px from the intro to the content, between content groups and from the content to its button (`--gap-content`, 32px on phones); 20px between cards and between a card grid and its chips or filters (`--gap-grid`); card padding on the spacing scale (24 for cards, 32 for big panels). Sections sit `--space-section` apart; where sections have padding and a hairline divider, the line sits halfway. Every panel, grid and card row spans the 1280px content box or starts at its left edge; only text, product shots and mockups are centered narrower. The rules live in the last blocks of `app/globals.css` ("Layout system, strict").
 Before calling a layout change done, with `npx serve out -l 4173` running: `NODE_PATH=$(npm root -g) node scripts/layout.cjs` (all pages) or `... scripts/layout.cjs /page/`. It must end with 0 layout problems.
+
+## Feel consistency (owner, 26 Nov 2026: "i want the feel, consistency", not a copy of another site)
+One value per job, kept in the last block of `app/globals.css` ("Feel consistency"):
+- Radius: `--r-card` 20 for cards and panels, `--r-inner` 12 for boxes inside cards and media, `--r-sm` 8 for small parts; pills (999px) and circles stay. Never a one-off radius.
+- Surfaces: three card tones (#111112, #1c1c1e, #2a2a2c) and one glass (rgba(28,28,30,.86)) for floating bars. Lines: 8% white for card edges, 12% for dividers, 20% strong.
+- Motion: `--ease-out` for everything, `--spring` (one bounce) for pops and presses, durations .15 / .25 / .35 / .5s. Ambient loops stay linear. The scroll reveal keeps its own timing (owner: "keep our scroll animation").
+- No smooth-scroll library: Locomotive Scroll was removed on 26 Nov 2026; the page scrolls natively.
 
 ## Buttons (owner, 13 Nov 2026, locked)
 - Only the two button classes in DESIGN.md (Buttons), with the hover and state rules defined there. Check every new or moved button on hover before calling a change done.
