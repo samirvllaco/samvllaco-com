@@ -5186,7 +5186,7 @@ main > .page > .hero-dots-cv { height: clamp(560px, 86vh, 860px); }
 .pr-plan.is-hot { background: linear-gradient(180deg, #17181c, #171719); box-shadow: inset 0 0 0 1px rgba(98, 193, 253, .45), 0 24px 60px -30px rgba(37, 99, 235, .6); }
 .pr-k { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin: 0; font-size: .875rem; font-weight: 600; color: var(--muted); }
 .pr-k span { padding: 4px 10px; border-radius: var(--r-sm); font-size: .6875rem; letter-spacing: .06em; text-transform: uppercase; color: #0b0b0c; background: #62c1fd; }
-.pr-price { display: flex; align-items: baseline; gap: 8px; margin: 16px 0 0; font-size: clamp(2.5rem, 4vw, 3.25rem); font-weight: 600; letter-spacing: -.04em; color: var(--text); }
+.pr-price { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 8px; margin: 16px 0 0; font-size: clamp(2.5rem, 4vw, 3.25rem); font-weight: 600; letter-spacing: -.04em; color: var(--text); }
 .pr-price span { font-size: 1rem; font-weight: 500; letter-spacing: 0; color: var(--muted); }
 .pr-lead { margin: 8px 0 0; font-size: 1rem; color: var(--text); }
 .pr-items { list-style: none; display: grid; gap: 10px; margin: 24px 0 0; padding: 0; }
@@ -5557,7 +5557,7 @@ main > .page > .hero-dots-cv { height: clamp(560px, 86vh, 860px); }
 @media (max-width: 1024px) { .ax-checks { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 760px) { .ax-stats { grid-template-columns: minmax(0, 1fr); } }
 @media (max-width: 480px) { .ax-checks { grid-template-columns: minmax(0, 1fr); } }
-.ax-page .pr-items { margin-bottom: 24px; }
+.ax-page .pr-items, #sv-start .pr-items { margin-bottom: 24px; }
 .ax-checks.ax-three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .ax-price { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: center; gap: 8px; margin: 0; color: var(--muted); font-size: 1.125rem; }
 .ax-price b { font-size: clamp(2.5rem, 2rem + 2vw, 3.5rem); line-height: 1.072; font-weight: 600; letter-spacing: -.027em; color: var(--text); }
@@ -7562,3 +7562,4 @@ html.js .bx-world[data-reveal].is-shown .wf-facts > div > dd { transition-durati
    words, so until the words are all in (hero-done, set by a script at the end of the hero) it stays out of the layout;
    otherwise it showed above them and was pushed down, a 0.32 layout shift. Desktop keeps it from the first frame. */
 @media (max-width: 1099px) { html.js .hero-split:not(.hero-done) > .hero-show { display: none; } }
+@media (max-width: 640px) { .pr-price { font-size: 2.25rem; } }

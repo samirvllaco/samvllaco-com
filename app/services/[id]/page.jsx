@@ -16,6 +16,7 @@ import { SITE } from "../../../lib/site";
 import { POSTS } from "../../../lib/articles";
 import { GUIDES } from "../../../lib/service-guides";
 import { share, PERSON_ID } from "../../../lib/seo";
+import { TRIAL_WEEK, PROJECT_FROM, usd } from "../../../lib/plans";
 
 const ALL = SERVICES.flatMap((g) => g.items.map((it) => ({ ...it, group: g }))).filter((it) => !groupOf(it.id));
 const STEP_ICONS = ["M4 5h16v11H9l-5 4z", "M6 3h9l4 4v14H6zM9 11h7M9 15h7", "M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z", "M12 3v12M7 10l5 5 5-5M5 21h14"];
@@ -91,8 +92,8 @@ export default async function ServicePage({ params }) {
             <a className="hero2-btn hero2-btn-light" href="#sv-work">See the work</a>
           </div>
           <ul className="sv-proof">
-            <li><b>10+</b> years</li>
-            <li><b>570+</b> clients</li>
+            <li><b>10</b> years</li>
+            <li><b>573</b> clients</li>
             <li><b>10,000+</b> screens</li>
           </ul>
         </div>
@@ -147,6 +148,27 @@ export default async function ServicePage({ params }) {
           </ul>
         </section>
       ) : null}
+
+      {/* Ways to start, so each service page works on its own as a landing page (owner, 27 Nov 2026, after
+          grafit.agency/solutions/ads): the two real offers from lib/plans.js, then the free audit for people not ready to talk. */}
+      <section className="sv-sec ax-get" id="sv-start" aria-labelledby="sv-start-h">
+        <h2 id="sv-start-h">Ways <span className="t2">to start</span></h2>
+        <ul className="pr-plans pr-two">
+          {[
+            { k: "Trial week", price: usd(TRIAL_WEEK), per: "one week", lead: "One week on a real problem in your product.", cta: "Start a trial week", items: ["You see how I think, how fast I move and what the files look like", "Figma files your team can build from", "You keep everything I made that week", "If it fits, the full project starts from there"] },
+            { k: "Full project", price: `From ${usd(PROJECT_FROM)}`, per: "one fixed price", hot: true, lead: "Scoped with you on a 30-minute call.", cta: "Start a project", items: ["A scope, a timeline and a fixed price before any work starts", "Every screen and state the project needs", "Figma files and a build-ready handoff", "I work with your developer or AI builder"] },
+          ].map((o) => (
+            <li key={o.k} className={`pr-plan${o.hot ? " is-hot" : ""}`}>
+              <p className="pr-k">{o.k}</p>
+              <p className="pr-price">{o.price}<span>{o.per}</span></p>
+              <p className="pr-lead">{o.lead}</p>
+              <ul className="pr-items">{o.items.map((t) => <li key={t}>{t}</li>)}</ul>
+              <a className={`hero2-btn ${o.hot ? "hero2-btn-primary" : "hero2-btn-light"}`} href="/book/">{o.cta}<CallIcon /></a>
+            </li>
+          ))}
+        </ul>
+        <p className="ax-banner">Not ready to talk yet? <Link prefetch={false} href="/free-audit/">Get a free UX audit</Link></p>
+      </section>
 
       {quote ? (
         <section className="sv-sec sv-quote" aria-label="Client review">

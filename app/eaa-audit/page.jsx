@@ -100,7 +100,7 @@ export default function EaaAudit() {
             </li>
           ))}
         </ul>
-        <p className="sub-note">The audit tells you how many sprints you need.</p>
+        <p className="sub-note">The audit tells you what the Fix Sprint will cost.</p>
         <p className="ax-banner">Running several products or shipping every week? <a href="/accessibility/">See managed accessibility</a></p>
       </section>
 
