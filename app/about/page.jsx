@@ -3,7 +3,7 @@ import path from "path";
 import ScrollText from "../../components/ScrollText";
 import { MarkerText, Mark } from "../../components/MarkerText";
 import Link from "next/link";
-import SkyPhoto from "../../components/SkyPhoto";
+import AboutPortrait from "../../components/AboutPortrait";
 import PageHead from "../../components/PageHead";
 import { SITE } from "../../lib/site";
 import { share, PERSON_ID } from "../../lib/seo";
@@ -51,7 +51,7 @@ export default function About() {
       <JsonLd data={{ "@context": "https://schema.org", "@type": "ProfilePage", "@id": `${SITE.url}/about/#page`, url: `${SITE.url}/about/`, name: "About Sam Vllaco", mainEntity: { "@id": PERSON_ID } }} />
       <PageHead crumb="About" href="/about/" a="I design apps." b="I also ship my own." />
       <div className="ab-wrap">
-      <div className="ab-photo"><SkyPhoto eager /></div>
+      <div className="ab-photo"><AboutPortrait /></div>
       <div className="ab">
         {PARTS.map((p) => {
           const ext = has(p.id);

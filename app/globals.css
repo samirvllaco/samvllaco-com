@@ -7415,3 +7415,14 @@ html.on-light .edge-blur { opacity: 0; }
 .tw p { margin: 0; max-width: 60ch; font-size: 1.0625rem; line-height: 1.6; color: var(--muted); }
 .tw-go { margin-top: calc(var(--gap-content, 40px) - var(--gap-intro, 12px)); justify-content: center; }
 :root:root:root .tw > h2 { margin: 0 !important; } :root:root:root .tw > h2 + p { margin-top: 0 !important; }
+
+/* About portrait with the spec lens (AboutPortrait.jsx) */
+.ap { position: relative; margin: 0; aspect-ratio: 1; border-radius: var(--r-card); overflow: hidden; background: #111112; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .08); cursor: crosshair; touch-action: pan-y; }
+.ap > img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.ap-cv { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.ap-hint { position: absolute; left: 12px; bottom: 12px; padding: 4px 10px; border-radius: 999px; font-size: .75rem; font-weight: 500; color: #d4d4d8; background: rgba(17, 17, 18, .7); transition: opacity .3s var(--ease-out); }
+.ap:hover .ap-hint { opacity: 0; }
+.ap-touch { display: none; }
+@media (hover: none) { .ap-fine { display: none; } .ap-touch { display: inline; } .ap { cursor: auto; } }
+:root:root .ab-photo .ap { width: 100%; }
+@media (max-width: 860px) { :root:root .ab-photo .ap { max-width: 480px; } }
