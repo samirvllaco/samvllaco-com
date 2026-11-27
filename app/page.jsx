@@ -19,6 +19,7 @@ import WorkCarousel from "../components/WorkCarousel";
 import HeroQuote, { QUOTE_DAY } from "../components/HeroQuote";
 import HowIWork from "../components/HowIWork";
 import Fixes from "../components/Fixes";
+import TrialWeek from "../components/TrialWeek";
 import HeroReviews from "../components/HeroReviews";
 import HeroShow from "../components/HeroShow";
 import { LocalTime, CountUp } from "../components/Greeting";
@@ -160,6 +161,8 @@ export default function Home() {
       {SHOW_TESTIMONIALS ? <Testimonials /> : null}
 
       <Bento />
+
+      <TrialWeek />
 
       <Faq items={FAQ} light>
         {/* eslint-disable-next-line @next/next/no-img-element */}

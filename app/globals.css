@@ -7407,3 +7407,11 @@ html.on-light .edge-blur { opacity: 0; }
 .pa-meta:focus-visible { outline: 3px solid rgba(98, 193, 253, .6); outline-offset: 2px; }
 @media (max-width: 1100px) { .pa-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 640px) { .pa-grid { grid-template-columns: minmax(0, 1fr); } .pa-slide img { height: 420px; } }
+
+/* Trial week, before the FAQ (owner, 27 Nov 2026): centred like the closing call; the price sits in the site's flat highlight box */
+.tw { display: grid; justify-items: center; gap: var(--gap-intro, 12px); margin-top: var(--sec); text-align: center; }
+.tw h2 { margin: 0; max-width: 18ch; text-wrap: balance; }
+.tw .tw-price { display: inline-block; padding: 0 .2em; border-radius: var(--r-sm); color: var(--text); background: rgba(255, 255, 255, .1); }
+.tw p { margin: 0; max-width: 60ch; font-size: 1.0625rem; line-height: 1.6; color: var(--muted); }
+.tw-go { margin-top: calc(var(--gap-content, 40px) - var(--gap-intro, 12px)); justify-content: center; }
+:root:root:root .tw > h2 { margin: 0 !important; } :root:root:root .tw > h2 + p { margin-top: 0 !important; }
