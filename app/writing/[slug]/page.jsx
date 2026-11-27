@@ -9,6 +9,8 @@ import CaseAside from "../../../components/CaseAside";
 import JsonLd from "../../../components/JsonLd";
 import ArticleBody from "../../../components/ArticleBody";
 import { POSTS } from "../../../lib/articles";
+import { TLDR } from "../../../lib/tldr";
+import ArticleTools from "../../../components/ArticleTools";
 import { parseMd } from "../../../lib/md";
 import { SITE } from "../../../lib/site";
 import { share, PERSON_ID } from "../../../lib/seo";
@@ -53,8 +55,18 @@ export default async function Article({ params }) {
         <header className="case-head art-head" id="intro">
           <h1>{p.title}</h1>
           <p className="lede">{lede}</p>
-          <p className="art-meta">By <Link prefetch={false} href="/about/">Sam Vllaco</Link><span aria-hidden="true"> · </span><time dateTime={p.published}>{fmt(p.published)}</time><span aria-hidden="true"> · </span>{p.minutes} min read</p>
+          <div className="art-bar">
+            <p className="art-meta">By <Link prefetch={false} href="/about/">Sam Vllaco</Link><span aria-hidden="true"> · </span><time dateTime={p.published}>{fmt(p.published)}</time><span aria-hidden="true"> · </span>{p.minutes} min read</p>
+            <ArticleTools title={p.title} url={`${SITE.url}/writing/${slug}/`} />
+          </div>
         </header>
+
+        {TLDR[slug] ? (
+          <aside className="art-tldr" aria-labelledby="tldr-h">
+            <p className="art-tldr-h" id="tldr-h"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M10 6h10M10 12h10M10 18h10M3.5 6l1.5 1.5L7.5 5M3.5 12l1.5 1.5 2.5-2.5M3.5 18l1.5 1.5 2.5-2.5" /></svg>TL;DR</p>
+            <ul>{TLDR[slug].map((t) => <li key={t}>{t}</li>)}</ul>
+          </aside>
+        ) : null}
 
         <div className="case-hero art-cover">
           {/* eslint-disable-next-line @next/next/no-img-element */}
