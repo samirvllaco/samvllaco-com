@@ -4,7 +4,7 @@ import Link from "next/link";
 
 // Hero work window (owner, 27 Nov 2026: "dont copy them, come up with our own better version").
 // Sam's desk, not a video player: a design file window with one tab per project, the work on a dotted canvas
-// under its frame label, and a status bar with the project's tags and a link to the case study.
+// (no frame label, owner 27 Nov 2026: "keep it clean"), and a status bar with the project's tags and a link to the case study.
 // The active tab's top line and a bar along the frame's foot fill while it plays, then the next tab opens;
 // a small spinner shows while a clip is still loading.
 // First frame is a still image; videos load and the tabs advance only after the first interaction (html.is-live),
@@ -62,7 +62,6 @@ export default function HeroShow({ items: LIST }) {
         </div>
       </div>
       <div className="hs-canvas">
-        <p className="hs-label"><svg viewBox="0 0 24 24" width="12" height="12" aria-hidden="true"><path d="M8 3v18M16 3v18M3 8h18M3 16h18" /></svg>{w.title}</p>
         <Link prefetch={false} className="hs-frame" href={`/work/${w.slug}/`} tabIndex={-1} aria-hidden="true">
           {LIST.map((x, k) => (
             <span className={`hs-slide${k === i ? " is-on" : ""}`} key={x.slug}>

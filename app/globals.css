@@ -6654,7 +6654,7 @@ html.js:not(.is-live) .intro *, html.js:not(.is-live) .intro { animation-play-st
 .hero-show[data-paused] .hs-tabs button.is-on i { animation-play-state: paused; }
 @keyframes hs-fill { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 /* Canvas: the dotted board with the work on it, labelled like a frame in a design file */
-.hs-canvas { position: relative; display: grid; gap: 8px; padding: 16px 24px 24px; background-color: #1c1c1f; background-image: radial-gradient(rgba(255, 255, 255, .07) 1px, transparent 1.2px); background-size: 16px 16px; background-position: 8px 8px; }
+.hs-canvas { position: relative; display: grid; gap: 8px; padding: 24px; background-color: #1c1c1f; background-image: radial-gradient(rgba(255, 255, 255, .07) 1px, transparent 1.2px); background-size: 16px 16px; background-position: 8px 8px; }
 .hs-label { display: flex; align-items: center; gap: 8px; margin: 0; font-size: .75rem; font-weight: 500; line-height: 1.5; letter-spacing: 0; color: #a1a1a6; }
 .hs-label svg { fill: none; stroke: currentColor; stroke-width: 2; }
 .hs-frame { position: relative; display: block; aspect-ratio: 4 / 3; overflow: hidden; border-radius: var(--r-inner); background: #26262a; box-shadow: 0 0 0 1px rgba(98, 193, 253, .55), 0 24px 48px -28px rgba(0, 0, 0, .8); }
@@ -6941,3 +6941,7 @@ html.on-light .ask-me svg { background: #fff; }
   .gs-word { font-size: 60px; } .gs-k, .gs-hub-t { font-size: 22px; } .gs-cap { font-size: 19px; } .gs-tile-t { font-size: 30px; }
 }
 :root:root .wrap.page > section.gs { margin-top: var(--sec); }
+/* Icon tiles never rotate, tilt or grow on hover (owner, 27 Nov 2026: "remove this pattern of rotating on hover") */
+@media (hover: hover) and (pointer: fine) {
+  :root:root:root :is(a, button, li, .tg, .bx-card, .fx-row, .sub-why > *, .sub-steps > *):is(:hover, .is-open) :is(.tg-ico, .mx-ico, .pain-ico, .sv-ico, .tb-ico) { transform: none; rotate: none; scale: none; translate: none; }
+}
