@@ -2807,17 +2807,16 @@ a, button, summary, [role="button"], label { -webkit-tap-highlight-color: transp
   :is(.hero2-btn, .head-cta, .btn, .sec-arrows button, .sd-btn, .to-top, .copy-email, .head-end > button, .vid-bubble):active {
     scale: .96 .92; translate: 0 1px; transition-duration: var(--t-instant); transition-timing-function: var(--ease-snap);
   }
-  /* 11 Solid drawing in 3D: lift is a straight rise, no shadow change (DESIGN.md) */
+  /* 11 Buttons no longer rise on hover (owner, 27 Nov 2026); call buttons wipe instead, see "Button hover wipe" */
   @media (hover: hover) {
-    :is(.hero2-btn, .head-cta, .btn, .sd-btn, .to-top):hover { translate: 0 -2px; }
-    :is(.hero2-btn, .head-cta, .btn, .sd-btn, .to-top):hover:active { translate: 0 1px; }
+    :is(.btn, .sd-btn, .to-top):hover { translate: 0 -2px; }
+    :is(.btn, .sd-btn, .to-top):hover:active { translate: 0 1px; }
   }
 
   /* 2 Anticipation: icons pull back first, then swing through (wind-up easing) */
   :is(.hero2-btn, .head-cta) svg { transition: rotate .35s var(--ease-wind), scale .35s var(--ease-wind), translate .35s var(--ease-wind); }
   @media (hover: hover) {
-    :is(.hero2-btn, .head-cta):hover svg { rotate: -12deg; scale: 1.15; }
-    .head-cta-book:hover svg { rotate: 0deg; scale: 1; animation: dl-bob .9s var(--ease-snap) infinite; }
+
   }
   @keyframes dl-bob { 0%, 100% { translate: 0 0; } 45% { translate: 0 3px; } 70% { translate: 0 -1px; } }
 
@@ -6012,7 +6011,6 @@ html.is-live .ask-pill::before { animation-play-state: running; }
   .hw-grid li:hover .hw-get, .fx-row:hover .fx-fix { background: #2c2c2f; }
   /* The calendar icon on call buttons gives a small turn on hover. */
   :is(.hero2-btn, .head-cta) .call-ico { transition: rotate .35s var(--spring); }
-  :is(.hero2-btn, .head-cta):hover .call-ico { rotate: -10deg; }
   /* Plain text links open their underline gap slightly. */
   :is(p, li) > a:not([class]) { text-underline-offset: 3px; transition: text-underline-offset .25s var(--ease-out); }
   :is(p, li) > a:not([class]):hover { text-underline-offset: 5px; }
@@ -6558,3 +6556,19 @@ body:has(.book-split.is-full) .site-footer { display: none; }
 @keyframes wg-b4 { 0%, 34% { opacity: 0; scale: .6; } 42%, 100% { opacity: 1; scale: 1; } }
 @keyframes wg-b5 { 0%, 48% { opacity: 0; scale: .5; } 56%, 100% { opacity: 1; scale: 1; } }
 .wg-b1, .wg-b2, .wg-b3 { transform-origin: left; }
+
+/* ==========================================================================
+   Button hover wipe (owner, 27 Nov 2026: "don't raise the button on hover, add the grafit.agency effect").
+   A darker layer wipes in from the left behind the label and the icon slides out to the right and back in
+   from the left, .35s on grafit's curve. Mouse and trackpad only; touch keeps the press squash.
+   ========================================================================== */
+@media (hover: hover) and (pointer: fine) {
+  :root:root :is(.hero2-btn, .head-cta) { position: relative; isolation: isolate; --wipe: rgba(0, 0, 0, .22); }
+  :root:root :is(.hero2-btn-light, .work-more .hero2-btn) { --wipe: rgba(255, 255, 255, .1); }
+  :root:root :is(.hero2-btn, .head-cta)::before { content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit; background: var(--wipe); transform: scaleX(0); transform-origin: left center; transition: transform .35s cubic-bezier(.22, .61, .36, 1); pointer-events: none; }
+  :root:root :is(.hero2-btn, .head-cta):hover::before { transform: scaleX(1); }
+  :root:root :is(.hero2-btn, .head-cta):hover { filter: none; translate: none; }
+  :root:root :is(.hero2-btn, .head-cta):hover svg { rotate: 0deg; scale: 1; animation: btn-slot .525s cubic-bezier(.23, 1, .32, 1) both; }
+}
+@keyframes btn-slot { 0% { translate: 0 0; opacity: 1; } 50% { translate: .7em 0; opacity: 0; } 50.01% { translate: -.7em 0; opacity: 0; } 100% { translate: 0 0; opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { :root:root :is(.hero2-btn, .head-cta)::before { transition: none; } :root:root :is(.hero2-btn, .head-cta):hover svg { animation: none; } }
