@@ -6429,69 +6429,38 @@ html.is-live .ask-pill::before { animation-play-state: running; }
 :root:root .bx-soft .bx-stat.wg > * { grid-column: 1; grid-row: auto; align-self: auto; }
 .wg-art { position: relative; justify-self: stretch; height: 128px; margin-bottom: 16px; }
 .wg-k { margin: 0; font-size: .75rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); }
-:root:root .bx-soft .bx-stat.wg b { display: flex; align-items: center; gap: 12px; font-size: 2.5rem; line-height: 1.2; font-weight: 500; letter-spacing: -.03em; }
+:root:root .bx-soft .bx-stat.wg > b { display: flex; align-items: center; gap: 12px; font-size: 2.5rem; line-height: 1.2; font-weight: 500; letter-spacing: -.03em; }
 :root:root .bx-soft .bx-stat.wg > span { font-size: .9375rem; color: var(--muted); }
 /* The scene's own parts are not the stat's label: undo the old laurel grid on them */
 :root:root .bx-stat.wg .wg-art span { font-size: inherit; color: inherit; }
-:root:root .wg-charge > * { grid-column: 1; grid-row: auto; }
-:root:root :is(.wg-orbit, .wg-scan) > * { grid-area: 1 / 1; }
+:root:root .bx-stat.wg .wg-art :is(span, b) { grid-column: auto; grid-row: auto; }
+:root:root:root:root .bx-stat.wg :is(.wg-orbit, .wg-build, .wg-view) > * { grid-area: 1 / 1; }
 .wg-pill { padding: 4px 12px; border-radius: 999px; font-style: normal; font-size: .8125rem; font-weight: 500; letter-spacing: 0; color: #ffbf94; background: rgba(255, 138, 61, .16); box-shadow: inset 0 0 0 1px rgba(255, 138, 61, .4); }
-
-/* 1. Charge bar: fills to full, holds, drains */
-.wg-charge { display: grid; align-content: end; gap: 12px; }
-:root:root .bx-stat.wg .wg-ticks { display: flex; justify-content: space-between; padding: 0 8px; font-size: .8125rem; color: var(--muted); font-variant-numeric: tabular-nums; }
-.wg-ticks i { font-style: normal; }
-.wg-bar { position: relative; display: block; height: 56px; border-radius: 999px; overflow: hidden; background: linear-gradient(180deg, #1c1c20, #0b0b0d); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .08), inset 0 6px 12px rgba(255, 255, 255, .08), inset 0 -16px 24px -8px rgba(0, 0, 0, .55); }
-.wg-fill { position: absolute; inset: 5px; border-radius: 999px; background: linear-gradient(90deg, #1d4ed8, #3b82f6 60%, #62c1fd); box-shadow: inset 0 8px 12px -6px rgba(255, 255, 255, .5), 0 0 24px rgba(98, 193, 253, .45); clip-path: inset(0 12% 0 0 round 999px); }
-.wg-bolt { position: absolute; right: 20px; top: 50%; translate: 0 -50%; fill: #fff; filter: drop-shadow(0 0 6px rgba(255, 255, 255, .6)); }
-.wg.is-on .wg-fill { animation: wg-charge 6s cubic-bezier(.45, 0, .2, 1) infinite; }
-.wg.is-on .wg-bolt { animation: wg-bolt 6s cubic-bezier(.45, 0, .55, 1) infinite; }
-@keyframes wg-charge { 0%, 8% { clip-path: inset(0 88% 0 0 round 999px); } 55%, 86% { clip-path: inset(0 0 0 0 round 999px); } 100% { clip-path: inset(0 88% 0 0 round 999px); } }
-@keyframes wg-bolt { 0%, 50% { scale: 1; } 56% { scale: 1.25; } 62%, 100% { scale: 1; } }
 
 /* 2. Orbit: two rings turning, a ping from the centre, the centre breathing */
 .wg-orbit { display: grid; place-items: center; }
 .wg-orbit > * { grid-area: 1 / 1; }
 .wg-ring { border-radius: 50%; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .1); }
-.wg-r1 { width: 124px; height: 124px; } .wg-r2 { width: 80px; height: 80px; }
+.wg-r1 { width: 124px; height: 124px; } .wg-r2 { width: 88px; height: 88px; }
 .wg-ping { width: 48px; height: 48px; border-radius: 50%; box-shadow: inset 0 0 0 1.5px rgba(98, 193, 253, .7); opacity: 0; }
 .wg-spin { position: relative; width: 124px; height: 124px; }
-.wg-s2 { width: 80px; height: 80px; }
-.wg-spin i { position: absolute; width: 8px; height: 8px; margin: -4px; border-radius: 50%; background: #62c1fd; box-shadow: 0 0 10px currentColor; color: #62c1fd; }
-.wg-s1 i:nth-child(1) { left: 50%; top: 0; } .wg-s1 i:nth-child(2) { left: 50%; top: 100%; background: #ff8a3d; color: #ff8a3d; }
-.wg-s2 i:nth-child(1) { left: 100%; top: 50%; background: #30d158; color: #30d158; width: 6px; height: 6px; margin: -3px; }
-.wg-s2 i:nth-child(2) { left: 15%; top: 85%; background: #fff; color: rgba(255, 255, 255, .7); width: 6px; height: 6px; margin: -3px; }
-.wg-s2 i:nth-child(3) { left: 15%; top: 15%; background: #ff8a3d; color: #ff8a3d; width: 6px; height: 6px; margin: -3px; }
-.wg-orbit img { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; box-shadow: 0 0 0 2px #fff, 0 8px 18px rgba(0, 0, 0, .45); }
+.wg-s2 { width: 88px; height: 88px; }
+.wg-spin > i { position: absolute; width: 20px; height: 20px; margin: -10px; border-radius: 50%; overflow: hidden; box-shadow: 0 0 0 2px rgba(255, 255, 255, .9), 0 6px 14px rgba(0, 0, 0, .5); }
+.wg-spin > i img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.wg-s1 > i:nth-child(1) { left: 50%; top: 0; } .wg-s1 > i:nth-child(2) { left: 50%; top: 100%; }
+.wg-s2 > i:nth-child(1) { left: 100%; top: 50%; } .wg-s2 > i:nth-child(2) { left: 15%; top: 85%; } .wg-s2 > i:nth-child(3) { left: 15%; top: 15%; }
+.wg.is-on .wg-s1 > i { animation: wg-turn 24s linear infinite reverse; }
+.wg.is-on .wg-s2 > i { animation: wg-turn 16s linear infinite; }
+.wg-orbit > img { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; box-shadow: 0 0 0 2px #fff, 0 8px 18px rgba(0, 0, 0, .45); }
 .wg.is-on .wg-s1 { animation: wg-turn 24s linear infinite; }
 .wg.is-on .wg-s2 { animation: wg-turn 16s linear infinite reverse; }
 .wg.is-on .wg-ping { animation: wg-ping 4s cubic-bezier(.22, 1, .36, 1) infinite; }
-.wg.is-on .wg-orbit img { animation: wg-breathe 2s cubic-bezier(.45, 0, .55, 1) infinite alternate; }
+.wg.is-on .wg-orbit > img { animation: wg-breathe 2s cubic-bezier(.45, 0, .55, 1) infinite alternate; }
 @keyframes wg-turn { to { rotate: 360deg; } }
 @keyframes wg-ping { 0% { scale: 1; opacity: .7; } 60%, 100% { scale: 2.4; opacity: 0; } }
 @keyframes wg-breathe { to { scale: 1.035; } }
 
-/* 3. Document scan: a line sweeps the screen twice, the corners hold it, a check seals it */
-.wg-scan { display: grid; place-items: center; }
-.wg-scan > * { grid-area: 1 / 1; }
-.wg-sheet { width: 72px; height: 92px; border-radius: 10px; background: rgba(255, 255, 255, .08); translate: 10px -6px; rotate: 6deg; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .08); }
-.wg-doc { display: grid; align-content: start; gap: 6px; width: 72px; height: 92px; padding: 12px 10px; border-radius: 10px; background: #f5f5f7; box-shadow: 0 18px 40px rgba(0, 0, 0, .35); }
-.wg-doc i { display: block; height: 4px; border-radius: 2px; background: #d2d2d7; }
-.wg-doc i:nth-child(1) { width: 60%; background: #8e8e93; } .wg-doc i:nth-child(3) { width: 80%; }
-.wg-doc .wg-cta { width: 50%; height: 8px; margin-top: 18px; background: #2563eb; border-radius: 4px; }
-.wg-c { width: 112px; height: 124px; --c: rgba(255, 255, 255, .35); background: linear-gradient(var(--c), var(--c)) var(--x) var(--y) / 14px 2px no-repeat, linear-gradient(var(--c), var(--c)) var(--x) var(--y) / 2px 14px no-repeat; }
-.wg-tl { --x: 0; --y: 0; } .wg-tr { --x: 100%; --y: 0; } .wg-bl { --x: 0; --y: 100%; } .wg-br { --x: 100%; --y: 100%; }
-:root:root .wg-scan .wg-line { align-self: start; width: 104px; height: 2px; margin-top: 4px; border-radius: 1px; background: #62c1fd; box-shadow: 0 0 12px 2px rgba(98, 193, 253, .7), 0 -16px 24px -4px rgba(98, 193, 253, .25); opacity: 0; }
-:root:root .wg-scan .wg-ok { display: grid; place-items: center; align-self: end; justify-self: center; width: 28px; height: 28px; margin-bottom: -6px; translate: 40px 0; border-radius: 50%; background: #30d158; box-shadow: 0 6px 16px rgba(48, 209, 88, .45); opacity: 0; scale: .4; }
-.wg-ok svg { fill: none; stroke: #fff; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
-.wg.is-on .wg-line { animation: wg-scanline 9.2s cubic-bezier(.55, 0, .45, 1) infinite; }
-.wg.is-on .wg-c { animation: wg-hold 9.2s cubic-bezier(.55, 0, .45, 1) infinite; }
-.wg.is-on .wg-ok { animation: wg-seal 9.2s cubic-bezier(.3, 1.25, .5, 1) infinite; }
-@keyframes wg-scanline { 0%, 12% { translate: 0 0; opacity: 0; } 16% { opacity: 1; } 34% { translate: 0 112px; } 52% { translate: 0 0; } 64% { translate: 0 112px; opacity: 1; } 68%, 100% { translate: 0 112px; opacity: 0; } }
-@keyframes wg-hold { 0%, 10% { scale: 1; } 16%, 64% { scale: 1.06; } 72%, 100% { scale: 1; } }
-@keyframes wg-seal { 0%, 68% { opacity: 0; scale: .4; } 72% { opacity: 1; scale: 1; } 92% { opacity: 1; scale: 1; } 98%, 100% { opacity: 0; scale: 1; } }
-
-@media (prefers-reduced-motion: reduce) { .wg .wg-art * { animation: none !important; } .wg-fill { clip-path: none; } }
+@media (prefers-reduced-motion: reduce) { .wg .wg-art * { animation: none !important; } }
 :root:root .pain2 + .sv-sec { margin-top: calc(var(--sec) / 2); }
 
 /* Square pattern on the call-to-action panels (owner, 27 Nov 2026, after a LogoLounge banner): a 32px grid of
@@ -6513,11 +6482,7 @@ html.is-live .ask-pill::before { animation-play-state: running; }
 .bx-soft .w4-bars i.win::before { content: ""; position: absolute; inset: 0; border-radius: inherit; background: linear-gradient(180deg, #62c1fd, #1d4ed8); box-shadow: inset 0 6px 10px -4px rgba(255, 255, 255, .5), 0 0 20px rgba(98, 193, 253, .45); clip-path: inset(0 0 0 0 round 5px); }
 .bx-proc.is-on .w4-bars i.win::before { animation: wg-rise 6s cubic-bezier(.45, 0, .2, 1) infinite; }
 @keyframes wg-rise { 0%, 8% { clip-path: inset(70% 0 0 0 round 5px); } 55%, 86% { clip-path: inset(0 0 0 0 round 5px); } 100% { clip-path: inset(70% 0 0 0 round 5px); } }
-/* Animation frame: a scan line sweeps down once every loop */
-.wg-sweep { position: absolute; inset: 0; z-index: 2; pointer-events: none; background: linear-gradient(180deg, transparent 0, transparent 72%, rgba(98, 193, 253, .16) calc(100% - 2px), #62c1fd calc(100% - 2px)); translate: 0 -100%; opacity: 0; }
-.bx-motion.is-on .wg-sweep { animation: wg-sweep 9.2s cubic-bezier(.55, 0, .45, 1) infinite; }
-@keyframes wg-sweep { 0%, 10% { translate: 0 -100%; opacity: 0; } 14% { opacity: 1; } 44% { translate: 0 0; opacity: 1; } 50%, 100% { translate: 0 0; opacity: 0; } }
-@media (prefers-reduced-motion: reduce) { .bx-proc .w4-bars i.win::before, .wg-sweep { animation: none !important; } }
+@media (prefers-reduced-motion: reduce) { .bx-proc .w4-bars i.win::before { animation: none !important; } }
 :root:root:root:root .bx-soft .bx-world h3.bx-t { padding-left: 12px; }
 /* Contact: the calendar alone, across the full content box */
 :root:root .book-split.is-full { display: block; padding-top: 32px; }
@@ -6530,3 +6495,66 @@ body:has(.book-split.is-full) .site-footer { display: none; }
 :root:root:root .book-band .book-cal { padding: 0; }
 :root:root:root .book-band .book-cal::after { display: none; }
 @media (min-width: 1200px) { :root:root .book-band .book-cal iframe { zoom: 1.2; } }
+
+/* 1. Ten years, from websites to AI products: the work on screen changes era by era while a playhead runs the rail */
+.wg-era { display: grid; grid-template-rows: minmax(0, 1fr) auto; gap: 12px; }
+.wg-view { display: grid; place-items: center; }
+.wg-m { display: block; opacity: 0; translate: 0 8px; }
+.wg-web { width: 148px; height: 80px; padding: 8px 10px; border-radius: 10px; background: #f5f5f7; display: grid; align-content: start; gap: 6px; }
+.wg-bar3 { display: flex; gap: 4px; margin-bottom: 6px; } .wg-bar3 b { width: 6px; height: 6px; border-radius: 50%; background: #c7c7cc; }
+.wg-ln { display: block; height: 6px; width: 80%; border-radius: 3px; background: #3a3a3c; } .wg-short { width: 55%; background: #8e8e93; }
+.wg-pill2 { display: block; width: 44px; height: 12px; margin-top: 4px; border-radius: 6px; background: #2563eb; }
+.wg-app { position: relative; width: 52px; height: 92px; padding: 18px 6px 6px; border-radius: 12px; background: #f5f5f7; display: grid; align-content: start; gap: 6px; }
+.wg-notch { position: absolute; left: 50%; top: 6px; width: 18px; height: 5px; margin-left: -9px; border-radius: 3px; background: #1c1c1e; }
+.wg-row { display: block; height: 14px; border-radius: 4px; background: #e5e5ea; } .wg-row:first-of-type { background: #2563eb; }
+.wg-saas { width: 156px; height: 84px; padding: 8px; border-radius: 10px; background: #2c2c2f; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .1); display: grid; grid-template-columns: 24px 1fr; gap: 8px; }
+.wg-side { display: block; border-radius: 4px; background: rgba(255, 255, 255, .08); }
+.wg-bars { display: flex; align-items: end; gap: 6px; padding: 4px; } .wg-bars b { flex: 1; border-radius: 3px; background: linear-gradient(180deg, #62c1fd, #1d4ed8); }
+.wg-bars b:nth-child(1) { height: 35%; } .wg-bars b:nth-child(2) { height: 55%; } .wg-bars b:nth-child(3) { height: 45%; } .wg-bars b:nth-child(4) { height: 75%; } .wg-bars b:nth-child(5) { height: 95%; }
+.wg-ai { position: relative; width: 148px; height: 80px; display: grid; align-content: center; gap: 8px; }
+.wg-msg { display: block; width: 70%; height: 22px; border-radius: 12px 12px 12px 4px; background: #2c2c2f; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .1); }
+.wg-me { justify-self: end; width: 56%; border-radius: 12px 12px 4px 12px; background: #2563eb; box-shadow: none; }
+.wg-spark { position: absolute; left: -4px; top: -2px; font-style: normal; font-size: 1rem; color: #62c1fd; text-shadow: 0 0 10px rgba(98, 193, 253, .8); }
+.wg-rail { position: relative; display: grid; grid-template-columns: repeat(4, 1fr); padding-top: 14px; }
+.wg-rail::before { content: ""; position: absolute; left: 12.5%; right: 12.5%; top: 4px; height: 2px; border-radius: 1px; background: rgba(255, 255, 255, .1); }
+.wg-fillr { position: absolute; left: 12.5%; right: 12.5%; top: 4px; height: 2px; border-radius: 1px; background: #62c1fd; box-shadow: 0 0 8px rgba(98, 193, 253, .7); transform-origin: left; scale: 0 1; }
+:root:root .bx-stat.wg .wg-rail b { position: relative; justify-self: center; font-size: .75rem; font-weight: 500; color: var(--muted); }
+.wg-rail b::before { content: ""; position: absolute; left: 50%; top: -14px; width: 10px; height: 10px; margin-left: -5px; border-radius: 50%; background: #2c2c2f; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .2); }
+.wg.is-on .wg-m, .wg.is-on .wg-rail b { animation: wg-era 10s cubic-bezier(.22, 1, .36, 1) infinite both; }
+.wg.is-on .wg-rail b { animation-name: wg-era-l; }
+.wg.is-on .wg-rail b::before { animation: wg-n1 10s linear infinite both; }
+.wg.is-on .wg-rail b:nth-of-type(2)::before { animation-name: wg-n2; } .wg.is-on .wg-rail b:nth-of-type(3)::before { animation-name: wg-n3; } .wg.is-on .wg-rail b:nth-of-type(4)::before { animation-name: wg-n4; }
+.wg.is-on .wg-fillr { animation: wg-era-fill 10s linear infinite; }
+.wg.is-on :is(.wg-app, .wg-rail b:nth-of-type(2)) { animation-delay: 2.5s; }
+.wg.is-on :is(.wg-saas, .wg-rail b:nth-of-type(3)) { animation-delay: 5s; }
+.wg.is-on :is(.wg-ai, .wg-rail b:nth-of-type(4)) { animation-delay: 7.5s; }
+@keyframes wg-era { 0% { opacity: 0; translate: 0 8px; } 4%, 21% { opacity: 1; translate: 0 0; } 25%, 100% { opacity: 0; translate: 0 -8px; } }
+@keyframes wg-era-l { 0%, 25%, 100% { color: var(--muted); } 4%, 21% { color: #f5f5f7; } }
+@keyframes wg-n1 { 0%, 99% { background: #62c1fd; box-shadow: 0 0 10px rgba(98, 193, 253, .8); } 100% { background: #2c2c2f; } }
+@keyframes wg-n2 { 0%, 24% { background: #2c2c2f; } 26%, 99% { background: #62c1fd; box-shadow: 0 0 10px rgba(98, 193, 253, .8); } 100% { background: #2c2c2f; } }
+@keyframes wg-n3 { 0%, 49% { background: #2c2c2f; } 51%, 99% { background: #62c1fd; box-shadow: 0 0 10px rgba(98, 193, 253, .8); } 100% { background: #2c2c2f; } }
+@keyframes wg-n4 { 0%, 74% { background: #2c2c2f; } 76%, 99% { background: #62c1fd; box-shadow: 0 0 10px rgba(98, 193, 253, .8); } 100% { background: #2c2c2f; } }
+@keyframes wg-era-fill { 0% { scale: 0 1; } 75%, 96% { scale: 1 1; } 100% { scale: 0 1; } }
+
+/* 3. Screens: one is designed block by block, then filed onto the pile behind it */
+.wg-build { display: grid; place-items: center; }
+.wg-pile { width: 124px; height: 84px; border-radius: 10px; background: rgba(255, 255, 255, .06); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .08); translate: 8px -8px; }
+.wg-pile2 { translate: 16px -16px; opacity: .6; }
+.wg-scr { position: relative; width: 124px; height: 84px; padding: 8px; border-radius: 10px; background: #f5f5f7; box-shadow: 0 18px 40px rgba(0, 0, 0, .35); display: grid; grid-template-columns: 1fr 40px; grid-template-rows: 8px 6px 6px 1fr; column-gap: 8px; row-gap: 6px; }
+.wg-scr i { display: block; border-radius: 3px; }
+.wg-b1 { grid-column: 1 / -1; background: #d2d2d7; } .wg-b2 { grid-column: 1; grid-row: 2; background: #3a3a3c; } .wg-b3 { grid-column: 1; grid-row: 3; width: 70%; background: #8e8e93; }
+.wg-b4 { grid-column: 2; grid-row: 2 / 5; border-radius: 6px; background: linear-gradient(135deg, #62c1fd, #2563eb); }
+.wg-b5 { grid-column: 1; grid-row: 4; align-self: end; width: 40px; height: 12px; border-radius: 6px; background: #2563eb; }
+.wg.is-on .wg-scr { animation: wg-file 7s cubic-bezier(.45, 0, .2, 1) infinite; }
+.wg.is-on .wg-b1 { animation: wg-b1 7s cubic-bezier(.22, 1, .36, 1) infinite both; }
+.wg.is-on .wg-b2 { animation: wg-b2 7s cubic-bezier(.22, 1, .36, 1) infinite both; }
+.wg.is-on .wg-b3 { animation: wg-b3 7s cubic-bezier(.22, 1, .36, 1) infinite both; }
+.wg.is-on .wg-b4 { animation: wg-b4 7s cubic-bezier(.3, 1.25, .5, 1) infinite both; }
+.wg.is-on .wg-b5 { animation: wg-b5 7s cubic-bezier(.3, 1.25, .5, 1) infinite both; }
+@keyframes wg-file { 0%, 74% { translate: 0 0; scale: 1; opacity: 1; } 88% { translate: 8px -8px; scale: .96; opacity: 0; } 89% { translate: 0 12px; scale: 1; opacity: 0; } 100% { translate: 0 0; opacity: 1; } }
+@keyframes wg-b1 { 0%, 6% { opacity: 0; scale: .6 1; } 12%, 100% { opacity: 1; scale: 1; } }
+@keyframes wg-b2 { 0%, 16% { opacity: 0; scale: .5 1; } 22%, 100% { opacity: 1; scale: 1; } }
+@keyframes wg-b3 { 0%, 24% { opacity: 0; scale: .5 1; } 30%, 100% { opacity: 1; scale: 1; } }
+@keyframes wg-b4 { 0%, 34% { opacity: 0; scale: .6; } 42%, 100% { opacity: 1; scale: 1; } }
+@keyframes wg-b5 { 0%, 48% { opacity: 0; scale: .5; } 56%, 100% { opacity: 1; scale: 1; } }
+.wg-b1, .wg-b2, .wg-b3 { transform-origin: left; }

@@ -10,7 +10,8 @@ import { WORK } from "../lib/work";
 import { SITE } from "../lib/site";
 
 // Home: main services, then a short bento about Sam. Glossy widget cards with small looping scenes
-// (owner, 27 Nov 2026, after his Figma widget prototypes: orbit, charge bar, document scan).
+// (owner, 27 Nov 2026, after his Figma widget prototypes). Each loop says what its number means: ten years from
+// websites to AI products, clients from five regions orbiting Sam, and a screen being designed and filed onto the pile.
 const Go = ({ children }) => <span className="bx-go">{children} <span aria-hidden="true">→</span></span>;
 const TOOLS = ["Figma", "FigJam", "Photoshop", "Illustrator", "After Effects", "Claude", "ChatGPT"];
 
@@ -55,9 +56,14 @@ export default function Bento() {
       <div className="bx-grid">
         <div className="bx-stats">
           <div className="dark-island bx-card bx-stat wg" data-loop>
-            <div className="wg-art wg-charge" aria-hidden="true">
-              <span className="wg-ticks"><i>0</i><i>5</i><i>10</i></span>
-              <span className="wg-bar"><i className="wg-fill" /><svg className="wg-bolt" viewBox="0 0 24 24" width="20" height="20"><path d="M13 2 4 14h7l-1 8 9-12h-7z" /></svg></span>
+            <div className="wg-art wg-era" aria-hidden="true">
+              <span className="wg-view">
+                <span className="wg-m wg-web"><i className="wg-bar3"><b /><b /><b /></i><i className="wg-ln" /><i className="wg-ln wg-short" /><i className="wg-pill2" /></span>
+                <span className="wg-m wg-app"><i className="wg-notch" /><i className="wg-row" /><i className="wg-row" /><i className="wg-row" /></span>
+                <span className="wg-m wg-saas"><i className="wg-side" /><i className="wg-bars"><b /><b /><b /><b /><b /></i></span>
+                <span className="wg-m wg-ai"><i className="wg-msg" /><i className="wg-msg wg-me" /><i className="wg-spark">✦</i></span>
+              </span>
+              <span className="wg-rail"><i className="wg-fillr" /><b>Web</b><b>Mobile</b><b>SaaS</b><b>AI</b></span>
             </div>
             <p className="wg-k">Experience</p>
             <b>10</b><span>Years of experience</span>
@@ -65,8 +71,8 @@ export default function Bento() {
           <div className="dark-island bx-card bx-stat wg" data-loop>
             <div className="wg-art wg-orbit" aria-hidden="true">
               <i className="wg-ring wg-r1" /><i className="wg-ring wg-r2" /><i className="wg-ping" />
-              <span className="wg-spin wg-s1"><i /><i /></span>
-              <span className="wg-spin wg-s2"><i /><i /><i /></span>
+              <span className="wg-spin wg-s1"><i><img src="/flags/us.svg" width="20" height="20" alt="" loading="lazy" /></i><i><img src="/flags/ca.svg" width="20" height="20" alt="" loading="lazy" /></i></span>
+              <span className="wg-spin wg-s2"><i><img src="/flags/au.svg" width="20" height="20" alt="" loading="lazy" /></i><i><img src="/flags/ae.svg" width="20" height="20" alt="" loading="lazy" /></i><i><img src="/flags/eu.svg" width="20" height="20" alt="" loading="lazy" /></i></span>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src="/sam-face-144.webp?v=1" width="40" height="40" alt="" loading="lazy" />
             </div>
@@ -74,12 +80,9 @@ export default function Bento() {
             <b>573 <em className="wg-pill">4 continents</em></b><span>Clients served</span>
           </div>
           <div className="dark-island bx-card bx-stat wg" data-loop>
-            <div className="wg-art wg-scan" aria-hidden="true">
-              <span className="wg-sheet" />
-              <span className="wg-doc"><i /><i /><i /><i className="wg-cta" /></span>
-              <i className="wg-c wg-tl" /><i className="wg-c wg-tr" /><i className="wg-c wg-bl" /><i className="wg-c wg-br" />
-              <i className="wg-line" />
-              <i className="wg-ok"><svg viewBox="0 0 24 24" width="14" height="14"><path d="m5 12.5 4.5 4.5L19 7.5" /></svg></i>
+            <div className="wg-art wg-build" aria-hidden="true">
+              <span className="wg-pile" /><span className="wg-pile wg-pile2" />
+              <span className="wg-scr"><i className="wg-b1" /><i className="wg-b2" /><i className="wg-b3" /><i className="wg-b4" /><i className="wg-b5" /></span>
             </div>
             <p className="wg-k">Screens</p>
             <b>10,000+</b><span>Screens designed</span>
@@ -125,9 +128,9 @@ export default function Bento() {
             </div>
           </div>
         </Link>
-        <Link prefetch={false} href={`/work/${clip.slug}/`} className="dark-island bx-card bx-mini bx-motion" data-reveal data-loop>
+        <Link prefetch={false} href={`/work/${clip.slug}/`} className="dark-island bx-card bx-mini bx-motion" data-reveal>
           <h3 className="bx-t">Animations</h3>
-          <div className="bx-frame"><BuildIn screens={CLIPS} /><i className="wg-sweep" aria-hidden="true" /></div>
+          <div className="bx-frame"><BuildIn screens={CLIPS} /></div>
         </Link>
         <Toolbox />
       </div>
