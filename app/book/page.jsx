@@ -28,7 +28,7 @@ export default function Book() {
     <div className="wrap page pg svc">
       <div className="book-split">
       <div className="book-side">
-      <PageHead crumb="Contact" href="/book/" a="Tell me" b="what you are building" lede="You've been staring at your product for months. Give me 30 minutes and I'll show you what fresh eyes see. Bring the thing that worries you most. You leave with a scope, a timeline and one clear next step." />
+      <PageHead crumb="Contact" href="/book/" a="Let's" b="talk" lede="Pick a time. You talk to me, not a sales team." />
       </div>
       {BOOKING_URL ? (
         <section className="book-cal" id="calendar" aria-label="Pick a time">

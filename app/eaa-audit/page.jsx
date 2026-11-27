@@ -132,7 +132,7 @@ export default function EaaAudit() {
       </section>
 
       <div className="sv-sec sv-faqwrap">
-        <Faq items={EAA_FAQ} a="Questions" b="about the EAA" bg="#111112">
+        <Faq items={EAA_FAQ} a="Questions" b="about the EAA" bg="#171719">
           <SkyPhoto className="faq-photo" />
           <h3>Not sure it applies to you? <em className="scr">Ask me.</em></h3>
           <p>Bring your product to a 30-minute call. I'll tell you what I'd check first, even if an audit isn't the right next step.</p>

@@ -3,7 +3,7 @@ import CallIcon from "./CallIcon";
 // Home page: the problems founders bring to Sam, then a short story and one next step.
 export default function PainStory() {
   return (
-    <section className="eb-sec eb-feel pain pain2" aria-labelledby="pain-h" data-bg="#111112">
+    <section className="eb-sec eb-feel pain pain2" aria-labelledby="pain-h" data-bg="#171719">
       <header className="pn-head">
         <h2 id="pain-h">Sound <span className="t2">familiar?</span></h2>
         <p className="pn-hook">You stayed up late to ship it. Friends said it looks great. Then real people landed on it, scrolled for five seconds and left, <em className="scr">and nobody told you why.</em></p>

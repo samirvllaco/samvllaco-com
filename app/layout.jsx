@@ -78,8 +78,7 @@ export default function RootLayout({ children }) {
         <main id="main">{children}</main>
         <BookBand />
         <Footer />
-        <div className="edge-blur edge-top" aria-hidden="true"><i /><i /><i /><i /><i /></div>
-        <div className="edge-blur" aria-hidden="true"><i /><i /><i /><i /><i /></div>
+        <div className="edge-blur" aria-hidden="true"><i /></div>
         <LazyExtras />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }} />
       </body>

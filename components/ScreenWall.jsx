@@ -27,7 +27,7 @@ export default function ScreenWall() {
     return () => { window.removeEventListener("scroll", on); window.removeEventListener("resize", on); cancelAnimationFrame(raf); };
   }, []);
   return (
-    <section className="wall" ref={sec} aria-label="A wall of screens from recent projects" data-bg="#000000">
+    <section className="wall" ref={sec} aria-label="A wall of screens from recent projects" data-bg="#171719">
       <div className="wall-stick">
         <ul className="wall-stats">
           <li><div><b>10,000+</b><span>screens</span></div></li>

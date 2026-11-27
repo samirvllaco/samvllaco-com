@@ -153,7 +153,7 @@ export default async function ServicePage({ params }) {
       ) : null}
 
       <div className="sv-sec sv-faqwrap">
-        <Faq items={[...((SEO[id] || {}).faq || []), ...SVC_FAQ]} a="Questions" b="before we start" bg="#111112">
+        <Faq items={[...((SEO[id] || {}).faq || []), ...SVC_FAQ]} a="Questions" b="before we start" bg="#171719">
           <SkyPhoto className="faq-photo" />
           <h3>Still have a question? <em className="scr">Good, ask me.</em></h3>
           <p>Bring it to a 30-minute call. It's just you and me, and you can ask anything about your {lower} project.</p>

@@ -15,7 +15,7 @@ const TOOLS = ["Figma", "FigJam", "Photoshop", "Illustrator", "After Effects", "
 
 export function MainServices() {
   return (
-    <section className="bx-sec" aria-labelledby="ms-h" data-bg="#000000">
+    <section className="bx-sec" aria-labelledby="ms-h" data-bg="#171719">
       <h2 id="ms-h">What I do</h2>
       <p className="bx-lede">Four areas, one goal: a product people understand, remember and can find.</p>
       <div className="ms-grid">
@@ -48,7 +48,7 @@ const CLIPS = ["hd-kestrel", "hd-veyra", "hd-sublio", "hd-aruma"].map((n) => `/w
 export default function Bento() {
   const clip = WORK.find((w) => w.video) || WORK[0];
   return (
-    <section className="bx-sec bx-soft" aria-labelledby="bx-h" data-bg="#000000">
+    <section className="bx-sec bx-soft" aria-labelledby="bx-h" data-bg="#171719">
       <h2 id="bx-h" className="bx-title">One designer<br /><span className="t2">for the whole product.</span></h2>
       <FactRow />
       <div className="bx-grid">

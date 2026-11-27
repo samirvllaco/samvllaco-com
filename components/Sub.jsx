@@ -5,7 +5,7 @@ import { PLANS, STEPS, REQUESTS, WHY } from "../lib/plans";
 
 export function HowItWorks() {
   return (
-    <section className="sub-sec lite" id="how" aria-labelledby="how-h" data-bg="#0b0b0c">
+    <section className="sub-sec lite" id="how" aria-labelledby="how-h" data-bg="#171719">
       <header className="sub-head">
         <h2 id="how-h">How it <span className="t2">works</span></h2>
         <p>A design subscription instead of a project. Three steps, then repeat.</p>
@@ -25,7 +25,7 @@ export function HowItWorks() {
 
 export function WhySub() {
   return (
-    <section className="sub-sec lite" aria-labelledby="why-h" data-bg="#0b0b0c">
+    <section className="sub-sec lite" aria-labelledby="why-h" data-bg="#171719">
       <header className="sub-head">
         <h2 id="why-h">Why a <span className="t2">subscription</span></h2>
         <p>Hiring takes months and agencies bill for meetings. This is one designer, one price and work that keeps moving.</p>
@@ -85,7 +85,7 @@ export function PlanCards() {
 
 export function Plans() {
   return (
-    <section className="sub-plans" id="plans" aria-labelledby="plans-h" data-bg="#000000">
+    <section className="sub-plans" id="plans" aria-labelledby="plans-h" data-bg="#171719">
       <header className="sub-head">
         <h2 id="plans-h">Two plans. <span className="t2">One designer.</span></h2>
         <p>Start with a week, or keep me on every month. You know the price before anything starts.</p>

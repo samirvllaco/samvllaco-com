@@ -165,7 +165,7 @@ export default function Ebook() {
       <JsonLd data={BOOK_LD} />
       <EbookBar />
 
-      <header className="eb-hero" data-bg="#111112">
+      <header className="eb-hero" data-bg="#171719">
         <div className="eb-copy">
           <p className="eb-sale"><b>25% OFF</b><span><s aria-label={`was ${WAS}`}>{WAS}</s> now {PRICE}, video included</span></p>
           <p className="eb-kick">Designed, not generated.</p>
@@ -482,7 +482,7 @@ export default function Ebook() {
         </figure>
       </section>
 
-      <section className="eb-sec eb-offer eb-offer2" data-bg="#000000" aria-labelledby="eb-get-h">
+      <section className="eb-sec eb-offer eb-offer2" data-bg="#171719" aria-labelledby="eb-get-h">
         <div className="eo-main">
           <h2 id="eb-get-h">What <span className="t2">you get</span></h2>
           <p className="eo-k">In the book</p>
@@ -566,7 +566,7 @@ export default function Ebook() {
         </div>
       </section>
 
-      <section className="hp eb-hp" aria-labelledby="eb-author-h" data-bg="#111112">
+      <section className="hp eb-hp" aria-labelledby="eb-author-h" data-bg="#171719">
         <div className="hp-left">
           <p className="hp-label hp-kick">About the author</p>
           <h2 id="eb-author-h">Sam Vllaco, <em>product designer.</em></h2>
@@ -600,7 +600,7 @@ export default function Ebook() {
       </section>
 
       <div className="eb-sec eb-faqwrap eb-band">
-        <Faq items={FAQ.map(([q, a]) => ({ q, a }))} a="Questions" b="before you buy" bg="#111112">
+        <Faq items={FAQ.map(([q, a]) => ({ q, a }))} a="Questions" b="before you buy" bg="#171719">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img className="faq-photo eb-faq-cov" src="/book-cover.webp?v=2" width="300" height="400" alt="" loading="lazy" />
           <h3>Still not sure? <em className="scr">Ask me.</em></h3>

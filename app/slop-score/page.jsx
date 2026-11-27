@@ -60,7 +60,7 @@ export default function SlopScorePage() {
       </section>
 
       <div className="sv-sec sv-faqwrap">
-        <Faq items={FAQ} a="Questions" b="about Slop Score" bg="#111112">
+        <Faq items={FAQ} a="Questions" b="about Slop Score" bg="#171719">
           <h3>Want a real designer on it? <em className="scr">That's me.</em></h3>
           <p>Bring your site to a 30-minute call. I'll show you what I'd change first.</p>
           <p className="faq-go"><a className="hero2-btn hero2-btn-primary" href="/book/"><CallIcon />Book a call</a></p>

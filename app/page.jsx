@@ -1,5 +1,4 @@
 import { WORK } from "../lib/work";
-import ScreenFan from "../components/ScreenFan";
 import SkyPhoto from "../components/SkyPhoto";
 import fs from "fs";
 import path from "path";
@@ -84,7 +83,7 @@ export default function Home() {
   return (
     <div className="wrap page stack-lg">
       <SectionColors />
-      <section className="hero2" data-bg="#0b0b0c">
+      <section className="hero2" data-bg="#171719">
         <div className="hero3">
           <HeroRole />
           <h1 className="h3-flip">
@@ -111,7 +110,6 @@ export default function Home() {
           <script dangerouslySetInnerHTML={{ __html: QUOTE_DAY }} />
           <HeroQuote />
         </div>
-        <ScreenFan items={[["activity", "Activity", "marketing-dashboard"], ["contacts", "Contacts", "marketing-dashboard"], ["campaigns", "Campaigns", "marketing-dashboard"], ["dashboard", "Marketing dashboard", "marketing-dashboard"], ["messages", "Freelance marketplace", "freelance-marketplace"], ["aidraft", "AI draft reply", "marketing-dashboard"], ["discover", "Discover", "freelance-marketplace"], ["subliohome", "Language player", "language-player"], ["approve", "Approve work", "freelance-marketplace"], ["arumahome", "Room planner", "room-editor"], ["upgrade", "Upgrade plan", "marketing-dashboard"], ["review", "Review words", "language-player"], ["table", "Furniture detail", "room-editor"], ["vr", "Room in VR", "room-editor"]].map(([id, title, slug]) => ({ id, slug, title, src: `/work/fan/${id}.webp?v=2` }))} />
         <div className="trust trust-on" aria-labelledby="trust-h">
           <p id="trust-h">Trusted by designers and engineers working at</p>
           <div className="trust-run">
@@ -132,7 +130,7 @@ export default function Home() {
 
       <PainStory />
 
-      <section id="work" className="stack work" data-bg="#000000">
+      <section id="work" className="stack work" data-bg="#171719">
           <h2>Work <span className="t2">that shipped</span></h2>
           <p className="work-lede">Real products with real users. Some names are changed because the work is under NDA.</p>
           <WorkGrid cap />
@@ -143,7 +141,7 @@ export default function Home() {
 
 
 
-      {/* Globe section hidden for now: <Globe bg="#000000" /> */}
+      {/* Globe section hidden for now: <Globe bg="#171719" /> */}
 
 
 

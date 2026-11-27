@@ -221,7 +221,7 @@ export default function AskSam() {
         Ask Sam's AI
       </button>
       {open ? (
-        <section ref={panel} id="ask-panel" className={`ask-panel${closing ? " is-closing" : ""}${busy ? " is-busy" : ""}`} role="dialog" aria-modal="false" aria-labelledby="ask-h">
+        <section ref={panel} id="ask-panel" className={`ask-panel${closing ? " is-closing" : ""}${busy ? " is-busy" : ""}`} role="dialog" aria-modal="false" aria-labelledby="ask-h" data-lenis-prevent="">
           <header className="ask-head" onPointerDown={grab} onPointerMove={pull} onPointerUp={drop} onPointerCancel={drop}>
             <i className="ask-handle" aria-hidden="true" />
             <span className="ask-badge" aria-hidden="true">
