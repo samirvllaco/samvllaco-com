@@ -7123,3 +7123,15 @@ html.on-light .ask-me svg { background: #fff; }
 :root:root:root .band-light { background: #ffffff; box-shadow: none; clip-path: none; isolation: isolate; }
 .band-light > .band-bg { position: absolute; z-index: -1; pointer-events: none; top: calc(-1 * var(--sec)); bottom: calc(-1 * var(--sec)); left: calc(50% - 50vw); width: 100vw;
   background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0, #ffffff var(--sec), #ffffff calc(100% - var(--sec)), rgba(255, 255, 255, 0) 100%); }
+
+/* Compact header while scrolling down (owner, 27 Nov 2026: "on scroll make navigation super compact with cta, my logo
+   and active page; when they scroll up show full navigation again"). Desktop floating bar only; phones already show
+   just the photo, the call and the menu. */
+@media (min-width: 1261px) {
+  html.is-scrolled.is-down:not(.mega-open) .site-header .wrap.head-row { max-width: 560px; }
+  html.is-scrolled.is-down:not(.mega-open) .site-header .wrap.head-row:not(:has(.head-nav > a[aria-current="page"], .head-nav .mega-btn.is-current)) { max-width: 340px; }
+  html.is-scrolled.is-down:not(.mega-open) .head-nav > a:not([aria-current="page"]),
+  html.is-scrolled.is-down:not(.mega-open) .head-nav > .mega-wrap:not(:has(.mega-btn.is-current)) { display: none; }
+  html.is-scrolled.is-down:not(.mega-open) .head-nav { animation: nav-compact .35s var(--ease-out) both; }
+}
+@keyframes nav-compact { from { opacity: 0; } to { opacity: 1; } }
