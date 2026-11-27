@@ -83,7 +83,9 @@ export default function Home() {
     <div className="wrap page stack-lg">
       <SectionColors />
       <section className="hero2" data-bg="#171719">
-        <div className="hero3">
+        <div className="hero3 hero-split">
+          {/* Right side: a frame for Sam's intro video, empty until the video is ready (owner, 27 Nov 2026) */}
+          <div className="hero-vid" aria-hidden="true"><span className="hv-play"><svg viewBox="0 0 24 24" width="28" height="28"><path d="M8 5.5v13l11-6.5z" /></svg></span></div>
           <HeroRole />
           <h1 className="h3-flip">
             <W t="I design UI/UX" /> <Ico id="a" gap="r" tiles={[["figma", 12], ["photoshop", 5], ["chatgpt", 2.5], ["illustrator", 5], ["pen", 5], ["claude", 2.5], ["systems", 5], ["wand", 4]]} /><W t="for products" />{" "}<br />
