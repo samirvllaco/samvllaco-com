@@ -33,17 +33,18 @@
 
 ## Writing
 - [AI Slop UI: 25 UX fixes for vibe-coded apps](https://samvllaco.com/writing/ai-slop-ui-fixes/): why AI-built apps look the same, 25 fixes with the UX law behind each, copy-paste prompts and a DESIGN.md starter file.
+- [25 UI Design Mistakes and How to Fix Each One](https://samvllaco.com/writing/ui-design-mistakes/): 25 mistakes that make apps look cheap, from random spacing to missing empty states, each with the exact fix and values, plus one audit prompt.
 - [Vibe coding accessibility: 12 fixes for WCAG 2.2 AA](https://samvllaco.com/writing/vibe-coding-accessibility-wcag-22-aa/): 12 copy-paste fixes and prompts for keyboard, screen reader and touch use in AI-built apps, with an ACCESSIBILITY.md rules file.
 - [Insights](https://samvllaco.com/writing/): all articles on AI-built apps, UX fixes and accessibility.
 - [Resources](https://samvllaco.com/resources/): free UI prompts, the ebook, design kits and stories, in one place.
 
 ## Writing: fix the design of an AI-built app
-- [How to fix the design of an AI-built app](https://samvllaco.com/writing/how-to-fix-ai-built-app-design/): Why apps built with Cursor, Lovable or v0 all look alike, the 12 tells to check first, a Cursor audit prompt, and three ways to fix the design.
+- [Vibe coded app looks bad? How to fix the design of an AI-built app](https://samvllaco.com/writing/how-to-fix-ai-built-app-design/): Why apps built with Cursor, Lovable or v0 all look alike, the 12 tells to check first, a Cursor audit prompt, and three ways to fix the design.
 - [Why Your Lovable App Looks Generic, and 7 Fixes You Can Paste In Today](https://samvllaco.com/writing/lovable-app-looks-generic/): Your Lovable app looks generic because nobody chose the design. 7 fixes with copy-paste prompts, and where to save the rules so Lovable keeps them.
 - [Your v0 app looks generic. 6 fixes that make it yours](https://samvllaco.com/writing/v0-app-looks-generic/): Every v0 app starts from the same shadcn/ui starter. Six copy-paste prompts and one saved Instruction that make yours look designed, not generated.
 - [Your Bolt app looks generic. Fix it with one block of project knowledge](https://samvllaco.com/writing/bolt-app-looks-generic/): Bolt sends your project knowledge with every prompt. Paste one block of design rules there, run four prompts, and your app stops looking generated.
-- [Cursor Rules for UI Design: One File So Every Screen Matches](https://samvllaco.com/writing/cursor-rules-for-ui-design/): Give Cursor one rules file for spacing, type, color and states so every screen matches. The exact file location, a paste-ready rule and 3 prompts.
-- [Claude Code UI Design: Why Your Screens Look Generic and the DESIGN.md Setup That Fixes It](https://samvllaco.com/writing/claude-code-ui-design/): Why Claude Code UI looks generic, and the fix: a DESIGN.md with exact values, one import line in CLAUDE.md, and 3 copy-paste prompts to audit and review.
+- [Cursor UI Looks Generic? Cursor Rules for UI Design, One File for Every Screen](https://samvllaco.com/writing/cursor-rules-for-ui-design/): Give Cursor one rules file for spacing, type, color and states so every screen matches. The exact file location, a paste-ready rule and 3 prompts.
+- [Claude Code UI Looks Generic? Why, and the DESIGN.md Setup That Fixes It](https://samvllaco.com/writing/claude-code-ui-design/): Why Claude Code UI looks generic, and the fix: a DESIGN.md with exact values, one import line in CLAUDE.md, and 3 copy-paste prompts to audit and review.
 - [The replit.md design section that stops Replit Agent apps looking generic](https://samvllaco.com/writing/replit-md-design-rules/): Replit Agent reads replit.md on every request. Add this design section to it, run three cleanup prompts, and your app stops looking like a template.
 
 ## Writing: hiring a designer
@@ -72,3 +73,6 @@
 - X: https://x.com/samvllaco
 - Dribbble: https://dribbble.com/samirvllaco
 - Medium: https://medium.com/@samvllaco
+
+## Full text
+- [llms-full.txt](https://samvllaco.com/llms-full.txt): this file followed by the full text of every article, rebuilt on every deploy.
