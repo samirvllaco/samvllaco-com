@@ -1,3 +1,4 @@
+import CopyEmailInline from "../components/HirePanelCopy";
 import { WORK } from "../lib/work";
 import SkyPhoto from "../components/SkyPhoto";
 import fs from "fs";
@@ -8,7 +9,7 @@ import Testimonials from "../components/Testimonials";
 import { LIVE as SHOW_TESTIMONIALS } from "../lib/testimonials";
 import Faq from "../components/Faq";
 import { FAQ } from "../lib/faq";
-import { SITE, ARTICLES, EMAIL } from "../lib/site";
+import { SITE, ARTICLES } from "../lib/site";
 import CallIcon from "../components/CallIcon";
 import { STATS } from "../lib/stats";
 import SectionColors from "../components/SectionColors";
@@ -162,7 +163,7 @@ export default function Home() {
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <SkyPhoto className="faq-photo" />
         <p className="faq-go"><a className="hero2-btn hero2-btn-primary" href="/book/"><CallIcon />Ask me on a call</a></p>
-        <p className="faq-mail">Rather write? Email me at <b>{EMAIL}</b></p>
+        <div className="faq-mail"><CopyEmailInline icon /></div>
       </Faq>
     </div>
   );

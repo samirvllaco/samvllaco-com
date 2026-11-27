@@ -217,7 +217,8 @@ export default function AskSam() {
   return (
     <>
       <button ref={pill} type="button" className={`ask-pill${open ? " is-open" : ""}`} aria-expanded={open} aria-controls="ask-panel" onClick={() => (open ? shut(false) : setOpen(true))}>
-        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 3l1.8 4.9L18.7 9.7 13.8 11.5 12 16.4 10.2 11.5 5.3 9.7 10.2 7.9zM18.5 14.5l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8z" /></svg>
+        {/* Sam himself as the assistant's mark, with a small spark: "Sam's AI" (owner, 27 Nov 2026: "cute or helpful mascot logo of me") */}
+        <span className="ask-me" aria-hidden="true"><img src="/sam-face-144.webp?v=1" width="28" height="28" alt="" decoding="async" /><svg viewBox="0 0 24 24" width="12" height="12" aria-hidden="true"><path d="M12 3l1.8 4.9L18.7 9.7 13.8 11.5 12 16.4 10.2 11.5 5.3 9.7 10.2 7.9zM18.5 14.5l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8z" /></svg></span>
         Ask Sam's AI
       </button>
       {open ? (

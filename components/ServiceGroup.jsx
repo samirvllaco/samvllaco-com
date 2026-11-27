@@ -1,3 +1,4 @@
+import CopyEmailInline from "./HirePanelCopy";
 import Link from "next/link";
 import Crumbs from "./Crumbs";
 import CallIcon from "./CallIcon";
@@ -9,7 +10,7 @@ import { DETAILS, PROCESS } from "../lib/service-details";
 import { PAGES, GET_ICONS, PAIN_ICONS, SVC_FAQ } from "../lib/service-pages";
 import { WORK } from "../lib/work";
 import { TESTIMONIALS } from "../lib/testimonials";
-import { SITE, EMAIL } from "../lib/site";
+import { SITE } from "../lib/site";
 import { PERSON_ID } from "../lib/seo";
 
 // One page for a set of related services (branding, development, marketing, SEO).
@@ -142,7 +143,7 @@ export default function ServiceGroup({ id }) {
         <Faq items={SVC_FAQ} a="Questions" b="before we start" bg="#171719">
           <SkyPhoto className="faq-photo" />
           <p className="faq-go"><a className="hero2-btn hero2-btn-primary" href="/book/"><CallIcon />Ask me on a call</a></p>
-          <p className="faq-mail">Rather write? Email me at <b>{EMAIL}</b></p>
+          <div className="faq-mail"><CopyEmailInline icon /></div>
         </Faq>
       </div>
 

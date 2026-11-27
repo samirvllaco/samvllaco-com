@@ -1,10 +1,11 @@
+import CopyEmailInline from "../../components/HirePanelCopy";
 import PageHead from "../../components/PageHead";
 import JsonLd from "../../components/JsonLd";
 import Faq from "../../components/Faq";
 import CallIcon from "../../components/CallIcon";
 import SlopScan from "../../components/slop/SlopScan";
 import { CATS } from "../../slopscore/config";
-import { SITE, EMAIL } from "../../lib/site";
+import { SITE } from "../../lib/site";
 import { share, PERSON_ID } from "../../lib/seo";
 
 const TITLE = "Slop Score: Free AI Slop Checker for Your Website";
@@ -62,7 +63,7 @@ export default function SlopScorePage() {
       <div className="sv-sec sv-faqwrap">
         <Faq items={FAQ} a="Questions" b="about Slop Score" bg="#171719">
           <p className="faq-go"><a className="hero2-btn hero2-btn-primary" href="/book/"><CallIcon />Book a call</a></p>
-          <p className="faq-mail">Rather write? Email me at <b>{EMAIL}</b></p>
+          <div className="faq-mail"><CopyEmailInline icon /></div>
         </Faq>
       </div>
     </div>

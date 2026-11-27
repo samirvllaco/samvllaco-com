@@ -141,7 +141,7 @@ export default function WorkGrid({ cap = false }) {
           </div>
         )}
         {capped ? (
-          <p className="work-more"><button type="button" className="hero2-btn hero2-btn-light" onClick={showAll}>Show all {WORK.length} projects</button></p>
+          <p className="work-more"><button type="button" className="hero2-btn hero2-btn-light" onClick={showAll}>Show all projects</button></p>
         ) : null}
       </div>
     </>

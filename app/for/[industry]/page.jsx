@@ -1,3 +1,4 @@
+import CopyEmailInline from "../../../components/HirePanelCopy";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import Crumbs from "../../../components/Crumbs";
@@ -10,7 +11,7 @@ import { PROCESS } from "../../../lib/service-details";
 import { GET_ICONS, PAIN_ICONS, SVC_FAQ } from "../../../lib/service-pages";
 import { INDUSTRIES, industry } from "../../../lib/industries";
 import { WORK } from "../../../lib/work";
-import { SITE, EMAIL } from "../../../lib/site";
+import { SITE } from "../../../lib/site";
 import { share, PERSON_ID } from "../../../lib/seo";
 
 // One landing page per industry (owner, 27 Nov 2026), built from lib/industries.js on the service page layout.
@@ -113,7 +114,7 @@ export default async function IndustryPage({ params }) {
         <Faq items={[...x.faq, ...SVC_FAQ]} a="Questions" b="before we start" bg="#171719">
           <SkyPhoto className="faq-photo" />
           <p className="faq-go"><a className="hero2-btn hero2-btn-primary" href="/book/"><CallIcon />Ask me on a call</a></p>
-          <p className="faq-mail">Rather write? Email me at <b>{EMAIL}</b></p>
+          <div className="faq-mail"><CopyEmailInline icon /></div>
         </Faq>
       </div>
 

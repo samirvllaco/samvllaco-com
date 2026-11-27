@@ -154,7 +154,7 @@ function check(vw) {
   const probe0 = document.createElement("div"); probe0.className = "wrap"; probe0.style.cssText = "position:absolute;left:0;right:0;top:0;height:1px;visibility:hidden"; document.body.appendChild(probe0);
   const pr0 = box(probe0), ps0 = getComputedStyle(probe0); const G = { l: pr0.left + parseFloat(ps0.paddingLeft), r: pr0.right - parseFloat(ps0.paddingRight) }; probe0.remove();
   for (const b of document.querySelectorAll(".book-band > *, .site-footer > .wrap > *")) {
-    if (!seen(b) || floats(b) || /^(SCRIPT|STYLE|DIALOG)$/.test(b.tagName)) continue;
+    if (!seen(b) || floats(b) || /^(SCRIPT|STYLE|DIALOG)$/.test(b.tagName) || b.matches(".bb-alt")) continue; // .bb-alt lines up with the Cal.com card instead
     const r = box(b), par = b.parentElement, ps = getComputedStyle(par);
     if (r.width < 40) continue;
     const L = box(par).left + parseFloat(ps.paddingLeft), R = box(par).right - parseFloat(ps.paddingRight);

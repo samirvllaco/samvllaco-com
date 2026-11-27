@@ -1,9 +1,10 @@
+import CopyEmailInline from "../../components/HirePanelCopy";
 import PageHead from "../../components/PageHead";
 import CallIcon from "../../components/CallIcon";
 import JsonLd from "../../components/JsonLd";
 import Faq from "../../components/Faq";
 import SkyPhoto from "../../components/SkyPhoto";
-import { SITE, EMAIL } from "../../lib/site";
+import { SITE } from "../../lib/site";
 import { share, PERSON_ID } from "../../lib/seo";
 import { WEEK_PRICE, EAA_AUDIT_PRICE, usd } from "../../lib/plans";
 import { SRC, CHECKS, EAA_FAQ } from "../../lib/accessibility";
@@ -135,7 +136,7 @@ export default function EaaAudit() {
         <Faq items={EAA_FAQ} a="Questions" b="about the EAA" bg="#171719">
           <SkyPhoto className="faq-photo" />
           <p className="faq-go"><a className="hero2-btn hero2-btn-primary" href="/book/"><CallIcon />Ask me on a call</a></p>
-          <p className="faq-mail">Rather write? Email me at <b>{EMAIL}</b></p>
+          <div className="faq-mail"><CopyEmailInline icon /></div>
         </Faq>
       </div>
 

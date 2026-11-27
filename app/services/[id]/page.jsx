@@ -1,3 +1,4 @@
+import CopyEmailInline from "../../../components/HirePanelCopy";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import Crumbs from "../../../components/Crumbs";
@@ -11,7 +12,7 @@ import { DETAILS, PROCESS } from "../../../lib/service-details";
 import { PAGES, GET_ICONS, PAIN_ICONS, SVC_FAQ, SEO } from "../../../lib/service-pages";
 import { WORK } from "../../../lib/work";
 import { TESTIMONIALS } from "../../../lib/testimonials";
-import { SITE, EMAIL } from "../../../lib/site";
+import { SITE } from "../../../lib/site";
 import { share, PERSON_ID } from "../../../lib/seo";
 
 const ALL = SERVICES.flatMap((g) => g.items.map((it) => ({ ...it, group: g }))).filter((it) => !groupOf(it.id));
@@ -156,7 +157,7 @@ export default async function ServicePage({ params }) {
         <Faq items={[...((SEO[id] || {}).faq || []), ...SVC_FAQ]} a="Questions" b="before we start" bg="#171719">
           <SkyPhoto className="faq-photo" />
           <p className="faq-go"><a className="hero2-btn hero2-btn-primary" href="/book/"><CallIcon />Ask me on a call</a></p>
-          <p className="faq-mail">Rather write? Email me at <b>{EMAIL}</b></p>
+          <div className="faq-mail"><CopyEmailInline icon /></div>
         </Faq>
       </div>
 
