@@ -1252,7 +1252,7 @@ img.foot-me { height: 76%; aspect-ratio: 800 / 776; transform: translateX(-47%);
 .faq-list summary::-webkit-details-marker { display: none; }
 .faq-list summary:focus-visible { outline: 3px solid rgba(98, 193, 253, .6); outline-offset: 2px; border-radius: var(--r-inner); }
 .faq-plus { position: relative; flex: none; width: 32px; height: 32px; border-radius: 6px; box-shadow: inset 0 0 0 1px var(--line); }
-.faq-plus::before, .faq-plus::after { content: ""; position: absolute; left: 50%; top: 50%; width: 12px; height: 2px; margin: -1px 0 0 -8px; background: currentColor; transition: transform .25s var(--ease-out); }
+.faq-plus::before, .faq-plus::after { content: ""; position: absolute; left: 50%; top: 50%; width: 12px; height: 2px; margin: -1px 0 0 -6px; background: currentColor; transition: transform .25s var(--ease-out); }
 .faq-plus::after { transform: rotate(90deg); }
 .faq-list details[open] .faq-plus::after { transform: rotate(0deg); }
 .faq-list details p { margin: 0; padding: 0 24px 24px 72px; color: var(--muted); max-width: 68ch; line-height: 1.6; }
@@ -7192,11 +7192,11 @@ html.on-light .edge-blur { opacity: 0; }
    and active page; when they scroll up show full navigation again"). Desktop floating bar only; phones already show
    just the photo, the call and the menu. */
 @media (min-width: 1261px) {
-  html.is-scrolled.is-down:not(.mega-open) .site-header .wrap.head-row { max-width: 560px; }
-  html.is-scrolled.is-down:not(.mega-open) .site-header .wrap.head-row:not(:has(.head-nav > a[aria-current="page"], .head-nav .mega-btn.is-current)) { max-width: 340px; }
-  html.is-scrolled.is-down:not(.mega-open) .head-nav > a:not([aria-current="page"]),
-  html.is-scrolled.is-down:not(.mega-open) .head-nav > .mega-wrap:not(:has(.mega-btn.is-current)) { display: none; }
-  html.is-scrolled.is-down:not(.mega-open) .head-nav { animation: nav-compact .35s var(--ease-out) both; }
+  html.is-scrolled.is-down:not(.mega-open) .site-header .wrap.head-row:not(:hover) { max-width: 560px; }
+  html.is-scrolled.is-down:not(.mega-open) .site-header .wrap.head-row:not(:hover):not(:has(.head-nav > a[aria-current="page"], .head-nav .mega-btn.is-current)) { max-width: 340px; }
+  html.is-scrolled.is-down:not(.mega-open) .head-row:not(:hover) .head-nav > a:not([aria-current="page"]),
+  html.is-scrolled.is-down:not(.mega-open) .head-row:not(:hover) .head-nav > .mega-wrap:not(:has(.mega-btn.is-current)) { display: none; }
+  html.is-scrolled.is-down:not(.mega-open) .head-row:not(:hover) .head-nav { animation: nav-compact .35s var(--ease-out) both; }
 }
 @keyframes nav-compact { from { opacity: 0; } to { opacity: 1; } }
 
@@ -7575,12 +7575,15 @@ html.js .bx-world[data-reveal].is-shown .wf-facts > div > dd { transition-durati
   border-radius: 0 0 50% 50% / 0 0 var(--bend, 0px) var(--bend, 0px);
 }
 
+/* Hovering the compact bar opens it to the full nav and it stays open while the pointer is on it or a menu is out
+   (owner, 28 Nov 2026: "when I hover the compact nav everything opens and closes"); it was keyed to the menu alone,
+   so the bar grew, the button slid away from the pointer and the menu closed again in a loop. */
 /* Compact header: the page you are on sits right next to the name with a hairline between them, "Sam | Work"
    (owner, 28 Nov 2026: "put Work closer to Sam and add | to make the UI better and more compact"). */
 @media (min-width: 1261px) {
-  html.is-scrolled.is-down:not(.mega-open) .site-header .wrap.head-row:has(.head-nav > a[aria-current="page"], .head-nav .mega-btn.is-current) { grid-template-columns: auto auto 1fr; max-width: 460px; column-gap: 12px; }
-  html.is-scrolled.is-down:not(.mega-open) .head-nav { background: none; padding: 0; gap: 0; }
-  html.is-scrolled.is-down:not(.mega-open) .head-nav:has(> a[aria-current="page"], .mega-btn.is-current)::before { content: ""; flex: none; width: 1px; height: 20px; margin-right: 4px; background: rgba(245, 245, 247, .2); }
+  html.is-scrolled.is-down:not(.mega-open) .site-header .wrap.head-row:not(:hover):has(.head-nav > a[aria-current="page"], .head-nav .mega-btn.is-current) { grid-template-columns: auto auto 1fr; max-width: 460px; column-gap: 12px; }
+  html.is-scrolled.is-down:not(.mega-open) .head-row:not(:hover) .head-nav { background: none; padding: 0; gap: 0; }
+  html.is-scrolled.is-down:not(.mega-open) .head-row:not(:hover) .head-nav:has(> a[aria-current="page"], .mega-btn.is-current)::before { content: ""; flex: none; width: 1px; height: 20px; margin-right: 4px; background: rgba(245, 245, 247, .2); }
 }
 
 /* Footer parallax (owner, 28 Nov 2026, like digitalmakers.nl/about-us). FootParallax.jsx sets --fp while the footer
