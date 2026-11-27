@@ -7250,3 +7250,18 @@ html.on-light .edge-blur { opacity: 0; }
 }
 @media (prefers-reduced-motion: reduce) { :root:root:root :is(.head-nav > a, .head-nav .mega-btn, .head-nav .mx a) { transition: none; } }
 :root:root:root .head-nav .mx :is(.mx-col, .mx-grid, .mx-posts) a { --hl: rgba(255, 255, 255, .06); }
+
+/* Free tools show a screen of each tool, not an icon (owner, 27 Nov 2026: "free tools should all have screens and
+   thumbnails"): menu and /tools/ cards are a staged 16:10 screen, the name and one line. */
+:root:root:root .mx-grid.mx-tools a { display: grid; grid-template-columns: minmax(0, 1fr); align-content: start; gap: 12px; padding: 8px 8px 16px; }
+:root:root:root .mx-grid.mx-tools a > span:last-child { display: grid; gap: 4px; padding-inline: 8px; }
+.mx-thumb, .tl-thumb { display: block; aspect-ratio: 16 / 10; border-radius: var(--r-inner); overflow: hidden; background: #1c1c1f; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .08); }
+:is(.mx-thumb, .tl-thumb) img { display: block; width: 100%; height: 100%; object-fit: cover; transition: scale .5s var(--ease-out); }
+@media (hover: hover) and (pointer: fine) { :root:root:root :is(.mx-tools a, .tl-list a):hover :is(.mx-thumb, .tl-thumb) img { scale: 1.03; } }
+:root:root:root .tl-list { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--gap-grid, 20px); max-width: none; }
+:root:root:root .tl-list a { display: grid; grid-template-columns: minmax(0, 1fr); align-content: start; gap: 16px; height: 100%; padding: 8px 8px 20px; }
+:root:root:root .tl-list a > span:nth-child(2) { padding-inline: 12px; }
+:root:root:root .tl-list .tl-go { padding-inline: 12px; display: inline-flex; gap: 8px; font-size: .9375rem; font-weight: 500; color: var(--muted); }
+:root:root:root .tl-list .tl-go span { transition: translate .25s var(--ease-out); }
+@media (hover: hover) and (pointer: fine) { :root:root:root .tl-list a:hover { box-shadow: inset 0 0 0 1px var(--border); background: var(--card); } :root:root:root .tl-list a:hover .tl-go { color: var(--text); } :root:root:root .tl-list a:hover .tl-go span { translate: 3px 0; } }
+@media (max-width: 900px) { :root:root:root .tl-list { grid-template-columns: minmax(0, 1fr); } }

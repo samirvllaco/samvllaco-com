@@ -16,9 +16,10 @@ export default function Tools() {
         {TOOLS.map((t) => (
           <li key={t.slug}>
             <Link prefetch={false} href={t.href || `/tools/${t.slug}/`}>
-              <i className="tg-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d={t.icon} /></svg></i>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <span className="tl-thumb"><img src={`/tools/thumb/${t.slug}.webp?v=1`} width="800" height="500" alt="" loading="lazy" decoding="async" /></span>
               <span><b>{t.name}</b><em>{t.text}</em></span>
-              <span className="tl-arr" aria-hidden="true">→</span>
+              <span className="tl-go">Open the tool <span aria-hidden="true">→</span></span>
             </Link>
           </li>
         ))}
