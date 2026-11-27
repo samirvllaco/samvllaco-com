@@ -134,8 +134,6 @@ export default function EaaAudit() {
       <div className="sv-sec sv-faqwrap">
         <Faq items={EAA_FAQ} a="Questions" b="about the EAA" bg="#171719">
           <SkyPhoto className="faq-photo" />
-          <h3>Not sure it applies to you? <em className="scr">Ask me.</em></h3>
-          <p>Bring your product to a 30-minute call. I'll tell you what I'd check first, even if an audit isn't the right next step.</p>
           <p className="faq-go"><a className="hero2-btn hero2-btn-primary" href="/book/"><CallIcon />Ask me on a call</a></p>
           <p className="faq-mail">Rather write? Email me at <b>{EMAIL}</b></p>
         </Faq>

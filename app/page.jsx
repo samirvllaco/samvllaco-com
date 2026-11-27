@@ -155,13 +155,6 @@ export default function Home() {
       <Faq items={FAQ}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <SkyPhoto className="faq-photo" />
-        <h3>Still have a question? <em className="scr">Good, ask me.</em></h3>
-        <p>Most founders I talk to have one question they didn't want to type into a form. Bring it to a call. It's just you and me, and you can ask anything.</p>
-        <ul className="faq-pts">
-          <li><i className="tg-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18zM12 16a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM12 12h.01" /></svg></i>A plan made for your problem</li>
-          <li><i className="tg-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6zM9 11h7M9 15h7M9 19h4" /></svg></i>The full plan, written down</li>
-          <li><i className="tg-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7z" /></svg></i>Ready to start right away</li>
-        </ul>
         <p className="faq-go"><a className="hero2-btn hero2-btn-primary" href="/book/"><CallIcon />Ask me on a call</a></p>
         <p className="faq-mail">Rather write? Email me at <b>{EMAIL}</b></p>
       </Faq>

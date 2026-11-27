@@ -6402,3 +6402,9 @@ html.is-live .ask-pill::before { animation-play-state: running; }
 .faq-in path { fill: var(--page); }
 .faq-in:hover { color: var(--text); }
 .faq-in:focus-visible { outline: 3px solid rgba(98, 193, 253, .6); outline-offset: 2px; }
+/* The photo stays on top of the FAQ card; who answers sits right under it. */
+.faq-card .faq-photo { order: -1; }
+.faq-card .faq-who { margin: 8px 12px 0; }
+.faq-card:has(.sky.faq-photo) .faq-who { grid-template-columns: minmax(0, 1fr); }
+.faq-card:has(.sky.faq-photo) .faq-who img { display: none; }
+.faq-card .faq-who-n { color: var(--text); }

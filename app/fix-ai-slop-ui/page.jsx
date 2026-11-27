@@ -603,8 +603,6 @@ export default function Ebook() {
         <Faq items={FAQ.map(([q, a]) => ({ q, a }))} a="Questions" b="before you buy" bg="#171719">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img className="faq-photo eb-faq-cov" src="/book-cover.webp?v=2" width="300" height="400" alt="" loading="lazy" />
-          <h3>Still not sure? <em className="scr">Ask me.</em></h3>
-          <p>Send me a message and I'll tell you honestly if the book fits your product.</p>
           <p className="faq-go"><Buy label={<>Get the book <span className="eb-pill">{PRICE}</span></>} /></p>
           <p className="faq-mail">Or email me at <b>{EMAIL}</b></p>
         </Faq>

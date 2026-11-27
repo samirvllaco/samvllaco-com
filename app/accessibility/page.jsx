@@ -111,8 +111,6 @@ export default function Accessibility() {
       <div className="sv-sec sv-faqwrap">
         <Faq items={MANAGED_FAQ} a="Questions" b="from product and legal" bg="#171719">
           <SkyPhoto className="faq-photo" />
-          <h3>Procurement has questions? <em className="scr">Good.</em></h3>
-          <p>Bring them to a 30-minute call. Tell me how you ship and I'll show you how I'd fit in.</p>
           <p className="faq-go"><a className="hero2-btn hero2-btn-primary" href="/book/"><CallIcon />Ask me on a call</a></p>
           <p className="faq-mail">Rather write? Email me at <b>{EMAIL}</b></p>
         </Faq>
