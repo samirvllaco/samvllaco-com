@@ -7029,3 +7029,7 @@ html.on-light .ask-me svg { background: #fff; }
 :root:root:root .tm-world-go { display: inline-flex; align-items: center; gap: 8px; margin-top: 4px; font-size: .875rem; font-weight: 500; color: var(--muted); }
 :root:root:root .tm-world-go span { transition: translate .25s var(--ease-out); }
 @media (hover: hover) and (pointer: fine) { :root:root:root .tm-world:hover { transform: translateX(-50%); } :root:root:root .tm-world:hover .tm-world-go { color: var(--text); } :root:root:root .tm-world:hover .tm-world-go span { translate: 3px 0; } }
+/* FAQ card: the call button and the email copy row are the same size (owner, 27 Nov 2026: "buttons should be same size"). */
+:root:root:root .faq-card :is(.faq-go, .faq-mail) { width: auto; max-width: 320px; justify-self: stretch; }
+:root:root:root .faq-card .faq-go .hero2-btn, :root:root:root .faq-card .faq-mail .hp-copy { width: 100%; min-height: 48px; box-sizing: border-box; }
+:root:root:root .faq-card .faq-mail .hp-copy > b { margin-left: auto; }
