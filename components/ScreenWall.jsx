@@ -2,7 +2,7 @@
 import { useEffect, useRef } from "react";
 import { WALL } from "../lib/wall";
 
-// A wall of screens that starts zoomed in and zooms out as you scroll through the section.
+// A wall of screens that starts zoomed in, zooms out as you scroll through the section, then pans on through the rows.
 export default function ScreenWall() {
   const sec = useRef(null);
   const grid = useRef(null);
@@ -16,9 +16,12 @@ export default function ScreenWall() {
       const r = s.getBoundingClientRect();
       const total = r.height - window.innerHeight;
       const p = Math.min(1, Math.max(0, -r.top / (total || 1)));
-      const e = 1 - Math.pow(1 - p, 2);
+      // First 60% of the section: zoom out. The rest: pan on down through the rows below the fold.
+      const z = Math.min(1, p / 0.6), e = 1 - Math.pow(1 - z, 2);
       const from = parseFloat(getComputedStyle(g).getPropertyValue("--from")) || 2.6;
-      g.style.transform = `scale(${(from - (from - 1) * e).toFixed(4)})`;
+      const k = p <= 0.6 ? 0 : (p - 0.6) / 0.4, pan = k * k * (3 - 2 * k);
+      const room = Math.max(0, (g.offsetHeight - window.innerHeight) / 2 + 48);
+      g.style.transform = `translateY(${(-room * pan).toFixed(1)}px) scale(${(from - (from - 1) * e).toFixed(4)})`;
     };
     const on = () => { if (!raf) raf = requestAnimationFrame(update); };
     update();
@@ -36,7 +39,7 @@ export default function ScreenWall() {
         </ul>
         <div className="wall-grid" ref={grid} aria-hidden="true">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          {WALL.map((src, i) => <div className="wall-cell" key={src}><img className="wl" src={src} width="960" height="540" alt="" loading="lazy" decoding="async" /><img className="wd" src={src.replace("/wall/", "/wall/dark/").split("?")[0] + "?v=9"} width="960" height="540" alt="" loading={Math.abs(i - 38) < 9 ? "eager" : "lazy"} decoding="async" /></div>)}
+          {WALL.map((src, i) => <div className="wall-cell" key={src}><img className="wl" src={src} width="960" height="540" alt="" loading="lazy" decoding="async" /><img className="wd" src={src.replace("/wall/", "/wall/dark/").split("?")[0] + "?v=9"} width="960" height="540" alt="" loading={Math.abs(i - 45) < 9 ? "eager" : "lazy"} decoding="async" /></div>)}
         </div>
       </div>
     </section>

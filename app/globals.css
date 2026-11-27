@@ -6621,3 +6621,6 @@ html.js:not(.is-live) .intro *, html.js:not(.is-live) .intro { animation-play-st
 /* The screen wall sits on the page colour so it joins the hero above it (owner, 27 Nov 2026): no lighter cells, no glow */
 :root:root .wall-cell { background: #171719; }
 :root:root .wall-stats::before { display: none; }
+/* The wall is longer now: zoom out, then pan through 13 rows (owner, 27 Nov 2026) */
+:root:root .wall { height: 420vh; }
+@media (max-width: 800px) { :root:root .wall { height: 320vh; } :root:root .wall-cell:first-child { display: block; } }
