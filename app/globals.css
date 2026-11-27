@@ -7336,3 +7336,20 @@ html.on-light .edge-blur { opacity: 0; }
 .fa-steps span { display: grid; gap: 4px; font-size: .9375rem; line-height: 1.5; color: var(--muted); }
 .fa-steps strong { color: var(--text); font-weight: 600; }
 @media (max-width: 720px) { .fa-grid, .fa-steps { grid-template-columns: minmax(0, 1fr); } }
+
+/* Start a project: services dropdown with checkboxes */
+.ps-pick { position: relative; max-width: 480px; }
+.ps-pick-btn { display: flex; align-items: center; justify-content: space-between; gap: 12px; width: 100%; min-height: 52px; padding: 0 16px; border: 0; border-radius: var(--r-inner); font: inherit; font-size: 1rem; color: var(--text); text-align: left; cursor: pointer; background: var(--card); box-shadow: inset 0 0 0 1px var(--line); }
+.ps-pick-btn:focus-visible { outline: 3px solid rgba(98, 193, 253, .6); outline-offset: 2px; }
+.ps-pick-btn svg { flex: none; color: var(--muted); transition: rotate .25s var(--ease-out); }
+.ps-pick.is-open .ps-pick-btn svg { rotate: 180deg; }
+.ps-ph { color: var(--muted); }
+.ps-pick-list { position: absolute; z-index: 20; left: 0; right: 0; top: calc(100% + 8px); display: grid; gap: 2px; max-height: min(60vh, 520px); overflow: auto; padding: 8px; border-radius: var(--r-card); background: #1c1c1f; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .1), 0 24px 48px -24px rgba(0, 0, 0, .6); }
+.ps-pick-list[hidden] { display: none; }
+.ps-opt { display: flex; align-items: center; gap: 12px; min-height: 44px; padding: 0 12px; border-radius: var(--r-sm); font-size: .9375rem; color: var(--text-2, #d4d4d8); cursor: pointer; }
+.ps-opt:hover, .ps-opt:has(input:focus-visible) { background: rgba(255, 255, 255, .06); color: var(--text); }
+.ps-opt input { appearance: none; flex: none; display: grid; place-items: center; width: 20px; height: 20px; margin: 0; border-radius: 4px; box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, .35); cursor: pointer; }
+.ps-opt input:checked { background: #f5f5f7; box-shadow: none; }
+.ps-opt input:checked::after { content: ""; width: 10px; height: 6px; margin-top: -2px; border: solid #111112; border-width: 0 0 2px 2px; rotate: -45deg; }
+.ps-opt input:focus-visible { outline: 2px solid rgba(98, 193, 253, .7); outline-offset: 2px; }
+.ps-opt:has(input:checked) { color: var(--text); }
