@@ -7116,3 +7116,10 @@ html.on-light .ask-me svg { background: #fff; }
 .wc-link:hover .wc-go svg { translate: 3px 0; }
 :root:root .wc-all { display: flex; justify-content: center; margin-top: var(--gap-content, 40px); }
 :root:root:root #work .work-lede + .wc { margin-top: var(--gap-content, 40px); }
+
+/* White bands ease in and out (owner, 27 Nov 2026: "not immediately dark, make it smooth like previous versions"):
+   the white is a full-width layer (.band-bg) that reaches into the gaps above and below the band and fades there, so
+   the page goes from dark to white and back gradually while scrolling. Only empty gap space sits in the fade. */
+:root:root:root .band-light { background: #ffffff; box-shadow: none; clip-path: none; isolation: isolate; }
+.band-light > .band-bg { position: absolute; z-index: -1; pointer-events: none; top: calc(-1 * var(--sec)); bottom: calc(-1 * var(--sec)); left: calc(50% - 50vw); width: 100vw;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0, #ffffff var(--sec), #ffffff calc(100% - var(--sec)), rgba(255, 255, 255, 0) 100%); }
