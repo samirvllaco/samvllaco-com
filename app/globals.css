@@ -7286,9 +7286,9 @@ html.on-light .edge-blur { opacity: 0; }
 
 /* How I work screen card, smaller and quicker to read (owner, 27 Nov 2026: "make this card way smaller and easy to scan"):
    a 16:10 screen cropped to the design, then the title and one line, at most 520px wide, centred in its column. */
-:root:root:root .hw-stage a { gap: 0; padding: 6px 6px 14px; }
+:root:root:root .hw-stage a { gap: 0; padding: 8px 8px 16px; }
 :root:root:root .hw-shot { aspect-ratio: 16 / 10; margin-bottom: 12px; }
-.hw-cap { display: grid; gap: 2px; padding-inline: 10px; }
+.hw-cap { display: grid; gap: 4px; padding-inline: 8px; }
 :root:root:root .hw-cap .hw-tt { padding: 0; font-size: 1rem; line-height: 1.5; }
 :root:root:root .hw-cap .hw-td { padding: 0; font-size: .875rem; line-height: 1.43; }
 @media (min-width: 1100px) { :root:root:root .hw-stage { width: min(100%, 520px); justify-self: center; } }
