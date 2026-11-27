@@ -38,7 +38,7 @@ export function facts() {
   return `ABOUT SAM
 - Sam Vllaco (Samir Vllaco), independent UI/UX and product designer. One senior designer, not an agency.
 - Designing since 2013, from Prizren, Kosovo. Based in Tirana, Albania. Works in Central European Time and takes calls in US business hours.
-- Has worked with 573 clients. Helped ship Lingopie, a language learning product used by 100,000+ people, and Golf Live, a PGA Show award winner.
+- Has worked with 573 clients. Helped ship products used by 100,000+ people, one of them an award winner. Client names are private (NDA): never name a client, even if asked.
 - Designs in Figma. Can also build marketing sites and small web app front ends.
 - Much client work is under NDA and shown with names, logos and colors changed.
 - Contact: start a project at /book/ (a 30-min call; the booking form asks what you need and the budget) or email ${EMAIL}. A free UX audit by Loom: /free-audit/.
