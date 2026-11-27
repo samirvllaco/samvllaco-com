@@ -5,7 +5,7 @@
 //   edge    every panel, grid or card row inside a section lines up with the 1200px content box: it spans it,
 //           starts at its left edge, ends at its right edge, or is a centered text block no wider than 800px.
 //   intro   a section title and the lede under it are 12px apart.
-//   content the intro and the content below it are 48px apart (32px on phones), and so is the content and its button row.
+//   content the intro and the content below it are 40px apart (32px on phones), and so is the content and its button row.
 //   gap     cards in a row or grid are 20px apart (rows and columns).
 //   pad     card padding is on the spacing scale: 4, 8, 12, 16, 20, 24, 32, 40, 48, 64.
 //   section consecutive sections are var(--space-section) apart (128px at 1440, 64px on phones).
@@ -96,7 +96,7 @@ function check(vw) {
       if (Math.abs(g - 12) > 2) bad.push(`intro  ${where(h)}${name(h)} -> ${name(n)}  ${Math.round(g)}px (want 12)`);
     }
     // Intro to content, and content to its button row: --gap-content.
-    const GC = vw < 768 ? 32 : 48;
+    const GC = vw < 768 ? 32 : 40;
     const vtop = (e) => { // where an element visibly starts: itself if it paints, else its first painted child
       for (let k = e, i = 0; k && i < 6; i++) {
         const ks = getComputedStyle(k); const paints = !/rgba\(0, 0, 0, 0\)|transparent/.test(ks.backgroundColor) || ks.boxShadow !== "none" || /^(IMG|BUTTON|A|P|H1|H2|H3|UL|OL|LI|DETAILS)$/.test(k.tagName);

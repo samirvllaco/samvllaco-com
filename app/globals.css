@@ -6181,13 +6181,13 @@ html.is-live .ask-pill::before { animation-play-state: running; }
    Layout system, strict (owner, 26 Nov 2026: "do full layout check, make sure we follow it strictly").
    Checked by scripts/layout.cjs. Inside every section:
      12px  between eyebrow, title and lede (--gap-intro)
-     48px  from the intro to the content, between content groups, and from the content to its button
+     40px  from the intro to the content, between content groups, and from the content to its button (48 until 27 Nov 2026)
            (--gap-content, 32px on phones)
      20px  between cards, and between a card grid and the chips or filters that belong to it (--gap-grid)
      card padding on the scale: 24px for cards, 32px for large panels
    Every panel, grid and card row spans the 1200px content box or starts at its left edge; only text is centered narrower.
    ========================================================================== */
-:root { --gap-content: 48px; }
+:root { --gap-content: 40px; }
 @media (max-width: 767px) { :root { --gap-content: 32px; } }
 
 /* Intro blocks: title and lede 12px apart, nothing else adding to it. */
@@ -6344,18 +6344,22 @@ html.is-live .ask-pill::before { animation-play-state: running; }
      lines    8% card edges, 12% dividers, 20% strong
      motion   one ease (--ease-out) and one bounce (--spring) at .15 / .25 / .35 / .5s; the scroll reveal keeps its own timing
      weight   400, 500, 600; nothing heavier
-     type     display 64/68, section title 48/56 (was 56/60 and 42/48), the rest unchanged
+     type     display 56/60, section title 40/48, h1 and h2 at weight 500 (27 Nov 2026: thinner and more compact; was 64/68 and 48/56 at 600)
+     rhythm   sections 96px apart at 1440 (56 on phones), 40px intro to content (32 on phones)
      width    content 1280px (was 1200)
    Locomotive Scroll came back on 27 Nov 2026 with lerp .2 (components/SmoothScroll.jsx).
    ========================================================================== */
 :root:root {
   --r-card: 20px; --r-inner: 12px; --r-sm: 8px;
   --max: calc(1280px + 2 * var(--gutter));
-  --fs-display: clamp(2.5rem, 1.972rem + 2.254vw, 4rem);
-  --fs-title: clamp(2rem, 1.648rem + 1.502vw, 3rem);
+  --fs-display: clamp(2.5rem, 2.129rem + 1.524vw, 3.5rem);
+  --fs-title: clamp(1.75rem, 1.471rem + 1.143vw, 2.5rem);
+  --space-section: clamp(3.5rem, 2.571rem + 3.81vw, 6rem);
 }
-:root:root:root:root h1 { line-height: 1.0625; }
-:root:root:root:root h2 { line-height: 1.1667; }
+/* Thinner, more compact titles (owner, 27 Nov 2026): display 56/60, title 40/48, panel headline 28/36, all at 500. */
+:root:root:root:root h1 { line-height: 1.0714; font-weight: 500; letter-spacing: -.03em; }
+:root:root:root:root h2 { line-height: 1.2; font-weight: 500; letter-spacing: -.025em; }
+:root:root:root:root :is(.hp-left h2, .eb-hp .hp-left h2, .ab-part h2, .pn-fix-copy h3, .ef-one-copy h3, .eb-grp-h h3) { font-weight: 500; }
 /* The hero headline keeps its three designed lines at the larger size. */
 :root:root:root .hero3 h1 { max-width: 920px; }
 /* Rows that were capped at the old 1200px follow the content box. */
