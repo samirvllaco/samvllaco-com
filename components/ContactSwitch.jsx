@@ -33,7 +33,6 @@ export default function ContactSwitch({ call }) {
             {label}
           </button>
         ))}
-        <span className="cs-thumb" aria-hidden="true" data-on={tab} />
       </div>
       <div id="cs-panel-call" role="tabpanel" aria-labelledby="cs-tab-call" hidden={tab !== "call"}>{call}</div>
       <div id="cs-panel-message" role="tabpanel" aria-labelledby="cs-tab-message" hidden={tab !== "message"} className="cs-msg">
