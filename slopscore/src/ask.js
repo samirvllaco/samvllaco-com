@@ -1,6 +1,6 @@
 // "Ask Sam's AI": the site chat box. Answers only from facts the site already states, built here from lib/ at bundle time,
 // so a price or service changed in lib/ reaches the chat on the next `node slopscore/build.mjs`.
-import { PLANS, LADDER, STEPS, EAA_AUDIT_PRICE, MANAGED_FROM, SLOP_REPORT_PRICE, usd } from "../../lib/plans.js";
+import { PLANS, LADDER, STEPS, EAA_AUDIT_PRICE, MANAGED_FROM, SLOP_REPORT_PRICE, PROJECT_FROM, BUDGETS, TRIAL_WEEK, usd } from "../../lib/plans.js";
 import { SERVICES, svcHref } from "../../lib/services.js";
 import { WORK } from "../../lib/work.js";
 import { FAQ } from "../../lib/faq.js";
@@ -27,7 +27,7 @@ const qa = (list) => list.map((f) => `Q: ${plain(f.q)}\nA: ${plain(f.a)}`).join(
 
 export function facts() {
   const services = SERVICES.map((g) => `${g.title}:\n${g.items.map((it) => `- ${it.name} (${svcHref(it.id)}): ${it.text}`).join("\n")}`).join("\n");
-  const plans = PLANS.map((p) => `- ${p.k}, ${p.price} ${p.per}, for ${p.who.toLowerCase()}: ${p.lead} Includes: ${p.items.join("; ")}. Example: ${p.eg}`).join("\n");
+  const plans = PLANS.map((p) => `- ${p.k}, for ${p.who.toLowerCase()}: ${p.lead} Includes: ${p.items.join("; ")}. Example: ${p.eg}`).join("\n");
   const ladder = LADDER.map((s, i) => `${i + 1}. ${s.name}, ${s.price} (${s.href}): ${s.who}`).join("\n");
   const work = WORK.map((w) => `- ${w.title} (/work/${w.slug}/), ${w.tags.join(", ")}: ${w.sub}`).join("\n");
   // Everything below is read from the site's own data at bundle time, so the chat knows what the site says (owner, 25 Nov 2026).
@@ -41,11 +41,12 @@ export function facts() {
 - Has worked with 573 clients. Helped ship Lingopie, a language learning product used by 100,000+ people, and Golf Live, a PGA Show award winner.
 - Designs in Figma. Can also build marketing sites and small web app front ends.
 - Much client work is under NDA and shown with names, logos and colors changed.
-- Contact: book a 30-min call at /book/ or email ${EMAIL}.
+- Contact: start a project at /book/ (pick what you need and a budget, then book a 30-min call or send it by email) or email ${EMAIL}.
 
-PLANS (/pricing/)
+WAYS TO WORK (prices are not published per plan; there is no pricing page)
 ${plans}
-- Fixed-price projects: scoped on a call, from $1,000; larger product work runs from $5,000 to $25,000.
+- Projects start at ${usd(PROJECT_FROM)}. Every project gets a fixed price in writing after the first conversation. The contact page asks for a budget: ${BUDGETS.join(", ")}.
+- Trial week: ${usd(TRIAL_WEEK)}. One week of real work on your product, so you see how Sam works before a full project.
 - How the plans work: ${STEPS.map((s) => `${s.t}: ${s.d}`).join(" ")}
 
 EVERY OFFER, SMALLEST FIRST

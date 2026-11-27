@@ -10,7 +10,7 @@ export default function ToolCta() {
       <p>Fix it yourself tonight with 27 copy-paste prompts, or book a free call and we fix it together.</p>
       <div className="btn-row">
         <a className="hero2-btn hero2-btn-primary" href={BOOK_URL} target="_blank" rel="noopener">Get the book, $12.99</a>
-        <Link prefetch={false} className="hero2-btn hero2-btn-light" href="/book/"><CallIcon />Book a call</Link>
+        <Link prefetch={false} className="hero2-btn hero2-btn-light" href="/book/">Start a project<CallIcon /></Link>
       </div>
     </section>
   );

@@ -28,13 +28,10 @@ const SUB = {
 
 const LINKS = [
   { href: "/services/", label: "Services", menu: true },
-  { href: "/pricing/", label: "Pricing" },
   { href: "/work/", label: "Work" },
-  { href: "/resources/", label: "Resources", menu: true },
-  { href: "/fix-ai-slop-ui/", label: "E-book", tag: "$12.99" },
-  { href: "/tools/", label: "Free tools", menu: true },
+  { href: "/writing/", label: "Insights" },
   { href: "/about/", label: "About" },
-  { href: "/book/", label: "Contact" },
+  { href: "/tools/", label: "Free tools", menu: true },
 ];
 
 // Hamburger menu for phones and small tablets. The desktop nav is hidden at the same width.
@@ -148,7 +145,7 @@ export default function MobileMenu() {
           <div className="mm-cta">
             {onBook
               ? <a className="hero2-btn hero2-btn-primary" href={BOOK_URL} target="_blank" rel="noopener">Buy the e-book for $12.99</a>
-              : <a className="hero2-btn hero2-btn-primary" href="/book/"><CallIcon />Book a design strategy call</a>}
+              : <a className="hero2-btn hero2-btn-primary" href="/book/">Start a project<CallIcon /></a>}
           </div>
         </div>
       </div>, document.body) : null}

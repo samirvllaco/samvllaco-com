@@ -8,7 +8,7 @@ const QUICK = [
   ["/writing/", "Insights", "M5 4h11l3 3v13H5zM8 9h8M8 13h8M8 17h5"],
   ["/fix-ai-slop-ui/", "Ebook", "M4 5a2 2 0 0 1 2-2h12v16H6a2 2 0 0 0-2 2zM4 5v16M9 7h6", "$12.99"],
   ["/about/", "About", "M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"],
-  ["/book/", "Book a call", "M4 6h16v14H4zM4 10h16M8 3v4M16 3v4"],
+  ["/book/", "Start a project", "M4 6h16v14H4zM4 10h16M8 3v4M16 3v4"],
 ];
 export default function Crumbs({ items }) {
   const all = [{ name: "Home", href: "/" }, ...items];

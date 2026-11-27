@@ -84,7 +84,7 @@ export default async function ServicePage({ params }) {
           <h1>{s.name} <span className="t2">{p.tail}</span></h1>
           <p className="sv-lede">{d.for ? `Made for ${d.for.charAt(0).toLowerCase()}${d.for.slice(1)}` : s.text}</p>
           <div className="sv-cta">
-            <a className="hero2-btn hero2-btn-primary" href="/book/"><CallIcon />Book a call</a>
+            <a className="hero2-btn hero2-btn-primary" href="/book/">Start a project<CallIcon /></a>
             <a className="hero2-btn hero2-btn-light" href="#sv-work">See the work</a>
           </div>
           <ul className="sv-proof">
@@ -156,7 +156,7 @@ export default async function ServicePage({ params }) {
       <div className="sv-sec sv-faqwrap">
         <Faq items={[...((SEO[id] || {}).faq || []), ...SVC_FAQ]} a="Questions" b="before you book" bg="#171719">
           <SkyPhoto className="faq-photo" />
-          <p className="faq-go"><a className="hero2-btn hero2-btn-primary" href="/book/"><CallIcon />Ask me on a call</a></p>
+          <p className="faq-go"><a className="hero2-btn hero2-btn-primary" href="/book/">Start a project<CallIcon /></a></p>
           <div className="faq-mail"><CopyEmailInline icon /></div>
         </Faq>
       </div>
@@ -164,7 +164,7 @@ export default async function ServicePage({ params }) {
       <section className="sv-sec sv-end" aria-labelledby="sv-end-h">
         <h2 id="sv-end-h">Tell me about your <span className="t2">{lower} project</span></h2>
         <p>30 minutes, just you and me. You leave with a scope, a timeline and a fixed price.</p>
-        <div className="sv-cta sv-cta-c"><a className="hero2-btn hero2-btn-primary" href="/book/"><CallIcon />Book a call</a></div>
+        <div className="sv-cta sv-cta-c"><a className="hero2-btn hero2-btn-primary" href="/book/">Start a project<CallIcon /></a></div>
       </section>
 
       {related.length ? (

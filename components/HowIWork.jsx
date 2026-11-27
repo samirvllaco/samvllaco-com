@@ -43,8 +43,8 @@ export default function HowIWork() {
         </ol>
 
         <div className="hw-go">
-          <a className="hero2-btn hero2-btn-primary" href="/book/"><CallIcon />Book a 30-min strategy call</a>
-          <p>You get a plan and a fixed price after the call.</p>
+          <a className="hero2-btn hero2-btn-primary" href="/book/">Start a project<CallIcon /></a>
+          <p>You get a plan and a fixed price before any work starts.</p>
         </div>
       </div>
 

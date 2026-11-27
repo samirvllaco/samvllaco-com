@@ -40,7 +40,7 @@ Three public reference points, all checked in November 2026:
 
 Those hourly figures are averages across the whole world and every skill level. A senior product designer who has shipped SaaS products usually charges more, and is usually cheaper in total, because they need fewer rounds.
 
-My own prices are public: $50 an hour, $1,500 for a one-week design sprint, $5,000 a month, and fixed-price projects from $1,000, with larger product work between $5,000 and $25,000. [The pricing page](/pricing/) has the detail, and [the design cost calculator](/tools/design-cost-calculator/) gives you a number for your own scope.
+My own projects start at $5,000, with a fixed price in writing before work starts, or a $2,500 trial week if you want to see how I work first. [The design cost calculator](/tools/design-cost-calculator/) gives you a rough range in a minute.
 
 Ask for a fixed price and a timeline in writing. Hourly billing with no ceiling moves all the risk to you.
 

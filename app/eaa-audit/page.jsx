@@ -65,7 +65,7 @@ export default function EaaAudit() {
       <JsonLd data={schema} />
       <PageHead crumb="EAA audit" href="/eaa-audit/" a="Find where your product fails the EAA." b="Fix it in a week." lede="I check your site or app against WCAG 2.2 AA, show you exactly what blocks people, and design the fixes with your team. A plain report, real fixes, no overlay widgets.">
         <div className="btn-row">
-          <a className="hero2-btn hero2-btn-primary" href="/book/"><CallIcon />Book a call</a>
+          <a className="hero2-btn hero2-btn-primary" href="/book/">Start a project<CallIcon /></a>
           <a className="hero2-btn hero2-btn-light" href="/slop-score/">Check my site for free</a>
         </div>
         <p className="ax-small">Not legal advice. I work alongside your legal team.</p>
@@ -96,7 +96,7 @@ export default function EaaAudit() {
               <p className="pr-price">{p.price}<span>{p.per}</span></p>
               <p className="pr-lead">{p.lead}</p>
               <ul className="pr-items">{p.items.map((t) => <li key={t}>{t}</li>)}</ul>
-              <a className={`hero2-btn ${p.hot ? "hero2-btn-primary" : "hero2-btn-light"}`} href="/book/"><CallIcon />Book a call<span className="sr-only"> about the {p.k.toLowerCase()}</span></a>
+              <a className={`hero2-btn ${p.hot ? "hero2-btn-primary" : "hero2-btn-light"}`} href="/book/">Start a project<span className="sr-only"> about the {p.k.toLowerCase()}</span><CallIcon /></a>
             </li>
           ))}
         </ul>
@@ -135,7 +135,7 @@ export default function EaaAudit() {
       <div className="sv-sec sv-faqwrap">
         <Faq items={EAA_FAQ} a="Questions" b="about the EAA" bg="#171719">
           <SkyPhoto className="faq-photo" />
-          <p className="faq-go"><a className="hero2-btn hero2-btn-primary" href="/book/"><CallIcon />Ask me on a call</a></p>
+          <p className="faq-go"><a className="hero2-btn hero2-btn-primary" href="/book/">Start a project<CallIcon /></a></p>
           <div className="faq-mail"><CopyEmailInline icon /></div>
         </Faq>
       </div>
@@ -143,7 +143,7 @@ export default function EaaAudit() {
       <section className="sv-sec sv-end" aria-labelledby="ax-end-h">
         <h2 id="ax-end-h">Know where you stand <span className="t2">in a week.</span></h2>
         <p>Book a short call. If an audit isn't what you need, I'll tell you.</p>
-        <div className="sv-cta sv-cta-c"><a className="hero2-btn hero2-btn-primary" href="/book/"><CallIcon />Book a call</a></div>
+        <div className="sv-cta sv-cta-c"><a className="hero2-btn hero2-btn-primary" href="/book/">Start a project<CallIcon /></a></div>
       </section>
     </div>
   );

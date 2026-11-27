@@ -12,5 +12,5 @@ export default function HeadCta() {
       <a className="head-cta head-cta-book" href={BOOK_URL} target="_blank" rel="noopener"><DownloadIcon />Download e-book</a>
     );
   }
-  return <a className="head-cta" href="/book/"><CallIcon />Book a strategy call</a>;
+  return <a className="head-cta" href="/book/">Start a project<CallIcon /></a>;
 }

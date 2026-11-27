@@ -56,7 +56,7 @@ export default function ServiceGroup({ id }) {
           <h1>{g.name} <span className="t2">{g.tail}</span></h1>
           <p className="sv-lede">{g.lede}</p>
           <div className="sv-cta">
-            <a className="hero2-btn hero2-btn-primary" href="/book/"><CallIcon />Book a call</a>
+            <a className="hero2-btn hero2-btn-primary" href="/book/">Start a project<CallIcon /></a>
             <a className="hero2-btn hero2-btn-light" href={`#${members[0].id}`}>See what's included</a>
           </div>
           <ul className="sv-proof">
@@ -142,7 +142,7 @@ export default function ServiceGroup({ id }) {
       <div className="sv-sec sv-faqwrap">
         <Faq items={SVC_FAQ} a="Questions" b="before you book" bg="#171719">
           <SkyPhoto className="faq-photo" />
-          <p className="faq-go"><a className="hero2-btn hero2-btn-primary" href="/book/"><CallIcon />Ask me on a call</a></p>
+          <p className="faq-go"><a className="hero2-btn hero2-btn-primary" href="/book/">Start a project<CallIcon /></a></p>
           <div className="faq-mail"><CopyEmailInline icon /></div>
         </Faq>
       </div>
@@ -150,7 +150,7 @@ export default function ServiceGroup({ id }) {
       <section className="sv-sec sv-end" aria-labelledby="sv-end-h">
         <h2 id="sv-end-h">Tell me about your <span className="t2">{lower} project</span></h2>
         <p>30 minutes, just you and me. You leave with a scope, a timeline and a fixed price.</p>
-        <div className="sv-cta sv-cta-c"><a className="hero2-btn hero2-btn-primary" href="/book/"><CallIcon />Book a call</a></div>
+        <div className="sv-cta sv-cta-c"><a className="hero2-btn hero2-btn-primary" href="/book/">Start a project<CallIcon /></a></div>
       </section>
 
       <nav className="sv-sec sv-more" aria-label="More services">

@@ -101,8 +101,9 @@ export default function Home() {
           {/* Runs before the first paint: the headline first reads as plain text, then the icons open their space. */}
           <script dangerouslySetInnerHTML={{ __html: H1_FLIP }} />
           <p className="hero2-sub">UX audits, UI/UX sprints and redesigns for SaaS, fintech, healthcare and e-commerce products. I find the gaps in your app and fix them, or design it from zero.</p>
-          <div className="hero2-cta">
-            <a className="hero2-btn hero2-btn-primary" href="/book/"><CallIcon />Book a 30-min strategy call</a>
+          <div className="hero2-cta btn-row">
+            <a className="hero2-btn hero2-btn-primary" href="/book/">Start a project<CallIcon /></a>
+            <a className="hero2-btn hero2-btn-light" href="/work/">See my work</a>
           </div>
           <div className="hero-proof">
             <p className="hero-award"><i className="lr lr-l" aria-hidden="true" /><i className="lr lr-r" aria-hidden="true" /><span>Award-winning</span><span>UI/UX designer</span></p>
@@ -163,7 +164,7 @@ export default function Home() {
       <Faq items={FAQ} light>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <SkyPhoto className="faq-photo" />
-        <p className="faq-go"><a className="hero2-btn hero2-btn-primary" href="/book/"><CallIcon />Ask me on a call</a></p>
+        <p className="faq-go"><a className="hero2-btn hero2-btn-primary" href="/book/">Start a project<CallIcon /></a></p>
         <div className="faq-mail"><CopyEmailInline icon /></div>
       </Faq>
     </div>

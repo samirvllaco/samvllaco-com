@@ -52,7 +52,7 @@ export default async function IndustryPage({ params }) {
           <h1>UI/UX design <span className="t2">{x.tail}</span></h1>
           <p className="sv-lede">{x.lede}</p>
           <div className="sv-cta">
-            <a className="hero2-btn hero2-btn-primary" href="/book/"><CallIcon />Book a call</a>
+            <a className="hero2-btn hero2-btn-primary" href="/book/">Start a project<CallIcon /></a>
             {work.length ? <a className="hero2-btn hero2-btn-light" href="#sv-work">See the work</a> : null}
           </div>
         </div>
@@ -113,7 +113,7 @@ export default async function IndustryPage({ params }) {
       <div className="sv-sec sv-faqwrap">
         <Faq items={[...x.faq, ...SVC_FAQ]} a="Questions" b="before you book" bg="#171719">
           <SkyPhoto className="faq-photo" />
-          <p className="faq-go"><a className="hero2-btn hero2-btn-primary" href="/book/"><CallIcon />Ask me on a call</a></p>
+          <p className="faq-go"><a className="hero2-btn hero2-btn-primary" href="/book/">Start a project<CallIcon /></a></p>
           <div className="faq-mail"><CopyEmailInline icon /></div>
         </Faq>
       </div>
@@ -121,7 +121,7 @@ export default async function IndustryPage({ params }) {
       <section className="sv-sec sv-end" aria-labelledby="sv-end-h">
         <h2 id="sv-end-h">Tell me what <span className="t2">you&rsquo;re building</span></h2>
         <p>30 minutes, just you and me. You leave with a scope, a timeline and a fixed price.</p>
-        <div className="sv-cta sv-cta-c"><a className="hero2-btn hero2-btn-primary" href="/book/"><CallIcon />Book a call</a></div>
+        <div className="sv-cta sv-cta-c"><a className="hero2-btn hero2-btn-primary" href="/book/">Start a project<CallIcon /></a></div>
       </section>
 
       <nav className="sv-sec sv-more" aria-label="Other industries">

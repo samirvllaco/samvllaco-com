@@ -82,7 +82,7 @@ export default async function Article({ params }) {
           <p>The book has the full system: 27 copy-paste prompts, the DESIGN.md rules file and a private video of me fixing a real AI-built page.</p>
           <div className="btn-row">
             <Link prefetch={false} className="hero2-btn hero2-btn-primary" href="/fix-ai-slop-ui/">Get the book</Link>
-            <a className="hero2-btn hero2-btn-light" href="/book/"><CallIcon />Book a call</a>
+            <a className="hero2-btn hero2-btn-light" href="/book/">Start a project<CallIcon /></a>
           </div>
         </section>
 

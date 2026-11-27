@@ -62,7 +62,7 @@ export default function SlopScorePage() {
 
       <div className="sv-sec sv-faqwrap">
         <Faq items={FAQ} a="Questions" b="about Slop Score" bg="#171719">
-          <p className="faq-go"><a className="hero2-btn hero2-btn-primary" href="/book/"><CallIcon />Book a call</a></p>
+          <p className="faq-go"><a className="hero2-btn hero2-btn-primary" href="/book/">Start a project<CallIcon /></a></p>
           <div className="faq-mail"><CopyEmailInline icon /></div>
         </Faq>
       </div>

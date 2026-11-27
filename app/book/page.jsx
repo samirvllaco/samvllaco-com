@@ -1,15 +1,11 @@
-import CalFrame from "../../components/CalFrame";
-import { BookAlt } from "../../components/BookBand";
-import Link from "next/link";
-import CallIcon from "../../components/CallIcon";
-import { EMAIL, SITE, BOOKING_URL, FORM_ENDPOINT } from "../../lib/site";
-import { SERVICES } from "../../lib/services";
+import ProjectStart from "../../components/ProjectStart";
+import { SITE } from "../../lib/site";
 
-const TITLE = "Book a strategy call with Sam Vllaco";
-const DESC = "Founder and designer. I turn complex SaaS and AI products into screens people get in seconds. Tell me what you are building.";
+const TITLE = "Start a project with Sam Vllaco";
+const DESC = "Tell me what you need and your budget, then book a 30-min call or send it by email. Projects start at $5,000.";
 
 export const metadata = {
-  title: "Book a strategy call",
+  title: "Start a project",
   description: DESC,
   alternates: { canonical: "/book/" },
   openGraph: { title: TITLE, description: DESC, url: "/book/", type: "website", images: [{ url: "/og-book-call-2.jpg", width: 1200, height: 630, alt: "Book a strategy design call. Sam Vllaco holding a laptop." }] },
@@ -20,15 +16,8 @@ export const metadata = {
 export default function Book() {
   return (
     <div className="wrap page pg svc">
-      {/* Only the calendar, full width (owner, 27 Nov 2026: "remove all text, keep the main frame bigger, full width") */}
-      <h1 className="sr-only">Book a call with Sam Vllaco</h1>
       <div className="book-split is-full">
-      {BOOKING_URL ? (
-        <section className="book-cal" id="calendar" aria-label="Pick a time">
-          <CalFrame src={`${BOOKING_URL}?embed=true&theme=dark&layout=month_view&ui.color-scheme=dark`} />
-          <BookAlt />
-        </section>
-      ) : null}
+        <ProjectStart />
       </div>
     </div>
   );

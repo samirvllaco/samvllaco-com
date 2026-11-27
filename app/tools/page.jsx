@@ -17,7 +17,7 @@ export default function Tools() {
           <li key={t.slug}>
             <Link prefetch={false} href={t.href || `/tools/${t.slug}/`}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <span className="tl-thumb"><img src={`/tools/thumb/${t.slug}.webp?v=1`} width="800" height="500" alt="" loading="lazy" decoding="async" /></span>
+              <span className="tl-thumb"><img src={`/tools/thumb/${t.slug}.webp?v=2`} width="800" height="500" alt="" loading="lazy" decoding="async" /></span>
               <span><b>{t.name}</b><em>{t.text}</em></span>
               <span className="tl-go">Open the tool <span aria-hidden="true">→</span></span>
             </Link>

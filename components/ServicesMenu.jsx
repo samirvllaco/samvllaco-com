@@ -60,7 +60,7 @@ export default function ServicesMenu() {
             </div>
             <p className="mx-side-t">Users get lost. Sign-ups stall. <span>It still looks unfinished.</span></p>
             <p className="mx-side-p">That is a design problem, and design fixes it. In 30 minutes I&rsquo;ll show you which screens to fix first.</p>
-            <a className="hero2-btn hero2-btn-primary" href="/book/"><CallIcon />Book a call</a>
+            <a className="hero2-btn hero2-btn-primary" href="/book/">Start a project<CallIcon /></a>
           </aside>
         </div>
       )}

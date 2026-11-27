@@ -53,7 +53,7 @@ const MAP = [
   { h: "Work", links: [["B2B SaaS", "/work/marketing-dashboard/"], ["Marketplaces", "/work/freelance-marketplace/"], ["Fintech", "/work/mobile-banking/"], ["Health", "/work/eye-care-web-app/"], ["EdTech", "/work/language-player/"], ["E-commerce", "/work/supplements-store/"], ["Legal", "/work/law-firm-website/"], ["All case studies", "/work/"]] },
   { h: "Resources", links: [["Insights", "/writing/"], ["AI slop UI ebook", "/fix-ai-slop-ui/", null, "New"], ["UI/UX review", "/fix-ai-slop-ui/#options"], ["Slop Score", "/slop-score/", null, "New"], ["Free tools", "/tools/"], ["FAQs", "/#faq"], ["All resources", "/resources/"]] },
 ];
-const COMPANY = [["About Sam", "/about/"], ["Pricing", "/pricing/"], ["Book a call", "/book/"]];
+const COMPANY = [["About Sam", "/about/"], ["Start a project", "/book/"]];
 const SOCIAL = [["X", SITE.links.x, "x", "@samvllaco", "https://x.com/intent/follow?screen_name=samvllaco"], ["Medium", SITE.links.medium, "medium", "@samvllaco", SITE.links.medium], ["Dribbble", SITE.links.dribbble, "dribbble", "samirvllaco", SITE.links.dribbble]];
 // Five columns: services, who I work with, work, resources, and Sam with his social links.
 const COLS = [
@@ -83,7 +83,7 @@ function FootMap() {
 
 // Pages without the wall of screens at the foot: the lean pages.
 // (Same list as LEAN in RouteHide.jsx; a "use client" module cannot hand plain values to this server file.)
-const WALL_OFF = ["/tools/", "/slop-score/", "/book/", "/work/", "/pricing/"];
+const WALL_OFF = ["/tools/", "/slop-score/", "/book/", "/work/"];
 
 export default function Footer() {
   return (
@@ -94,9 +94,12 @@ export default function Footer() {
       {/* The closing call over the wall of screens (owner, 27 Nov 2026). Lean pages and About keep the plain call below. */}
       <RouteHide on={WALL_OFF}>
         <ScreenWall cta={<>
-          <h2 id="wall-h" className="wall-h">Talk to the designer <span className="t2">who does the work</span></h2>
+          <h2 id="wall-h" className="wall-h">Work with the designer <span className="t2">who does the work</span></h2>
           <p className="wall-p">UI/UX and product design for SaaS, AI, fintech, health and law firms. One senior designer from the first call to the handover.</p>
-          <a className="hero2-btn hero2-btn-primary" href="/book/"><CallIcon />Book a 30-min strategy call</a>
+          <div className="btn-row">
+            <a className="hero2-btn hero2-btn-primary" href="/book/">Start a project<CallIcon /></a>
+            <a className="hero2-btn hero2-btn-light" href="/work/">See my work</a>
+          </div>
         </>} />
       </RouteHide>
       <div className="wrap">
@@ -161,7 +164,7 @@ export default function Footer() {
                 <img src="/sam-face-144.webp?v=1" width="32" height="32" alt="" loading="lazy" />
                 <span><b>Sam Vllaco</b><span>UI/UX and product designer</span></span>
               </a>
-              <p className="fo-live"><i aria-hidden="true" />1 to 2 new projects at a time <a href="/book/">Book a call</a></p>
+              <p className="fo-live"><i aria-hidden="true" />1 to 2 new projects at a time <a href="/book/">Start a project</a></p>
             </div>
           </RouteHide>
           <div className="fo-body">
@@ -169,7 +172,7 @@ export default function Footer() {
               <div className="fo-lead">
                 <p className="fo-h">Talk to the designer who does the work.</p>
                 <p className="fo-p">UI/UX and product design for SaaS, AI, fintech, health and law firms. One senior designer from the first call to the handover.</p>
-                <a className="hero2-btn hero2-btn-primary" href="/book/"><CallIcon />Book a call</a>
+                <a className="hero2-btn hero2-btn-primary" href="/book/">Start a project<CallIcon /></a>
               </div>
             </RouteOnly>
             <RouteHide>

@@ -38,7 +38,7 @@ export default function FootStage() {
         <span className="sr-only">Your design partner</span>
         {[..."Your design partner"].map((c, i) => <span key={i} aria-hidden="true" style={{ "--i": i }}>{c === " " ? "\u00a0" : c}</span>)}
       </p>
-      <p className="foot-call"><a className="hero2-btn hero2-btn-light" href="/book/"><CallIcon />Book a call</a></p>
+      <p className="foot-call"><a className="hero2-btn hero2-btn-light" href="/book/">Start a project<CallIcon /></a></p>
       <div className="foot-photo-in">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="/sam-footer.webp" width="1254" height="1254" loading="lazy"

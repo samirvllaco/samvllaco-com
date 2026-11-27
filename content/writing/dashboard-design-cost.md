@@ -50,7 +50,7 @@ A redesign costs less than most teams fear, because it usually does not mean a r
 
 ## Get a fixed price
 
-Book a 30-minute call, bring your current screen and a data sample, and you leave with a scope, a timeline and a fixed price in writing. The full price list is on the [pricing page](/pricing/).
+Book a 30-minute call, bring your current screen and a data sample, and you leave with a scope, a timeline and a fixed price in writing. Projects start at $5,000, and the [design cost calculator](/tools/design-cost-calculator/) gives you a rough range first.
 
 ## Questions people ask
 

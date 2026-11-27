@@ -14,7 +14,7 @@ None of this is a bug. Give the tool specific decisions and it follows them. The
 
 ## Hiring a designer vs vibe coding at a glance
 
-- **Cost:** Vibe code the design yourself: A tool subscription and your own hours; Hire a designer: A project fee. Mine usually start at $1,000.
+- **Cost:** Vibe code the design yourself: A tool subscription and your own hours; Hire a designer: A project fee. Mine start at $5,000.
 - **Speed:** Vibe code the design yourself: A screen in seconds. A first version as fast as you can prompt; Hire a designer: Slower. I can usually start within one to two weeks of the first call.
 - **Who you talk to:** Vibe code the design yourself: A prompt box. It does what you ask; Hire a designer: A person who asks about your users and tells you what they'd change.
 - **Range of skills:** Vibe code the design yourself: Wide: layout, components, copy and code. Average by default; Hire a designer: Narrower: flows, hierarchy, states and brand. Specific to your product.
@@ -52,7 +52,7 @@ You don't have to jump from prompting alone to a full project. This is the ladde
 
 **Step 2, $49 or $99: a recorded review.** For $49 you get a 20 to 30 minute Loom made only for your product, an actionable steps document with the fixes in order, and the book. Full refund if it doesn't help. For $99 the review covers your whole product in a 45 minute to 1 hour Loom, with a UI/UX scorecard out of 10, an action plan, custom prompts written for your product, branding tips and the book. Either Loom arrives in under 12 hours. [See both options](/fix-ai-slop-ui/#options).
 
-**Step 3, from $1,000: I fix it.** The [AI-built app design fix](/services/ai-app-design-fix/) is a review of every main screen, redesigned screens with real spacing, type and color rules, and a DESIGN.md file your AI tool follows from then on. I can build the fixes into your code on request. You don't rebuild the app. The structure stays.
+**Step 3, from $5,000: I fix it.** The [AI-built app design fix](/services/ai-app-design-fix/) is a review of every main screen, redesigned screens with real spacing, type and color rules, and a DESIGN.md file your AI tool follows from then on. I can build the fixes into your code on request. You don't rebuild the app. The structure stays.
 
 If you're not sure, start at step 0 or 1. Move up when you get stuck, not before.
 
@@ -84,7 +84,7 @@ For standard screens, AI does much of the production work. It doesn't know your 
 
 ### How much does it cost to fix the design of a vibe-coded app?
 
-With me there are four prices. The ebook is $12.99 if you fix it yourself. A recorded review is $49 or $99. A design project usually starts at $1,000, with a fixed price in writing after a 30 minute call.
+With me there are four prices. The ebook is $12.99 if you fix it yourself. A recorded review is $49 or $99. A design project starts at $5,000, with a fixed price in writing before work starts.
 
 ### Will a designer make me rebuild my AI-built app?
 

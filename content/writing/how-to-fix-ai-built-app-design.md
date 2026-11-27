@@ -82,7 +82,7 @@ Either way, you have the Loom in under 12 hours.
 
 A review is enough when you have the time and the skill to make the changes and you want a senior designer to point at the right ones. You still do the work.
 
-### 3. Have me fix it: projects usually start at $1,000
+### 3. Have me fix it: projects start at $5,000
 
 I go through every main screen with the 25 fixes in hand, redesign them on real spacing, type and color rules, and leave a DESIGN.md file for your AI tool to follow. If you want, I build the fixes into your code too.
 
@@ -97,7 +97,7 @@ And if only your landing page looks off, don't hire me yet. Start with option 1.
 - **What you get:** Prompt the AI again: Another version of the same screen; The ebook: 27 prompts in 59 pages, four rules files, a private 15 to 30 minute video, weekly updates; A recorded review: $49: a 20 to 30 minute Loom, a steps document, the book. $99: a 45 minute to 1 hour Loom, a score out of 10, an action plan, custom prompts, branding tips, the book; Hire me: A review of every main screen, redesigned screens, a DESIGN.md file, fixes in your code on request.
 - **Who decides what "better" means:** Prompt the AI again: The AI; The ebook: You, with my rules; A recorded review: Me. You apply it; Hire me: Me, with you.
 - **Your effort:** Prompt the AI again: Unknown. You stop when you give up or get lucky; The ebook: 30 minutes for the quick start, about an hour per page for all 27 steps; A recorded review: Send your link and notes, then make the fixes yourself; Hire me: A 30-minute call, then feedback as the work is shared.
-- **Cost:** Prompt the AI again: Your time; The ebook: $12.99, one-time, money-back guarantee; A recorded review: $49 or $99, one-time; Hire me: Usually from $1,000, fixed price in writing after the first call.
+- **Cost:** Prompt the AI again: Your time; The ebook: $12.99, one-time, money-back guarantee; A recorded review: $49 or $99, one-time; Hire me: From $5,000, fixed price in writing after the first conversation.
 - **Best when:** Prompt the AI again: The fix is one small thing you can name exactly; The ebook: The problem is visual and you like doing it yourself; A recorded review: You can do the work but not the diagnosis; Hire me: The app earns money or is about to, and the problem is on many screens.
 
 ## What happens when you hire me, step by step
@@ -136,7 +136,7 @@ _"I had the absolute pleasure of working with Samir on several projects, and I m
 
 Client review, landing page and web app, 2024
 
-**The low-risk start.** The book has a money-back guarantee. The $49 review is refunded in full if it doesn't help. You can find out how I think for $12.99 or $49 before you spend $1,000.
+**The low-risk start.** The book has a money-back guarantee. The $49 review is refunded in full if it doesn't help. You can find out how I think for $12.99 or $49 before you spend $5,000.
 
 ## Is this the right service for you?
 

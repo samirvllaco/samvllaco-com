@@ -60,8 +60,9 @@ The light/dark switch is gone. The site is one look: dark, with white bands (own
 - Before calling a change done: `npm run build`, `npx serve out -l 4173`, then
   `NODE_PATH=$(npm root -g) node scripts/contrast.cjs` (all pages) or `... scripts/contrast.cjs /page/ /other/`. It must end with 0 failures.
 
-## Offer (owner, 22 Nov 2026)
-This site is the main portfolio, as before (the design-subscription home page was rolled back the same day; it may move to its own domain). Pricing keeps two plans: weekly sprint $1,000, monthly $3,000 (`lib/plans.js` is the one source). No hourly rate. No refund terms are published until the owner sets them.
+## Offer (owner, 22 Nov 2026; prices hidden 27 Nov 2026)
+This site is the main portfolio. The design plans' prices are not published any more (owner, 27 Nov 2026: "hide pricing, might hurt conversions, just add a range on contact from 5-10k and upwards"): no /pricing/ page (it redirects to /book/) and no Pricing nav link. Projects start at $5,000 (`PROJECT_FROM`), /book/ is "Start a project" with a budget picker (`BUDGETS`: $5k to 10k, $10k to 25k, $25k to 50k, $50k+), and the home page offers a $2,500 trial week (`TRIAL_WEEK`). All in `lib/plans.js`, the one source. The design cost calculator starts at $5,000. No hourly rate. No refund terms are published until the owner sets them.
+Buttons say "Start a project" (arrow after the words), with "See my work" as the second button where two fit (owner, 27 Nov 2026: "some people feel shy about calls"). Nav: Services, Work, Insights (/writing/), About; free tools, the e-book and resources live in the footer.
 Accessibility and Slop Score offers (owner, 25 Nov 2026): EAA audit $1,500 (5 working days) on `/eaa-audit/`, managed accessibility from $3,000 a month on `/accessibility/`, full Slop Score report $5 (owner, 25 Nov 2026; was $9), paid through a Stripe Payment Link on his Sam Vllaco Stripe account (never the Ocufuse one). Also set in `lib/plans.js`. True claims the owner confirmed for these pages: screen reader testing with VoiceOver and NVDA, web, iOS and Android, designs compliance software, and can code front-end fixes himself.
 
 ## Slop Score, Ask Sam's AI and the offer ladder (owner, 25 Nov 2026)

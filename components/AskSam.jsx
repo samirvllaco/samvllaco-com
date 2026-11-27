@@ -9,7 +9,7 @@ import { EMAIL } from "../lib/site";
 // Quick links (owner, 25 Nov 2026: "add more quick links"): always shown above the input in one swipeable row.
 // [label, question to send] or [label, null, page to open].
 const CHIPS = [
-  ["Book a call", null, "/book/"],
+  ["Start a project", null, "/book/"],
   ["Pricing", "What does it cost to work with you?"],
   ["UX audit", "What do I get from a UX audit?"],
   ["UI/UX sprint", "What does a weekly sprint include?"],
@@ -40,8 +40,8 @@ function Thinking() {
 }
 const HIDE = ["/fix-ai-slop-ui/", "/book/"];
 const ERR = {
-  rate: "You've asked a lot this hour. Book a call and ask Sam directly.",
-  cap: "The assistant is busy today. Book a call or email Sam.",
+  rate: "You've asked a lot this hour. Start a project and Sam answers you himself.",
+  cap: "The assistant is busy today. Start a project or email Sam.",
   turnstile: "Please finish the quick check below, then send again.",
   invalid: "That message didn't go through. Try a shorter question.",
 };
@@ -268,9 +268,9 @@ export default function AskSam() {
           {answered ? (
             <div className="ask-cta">
               <p><b>Want Sam on it?</b>Free 30-min call</p>
-              <a className="hero2-btn hero2-btn-primary" href="/book/">Book a call</a>
+              <a className="hero2-btn hero2-btn-primary" href="/book/">Start a project</a>
             </div>
-          ) : <p className="ask-foot">Rather talk to Sam? <a href="/book/">Book a 30-min call</a></p>}
+          ) : <p className="ask-foot">Rather talk to Sam? <a href="/book/">Start a project</a></p>}
         </section>
       ) : null}
     </>

@@ -1,6 +1,6 @@
 _Two quotes for the same app can be $4,000 and $35,000. Both can be fair. Here is what you are paying for in each._
 
-Most pricing articles are written by agencies that do not print their own prices. [I print mine](/pricing/), so I will use them as one of the examples, next to the public figures from [Upwork](https://www.upwork.com/hire/product-designers/cost/), [Clutch](https://clutch.co/agencies/ui-ux/pricing) and [Figma](https://www.figma.com/resource-library/ui-ux-design-cost/).
+Most pricing articles are written by agencies that do not say what they charge. I will say where my own projects start and use that as one of the examples, next to the public figures from [Upwork](https://www.upwork.com/hire/product-designers/cost/), [Clutch](https://clutch.co/agencies/ui-ux/pricing) and [Figma](https://www.figma.com/resource-library/ui-ux-design-cost/).
 
 ## The short answer
 
@@ -19,7 +19,7 @@ The ranges are wide because "design my app" is not one product. The rest of this
 
 **By the month.** A retainer, for teams that ship every sprint and need a designer on call. Mine is $5,000 a month, with a weekly call, and you can pause or cancel any month.
 
-**Fixed price.** A whole website, app or brand, scoped on a call and priced in writing before work starts. My projects start at $1,000, and larger product work runs from $5,000 to $25,000.
+**Fixed price.** A whole website, app or brand, scoped on a call and priced in writing before work starts. My projects start at $5,000, or with a $2,500 trial week.
 
 If you are comparing quotes, convert them all to the same thing: what do I get, by when, for how much in total. An hourly rate tells you almost nothing on its own.
 

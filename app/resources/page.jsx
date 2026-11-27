@@ -81,7 +81,7 @@ export default function Resources() {
       <section className="sv-sec sv-end" aria-labelledby="rs-end-h">
         <h2 id="rs-end-h">Rather have me <span className="t2">fix it for you?</span></h2>
         <p>30 minutes, just you and me. You leave with a plan for your product and a fixed price.</p>
-        <div className="sv-cta sv-cta-c"><a className="hero2-btn hero2-btn-primary" href="/book/"><CallIcon />Book a call</a></div>
+        <div className="sv-cta sv-cta-c"><a className="hero2-btn hero2-btn-primary" href="/book/">Start a project<CallIcon /></a></div>
       </section>
     </div>
   );

@@ -62,7 +62,7 @@ export default function Accessibility() {
       <JsonLd data={schema} />
       <PageHead crumb="Managed accessibility" href="/accessibility/" a="Accessibility that keeps up" b="with your releases." lede="You ship every week. New screens, new flows, new ways to break things. Every month I audit, fix and monitor your product against WCAG 2.2 AA and the European Accessibility Act, so it stays usable for everyone and your legal team has the paperwork.">
         <div className="btn-row">
-          <a className="hero2-btn hero2-btn-primary" href="/book/"><CallIcon />Book a call</a>
+          <a className="hero2-btn hero2-btn-primary" href="/book/">Start a project<CallIcon /></a>
           <a className="hero2-btn hero2-btn-light" href="/eaa-audit/">Start with a one-week audit</a>
         </div>
       </PageHead>
@@ -99,7 +99,7 @@ export default function Accessibility() {
         </header>
         <p className="ax-price"><span>From</span> <b>{usd(MANAGED_FROM)}</b> <span>per month</span></p>
         <p className="sub-note">The final price depends on how many products and platforms you have and how often you ship. I set it with you upfront, before any work starts.</p>
-        <div className="sv-cta sv-cta-c"><a className="hero2-btn hero2-btn-primary" href="/book/"><CallIcon />Book a call</a></div>
+        <div className="sv-cta sv-cta-c"><a className="hero2-btn hero2-btn-primary" href="/book/">Start a project<CallIcon /></a></div>
         <p className="sub-note">Not ready for monthly? <a href="/eaa-audit/">Start with the one-week EAA audit.</a></p>
       </section>
 
@@ -112,7 +112,7 @@ export default function Accessibility() {
       <div className="sv-sec sv-faqwrap">
         <Faq items={MANAGED_FAQ} a="Questions" b="from product and legal" bg="#171719">
           <SkyPhoto className="faq-photo" />
-          <p className="faq-go"><a className="hero2-btn hero2-btn-primary" href="/book/"><CallIcon />Ask me on a call</a></p>
+          <p className="faq-go"><a className="hero2-btn hero2-btn-primary" href="/book/">Start a project<CallIcon /></a></p>
           <div className="faq-mail"><CopyEmailInline icon /></div>
         </Faq>
       </div>
@@ -120,7 +120,7 @@ export default function Accessibility() {
       <section className="sv-sec sv-end" aria-labelledby="ax-end-h">
         <h2 id="ax-end-h">Make accessibility <span className="t2">one less thing to worry about.</span></h2>
         <p>Book a short call. Tell me how you ship and I'll show you how I'd fit in.</p>
-        <div className="sv-cta sv-cta-c"><a className="hero2-btn hero2-btn-primary" href="/book/"><CallIcon />Book a call</a></div>
+        <div className="sv-cta sv-cta-c"><a className="hero2-btn hero2-btn-primary" href="/book/">Start a project<CallIcon /></a></div>
       </section>
     </div>
   );

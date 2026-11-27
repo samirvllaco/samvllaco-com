@@ -79,8 +79,8 @@ export default function Fixes() {
         </div>
       </div>
       <div className="fx-go">
-        <p>Not sure which one is yours? I&rsquo;ll tell you on the call.</p>
-        <a className="hero2-btn hero2-btn-primary" href="/book/"><CallIcon />Book a 30-min strategy call</a>
+        <p>Not sure which one is yours? Tell me what you see and I&rsquo;ll tell you.</p>
+        <a className="hero2-btn hero2-btn-primary" href="/book/">Start a project<CallIcon /></a>
       </div>
     </section>
   );

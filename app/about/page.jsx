@@ -39,7 +39,7 @@ const DETAILS = [
   ["Hours", "Central European Time, with calls in US business hours."],
   ["Clients", "SaaS, AI, fintech, health and e-commerce teams in the US, Europe, Canada, Australia and the UAE."],
   ["Contracts", "NDA as standard. Much of my work is under NDA and shown with names, logos and colors changed."],
-  ["Pricing", <>$1,000 a week, $3,000 a month, or a fixed project price. <Link prefetch={false} href="/pricing/">See pricing</Link></>],
+  ["Pricing", <>Projects from $5,000 with a fixed price in writing, or a $2,500 trial week first. <Link prefetch={false} href="/book/">Start a project</Link></>],
   ["Contact", <><b>{EMAIL}</b> or <Link prefetch={false} href="/book/">book a 30-min call</Link></>],
 ];
 
@@ -95,7 +95,7 @@ export default function About() {
         <dl className="ab-details">
           {DETAILS.map(([k, v]) => <div key={k}><dt>{k}</dt><dd>{v}</dd></div>)}
         </dl>
-        <p className="ab-end"><Link prefetch={false} className="hero2-btn hero2-btn-primary" href="/book/"><CallIcon />Book a 30-min call</Link></p>
+        <p className="ab-end"><Link prefetch={false} className="hero2-btn hero2-btn-primary" href="/book/">Start a project<CallIcon /></Link></p>
       </section>
     </div>
   );

@@ -18,6 +18,9 @@
 /blog /writing/ 301
 /insights /writing/ 301
 /contact /book/ 301
+/pricing /book/ 301
+/pricing/ /book/ 301
+/start /book/ 301
 
 # Service pages merged into group pages (15 Nov 2026). Each old URL lands on its section.
 /services/brand-identity /services/brand/#brand-identity 301

@@ -6,7 +6,7 @@ import { copyText } from "../../lib/copy";
 import { useTurnstile, track } from "./useTurnstile";
 import { CATS, SLOP } from "../../slopscore/config";
 import { PERSONAL_REVIEW_URL, REVIEW_URL, LEADS_ENDPOINT } from "../../lib/site";
-import { usd } from "../../lib/plans";
+import { usd, TRIAL_WEEK, PROJECT_FROM } from "../../lib/plans";
 
 const NAME = Object.fromEntries(CATS.map((c) => [c.k, c.name]));
 // Lower is better, so colors tell the story at a glance: green is clean, coral is slop.
@@ -141,7 +141,7 @@ export default function SlopResult() {
           <ul className="sx-next" aria-label="Your next steps">
             <li><b>1</b>Fix the top {Math.min(3, r.issues.length)} below. Each has copy-paste prompts{r.unlocked ? "" : " in the full report"}.</li>
             <li><b>2</b>Check again after: <a href={`/slop-score/?url=${encodeURIComponent(r.url)}`}>rescan {r.domain}</a></li>
-            <li><b>3</b>Want a designer's eyes? <a href="/book/" onClick={() => track("book_click", r.id)}>Book a 30-min call</a></li>
+            <li><b>3</b>Want a designer's eyes? <a href="/book/" onClick={() => track("book_click", r.id)}>Start a project</a></li>
           </ul>
         </div>
         {shot ? (
@@ -222,9 +222,9 @@ export default function SlopResult() {
           </li>
           <li className="pr-plan is-hot">
             <p className="pr-k">Fix it for me</p>
-            <p className="pr-price">{usd(SLOP.sprintPrice)}<span>per week</span></p>
-            <p className="pr-lead">I redesign the problem screens in a one-week sprint.</p>
-            <a className="hero2-btn hero2-btn-primary" href="/book/" onClick={() => track("sprint_click", r.id)}><CallIcon />Book a call</a>
+            <p className="pr-price">{usd(TRIAL_WEEK)}<span>trial week</span></p>
+            <p className="pr-lead">I redesign the problem screens in a one-week trial. Full projects start at {usd(PROJECT_FROM)}.</p>
+            <a className="hero2-btn hero2-btn-primary" href="/book/" onClick={() => track("sprint_click", r.id)}>Start a project<CallIcon /></a>
           </li>
         </ul>
       </section>

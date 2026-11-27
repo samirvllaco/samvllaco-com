@@ -25,7 +25,7 @@ There is no single honest market number, so here are two real ones.
 
 Clutch, a directory of agency reviews, says UX projects on its platform are typically more than $10,000. Its average UX agency project costs $84,973, and the typical timeline is 10 months (pricing guide updated 21 September 2026). That average includes large, long projects. It isn't a quote for yours.
 
-My own prices: projects usually start at $1,000, and larger product work runs from $5,000 to $25,000 or more.
+My own prices: projects start at $5,000, with a fixed price in writing before work starts, or a $2,500 trial week first.
 
 These two aren't like for like. An agency quote often includes research, project management or development that a freelance quote leaves out. Compare scope first, then price. Ask both for a written scope so you can see the difference.
 
