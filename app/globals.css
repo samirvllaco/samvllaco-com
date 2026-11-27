@@ -7016,3 +7016,24 @@ html.on-light .ask-me svg { background: #fff; }
 }
 @media (max-width: 560px) { .fx-tabs { grid-template-columns: minmax(0, 1fr); } .fx-tabs button { min-height: 72px; border-right: 0; } }
 .fx-by .hero2-btn { gap: 8px; }
+
+/* Hero headline in chips (components/HeroHead.jsx; owner, 27 Nov 2026). The last chip rolls through who I design for,
+   inside a clipping box so the words never fade; the industry row above lights the same one. */
+.hh { display: grid; gap: 20px; justify-items: start; }
+.hh-for { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.hh-for a { display: inline-flex; align-items: center; gap: 6px; min-height: 32px; padding: 0 12px; border-radius: 999px; font-size: .8125rem; font-weight: 500; color: #a1a1a6; text-decoration: none; background: rgba(255, 255, 255, .03); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .1); transition: color .25s var(--ease-out), background-color .25s var(--ease-out), box-shadow .25s var(--ease-out); }
+.hh-for a svg, .hh-chip svg { fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.hh-for a svg { width: 14px; height: 14px; }
+.hh-for a.is-on { color: #f5f5f7; background: rgba(98, 193, 253, .1); box-shadow: inset 0 0 0 1px rgba(98, 193, 253, .45); }
+.hh-for a:focus-visible { outline: 3px solid rgba(98, 193, 253, .6); outline-offset: 2px; }
+:root:root:root .hero-split .hh-h { margin: 0; max-width: 18ch; text-wrap: balance; }
+.hh-chip { display: inline-flex; align-items: center; gap: .22em; padding: .02em .28em .06em; border-radius: var(--r-sm); line-height: 1.15; white-space: nowrap; color: #f5f5f7; background: rgba(255, 255, 255, .04); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .14); }
+.hh-chip svg { width: .7em; height: .7em; color: #62c1fd; }
+.hh-nw { white-space: nowrap; }
+.hh-roll { display: inline-grid; vertical-align: bottom; overflow: hidden; padding: 2px 0; margin: -2px 0; }
+.hh-opt { grid-area: 1 / 1; justify-self: start; transform: translateY(115%); transition: transform .55s cubic-bezier(.22, 1, .36, 1); }
+.hh-opt.is-on { transform: none; }
+.hh-opt.is-out { transform: translateY(-115%); }
+@media (prefers-reduced-motion: reduce) { .hh-opt { transition: none; } }
+@media (max-width: 1099px) { .hh { justify-items: center; } .hh-for { justify-content: center; } :root:root:root .hero-split .hh-h { text-align: center; margin-inline: auto; } }
+@media (max-width: 640px) { .hh-for { gap: 6px; } .hh-for a { min-height: 28px; padding: 0 10px; font-size: .75rem; } }
