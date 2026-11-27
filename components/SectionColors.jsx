@@ -1,5 +1,6 @@
 "use client";
 import { useEffect } from "react";
+import { loadGsap } from "../lib/gsapLoad";
 
 // Fades the page background to the color of the section sitting at the 60% line of the screen.
 // Works both ways: scrolling back up restores the earlier colors.
@@ -35,10 +36,7 @@ export default function SectionColors() {
     const askGsap = () => {
       if (gsapAsked || window.gsap) return;
       gsapAsked = true;
-      const sc = document.createElement("script");
-      sc.src = "/vendor/gsap-3.15.1.min.js";
-      sc.async = true;
-      document.head.appendChild(sc);
+      loadGsap();
     };
 
     const update = () => {

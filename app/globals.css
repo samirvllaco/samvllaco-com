@@ -7582,3 +7582,19 @@ html.js .bx-world[data-reveal].is-shown .wf-facts > div > dd { transition-durati
   html.is-scrolled.is-down:not(.mega-open) .head-nav { background: none; padding: 0; gap: 0; }
   html.is-scrolled.is-down:not(.mega-open) .head-nav:has(> a[aria-current="page"], .mega-btn.is-current)::before { content: ""; flex: none; width: 1px; height: 20px; margin-right: 4px; background: rgba(245, 245, 247, .2); }
 }
+
+/* Footer parallax (owner, 28 Nov 2026, like digitalmakers.nl/about-us). FootParallax.jsx sets --fp while the footer
+   enters; its content trails the scroll and slides out from under the footer's clipped top edge. */
+.site-footer:has(.wall) { clip-path: inset(0 -100vmax -100vmax); }
+html.js .site-footer.fp-on > * { translate: 0 var(--fp, 0px); }
+
+/* "Message me on X" and the email chip wipe in from the left on hover like the buttons (owner, 28 Nov 2026), and their
+   icon tiles stay still (no tilt). */
+@media (hover: hover) and (pointer: fine) {
+  :root:root :is(.bb-x, .hp-copy) { position: relative; isolation: isolate; overflow: hidden; }
+  :root:root :is(.bb-x, .hp-copy)::before { content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit; background: rgba(255, 255, 255, .08); transform: scaleX(0); transform-origin: left center; transition: transform .35s cubic-bezier(.22, .6, .36, 1); pointer-events: none; }
+  :root:root :is(.bb-x, .hp-copy):hover::before { transform: scaleX(1); }
+  :root:root .bb-alt-row > :is(.bb-x, .hp-copy):hover { background: rgba(255, 255, 255, .08); }
+  :root:root :is(.bb-x, .hp-copy):hover .tg-ico { transform: none; }
+  :root:root .band-light :is(.bb-x, .hp-copy)::before { background: rgba(0, 0, 0, .06); }
+}

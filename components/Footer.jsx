@@ -1,3 +1,4 @@
+import FootParallax from "./FootParallax";
 import Link from "next/link";
 import AskAI from "./AskAI";
 import CopyEmail from "./CopyEmail";
@@ -88,6 +89,7 @@ const WALL_OFF = ["/tools/", "/slop-score/", "/book/", "/free-audit/", "/work/"]
 export default function Footer() {
   return (
     <footer className="site-footer">
+      <FootParallax />
       {/* Lean pages (free tools, contact, work, pricing): no portrait scene, no site map, no photo (see RouteHide). */}
       {/* The portrait scene shows only at the foot of the About page (owner, 27 Nov 2026: "remove from footer, add only on about") */}
       {/* The portrait scene (FootStage.jsx) is off everywhere (owner, 27 Nov 2026: "hide this from everywhere"). */}
