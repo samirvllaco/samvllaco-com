@@ -7482,3 +7482,56 @@ html.on-light .edge-blur { opacity: 0; }
   .pd-lists { grid-template-columns: minmax(0, 1fr); }
 }
 @media (max-width: 640px) { .pd-facts dt { font-size: 1.375rem; } .pd-facts { gap: 12px; } }
+
+/* Work filters behind one toggle (owner, 27 Nov 2026: "more smooth, better ux, collapsible with toggle"; "see work
+   sooner without much scroll"). The bar is one row: toggle, the count and the chips that are on. The panel opens by
+   animating its row from 0fr to 1fr, so nothing jumps. */
+.pg-work .ph { margin-bottom: var(--gap-content, 40px); padding-top: 0; }
+.wf { display: grid; }
+.wf-bar { display: flex; align-items: center; gap: 12px 16px; flex-wrap: wrap; }
+.wf-toggle { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 16px; border: 0; border-radius: var(--r-sm); background: var(--card); color: var(--text); font: inherit; font-size: .9375rem; font-weight: 600; cursor: pointer; box-shadow: inset 0 0 0 1px var(--eng-dark), inset 0 0 0 2px var(--eng-light); transition: background-color .25s var(--ease-out); }
+.wf-toggle:hover { background: #232326; }
+.wf-toggle:focus-visible { outline: 3px solid rgba(98, 193, 253, .6); outline-offset: 2px; }
+.wf-n { display: inline-grid; place-items: center; min-width: 20px; height: 20px; padding: 0 6px; border-radius: var(--r-sm); font-size: .75rem; color: #06121c; background: #62c1fd; }
+.wf-chev { transition: transform .35s var(--ease-out); }
+.wf-toggle[aria-expanded="true"] .wf-chev { transform: rotate(180deg); }
+.wf-state { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; min-width: 0; }
+.wf-state .af-count { font-size: .9375rem; color: var(--muted); margin-right: 4px; }
+.wf-chip { display: inline-flex; align-items: center; gap: 8px; min-height: 36px; padding: 0 12px; border: 0; border-radius: var(--r-sm); background: var(--inv-bg); color: var(--inv-ink); font: inherit; font-size: .875rem; font-weight: 600; cursor: pointer; animation: wf-pop .25s var(--spring, var(--ease-out)) both; }
+.wf-state .af-clear { min-height: 36px; padding: 0 8px; border: 0; background: transparent; color: var(--muted); font: inherit; font-size: .875rem; font-weight: 600; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+.wf-state .af-clear:hover { color: var(--text); }
+.wf-chip:focus-visible, .wf-state .af-clear:focus-visible { outline: 3px solid rgba(98, 193, 253, .6); outline-offset: 2px; }
+@keyframes wf-pop { from { opacity: 0; transform: scale(.94); } to { opacity: 1; transform: none; } }
+.wf-panel { display: grid; grid-template-rows: 0fr; opacity: 0; transition: grid-template-rows .35s var(--ease-out), opacity .25s var(--ease-out); }
+.wf-panel.is-open { grid-template-rows: 1fr; opacity: 1; }
+.wf-clip { min-height: 0; overflow: hidden; }
+.wf-box { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; gap: 20px 32px; margin-top: 12px; padding: 20px; border-radius: var(--r-card); background: var(--card); box-shadow: inset 0 0 0 1px var(--line); }
+.wf-group { display: grid; gap: 12px; align-content: start; min-width: 0; }
+.wf-k { margin: 0; font-size: .8125rem; font-weight: 600; color: var(--muted); }
+.wf-box .tags button { min-height: 40px; padding: 0 16px; background: #232326; }
+.wf-box .tags button[aria-selected="true"] { background: var(--inv-bg); color: var(--inv-ink); }
+.pg-work .work-panel { margin-top: 24px; }
+.pg-work .work-panel .work-card { animation: work-in .5s var(--ease-out) both; }
+.pg-work .work-panel .work-card:nth-child(2) { animation-delay: .04s; }
+.pg-work .work-panel .work-card:nth-child(3) { animation-delay: .08s; }
+.pg-work .work-panel .work-card:nth-child(4) { animation-delay: .12s; }
+.pg-work .work-panel .work-card:nth-child(n+5) { animation-delay: .16s; }
+.wf-more { margin: 24px 0 0; }
+.wf-more a { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; font-weight: 600; color: var(--text); text-decoration: underline; text-underline-offset: 4px; text-decoration-color: rgba(245, 245, 247, .3); }
+.wf-more a:hover { text-decoration-color: currentColor; }
+@media (max-width: 900px) {
+  .wf-box { grid-template-columns: minmax(0, 1fr); padding: 16px; }
+  .wf-box .device-switch { display: flex; }
+  .wf-box .device-switch button { flex: 1; width: auto; }
+}
+@media (prefers-reduced-motion: reduce) { .wf-panel, .wf-chev { transition: none; } .wf-chip, .pg-work .work-panel .work-card { animation: none; } }
+
+/* Phones: buttons in a row stack full width 12px apart, and a lone call to action spans the column so it sits in the
+   middle (owner, 27 Nov 2026: "on mobile buttons are not in the middle", "cta buttons are too far away from each other"). */
+:root:root:root .wall-cta > .btn-row { margin-top: calc(var(--gap-content) - var(--gap-intro)); }
+:root:root:root .wall-cta > .btn-row > .hero2-btn { margin-top: 0; }
+@media (max-width: 640px) {
+  :root:root:root :is(.btn-row, .hero2-cta) { gap: 12px; }
+  :root:root:root .tb-all, :root:root:root .bx-tools .tb-head { width: 100%; }
+  :root:root:root :is(.ab-end, .fx-by, .tb-all, .fo-lead) > .hero2-btn { width: 100%; justify-content: center; }
+}

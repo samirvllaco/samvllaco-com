@@ -6,10 +6,15 @@ import { play } from "../lib/delight";
 import { useSeen } from "./Seen";
 import PhoneApps from "./PhoneApps";
 import { PHONE_APPS } from "../lib/phones";
+import { INDUSTRIES } from "../lib/industries";
 
 const DARK = ["room-editor", "language-player", "mobile-banking"];
 const TABS = [{ id: "all", label: "All" }, ...WORK_TAGS.filter((t) => WORK.some((w) => w.tags.includes(t))).map((t) => ({ id: t, label: t }))];
 
+
+function Chev() {
+  return <svg className="wf-chev" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M6 9l6 6 6-6" /></svg>;
+}
 
 function X() {
   return <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round"><path d="M6 6l12 12M18 6L6 18" /></svg>;
@@ -58,6 +63,9 @@ export default function WorkGrid({ cap = false }) {
   const grid = useRef(null);
   const [device, setDevice] = useState("all");
   const [look, setLook] = useState("all");
+  // Filters sit behind one toggle so the work starts right under the page title (owner, 27 Nov 2026: "collapsible with
+  // toggle", "see work sooner without much scroll").
+  const [open, setOpen] = useState(false);
   const refs = useRef({});
   const seenList = useSeen();
   const items = WORK.filter((w) => (tab === "all" || w.tags.includes(tab)) && (device === "all" || w.platform === device) && (look === "all" || (DARK.includes(w.slug) ? "dark" : "light") === look));
@@ -81,56 +89,77 @@ export default function WorkGrid({ cap = false }) {
     refs.current[TABS[n].id]?.focus();
   }
 
+  const active = (tab !== "all" ? 1 : 0) + (device !== "all" ? 1 : 0) + (look !== "all" ? 1 : 0);
+  const ind = INDUSTRIES.find((x) => x.name === tab);
+  const pick = (fn) => { fn(); play("tab"); };
+
   return (
     <>
       {TABS.length > 2 && WORK.length > 1 ? (
-      <div className="work-bar">
-      <div className="tags" role="tablist" aria-label="Filter work by category">
-        {TABS.map((t, i) => (
-          <button
-            key={t.id}
-            ref={(el) => { refs.current[t.id] = el; }}
-            id={`work-tab-${i}`}
-            role="tab"
-            type="button"
-            aria-selected={tab === t.id}
-            aria-controls="work-panel"
-            tabIndex={tab === t.id ? 0 : -1}
-            onClick={(e) => { setTab(tab === t.id ? "all" : t.id); play("tab"); e.currentTarget.scrollIntoView({ block: "nearest", inline: "center", behavior: "smooth" }); }}
-            onKeyDown={(e) => onKey(e, i)}
-          >
-            {t.label}
+      <div className="wf">
+        <div className="wf-bar">
+          <button type="button" className="wf-toggle" aria-expanded={open} aria-controls="wf-panel" onClick={() => setOpen(!open)}>
+            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M4 7h10M18 7h2M4 17h4M12 17h8" /><circle cx="16" cy="7" r="2" /><circle cx="10" cy="17" r="2" /></svg>
+            Filters{active ? <span className="wf-n">{active}<span className="sr-only"> on</span></span> : null}<Chev />
           </button>
-        ))}
-      </div>
-      <div className="switches">
-      <div className="device-switch" role="group" aria-label="Show desktop or mobile work">
-        <button type="button" aria-pressed={device === "desktop"} title="Desktop" onClick={() => { setDevice(device === "desktop" ? "all" : "desktop"); play("tab"); }}>
-          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="12" rx="2" /><path d="M8 20h8M12 16v4" /></svg><span className="sw-l">Desktop</span>
-        </button>
-        <button type="button" aria-pressed={device === "mobile"} title="Mobile" onClick={() => { setDevice(device === "mobile" ? "all" : "mobile"); play("tab"); }}>
-          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="7" y="2.5" width="10" height="19" rx="2.5" /><path d="M11 18.500h2" /></svg><span className="sw-l">Mobile</span>
-        </button>
-      </div>
-      <div className="device-switch" role="group" aria-label="Show light or dark designs">
-        <button type="button" aria-pressed={look === "light"} title="Light designs" onClick={() => { setLook(look === "light" ? "all" : "light"); play("tab"); }}>
-          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="4" /><path d="M12 2.500v2M12 19.500v2M2.500 12h2M19.500 12h2M5.300 5.300l1.400 1.400M17.300 17.300l1.400 1.400M5.300 18.700l1.400-1.400M17.300 6.700l1.400-1.400" /></svg><span className="sw-l">Light<span className="sr-only"> designs</span></span>
-        </button>
-        <button type="button" aria-pressed={look === "dark"} title="Dark designs" onClick={() => { setLook(look === "dark" ? "all" : "dark"); play("tab"); }}>
-          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M20 14.500A8 8 0 0 1 9.500 4a8 8 0 1 0 10.500 10.500z" /></svg><span className="sw-l">Dark<span className="sr-only"> designs</span></span>
-        </button>
-      </div>
-      </div>
-      </div>
-      ) : null}
-      {tab !== "all" || device !== "all" || look !== "all" ? (
-        <div className="active-filters" aria-live="polite">
-          <span className="af-count">{items.length} {items.length === 1 ? "project" : "projects"}</span>
-          {tab !== "all" ? <button type="button" onClick={() => setTab("all")} aria-label={`Remove filter ${tab}`}>{tab}<X /></button> : null}
-          {device !== "all" ? <button type="button" onClick={() => setDevice("all")} aria-label={`Remove filter ${device}`}>{device === "mobile" ? "Mobile" : "Desktop"}<X /></button> : null}
-          {look !== "all" ? <button type="button" onClick={() => setLook("all")} aria-label={`Remove filter ${look} designs`}>{look === "dark" ? "Dark designs" : "Light designs"}<X /></button> : null}
-          <button type="button" className="af-clear" onClick={() => { setTab("all"); setDevice("all"); setLook("all"); }}>Clear all</button>
+          <div className="wf-state" aria-live="polite">
+            <span className="af-count">{items.length} {items.length === 1 ? "project" : "projects"}</span>
+            {tab !== "all" ? <button type="button" className="wf-chip" onClick={() => setTab("all")} aria-label={`Remove filter ${tab}`}>{tab}<X /></button> : null}
+            {device !== "all" ? <button type="button" className="wf-chip" onClick={() => setDevice("all")} aria-label={`Remove filter ${device}`}>{device === "mobile" ? "Mobile" : "Desktop"}<X /></button> : null}
+            {look !== "all" ? <button type="button" className="wf-chip" onClick={() => setLook("all")} aria-label={`Remove filter ${look} designs`}>{look === "dark" ? "Dark designs" : "Light designs"}<X /></button> : null}
+            {active > 1 ? <button type="button" className="af-clear" onClick={() => { setTab("all"); setDevice("all"); setLook("all"); }}>Clear all</button> : null}
+          </div>
         </div>
+        <div id="wf-panel" className={`wf-panel${open ? " is-open" : ""}`} inert={!open}>
+          <div className="wf-clip">
+            <div className="wf-box">
+              <div className="wf-group">
+                <p className="wf-k" id="wf-k-type">Industry and type</p>
+                <div className="tags" role="tablist" aria-labelledby="wf-k-type">
+                  {TABS.map((t, i) => (
+                    <button
+                      key={t.id}
+                      ref={(el) => { refs.current[t.id] = el; }}
+                      id={`work-tab-${i}`}
+                      role="tab"
+                      type="button"
+                      aria-selected={tab === t.id}
+                      aria-controls="work-panel"
+                      tabIndex={tab === t.id ? 0 : -1}
+                      onClick={() => pick(() => setTab(tab === t.id ? "all" : t.id))}
+                      onKeyDown={(e) => onKey(e, i)}
+                    >
+                      {t.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+              <div className="wf-group">
+                <p className="wf-k" id="wf-k-dev">Device</p>
+                <div className="device-switch" role="group" aria-labelledby="wf-k-dev">
+                  <button type="button" aria-pressed={device === "desktop"} onClick={() => pick(() => setDevice(device === "desktop" ? "all" : "desktop"))}>
+                    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="12" rx="2" /><path d="M8 20h8M12 16v4" /></svg><span className="sw-l">Desktop</span>
+                  </button>
+                  <button type="button" aria-pressed={device === "mobile"} onClick={() => pick(() => setDevice(device === "mobile" ? "all" : "mobile"))}>
+                    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="7" y="2.5" width="10" height="19" rx="2.5" /><path d="M11 18.500h2" /></svg><span className="sw-l">Mobile</span>
+                  </button>
+                </div>
+              </div>
+              <div className="wf-group">
+                <p className="wf-k" id="wf-k-look">Look</p>
+                <div className="device-switch" role="group" aria-labelledby="wf-k-look">
+                  <button type="button" aria-pressed={look === "light"} onClick={() => pick(() => setLook(look === "light" ? "all" : "light"))}>
+                    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="4" /><path d="M12 2.500v2M12 19.500v2M2.500 12h2M19.500 12h2M5.300 5.300l1.400 1.400M17.300 17.300l1.400 1.400M5.300 18.700l1.400-1.400M17.300 6.700l1.400-1.400" /></svg><span className="sw-l">Light<span className="sr-only"> designs</span></span>
+                  </button>
+                  <button type="button" aria-pressed={look === "dark"} onClick={() => pick(() => setLook(look === "dark" ? "all" : "dark"))}>
+                    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M20 14.500A8 8 0 0 1 9.500 4a8 8 0 1 0 10.500 10.500z" /></svg><span className="sw-l">Dark<span className="sr-only"> designs</span></span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       ) : null}
       <div id="work-panel" role="tabpanel" aria-labelledby={`work-tab-${TABS.findIndex((t) => t.id === tab)}`} className="work-panel" key={`${tab}-${device}-${look}`}>
         {items.length === 0 ? (
@@ -144,6 +173,9 @@ export default function WorkGrid({ cap = false }) {
             ))}
           </div>
         )}
+        {ind && items.length ? (
+          <p className="wf-more"><Link prefetch={false} href={`/for/${ind.id}/`}>How I design {ind.tail}<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg></Link></p>
+        ) : null}
         {capped ? (
           <p className="work-more"><button type="button" className="hero2-btn hero2-btn-light" onClick={showAll}>Show all projects</button></p>
         ) : null}
