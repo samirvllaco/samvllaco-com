@@ -22,6 +22,7 @@ import Fixes from "../components/Fixes";
 import TrialWeek from "../components/TrialWeek";
 import HeroReviews from "../components/HeroReviews";
 import HeroShow from "../components/HeroShow";
+import { preload } from "react-dom";
 import { LocalTime, CountUp } from "../components/Greeting";
 
 export const metadata = {
@@ -86,6 +87,8 @@ addEventListener("resize",place);
 setTimeout(function(){go=true;removeEventListener("resize",place);h.classList.add("h3-in");ws.forEach(function(w){w.style.transform=""})},2000)})();`;
 
 export default function Home() {
+  // The hero shot is the LCP image; it sits last in the hero markup, so ask for it early.
+  if (HERO_SHOW[0]?.small) preload(HERO_SHOW[0].small, { as: "image", fetchPriority: "high" });
   return (
     <div className="wrap page stack-lg">
       <SectionColors />
@@ -118,6 +121,8 @@ export default function Home() {
           </figure>
           <script dangerouslySetInnerHTML={{ __html: QUOTE_DAY }} />
           <HeroQuote />
+          {/* The hero is complete: phones may now show the work window under the words (see the hero-show rule in globals.css). */}
+          <script dangerouslySetInnerHTML={{ __html: "document.currentScript.parentNode.classList.add('hero-done')" }} />
         </div>
         <div className="trust trust-on" aria-labelledby="trust-h">
           <p id="trust-h">Trusted by designers and engineers working at</p>

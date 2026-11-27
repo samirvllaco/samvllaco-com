@@ -7557,3 +7557,8 @@ html.js .bx-world[data-reveal].is-shown .wf-facts > div > dd { transition-durati
 @media (prefers-reduced-motion: reduce) { html.js .bx-world[data-reveal] .wf-facts > div > * { transform: none; transition: none; } }
 :root:root:root .bx-stat b .cu, :root:root:root .bx-stat b .cu span { font: inherit; color: inherit; letter-spacing: inherit; margin: 0; padding: 0; }
 :root:root:root .bx-stat b .cu > span { grid-area: 1 / 1; }
+
+/* Phones paint the hero while the page is still arriving. The work window comes first in the markup but sits under the
+   words, so until the words are all in (hero-done, set by a script at the end of the hero) it stays out of the layout;
+   otherwise it showed above them and was pushed down, a 0.32 layout shift. Desktop keeps it from the first frame. */
+@media (max-width: 1099px) { html.js .hero-split:not(.hero-done) > .hero-show { display: none; } }
