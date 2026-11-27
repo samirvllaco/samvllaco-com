@@ -25,7 +25,7 @@ export default function Header() {
       <HeaderScroll />
       <a className="top-note" href="/book/">
         <i className="nav-dot" aria-hidden="true" />
-        <span className="tn-swap"><span className="tn-a">Low signups, confusing UX, a site that looks cheap? I take design off your problem list. Book a 30-min strategy call</span><span className="tn-b" aria-hidden="true">Book a 30-min strategy call</span></span>
+        <span className="tn-swap"><span className="tn-a">Low signups, confusing UX, a cheap-looking site? Book a 30-min call</span><span className="tn-b" aria-hidden="true">Book a 30-min strategy call</span></span>
         <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" /></svg>
       </a>
       <div className="wrap head-row">

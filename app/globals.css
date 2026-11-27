@@ -2975,8 +2975,8 @@ html .to-top.is-on { opacity: 1; pointer-events: auto; transform: none; }
   .head-row .snd { display: none; }
   .head-end .head-cta { margin-left: 4px; padding: 0 16px; font-size: .875rem; }
 }
-/* The long top note only fits from about 900px up; below that the short "Book a 30-min strategy call" shows, so it is never cut. */
-@media (max-width: 900px) {
+/* The long top note fits from about 640px up; below that the short "Book a 30-min strategy call" shows, so it is never cut. */
+@media (max-width: 640px) {
   .top-note .tn-a { display: none; } /* gone, not just faded, so dot, words and arrow sit together in the middle (owner, 27 Nov 2026) */
   .top-note .tn-b { opacity: 1; transform: none; }
 }
