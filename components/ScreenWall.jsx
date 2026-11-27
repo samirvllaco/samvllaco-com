@@ -6,8 +6,9 @@ import { WALL } from "../lib/wall";
 export default function ScreenWall() {
   const sec = useRef(null);
   const grid = useRef(null);
+  const lines = useRef(null);
   useEffect(() => {
-    const s = sec.current, g = grid.current;
+    const s = sec.current, g = grid.current, ln = lines.current;
     if (!s || !g) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     let raf = 0;
@@ -21,7 +22,18 @@ export default function ScreenWall() {
       const from = parseFloat(getComputedStyle(g).getPropertyValue("--from")) || 2.6;
       const k = p <= 0.6 ? 0 : (p - 0.6) / 0.4, pan = k * k * (3 - 2 * k);
       const room = Math.max(0, (g.offsetHeight - window.innerHeight) / 2 + 48);
-      g.style.transform = `translateY(${(-room * pan).toFixed(1)}px) scale(${(from - (from - 1) * e).toFixed(4)})`;
+      const sc = from - (from - 1) * e, ty = -room * pan;
+      g.style.transform = `translateY(${ty.toFixed(1)}px) scale(${sc.toFixed(4)})`;
+      // Hairlines between the screens are drawn on a layer that is not scaled, so they stay 1px and crisp
+      // through the whole zoom (owner, 27 Nov 2026: "on scroll use thin strokes").
+      if (ln) {
+        const W = g.offsetWidth, H = g.offsetHeight, cols = getComputedStyle(g).gridTemplateColumns.split(" ").length;
+        const cell = g.children[1] || g.children[0];
+        const cw = (W / cols) * sc, ch = (cell ? cell.offsetHeight : W / cols * 0.5625) * sc;
+        const ox = g.offsetLeft + W / 2 - (W * sc) / 2, oy = g.offsetTop + H / 2 - (H * sc) / 2 + ty;
+        ln.style.backgroundSize = `${cw.toFixed(2)}px ${ch.toFixed(2)}px`;
+        ln.style.cssText += `left:${ox.toFixed(1)}px;top:${oy.toFixed(1)}px;width:${(W * sc).toFixed(1)}px;height:${(H * sc).toFixed(1)}px`;
+      }
     };
     const on = () => { if (!raf) raf = requestAnimationFrame(update); };
     update();
@@ -37,6 +49,7 @@ export default function ScreenWall() {
           <li className="ws-main"><i className="ws-lr ws-lr-l" aria-hidden="true" /><div><b>10+</b><span>years of experience</span></div><i className="ws-lr ws-lr-r" aria-hidden="true" /></li>
           <li><div><b>570+</b><span>clients</span></div></li>
         </ul>
+        <div className="wall-lines" ref={lines} aria-hidden="true" />
         <div className="wall-grid" ref={grid} aria-hidden="true">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           {WALL.map((src, i) => <div className="wall-cell" key={src}><img className="wl" src={src} width="960" height="540" alt="" loading="lazy" decoding="async" /><img className="wd" src={src.replace("/wall/", "/wall/dark/").split("?")[0] + "?v=9"} width="960" height="540" alt="" loading={Math.abs(i - 45) < 9 ? "eager" : "lazy"} decoding="async" /></div>)}
