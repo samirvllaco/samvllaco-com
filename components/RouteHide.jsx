@@ -3,7 +3,7 @@ import { usePathname } from "next/navigation";
 
 // Free tools, the contact page, work and pricing keep a lean footer and no photos of Sam, so visitors stay on the task
 // and the one call to action (owner, 25 Nov 2026; /work/ and /pricing/ added the same day).
-export const LEAN = ["/tools/", "/slop-score/", "/book/", "/work/"];
+export const LEAN = ["/tools/", "/slop-score/", "/book/", "/free-audit/", "/work/"];
 export const isLean = (path) => LEAN.some((p) => (path || "/").startsWith(p));
 
 // Renders children everywhere except on the given path prefixes (default: the lean pages).

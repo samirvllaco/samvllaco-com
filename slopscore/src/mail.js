@@ -132,8 +132,7 @@ export async function roomToday(env) {
 const KEEP_ALIVE = 0.05;
 
 export async function send(env, to, step, d, fetcher = fetch, random = Math.random) {
-  const list = senders(env);
-  if (!list.length) return { skipped: true };
+  if (!senders(env).length) return { skipped: true };
   const { subject, paras } = render(step, d);
   const from = env.MAIL_FROM || `Sam Vllaco <${EMAIL}>`;
   const [, name = "Sam Vllaco", address = EMAIL] = from.match(/^\s*(.*?)\s*<([^>]+)>\s*$/) || [null, "Sam Vllaco", from];
@@ -141,6 +140,21 @@ export async function send(env, to, step, d, fetcher = fetch, random = Math.rand
     name, address, to, replyTo: EMAIL, subject, html: layout(paras, d.unsub), text: text(paras, d.unsub),
     headers: { "List-Unsubscribe": `<${d.unsub}>`, "List-Unsubscribe-Post": "List-Unsubscribe=One-Click" },
   };
+  return deliver(env, m, fetcher, random);
+}
+
+// A note to Sam himself (free audit requests): same senders, no unsubscribe footer, replies go to the visitor.
+export async function sendToSam(env, subject, lines, replyTo, fetcher = fetch) {
+  if (!senders(env).length) return { skipped: true };
+  const from = env.MAIL_FROM || `Sam Vllaco <${EMAIL}>`;
+  const [, name = "Sam Vllaco", address = EMAIL] = from.match(/^\s*(.*?)\s*<([^>]+)>\s*$/) || [null, "Sam Vllaco", from];
+  const html = `<!doctype html><html><body style="margin:0;padding:24px;font:15px/1.6 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;color:#1c1c1e">${lines.map((l) => `<p style="margin:0 0 12px">${l}</p>`).join("")}</body></html>`;
+  const m = { name, address, to: env.AUDIT_TO || EMAIL, replyTo: replyTo || EMAIL, subject, html, text: lines.map((l) => l.replace(/<[^>]+>/g, "")).join("\n\n"), headers: {} };
+  return deliver(env, m, fetcher, () => 1);
+}
+
+async function deliver(env, m, fetcher = fetch, random = Math.random) {
+  const list = senders(env);
   let last = "quota 429: every sender is at its daily cap";
   for (const x of list) {
     const used = await usedToday(env, x.name);

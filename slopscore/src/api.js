@@ -12,7 +12,7 @@ import { SCHEMA } from "./schema.js";
 import { view } from "./view.js";
 import { ASK, SYSTEM, cleanMessages, sseToText } from "./ask.js";
 import { EST, take, settle, hasBudget } from "./budget.js";
-import { mailReady, runDrip, sendReportNow } from "./mail.js";
+import { mailReady, runDrip, sendReportNow, sendToSam } from "./mail.js";
 import { verifyStripe, paidSession } from "./stripe.js";
 
 let schemaReady = false;
@@ -431,4 +431,61 @@ export async function handleResultPage(ctx) {
     .on('meta[property="og:title"]', set(title)).on('meta[name="twitter:title"]', set(title))
     .on('meta[property="og:description"]', set(desc)).on('meta[name="twitter:description"]', set(desc))
     .transform(page);
+}
+
+// Free UX audit requests (owner, 27 Nov 2026: "create free audit so people land and take free audits on our site, I audit
+// them personally and send a Loom and offer fixes"). Routed from functions/api/audit/[[path]].js. Each request is kept in
+// D1 (audits) when DB is bound and emailed to Sam with the visitor as reply-to. No email goes to the address typed in the
+// form, so the form cannot be used to send mail to strangers. A hidden field and 3 requests per visitor a day keep spam out.
+// Read them: GET /api/audit/admin/audits.csv with Authorization: Bearer <ADMIN_TOKEN>.
+const URLISH = /^(https?:\/\/)?[a-z0-9-]+(\.[a-z0-9-]+)+(\/\S*)?$/i;
+const clip = (v, n) => String(v ?? "").replace(/[\u0000-\u001f]/g, " ").trim().slice(0, n);
+export async function handleAudit(ctx) {
+  const { request, env } = ctx;
+  const path = new URL(request.url).pathname.replace(/^\/api\/audit\/?/, "").replace(/\/$/, "");
+  try {
+    if (path === "status" && request.method === "GET") return json({ ready: Boolean(env.DB || mailReady(env)) });
+    if (path === "admin/audits.csv") {
+      if (!admin(request, env)) return fail("forbidden", 403);
+      if (!env.DB) return fail("no_db", 404);
+      await ensureSchema(env);
+      const { results } = await env.DB.prepare("SELECT created_at, name, email, url, focus, details, mailed FROM audits ORDER BY created_at DESC LIMIT 2000").all();
+      const rows = ["created_at,name,email,url,focus,details,mailed", ...results.map((r) => [r.created_at, r.name, r.email, r.url, r.focus, r.details, r.mailed].map(csv).join(","))];
+      return new Response(rows.join("\n"), { headers: { "content-type": "text/csv; charset=utf-8", "cache-control": "no-store" } });
+    }
+    if (path !== "" || request.method !== "POST") return fail("not_found", 404);
+    const b = await request.json().catch(() => ({}));
+    if (b.website2) return json({ ok: true }); // hidden field, only bots fill it
+    const name = clip(b.name, 80), email = clip(b.email, 200).toLowerCase(), url = clip(b.url, 300), focus = clip(b.focus, 200), details = clip(b.details, 2000);
+    if (!EMAIL.test(email)) return fail("email");
+    if (!URLISH.test(url)) return fail("url");
+    if (!env.DB && !mailReady(env)) return fail("unavailable", 422);
+    const ip = await sha(`${ipOf(request)}:${new Date().toISOString().slice(0, 10)}`);
+    if (env.CACHE) {
+      const k = `audit:${ip}`, n = Number((await env.CACHE.get(k)) || 0);
+      if (n >= 3) return fail("limit", 429);
+      await env.CACHE.put(k, String(n + 1), { expirationTtl: 90000 });
+    }
+    const id = newId(), at = new Date().toISOString();
+    if (env.DB) { await ensureSchema(env); await env.DB.prepare("INSERT INTO audits (id, name, email, url, focus, details, created_at) VALUES (?, ?, ?, ?, ?, ?, ?)").bind(id, name, email, url, focus, details, at).run(); }
+    const e = (v) => String(v).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
+    const href = /^https?:/i.test(url) ? url : `https://${url}`;
+    let mailed = false;
+    try {
+      const r = await sendToSam(env, `Free audit request: ${url}`, [
+        `<b>${e(name || "Someone")}</b> (${e(email)}) asked for a free audit.`,
+        `Product: <a href="${e(href)}">${e(url)}</a>`,
+        focus ? `Focus: ${e(focus)}` : "",
+        details ? `Details: ${e(details).replace(/\n/g, "<br>")}` : "",
+        "Reply to this email to answer them directly.",
+      ].filter(Boolean), email);
+      mailed = Boolean(r && r.ok);
+    } catch (err) { console.error(JSON.stringify({ audit_mail: String(err.message || err).slice(0, 160) })); }
+    if (mailed && env.DB) await env.DB.prepare("UPDATE audits SET mailed = 1 WHERE id = ?").bind(id).run();
+    if (!mailed && !env.DB) return fail("unavailable", 422);
+    return json({ ok: true });
+  } catch (err) {
+    console.error(JSON.stringify({ audit: String(err.message || err).slice(0, 200) }));
+    return json({ error: "server" }, 422);
+  }
 }

@@ -51,7 +51,7 @@ const MAP = [
   { h: "Websites and growth", links: [["Website design", svcHref("website-design")], ["Landing pages", svcHref("landing-pages")], ["Conversion optimization", svcHref("conversion-optimization")], ["Website development", svcHref("website-development")], ["SEO audit", svcHref("seo-audit")], ["AI search visibility", svcHref("ai-search")]] },
   { h: "Accessibility and brand", links: [["EAA accessibility audit", "/eaa-audit/"], ["Managed accessibility", "/accessibility/"], ["Brand identity", svcHref("brand-identity")], ["Logo design", svcHref("logo-design")], ["Pitch deck design", svcHref("pitch-decks")]] },
   { h: "Work", links: [["B2B SaaS", "/work/marketing-dashboard/"], ["Marketplaces", "/work/freelance-marketplace/"], ["Fintech", "/work/mobile-banking/"], ["Health", "/work/eye-care-web-app/"], ["EdTech", "/work/language-player/"], ["E-commerce", "/work/supplements-store/"], ["Legal", "/work/law-firm-website/"], ["All case studies", "/work/"]] },
-  { h: "Resources", links: [["Insights", "/writing/"], ["AI slop UI ebook", "/fix-ai-slop-ui/", null, "New"], ["UI/UX review", "/fix-ai-slop-ui/#options"], ["Slop Score", "/slop-score/", null, "New"], ["Free tools", "/tools/"], ["FAQs", "/#faq"], ["All resources", "/resources/"]] },
+  { h: "Resources", links: [["Free UX audit", "/free-audit/", null, "Free"], ["Insights", "/writing/"], ["AI slop UI ebook", "/fix-ai-slop-ui/", null, "New"], ["UI/UX review", "/fix-ai-slop-ui/#options"], ["Slop Score", "/slop-score/", null, "New"], ["Free tools", "/tools/"], ["FAQs", "/#faq"], ["All resources", "/resources/"]] },
 ];
 const COMPANY = [["About Sam", "/about/"], ["Start a project", "/book/"]];
 const SOCIAL = [["X", SITE.links.x, "x", "@samvllaco", "https://x.com/intent/follow?screen_name=samvllaco"], ["Medium", SITE.links.medium, "medium", "@samvllaco", SITE.links.medium], ["Dribbble", SITE.links.dribbble, "dribbble", "samirvllaco", SITE.links.dribbble]];
@@ -83,7 +83,7 @@ function FootMap() {
 
 // Pages without the wall of screens at the foot: the lean pages.
 // (Same list as LEAN in RouteHide.jsx; a "use client" module cannot hand plain values to this server file.)
-const WALL_OFF = ["/tools/", "/slop-score/", "/book/", "/work/"];
+const WALL_OFF = ["/tools/", "/slop-score/", "/book/", "/free-audit/", "/work/"];
 
 export default function Footer() {
   return (
