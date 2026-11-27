@@ -67,10 +67,12 @@ function W({ t }) {
 // Headline intro (owner, 14 Nov 2026): for the first 2 seconds it reads as plain text, then the icons pop in
 // and the words glide apart to make room. The words move with transform only, measured against the final
 // layout, so nothing shifts in layout (no CLS). Reduced motion shows the final headline at once.
-// Hero reel: four projects that match the people I design for (SaaS, fintech, law, health). Only the fields the reel needs.
-const HERO_SHOW = ["marketing-dashboard", "mobile-banking", "law-firm-website", "eye-care-web-app"]
-  .map((s) => WORK.find((w) => w.slug === s)).filter(Boolean)
-  .map(({ slug, title, sub, small, smallW, w, h, video }) => ({ slug, title, sub, small, smallW, w, h, video }));
+// Hero work window: four projects that match the people I design for (SaaS, fintech, health, e-commerce), each with a short tab name.
+// Only the fields the window needs. Client work under NDA that shows a real brand stays out of the hero.
+const HERO_TABS = [["marketing-dashboard", "Dashboard"], ["mobile-banking", "Banking"], ["eye-care-web-app", "Eye care"], ["supplements-store", "Store"]];
+const HERO_SHOW = HERO_TABS
+  .map(([s, tab]) => { const w = WORK.find((x) => x.slug === s); return w && { tab, slug: w.slug, title: w.title, tags: w.tags, small: w.small, smallW: w.smallW, w: w.w, h: w.h, video: w.video }; })
+  .filter(Boolean);
 const H1_FLIP = `(function(){var s=document.currentScript,h=s&&s.previousElementSibling;if(!h)return;
 if(matchMedia("(prefers-reduced-motion: reduce)").matches){h.classList.add("h3-in");return}
 var go=false,ws=[].slice.call(h.querySelectorAll(".h3-wd"));
@@ -88,7 +90,7 @@ export default function Home() {
       <SectionColors />
       <section className="hero2" data-bg="#171719">
         <div className="hero3 hero-split">
-          {/* Right side: Sam's work playing as a reel (owner, 27 Nov 2026: "add my designs / animations"). The intro video frame waits until the video is recorded. */}
+          {/* Right side: Sam's work in a design file window (owner, 27 Nov 2026: "add my designs / animations", then "our own better version"). */}
           <HeroShow items={HERO_SHOW} />
           <HeroRole />
           <h1 className="h3-flip">
