@@ -11,7 +11,7 @@ const FIXES = [
 
 export default function Fixes() {
   return (
-    <section className="fixes" aria-labelledby="fx-h" data-bg="#171719">
+    <section className="fixes band-light" aria-labelledby="fx-h" data-bg="#171719">
       <header className="fx-head">
         <h2 id="fx-h">Design stops being <span className="t2">the problem</span></h2>
         <p>Startups and enterprise teams bring me the same four problems. I fix the design side of each one, so when growth stalls you can rule design out and put your energy into product and marketing.</p>

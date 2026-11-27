@@ -6575,3 +6575,28 @@ body:has(.book-split.is-full) .site-footer { display: none; }
 /* Cal.com branding strip clipped off under the booker (owner, 27 Nov 2026: "try your best to hide cal.com") */
 .cal-clip { overflow: hidden; border-radius: 12px; }
 .cal-clip iframe { display: block; margin-bottom: -80px; }
+
+/* ==========================================================================
+   White bands (owner, 27 Nov 2026: "don't use only dark sections, use white sections as well", like grafit.agency;
+   replaces "no white sections" of 25 Nov). A .band-light section paints white from edge to edge of the screen and
+   swaps the tokens inside it, so its cards, lines and text follow. Home: How I work, Fixes and the FAQ.
+   ========================================================================== */
+:root:root .band-light {
+  color-scheme: light;
+  --bg: #ffffff; --page: #ffffff; --surface: #f5f5f7; --card: #f5f5f7; --card-2: #ebebef; --card-3: #dcdce2; --card-low: #fafafa;
+  --text: #111112; --text-2: #2c2c2e; --muted: #5c5c63; --border: #d2d2d7; --line: rgba(0, 0, 0, .1); --hl: rgba(0, 0, 0, .05);
+  --glass: rgba(255, 255, 255, .86); --glass-card: rgba(255, 255, 255, .92); --inv-bg: #111112; --inv-ink: #ffffff; --rule: rgba(0, 0, 0, .1);
+  position: relative; color: var(--text); background: #ffffff; box-shadow: 0 0 0 100vmax #ffffff; clip-path: inset(0 -100vmax);
+  padding-block: var(--sec); margin-top: var(--sec) !important; margin-bottom: 0 !important; border-image: none !important; border-top: 0 !important;
+}
+/* The handwritten accent needs a darker amber on white */
+:root:root .band-light .scr { color: #b45309; }
+:root:root .band-light :is(h1, h2, h3, h4, p, li, dt, dd, summary, b, strong) { color: inherit; }
+:root:root .band-light :is(.t2, .bx-lede, p:not([class*="btn"])) { color: var(--muted); }
+:root:root .band-light :is(h2, h3, h4, summary, b, strong) { color: var(--text); }
+/* Cards inside the white bands: light surfaces with a hairline, white boxes inside them */
+:root:root .band-light :is(.hw-start li, .hw-grid li, .fx-row) { background: #f5f5f7; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .06); }
+:root:root .band-light :is(.hw-grid .hw-get, .fx-fix, .hw-terms li) { background: #ffffff; color: var(--text); box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .08); }
+@media (hover: hover) { :root:root .band-light :is(.hw-grid li:hover .hw-get, .fx-row:hover .fx-fix) { background: #ebebef; } }
+/* The dark corner glow behind the floating buttons hides while a white band sits under it */
+html.on-light body::after { opacity: 0; }

@@ -53,7 +53,7 @@ Every new section, component or page must keep this. Check it before calling a c
 - `public/_headers` sets long caching for `/_next/static`, `/fonts`, `/hero`, `/work/*` image folders. New image folders get a rule there too. Never long-cache HTML.
 
 ## One theme (owner, 22 Nov 2026; replaces "Both themes")
-The light/dark switch is gone. The site is one look: dark.
+The light/dark switch is gone. The site is one look: dark, with white bands (owner, 27 Nov 2026, like grafit.agency): a section with `band-light` paints white edge to edge and swaps the tokens inside it (home: How I work, Fixes, FAQ). Hard-coded dark card colours inside a band need a light override in the "White bands" block of `app/globals.css`.
 - A light panel is a section with the `lite` class (tokens swapped at the end of `app/globals.css`). Use tokens inside it; do not use `hero2-btn-light` inside a `lite` panel.
 - Old `:root[data-theme="light"]` rules are dead code; do not add new ones.
 - Before calling a change done: `npm run build`, `npx serve out -l 4173`, then

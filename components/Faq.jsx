@@ -18,14 +18,14 @@ function Rich({ t }) {
   });
 }
 
-export default function Faq({ items, children, a = "Questions", b = "founders ask first", bg = "#171719" }) {
+export default function Faq({ items, children, a = "Questions", b = "founders ask first", bg = "#171719", light = false }) {
   const schema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
     mainEntity: items.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: plain(f.a) } })),
   };
   return (
-    <section className="faq" id="faq" aria-labelledby="faq-h" data-bg={bg}>
+    <section className={`faq${light ? " band-light" : ""}`} id="faq" aria-labelledby="faq-h" data-bg={bg}>
       <div className="faq-side">
         <h2 id="faq-h">{a} <span className="t2">{b}</span></h2>
         <div className="faq-card">

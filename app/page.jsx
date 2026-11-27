@@ -150,7 +150,7 @@ export default function Home() {
 
       <Bento />
 
-      <Faq items={FAQ}>
+      <Faq items={FAQ} light>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <SkyPhoto className="faq-photo" />
         <p className="faq-go"><a className="hero2-btn hero2-btn-primary" href="/book/"><CallIcon />Ask me on a call</a></p>
