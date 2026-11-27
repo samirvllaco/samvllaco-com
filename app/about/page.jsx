@@ -9,6 +9,7 @@ import { SITE } from "../../lib/site";
 import { share, PERSON_ID } from "../../lib/seo";
 import JsonLd from "../../components/JsonLd";
 import FactRow from "../../components/FactRow";
+import PainStory from "../../components/PainStory";
 import CallIcon from "../../components/CallIcon";
 import { EMAIL } from "../../lib/site";
 
@@ -77,6 +78,9 @@ export default function About() {
         </p>
       </div>
       </div>
+
+      {/* Moved here from the home page (owner, 27 Nov 2026) */}
+      <PainStory />
 
       <section className="sv-sec ab-more" aria-labelledby="ab-how-h">
         <h2 id="ab-how-h">How <span className="t2">I work</span></h2>

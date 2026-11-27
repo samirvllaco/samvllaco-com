@@ -16,7 +16,6 @@ import { MEDIUM_PATH } from "../lib/medium-logo";
 import ArticleMark from "../components/ArticleMark";
 import WorkGrid from "../components/WorkGrid";
 import HeroQuote, { QUOTE_DAY } from "../components/HeroQuote";
-import PainStory from "../components/PainStory";
 import HowIWork from "../components/HowIWork";
 import Fixes from "../components/Fixes";
 import HeroReviews from "../components/HeroReviews";
@@ -128,7 +127,6 @@ export default function Home() {
 
       <HowIWork />
 
-      <PainStory />
 
       <section id="work" className="stack work" data-bg="#171719">
           <h2>Work <span className="t2">that shipped</span></h2>

@@ -43,12 +43,7 @@ export default function BookBand() {
   const path = usePathname() || "";
   if (!BOOKING_URL || path.startsWith("/book") || path.startsWith("/fix-ai-slop-ui")) return null;
   return (
-    <section className="wrap book-band" id="book" aria-labelledby="book-band-h">
-      <div className="book-band-head">
-        <p className="case-eyebrow">Available for new projects</p>
-        <h2 id="book-band-h">Tell me <span className="t2">what you are building</span></h2>
-        <p className="bb-sub scr">No pitch. Just you, me and your product.</p>
-      </div>
+    <section className="wrap book-band" id="book" aria-label="Book a call">
       <div className="book-cal">
         <CalFrame src={`${BOOKING_URL}?embed=true&theme=dark&layout=month_view`} />
       </div>

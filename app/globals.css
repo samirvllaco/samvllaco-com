@@ -6492,3 +6492,4 @@ html.is-live .ask-pill::before { animation-play-state: running; }
 @keyframes wg-seal { 0%, 68% { opacity: 0; scale: .4; } 72% { opacity: 1; scale: 1; } 92% { opacity: 1; scale: 1; } 98%, 100% { opacity: 0; scale: 1; } }
 
 @media (prefers-reduced-motion: reduce) { .wg .wg-art * { animation: none !important; } .wg-fill { clip-path: none; } }
+:root:root .pain2 + .sv-sec { margin-top: calc(var(--sec) / 2); }
