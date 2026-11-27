@@ -2738,7 +2738,7 @@ html:not(.js) .foot-sig-svg path { stroke-dasharray: none; }
 /* Hero: a single CTA sits in the middle */
 .hero3 .hero2-cta { display: flex; justify-content: center; }
 .hero3 .hero2-cta .hero2-btn { width: auto; min-width: 220px; }
-@media (max-width: 640px) { .hero3 .hero2-cta { display: flex; } .hero3 .hero2-cta .hero2-btn { width: 100%; max-width: 360px; } }
+@media (max-width: 640px) { .hero3 .hero2-cta { display: flex; } .hero3 .hero2-cta .hero2-btn { width: 100%; } }
 
 /* Nav book: rendered 3D book image that floats, tilts and glows */
 .nb-book { width: 20px; height: 29px; perspective: 200px; margin-right: 4px; }
@@ -7532,6 +7532,7 @@ html.on-light .edge-blur { opacity: 0; }
 :root:root:root .wall-cta > .btn-row > .hero2-btn { margin-top: 0; }
 @media (max-width: 640px) {
   :root:root:root :is(.btn-row, .hero2-cta) { gap: 12px; }
+  :root:root:root :is(.btn-row, .hero2-cta) > .hero2-btn { max-width: none; }
   :root:root:root .tb-all, :root:root:root .bx-tools .tb-head { width: 100%; }
   :root:root:root :is(.ab-end, .fx-by, .tb-all, .fo-lead) > .hero2-btn { width: 100%; justify-content: center; }
 }
