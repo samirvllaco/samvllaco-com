@@ -6,7 +6,7 @@
 // soon as a key is added. Every email has a one-click unsubscribe link.
 import { EMAIL } from "../../lib/site.js";
 import { PERSONAL_REVIEW_URL, REVIEW_URL } from "../../lib/site.js";
-import { WEEK_PRICE, usd } from "../../lib/plans.js";
+import { TRIAL_WEEK, usd } from "../../lib/plans.js";
 
 const SITE = "https://samvllaco.com";
 const DAY = 86400000;
@@ -86,7 +86,7 @@ export function render(step, d) {
     paras: [
       "Hi,",
       "Last email from me about your report.",
-      `If you'd rather not fix it yourself, I redesign the problem screens in a one-week sprint for ${usd(WEEK_PRICE)}. You get Figma files and a build-ready handoff, and I work with your developer or AI builder.`,
+      `If you'd rather not fix it yourself, I redesign the problem screens in a one-week trial for ${usd(TRIAL_WEEK)}. You get Figma files and a build-ready handoff, and I work with your developer or AI builder.`,
       `${link(`${SITE}/book/`, "Book a 30-minute call")} and bring your report. If it's not a fit, I'll tell you on the call.`,
       sign,
     ],

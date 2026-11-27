@@ -6,7 +6,7 @@ import Faq from "../../components/Faq";
 import SkyPhoto from "../../components/SkyPhoto";
 import { SITE } from "../../lib/site";
 import { share, PERSON_ID } from "../../lib/seo";
-import { WEEK_PRICE, EAA_AUDIT_PRICE, usd } from "../../lib/plans";
+import { TRIAL_WEEK, EAA_AUDIT_PRICE, usd } from "../../lib/plans";
 import { SRC, CHECKS, EAA_FAQ } from "../../lib/accessibility";
 
 const TITLE = "EAA Audit: WCAG 2.2 Accessibility Audit for Europe";
@@ -25,7 +25,7 @@ const OFFERS = [
     items: ["Up to 10 key pages or templates: home, product, sign-up, checkout, account and so on", "Keyboard-only testing and screen reader testing with VoiceOver and NVDA", "An automated axe scan, checked by hand so your team doesn't chase false alarms", "Contrast, focus, touch targets, forms, error messages, images and motion", "A ranked fix list mapped to WCAG 2.2 AA and EN 301 549", "A draft accessibility statement you can publish", "A 30-minute walkthrough call"],
   },
   {
-    k: "Fix Sprint", price: usd(WEEK_PRICE), per: "per week", hot: true, lead: "The fixes, designed and shipped.",
+    k: "Fix Sprint", price: `From ${usd(TRIAL_WEEK)}`, per: "one fixed price", hot: true, lead: "The fixes, designed and shipped.",
     items: ["I design every fix in Figma, from color tokens to focus states", "I can code front-end fixes myself, or hand your team dev-ready tickets with the WCAG reference and clear acceptance criteria", "I update your design system so new screens ship accessible", "I re-test after it ships and update your report"],
   },
 ];
@@ -33,7 +33,7 @@ const OFFERS = [
 const STEPS = [
   { t: "Book a call", d: "You show me the product. I tell you what I'd check first." },
   { t: "Audit", d: "Five working days later you get the report and a walkthrough." },
-  { t: "Fix", d: "Weekly sprints until the list is done. I re-test everything." },
+  { t: "Fix", d: "I scope the fixes from the report and give you one fixed price. Then I re-test everything." },
 ];
 
 const WHY_NOW = [
@@ -56,7 +56,7 @@ export default function EaaAudit() {
     url: `${SITE.url}/eaa-audit/`,
     offers: [
       { "@type": "Offer", name: "EAA Audit", price: EAA_AUDIT_PRICE, priceCurrency: "USD" },
-      { "@type": "Offer", name: "Fix Sprint", price: WEEK_PRICE, priceCurrency: "USD", priceSpecification: { "@type": "UnitPriceSpecification", price: WEEK_PRICE, priceCurrency: "USD", unitText: "week" } },
+      { "@type": "Offer", name: "Fix Sprint", priceCurrency: "USD", priceSpecification: { "@type": "PriceSpecification", minPrice: TRIAL_WEEK, priceCurrency: "USD" } },
     ],
   };
 
