@@ -6524,3 +6524,9 @@ html.is-live .ask-pill::before { animation-play-state: running; }
 :root:root .book-split.is-full .bb-alt { max-width: none; }
 /* Cal.com caps its month view near 1040px; scale the frame up so it fills the content box on wide screens */
 @media (min-width: 1200px) { :root:root .book-split.is-full .book-cal iframe { zoom: 1.2; } }
+/* Contact is only the calendar: no site footer under it (owner, 27 Nov 2026) */
+body:has(.book-split.is-full) .site-footer { display: none; }
+/* Booking band: the Cal.com booker is the only frame now (it takes the site colours), so no hairline or inset of our own; scaled up like the contact page */
+:root:root:root .book-band .book-cal { padding: 0; }
+:root:root:root .book-band .book-cal::after { display: none; }
+@media (min-width: 1200px) { :root:root .book-band .book-cal iframe { zoom: 1.2; } }

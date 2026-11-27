@@ -25,7 +25,7 @@ export default function Book() {
       <div className="book-split is-full">
       {BOOKING_URL ? (
         <section className="book-cal" id="calendar" aria-label="Pick a time">
-          <CalFrame src={`${BOOKING_URL}?embed=true&theme=dark&layout=month_view`} />
+          <CalFrame src={`${BOOKING_URL}?embed=true&theme=dark&layout=month_view&ui.color-scheme=dark`} />
           <BookAlt />
         </section>
       ) : null}

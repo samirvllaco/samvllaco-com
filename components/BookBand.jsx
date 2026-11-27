@@ -45,7 +45,7 @@ export default function BookBand() {
   return (
     <section className="wrap book-band" id="book" aria-label="Book a call">
       <div className="book-cal">
-        <CalFrame src={`${BOOKING_URL}?embed=true&theme=dark&layout=month_view`} />
+        <CalFrame src={`${BOOKING_URL}?embed=true&theme=dark&layout=month_view&ui.color-scheme=dark`} />
       </div>
       <BookAlt />
     </section>
