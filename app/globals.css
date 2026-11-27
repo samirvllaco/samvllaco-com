@@ -7298,3 +7298,11 @@ html.on-light .edge-blur { opacity: 0; }
     :root:root:root .hw-stage { top: calc(50vh - 190px); }
   }
 }
+
+/* Nav current item: no box, just white text; the other items sit back in a softer grey (owner, 27 Nov 2026: "don't use
+   this highlight, just whiter text and others less emphasis so it's more compact"). */
+:root:root:root .head-nav > a[aria-current="page"]::before, :root:root:root .head-nav .mega-btn.is-current::before { content: none; }
+:root:root:root .head-nav > a[aria-current="page"], :root:root:root .head-nav .mega-btn.is-current { background: none; box-shadow: none; color: #ffffff; }
+:root:root:root .head-nav > a:not([aria-current="page"]), :root:root:root .head-nav .mega-btn:not(.is-current) { color: rgba(245, 245, 247, .62); }
+@media (hover: hover) and (pointer: fine) { :root:root:root .head-nav > a:not([aria-current="page"]):hover, :root:root:root .head-nav .mega-btn:not(.is-current):hover, :root:root:root .head-nav .mega-btn.is-open { color: #ffffff; } }
+:root:root:root .head-nav:has(a:hover, .mega-btn:hover) :is(a, .mega-btn):not(:hover) { opacity: 1; }
