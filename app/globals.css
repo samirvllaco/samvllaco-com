@@ -7567,7 +7567,7 @@ html.js .bx-world[data-reveal].is-shown .wf-facts > div > dd { transition-durati
 /* Bent edge (owner, 28 Nov 2026: "using gsap, on scroll the section above bends over the next one, then goes straight
    while you scroll away"). The band's paint is this layer, edge to edge: it reaches var(--bend) below the band with a
    half-ellipse foot, so the white curves down over the top of the next section. SectionColors.jsx sets --bend from
-   the scroll (deepest when the band's foot enters the screen, flat by the 60% line, where the band turns dark) and
+   the scroll (deepest when the band's foot enters the screen, flat by the 40% line; the band stays white past it) and
    GSAP smooths it. Without JS or with reduced motion --bend stays 0: a straight edge. */
 :root:root:root .band-light::after {
   content: ""; position: absolute; z-index: -2; top: 0; bottom: calc(-1 * var(--bend, 0px)); left: calc(50% - 50vw); right: calc(50% - 50vw);

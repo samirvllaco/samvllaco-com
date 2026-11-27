@@ -52,15 +52,17 @@ export default function SectionColors() {
       const light = document.documentElement.dataset.theme === "light";
       // Sections marked data-dark stay dark in light mode too.
       const c = light && !pick.hasAttribute("data-dark") ? (LIGHT[pick.dataset.bg.toLowerCase()] || "#ffffff") : pick.dataset.bg;
-      // White bands are dark until they reach the line, then animate to white (owner, 27 Nov 2026).
-      for (const b of bands) b.classList.toggle("is-dim", b !== pick);
+      // White bands are dark until they reach the line, then animate to white (owner, 27 Nov 2026), and stay white once
+      // you have scrolled past them, so the bent foot reads (owner, 28 Nov 2026: "on scroll the top section should stay
+      // white, not go black"). Scrolling back above a band turns it dark again.
+      for (const b of bands) b.classList.toggle("is-dim", window.scrollY <= 8 || b.getBoundingClientRect().top > line);
       if (!reduce) {
         const vh = window.innerHeight;
         for (const b of bands) {
           const foot = b.getBoundingClientRect().bottom;
           if (foot < vh * 2.5) askGsap();
-          // Full depth until the foot enters the screen, straight by the time it reaches the 60% line.
-          const k = Math.min(1, Math.max(0, (vh - foot) / (vh * 0.4)));
+          // Full depth until the foot enters the screen, straight by the time it reaches the 40% line.
+          const k = Math.min(1, Math.max(0, (vh - foot) / (vh * 0.6)));
           setBend(b, Math.round(deep() * (1 - k)));
         }
       }
