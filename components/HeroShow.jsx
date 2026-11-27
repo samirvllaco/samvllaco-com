@@ -3,12 +3,12 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 
 // Hero work window (owner, 27 Nov 2026: "dont copy them, come up with our own better version").
-// Sam's desk, not a video player: a design file window with one tab per project, the work on a dotted canvas
-// (no frame label, owner 27 Nov 2026: "keep it clean"), and a status bar with the project's tags and a link to the case study.
-// The active tab's top line and a bar along the frame's foot fill while it plays, then the next tab opens;
+// Sam's desk, not a video player: the work on a dotted canvas (no frame label and no tab bar, owner 27 Nov 2026:
+// "keep it clean", "remove this tab part"), and a status bar with the project's tags and a link to the case study.
+// A bar along the frame's foot fills while a project plays, then the next one opens;
 // a small spinner shows while a clip is still loading.
-// First frame is a still image; videos load and the tabs advance only after the first interaction (html.is-live),
-// everything pauses off screen, and with reduced motion it stays on the chosen tab.
+// First frame is a still image; videos load and the projects advance only after the first interaction (html.is-live),
+// everything pauses off screen, and with reduced motion it stays on the first project.
 // The page passes only the fields this needs, so lib/work.js stays out of the bundle.
 export default function HeroShow({ items: LIST }) {
   const [i, setI] = useState(0);
@@ -50,17 +50,6 @@ export default function HeroShow({ items: LIST }) {
   const next = () => setI((v) => (v + 1) % LIST.length);
   return (
     <div className="hero-show" ref={root} data-live={live ? "" : undefined} data-paused={seen ? undefined : ""}>
-      <div className="hs-bar">
-        <span className="hs-dots" aria-hidden="true"><i /><i /><i /></span>
-        <div className="hs-tabs">
-          {LIST.map((x, k) => (
-            <button type="button" key={x.slug} className={k === i ? "is-on" : undefined} aria-pressed={k === i} onClick={() => setI(k)}>
-              {x.tab}<span className="sr-only">: {x.title}</span>
-              <i aria-hidden="true" onAnimationEnd={k === i ? next : undefined} />
-            </button>
-          ))}
-        </div>
-      </div>
       <div className="hs-canvas">
         <Link prefetch={false} className="hs-frame" href={`/work/${w.slug}/`} tabIndex={-1} aria-hidden="true">
           {LIST.map((x, k) => (
@@ -70,7 +59,7 @@ export default function HeroShow({ items: LIST }) {
               {live ? <video muted loop playsInline preload="none" poster={x.small} data-src={x.video} /> : null}
             </span>
           ))}
-          <i className="hs-prog" aria-hidden="true" key={`p${i}`} />
+          <i className="hs-prog" aria-hidden="true" key={`p${i}`} onAnimationEnd={next} />
           {live && wait ? <span className="hs-spin" aria-hidden="true" /> : null}
         </Link>
       </div>

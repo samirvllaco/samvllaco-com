@@ -21,8 +21,7 @@ import HowIWork from "../components/HowIWork";
 import Fixes from "../components/Fixes";
 import HeroReviews from "../components/HeroReviews";
 import HeroShow from "../components/HeroShow";
-import HeroHead from "../components/HeroHead";
-import { INDUSTRIES } from "../lib/industries";
+import HeroRole from "../components/HeroRole";
 import { LocalTime, CountUp } from "../components/Greeting";
 
 export const metadata = {
@@ -75,9 +74,6 @@ const HERO_TABS = [["marketing-dashboard", "Dashboard"], ["mobile-banking", "Ban
 const HERO_SHOW = HERO_TABS
   .map(([s, tab]) => { const w = WORK.find((x) => x.slug === s); return w && { tab, slug: w.slug, title: w.title, tags: w.tags, small: w.small, smallW: w.smallW, w: w.w, h: w.h, video: w.video }; })
   .filter(Boolean);
-// Hero "who I design for": the row label and how the headline says it, per industry page.
-const SAY = { saas: ["SaaS", "SaaS teams"], "ai-startups": ["AI", "AI startups"], fintech: ["Fintech", "fintechs"], healthcare: ["Health", "healthcare"], "law-firms": ["Law", "law firms"], ecommerce: ["E-commerce", "e-commerce"], "funded-startups": ["YC startups", "YC startups"] };
-const HERO_FOR = INDUSTRIES.map((x) => ({ id: x.id, icon: x.icon, short: (SAY[x.id] || [x.name])[0], say: (SAY[x.id] || [x.name, x.name])[1] }));
 const H1_FLIP = `(function(){var s=document.currentScript,h=s&&s.previousElementSibling;if(!h)return;
 if(matchMedia("(prefers-reduced-motion: reduce)").matches){h.classList.add("h3-in");return}
 var go=false,ws=[].slice.call(h.querySelectorAll(".h3-wd"));
@@ -97,8 +93,15 @@ export default function Home() {
         <div className="hero3 hero-split">
           {/* Right side: Sam's work in a design file window (owner, 27 Nov 2026: "add my designs / animations", then "our own better version"). */}
           <HeroShow items={HERO_SHOW} />
-          <HeroHead items={HERO_FOR} />
-          <p className="hero2-sub">UX audits, UI/UX sprints and redesigns. I find the gaps in your app and fix them, or design it from zero.</p>
+          <HeroRole />
+          <h1 className="h3-flip">
+            <W t="I design UI/UX" /> <Ico id="a" gap="r" tiles={[["figma", 12], ["photoshop", 5], ["chatgpt", 2.5], ["illustrator", 5], ["pen", 5], ["claude", 2.5], ["systems", 5], ["wand", 4]]} /><W t="for products" />{" "}<br />
+            <W t="people" /> <span className="h3-nw"><W t="love" /><Ico id="b" gap="l" tiles={[["love", 9], "star", "smile", "like", "chat"]} delay={2} at={1} /><W t="," /></span> <W t="and" />{" "}<br />
+            <span className="t2"><W t="experiences that convert" /></span> <Ico id="c" tiles={["growth", "money", "target", "bolt", "rocket", "click"]} delay={4} at={2} />
+          </h1>
+          {/* Runs before the first paint: the headline first reads as plain text, then the icons open their space. */}
+          <script dangerouslySetInnerHTML={{ __html: H1_FLIP }} />
+          <p className="hero2-sub">UX audits, UI/UX sprints and redesigns for SaaS, fintech, healthcare and e-commerce products. I find the gaps in your app and fix them, or design it from zero.</p>
           <div className="hero2-cta">
             <a className="hero2-btn hero2-btn-primary" href="/book/"><CallIcon />Book a 30-min strategy call</a>
           </div>
