@@ -13,6 +13,8 @@ import { PAGES, GET_ICONS, PAIN_ICONS, SVC_FAQ, SEO } from "../../../lib/service
 import { WORK } from "../../../lib/work";
 import { TESTIMONIALS } from "../../../lib/testimonials";
 import { SITE } from "../../../lib/site";
+import { POSTS } from "../../../lib/articles";
+import { GUIDES } from "../../../lib/service-guides";
 import { share, PERSON_ID } from "../../../lib/seo";
 
 const ALL = SERVICES.flatMap((g) => g.items.map((it) => ({ ...it, group: g }))).filter((it) => !groupOf(it.id));
@@ -63,6 +65,7 @@ export default async function ServicePage({ params }) {
   const idx = ALL.findIndex((x) => x.id === id);
   const quote = TESTIMONIALS[idx % TESTIMONIALS.length];
   const related = [...ALL.filter((x) => x.id !== id).map((x) => ({ id: x.id, name: x.name, href: svcHref(x.id) })), ...Object.entries(GROUP_PAGES).map(([k, v]) => ({ id: k, name: v.name, href: `/services/${k}/` }))];
+  const guides = (GUIDES[id] || []).filter((slug) => POSTS[slug]).map((slug) => ({ slug, name: POSTS[slug].metaTitle || POSTS[slug].title }));
   const first = s.name.split(" ")[0];
   const lower = /[A-Z].*[A-Z]/.test(first) ? s.name : s.name.charAt(0).toLowerCase() + s.name.slice(1);
 
@@ -166,6 +169,13 @@ export default async function ServicePage({ params }) {
         <p>30 minutes, just you and me. You leave with a scope, a timeline and a fixed price.</p>
         <div className="sv-cta sv-cta-c"><a className="hero2-btn hero2-btn-primary" href="/book/">Start a project<CallIcon /></a></div>
       </section>
+
+      {guides.length ? (
+        <nav className="sv-sec sv-more" aria-label="Guides">
+          <p className="mx-k">Guides</p>
+          <ul>{guides.map((g) => <li key={g.slug}><Link prefetch={false} href={`/writing/${g.slug}/`}>{g.name}</Link></li>)}</ul>
+        </nav>
+      ) : null}
 
       {related.length ? (
         <nav className="sv-sec sv-more" aria-label="More services">
