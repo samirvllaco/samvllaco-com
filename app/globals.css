@@ -6493,3 +6493,29 @@ html.is-live .ask-pill::before { animation-play-state: running; }
 
 @media (prefers-reduced-motion: reduce) { .wg .wg-art * { animation: none !important; } .wg-fill { clip-path: none; } }
 :root:root .pain2 + .sv-sec { margin-top: calc(var(--sec) / 2); }
+
+/* Square pattern on the call-to-action panels (owner, 27 Nov 2026, after a LogoLounge banner): a 32px grid of
+   white squares at 3 to 10%, strongest at the panel edges and clear behind the words. */
+:root { --cta-squares: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='192' fill='%23fff'%3E%3Crect x='64' y='0' width='32' height='32' fill-opacity='0.05'/%3E%3Crect x='96' y='0' width='32' height='32' fill-opacity='0.08'/%3E%3Crect x='160' y='0' width='32' height='32' fill-opacity='0.05'/%3E%3Crect x='64' y='32' width='32' height='32' fill-opacity='0.05'/%3E%3Crect x='128' y='32' width='32' height='32' fill-opacity='0.15'/%3E%3Crect x='160' y='32' width='32' height='32' fill-opacity='0.08'/%3E%3Crect x='192' y='32' width='32' height='32' fill-opacity='0.05'/%3E%3Crect x='224' y='32' width='32' height='32' fill-opacity='0.08'/%3E%3Crect x='96' y='64' width='32' height='32' fill-opacity='0.05'/%3E%3Crect x='128' y='64' width='32' height='32' fill-opacity='0.11'/%3E%3Crect x='192' y='64' width='32' height='32' fill-opacity='0.05'/%3E%3Crect x='32' y='96' width='32' height='32' fill-opacity='0.08'/%3E%3Crect x='96' y='96' width='32' height='32' fill-opacity='0.08'/%3E%3Crect x='160' y='96' width='32' height='32' fill-opacity='0.11'/%3E%3Crect x='224' y='96' width='32' height='32' fill-opacity='0.11'/%3E%3Crect x='0' y='128' width='32' height='32' fill-opacity='0.11'/%3E%3Crect x='64' y='128' width='32' height='32' fill-opacity='0.05'/%3E%3Crect x='128' y='128' width='32' height='32' fill-opacity='0.05'/%3E%3Crect x='160' y='128' width='32' height='32' fill-opacity='0.05'/%3E%3Crect x='192' y='128' width='32' height='32' fill-opacity='0.15'/%3E%3Crect x='224' y='128' width='32' height='32' fill-opacity='0.15'/%3E%3Crect x='32' y='160' width='32' height='32' fill-opacity='0.11'/%3E%3Crect x='64' y='160' width='32' height='32' fill-opacity='0.08'/%3E%3Crect x='96' y='160' width='32' height='32' fill-opacity='0.15'/%3E%3Crect x='128' y='160' width='32' height='32' fill-opacity='0.11'/%3E%3Crect x='192' y='160' width='32' height='32' fill-opacity='0.11'/%3E%3Crect x='224' y='160' width='32' height='32' fill-opacity='0.15'/%3E%3C/svg%3E"); }
+:is(.fd-talk, .case-close, .tl-cta, .rv-box) { position: relative; isolation: isolate; overflow: hidden; }
+:is(.fd-talk, .case-close, .tl-cta, .rv-box)::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; background: var(--cta-squares) 0 0 / 256px 192px repeat; -webkit-mask-image: linear-gradient(100deg, #000, transparent 38%, transparent 62%, #000); mask-image: linear-gradient(100deg, #000, transparent 38%, transparent 62%, #000); }
+
+/* Big bento cards follow the stat widgets (owner, 27 Nov 2026: "match first 2 bento cards style, animation and
+   effects"): eyebrow label top left, glossy inner panels in place of blurred glass, and one small loop each
+   (the A/B winner charges like the experience bar, a scan line sweeps the animation frame). */
+:root:root:root:root .bx-soft h3.bx-t { justify-self: stretch; width: 100%; text-align: left; font-size: .75rem; line-height: 1.5; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); }
+:root:root .bx-soft .bx-deck .bx-t { left: 32px; right: auto; top: 32px; }
+:root:root .bx-soft .wf-facts div { border: 0; border-radius: 16px; background: linear-gradient(180deg, #25252a, #121214); -webkit-backdrop-filter: none; backdrop-filter: none; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .1), inset 0 24px 24px -18px rgba(255, 255, 255, .12), inset 0 2px 6px -3px rgba(255, 255, 255, .4), 0 16px 32px -20px rgba(0, 0, 0, .6); }
+:root:root .bx-soft .bx-motion .bx-frame { box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .1), 0 30px 60px -24px rgba(0, 0, 0, .7); }
+:root:root .bx-soft .w4-card { box-shadow: inset 0 2px 6px -3px rgba(255, 255, 255, .7), inset 0 -16px 24px -12px rgba(0, 0, 0, .2), 0 18px 30px -16px rgba(0, 0, 0, .6); }
+/* A/B winner: a track with a blue fill that charges, holds and drains */
+:root:root .bx-soft .w4-bars i.win { background: rgba(255, 255, 255, .08); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .1); }
+.bx-soft .w4-bars i.win::before { content: ""; position: absolute; inset: 0; border-radius: inherit; background: linear-gradient(180deg, #62c1fd, #1d4ed8); box-shadow: inset 0 6px 10px -4px rgba(255, 255, 255, .5), 0 0 20px rgba(98, 193, 253, .45); clip-path: inset(0 0 0 0 round 5px); }
+.bx-proc.is-on .w4-bars i.win::before { animation: wg-rise 6s cubic-bezier(.45, 0, .2, 1) infinite; }
+@keyframes wg-rise { 0%, 8% { clip-path: inset(70% 0 0 0 round 5px); } 55%, 86% { clip-path: inset(0 0 0 0 round 5px); } 100% { clip-path: inset(70% 0 0 0 round 5px); } }
+/* Animation frame: a scan line sweeps down once every loop */
+.wg-sweep { position: absolute; inset: 0; z-index: 2; pointer-events: none; background: linear-gradient(180deg, transparent 0, transparent 72%, rgba(98, 193, 253, .16) calc(100% - 2px), #62c1fd calc(100% - 2px)); translate: 0 -100%; opacity: 0; }
+.bx-motion.is-on .wg-sweep { animation: wg-sweep 9.2s cubic-bezier(.55, 0, .45, 1) infinite; }
+@keyframes wg-sweep { 0%, 10% { translate: 0 -100%; opacity: 0; } 14% { opacity: 1; } 44% { translate: 0 0; opacity: 1; } 50%, 100% { translate: 0 0; opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .bx-proc .w4-bars i.win::before, .wg-sweep { animation: none !important; } }
+:root:root:root:root .bx-soft .bx-world h3.bx-t { padding-left: 12px; }

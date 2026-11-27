@@ -96,7 +96,7 @@ export default function Bento() {
           <GlobeLazy />
           <WorldFacts />
         </div>
-        <Link prefetch={false} href="/services/" className="dark-island bx-card bx-mini bx-proc" data-reveal>
+        <Link prefetch={false} href="/services/" className="dark-island bx-card bx-mini bx-proc" data-reveal data-loop>
           <h3 className="bx-t">Behind the screens</h3>
           <div className="w4" aria-hidden="true">
             <div className="w4-card w4-blue">
@@ -125,9 +125,9 @@ export default function Bento() {
             </div>
           </div>
         </Link>
-        <Link prefetch={false} href={`/work/${clip.slug}/`} className="dark-island bx-card bx-mini bx-motion" data-reveal>
+        <Link prefetch={false} href={`/work/${clip.slug}/`} className="dark-island bx-card bx-mini bx-motion" data-reveal data-loop>
           <h3 className="bx-t">Animations</h3>
-          <div className="bx-frame"><BuildIn screens={CLIPS} /></div>
+          <div className="bx-frame"><BuildIn screens={CLIPS} /><i className="wg-sweep" aria-hidden="true" /></div>
         </Link>
         <Toolbox />
       </div>
