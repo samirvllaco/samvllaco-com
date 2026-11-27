@@ -7426,3 +7426,25 @@ html.on-light .edge-blur { opacity: 0; }
 @media (hover: none) { .ap-fine { display: none; } .ap-touch { display: inline; } .ap { cursor: auto; } }
 :root:root .ab-photo .ap { width: 100%; }
 @media (max-width: 860px) { :root:root .ab-photo .ap { max-width: 480px; } }
+
+/* Reviews in two rows that slide sideways with the scroll (owner, 27 Nov 2026: "so it doesn't grab much height").
+   Rows run edge to edge; the first moves left, the second right, on the section's own view timeline. Without scroll
+   timelines or with reduced motion each row is a strip you swipe. The globe card sits under the rows at the content edge. */
+.tm-rows { --edge: max(16px, calc(50vw - 640px)); display: grid; gap: var(--gap-grid, 20px); width: 100vw; margin-left: calc(50% - 50vw); }
+.tm-row { overflow-x: auto; scrollbar-width: none; overscroll-behavior-x: contain; scroll-snap-type: x proximity; }
+.tm-row::-webkit-scrollbar { display: none; }
+.tm-track { display: flex; gap: var(--gap-grid, 20px); width: max-content; padding-inline: var(--edge); }
+:root:root:root .tm-track > .tm-card { flex: none; width: min(400px, calc(100vw - 48px)); scroll-snap-align: start; opacity: 1; transform: none; }
+:root:root:root .tm-wrap { padding-bottom: 0; }
+:root:root:root .tm-wrap .tm-world { position: relative; left: auto; bottom: auto; transform: none; margin: var(--gap-content, 40px) 0 0; }
+@media (hover: hover) and (pointer: fine) { :root:root:root .tm-wrap .tm-world:hover { transform: none; } }
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) and (min-width: 721px) {
+    .tm-rows { view-timeline: --tm block; }
+    .tm-row { overflow: visible; scroll-snap-type: none; }
+    .tm-row-a .tm-track { animation: tm-left linear both; animation-timeline: --tm; animation-range: entry 0% exit 100%; }
+    .tm-row-b .tm-track { animation: tm-right linear both; animation-timeline: --tm; animation-range: entry 0% exit 100%; }
+  }
+}
+@keyframes tm-left { from { transform: translateX(0); } to { transform: translateX(calc(-100% + 100vw)); } }
+@keyframes tm-right { from { transform: translateX(calc(-100% + 100vw)); } to { transform: translateX(0); } }

@@ -13,14 +13,23 @@ export default function Testimonials() {
       <h2 id="tm-h">What clients say <span className="t2">after handover</span></h2>
       <p className="bx-lede">Don't just take my word for it. A few of 200+ client reviews.</p>
       <div className="tm-wrap">
-      <div className="of-grid tm-grid">
-        {TESTIMONIALS.map((t, i) => (
-          <figure className="bx-card tm-card dark-island" key={i} data-reveal>
-            <span className="tm-stars" role="img" aria-label={`Rated ${t.rating || "5.0"} out of 5`}><Star /><Star /><Star /><Star /><Star /><b>{t.rating || "5.0"}</b></span>
-            <blockquote>“{t.quote}”</blockquote>
-            <ul className="tm-tags" aria-label="Endorsed by the client">{t.tags.map((g, j) => <TagTip key={g} label={g} id={`tg-${i}-${j}`} />)}</ul>
-<figcaption><b>{t.project}</b><i><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="#3b9bff" d="M12 1.800l2.500 1.800 3.100-.100 1 2.900 2.500 1.800-1 2.900 1 2.900-2.500 1.800-1 2.900-3.100-.100L12 21.400l-2.500-1.800-3.100.100-1-2.900L2.900 15l1-2.900-1-2.900 2.500-1.800 1-2.900 3.100.100L12 1.800Z" /><path fill="none" stroke="#fff" strokeWidth="2.200" strokeLinecap="round" strokeLinejoin="round" d="m8.300 12.200 2.500 2.500 4.900-5.200" /></svg>Verified review</i></figcaption>
-          </figure>
+      {/* Two rows that slide sideways as you scroll, so the reviews take two rows of height (owner, 27 Nov 2026: "make
+          this a scroll animation while the user scrolls so it doesn't grab much height"). Without scroll timelines or
+          with reduced motion, each row is a strip you swipe. */}
+      <div className="tm-rows">
+        {[TESTIMONIALS.slice(0, Math.ceil(TESTIMONIALS.length / 2)), TESTIMONIALS.slice(Math.ceil(TESTIMONIALS.length / 2))].map((row, r) => (
+          <div className={`tm-row tm-row-${r ? "b" : "a"}`} key={r}>
+            <div className="tm-track">
+              {row.map((t, k) => { const i = r ? Math.ceil(TESTIMONIALS.length / 2) + k : k; return (
+                <figure className="bx-card tm-card dark-island" key={i}>
+                  <span className="tm-stars" role="img" aria-label={`Rated ${t.rating || "5.0"} out of 5`}><Star /><Star /><Star /><Star /><Star /><b>{t.rating || "5.0"}</b></span>
+                  <blockquote>“{t.quote}”</blockquote>
+                  <ul className="tm-tags" aria-label="Endorsed by the client">{t.tags.map((g, j) => <TagTip key={g} label={g} id={`tg-${i}-${j}`} />)}</ul>
+                  <figcaption><b>{t.project}</b><i><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="#3b9bff" d="M12 1.800l2.500 1.800 3.100-.100 1 2.900 2.500 1.800-1 2.900 1 2.900-2.500 1.800-1 2.900-3.100-.100L12 21.400l-2.500-1.800-3.100.100-1-2.900L2.900 15l1-2.900-1-2.900 2.500-1.800 1-2.900 3.100.100L12 1.800Z" /><path fill="none" stroke="#fff" strokeWidth="2.200" strokeLinecap="round" strokeLinejoin="round" d="m8.300 12.200 2.500 2.500 4.900-5.200" /></svg>Verified review</i></figcaption>
+                </figure>
+              ); })}
+            </div>
+          </div>
         ))}
       </div>
       <Link prefetch={false} href="/book/" className="tm-world">
