@@ -6641,3 +6641,8 @@ html.js:not(.is-live) .intro *, html.js:not(.is-live) .intro { animation-play-st
   :root:root:root .hero-split :is(.hero2-cta, .hero-proof, .hero-quote) { justify-content: flex-start; justify-self: start; text-align: left; }
 }
 @media (max-width: 1099px) { .hero-split > .hero-vid { order: 9; margin: 40px auto 0; max-width: 420px; } .hero-split { display: flex; flex-direction: column; align-items: center; } }
+/* Mega menu and nav tabs at the small radii too (owner, 27 Nov 2026): no pills in the header */
+:root:root:root .site-header .mega { border-radius: var(--r-card); }
+:root:root:root :is(.head-nav > a, .head-nav .mega-btn, .head-end button, .head-end > a:not(.head-cta), .brand-me, .head-nav, .head-end) { border-radius: var(--r-sm) !important; }
+:root:root:root .head-nav > a[aria-current="page"]::before, :root:root:root .head-nav .mega-btn.is-current::before { border-radius: var(--r-sm); }
+:root:root:root :is(.head-nav a.hero2-btn, .mega a.hero2-btn, .site-footer a.hero2-btn, .head-nav .mx .mx-more a) { border-radius: var(--r-sm); }
