@@ -2,19 +2,20 @@ import CallIcon from "./CallIcon";
 
 // Home: what Sam does for product teams, said plainly (owner, 25 Nov 2026: audits, UI/UX sprints, fixing gaps,
 // improving the product, redesigning from zero or picking up an existing app; "design agency, me style").
-// The steps every engagement follows on the left, a design tile per service on the right.
+// The steps every engagement follows on the left, one screen per step on the right.
 // Desktop (26 Nov 2026, after grafit.agency): heading, steps and the call button stay pinned on the left while the cards
 // scroll on the right, and the steps light up one by one as you scroll (CSS scroll timeline, no JS).
 // Server component, no JS.
 // The right column shows the work, not paragraphs (owner, 27 Nov 2026: "too much content, I want the design to do
-// the talk"): one real screen per service, a short title and one line.
+// the talk"), one screen at a time (owner, same day: "for each scroll show only one screen, animated, not multiple"):
+// each step has its screen; on desktop they swap in a pinned frame as the steps light up (same scroll timeline).
+// Phones and browsers without scroll timelines get a row you swipe, one screen per view.
 const WORK = [
   { k: "audit", t: "UX audits", d: "Every gap found, ranked, with the fix", href: "/services/ux-audit/", alt: "An annotated web app screen with numbered UX findings" },
-  { k: "sprint", t: "UI/UX sprints", d: "One problem, one week, a clickable prototype", href: "/services/saas-product-design/", alt: "Annotated mobile banking screens from a design sprint" },
+  { k: "sprint", t: "UI/UX sprints", d: "The gap that costs most first: one week, a clickable prototype", href: "/services/saas-product-design/", alt: "Annotated mobile banking screens from a design sprint" },
   { k: "redesign", t: "Redesigns", d: "Clearer screens on a system that lasts", href: "/services/website-design/", alt: "A law firm homepage before and after the redesign" },
   { k: "test", t: "UX testing", d: "Watch real people, fix where they stall", href: "/services/ux-audit/", alt: "Annotated trip planner screens with the findings from user tests" },
-  { k: "ab", t: "A/B testing", d: "Changes that rest on numbers", href: "/services/landing-pages/", alt: "Landing page variants side by side" },
-  { k: "doc", t: "Figma handoff", d: "Specs and files your team builds from", href: "/services/design-systems/", alt: "A messages screen with spec notes for developers" },
+  { k: "doc", t: "Figma handoff", d: "Specs and files your team builds from", href: "/services/design-systems/", alt: "A marketplace screen with spec notes for developers" },
 ];
 
 const STEPS = [
@@ -48,13 +49,13 @@ export default function HowIWork() {
       </div>
 
       <div className="hw-main">
-        <ul className="hw-tiles" aria-label="Services">
+        <ul className="hw-stage" aria-label="Services">
           {WORK.map((w) => (
             <li key={w.k}>
               <a href={w.href}>
                 <span className="hw-shot">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={`/work/hw/${w.k}.webp?v=1`} width="720" height="540" alt={w.alt} loading="lazy" decoding="async" />
+                  <img src={`/work/hw/${w.k}-l.webp?v=1`} width="1200" height="900" alt={w.alt} loading="lazy" decoding="async" />
                 </span>
                 <span className="hw-tt">{w.t}</span>
                 <span className="hw-td">{w.d}</span>

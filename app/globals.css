@@ -7040,13 +7040,7 @@ html.on-light .ask-me svg { background: #fff; }
 :root:root:root .tm-tags .tg-btn { min-height: 32px; padding: 4px 12px; font-size: .8125rem; color: var(--muted); background: rgba(255, 255, 255, .06); }
 :root:root:root .tm-tags .tg-btn:hover, :root:root:root .tm-tags .tg.is-open .tg-btn { color: var(--text); background: rgba(255, 255, 255, .1); }
 :root:root:root .tm-grid:has(.tm-card:hover) .tm-card:not(:hover) { opacity: 1; filter: none; }
-/* Reviews summary: words only, no map or clocks (they live in the Worldwide card). */
-:root:root:root .tm-world { width: min(440px, calc(100% - 32px)); min-height: 0; }
-:root:root:root .tm-world-in { justify-items: center; text-align: center; gap: 8px; padding: 24px 32px; }
-:root:root:root .tm-world-go { display: inline-flex; align-items: center; gap: 8px; margin-top: 4px; font-size: .875rem; font-weight: 500; color: var(--muted); }
-:root:root:root .tm-world-go span { transition: translate .25s var(--ease-out); }
-@media (hover: hover) and (pointer: fine) { :root:root:root .tm-world:hover { transform: translateX(-50%); } :root:root:root .tm-world:hover .tm-world-go { color: var(--text); } :root:root:root .tm-world:hover .tm-world-go span { translate: 3px 0; } }
-/* FAQ card: the call button and the email copy row are the same size (owner, 27 Nov 2026: "buttons should be same size"). */
+/* Reviews card keeps its dotted globe and local time (owner, 27 Nov 2026: "bring back globe here it was perfect"). */
 /* FAQ card (owner, 27 Nov 2026: "more together, better proximity and hierarchy, same for the whole card"): who sits on one
    row (face, name over role, LinkedIn at the end), then the call and the email row as one group at the card's full width. */
 :root:root:root .faq-card { display: grid; gap: 0; justify-items: stretch; padding: 24px; }
@@ -7067,10 +7061,15 @@ html.on-light .ask-me svg { background: #fff; }
 :root:root:root .faq-card .faq-mail .tg-ico svg { width: 16px; height: 16px; stroke: var(--text); filter: none; }
 :root:root:root .band-light.is-dim .faq-mail .hp-copy { --hp-accent: #62c1fd; }
 /* FAQ rows and the email row wipe on hover like the buttons (owner, 27 Nov 2026: "same here hover effects like button from left to right") */
-:root:root:root :is(.faq-list details, .faq-card .faq-mail .hp-copy) { --wipe: rgba(255, 255, 255, .05); background-image: linear-gradient(var(--wipe), var(--wipe)); background-repeat: no-repeat; background-position: left top; background-size: 0% 100%;
+/* At rest a FAQ row is the page color with a hairline; the gray card color only comes in on hover (the wipe) or when the
+   row is open (owner, 27 Nov 2026: "more subtle, gray only on hover or active, keep the gray we have"). */
+:root:root:root :is(.faq-list details, .faq-card .faq-mail .hp-copy) { --wipe: var(--card); background-image: linear-gradient(var(--wipe), var(--wipe)); background-repeat: no-repeat; background-position: left top; background-size: 0% 100%;
   transition: background-size .35s cubic-bezier(.22, .61, .36, 1); }
-:root:root:root .band-light :is(.faq-list details, .faq-card .faq-mail .hp-copy) { --wipe: rgba(0, 0, 0, .04); }
-:root:root:root .band-light.is-dim :is(.faq-list details, .faq-card .faq-mail .hp-copy) { --wipe: rgba(255, 255, 255, .05); }
+:root:root:root .faq-list details { background-color: var(--page); }
+:root:root:root .faq-list details[open] { background-color: var(--card); }
+:root:root:root .faq-card .faq-mail .hp-copy { --wipe: var(--card-2); justify-content: center; }
+:root:root:root .faq-card .faq-mail .hp-copy > b, :root:root:root .faq-card .faq-mail .hp-copy > .cc { margin-left: 0; }
+:root:root:root .faq-card .faq-mail .hp-copy { padding-inline: 6px; }
 @media (hover: hover) and (pointer: fine) { :root:root:root :is(.faq-list details, .faq-card .faq-mail .hp-copy):hover { background-size: 100% 100%; } }
 @media (prefers-reduced-motion: reduce) { :root:root:root :is(.faq-list details, .faq-card .faq-mail .hp-copy) { transition: none; } }
 
@@ -7180,16 +7179,74 @@ html.on-light .edge-blur { opacity: 0; }
 }
 @keyframes nav-compact { from { opacity: 0; } to { opacity: 1; } }
 
-/* How I work, right column (owner, 27 Nov 2026: "too much content, I want the design to do the talk"): six design
-   tiles, one real screen per service with a short title and one line, two per row (one on phones). */
-.hw-tiles { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--gap-grid, 20px); margin: 0; padding: 0; list-style: none; }
-.hw-tiles a { display: grid; gap: 4px; padding: 8px 8px 16px; border-radius: var(--r-card); background: var(--card-low, #fafafa); box-shadow: inset 0 0 0 1px var(--line); color: var(--text); text-decoration: none; transition: box-shadow .25s var(--ease-out); }
-.hw-tiles a:hover { box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .2); }
-.hw-tiles a:focus-visible { outline: 3px solid rgba(10, 111, 214, .6); outline-offset: 2px; }
+/* How I work, right column (owner, 27 Nov 2026: "too much content, I want the design to do the talk", then "for each
+   scroll show only one screen, animated, not multiple"): one screen per step. By default a row you swipe, one screen
+   per view; on desktop with scroll timelines the screens stack in a pinned frame and swap as the steps light up. */
+.hw-stage { display: grid; grid-auto-flow: column; grid-auto-columns: min(86%, 560px); gap: var(--gap-grid, 20px); margin: 0; padding: 0 0 4px; list-style: none; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior-x: contain; }
+.hw-stage::-webkit-scrollbar { display: none; }
+.hw-stage > li { display: grid; scroll-snap-align: start; }
+.hw-stage a { display: grid; gap: 4px; align-content: start; height: 100%; padding: 8px 8px 16px; border-radius: var(--r-card); background: var(--card-low, #fafafa); box-shadow: inset 0 0 0 1px var(--line); color: var(--text); text-decoration: none; transition: box-shadow .25s var(--ease-out); }
+.hw-stage a:hover { box-shadow: inset 0 0 0 1px var(--border); }
+.hw-stage a:focus-visible { outline: 3px solid rgba(10, 111, 214, .6); outline-offset: 2px; }
 .hw-shot { display: block; aspect-ratio: 4 / 3; margin-bottom: 12px; border-radius: var(--r-inner); overflow: hidden; background: var(--card-2, #ebebef); }
 .hw-shot img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .hw-tt { padding-inline: 8px; font-size: 1.125rem; line-height: 1.5; font-weight: 500; letter-spacing: -.02em; }
 .hw-td { padding-inline: 8px; font-size: .9375rem; line-height: 1.5; letter-spacing: -.011em; color: var(--muted); }
-@media (max-width: 640px) { .hw-tiles { grid-template-columns: minmax(0, 1fr); } }
-.hw-tiles li { display: grid; }
-.hw-tiles a { height: 100%; align-content: start; }
+@media (min-width: 1100px) { .hw-stage { grid-auto-columns: minmax(0, 100%); } }
+@supports (animation-timeline: view()) {
+  @media (min-width: 1100px) and (min-height: 800px) and (prefers-reduced-motion: no-preference) {
+    :root:root .hw-main { min-height: 240vh; }
+    :root:root .hw-stage { position: sticky; top: 112px; grid-auto-flow: row; grid-template-columns: minmax(0, 1fr); overflow: visible; padding: 0; }
+    .hw-stage > li { grid-area: 1 / 1; }
+    .hw-stage > li:not(:first-child) { animation: hw-in linear both; animation-timeline: --hw; }
+    .hw-stage > li:not(:last-child) > a { animation: hw-out linear both; animation-timeline: --hw; }
+    .hw-stage .hw-shot img { animation: hw-zoom linear both; animation-timeline: --hw; }
+    .hw-stage > li:nth-child(2) { animation-range: contain 16% contain 22.5%; }
+    .hw-stage > li:nth-child(3) { animation-range: contain 38.5% contain 45%; }
+    .hw-stage > li:nth-child(4) { animation-range: contain 61% contain 67.5%; }
+    .hw-stage > li:nth-child(5) { animation-range: contain 83.5% contain 90%; }
+    .hw-stage > li:nth-child(1) > a { animation-range: contain 16% contain 22.5%; }
+    .hw-stage > li:nth-child(2) > a { animation-range: contain 38.5% contain 45%; }
+    .hw-stage > li:nth-child(3) > a { animation-range: contain 61% contain 67.5%; }
+    .hw-stage > li:nth-child(4) > a { animation-range: contain 83.5% contain 90%; }
+    .hw-stage > li:nth-child(1) img { animation-range: contain 0% contain 22.5%; }
+    .hw-stage > li:nth-child(2) img { animation-range: contain 16% contain 45%; }
+    .hw-stage > li:nth-child(3) img { animation-range: contain 38.5% contain 67.5%; }
+    .hw-stage > li:nth-child(4) img { animation-range: contain 61% contain 90%; }
+    .hw-stage > li:nth-child(5) img { animation-range: contain 83.5% contain 100%; }
+  }
+}
+/* The next screen wipes up over the last one, which settles back and fades; each screen eases in from a slight zoom */
+@keyframes hw-in { from { visibility: hidden; clip-path: inset(100% 0 0 0 round var(--r-card)); translate: 0 32px; } to { visibility: visible; clip-path: inset(0 0 0 0 round var(--r-card)); translate: 0 0; } }
+@keyframes hw-out { to { scale: .94; opacity: 0; } }
+@keyframes hw-zoom { from { scale: 1.08; } to { scale: 1; } }
+
+/* ==========================================================================
+   Copied state, every copy control (owner, 27 Nov 2026: "on copied make them less color and subtle, only the check can
+   be green; this goes to all copy patterns"): a soft gray fill, the words in the text color, a green check.
+   ========================================================================== */
+:root { --ok: #3ecf7a; }
+:root:root .band-light { --ok: #1a8a4a; }
+:root:root:root .band-light.is-dim { --ok: #3ecf7a; }
+:root:root:root .cc-fill { background: color-mix(in srgb, var(--text) 7%, transparent); }
+:root:root:root .cc-done { color: var(--text); font-weight: 500; }
+:root:root:root .cc-done svg, :root:root:root .fp-c-done svg { stroke: var(--ok); }
+:root:root:root .fp-c-fill { background: #2c2c2f; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .1); }
+:root:root:root .fp-c-done { color: #f5f5f7; }
+:root:root:root .fp-copy.is-done, :root:root:root .fp-copy.is-done:hover { color: #f5f5f7; background: #2c2c2f; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .1); }
+:root:root:root .copy-email .copy-status { color: var(--text); background: var(--card-2); box-shadow: inset 0 0 0 1px var(--line); font-weight: 500; }
+:root:root:root .copy-email:not(.is-done) .copy-status { background: none; box-shadow: none; }
+:root:root:root .copy-email.is-done svg { color: var(--ok); }
+:root:root:root .hire-copied { color: var(--text); font-weight: 500; }
+
+/* Header photo is a rounded square like every other image on the site (owner, 27 Nov 2026: "use square here to match the feel") */
+:root:root:root .brand-me img.brand-face { border-radius: var(--r-sm); }
+/* Nav items wipe in from the left on hover, like the buttons (owner, 27 Nov 2026: "hover effects on nav also can be from left to right") */
+@media (hover: hover) and (pointer: fine) {
+  :root:root:root :is(.head-nav > a:not([aria-current="page"]), .head-nav .mega-btn:not(.is-current), .head-nav .mx :is(.mx-col, .mx-grid, .mx-posts) a:not([aria-current="page"])) {
+    background: linear-gradient(var(--hl), var(--hl)) no-repeat left center / 0% 100%; transition: background-size .35s cubic-bezier(.22, .61, .36, 1), color .25s var(--ease-out), opacity .25s var(--ease-out); }
+  :root:root:root :is(.head-nav > a:not([aria-current="page"]), .head-nav .mega-btn:not(.is-current), .head-nav .mx :is(.mx-col, .mx-grid, .mx-posts) a:not([aria-current="page"])):hover,
+  :root:root:root .head-nav .mega-btn.is-open:not(.is-current) { background: linear-gradient(var(--hl), var(--hl)) no-repeat left center / 100% 100%; }
+}
+@media (prefers-reduced-motion: reduce) { :root:root:root :is(.head-nav > a, .head-nav .mega-btn, .head-nav .mx a) { transition: none; } }
+:root:root:root .head-nav .mx :is(.mx-col, .mx-grid, .mx-posts) a { --hl: rgba(255, 255, 255, .06); }

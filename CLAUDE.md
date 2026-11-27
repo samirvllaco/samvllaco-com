@@ -126,3 +126,7 @@ One value per job, kept in the last block of `app/globals.css` ("Feel consistenc
 - Footer wall (owner, 27 Nov 2026: "the scroll of projects and work can be in footer now ... combined with our already existing cta"): the screen wall moved from under the home hero to the top of the footer on every page except the lean pages. It zooms out as you scroll down (back in going up) with the closing call ("Talk to the designer who does the work", Book a 30-min strategy call) centred on a dark veil; every screen loads lazily. Lean pages keep the plain call in the footer.
 - Screen wall hairlines are drawn on an unscaled layer (`.wall-lines`), so they stay 1px at every zoom step.
 - Figma source of the showcase and wall screens: https://www.figma.com/design/nFRrT9q7AAoZQD1yDc8WzG
+- How I work screens (owner, 27 Nov 2026: "for each scroll show only one screen and animated"): one screen per step in a pinned frame on the right (`.hw-stage`); each one wipes up over the last as its step lights up, on the same `--hw` scroll timeline as the numbers. Phones and browsers without scroll timelines get a row you swipe.
+- Reviews card keeps the dotted globe and local times (owner, 27 Nov 2026: "bring back globe here it was perfect").
+- Copied state everywhere (owner, 27 Nov 2026): a soft gray fill, the words in the text color, only the check is green (`--ok`).
+- FAQ rows are the page color at rest; the gray comes in only on hover (left-to-right wipe) or when open. Nav items and menu rows wipe in from the left on hover too. The header photo is a rounded square.

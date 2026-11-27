@@ -1,4 +1,5 @@
 import Link from "next/link";
+import DotGlobe, { TimeStrip } from "./DotGlobe";
 import { TESTIMONIALS } from "../lib/testimonials";
 import TagTip from "./TagTip";
 
@@ -26,8 +27,9 @@ export default function Testimonials() {
         <span className="tm-world-in">
           <span className="tm-world-r"><span className="tm-stars" aria-hidden="true"><Star /><Star /><Star /><Star /><Star /></span><b>5.0</b></span>
           <b className="tm-world-t">200+ reviews <span className="t2">worldwide</span></b>
-          <span className="tm-world-go">Book a call <span aria-hidden="true">→</span></span>
+          <TimeStrip />
         </span>
+        <DotGlobe />
       </Link>
       </div>
     </section>
