@@ -6945,3 +6945,27 @@ html.on-light .ask-me svg { background: #fff; }
 @media (hover: hover) and (pointer: fine) {
   :root:root:root :is(a, button, li, .tg, .bx-card, .fx-row, .sub-why > *, .sub-steps > *):is(:hover, .is-open) :is(.tg-ico, .mx-ico, .pain-ico, .sv-ico, .tb-ico) { transform: none; rotate: none; scale: none; translate: none; }
 }
+/* Bento keeps only its boxes (owner, 27 Nov 2026: "hide all bento illustrations, keep only boxes"): no drawings in the stat cards,
+   no globe or flag row in Worldwide; "Behind the screens" and "Animations" are gone. The stat cards hug their words. */
+:root:root:root .bx-soft .bx-stat.wg { min-height: 0; align-content: end; }
+:root:root .bx-world { min-height: 0; padding-bottom: 32px; }
+:root:root .bx-world::after { display: none; }
+/* FAQ card: no big photo, the small face sits beside the name (owner, 27 Nov 2026) */
+:root:root .faq-card .faq-photo { display: none !important; }
+:root:root .faq-card .faq-who img { display: block !important; width: 48px; height: 48px; }
+/* Worldwide box: title on top, the sentence and the three facts at the foot, like the stat boxes */
+:root:root .bx-world { display: flex; flex-direction: column; }
+:root:root .bx-world > .bx-world-s { margin-top: auto; }
+/* Footer type a step smaller (owner, 27 Nov 2026) */
+:root:root .fo-cols .foot-map-h { font-size: .6875rem; margin-bottom: 14px; }
+:root:root:root .site-footer .fo-cols a { font-size: .8125rem; }
+:root:root .fo-cols ul { gap: 8px; }
+:root:root .fo-h { font-size: clamp(1.375rem, 1.2rem + .6vw, 1.75rem); }
+:root:root .fo-p { font-size: .875rem; }
+/* Footer Ask AI tiles: the same wipe as the buttons */
+@media (hover: hover) and (pointer: fine) {
+  :root:root:root .site-footer .fo-right .ask-ai-row a { position: relative; isolation: isolate; overflow: hidden; }
+  :root:root:root .site-footer .fo-right .ask-ai-row a::before { content: ""; position: absolute; inset: 0; z-index: -1; background: rgba(255, 255, 255, .1); transform: scaleX(0); transform-origin: left center; transition: transform .35s cubic-bezier(.22, .61, .36, 1); }
+  :root:root:root .site-footer .fo-right .ask-ai-row a:hover::before { transform: scaleX(1); }
+  :root:root:root .site-footer .fo-right .ask-ai-row a:hover { background: rgba(255, 255, 255, .05); }
+}

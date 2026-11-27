@@ -1,6 +1,5 @@
 import Link from "next/link";
-import GlobeLazy from "./GlobeLazy";
-import WorldFacts, { WorldFlags } from "./WorldFacts";
+import WorldFacts from "./WorldFacts";
 import SwipeDeck from "./SwipeDeck";
 import Toolbox from "./Toolbox";
 import BuildIn from "./BuildIn";
@@ -56,34 +55,14 @@ export default function Bento() {
       <div className="bx-grid">
         <div className="bx-stats">
           <div className="dark-island bx-card bx-stat wg" data-loop>
-            <div className="wg-art wg-era" aria-hidden="true">
-              <span className="wg-view">
-                <span className="wg-m wg-web"><i className="wg-bar3"><b /><b /><b /></i><i className="wg-ln" /><i className="wg-ln wg-short" /><i className="wg-pill2" /></span>
-                <span className="wg-m wg-app"><i className="wg-notch" /><i className="wg-row" /><i className="wg-row" /><i className="wg-row" /></span>
-                <span className="wg-m wg-saas"><i className="wg-side" /><i className="wg-bars"><b /><b /><b /><b /><b /></i></span>
-                <span className="wg-m wg-ai"><i className="wg-msg" /><i className="wg-msg wg-me" /><i className="wg-spark">✦</i></span>
-              </span>
-              <span className="wg-rail"><i className="wg-fillr" /><b>Web</b><b>Mobile</b><b>SaaS</b><b>AI</b></span>
-            </div>
             <p className="wg-k">Experience</p>
             <b>10</b><span>Years of experience</span>
           </div>
           <div className="dark-island bx-card bx-stat wg" data-loop>
-            <div className="wg-art wg-orbit" aria-hidden="true">
-              <i className="wg-ring wg-r1" /><i className="wg-ring wg-r2" /><i className="wg-ping" />
-              <span className="wg-spin wg-s1"><i><img src="/flags/us.svg" width="20" height="20" alt="" loading="lazy" /></i><i><img src="/flags/ca.svg" width="20" height="20" alt="" loading="lazy" /></i></span>
-              <span className="wg-spin wg-s2"><i><img src="/flags/au.svg" width="20" height="20" alt="" loading="lazy" /></i><i><img src="/flags/ae.svg" width="20" height="20" alt="" loading="lazy" /></i><i><img src="/flags/eu.svg" width="20" height="20" alt="" loading="lazy" /></i></span>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/sam-face-144.webp?v=1" width="40" height="40" alt="" loading="lazy" />
-            </div>
             <p className="wg-k">Clients</p>
             <b>573 <em className="wg-pill">4 continents</em></b><span>Clients served</span>
           </div>
           <div className="dark-island bx-card bx-stat wg" data-loop>
-            <div className="wg-art wg-build" aria-hidden="true">
-              <span className="wg-pile" /><span className="wg-pile wg-pile2" />
-              <span className="wg-scr"><i className="wg-b1" /><i className="wg-b2" /><i className="wg-b3" /><i className="wg-b4" /><i className="wg-b5" /></span>
-            </div>
             <p className="wg-k">Screens</p>
             <b>10,000+</b><span>Screens designed</span>
           </div>
@@ -95,43 +74,8 @@ export default function Bento() {
         <div className="dark-island bx-card bx-world" data-reveal>
           <h3 className="bx-t">Worldwide</h3>
           <p className="bx-world-s"><i />Based in {SITE.city || "Tirana, Albania"}. 573 clients across four continents</p>
-          <WorldFlags />
-          <GlobeLazy />
           <WorldFacts />
         </div>
-        <Link prefetch={false} href="/services/" className="dark-island bx-card bx-mini bx-proc" data-reveal data-loop>
-          <h3 className="bx-t">Behind the screens</h3>
-          <div className="w4" aria-hidden="true">
-            <div className="w4-card w4-blue">
-              <p className="w4-k">User research</p>
-              <div className="w4-quotes">
-                <span>"I couldn't find the pricing."</span>
-                <span>"Too many steps to sign up."</span>
-              </div>
-              <p className="w4-foot">12 interviews</p>
-            </div>
-            <div className="w4-card w4-white w4-dots">
-              <p className="w4-k">UX flow</p>
-              <div className="w4-flow"><span>Visit</span><i /><span>Sign up</span><i /><span className="win">First win</span></div>
-              <p className="w4-foot">6 steps cut to 3</p>
-            </div>
-            <div className="w4-card w4-black">
-              <p className="w4-k">A/B test</p>
-              <div className="w4-bars"><i style={{ "--h": "40%" }} /><i style={{ "--h": "55%" }} /><i style={{ "--h": "46%" }} /><i className="win" style={{ "--h": "92%" }}><em>B +38%</em></i></div>
-            </div>
-            <div className="w4-card w4-white w4-note">
-              <p className="w4-bar">Headline</p>
-              <div className="w4-in">
-                <p className="w4-old">Revolutionize your workflow with AI</p>
-                <p className="w4-new">Send your first invoice in 30 seconds</p>
-              </div>
-            </div>
-          </div>
-        </Link>
-        <Link prefetch={false} href={`/work/${clip.slug}/`} className="dark-island bx-card bx-mini bx-motion" data-reveal>
-          <h3 className="bx-t">Animations</h3>
-          <div className="bx-frame"><BuildIn screens={CLIPS} /></div>
-        </Link>
         <Toolbox />
       </div>
     </section>
