@@ -15,15 +15,14 @@ const ALL_SERVICES = SERVICES.flatMap((g) => g.items);
 const SUB = {
   "/services/": {
     items: FEATURED.map(([id, d]) => ({ href: svcHref(id), label: ALL_SERVICES.find((x) => x.id === id)?.name || id, icon: d })),
-    all: { href: "/services/", label: `All ${ALL_SERVICES.length} services` },
   },
-  // Resources and Free tools only open their list here; they no longer link to a hub page (owner, 25 Nov 2026).
+  // Services (owner, 27 Nov 2026), Resources and Free tools only open their list here; they no longer link to a hub page (owner, 25 Nov 2026).
   "/resources/": { items: RESOURCES.map((r) => ({ href: r.href, label: r.title, icon: r.icon, tag: r.tag })) },
   "/tools/": { items: TOOLS.map((t) => ({ href: t.href || `/tools/${t.slug}/`, label: t.name, icon: t.icon })) },
 };
 
 const LINKS = [
-  { href: "/services/", label: "Services" },
+  { href: "/services/", label: "Services", menu: true },
   { href: "/pricing/", label: "Pricing" },
   { href: "/work/", label: "Work" },
   { href: "/resources/", label: "Resources", menu: true },

@@ -23,11 +23,11 @@ export const FEATURED = [
 export default function ServicesMenu() {
   const path = (usePathname() || "/").replace(/\/?$/, "/");
   return (
-    <MegaShell id="mega-services" label="Services" href="/services/">
+    <MegaShell id="mega-services" label="Services">
       {(close) => (
         <div className="wrap mx-in">
           <div className="mx-main">
-            <div className="mx-k-row"><p className="mx-k">What I design</p><Link prefetch={false} className="mx-view" href="/services/" onClick={close}>View all {ITEMS.length} services<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" /></svg></Link></div>
+            <div className="mx-k-row"><p className="mx-k">What I design</p></div>
             <ul className="mx-grid">
               {FEATURED.map(([id, d, short]) => {
                 const it = ITEMS.find((x) => x.id === id);

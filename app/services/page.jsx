@@ -23,10 +23,6 @@ export default function Services() {
           <a className="hero2-btn hero2-btn-primary" href="/book/"><CallIcon />Book a call</a>
         </div>
       </header>
-      <figure className="svc-pic">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/me/ai/ai8.webp?v=1" width="1000" height="1000" alt="Sam Vllaco talking through a wireframe at his desk" loading="lazy" decoding="async" />
-      </figure>
       {SERVICES.map((g) => (
         <section className="svc-group" id={g.id} key={g.id} aria-labelledby={`svc-${g.id}`}>
           <div className="svc-head">

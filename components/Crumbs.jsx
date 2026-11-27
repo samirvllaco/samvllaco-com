@@ -4,7 +4,6 @@ import Link from "next/link";
 // Hovering or focusing the home pill opens a compact menu of the main pages.
 const QUICK = [
   ["/", "Home", "M4 11.2 12 4l8 7.2V20a1 1 0 0 1-1 1h-4.5v-6h-5v6H5a1 1 0 0 1-1-1z"],
-  ["/services/", "Services", "M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM16.5 13a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7z"],
   ["/work/", "Work", "M3 7h18v13H3zM8 7V4h8v3"],
   ["/writing/", "Insights", "M5 4h11l3 3v13H5zM8 9h8M8 13h8M8 17h5"],
   ["/fix-ai-slop-ui/", "Ebook", "M4 5a2 2 0 0 1 2-2h12v16H6a2 2 0 0 0-2 2zM4 5v16M9 7h6", "$12.99"],
