@@ -4,6 +4,8 @@ import { useRef, useState } from "react";
 import { WORK, WORK_TAGS } from "../lib/work";
 import { play } from "../lib/delight";
 import { useSeen } from "./Seen";
+import PhoneApps from "./PhoneApps";
+import { PHONE_APPS } from "../lib/phones";
 
 const DARK = ["room-editor", "language-player", "mobile-banking"];
 const TABS = [{ id: "all", label: "All" }, ...WORK_TAGS.filter((t) => WORK.some((w) => w.tags.includes(t))).map((t) => ({ id: t, label: t }))];
@@ -133,6 +135,8 @@ export default function WorkGrid({ cap = false }) {
       <div id="work-panel" role="tabpanel" aria-labelledby={`work-tab-${TABS.findIndex((t) => t.id === tab)}`} className="work-panel" key={`${tab}-${device}-${look}`}>
         {items.length === 0 ? (
           <p className="work-empty">More projects are coming soon.</p>
+        ) : device === "mobile" && items.every((w) => PHONE_APPS[w.slug]) ? (
+          <PhoneApps items={items} />
         ) : (
           <div ref={grid} className={`work-grid${items.length === 1 ? " is-single" : ""}${capped ? " is-capped" : ""}`}>
             {items.map((w, i) => (
