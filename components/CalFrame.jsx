@@ -36,5 +36,7 @@ export default function CalFrame({ src }) {
     window.addEventListener("message", onMsg);
     return () => window.removeEventListener("message", onMsg);
   }, []);
-  return <iframe ref={ref} src={src} title="Booking calendar" loading="lazy" />;
+  // The Cal.com footer mark under the booker is clipped off: the frame sits in a clipping box and pulls
+  // its last 80px (the branding strip) below the box edge (owner, 27 Nov 2026).
+  return <div className="cal-clip"><iframe ref={ref} src={src} title="Booking calendar" loading="lazy" /></div>;
 }

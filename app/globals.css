@@ -6572,3 +6572,6 @@ body:has(.book-split.is-full) .site-footer { display: none; }
 }
 @keyframes btn-slot { 0% { translate: 0 0; opacity: 1; } 50% { translate: .7em 0; opacity: 0; } 50.01% { translate: -.7em 0; opacity: 0; } 100% { translate: 0 0; opacity: 1; } }
 @media (prefers-reduced-motion: reduce) { :root:root :is(.hero2-btn, .head-cta)::before { transition: none; } :root:root :is(.hero2-btn, .head-cta):hover svg { animation: none; } }
+/* Cal.com branding strip clipped off under the booker (owner, 27 Nov 2026: "try your best to hide cal.com") */
+.cal-clip { overflow: hidden; border-radius: 12px; }
+.cal-clip iframe { display: block; margin-bottom: -80px; }
