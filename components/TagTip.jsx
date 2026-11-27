@@ -2,7 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import { TAG_WORDS } from "../lib/tagWords";
 
-// A review tag with a small 3D icon. Hover, focus or tap shows what it means, in Sam's words.
+// A review tag, plain text. Hover, focus or tap shows what it means, in Sam's words.
 export default function TagTip({ label, id }) {
   const [open, setOpen] = useState(false);
   const me = useRef(null);
@@ -36,7 +36,7 @@ export default function TagTip({ label, id }) {
   return (
     <li ref={me} className={`tg${open ? " is-open" : ""}`} onPointerEnter={() => { place(); warm(); }} onPointerLeave={cool} onFocus={place}>
       <button type="button" className="tg-btn" aria-expanded={open} aria-describedby={id} onClick={() => { place(); setOpen((v) => !v); }}>
-        <i className="tg-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d={w.d} /></svg></i>{label}
+        {label}
       </button>
       <span className="tg-note" role="tooltip" id={id}>
         <b>{label}</b>

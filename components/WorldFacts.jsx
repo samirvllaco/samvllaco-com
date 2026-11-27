@@ -19,7 +19,7 @@ export function WorldFlags() {
   );
 }
 
-// Three quick facts under the globe. Clocks are live.
+// Four facts for the Worldwide card. The clocks are live.
 export default function WorldFacts() {
   const [now, setNow] = useState(null);
   useEffect(() => {
@@ -30,9 +30,10 @@ export default function WorldFacts() {
   }, []);
   return (
     <dl className="wf-facts">
-      <div><dt>573</dt><dd>clients worldwide</dd></div>
-      <div><dt><span className="wf-live" />{now ? now.me : "Tirana"}</dt><dd>in Tirana{now ? `, ${now.ny} in New York` : ""}</dd></div>
+      <div><dt>Tirana, Albania</dt><dd>Where I work from</dd></div>
+      <div><dt><span className="wf-live" />{now ? now.me : "Live"}</dt><dd>My time now{now ? `, ${now.ny} in New York` : ""}</dd></div>
       <div><dt>{now ? `${now.d}h ahead` : "6h ahead"}</dt><dd>of New York. US mornings are my afternoons</dd></div>
+      <div><dt>4 continents</dt><dd>Clients in Europe, the USA, Canada, Australia and the UAE</dd></div>
     </dl>
   );
 }

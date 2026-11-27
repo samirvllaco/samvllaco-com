@@ -6,11 +6,10 @@ import BuildIn from "./BuildIn";
 import FactRow from "./FactRow";
 import { WALL } from "../lib/wall";
 import { WORK } from "../lib/work";
-import { SITE } from "../lib/site";
 
-// Home: main services, then a short bento about Sam. Glossy widget cards with small looping scenes
-// (owner, 27 Nov 2026, after his Figma widget prototypes). Each loop says what its number means: ten years from
-// websites to AI products, clients from five regions orbiting Sam, and a screen being designed and filed onto the pile.
+// Home: a short bento about Sam. Glossy widget cards with words and numbers only (owner, 27 Nov 2026:
+// "hide all bento illustrations keep only boxes"). Each fact shows once: the stats row, then work and the
+// worldwide list (base, live time, the US overlap, where clients are).
 const Go = ({ children }) => <span className="bx-go">{children} <span aria-hidden="true">→</span></span>;
 const TOOLS = ["Figma", "FigJam", "Photoshop", "Illustrator", "After Effects", "Claude", "ChatGPT"];
 
@@ -50,7 +49,7 @@ export default function Bento() {
   const clip = WORK.find((w) => w.video) || WORK[0];
   return (
     <section className="bx-sec bx-soft" aria-labelledby="bx-h" data-bg="#171719">
-      <h2 id="bx-h" className="bx-title">One designer<br /><span className="t2">for the whole product.</span></h2>
+      <h2 id="bx-h" className="bx-title">One designer <span className="t2">for the whole product</span></h2>
       <FactRow />
       <div className="bx-grid">
         <div className="bx-stats">
@@ -60,7 +59,7 @@ export default function Bento() {
           </div>
           <div className="dark-island bx-card bx-stat wg" data-loop>
             <p className="wg-k">Clients</p>
-            <b>573 <em className="wg-pill">4 continents</em></b><span>Clients served</span>
+            <b>573</b><span>Clients served</span>
           </div>
           <div className="dark-island bx-card bx-stat wg" data-loop>
             <p className="wg-k">Screens</p>
@@ -73,7 +72,6 @@ export default function Bento() {
         </div>
         <div className="dark-island bx-card bx-world" data-reveal>
           <h3 className="bx-t">Worldwide</h3>
-          <p className="bx-world-s"><i />Based in {SITE.city || "Tirana, Albania"}. 573 clients across four continents</p>
           <WorldFacts />
         </div>
         <Toolbox />

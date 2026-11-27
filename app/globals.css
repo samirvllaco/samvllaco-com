@@ -2307,7 +2307,7 @@ html.is-end .bk { bottom: 120px; }
 /* Bento: one padding, one title row and one gap for every card */
 .bx-soft { --bp: 32px; --bg: 24px; }
 .bx-soft .bx-work, .bx-soft .bx-mini { padding: var(--bp) !important; }
-.bx-soft .bx-world { padding: var(--bp) 20px 20px !important; }
+.bx-soft .bx-world { padding: var(--bp) !important; }
 .bx-soft .bx-t { margin: 0; height: 40px; line-height: 40px; font-size: 1.375rem; }
 .bx-soft .bx-deck .bx-t { top: var(--bp); }
 .bx-soft .sd-top { min-height: 40px; } .sd-count { margin-left: 0; }
@@ -2323,7 +2323,7 @@ html.is-end .bk { bottom: 120px; }
   .bx-soft .bx-grid { gap: 12px; }
   .bx-soft .bx-card { border-radius: var(--r-card); }
   .bx-soft .bx-t { height: 36px; line-height: 36px; font-size: 1.25rem; }
-  .bx-soft .bx-world { padding: var(--bp) 12px 12px !important; min-height: 600px; }
+  .bx-soft .bx-world { padding: var(--bp) !important; min-height: 0; }
   .bx-soft .bx-world-s { font-size: .875rem; padding-inline: 8px; }
   .wf-flags li { font-size: .75rem; padding: 4px 12px 4px 4px; }
   .bx-soft .wf-facts { grid-template-columns: minmax(0, 1fr); gap: 8px; }
@@ -6485,7 +6485,6 @@ html.is-live .ask-pill::before { animation-play-state: running; }
 .bx-proc.is-on .w4-bars i.win::before { animation: wg-rise 6s cubic-bezier(.45, 0, .2, 1) infinite; }
 @keyframes wg-rise { 0%, 8% { clip-path: inset(70% 0 0 0 round 5px); } 55%, 86% { clip-path: inset(0 0 0 0 round 5px); } 100% { clip-path: inset(70% 0 0 0 round 5px); } }
 @media (prefers-reduced-motion: reduce) { .bx-proc .w4-bars i.win::before { animation: none !important; } }
-:root:root:root:root .bx-soft .bx-world h3.bx-t { padding-left: 12px; }
 /* Contact: the calendar alone, across the full content box */
 :root:root .book-split.is-full { display: block; padding-top: 32px; }
 :root:root .book-split.is-full .bb-alt { max-width: none; }
@@ -7037,3 +7036,30 @@ html.on-light .ask-me svg { background: #fff; }
 @media (prefers-reduced-motion: reduce) { .hh-opt { transition: none; } }
 @media (max-width: 1099px) { .hh { justify-items: center; } .hh-for { justify-content: center; } :root:root:root .hero-split .hh-h { text-align: center; margin-inline: auto; } }
 @media (max-width: 640px) { .hh-for { gap: 6px; } .hh-for a { min-height: 28px; padding: 0 10px; font-size: .75rem; } }
+
+/* Home consistency (owner, 27 Nov 2026: "we need same rules"). One rule per job on the home page:
+   section intros sit left (title in two tones, no full stop, lede under it); closing actions under a full-width
+   block stay centered; card labels are sentence case, never tracked capitals; no illustrations in cards; each fact
+   shows once; buttons are never pills; nothing dims or rises on hover. */
+:root:root:root .fx-head { margin: 0 0 var(--gap-content); text-align: left; justify-items: start; }
+:root:root:root .bx-soft .bx-title { text-align: left; }
+:root:root:root:root .wg-k, :root:root:root:root .bx-soft h3.bx-t { font-size: .875rem; line-height: 1.5; font-weight: 500; letter-spacing: -.011em; text-transform: none; color: var(--muted); }
+:root:root:root .tb-name, :root:root:root .tb-grid .tb-name { font-size: .75rem; letter-spacing: 0; text-transform: none; }
+:root:root:root .sd-all { border-radius: var(--r-sm); }
+/* Worldwide card: a list of four facts with hairlines, filling the card. */
+:root:root:root:root .bx-soft .bx-world { min-height: 0; display: flex; flex-direction: column; align-items: stretch; text-align: left; padding: var(--bp); }
+:root:root:root:root:root .bx-soft .bx-world h3.bx-t { padding: 0; height: auto; line-height: 1.5; }
+:root:root:root .bx-world .wf-facts { margin: 16px 0 0; flex: 1; display: flex; flex-direction: column; gap: 0; }
+:root:root:root .bx-world .wf-facts div { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 4px; padding: 16px 0; border-radius: 0; background: none; box-shadow: inset 0 1px 0 rgba(255, 255, 255, .08); -webkit-backdrop-filter: none; backdrop-filter: none; }
+:root:root:root .bx-world .wf-facts dt { font-size: 1.25rem; font-weight: 500; letter-spacing: -.02em; white-space: normal; }
+:root:root:root .bx-world .wf-facts dd { margin: 0; font-size: .875rem; line-height: 1.43; color: var(--muted); }
+/* Review tags: plain text chips. */
+:root:root:root .tm-tags .tg-btn { min-height: 32px; padding: 4px 12px; font-size: .8125rem; color: var(--muted); background: rgba(255, 255, 255, .06); }
+:root:root:root .tm-tags .tg-btn:hover, :root:root:root .tm-tags .tg.is-open .tg-btn { color: var(--text); background: rgba(255, 255, 255, .1); }
+:root:root:root .tm-grid:has(.tm-card:hover) .tm-card:not(:hover) { opacity: 1; filter: none; }
+/* Reviews summary: words only, no map or clocks (they live in the Worldwide card). */
+:root:root:root .tm-world { width: min(440px, calc(100% - 32px)); min-height: 0; }
+:root:root:root .tm-world-in { justify-items: center; text-align: center; gap: 8px; padding: 24px 32px; }
+:root:root:root .tm-world-go { display: inline-flex; align-items: center; gap: 8px; margin-top: 4px; font-size: .875rem; font-weight: 500; color: var(--muted); }
+:root:root:root .tm-world-go span { transition: translate .25s var(--ease-out); }
+@media (hover: hover) and (pointer: fine) { :root:root:root .tm-world:hover { transform: translateX(-50%); } :root:root:root .tm-world:hover .tm-world-go { color: var(--text); } :root:root:root .tm-world:hover .tm-world-go span { translate: 3px 0; } }
