@@ -2,12 +2,12 @@
 import { useEffect, useRef } from "react";
 import { onRoleTick } from "./BrandRole";
 
-// Hero badge: rotates through the same roles as the header badge.
-// Hover or focus swaps it to "Available to start" until the pointer leaves.
-const HOVER = "Available to start";
+// Hero badge (owner, 27 Nov 2026: "more clean on what's going on"): a status dot, "Available for" and a chip that
+// rotates through the same roles as the header badge. Hover or focus swaps the chip to "New projects" until the pointer leaves.
+const HOVER = "New projects";
 // Same order as ROLES, phrased as the thing Sam helps with, so both badges stay in step.
 const HELP = ["UI/UX design", "product design", "web design", "landing pages", "SaaS design", "Figma", "UX design", "UI design", "website design", "mobile app design", "iOS app design", "web app design", "dashboard design", "conversion rate", "conversion design", "UX consulting", "design systems", "UX writing", "UX research", "interaction design", "ecommerce design", "Shopify design", "startup design", "B2B SaaS design", "AI product design", "AI UI design", "UX strategy", "website redesigns", "prototyping", "fixing AI slop"];
-const say = (i) => `I help you with ${HELP[i % HELP.length]}`;
+const say = (i) => HELP[i % HELP.length];
 
 export default function HeroRole() {
   const box = useRef(null);
@@ -36,10 +36,12 @@ export default function HeroRole() {
     return () => { stop(); wrap.removeEventListener("pointerenter", over); wrap.removeEventListener("pointerleave", out); wrap.removeEventListener("focus", over); wrap.removeEventListener("blur", out); };
   }, []);
   return (
-    <p className="hero-badge" ref={box} tabIndex={0}>
-      <span className="sr-only">{`${say(0)}. ${HOVER}`}</span>
-      {/* The longest text sits invisibly in the same cell, so the badge keeps one width while the words change. */}
-      <span className="hero-badge-t" aria-hidden="true"><span className="br-size">{[HOVER, ...HELP.map((_, k) => say(k))].reduce((a, b) => (b.length > a.length ? b : a))}</span><span ref={ref}>{say(0)}</span></span>
+    <p className="hero-badge hb-av" ref={box} tabIndex={0}>
+      <span className="sr-only">{`Available for ${say(0)} and new projects`}</span>
+      <i className="hb-dot" aria-hidden="true" />
+      <span className="hb-k" aria-hidden="true">Available for</span>
+      {/* The longest text sits invisibly in the same cell, so the chip keeps one width while the words change. */}
+      <span className="hb-chip" aria-hidden="true"><span className="hero-badge-t"><span className="br-size">{[HOVER, ...HELP].reduce((a, b) => (b.length > a.length ? b : a))}</span><span ref={ref}>{say(0)}</span></span></span>
     </p>
   );
 }
