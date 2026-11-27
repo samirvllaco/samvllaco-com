@@ -2426,7 +2426,7 @@ html.js .hero3 > :nth-child(n+5), html.js .eb-hero .eb-copy > :nth-child(n+5), h
 html.js .foot-sig-w[data-reveal], html.js .foot-sig-w[data-reveal].is-shown { opacity: 1; filter: none; transform: translateX(-50%) rotate(-7deg); transition: none; will-change: auto; }
 /* Scrolled pill: room for six nav items, and a tighter fit on tablets */
 @media (min-width: 1261px) {
-  html.is-scrolled .site-header .wrap.head-row { max-width: min(1040px, calc(100vw - 32px)); }
+  html.is-scrolled .site-header .wrap.head-row { max-width: min(1136px, calc(100vw - 32px)); } /* room for equal sides, so the links sit in the middle (owner, 27 Nov 2026) */
 }
 @media (min-width: 1261px) and (max-width: 1180px) {
   html.is-scrolled .site-header .wrap.head-row { padding-left: 8px; }
@@ -5417,7 +5417,7 @@ main > .page > .hero-dots-cv { height: clamp(560px, 86vh, 860px); }
 
 /* Header at 1200px: the brand (photo, name, role badge) keeps its full width, the links centre in the space left, so nothing is clipped */
 @media (min-width: 1261px) {
-  html:not(.is-scrolled) .site-header .wrap.head-row { grid-template-columns: auto minmax(0, 1fr) auto; column-gap: 24px; }
+  html:not(.is-scrolled) .site-header .wrap.head-row { grid-template-columns: 1fr auto 1fr; column-gap: 24px; } /* equal sides so the links sit in the middle of the bar (owner, 27 Nov 2026) */
   html:not(.is-scrolled) .site-header .head-nav { justify-self: center; }
   .brand-me > .logo-mark, .brand-me > .brand-word, .brand-me > .brand-role { flex: none; }
   .brand-role { margin-left: 0; }
@@ -6749,3 +6749,8 @@ html.on-light .vid-bubble { box-shadow: 0 10px 24px -10px rgba(0, 0, 0, .25) !im
 .mx-col .mx-ico { width: 28px; height: 28px; flex: none; } .mx-col .mx-ico svg { width: 14px; height: 14px; }
 @media (max-width: 1260px) { .mx-cols { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 24px; } .mx-col:nth-child(3) { padding-left: 0; border-left: 0; } }
 .mm-sub .mm-sub-k { padding: 16px 12px 4px; font-size: .75rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+/* Header: the brand hugs the left, the call button the right, the links sit in the middle; hover and open tabs a softer gray (owner, 27 Nov 2026: "too light") */
+@media (min-width: 1261px) { .site-header .wrap.head-row > .brand-me { justify-self: start; } .site-header .wrap.head-row > .head-end { justify-self: end; } }
+.site-header .head-nav { --hl: rgba(255, 255, 255, .07); }
+/* Wall stats (10,000+ screens, 10+ years, 570+ clients) hidden under the screen wall (owner, 27 Nov 2026: "hide this part completely") */
+.wall-stats { display: none !important; }
