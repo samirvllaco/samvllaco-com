@@ -1,10 +1,12 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
+import { useOnePop } from "../lib/onePop";
 
 // "See all" for the toolbox: hover (or tap, or keyboard) opens a panel with every tool at once.
 export default function ToolAll({ count, children }) {
   const [open, setOpen] = useState(false);
   const ref = useRef(null);
+  useOnePop("tools-all", open, () => setOpen(false));
   useEffect(() => {
     if (!open) return;
     const off = (e) => { if (!ref.current?.contains(e.target)) setOpen(false); };

@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
+import { useOnePop } from "../lib/onePop";
 import { usePathname } from "next/navigation";
 import { useTurnstile } from "./slop/useTurnstile";
 import { EMAIL } from "../lib/site";
@@ -85,6 +86,8 @@ export default function AskSam() {
     setClosing(true);
     setTimeout(done, 200);
   };
+  useOnePop("ask", open, () => { if (open) shut(false); });
+
   const asked = useRef(0);
   const [hint, setHint] = useState(0);
   const ts = useTurnstile(open && on && !sid.current ? on.siteKey : null, { appearance: "interaction-only" });

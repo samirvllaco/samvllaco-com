@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
+import { useOnePop } from "../lib/onePop";
 import { usePathname } from "next/navigation";
 import { BOOK_URL } from "../lib/site";
 
@@ -9,6 +10,7 @@ export default function BookPopup() {
   const [show, setShow] = useState(false);
   const [open, setOpen] = useState(false);
   const box = useRef(null);
+  useOnePop("book-popup", open, () => setOpen(false));
   const ptr = useRef("");
   const path = usePathname() || "";
 

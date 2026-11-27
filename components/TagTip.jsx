@@ -1,12 +1,14 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import { TAG_WORDS } from "../lib/tagWords";
+import { useOnePop } from "../lib/onePop";
 
 // A review tag, plain text. Hover, focus or tap shows what it means, in Sam's words.
 export default function TagTip({ label, id }) {
   const [open, setOpen] = useState(false);
   const me = useRef(null);
   const w = TAG_WORDS[label];
+  useOnePop(`tag-${id || label}`, open, () => setOpen(false));
   useEffect(() => {
     if (!open) return;
     const off = (e) => { if (me.current && !me.current.contains(e.target)) setOpen(false); };

@@ -3728,11 +3728,11 @@ main p { font-size: 1.0625rem; line-height: 1.6; }
 .crumb-pop { position: absolute; left: 0; top: calc(100% + 10px); z-index: 30; display: grid; gap: 2px; width: 220px; padding: 8px; border-radius: var(--r-card); background: rgba(28, 28, 30, .86); -webkit-backdrop-filter: blur(24px) saturate(170%); backdrop-filter: blur(24px) saturate(170%); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .12), 0 30px 60px -24px rgba(0, 0, 0, .8);
   opacity: 0; visibility: hidden; transform: translateY(-6px) scale(.92); transform-origin: 18px 0; clip-path: inset(0 0 100% 0 round var(--r-card));
   transition: opacity .25s var(--ease-out), transform .35s var(--spring), clip-path .35s cubic-bezier(.22, 1, .36, 1), visibility 0s linear .35s; }
-@media (hover: hover) and (pointer: fine) { .crumb-home:hover .crumb-pop, .crumb-home:focus-within .crumb-pop { opacity: 1; visibility: visible; transform: none; clip-path: inset(0 0 0 0 round var(--r-card)); transition: opacity .25s var(--ease-out), transform .35s var(--spring), clip-path .35s cubic-bezier(.22, 1, .36, 1), visibility 0s; } }
+@media (hover: hover) and (pointer: fine) { .crumb-home:hover .crumb-pop, .crumb-home:has(:focus-visible) .crumb-pop { opacity: 1; visibility: visible; transform: none; clip-path: inset(0 0 0 0 round var(--r-card)); transition: opacity .25s var(--ease-out), transform .35s var(--spring), clip-path .35s cubic-bezier(.22, 1, .36, 1), visibility 0s; } }
 .crumb-pop-k { padding: 8px 12px 8px; font-size: .6875rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: #8e8e93; }
 .crumbs .crumb-pop a { display: flex; align-items: center; gap: 12px; min-height: 40px; padding: 4px 12px 4px 4px; border-radius: var(--r-inner); font-size: .875rem; font-weight: 500; color: #e5e5ea; background: none;
   opacity: 0; transform: translateX(-8px); transition: opacity .25s var(--ease-out), transform .35s var(--spring), background .25s; transition-delay: calc(var(--j) * 25ms); }
-@media (hover: hover) and (pointer: fine) { .crumb-home:hover .crumb-pop a, .crumb-home:focus-within .crumb-pop a { opacity: 1; transform: none; } }
+@media (hover: hover) and (pointer: fine) { .crumb-home:hover .crumb-pop a, .crumb-home:has(:focus-visible) .crumb-pop a { opacity: 1; transform: none; } }
 .crumbs .crumb-pop a:hover, .crumbs .crumb-pop a:focus-visible { background: rgba(255, 255, 255, .08); color: #fff; }
 @media (hover: hover) and (pointer: fine) { .crumbs .crumb-pop a:hover .tg-ico { transform: rotate(-8deg) scale(1.06); } }
 .crumb-pop .tg-ico { width: 30px; height: 30px; } .crumb-pop .tg-ico svg { width: 15px; height: 15px; }
@@ -7535,3 +7535,7 @@ html.on-light .edge-blur { opacity: 0; }
   :root:root:root .tb-all, :root:root:root .bx-tools .tb-head { width: 100%; }
   :root:root:root :is(.ab-end, .fx-by, .tb-all, .fo-lead) > .hero2-btn { width: 100%; justify-content: center; }
 }
+
+/* One popup at a time: the breadcrumb "Jump to" menu opens on hover or keyboard focus only (a click no longer pins it
+   open), and steps aside while a header menu is out (owner, 27 Nov 2026: "fix 2 dropdown open bug"). */
+html.mega-open .crumb-home .crumb-pop { opacity: 0 !important; visibility: hidden !important; pointer-events: none; }

@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { openPop } from "../lib/onePop";
 
 // A header item that opens a wide panel on hover, click or keyboard. children(close) renders the panel content.
 // Pages that count as "inside" each menu, so its button shows as the current page.
@@ -28,7 +29,7 @@ export default function MegaShell({ id, label, href, children }) {
     if (open) {
       clearTimeout(hideT.current); handoff.current = false;
       setBuilt(true); setShown(true);
-      window.dispatchEvent(new CustomEvent("mega:open", { detail: id }));
+      openPop(id);
       return;
     }
     setOn(false);
@@ -57,8 +58,8 @@ export default function MegaShell({ id, label, href, children }) {
   // Moving from one menu to the next swaps them at once, with no close animation in between.
   useEffect(() => {
     const swap = (e) => { if (e.detail === id) return; clearTimeout(timer.current); clearTimeout(hideT.current); handoff.current = true; setOpen(false); setOn(false); setShown(false); };
-    window.addEventListener("mega:open", swap);
-    return () => window.removeEventListener("mega:open", swap);
+    window.addEventListener("pop:open", swap);
+    return () => window.removeEventListener("pop:open", swap);
   }, [id]);
   useEffect(() => {
     if (!open) return;

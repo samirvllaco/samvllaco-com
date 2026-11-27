@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
+import { useOnePop } from "../lib/onePop";
 
 // Copy page, Share and Ask AI on every article (owner, 27 Nov 2026).
 // Copy page puts the article as plain text on the clipboard (handy to paste into an AI tool).
@@ -15,6 +16,7 @@ export default function ArticleTools({ title, url }) {
   const [done, setDone] = useState("");
   const [open, setOpen] = useState(false);
   const wrap = useRef(null);
+  useOnePop("article-tools", open, () => setOpen(false));
 
   useEffect(() => {
     if (!open) return;
