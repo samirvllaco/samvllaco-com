@@ -22,7 +22,7 @@ export default function Header() {
       <HeaderScroll />
       <a className="top-note" href="/free-audit/">
         <i className="nav-dot" aria-hidden="true" />
-        <span className="tn-swap"><span className="tn-a">Low signups, confusing UX, a cheap-looking site? Get a free UX audit</span><span className="tn-b" aria-hidden="true">Get a free UX audit</span></span>
+        <span className="tn-swap"><span className="tn-a">Low signups, confusing UX, a cheap-looking site? Get a free UX audit</span><span className="tn-b" aria-hidden="true">Get a free UX audit</span></span><span className="sr-only">Get a free UX audit</span>
         <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" /></svg>
       </a>
       <div className="wrap head-row">
