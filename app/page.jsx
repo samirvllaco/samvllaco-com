@@ -20,7 +20,6 @@ import HowIWork from "../components/HowIWork";
 import Fixes from "../components/Fixes";
 import HeroReviews from "../components/HeroReviews";
 import HeroShow from "../components/HeroShow";
-import HeroRole from "../components/HeroRole";
 import { LocalTime, CountUp } from "../components/Greeting";
 
 export const metadata = {
@@ -92,7 +91,7 @@ export default function Home() {
         <div className="hero3 hero-split">
           {/* Right side: Sam's work in a design file window (owner, 27 Nov 2026: "add my designs / animations", then "our own better version"). */}
           <HeroShow items={HERO_SHOW} />
-          <HeroRole />
+          {/* The "Available for" badge is off (owner, 27 Nov 2026: "remove it looks weird"); HeroRole.jsx stays for later. */}
           <h1 className="h3-flip">
             <W t="I design UI/UX" /> <Ico id="a" gap="r" tiles={[["figma", 12], ["photoshop", 5], ["chatgpt", 2.5], ["illustrator", 5], ["pen", 5], ["claude", 2.5], ["systems", 5], ["wand", 4]]} /><W t="for products" />{" "}<br />
             <W t="people" /> <span className="h3-nw"><W t="love" /><Ico id="b" gap="l" tiles={[["love", 9], "star", "smile", "like", "chat"]} delay={2} at={1} /><W t="," /></span> <W t="and" />{" "}<br />
