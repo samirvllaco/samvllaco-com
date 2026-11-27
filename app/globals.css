@@ -1568,8 +1568,9 @@ html.tone-fade, html.tone-fade body, html.tone-fade *, html.tone-fade *::before,
 .hero3 .hero2-btn { min-height: 44px; padding: 0 24px; border-radius: 999px !important; font-size: .9375rem; }
 .hero3 .hero2-btn::before, .hero3 .hero2-btn::after { border-radius: inherit !important; }
 .hero3 .hero2-cta { gap: 16px; }
-/* All buttons are pills */
-:is(.btn, .head-cta, .hero2-btn, .hire-btn, .mega-btn, .dock-btn, .hp-cta a, .hp-copy, .hire-copy, .blog-all, .work-all, .active-filters button, .ask-ai a, .case-fab button, .pf-chips button, .seg button, .tags button, .device-switch, .device-switch button, .foot-switch, .foot-switch button, .seg, .pf button[type="submit"], .of-card .btn, .dl-toast a, .dl-toast button) { border-radius: 999px !important; }
+/* Buttons are squared at the small radius (owner, 27 Nov 2026: "no round buttons"; they were all pills before). Chips, filters and segmented toggles stay round. */
+:is(.btn, .head-cta, .hero2-btn, .hire-btn, .mega-btn, .dock-btn, .hp-cta a, .hp-copy, .hire-copy, .blog-all, .work-all, .ask-ai a, .case-fab button, .pf button[type="submit"], .of-card .btn, .dl-toast a, .dl-toast button) { border-radius: var(--r-sm) !important; }
+:is(.active-filters button, .pf-chips button, .seg button, .tags button, .device-switch, .device-switch button, .foot-switch, .foot-switch button, .seg) { border-radius: 999px !important; }
 :is(.btn, .head-cta, .hero2-btn, .hire-btn)::before, :is(.btn, .head-cta, .hero2-btn, .hire-btn)::after { border-radius: inherit !important; }
 /* Hero buttons share one width when they stack */
 @media (max-width: 640px) { .hero3 .hero2-cta { display: inline-grid; grid-template-columns: 1fr; justify-items: stretch; gap: 16px; } .hero3 .hero2-cta .hero2-btn { justify-content: center; width: 100%; } }
@@ -1960,7 +1961,7 @@ html.is-scrolled .to-top { opacity: 1; transform: none; pointer-events: auto; }
 .site-footer .ask-ai-row img { width: 20px; height: 20px; display: block; }
 @media (max-width: 900px) { .site-footer .ask-ai-row { flex-wrap: wrap; } }
 /* Booking band: same grey as the calendar, full width */
-.book-band { background: #111111; box-shadow: 0 0 0 100vmax #111111; clip-path: inset(0 -100vmax); }
+.book-band { background: #171719; box-shadow: 0 0 0 100vmax #171719; clip-path: inset(0 -100vmax); } /* one page color, no second dark (owner, 27 Nov 2026) */
 .book-band::before { display: none; }
 :root[data-theme="light"] .book-band { background: #111111; color: #f5f5f7; }
 :root[data-theme="light"] .book-band-head p { color: #a1a1a6; }
@@ -6563,8 +6564,8 @@ body:has(.book-split.is-full) .site-footer { display: none; }
 
 /* ==========================================================================
    Button hover wipe (owner, 27 Nov 2026: "don't raise the button on hover, add the grafit.agency effect").
-   A darker layer wipes in from the left behind the label and the icon slides out to the right and back in
-   from the left, .35s on grafit's curve. Mouse and trackpad only; touch keeps the press squash.
+   A darker layer wipes in from the left behind the label and the icon does an iOS-style bounce (it no longer
+   fades out and slides, owner 27 Nov 2026), .35s on grafit's curve. Mouse and trackpad only; touch keeps the press squash.
    ========================================================================== */
 @media (hover: hover) and (pointer: fine) {
   :root:root :is(.hero2-btn, .head-cta) { position: relative; isolation: isolate; --wipe: rgba(0, 0, 0, .22); }
@@ -6574,7 +6575,8 @@ body:has(.book-split.is-full) .site-footer { display: none; }
   :root:root :is(.hero2-btn, .head-cta):hover { filter: none; translate: none; }
   :root:root :is(.hero2-btn, .head-cta):hover svg { rotate: 0deg; scale: 1; animation: btn-slot .525s cubic-bezier(.23, 1, .32, 1) both; }
 }
-@keyframes btn-slot { 0% { translate: 0 0; opacity: 1; } 50% { translate: .7em 0; opacity: 0; } 50.01% { translate: -.7em 0; opacity: 0; } 100% { translate: 0 0; opacity: 1; } }
+/* Icon on hover: an iOS-style bounce, like an SF Symbol (owner, 27 Nov 2026: "icon should not fade"); it stays visible the whole time */
+@keyframes btn-slot { 0% { scale: 1; translate: 0 0; } 30% { scale: .82; translate: 0 1px; } 62% { scale: 1.14; translate: 0 -1px; } 82% { scale: .97; translate: 0 0; } 100% { scale: 1; translate: 0 0; } }
 @media (prefers-reduced-motion: reduce) { :root:root :is(.hero2-btn, .head-cta)::before { transition: none; } :root:root :is(.hero2-btn, .head-cta):hover svg { animation: none; } }
 /* Cal.com branding strip clipped off under the booker (owner, 27 Nov 2026: "try your best to hide cal.com") */
 .cal-clip { overflow: hidden; border-radius: var(--r-card); }
@@ -6763,3 +6765,8 @@ html.on-light .vid-bubble { box-shadow: 0 10px 24px -10px rgba(0, 0, 0, .25) !im
   :root:root :is(.ask-pill, .at-btn, .to-top):hover > svg { animation: btn-slot .525s cubic-bezier(.23, 1, .32, 1) both; }
 }
 @media (prefers-reduced-motion: reduce) { :root:root :is(.ask-pill, .at-btn, .to-top)::after { transition: none; } :root:root :is(.ask-pill, .at-btn, .to-top):hover > svg { animation: none; } }
+/* "Not a fan of calendars?" box lines up with the calendar card inside the Cal.com frame (owner, 27 Nov 2026: "same width"),
+   and its two links are squared like every other button */
+:is(.book-band, .book-split) .bb-alt { margin-inline: 2px; }
+@media (min-width: 1200px) { :is(.book-band, .book-split) .bb-alt { margin-inline: 16px; } }
+:root:root :is(.bb-x, .bb-alt .hp-copy) { border-radius: var(--r-sm); }

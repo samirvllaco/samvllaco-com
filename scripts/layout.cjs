@@ -72,6 +72,7 @@ function check(vw) {
       for (const b of blocks) {
         const r = box(b);
         if (r.width < 40) continue;
+        if (b.matches(".bb-alt")) continue; // lines up with the calendar card inside the Cal.com frame, not the content box (owner, 27 Nov 2026: "same width")
         // Inside a two-column layout the column edges are the reference, not the content box.
         const par = b.parentElement, pr = box(par);
         const ps = getComputedStyle(par);
