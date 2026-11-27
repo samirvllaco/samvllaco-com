@@ -9,7 +9,8 @@ import { WALL } from "../lib/wall";
 import { WORK } from "../lib/work";
 import { SITE } from "../lib/site";
 
-// Home: main services, then a short bento about Sam. Dark bordered cards.
+// Home: main services, then a short bento about Sam. Glossy widget cards with small looping scenes
+// (owner, 27 Nov 2026, after his Figma widget prototypes: orbit, charge bar, document scan).
 const Go = ({ children }) => <span className="bx-go">{children} <span aria-hidden="true">→</span></span>;
 const TOOLS = ["Figma", "FigJam", "Photoshop", "Illustrator", "After Effects", "Claude", "ChatGPT"];
 
@@ -53,9 +54,36 @@ export default function Bento() {
       <FactRow />
       <div className="bx-grid">
         <div className="bx-stats">
-          <div className="dark-island bx-card bx-stat"><i className="lr lr-l" aria-hidden="true" /><i className="lr lr-r" aria-hidden="true" /><b>10</b><span>Years of experience</span></div>
-          <div className="dark-island bx-card bx-stat"><i className="lr lr-l" aria-hidden="true" /><i className="lr lr-r" aria-hidden="true" /><b>573</b><span>Clients served</span></div>
-          <div className="dark-island bx-card bx-stat"><i className="lr lr-l" aria-hidden="true" /><i className="lr lr-r" aria-hidden="true" /><b>10,000+</b><span>Screens designed</span></div>
+          <div className="dark-island bx-card bx-stat wg" data-loop>
+            <div className="wg-art wg-charge" aria-hidden="true">
+              <span className="wg-ticks"><i>0</i><i>5</i><i>10</i></span>
+              <span className="wg-bar"><i className="wg-fill" /><svg className="wg-bolt" viewBox="0 0 24 24" width="20" height="20"><path d="M13 2 4 14h7l-1 8 9-12h-7z" /></svg></span>
+            </div>
+            <p className="wg-k">Experience</p>
+            <b>10</b><span>Years of experience</span>
+          </div>
+          <div className="dark-island bx-card bx-stat wg" data-loop>
+            <div className="wg-art wg-orbit" aria-hidden="true">
+              <i className="wg-ring wg-r1" /><i className="wg-ring wg-r2" /><i className="wg-ping" />
+              <span className="wg-spin wg-s1"><i /><i /></span>
+              <span className="wg-spin wg-s2"><i /><i /><i /></span>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/sam-face-144.webp?v=1" width="40" height="40" alt="" loading="lazy" />
+            </div>
+            <p className="wg-k">Clients</p>
+            <b>573 <em className="wg-pill">4 continents</em></b><span>Clients served</span>
+          </div>
+          <div className="dark-island bx-card bx-stat wg" data-loop>
+            <div className="wg-art wg-scan" aria-hidden="true">
+              <span className="wg-sheet" />
+              <span className="wg-doc"><i /><i /><i /><i className="wg-cta" /></span>
+              <i className="wg-c wg-tl" /><i className="wg-c wg-tr" /><i className="wg-c wg-bl" /><i className="wg-c wg-br" />
+              <i className="wg-line" />
+              <i className="wg-ok"><svg viewBox="0 0 24 24" width="14" height="14"><path d="m5 12.5 4.5 4.5L19 7.5" /></svg></i>
+            </div>
+            <p className="wg-k">Screens</p>
+            <b>10,000+</b><span>Screens designed</span>
+          </div>
         </div>
         <div className="dark-island bx-card bx-work bx-deck" data-reveal>
           <h3 className="bx-t">Work</h3>
