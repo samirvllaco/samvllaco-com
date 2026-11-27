@@ -79,7 +79,7 @@ Accessibility and Slop Score offers (owner, 25 Nov 2026): EAA audit $1,500 (5 wo
 Tokens and role rules are the last block of `app/globals.css` ("Type and spacing system"). Use them; never set a one-off heading size.
 - Spacing: 4px base, only 4, 8, 12, 16, 20, 24, 32, 40, 48, 64, 80, 96, 128. Sections use `--space-section` (56px on phones, 96px at 1440; owner, 27 Nov 2026: "more compact", was 64 to 128), gutters `--gutter` (16 to 40px). Intro blocks (eyebrow, title, lede) 12px apart; card grids 20px.
 - Widths: content 1280px (`--max`; was 1200 until 26 Nov 2026), prose 760px (`--prose`), hero headline 920px.
-- Type roles: display h1 56/60, section title h2 40/48, panel headline 28/36, all three at weight 500 (owner, 27 Nov 2026: "thinner titles and more compact"; were 64/68 and 48/56 at 600), subhead 24/32, card title 20/28, lede 18/28. Tracking -0.03em on display, -0.025em on titles. Nothing on the site heavier than 600.
+- Type roles: display h1 56/60, section title h2 40/48, panel headline 28/36, all three at weight 500 (owner, 27 Nov 2026: "thinner titles and more compact"; were 64/68 and 48/56 at 600), subhead 24/32, card title 20/28, lede 18/28. Negative tracking everywhere (owner, 27 Nov 2026: "the standard now"): -4% on display, -3.5% on section titles, -2% on card and panel titles, -1.5% on ledes, -1.1% on body text; only uppercase eyebrows and handwritten notes keep their own. Nothing on the site heavier than 600.
 - One ink, one accent; secondary text is the ink at lower opacity or `--muted`.
 
 ## Layout check (owner, 26 Nov 2026: "do full layout check, make sure we follow it strictly")
