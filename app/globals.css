@@ -6633,19 +6633,55 @@ html.js:not(.is-live) .intro *, html.js:not(.is-live) .intro { animation-play-st
 /* No pill buttons (owner, 27 Nov 2026): every call button takes the small radius */
 :root:root:root :is(.hero2-btn, .head-cta, .hero3 .hero2-btn) { border-radius: var(--r-sm) !important; }
 
-/* Hero, left to right (owner, 27 Nov 2026): words on the left, a video frame on the right (empty until the intro video is ready) */
-.hero-vid { position: relative; display: grid; place-items: center; width: 100%; max-width: 520px; aspect-ratio: 4 / 5; border-radius: var(--r-card); background: radial-gradient(80% 60% at 50% 0%, rgba(255, 255, 255, .06), transparent 70%), linear-gradient(180deg, #232326, #121214); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .1), 0 32px 64px -40px rgba(0, 0, 0, .7); }
-.hv-play { display: grid; place-items: center; width: 72px; height: 72px; border-radius: 50%; background: rgba(255, 255, 255, .08); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .16); }
-.hv-play svg { fill: rgba(255, 255, 255, .7); translate: 2px 0; }
+/* Hero, left to right (owner, 27 Nov 2026): words on the left, Sam's work playing on the right (HeroShow).
+   The words fit the first screen and the next row peeks in under them (owner: "visible in 100vh + we should see second section a bit"):
+   the hero content gets the screen minus the header (109) and a 88px peek, gaps scale with the screen height, and the
+   daily quote only shows when there is room for it. */
+.hero-show { width: 100%; max-width: 560px; display: grid; gap: 20px; min-width: 0; }
+.hs-frame { position: relative; display: block; aspect-ratio: 4 / 3; overflow: hidden; border-radius: var(--r-card); background: #1c1c1f; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .08), 0 32px 64px -40px rgba(0, 0, 0, .7); }
+.hs-frame::after { content: ""; position: absolute; inset: 0; border-radius: inherit; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .08); pointer-events: none; }
+.hs-slide { position: absolute; inset: 0; opacity: 0; transition: opacity .5s var(--ease-out); }
+.hs-slide.is-on { opacity: 1; }
+.hs-slide :is(img, video) { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+.hs-cap { display: grid; gap: 4px; }
+.hs-now { margin: 0; display: flex; align-items: baseline; gap: 12px; font-size: 1.0625rem; line-height: 1.5; }
+.hs-now span { font-size: .75rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.hs-now b { font-weight: 600; color: var(--text); letter-spacing: -.011em; }
+:root:root .hs-tags { margin: 0; font-size: .9375rem; line-height: 1.5; color: var(--muted); }
+.hs-foot { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-top: 4px; }
+.hs-bars { display: flex; gap: 8px; }
+.hs-bars button { display: grid; align-items: center; width: 40px; height: 44px; padding: 0; border: 0; background: none; cursor: pointer; }
+.hs-bars i { display: block; height: 2px; overflow: hidden; border-radius: 1px; background: rgba(255, 255, 255, .2); }
+.hs-bars i::after { content: ""; display: block; height: 100%; background: #fff; transform: scaleX(0); transform-origin: left; }
+.hs-bars .is-on i::after { transform: scaleX(.15); }
+.hero-show[data-live] .hs-bars .is-on i::after { animation: hs-fill 6s linear forwards; }
+.hero-show[data-paused] .hs-bars .is-on i::after { animation-play-state: paused; }
+@keyframes hs-fill { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@media (hover: hover) and (pointer: fine) { .hs-bars button:hover i { background: rgba(255, 255, 255, .4); } }
+.hs-bars button:focus-visible { outline: 3px solid rgba(98, 193, 253, .6); outline-offset: -8px; border-radius: var(--r-sm); }
+.hs-link { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; font-size: .9375rem; font-weight: 600; color: var(--text); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 6px; }
+.hs-link svg { transition: translate .25s var(--ease-out); }
+@media (hover: hover) and (pointer: fine) { .hs-link:hover svg { translate: 4px 0; } }
 @media (min-width: 1100px) {
-  :root:root:root .hero-split { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); column-gap: 48px; align-items: center; justify-items: start; text-align: left; max-width: none; }
-  :root:root:root .hero-split > * { grid-column: 1; margin-left: 0; margin-right: 0; }
-  :root:root:root .hero-split > .hero-vid { grid-column: 2; grid-row: 1 / span 6; justify-self: end; width: auto; height: min(560px, 100svh - 260px); }
+  :root:root:root .hero-split { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); column-gap: 48px; align-items: center; align-content: center; justify-items: start; text-align: left; max-width: none;
+    min-height: calc(100svh - 109px - 16px - 88px); padding-block: clamp(8px, 2vh, 24px) 16px; }
+  :root:root:root .hero-split > * { grid-column: 1; margin-left: 0; margin-right: 0; min-width: 0; }
+  :root:root:root .hero-split > .hero-show { grid-column: 2; grid-row: 1 / span 6; justify-self: end; }
   :root:root:root .hero-split h1 br { display: none; }
   :root:root:root .hero-split h1, :root:root:root .hero-split .hero2-sub { margin-inline: 0; text-align: left; }
   :root:root:root .hero-split :is(.hero2-cta, .hero-proof, .hero-quote) { justify-content: flex-start; justify-self: start; text-align: left; }
+  :root:root:root .wrap.page:has(> .hero2 .hero-split) { padding-top: 16px; }
+  :root:root:root .hero2:has(.hero-split) { padding-block: 0; }
+  :root:root:root .hero-split > .hero-badge { margin-bottom: clamp(8px, 1.6vh, 20px); }
+  :root:root:root .hero-split h1 { margin-top: clamp(8px, 1.6vh, 20px); }
+  :root:root:root .hero-split .hero2-sub { margin-top: clamp(16px, 3vh, 36px); }
+  :root:root:root .hero-split .hero2-cta { margin-top: clamp(20px, 3.4vh, 40px); }
+  :root:root:root .hero-split .hero-proof { margin-top: clamp(16px, 3vh, 36px); margin-bottom: 0; }
+  :root:root:root .hero-split .hero-quote { margin-top: clamp(24px, 4vh, 48px); }
+  :root:root:root .hero2:has(.hero-split) .trust { padding-top: clamp(8px, 2vh, 28px); }
 }
-@media (max-width: 1099px) { .hero-split > .hero-vid { order: 9; margin: 40px auto 0; max-width: 420px; } .hero-split { display: flex; flex-direction: column; align-items: center; } }
+@media (min-width: 1100px) and (max-height: 959px) { :root:root:root .hero-split .hero-quote { display: none; } }
+@media (max-width: 1099px) { .hero-split > .hero-show { order: 9; margin: 40px auto 0; max-width: 560px; } .hero-split { display: flex; flex-direction: column; align-items: center; } .hero-split > .hero-show .hs-cap { text-align: left; } }
 /* Mega menu and nav tabs at the small radii too (owner, 27 Nov 2026): no pills in the header */
 :root:root:root .site-header .mega { border-radius: var(--r-card); }
 :root:root:root :is(.head-nav > a, .head-nav .mega-btn, .head-end button, .head-end > a:not(.head-cta), .brand-me, .head-nav, .head-end) { border-radius: var(--r-sm) !important; }

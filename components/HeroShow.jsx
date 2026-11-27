@@ -1,47 +1,69 @@
 "use client";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import { WORK } from "../lib/work";
 
-// "Now showing" panel in the hero. Cycles through projects, pauses on hover or focus.
-const ORDER = ["marketing-dashboard", "freelance-marketplace", "room-editor", "mobile-banking", "language-player", "supplements-store"];
-const ITEMS = ORDER.map((s) => WORK.find((w) => w.slug === s)).filter(Boolean);
-const HOLD = 6000;
-
-export default function HeroShow() {
+// Hero reel on the right (owner, 27 Nov 2026, after designme.agency): Sam's own work plays one project at a time,
+// with "Now playing", its tags, progress bars and a link to the case study.
+// The first frame is a still image. Videos load and the reel starts only after the first interaction (html.is-live),
+// it pauses off screen, and with reduced motion it stays on the chosen project.
+// The page passes only the fields this needs (slug, title, sub, small, smallW, w, h, video), so lib/work.js stays out of the bundle.
+export default function HeroShow({ items: LIST }) {
   const [i, setI] = useState(0);
-  const [paused, setPaused] = useState(false);
-  const [still, setStill] = useState(false);
+  const [live, setLive] = useState(false);
+  const [seen, setSeen] = useState(true);
+  const root = useRef(null);
 
   useEffect(() => {
-    setStill(!!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches));
+    const h = document.documentElement;
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (h.classList.contains("is-live")) { setLive(true); return; }
+    const mo = new MutationObserver(() => { if (h.classList.contains("is-live")) { setLive(true); mo.disconnect(); } });
+    mo.observe(h, { attributes: true, attributeFilter: ["class"] });
+    return () => mo.disconnect();
   }, []);
-  useEffect(() => {
-    if (paused || still || ITEMS.length < 2) return;
-    const id = setTimeout(() => setI((n) => (n + 1) % ITEMS.length), HOLD);
-    return () => clearTimeout(id);
-  }, [i, paused, still]);
 
-  const w = ITEMS[i];
+  useEffect(() => {
+    const io = new IntersectionObserver(([e]) => setSeen(e.isIntersecting));
+    if (root.current) io.observe(root.current);
+    return () => io.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!live) return;
+    root.current?.querySelectorAll("video").forEach((v, k) => {
+      if (k === i && seen) {
+        if (!v.getAttribute("src")) v.setAttribute("src", v.dataset.src);
+        v.play().catch(() => {});
+      } else v.pause();
+    });
+  }, [i, live, seen]);
+
+  const w = LIST[i];
+  const next = () => setI((v) => (v + 1) % LIST.length);
   return (
-    <div className="show" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)} onFocus={() => setPaused(true)} onBlur={() => setPaused(false)}>
-      <Link prefetch={false} className="show-media" href={`/work/${w.slug}/`} aria-label={`${w.title} case study`}>
-        {ITEMS.map((x, n) => (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img key={x.slug} className={n === i ? "on" : ""} src={x.small} width={x.smallW} height={Math.round((x.smallW * x.h) / x.w)} alt="" loading={n === 0 ? "eager" : "lazy"} />
+    <div className="hero-show" ref={root} data-live={live ? "" : undefined} data-paused={seen ? undefined : ""}>
+      <Link prefetch={false} className="hs-frame" href={`/work/${w.slug}/`} tabIndex={-1} aria-hidden="true">
+        {LIST.map((x, k) => (
+          <span className={`hs-slide${k === i ? " is-on" : ""}`} key={x.slug}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={x.small} width={x.smallW} height={Math.round((x.smallW * x.h) / x.w)} alt="" loading={k ? "lazy" : "eager"} fetchPriority={k ? undefined : "high"} decoding="async" />
+            {live ? <video muted loop playsInline preload="none" poster={x.small} data-src={x.video} /> : null}
+          </span>
         ))}
       </Link>
-      <p className="show-line"><span className="show-label">Now showing</span><b>{w.title}</b></p>
-      <p className="show-tags">{w.role}</p>
-      <div className="show-foot">
-        <div className="show-dots" role="tablist" aria-label="Choose a project" hidden={ITEMS.length < 2}>
-          {ITEMS.map((x, n) => (
-            <button key={x.slug} type="button" role="tab" aria-selected={n === i} aria-label={x.title} onClick={() => setI(n)}>
-              <span className={n === i && !paused && !still ? "run" : n === i ? "full" : ""} style={{ animationDuration: `${HOLD}ms` }} />
-            </button>
-          ))}
+      <div className="hs-cap">
+        <p className="hs-now"><span>Now playing</span> <b>{w.title}</b></p>
+        <p className="hs-tags">{w.sub}</p>
+        <div className="hs-foot">
+          <div className="hs-bars">
+            {LIST.map((x, k) => (
+              <button type="button" key={x.slug} className={k === i ? "is-on" : undefined} aria-pressed={k === i} aria-label={`Show ${x.title}`} onClick={() => setI(k)}>
+                <i onAnimationEnd={k === i ? next : undefined} />
+              </button>
+            ))}
+          </div>
+          <Link prefetch={false} className="hs-link" href={`/work/${w.slug}/`}>View case study<span className="sr-only">: {w.title}</span><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" /></svg></Link>
         </div>
-        <Link prefetch={false} className="show-link" href={`/work/${w.slug}/`}>View case study <span aria-hidden="true">→</span></Link>
       </div>
     </div>
   );

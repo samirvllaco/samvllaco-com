@@ -67,6 +67,10 @@ function W({ t }) {
 // Headline intro (owner, 14 Nov 2026): for the first 2 seconds it reads as plain text, then the icons pop in
 // and the words glide apart to make room. The words move with transform only, measured against the final
 // layout, so nothing shifts in layout (no CLS). Reduced motion shows the final headline at once.
+// Hero reel: four projects that match the people I design for (SaaS, fintech, law, health). Only the fields the reel needs.
+const HERO_SHOW = ["marketing-dashboard", "mobile-banking", "law-firm-website", "eye-care-web-app"]
+  .map((s) => WORK.find((w) => w.slug === s)).filter(Boolean)
+  .map(({ slug, title, sub, small, smallW, w, h, video }) => ({ slug, title, sub, small, smallW, w, h, video }));
 const H1_FLIP = `(function(){var s=document.currentScript,h=s&&s.previousElementSibling;if(!h)return;
 if(matchMedia("(prefers-reduced-motion: reduce)").matches){h.classList.add("h3-in");return}
 var go=false,ws=[].slice.call(h.querySelectorAll(".h3-wd"));
@@ -84,8 +88,8 @@ export default function Home() {
       <SectionColors />
       <section className="hero2" data-bg="#171719">
         <div className="hero3 hero-split">
-          {/* Right side: a frame for Sam's intro video, empty until the video is ready (owner, 27 Nov 2026) */}
-          <div className="hero-vid" aria-hidden="true"><span className="hv-play"><svg viewBox="0 0 24 24" width="28" height="28"><path d="M8 5.5v13l11-6.5z" /></svg></span></div>
+          {/* Right side: Sam's work playing as a reel (owner, 27 Nov 2026: "add my designs / animations"). The intro video frame waits until the video is recorded. */}
+          <HeroShow items={HERO_SHOW} />
           <HeroRole />
           <h1 className="h3-flip">
             <W t="I design UI/UX" /> <Ico id="a" gap="r" tiles={[["figma", 12], ["photoshop", 5], ["chatgpt", 2.5], ["illustrator", 5], ["pen", 5], ["claude", 2.5], ["systems", 5], ["wand", 4]]} /><W t="for products" />{" "}<br />
