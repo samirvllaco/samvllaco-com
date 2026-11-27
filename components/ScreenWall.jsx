@@ -3,7 +3,10 @@ import { useEffect, useRef } from "react";
 import { WALL } from "../lib/wall";
 
 // A wall of screens that starts zoomed in, zooms out as you scroll through the section, then pans on through the rows.
-export default function ScreenWall() {
+// With `cta` it is the closing call at the top of the footer (owner, 27 Nov 2026: "the scroll of projects and work can be
+// in footer now ... combined with our already existing cta"): the call sits centred over the dimmed wall while it zooms,
+// every screen loads lazily, and the stats row is left out.
+export default function ScreenWall({ cta = null }) {
   const sec = useRef(null);
   const grid = useRef(null);
   const lines = useRef(null);
@@ -42,17 +45,19 @@ export default function ScreenWall() {
     return () => { window.removeEventListener("scroll", on); window.removeEventListener("resize", on); cancelAnimationFrame(raf); };
   }, []);
   return (
-    <section className="wall" ref={sec} aria-label="A wall of screens from recent projects" data-bg="#171719">
+    <section className={cta ? "wall wall-foot" : "wall"} ref={sec} aria-label={cta ? undefined : "A wall of screens from recent projects"} aria-labelledby={cta ? "wall-h" : undefined} data-bg="#171719">
       <div className="wall-stick">
+        {cta ? <div className="wall-cta">{cta}</div> : (
         <ul className="wall-stats">
           <li><div><b>10,000+</b><span>screens</span></div></li>
           <li className="ws-main"><i className="ws-lr ws-lr-l" aria-hidden="true" /><div><b>10+</b><span>years of experience</span></div><i className="ws-lr ws-lr-r" aria-hidden="true" /></li>
           <li><div><b>570+</b><span>clients</span></div></li>
         </ul>
+        )}
         <div className="wall-lines" ref={lines} aria-hidden="true" />
         <div className="wall-grid" ref={grid} aria-hidden="true">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          {WALL.map((src, i) => <div className="wall-cell" key={src}><img className="wl" src={src} width="960" height="540" alt="" loading="lazy" decoding="async" /><img className="wd" src={src.replace("/wall/", "/wall/dark/").split("?")[0] + "?v=9"} width="960" height="540" alt="" loading={Math.abs(i - 45) < 9 ? "eager" : "lazy"} decoding="async" /></div>)}
+          {WALL.map((src, i) => <div className="wall-cell" key={src}>{cta ? null : <img className="wl" src={src} width="960" height="540" alt="" loading="lazy" decoding="async" />}<img className="wd" src={src.replace("/wall/", "/wall/dark/").split("?")[0] + "?v=9"} width="960" height="540" alt="" loading={!cta && Math.abs(i - 45) < 9 ? "eager" : "lazy"} decoding="async" /></div>)}
         </div>
       </div>
     </section>

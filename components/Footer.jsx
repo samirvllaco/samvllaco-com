@@ -7,6 +7,7 @@ import { SITE, CERTS } from "../lib/site";
 import { SERVICES, svcHref } from "../lib/services";
 import CallIcon from "./CallIcon";
 import RouteHide, { RouteOnly } from "./RouteHide";
+import ScreenWall from "./ScreenWall";
 import { INDUSTRIES } from "../lib/industries";
 
 // 16 point scalloped seal, drawn once and filled with a shared gold gradient
@@ -81,12 +82,24 @@ function FootMap() {
   );
 }
 
+// Pages without the wall of screens at the foot: the lean pages and About (it has the portrait scene there).
+// (Same list as LEAN in RouteHide.jsx plus /about/; a "use client" module cannot hand plain values to this server file.)
+const WALL_OFF = ["/tools/", "/slop-score/", "/book/", "/work/", "/pricing/", "/about/"];
+
 export default function Footer() {
   return (
     <footer className="site-footer">
       {/* Lean pages (free tools, contact, work, pricing): no portrait scene, no site map, no photo (see RouteHide). */}
       {/* The portrait scene shows only at the foot of the About page (owner, 27 Nov 2026: "remove from footer, add only on about") */}
       <RouteOnly on={["/about/"]}><FootStage /></RouteOnly>
+      {/* The closing call over the wall of screens (owner, 27 Nov 2026). Lean pages and About keep the plain call below. */}
+      <RouteHide on={WALL_OFF}>
+        <ScreenWall cta={<>
+          <h2 id="wall-h" className="wall-h">Talk to the designer <span className="t2">who does the work</span></h2>
+          <p className="wall-p">UI/UX and product design for SaaS, AI, fintech, health and law firms. One senior designer from the first call to the handover.</p>
+          <a className="hero2-btn hero2-btn-primary" href="/book/"><CallIcon />Book a 30-min strategy call</a>
+        </>} />
+      </RouteHide>
       <div className="wrap">
         {SHOW_CERTS ? (
         <div className="certs" role="group" aria-label="Certificates">
@@ -153,13 +166,13 @@ export default function Footer() {
             </div>
           </RouteHide>
           <div className="fo-body">
-            <RouteHide on={["/book/"]}>
+            <RouteOnly on={WALL_OFF.filter((p) => p !== "/book/")}>
               <div className="fo-lead">
                 <p className="fo-h">Talk to the designer who does the work.</p>
                 <p className="fo-p">UI/UX and product design for SaaS, AI, fintech, health and law firms. One senior designer from the first call to the handover.</p>
                 <a className="hero2-btn hero2-btn-primary" href="/book/"><CallIcon />Book a call</a>
               </div>
-            </RouteHide>
+            </RouteOnly>
             <RouteHide>
               <div className="fo-right">
                 <FootMap />

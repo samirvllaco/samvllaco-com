@@ -4,7 +4,6 @@ import SkyPhoto from "../components/SkyPhoto";
 import fs from "fs";
 import path from "path";
 import Bento from "../components/Bento";
-import ScreenWall from "../components/ScreenWall";
 import Testimonials from "../components/Testimonials";
 import { LIVE as SHOW_TESTIMONIALS } from "../lib/testimonials";
 import Faq from "../components/Faq";
@@ -132,7 +131,7 @@ export default function Home() {
         </div>
       </section>
 
-      <ScreenWall />
+      {/* The wall of screens moved to the top of the footer, behind the closing call (owner, 27 Nov 2026). */}
 
       {/* GrowthSystem ("One designer, end to end") is off (owner, 27 Nov 2026: "hide"); the component stays in components/. */}
       <HowIWork />

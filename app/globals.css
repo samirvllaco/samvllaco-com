@@ -7052,3 +7052,26 @@ html.on-light .ask-me svg { background: #fff; }
 :root:root:root .faq-card :is(.faq-go, .faq-mail) { width: auto; max-width: 320px; justify-self: stretch; }
 :root:root:root .faq-card .faq-go .hero2-btn, :root:root:root .faq-card .faq-mail .hp-copy { width: 100%; min-height: 48px; box-sizing: border-box; }
 :root:root:root .faq-card .faq-mail .hp-copy > b { margin-left: auto; }
+
+/* Footer wall (owner, 27 Nov 2026: "the scroll of projects and work can be in footer now ... combined with our already
+   existing cta so we can scroll and zoom out and in"): the wall of screens sits at the top of the footer and zooms out
+   as you scroll (back in as you scroll up), with the closing call centred over it on a dark veil. Shorter than the old
+   home wall so the footer links follow soon after. */
+.wall.wall-foot { height: 220vh; margin-top: 0; }
+@media (max-width: 800px) { .wall.wall-foot { height: 180vh; } }
+:root:root:root .wall-foot .wall-stick::before { background: linear-gradient(180deg, #07070b 8%, rgba(7, 7, 11, 0)); }
+:root:root:root .wall-foot .wall-stick::after { background: linear-gradient(0deg, #07070b 8%, rgba(7, 7, 11, 0)); }
+.wall-cta { position: absolute; inset: 0; z-index: 3; display: grid; place-items: center; padding: 0 var(--gutter); pointer-events: none; text-align: center;
+  background: radial-gradient(ellipse 62% 58% at 50% 50%, rgba(7, 7, 11, .94) 0%, rgba(7, 7, 11, .86) 45%, rgba(7, 7, 11, .5) 100%); }
+@media (max-width: 800px) { .wall-cta { background: radial-gradient(ellipse 120% 50% at 50% 50%, rgba(7, 7, 11, .95) 0%, rgba(7, 7, 11, .88) 55%, rgba(7, 7, 11, .6) 100%); } }
+.wall-cta > * { pointer-events: auto; }
+.wall-cta { align-content: center; gap: var(--gap-intro); }
+:root:root:root .wall-cta .wall-h { margin: 0; max-width: 16ch; color: #f5f5f7; text-wrap: balance; }
+:root:root:root .wall-cta .wall-h .t2 { color: #a1a1a6; }
+:root:root:root .wall-cta .wall-p { margin: 0; max-width: 40em; font-size: 1.125rem; line-height: 1.556; letter-spacing: -.015em; color: #c7c7cc; }
+:root:root:root .wall-cta .hero2-btn { margin-top: calc(var(--gap-content) - var(--gap-intro)); }
+@media (prefers-reduced-motion: reduce) { .wall.wall-foot { height: auto; } .wall-foot .wall-stick { height: 100vh; } }
+/* The footer under the wall: the site map runs the full width when the call moved into the wall. */
+.fo-body:not(:has(.fo-lead)) { grid-template-columns: minmax(0, 1fr); }
+.fo-body:not(:has(.fo-lead)) .fo-right { padding-left: 0; border-left: 0; }
+.site-footer:has(.wall-foot) > .wrap::after { display: none; }
