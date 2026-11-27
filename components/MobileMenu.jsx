@@ -9,12 +9,17 @@ import { FEATURED } from "./ServicesMenu";
 import { SERVICES, svcHref } from "../lib/services";
 import { RESOURCES } from "../lib/resources";
 import { TOOLS } from "../lib/tools";
+import { INDUSTRIES } from "../lib/industries";
 
 const ALL_SERVICES = SERVICES.flatMap((g) => g.items);
 // Nested pages for the two menus that open a big panel on desktop.
 const SUB = {
   "/services/": {
-    items: FEATURED.map(([id, d]) => ({ href: svcHref(id), label: ALL_SERVICES.find((x) => x.id === id)?.name || id, icon: d })),
+    items: [
+      ...FEATURED.map(([id, d]) => ({ href: svcHref(id), label: ALL_SERVICES.find((x) => x.id === id)?.name || id, icon: d })),
+      { head: "Who I work with" },
+      ...INDUSTRIES.map((x) => ({ href: `/for/${x.id}/`, label: x.name, icon: x.icon })),
+    ],
   },
   // Services (owner, 27 Nov 2026), Resources and Free tools only open their list here; they no longer link to a hub page (owner, 25 Nov 2026).
   "/resources/": { items: RESOURCES.map((r) => ({ href: r.href, label: r.title, icon: r.icon, tag: r.tag })) },
@@ -118,7 +123,7 @@ export default function MobileMenu() {
                     {SUB[l.href] ? (
                       <div className="mm-sub" id={`mm-sub-${l.label}`} hidden={sub !== l.href}>
                         <ul>
-                          {SUB[l.href].items.map((it) => (
+                          {SUB[l.href].items.map((it) => it.head ? <li key={it.head} className="mm-sub-k">{it.head}</li> : (
                             <li key={it.href}>
                               <Link prefetch={false} href={it.href} aria-current={isHere(it.href) ? "page" : undefined} onClick={() => setOpen(false)}>
                                 <i className="tg-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d={it.icon} /></svg></i>

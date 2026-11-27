@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 import MegaShell from "./MegaShell";
 import CallIcon from "./CallIcon";
 import { SERVICES, svcHref } from "../lib/services";
+import { INDUSTRIES, MENU_COLS } from "../lib/industries";
 
 // "Services" in the header. Opens a wide panel on hover, click or keyboard.
 
@@ -26,22 +27,29 @@ export default function ServicesMenu() {
     <MegaShell id="mega-services" label="Services">
       {(close) => (
         <div className="wrap mx-in">
-          <div className="mx-main">
-            <div className="mx-k-row"><p className="mx-k">What I design</p></div>
-            <ul className="mx-grid">
-              {FEATURED.map(([id, d, short]) => {
-                const it = ITEMS.find((x) => x.id === id);
-                if (!it) return null;
-                return (
-                  <li key={id}>
-                    <Link prefetch={false} href={svcHref(id)} aria-current={path === `/services/${id}/` ? "page" : undefined} onClick={close}>
-                      <i className="tg-ico mx-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d={d} /></svg></i>
-                      <span><b>{it.name}</b><em>{short}</em></span>
-                    </Link>
-                  </li>
-                );
-              })}
-            </ul>
+          {/* Columns like grafit.agency (owner, 27 Nov 2026): what I do in three groups, then who I do it for. */}
+          <div className="mx-main mx-cols">
+            {MENU_COLS.map((c) => (
+              <div className="mx-col" key={c.k}>
+                <p className="mx-k">{c.k}</p>
+                <ul>
+                  {c.ids.map((sid) => {
+                    const it = ITEMS.find((x) => x.id === sid);
+                    if (!it) return null;
+                    const href = svcHref(sid);
+                    return <li key={sid}><Link prefetch={false} href={href} aria-current={path === href ? "page" : undefined} onClick={close}>{it.name}</Link></li>;
+                  })}
+                </ul>
+              </div>
+            ))}
+            <div className="mx-col mx-who">
+              <p className="mx-k">Who I work with</p>
+              <ul>
+                {INDUSTRIES.map((x) => (
+                  <li key={x.id}><Link prefetch={false} href={`/for/${x.id}/`} aria-current={path === `/for/${x.id}/` ? "page" : undefined} onClick={close}><i className="tg-ico mx-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d={x.icon} /></svg></i>{x.name}</Link></li>
+                ))}
+              </ul>
+            </div>
           </div>
           <aside className="mx-side mx-call dark-island">
             <div className="mx-call-sky">
