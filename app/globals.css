@@ -2977,7 +2977,7 @@ html .to-top.is-on { opacity: 1; pointer-events: auto; transform: none; }
 }
 /* The long top note only fits from about 900px up; below that the short "Book a 30-min strategy call" shows, so it is never cut. */
 @media (max-width: 900px) {
-  .top-note .tn-a { opacity: 0; }
+  .top-note .tn-a { display: none; } /* gone, not just faded, so dot, words and arrow sit together in the middle (owner, 27 Nov 2026) */
   .top-note .tn-b { opacity: 1; transform: none; }
 }
 
