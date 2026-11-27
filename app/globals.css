@@ -1456,7 +1456,7 @@ a:hover .bx-go { color: var(--text); } @media (hover: hover) and (pointer: fine)
 .tm-sample { position: absolute; top: 16px; right: 16px; padding: 4px 8px; border-radius: 5px; font-size: .6875rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: #ff9f0a; box-shadow: inset 0 0 0 1px #ff9f0a; }
 
 /* Soft fade in the bottom right corner so the floating portrait does not sit hard on page content */
-body::after { content: ""; position: fixed; right: 0; bottom: 0; width: 280px; height: 260px; pointer-events: none; z-index: 15; background: radial-gradient(ellipse 100% 100% at 100% 100%, var(--page, #171719) 0%, color-mix(in srgb, var(--page, #171719) 78%, transparent) 32%, transparent 72%); }
+/* Bottom-right corner fade: off (owner, 27 Nov 2026: "remove weird bottom right shadow"). */ body::after { content: none; position: fixed; right: 0; bottom: 0; width: 280px; height: 260px; pointer-events: none; z-index: 15; background: radial-gradient(ellipse 100% 100% at 100% 100%, var(--page, #171719) 0%, color-mix(in srgb, var(--page, #171719) 78%, transparent) 32%, transparent 72%); }
 @media (max-width: 640px) { body::after { width: 200px; height: 190px; } }
 
 /* Dotted texture on a few backgrounds, faded out toward the edges */
