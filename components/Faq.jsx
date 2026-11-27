@@ -26,7 +26,6 @@ export default function Faq({ items, children, a = "Questions", b = "founders as
   };
   return (
     <section className={`faq${light ? " band-light" : ""}`} id="faq" aria-labelledby="faq-h" data-bg={bg}>
-      {light ? <i className="band-bg" aria-hidden="true" /> : null}
       <div className="faq-side">
         <h2 id="faq-h">{a} <span className="t2">{b}</span></h2>
         <div className="faq-card">

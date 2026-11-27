@@ -28,7 +28,6 @@ const STEPS = [
 export default function HowIWork() {
   return (
     <section className="hw band-light" id="how" aria-labelledby="hw-h" data-bg="#171719">
-      <i className="band-bg" aria-hidden="true" />
       {/* Desktop: this column stays pinned while the cards on the right scroll past (owner, 26 Nov 2026). */}
       <div className="hw-side">
         <header className="hw-head">

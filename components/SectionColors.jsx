@@ -11,6 +11,7 @@ export default function SectionColors() {
     const els = [...document.querySelectorAll("[data-bg]")];
     if (!els.length) return;
     const body = document.body;
+    const bands = els.filter((el) => el.classList.contains("band-light"));
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     // First color applies instantly (no fade on load), later changes fade.
     body.style.transition = "none";
@@ -30,6 +31,11 @@ export default function SectionColors() {
       const light = document.documentElement.dataset.theme === "light";
       // Sections marked data-dark stay dark in light mode too.
       const c = light && !pick.hasAttribute("data-dark") ? (LIGHT[pick.dataset.bg.toLowerCase()] || "#ffffff") : pick.dataset.bg;
+      // White bands are dark until they reach the line, then animate to white (owner, 27 Nov 2026).
+      for (const b of bands) b.classList.toggle("is-dim", b !== pick);
+      // Floating bits (Ask pill, book bubble, back to top, the bottom blur) turn light while a lit band covers the screen's foot.
+      const lit = bands.includes(pick) && pick.getBoundingClientRect().bottom > window.innerHeight * 0.7;
+      document.documentElement.classList.toggle("on-light", lit);
       if (c !== current) {
         current = c;
         body.style.backgroundColor = c;
@@ -53,6 +59,8 @@ export default function SectionColors() {
       body.style.backgroundColor = "";
       body.style.transition = "";
       document.documentElement.style.removeProperty("--sec-bg");
+      for (const b of bands) b.classList.remove("is-dim");
+      document.documentElement.classList.remove("on-light");
     };
   }, []);
   return null;
