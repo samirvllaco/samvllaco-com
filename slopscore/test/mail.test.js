@@ -28,7 +28,7 @@ test("Brevo sends when Resend refuses or is full, and each stays under its daily
     const env = { RESEND_API_KEY: "re_x", BREVO_API_KEY: "xkeysib-x", CACHE: kv() };
     let calls = [];
     const resendFull = async (url, init) => (calls.push({ url, init }), new Response("{}", { status: url.includes("resend") ? 429 : 201 }));
-    assert.deepEqual(await send(env, "a@b.co", 0, d, resendFull), { ok: true, via: "brevo" });
+    assert.deepEqual(await send(env, "a@b.co", 0, d, resendFull, () => 1), { ok: true, via: "brevo" });
     assert.equal(calls[1].url, "https://api.brevo.com/v3/smtp/email");
     assert.equal(calls[1].init.headers["api-key"], "xkeysib-x");
     const body = JSON.parse(calls[1].init.body);
@@ -38,7 +38,7 @@ test("Brevo sends when Resend refuses or is full, and each stays under its daily
     // Resend's 429 marks it full for the day: the next email goes straight to Brevo.
     calls = [];
     const ok = async (url, init) => (calls.push({ url, init }), new Response("{}", { status: 201 }));
-    assert.equal((await send(env, "c@d.co", 1, d, ok)).via, "brevo");
+    assert.equal((await send(env, "c@d.co", 1, d, ok, () => 1)).via, "brevo");
     assert.equal(calls.length, 1);
 
     // Caps: Resend 90, then Brevo 280, then nothing.
@@ -48,10 +48,13 @@ test("Brevo sends when Resend refuses or is full, and each stays under its daily
     assert.equal(await roomToday(fresh), 370);
     const day = new Date().toISOString().slice(0, 10);
     await fresh.CACHE.put(`mail:${day}:resend`, "90");
-    assert.equal((await send(fresh, "e@f.co", 0, d, ok)).via, "brevo");
+    assert.equal((await send(fresh, "e@f.co", 0, d, ok, () => 1)).via, "brevo");
     await fresh.CACHE.put(`mail:${day}:brevo`, "280");
     assert.equal(await roomToday(fresh), 0);
     await assert.rejects(send(fresh, "g@h.co", 0, d, ok), /^Error: quota 429/);
+    // About 1 in 20 goes to Brevo first so its key stays in use.
+    assert.equal((await send({ RESEND_API_KEY: "re_x", BREVO_API_KEY: "b", CACHE: kv() }, "a@b.co", 0, d, ok, () => 0)).via, "brevo");
+    assert.equal((await send({ RESEND_API_KEY: "re_x", BREVO_API_KEY: "b", CACHE: kv() }, "a@b.co", 0, d, ok, () => 0.5)).via, "resend");
     // Resend alone, as before.
     assert.equal((await send({ RESEND_API_KEY: "re_x", CACHE: kv() }, "a@b.co", 0, d, ok)).via, "resend");
   } finally { console.error = quiet; }

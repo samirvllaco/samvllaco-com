@@ -125,8 +125,12 @@ export async function roomToday(env) {
 
 // Sends one email through the first sender with room left that accepts it. Throws "<sender> <status>: ..." when
 // none does; a 429 in that message means every sender is full for today.
-export async function send(env, to, step, d, fetcher = fetch) {
+// Brevo deletes an API key after 90 days without use, so about 1 email in 20 tries Brevo first.
+const KEEP_ALIVE = 0.05;
+
+export async function send(env, to, step, d, fetcher = fetch, random = Math.random) {
   const list = senders(env);
+  if (list.length > 1 && random() < KEEP_ALIVE) list.reverse();
   if (!list.length) return { skipped: true };
   const { subject, paras } = render(step, d);
   const from = env.MAIL_FROM || `Sam Vllaco <${EMAIL}>`;
