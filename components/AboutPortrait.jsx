@@ -14,6 +14,7 @@ const SRC = 1254;
 const LAYERS = [
   ["eyes", 36, 34, 64, 43], ["nose", 45, 41, 56, 51], ["smile", 40, 53, 60, 61], ["ear", 26.5, 35, 33, 50], ["ear", 66.5, 35, 71.5, 50],
   ["hair", 28, 5, 72, 26], ["beard", 32, 49, 68, 74], ["tee", 0, 69, 100, 100], ["head", 26, 4, 73, 74],
+  ["bg · Prizren, Kosovo", 0, 0, 100, 69],
 ];
 const EYE_Y = 39.5, PUP_L = 42.3, PUP_R = 59.4;
 // The lens can run past the photo onto the page: the canvas is PAD px bigger on every side, and outside the photo the
@@ -127,11 +128,23 @@ export default function AboutPortrait() {
       }
       if (Math.abs(want - r) > 0.5) raf = requestAnimationFrame(draw);
     }
+    // Prizren behind him on hover (owner, 28 Nov 2026: "on hover also add Prizren city bg"): the city and a cut-out of
+    // him load on the first hover, then the city eases in behind the cut-out. Phones see it during the scan.
+    let cityAsked = false, cityTimer = 0;
+    const city = (on) => {
+      if (on && !cityAsked) {
+        cityAsked = true;
+        const imgs = [...el.querySelectorAll("img[data-src]")];
+        Promise.all(imgs.map((x) => new Promise((res) => { x.onload = res; x.onerror = res; x.srcset = x.dataset.srcset; x.src = x.dataset.src; })))
+          .then(() => el.classList.add("city-ready"));
+      }
+      el.classList.toggle("is-city", on);
+    };
     const ready = () => { if (!ascii && im.complete && im.naturalWidth) build(); return Boolean(ascii); };
     const kick = () => { if (!raf) raf = requestAnimationFrame(draw); };
-    const move = (e) => { if (e.pointerType === "touch" || !ready()) return; const rc = el.getBoundingClientRect(); mx = e.clientX - rc.left; my = e.clientY - rc.top; want = Math.min(104, W * 0.24); kick(); };
-    const leave = () => { want = 0; kick(); };
-    const runScan = () => { if (reduce || !ready()) return; scan = 0; scanT = performance.now(); kick(); };
+    const move = (e) => { if (e.pointerType === "touch") return; city(true); if (!ready()) return; const rc = el.getBoundingClientRect(); mx = e.clientX - rc.left; my = e.clientY - rc.top; want = Math.min(104, W * 0.24); kick(); };
+    const leave = () => { want = 0; kick(); city(false); };
+    const runScan = () => { if (reduce || !ready()) return; scan = 0; scanT = performance.now(); kick(); city(true); clearTimeout(cityTimer); cityTimer = setTimeout(() => city(false), 3200); };
     const onResize = () => { if (ascii) { ascii = null; ready(); kick(); } };
     el.addEventListener("pointermove", move); el.addEventListener("pointerleave", leave);
     el.addEventListener("click", (e) => { if (e.pointerType !== "mouse") runScan(); });
@@ -141,13 +154,18 @@ export default function AboutPortrait() {
       io = new IntersectionObserver((en) => { if (en[0].isIntersecting) { io.disconnect(); setTimeout(runScan, 300); } }, { threshold: 0.6 });
       io.observe(el);
     }
-    return () => { el.removeEventListener("pointermove", move); el.removeEventListener("pointerleave", leave); removeEventListener("resize", onResize); if (io) io.disconnect(); cancelAnimationFrame(raf); };
+    return () => { el.removeEventListener("pointermove", move); el.removeEventListener("pointerleave", leave); removeEventListener("resize", onResize); if (io) io.disconnect(); cancelAnimationFrame(raf); clearTimeout(cityTimer); };
   }, []);
   return (
     <figure className="ap" ref={box}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <span className="ap-pic">
       <img ref={img} src="/me/sam-front-840.webp?v=1" srcSet="/me/sam-front-480.webp?v=1 480w, /me/sam-front-840.webp?v=1 840w, /me/sam-front-1254.webp?v=1 1254w" sizes="(max-width: 860px) 100vw, 440px" width="1254" height="1254" alt="Sam Vllaco, front facing, in a black t-shirt" fetchPriority="high" decoding="async" />
+      {/* Loaded on the first hover or scan; until then these hold no image. */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img className="ap-city" data-src="/me/prizren-840.webp?v=1" data-srcset="/me/prizren-480.webp?v=1 480w, /me/prizren-840.webp?v=1 840w" sizes="(max-width: 860px) 100vw, 440px" width="840" height="840" alt="" aria-hidden="true" />
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img className="ap-cut" data-src="/me/sam-cut-840.webp?v=1" data-srcset="/me/sam-cut-480.webp?v=1 480w, /me/sam-cut-840.webp?v=1 840w" sizes="(max-width: 860px) 100vw, 440px" width="840" height="840" alt="" aria-hidden="true" />
       </span>
       <canvas ref={cv} className="ap-cv" aria-hidden="true" />
       <figcaption className="ap-hint" aria-hidden="true"><span className="ap-fine">Hover to look inside</span><span className="ap-touch">Tap to scan</span></figcaption>

@@ -7618,3 +7618,11 @@ html.js .site-footer.fp-on > * { translate: 0 var(--fp, 0px); }
 .wf-box .tags button[aria-selected="true"] .wf-c, .wf-box .device-switch button[aria-pressed="true"] .wf-c { color: inherit; opacity: .7; }
 .wf-c.is-0 { opacity: .5; }
 .device-switch .wf-c { align-self: flex-start; margin: 8px 0 0 -4px; line-height: 1; }
+
+/* Prizren behind the About portrait on hover (owner, 28 Nov 2026). The city eases in (fade, settle from a slight zoom
+   and blur) behind a cut-out of Sam that sits exactly over the photo; both load on the first hover. */
+.ap-pic > img.ap-city, .ap-pic > img.ap-cut { position: absolute; inset: 0; pointer-events: none; opacity: 0; }
+.ap-pic > img.ap-city { transform: scale(1.08); filter: blur(6px) brightness(.72); transition: opacity .6s var(--ease-out), transform .9s var(--ease-out), filter .6s var(--ease-out); }
+.ap.city-ready .ap-pic > img.ap-cut { opacity: 1; }
+.ap.city-ready.is-city .ap-pic > img.ap-city { opacity: 1; transform: none; filter: blur(0) brightness(.72); }
+@media (prefers-reduced-motion: reduce) { .ap-pic > img.ap-city { transition: opacity .3s linear; transform: none; } }
