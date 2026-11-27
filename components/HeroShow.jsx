@@ -5,7 +5,8 @@ import Link from "next/link";
 // Hero work window (owner, 27 Nov 2026: "dont copy them, come up with our own better version").
 // Sam's desk, not a video player: a design file window with one tab per project, the work on a dotted canvas
 // under its frame label, and a status bar with the project's tags and a link to the case study.
-// The active tab's underline fills while it plays, then the next tab opens.
+// The active tab's top line and a bar along the frame's foot fill while it plays, then the next tab opens;
+// a small spinner shows while a clip is still loading.
 // First frame is a still image; videos load and the tabs advance only after the first interaction (html.is-live),
 // everything pauses off screen, and with reduced motion it stays on the chosen tab.
 // The page passes only the fields this needs, so lib/work.js stays out of the bundle.
@@ -13,6 +14,7 @@ export default function HeroShow({ items: LIST }) {
   const [i, setI] = useState(0);
   const [live, setLive] = useState(false);
   const [seen, setSeen] = useState(true);
+  const [wait, setWait] = useState(false);
   const root = useRef(null);
 
   useEffect(() => {
@@ -35,8 +37,12 @@ export default function HeroShow({ items: LIST }) {
     root.current?.querySelectorAll("video").forEach((v, k) => {
       if (k === i && seen) {
         if (!v.getAttribute("src")) v.setAttribute("src", v.dataset.src);
-        v.play().catch(() => {});
-      } else v.pause();
+        // Spinner until the clip actually plays; a cached clip starts at once and never shows it.
+        if (v.readyState < 3) setWait(true);
+        v.onplaying = () => setWait(false);
+        v.onwaiting = () => setWait(true);
+        v.play().catch(() => setWait(false));
+      } else { v.pause(); v.onplaying = v.onwaiting = null; }
     });
   }, [i, live, seen]);
 
@@ -65,6 +71,8 @@ export default function HeroShow({ items: LIST }) {
               {live ? <video muted loop playsInline preload="none" poster={x.small} data-src={x.video} /> : null}
             </span>
           ))}
+          <i className="hs-prog" aria-hidden="true" key={`p${i}`} />
+          {live && wait ? <span className="hs-spin" aria-hidden="true" /> : null}
         </Link>
       </div>
       <div className="hs-status">

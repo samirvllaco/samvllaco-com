@@ -6812,3 +6812,19 @@ html.on-light .ask-me svg { background: #fff; }
   :root:root :is(.tm-more, .tm-world):hover { transform: translateX(-50%); }
   :root:root .to-top:hover svg, :root:root .ask-send:not(:disabled):hover svg { transform: none; translate: none; }
 }
+/* Worldwide card: the same glossy widget surface as every other bento card (owner, 27 Nov 2026: "doesn't match other bentos"); its fade ends in the card's own bottom tone */
+:root:root .bx-world, :root:root .bx-soft .bx-world { background: radial-gradient(70% 40% at 50% 0, rgba(255, 255, 255, .07), transparent 70%), linear-gradient(180deg, #25252a, #0e0e10) !important; }
+:root:root .bx-world::after { background: linear-gradient(180deg, rgba(14, 14, 16, 0), rgba(14, 14, 16, .85) 55%, #0e0e10 88%); }
+/* Online dot on the header photo: smaller, with a crisp ring that breathes (paused until the first interaction like all ambient motion) */
+@media (min-width: 1261px) {
+  html.is-scrolled .brand-me::after { left: 33px; bottom: 6px; width: 8px; height: 8px; box-shadow: 0 0 0 2px var(--card, #232326); animation: dot-ring 2.4s cubic-bezier(.22, .61, .36, 1) infinite; }
+}
+@keyframes dot-ring { 0% { box-shadow: 0 0 0 2px var(--card, #232326), 0 0 0 2px rgba(52, 199, 89, .55); } 70%, 100% { box-shadow: 0 0 0 2px var(--card, #232326), 0 0 0 6px rgba(52, 199, 89, 0); } }
+@media (prefers-reduced-motion: reduce) { html.is-scrolled .brand-me::after { animation: none; } }
+/* Hero work window: a loading bar along the frame's foot fills with the tab, and a spinner shows while a clip loads (owner, 27 Nov 2026) */
+.hs-prog { position: absolute; left: 0; right: 0; bottom: 0; z-index: 2; height: 3px; background: linear-gradient(90deg, #2f6bff, #8fa8ff); transform: scaleX(.12); transform-origin: left; box-shadow: 0 0 12px rgba(47, 107, 255, .5); }
+.hero-show[data-live] .hs-prog { animation: hs-fill 6s linear forwards; }
+.hero-show[data-paused] .hs-prog { animation-play-state: paused; }
+.hs-spin { position: absolute; left: 50%; top: 50%; z-index: 2; width: 28px; height: 28px; margin: -14px 0 0 -14px; border-radius: 50%; border: 2.5px solid rgba(255, 255, 255, .22); border-top-color: #ffffff; background: rgba(23, 23, 25, .35); box-shadow: 0 0 0 8px rgba(23, 23, 25, .35); animation: hs-spin .8s linear infinite; }
+@keyframes hs-spin { to { rotate: 360deg; } }
+@media (prefers-reduced-motion: reduce) { .hs-spin { animation-duration: 2s; } }
