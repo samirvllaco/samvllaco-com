@@ -6379,6 +6379,10 @@ html.is-live .ask-pill::before { animation-play-state: running; }
   body::before { content: ""; position: absolute; top: 0; bottom: 0; left: 50%; z-index: 0; pointer-events: none;
     width: calc(min(1280px, 100% - 2 * var(--gutter)) + 2 * var(--rail-out)); transform: translateX(-50%);
     border-inline: 1px solid var(--rule); }
+  /* The rails run on up through the top note and the navigation too (owner, 27 Nov 2026) */
+  .site-header::after { content: ""; position: absolute; top: 0; bottom: 0; left: 50%; z-index: 0; pointer-events: none;
+    width: calc(min(1280px, 100% - 2 * var(--gutter)) + 2 * var(--rail-out)); transform: translateX(-50%);
+    border-inline: 1px solid var(--rule); }
 }
 /* Dividers between sections. Sections spaced by padding (service pages, case-study "More work") draw theirs at their own top edge. */
 :root:root :is(.wrap.page, .page, .case, .ab) > section + section:not(.lite, .rv-box, .tl-cta, .pr-proj, .case-close, .wall, .book-band) {
