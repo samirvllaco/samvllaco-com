@@ -107,6 +107,8 @@ const SENDERS = [
       sender: { name: m.name, email: m.address }, to: [{ email: m.to }], replyTo: { email: m.replyTo },
       subject: m.subject, htmlContent: m.html, textContent: m.text, headers: m.headers,
     }],
+    // A read that changes nothing, so the key counts as used (Brevo deletes keys after 90 days without use).
+    ping: (apiKey) => ["https://api.brevo.com/v3/smtp/statistics/aggregatedReport?days=1", { "api-key": apiKey, accept: "application/json" }],
   },
 ];
 export const DAILY_MAX = Object.fromEntries(SENDERS.map((x) => [x.name, x.max]));
@@ -125,12 +127,12 @@ export async function roomToday(env) {
 
 // Sends one email through the first sender with room left that accepts it. Throws "<sender> <status>: ..." when
 // none does; a 429 in that message means every sender is full for today.
-// Brevo deletes an API key after 90 days without use, so about 1 email in 20 tries Brevo first.
+// Brevo deletes an API key after 90 days without use, so after about 1 email in 20 the other senders get a
+// read-only check-in. Real emails stay with Resend while it has room: Brevo wraps links in click tracking.
 const KEEP_ALIVE = 0.05;
 
 export async function send(env, to, step, d, fetcher = fetch, random = Math.random) {
   const list = senders(env);
-  if (list.length > 1 && random() < KEEP_ALIVE) list.reverse();
   if (!list.length) return { skipped: true };
   const { subject, paras } = render(step, d);
   const from = env.MAIL_FROM || `Sam Vllaco <${EMAIL}>`;
@@ -153,6 +155,13 @@ export async function send(env, to, step, d, fetcher = fetch, random = Math.rand
     }
     if (r.ok) {
       if (env.CACHE) await env.CACHE.put(dayKey(x.name), String(used + 1), { expirationTtl: 90000 });
+      if (random() < KEEP_ALIVE) {
+        for (const other of list) {
+          if (other === x || !other.ping) continue;
+          const [pingUrl, pingHeaders] = other.ping(env[other.key]);
+          await fetcher(pingUrl, { headers: pingHeaders }).catch(() => {});
+        }
+      }
       return { ok: true, via: x.name };
     }
     last = `${x.name} ${r.status}: ${(await r.text().catch(() => "")).slice(0, 120)}`;

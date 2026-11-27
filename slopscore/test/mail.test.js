@@ -52,9 +52,14 @@ test("Brevo sends when Resend refuses or is full, and each stays under its daily
     await fresh.CACHE.put(`mail:${day}:brevo`, "280");
     assert.equal(await roomToday(fresh), 0);
     await assert.rejects(send(fresh, "g@h.co", 0, d, ok), /^Error: quota 429/);
-    // About 1 in 20 goes to Brevo first so its key stays in use.
-    assert.equal((await send({ RESEND_API_KEY: "re_x", BREVO_API_KEY: "b", CACHE: kv() }, "a@b.co", 0, d, ok, () => 0)).via, "brevo");
+    // Real emails stay with Resend; after about 1 in 20 Brevo gets a read-only check-in.
+    calls = [];
+    assert.equal((await send({ RESEND_API_KEY: "re_x", BREVO_API_KEY: "b", CACHE: kv() }, "a@b.co", 0, d, ok, () => 0)).via, "resend");
+    assert.equal(calls.length, 2);
+    assert.match(calls[1].url, /api\.brevo\.com\/v3\/smtp\/statistics/);
+    calls = [];
     assert.equal((await send({ RESEND_API_KEY: "re_x", BREVO_API_KEY: "b", CACHE: kv() }, "a@b.co", 0, d, ok, () => 0.5)).via, "resend");
+    assert.equal(calls.length, 1);
     // Resend alone, as before.
     assert.equal((await send({ RESEND_API_KEY: "re_x", CACHE: kv() }, "a@b.co", 0, d, ok)).via, "resend");
   } finally { console.error = quiet; }
