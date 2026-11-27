@@ -113,6 +113,7 @@ One value per job, kept in the last block of `app/globals.css` ("Feel consistenc
 - Services in the nav opens its menu only (no /services/ hub link in the nav, mobile menu or jump menu). The menu has columns from `MENU_COLS` and `INDUSTRIES` in `lib/industries.js`.
 - Industry pages at `/for/<id>/` come from `lib/industries.js`. Only list real case studies there and never claim a client in an industry the work doesn't show.
 - Every article has a TL;DR from `lib/tldr.js` (3 or 4 plain sentences, humanized; add one with every new post) and Copy page, Share and Ask AI buttons (`ArticleTools.jsx`).
+- Voice (owner, 27 Nov 2026: "dont use we anymore only I me talk in first person"): Sam speaks as I, me and my, never we, our or us. Client quotes, pains and questions written in the client's voice keep their own words.
 - Publish small updates as soon as each one is checked; don't batch (owner: "i need frequent updates").
 - No script font anywhere (owner, 27 Nov 2026): `.scr` reads as normal text and Caveat is gone.
 - Footer (owner, 27 Nov 2026, after grafit.agency): Sam and availability on top, the call on the left and five small link columns plus Ask AI on the right, split by hairlines, one bottom line. 12px uppercase heads, 14px links.

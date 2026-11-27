@@ -120,7 +120,7 @@ export default function Delight() {
     try {
       window.sam = {
         hire() {
-          unlock("console", "Secret found: Inspector", "You read the console. We would get along.");
+          unlock("console", "Secret found: Inspector", "You read the console. You and I would get along.");
           return "sam@samvllaco.com";
         },
       };

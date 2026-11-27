@@ -98,7 +98,7 @@ export default function Accessibility() {
           <h2 id="ax-price-h">One fixed <span className="t2">monthly price.</span></h2>
         </header>
         <p className="ax-price"><span>From</span> <b>{usd(MANAGED_FROM)}</b> <span>per month</span></p>
-        <p className="sub-note">The final price depends on how many products and platforms you have and how often you ship. We agree on it upfront, before any work starts.</p>
+        <p className="sub-note">The final price depends on how many products and platforms you have and how often you ship. I set it with you upfront, before any work starts.</p>
         <div className="sv-cta sv-cta-c"><a className="hero2-btn hero2-btn-primary" href="/book/"><CallIcon />Book a call</a></div>
         <p className="sub-note">Not ready for monthly? <a href="/eaa-audit/">Start with the one-week EAA audit.</a></p>
       </section>
