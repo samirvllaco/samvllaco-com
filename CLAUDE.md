@@ -107,3 +107,10 @@ One value per job, kept in the last block of `app/globals.css` ("Feel consistenc
 
 ## Git
 - Commit messages are plain: no Co-Authored-By, Claude-Session or other trailers (owner, 13 Nov 2026).
+
+## Hero, services menu, industries and articles (owner, 27 Nov 2026)
+- Home hero: words left, `HeroShow` right (four real projects play as a reel: now playing, progress bars, case study link). The first frame is a still image; videos load and the reel runs only after the first interaction, and pause off screen. The hero content fills the screen minus the header and an 88px peek of the trust row; the daily quote shows only from 960px screen height. The video bubble is off until Sam records his intro video (see `LazyExtras.jsx`).
+- Services in the nav opens its menu only (no /services/ hub link in the nav, mobile menu or jump menu). The menu has columns from `MENU_COLS` and `INDUSTRIES` in `lib/industries.js`.
+- Industry pages at `/for/<id>/` come from `lib/industries.js`. Only list real case studies there and never claim a client in an industry the work doesn't show.
+- Every article has a TL;DR from `lib/tldr.js` (3 or 4 plain sentences, humanized; add one with every new post) and Copy page, Share and Ask AI buttons (`ArticleTools.jsx`).
+- Publish small updates as soon as each one is checked; don't batch (owner: "i need frequent updates").
