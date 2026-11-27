@@ -18,6 +18,29 @@ export default function SectionColors() {
     let raf = 0;
     let current = "";
 
+    // Bent edge under each white band (owner, 28 Nov 2026: "using gsap, bend the section, then make it straight while
+    // the scroll goes away"). Depth comes from the scroll; GSAP (the same vendored file the intro uses, loaded once when
+    // a band's foot gets near) eases each band toward it, so the curve settles like a scrub instead of snapping.
+    const bend = new Map();
+    let gsapAsked = false;
+    const deep = () => Math.round(Math.min(96, Math.max(32, window.innerWidth * 0.06)));
+    const setBend = (b, px) => {
+      let o = bend.get(b);
+      if (!o) { o = { v: px, to: null }; bend.set(b, o); b.style.setProperty("--bend", `${px}px`); }
+      const g = window.gsap;
+      if (g && !o.to) o.to = g.quickTo(o, "v", { duration: 0.6, ease: "power3.out", onUpdate: () => b.style.setProperty("--bend", `${o.v.toFixed(1)}px`) });
+      if (o.to) o.to(px);
+      else { o.v = px; b.style.setProperty("--bend", `${px}px`); }
+    };
+    const askGsap = () => {
+      if (gsapAsked || window.gsap) return;
+      gsapAsked = true;
+      const sc = document.createElement("script");
+      sc.src = "/vendor/gsap-3.15.1.min.js";
+      sc.async = true;
+      document.head.appendChild(sc);
+    };
+
     const update = () => {
       raf = 0;
       const line = window.innerHeight * 0.6;
@@ -33,6 +56,16 @@ export default function SectionColors() {
       const c = light && !pick.hasAttribute("data-dark") ? (LIGHT[pick.dataset.bg.toLowerCase()] || "#ffffff") : pick.dataset.bg;
       // White bands are dark until they reach the line, then animate to white (owner, 27 Nov 2026).
       for (const b of bands) b.classList.toggle("is-dim", b !== pick);
+      if (!reduce) {
+        const vh = window.innerHeight;
+        for (const b of bands) {
+          const foot = b.getBoundingClientRect().bottom;
+          if (foot < vh * 2.5) askGsap();
+          // Full depth until the foot enters the screen, straight by the time it reaches the 60% line.
+          const k = Math.min(1, Math.max(0, (vh - foot) / (vh * 0.4)));
+          setBend(b, Math.round(deep() * (1 - k)));
+        }
+      }
       // Floating bits (Ask pill, book bubble, back to top, the bottom blur) turn light while a lit band covers the screen's foot.
       const lit = bands.includes(pick) && pick.getBoundingClientRect().bottom > window.innerHeight * 0.7;
       document.documentElement.classList.toggle("on-light", lit);
@@ -59,7 +92,7 @@ export default function SectionColors() {
       body.style.backgroundColor = "";
       body.style.transition = "";
       document.documentElement.style.removeProperty("--sec-bg");
-      for (const b of bands) b.classList.remove("is-dim");
+      for (const b of bands) { b.classList.remove("is-dim"); b.style.removeProperty("--bend"); }
       document.documentElement.classList.remove("on-light");
     };
   }, []);

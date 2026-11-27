@@ -7174,7 +7174,7 @@ html.on-light .ask-me svg { background: #fff; }
 @property --border { syntax: "<color>"; inherits: true; initial-value: #424245; }
 @property --surface { syntax: "<color>"; inherits: true; initial-value: #232326; }
 @property --page { syntax: "<color>"; inherits: true; initial-value: #171719; }
-:root:root:root .band-light { --band-paint: #ffffff; background: var(--band-paint); box-shadow: 0 0 0 100vmax var(--band-paint); clip-path: inset(0 -100vmax); isolation: isolate;
+:root:root:root .band-light { --band-paint: #ffffff; background: var(--band-paint); box-shadow: none; clip-path: inset(0 -100vmax calc(-1 * var(--bend, 0px))); isolation: isolate; z-index: 1;
   --bg: var(--page);
   transition: --band-paint .9s ease, --text .9s ease, --muted .9s ease, --text-2 .9s ease, --card .9s ease, --card-2 .9s ease, --card-3 .9s ease, --card-low .9s ease,
     --line .9s ease, --border .9s ease, --surface .9s ease, --page .9s ease; }
@@ -7563,3 +7563,14 @@ html.js .bx-world[data-reveal].is-shown .wf-facts > div > dd { transition-durati
    otherwise it showed above them and was pushed down, a 0.32 layout shift. Desktop keeps it from the first frame. */
 @media (max-width: 1099px) { html.js .hero-split:not(.hero-done) > .hero-show { display: none; } }
 @media (max-width: 640px) { .pr-price { font-size: 2.25rem; } }
+
+/* Bent edge (owner, 28 Nov 2026: "using gsap, on scroll the section above bends over the next one, then goes straight
+   while you scroll away"). The band's paint is this layer, edge to edge: it reaches var(--bend) below the band with a
+   half-ellipse foot, so the white curves down over the top of the next section. SectionColors.jsx sets --bend from
+   the scroll (deepest when the band's foot enters the screen, flat by the 60% line, where the band turns dark) and
+   GSAP smooths it. Without JS or with reduced motion --bend stays 0: a straight edge. */
+:root:root:root .band-light::after {
+  content: ""; position: absolute; z-index: -2; top: 0; bottom: calc(-1 * var(--bend, 0px)); left: calc(50% - 50vw); right: calc(50% - 50vw);
+  --band-paint: inherit; background: var(--band-paint); pointer-events: none;
+  border-radius: 0 0 50% 50% / 0 0 var(--bend, 0px) var(--bend, 0px);
+}
