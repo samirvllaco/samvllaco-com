@@ -7,6 +7,7 @@ import { SITE, CERTS } from "../lib/site";
 import { SERVICES, svcHref } from "../lib/services";
 import CallIcon from "./CallIcon";
 import RouteHide from "./RouteHide";
+import { INDUSTRIES } from "../lib/industries";
 
 // 16 point scalloped seal, drawn once and filled with a shared gold gradient
 function sealPath() {
@@ -54,29 +55,24 @@ const MAP = [
 ];
 const COMPANY = [["About Sam", "/about/"], ["Pricing", "/pricing/"], ["Book a call", "/book/"]];
 const SOCIAL = [["X", SITE.links.x, "x", "@samvllaco", "https://x.com/intent/follow?screen_name=samvllaco"], ["Medium", SITE.links.medium, "medium", "@samvllaco", SITE.links.medium], ["Dribbble", SITE.links.dribbble, "dribbble", "samirvllaco", SITE.links.dribbble]];
+// Five columns: services, who I work with, work, resources, and Sam with his social links.
+const COLS = [
+  { h: "Services", links: [...MAP[0].links.slice(0, 5), ["Website design", svcHref("website-design")], ["Landing pages", svcHref("landing-pages")], ["Conversion optimization", svcHref("conversion-optimization")], ["EAA accessibility audit", "/eaa-audit/"]] },
+  { h: "Who I work with", links: INDUSTRIES.map((x) => [x.name, `/for/${x.id}/`]) },
+  MAP[3],
+  MAP[4],
+  { h: "Sam", links: [...COMPANY, ...SOCIAL.map(([t, href, icon]) => [t, href, icon])] },
+];
 
 function FootMap() {
   return (
-    <nav className="foot-map" aria-label="Site map">
-      <div className="fm-brand">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/sam-face-144.webp?v=1" width="40" height="40" alt="" loading="lazy" />
-        <p><b>Sam Vllaco</b><span>UI/UX and product designer for SaaS and AI products</span></p>
-        <ul className="fm-co">{COMPANY.map(([t, href]) => <li key={href}><a href={href}>{t}</a></li>)}</ul>
-        <ul className="fm-soc">
-          {SOCIAL.map(([t, href, icon, handle]) => (
-            <li key={href}>
-              <a href={href} target="_blank" rel="me noopener"><svg className="fm-ico" viewBox="0 0 24 24" aria-hidden="true"><path d={ICON[icon]} /></svg><span>{t}</span><span className="sr-only"> {handle}</span><span className="sr-only"> (opens in a new tab)</span></a>
-            </li>
-          ))}
-        </ul>
-      </div>
-      {MAP.map((c) => (
+    <nav className="foot-map fo-cols" aria-label="Site map">
+      {COLS.map((c) => (
         <div key={c.h}>
           <p className="foot-map-h">{c.h}</p>
           <ul>
             {c.links.map(([t, href, icon, tag]) => (
-              <li key={t}><a href={href}>{t}{tag ? <span className="fm-new">{tag}</span> : null}</a></li>
+              <li key={t}><a href={href} {...(/^https?:/.test(href) ? { target: "_blank", rel: "me noopener" } : {})}>{icon ? <svg className="fm-ico" viewBox="0 0 24 24" aria-hidden="true"><path d={ICON[icon]} /></svg> : null}{t}{tag ? <span className="fm-new">{tag}</span> : null}{/^https?:/.test(href) ? <span className="sr-only"> (opens in a new tab)</span> : null}</a></li>
             ))}
           </ul>
         </div>
@@ -141,18 +137,39 @@ export default function Footer() {
           </ul>
         </div>
         ) : null}
-        <RouteHide><FootMap /></RouteHide>
-        <RouteHide on={["/book/"]}>
-          <div className="fd-talk">
-            <p>Talk to the designer who does the work.</p>
-            <a className="hero2-btn hero2-btn-primary" href="/book/"><CallIcon />Book a call</a>
+        {/* Footer like grafit.agency, in our own look (owner, 27 Nov 2026: "clean, smaller sizes, more organized, divided with lines"):
+            a top line with Sam and his availability, the call on the left and the site map on the right split by a hairline,
+            then one bottom line with the copyright and the email. Lean pages keep only the call and the bottom line. */}
+        <div className="fo">
+          <RouteHide>
+            <div className="fo-top">
+              <a className="fo-brand" href="/about/">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/sam-face-144.webp?v=1" width="32" height="32" alt="" loading="lazy" />
+                <span><b>Sam Vllaco</b><span>UI/UX and product designer</span></span>
+              </a>
+              <p className="fo-live"><i aria-hidden="true" />1 to 2 new projects at a time <a href="/book/">Book a call</a></p>
+            </div>
+          </RouteHide>
+          <div className="fo-body">
+            <RouteHide on={["/book/"]}>
+              <div className="fo-lead">
+                <p className="fo-h">Talk to the designer who does the work.</p>
+                <p className="fo-p">UI/UX and product design for SaaS, AI, fintech, health and law firms. One senior designer from the first call to the handover.</p>
+                <a className="hero2-btn hero2-btn-primary" href="/book/"><CallIcon />Book a call</a>
+              </div>
+            </RouteHide>
+            <RouteHide>
+              <div className="fo-right">
+                <FootMap />
+                <AskAI inline name="Sam Vllaco" prompt="Tell me about Sam Vllaco, the product designer at samvllaco.com. What does he do, who does he work with and how do I hire him?" />
+              </div>
+            </RouteHide>
           </div>
-        </RouteHide>
-        <p>© {new Date().getFullYear()} Sam Vllaco<span className="foot-tagline">, your close design partner</span></p>
-        <RouteHide><AskAI inline name="Sam Vllaco" prompt="Tell me about Sam Vllaco, the product designer at samvllaco.com. What does he do, who does he work with and how do I hire him?" /></RouteHide>
-
-        <div className="foot-links">
-          <CopyEmail />
+          <div className="fo-bottom">
+            <p>© {new Date().getFullYear()} Sam Vllaco<span className="foot-tagline">, your close design partner</span></p>
+            <div className="foot-links"><CopyEmail /></div>
+          </div>
         </div>
       </div>
     </footer>

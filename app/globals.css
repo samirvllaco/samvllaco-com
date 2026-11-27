@@ -6847,3 +6847,54 @@ html.on-light .ask-me svg { background: #fff; }
 }
 @keyframes hw-shine { from { background-position: 0 120%; } to { background-position: 0 -120%; } }
 @keyframes hw-on-light { from { color: var(--muted); } to { color: #0a6fd6; } }
+
+/* ==========================================================================
+   Footer (owner, 27 Nov 2026, after grafit.agency: "clean, smaller sizes, more organized, divided with lines").
+   Top line: Sam and his availability. Body: the call on the left, a hairline, the site map in five small columns
+   and Ask AI on the right. Bottom line: copyright and email. Small type: 12px uppercase heads, 14px links.
+   ========================================================================== */
+:root:root .site-footer > .wrap { display: block !important; padding-top: 0; padding-bottom: 0; border-top: 0; text-align: left; }
+.fo { --fo-line: rgba(255, 255, 255, .12); }
+.fo-top { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 80px; border-bottom: 1px solid var(--fo-line); }
+.fo-brand { display: inline-flex; align-items: center; gap: 12px; min-height: 44px; color: #f5f5f7; text-decoration: none; }
+.fo-brand img { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; box-shadow: 0 0 0 1px rgba(255, 255, 255, .14); }
+.fo-brand > span { display: grid; line-height: 1.3; }
+.fo-brand b { font-size: .9375rem; font-weight: 600; }
+.fo-brand > span > span { font-size: .8125rem; color: #8e8e93; }
+:root:root .fo-live { display: inline-flex; align-items: center; gap: 8px; margin: 0; font-size: .8125rem; color: #a1a1a6; }
+.fo-live i { width: 6px; height: 6px; border-radius: 50%; background: #34c759; box-shadow: 0 0 0 3px rgba(52, 199, 89, .18); }
+.fo-live a { display: inline-flex; align-items: center; min-height: 44px; margin-left: 8px; font-weight: 600; color: #f5f5f7; text-decoration: none; }
+@media (hover: hover) and (pointer: fine) { .fo-live a:hover { text-decoration: underline; text-underline-offset: 4px; } }
+.fo-body { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2.2fr); }
+.fo-lead { display: grid; align-content: start; justify-items: start; gap: 16px; padding: 48px 48px 48px 0; }
+:root:root .fo-h { margin: 0; max-width: 16ch; font-size: clamp(1.5rem, 1.25rem + .9vw, 2rem); line-height: 1.2; font-weight: 500; letter-spacing: -.035em; color: #f5f5f7; text-wrap: balance; }
+:root:root .fo-p { margin: 0 0 8px; max-width: 38ch; font-size: .9375rem; line-height: 1.6; color: #8e8e93; }
+.fo-right { display: grid; align-content: start; gap: 40px; padding: 48px 0 48px 48px; border-left: 1px solid var(--fo-line); min-width: 0; }
+:root:root:root .site-footer .fo-cols { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 32px 24px; margin: 0; padding: 0; border: 0; }
+:root:root:root .site-footer .fo-cols::before, :root:root:root .site-footer .fo-cols::after { display: none; }
+:root:root .fo-cols .foot-map-h { margin: 0 0 16px; font-size: .75rem; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; color: #8e8e93; }
+:root:root .fo-cols ul { gap: 10px; }
+:root:root:root .site-footer .fo-cols a { min-height: 24px; font-size: .875rem; line-height: 1.4; letter-spacing: -.011em; color: #c7c7cc; }
+:root:root:root .site-footer .fo-cols a:hover { color: #ffffff; }
+.fo-cols .fm-ico { width: 14px; height: 14px; fill: currentColor; opacity: .8; }
+.fo-right .ask-ai-row { display: flex; align-items: center; gap: 16px; margin: 0; padding: 24px 0 0; border-top: 1px solid var(--fo-line); }
+:root:root .fo-right .ask-ai-t { margin: 0; font-size: .75rem; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; color: #8e8e93; }
+:root:root .fo-right .ask-ai-row ul { gap: 8px; }
+:root:root:root .site-footer .fo-right .ask-ai-row a { width: 40px; height: 40px; min-height: 40px; border-radius: var(--r-sm) !important; background: rgba(255, 255, 255, .05); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .1); transform: none; translate: none; }
+:root:root:root .site-footer .fo-right .ask-ai-row a:hover { background: rgba(255, 255, 255, .1); }
+.fo-right .ask-ai-row img { width: 18px; height: 18px; }
+.fo-bottom { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 24px; min-height: 72px; border-top: 1px solid var(--fo-line); }
+:root:root .fo-bottom p { margin: 0; font-size: .8125rem; color: #8e8e93; }
+:root:root .fo-bottom p b, .fo-bottom .foot-tagline { color: #8e8e93; }
+:root:root .fo-bottom .foot-links { margin: 0; font-size: .8125rem; }
+@media (max-width: 1100px) {
+  .fo-body { grid-template-columns: minmax(0, 1fr); }
+  .fo-lead { padding: 40px 0; }
+  .fo-right { padding: 40px 0; border-left: 0; border-top: 1px solid var(--fo-line); }
+  :root:root:root .site-footer .fo-cols { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (max-width: 620px) {
+  :root:root:root .site-footer .fo-cols { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .fo-top { flex-direction: column; align-items: flex-start; gap: 0; padding-block: 16px; }
+  .fo-right .ask-ai-row { flex-wrap: wrap; }
+}
