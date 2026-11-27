@@ -10,7 +10,7 @@
   --accent-ink: #06213a;
   --accent-soft: #14304a;
   --sky: #62c1fd;
-  --radius: 8px;
+  --radius: 6px;
   --max: 1600px;
   --prose: 680px;
   --font-body: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
@@ -1703,7 +1703,7 @@ html.tone-fade, html.tone-fade body, html.tone-fade *, html.tone-fade *::before,
 .bx-col img { width: 100%; height: auto; border-radius: var(--r-sm); display: block; }
 @keyframes bx-up { to { transform: translateY(calc(-50% - 6px)); } }
 @keyframes bx-down { from { transform: translateY(calc(-50% - 6px)); } to { transform: none; } }
-.bx-frame { margin: 36px 28px 0; flex: 1; border-radius: 16px 16px 0 0; overflow: hidden; background: #e9e9ee; box-shadow: 0 -10px 40px rgba(0, 0, 0, .35); min-height: 300px; position: relative; }
+.bx-frame { margin: 36px 28px 0; flex: 1; border-radius: var(--r-card) var(--r-card) 0 0; overflow: hidden; background: #e9e9ee; box-shadow: 0 -10px 40px rgba(0, 0, 0, .35); min-height: 300px; position: relative; }
 .bx-frame video, .bx-frame img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; }
 .bx-tilt { transform: rotate(-3deg) translateY(10px); margin-inline: 36px; }
 @media (hover: hover) and (pointer: fine) { .bx-mini:hover .bx-tilt { transform: rotate(-1deg) translateY(0); } }
@@ -3633,7 +3633,7 @@ main p { font-size: 1.0625rem; line-height: 1.6; }
 .eb-ticks li, .eb-ico li { font-size: 1.0625rem; }
 
 /* One icon tile everywhere (owner, 14 Nov 2026): the graphite 3D tile from the mega menu. Glyph color may change (orange on the ebook), the tile does not. */
-.tg-ico { border-radius: 30%; }
+.tg-ico { border-radius: var(--r-inner); }
 .pain-ico { width: 44px; height: 44px; border-radius: var(--r-inner); background: radial-gradient(120% 90% at 30% 15%, #8e8e96 0%, #4a4a52 45%, #1f1f24 100%); box-shadow: inset 0 1.5px 0 rgba(255, 255, 255, .45), inset 0 -2px 3px rgba(0, 0, 0, .55), 0 3px 6px -2px rgba(0, 0, 0, .6); }
 .pain-ico svg { width: 20px; height: 20px; }
 .pain-ico svg g { stroke: #fff; filter: drop-shadow(0 1px 1px rgba(0, 0, 0, .55)); }
@@ -3728,9 +3728,9 @@ main p { font-size: 1.0625rem; line-height: 1.6; }
 .crumb-home { position: relative; display: inline-flex; }
 .crumb-home::after { content: ""; position: absolute; left: 0; top: 100%; width: 220px; height: 12px; }
 .crumb-pop { position: absolute; left: 0; top: calc(100% + 10px); z-index: 30; display: grid; gap: 2px; width: 220px; padding: 8px; border-radius: var(--r-card); background: rgba(28, 28, 30, .86); -webkit-backdrop-filter: blur(24px) saturate(170%); backdrop-filter: blur(24px) saturate(170%); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .12), 0 30px 60px -24px rgba(0, 0, 0, .8);
-  opacity: 0; visibility: hidden; transform: translateY(-6px) scale(.92); transform-origin: 18px 0; clip-path: inset(0 0 100% 0 round 18px);
+  opacity: 0; visibility: hidden; transform: translateY(-6px) scale(.92); transform-origin: 18px 0; clip-path: inset(0 0 100% 0 round var(--r-card));
   transition: opacity .25s var(--ease-out), transform .35s var(--spring), clip-path .35s cubic-bezier(.22, 1, .36, 1), visibility 0s linear .35s; }
-@media (hover: hover) and (pointer: fine) { .crumb-home:hover .crumb-pop, .crumb-home:focus-within .crumb-pop { opacity: 1; visibility: visible; transform: none; clip-path: inset(0 0 0 0 round 18px); transition: opacity .25s var(--ease-out), transform .35s var(--spring), clip-path .35s cubic-bezier(.22, 1, .36, 1), visibility 0s; } }
+@media (hover: hover) and (pointer: fine) { .crumb-home:hover .crumb-pop, .crumb-home:focus-within .crumb-pop { opacity: 1; visibility: visible; transform: none; clip-path: inset(0 0 0 0 round var(--r-card)); transition: opacity .25s var(--ease-out), transform .35s var(--spring), clip-path .35s cubic-bezier(.22, 1, .36, 1), visibility 0s; } }
 .crumb-pop-k { padding: 8px 12px 8px; font-size: .6875rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: #8e8e93; }
 .crumbs .crumb-pop a { display: flex; align-items: center; gap: 12px; min-height: 40px; padding: 4px 12px 4px 4px; border-radius: var(--r-inner); font-size: .875rem; font-weight: 500; color: #e5e5ea; background: none;
   opacity: 0; transform: translateX(-8px); transition: opacity .25s var(--ease-out), transform .35s var(--spring), background .25s; transition-delay: calc(var(--j) * 25ms); }
@@ -3860,9 +3860,9 @@ a.mega-btn { text-decoration: none; }
    settles in a short stagger; closing is quicker and eases in (DESIGN.md motion rules 5, 6, 8, 9) (owner, 14 Nov 2026).
    Transitions, not keyframes: opening and closing fast reverses from where the panel is, with no jump (owner, 14 Nov 2026) */
 @media (min-width: 1261px) and (prefers-reduced-motion: no-preference) {
-  .site-header .mega { animation: none; transform-origin: 50% 0; opacity: 0; translate: 0 -10px; scale: .97 .94; clip-path: inset(0 0 60% 0 round 24px); pointer-events: none;
+  .site-header .mega { animation: none; transform-origin: 50% 0; opacity: 0; translate: 0 -10px; scale: .97 .94; clip-path: inset(0 0 60% 0 round var(--r-card)); pointer-events: none;
     transition: opacity .25s var(--ease-in), translate .25s var(--ease-in), scale .25s var(--ease-in), clip-path .25s var(--ease-in); }
-  .site-header .mega.is-on { opacity: 1; translate: 0 0; scale: 1; clip-path: inset(0 0 0 0 round 24px); pointer-events: auto;
+  .site-header .mega.is-on { opacity: 1; translate: 0 0; scale: 1; clip-path: inset(0 0 0 0 round var(--r-card)); pointer-events: auto;
     transition-duration: .35s; transition-timing-function: var(--ease-sheet); }
   .site-header .mega :is(.mx-k, .mx-grid > li, .mx-all, .mx-more, .mx-posts, .mx-side) { opacity: 0; translate: 0 8px; transition: opacity .15s var(--ease-in), translate .15s var(--ease-in); }
   .site-header .mega.is-on :is(.mx-k, .mx-grid > li, .mx-all, .mx-more, .mx-posts, .mx-side) { opacity: 1; translate: 0 0; transition: opacity .35s var(--ease-out) .15s, translate .35s var(--ease-out) .15s; }
@@ -3874,7 +3874,7 @@ a.mega-btn { text-decoration: none; }
   .site-header .mega.is-on :is(.mx-all, .mx-more, .mx-posts) { transition-delay: 200ms; }
   .site-header .mega.is-on .mx-side { transition-delay: 140ms; }
 }
-@keyframes mx-open { from { opacity: 0; translate: 0 -10px; scale: .97 .94; clip-path: inset(0 0 60% 0 round 24px); } to { opacity: 1; translate: 0 0; scale: 1; clip-path: inset(0 0 0 0 round 24px); } }
+@keyframes mx-open { from { opacity: 0; translate: 0 -10px; scale: .97 .94; clip-path: inset(0 0 60% 0 round var(--r-card)); } to { opacity: 1; translate: 0 0; scale: 1; clip-path: inset(0 0 0 0 round var(--r-card)); } }
 @keyframes mx-close { to { opacity: 0; translate: 0 -6px; scale: .985; } }
 @keyframes mx-item { from { opacity: 0; translate: 0 8px; } to { opacity: 1; translate: 0 0; } }
 
@@ -4257,11 +4257,9 @@ html.js .hero3 h1.h3-flip.h3-in .h3-slot { opacity: 1; scale: 1; rotate: 0deg; t
 /* FAQ answers: light rich text (owner, 15 Nov 2026). Bold lifts to the main text colour, a soft highlighter marks
    the one line to remember, and the hand-written accent is kept for a word or two. */
 .faq-list details p b { color: var(--text); font-weight: 600; }
-.faq-list details p .faq-hl { color: var(--text); font-weight: 500; padding: 0 .15em; margin: 0 -.05em; border-radius: .25em; background: linear-gradient(transparent 55%, rgba(98, 193, 253, .28) 55%); -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+.faq-list details p .faq-hl { color: var(--text); font-weight: 500; padding: .05em .3em; margin: 0 -.1em; border-radius: var(--r-sm); background: rgba(255, 255, 255, .1); -webkit-box-decoration-break: clone; box-decoration-break: clone; }
 .faq-list details p .scr { font-size: 1.25em; line-height: 1; }
-:root[data-theme="light"] .faq-list details p .faq-hl { background: linear-gradient(transparent 55%, rgba(11, 98, 196, .18) 55%); }
-.eb .faq-list details p .faq-hl { background: linear-gradient(transparent 55%, rgba(255, 157, 46, .3) 55%); }
-:root[data-theme="light"] .eb .faq-list details p .faq-hl { background: linear-gradient(transparent 55%, rgba(255, 157, 46, .32) 55%); }
+:root[data-theme="light"] .faq-list details p .faq-hl, :root:root .band-light .faq-list details p .faq-hl { background: rgba(0, 0, 0, .06); }
 /* Screen wall stats: frosted glass instead of a flat black band (owner, 15 Nov 2026). The screens show through,
    blurred, and the glass fades out slowly at the bottom. */
 .wall-stats {
@@ -5894,7 +5892,7 @@ body:has(.eb) .site-footer .fd-talk { display: none; }
 :root:root .wrap.page:has(.crumbs) { padding-top: 40px; }
 :root:root .crumbs { flex-wrap: nowrap; min-height: 32px; margin: 0 0 20px; }
 :root:root .crumbs > .crumb:last-child { min-width: 0; }
-:root:root .crumbs [aria-current] { display: block; min-width: 0; max-width: 100%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; line-height: 32px; }
+:root:root .crumbs .crumb > [aria-current] { display: block; min-width: 0; max-width: 100%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; line-height: 32px; }
 :root:root :is(.crumbs ~ header:has(h1)) { margin-top: 0; padding-top: 40px; }
 :root:root :is(.crumbs ~ header:has(h1)) h1 { margin-top: 0; }
 :root:root :is(.crumbs ~ header:has(h1)).sv-hero { align-items: start; }
@@ -6348,7 +6346,7 @@ html.is-live .ask-pill::before { animation-play-state: running; }
    Locomotive Scroll came back on 27 Nov 2026 with lerp .2 (components/SmoothScroll.jsx).
    ========================================================================== */
 :root:root {
-  --r-card: 12px; --r-inner: 8px; --r-sm: 6px; /* 27 Nov 2026: tighter corners everywhere (was 20 / 12 / 8) */
+  --r-card: 8px; --r-inner: 6px; --r-sm: 4px; /* 27 Nov 2026: tighter corners everywhere (was 20 / 12 / 8, then 12 / 8 / 6) */
   --max: calc(1280px + 2 * var(--gutter));
   --fs-display: clamp(2.5rem, 2.129rem + 1.524vw, 3.5rem);
   --fs-title: clamp(1.75rem, 1.471rem + 1.143vw, 2.5rem);
@@ -6414,7 +6412,7 @@ html.is-live .ask-pill::before { animation-play-state: running; }
    transform, opacity and a small clip only, paused off screen ([data-loop] gets .is-on in view) and
    until the first interaction like all ambient motion.
    ========================================================================== */
-:root { --r-bento: 16px; }
+:root { --r-bento: 10px; }
 :root:root .bx-soft .bx-card {
   border-radius: var(--r-bento);
   background: radial-gradient(70% 40% at 50% 0%, rgba(255, 255, 255, .07), transparent 70%), linear-gradient(180deg, #25252a, #0e0e10);
@@ -6462,17 +6460,17 @@ html.is-live .ask-pill::before { animation-play-state: running; }
 :root:root .pain2 + .sv-sec { margin-top: calc(var(--sec) / 2); }
 
 /* Square pattern on the call-to-action panels (owner, 27 Nov 2026, after a LogoLounge banner): a 32px grid of
-   white squares at 3 to 10%, strongest at the panel edges and clear behind the words. */
-:root { --cta-squares: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='192' fill='%23fff'%3E%3Crect x='64' y='0' width='32' height='32' fill-opacity='0.05'/%3E%3Crect x='96' y='0' width='32' height='32' fill-opacity='0.08'/%3E%3Crect x='160' y='0' width='32' height='32' fill-opacity='0.05'/%3E%3Crect x='64' y='32' width='32' height='32' fill-opacity='0.05'/%3E%3Crect x='128' y='32' width='32' height='32' fill-opacity='0.15'/%3E%3Crect x='160' y='32' width='32' height='32' fill-opacity='0.08'/%3E%3Crect x='192' y='32' width='32' height='32' fill-opacity='0.05'/%3E%3Crect x='224' y='32' width='32' height='32' fill-opacity='0.08'/%3E%3Crect x='96' y='64' width='32' height='32' fill-opacity='0.05'/%3E%3Crect x='128' y='64' width='32' height='32' fill-opacity='0.11'/%3E%3Crect x='192' y='64' width='32' height='32' fill-opacity='0.05'/%3E%3Crect x='32' y='96' width='32' height='32' fill-opacity='0.08'/%3E%3Crect x='96' y='96' width='32' height='32' fill-opacity='0.08'/%3E%3Crect x='160' y='96' width='32' height='32' fill-opacity='0.11'/%3E%3Crect x='224' y='96' width='32' height='32' fill-opacity='0.11'/%3E%3Crect x='0' y='128' width='32' height='32' fill-opacity='0.11'/%3E%3Crect x='64' y='128' width='32' height='32' fill-opacity='0.05'/%3E%3Crect x='128' y='128' width='32' height='32' fill-opacity='0.05'/%3E%3Crect x='160' y='128' width='32' height='32' fill-opacity='0.05'/%3E%3Crect x='192' y='128' width='32' height='32' fill-opacity='0.15'/%3E%3Crect x='224' y='128' width='32' height='32' fill-opacity='0.15'/%3E%3Crect x='32' y='160' width='32' height='32' fill-opacity='0.11'/%3E%3Crect x='64' y='160' width='32' height='32' fill-opacity='0.08'/%3E%3Crect x='96' y='160' width='32' height='32' fill-opacity='0.15'/%3E%3Crect x='128' y='160' width='32' height='32' fill-opacity='0.11'/%3E%3Crect x='192' y='160' width='32' height='32' fill-opacity='0.11'/%3E%3Crect x='224' y='160' width='32' height='32' fill-opacity='0.15'/%3E%3C/svg%3E"); }
+   16px white squares at 4 to 13%, mirrored left and right, strongest at the panel edges and clear behind the words. */
+:root { --cta-squares: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='128' fill='%23fff' shape-rendering='crispEdges'%3E%3Crect x='0' y='0' width='16' height='16' fill-opacity='0.07'/%3E%3Crect x='32' y='0' width='16' height='16' fill-opacity='0.07'/%3E%3Crect x='80' y='0' width='16' height='16' fill-opacity='0.13'/%3E%3Crect x='112' y='0' width='16' height='16' fill-opacity='0.07'/%3E%3Crect x='128' y='0' width='16' height='16' fill-opacity='0.07'/%3E%3Crect x='160' y='0' width='16' height='16' fill-opacity='0.13'/%3E%3Crect x='208' y='0' width='16' height='16' fill-opacity='0.07'/%3E%3Crect x='240' y='0' width='16' height='16' fill-opacity='0.07'/%3E%3Crect x='16' y='16' width='16' height='16' fill-opacity='0.13'/%3E%3Crect x='32' y='16' width='16' height='16' fill-opacity='0.04'/%3E%3Crect x='80' y='16' width='16' height='16' fill-opacity='0.07'/%3E%3Crect x='96' y='16' width='16' height='16' fill-opacity='0.07'/%3E%3Crect x='144' y='16' width='16' height='16' fill-opacity='0.07'/%3E%3Crect x='160' y='16' width='16' height='16' fill-opacity='0.07'/%3E%3Crect x='208' y='16' width='16' height='16' fill-opacity='0.04'/%3E%3Crect x='224' y='16' width='16' height='16' fill-opacity='0.13'/%3E%3Crect x='0' y='32' width='16' height='16' fill-opacity='0.04'/%3E%3Crect x='32' y='32' width='16' height='16' fill-opacity='0.13'/%3E%3Crect x='48' y='32' width='16' height='16' fill-opacity='0.07'/%3E%3Crect x='96' y='32' width='16' height='16' fill-opacity='0.04'/%3E%3Crect x='144' y='32' width='16' height='16' fill-opacity='0.04'/%3E%3Crect x='192' y='32' width='16' height='16' fill-opacity='0.07'/%3E%3Crect x='208' y='32' width='16' height='16' fill-opacity='0.13'/%3E%3Crect x='240' y='32' width='16' height='16' fill-opacity='0.04'/%3E%3Crect x='0' y='48' width='16' height='16' fill-opacity='0.07'/%3E%3Crect x='32' y='48' width='16' height='16' fill-opacity='0.04'/%3E%3Crect x='64' y='48' width='16' height='16' fill-opacity='0.13'/%3E%3Crect x='96' y='48' width='16' height='16' fill-opacity='0.04'/%3E%3Crect x='112' y='48' width='16' height='16' fill-opacity='0.07'/%3E%3Crect x='128' y='48' width='16' height='16' fill-opacity='0.07'/%3E%3Crect x='144' y='48' width='16' height='16' fill-opacity='0.04'/%3E%3Crect x='176' y='48' width='16' height='16' fill-opacity='0.13'/%3E%3Crect x='208' y='48' width='16' height='16' fill-opacity='0.04'/%3E%3Crect x='240' y='48' width='16' height='16' fill-opacity='0.07'/%3E%3Crect x='16' y='64' width='16' height='16' fill-opacity='0.13'/%3E%3Crect x='48' y='64' width='16' height='16' fill-opacity='0.04'/%3E%3Crect x='64' y='64' width='16' height='16' fill-opacity='0.13'/%3E%3Crect x='112' y='64' width='16' height='16' fill-opacity='0.04'/%3E%3Crect x='128' y='64' width='16' height='16' fill-opacity='0.04'/%3E%3Crect x='176' y='64' width='16' height='16' fill-opacity='0.13'/%3E%3Crect x='192' y='64' width='16' height='16' fill-opacity='0.04'/%3E%3Crect x='224' y='64' width='16' height='16' fill-opacity='0.13'/%3E%3Crect x='0' y='80' width='16' height='16' fill-opacity='0.07'/%3E%3Crect x='32' y='80' width='16' height='16' fill-opacity='0.13'/%3E%3Crect x='80' y='80' width='16' height='16' fill-opacity='0.04'/%3E%3Crect x='96' y='80' width='16' height='16' fill-opacity='0.1'/%3E%3Crect x='112' y='80' width='16' height='16' fill-opacity='0.13'/%3E%3Crect x='128' y='80' width='16' height='16' fill-opacity='0.13'/%3E%3Crect x='144' y='80' width='16' height='16' fill-opacity='0.1'/%3E%3Crect x='160' y='80' width='16' height='16' fill-opacity='0.04'/%3E%3Crect x='208' y='80' width='16' height='16' fill-opacity='0.13'/%3E%3Crect x='240' y='80' width='16' height='16' fill-opacity='0.07'/%3E%3Crect x='0' y='96' width='16' height='16' fill-opacity='0.07'/%3E%3Crect x='16' y='96' width='16' height='16' fill-opacity='0.07'/%3E%3Crect x='32' y='96' width='16' height='16' fill-opacity='0.1'/%3E%3Crect x='48' y='96' width='16' height='16' fill-opacity='0.1'/%3E%3Crect x='64' y='96' width='16' height='16' fill-opacity='0.07'/%3E%3Crect x='80' y='96' width='16' height='16' fill-opacity='0.04'/%3E%3Crect x='96' y='96' width='16' height='16' fill-opacity='0.04'/%3E%3Crect x='144' y='96' width='16' height='16' fill-opacity='0.04'/%3E%3Crect x='160' y='96' width='16' height='16' fill-opacity='0.04'/%3E%3Crect x='176' y='96' width='16' height='16' fill-opacity='0.07'/%3E%3Crect x='192' y='96' width='16' height='16' fill-opacity='0.1'/%3E%3Crect x='208' y='96' width='16' height='16' fill-opacity='0.1'/%3E%3Crect x='224' y='96' width='16' height='16' fill-opacity='0.07'/%3E%3Crect x='240' y='96' width='16' height='16' fill-opacity='0.07'/%3E%3Crect x='0' y='112' width='16' height='16' fill-opacity='0.04'/%3E%3Crect x='32' y='112' width='16' height='16' fill-opacity='0.04'/%3E%3Crect x='48' y='112' width='16' height='16' fill-opacity='0.13'/%3E%3Crect x='64' y='112' width='16' height='16' fill-opacity='0.1'/%3E%3Crect x='80' y='112' width='16' height='16' fill-opacity='0.07'/%3E%3Crect x='96' y='112' width='16' height='16' fill-opacity='0.1'/%3E%3Crect x='112' y='112' width='16' height='16' fill-opacity='0.04'/%3E%3Crect x='128' y='112' width='16' height='16' fill-opacity='0.04'/%3E%3Crect x='144' y='112' width='16' height='16' fill-opacity='0.1'/%3E%3Crect x='160' y='112' width='16' height='16' fill-opacity='0.07'/%3E%3Crect x='176' y='112' width='16' height='16' fill-opacity='0.1'/%3E%3Crect x='192' y='112' width='16' height='16' fill-opacity='0.13'/%3E%3Crect x='208' y='112' width='16' height='16' fill-opacity='0.04'/%3E%3Crect x='240' y='112' width='16' height='16' fill-opacity='0.04'/%3E%3C/svg%3E"); }
 :is(.fd-talk, .case-close, .tl-cta, .rv-box) { position: relative; isolation: isolate; overflow: hidden; }
-:is(.fd-talk, .case-close, .tl-cta, .rv-box)::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; background: var(--cta-squares) 0 0 / 256px 192px repeat; -webkit-mask-image: linear-gradient(100deg, #000, transparent 38%, transparent 62%, #000); mask-image: linear-gradient(100deg, #000, transparent 38%, transparent 62%, #000); }
+:is(.fd-talk, .case-close, .tl-cta, .rv-box)::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; background: var(--cta-squares) 50% 50% / 256px 128px repeat; -webkit-mask-image: linear-gradient(90deg, #000, transparent 34%, transparent 66%, #000); mask-image: linear-gradient(90deg, #000, transparent 34%, transparent 66%, #000); }
 
 /* Big bento cards follow the stat widgets (owner, 27 Nov 2026: "match first 2 bento cards style, animation and
    effects"): eyebrow label top left, glossy inner panels in place of blurred glass, and one small loop each
    (the A/B winner charges like the experience bar, a scan line sweeps the animation frame). */
 :root:root:root:root .bx-soft h3.bx-t { justify-self: stretch; width: 100%; text-align: left; font-size: .75rem; line-height: 1.5; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); }
 :root:root .bx-soft .bx-deck .bx-t { left: 32px; right: auto; top: 32px; }
-:root:root .bx-soft .wf-facts div { border: 0; border-radius: 16px; background: linear-gradient(180deg, #25252a, #121214); -webkit-backdrop-filter: none; backdrop-filter: none; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .1), inset 0 24px 24px -18px rgba(255, 255, 255, .12), inset 0 2px 6px -3px rgba(255, 255, 255, .4), 0 16px 32px -20px rgba(0, 0, 0, .6); }
+:root:root .bx-soft .wf-facts div { border: 0; border-radius: var(--r-bento); background: linear-gradient(180deg, #25252a, #121214); -webkit-backdrop-filter: none; backdrop-filter: none; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .1), inset 0 24px 24px -18px rgba(255, 255, 255, .12), inset 0 2px 6px -3px rgba(255, 255, 255, .4), 0 16px 32px -20px rgba(0, 0, 0, .6); }
 :root:root .bx-soft .bx-motion .bx-frame { box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .1), 0 30px 60px -24px rgba(0, 0, 0, .7); }
 :root:root .bx-soft .w4-card { box-shadow: inset 0 2px 6px -3px rgba(255, 255, 255, .7), inset 0 -16px 24px -12px rgba(0, 0, 0, .2), 0 18px 30px -16px rgba(0, 0, 0, .6); }
 /* A/B winner: a track with a blue fill that charges, holds and drains */
@@ -6573,7 +6571,7 @@ body:has(.book-split.is-full) .site-footer { display: none; }
 @keyframes btn-slot { 0% { translate: 0 0; opacity: 1; } 50% { translate: .7em 0; opacity: 0; } 50.01% { translate: -.7em 0; opacity: 0; } 100% { translate: 0 0; opacity: 1; } }
 @media (prefers-reduced-motion: reduce) { :root:root :is(.hero2-btn, .head-cta)::before { transition: none; } :root:root :is(.hero2-btn, .head-cta):hover svg { animation: none; } }
 /* Cal.com branding strip clipped off under the booker (owner, 27 Nov 2026: "try your best to hide cal.com") */
-.cal-clip { overflow: hidden; border-radius: 12px; }
+.cal-clip { overflow: hidden; border-radius: var(--r-card); }
 .cal-clip iframe { display: block; margin-bottom: -80px; }
 
 /* ==========================================================================
@@ -6646,3 +6644,19 @@ html.js:not(.is-live) .intro *, html.js:not(.is-live) .intro { animation-play-st
 :root:root:root :is(.head-nav > a, .head-nav .mega-btn, .head-end button, .head-end > a:not(.head-cta), .brand-me, .head-nav, .head-end) { border-radius: var(--r-sm) !important; }
 :root:root:root .head-nav > a[aria-current="page"]::before, :root:root:root .head-nav .mega-btn.is-current::before { border-radius: var(--r-sm); }
 :root:root:root :is(.head-nav a.hero2-btn, .mega a.hero2-btn, .site-footer a.hero2-btn, .head-nav .mx .mx-more a) { border-radius: var(--r-sm); }
+
+/* Breadcrumbs at the small radius too, and the jump menu's current page stays one row (owner, 27 Nov 2026) */
+:root:root .crumbs a, :root:root .crumbs .crumb > [aria-current] { border-radius: var(--r-sm); }
+:root:root .crumbs .crumb-pop a { border-radius: var(--r-inner); white-space: nowrap; }
+
+/* White bands: the 3D buttons sit in a light socket, not a dark one (owner, 27 Nov 2026: "looks like a bug") */
+:root:root .band-light { --socket: #dcdce2; }
+/* Floating bits turn light while a white band is under them (html.on-light from WidgetLoops) */
+:is(.bw-tab, .to-top) { transition: background-color .25s var(--ease-out), box-shadow .25s var(--ease-out), color .25s var(--ease-out); }
+html.on-light .ask-pill { color: #111112; background: rgba(255, 255, 255, .94); box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .06), 0 0 28px -6px rgba(98, 193, 253, .38), 0 0 18px -8px rgba(143, 125, 255, .4), 0 16px 40px -16px rgba(0, 0, 0, .2); }
+html.on-light .ask-pill svg { fill: #0a6fd6; }
+@media (hover: hover) and (pointer: fine) { html.on-light .ask-pill:hover { background: #ffffff; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .06), 0 0 36px -4px rgba(98, 193, 253, .5), 0 0 24px -6px rgba(143, 125, 255, .5), 0 16px 40px -16px rgba(0, 0, 0, .2); } }
+html.on-light .bw-tab, html.on-light .bw.is-open .bw-tab { background: rgba(255, 255, 255, .92); box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .08), 0 10px 24px -12px rgba(0, 0, 0, .25); }
+html.on-light .to-top { color: #111112; background: rgba(255, 255, 255, .92); box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .08), 0 14px 34px -14px rgba(0, 0, 0, .2); }
+html.on-light .to-top svg { color: #5c5c63; }
+html.on-light .vid-bubble { box-shadow: 0 10px 24px -10px rgba(0, 0, 0, .25) !important; }

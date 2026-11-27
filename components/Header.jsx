@@ -6,7 +6,6 @@ import ResourcesMenu from "./ResourcesMenu";
 import ToolsMenu from "./ToolsMenu";
 import HeaderScroll from "./HeaderScroll";
 import BrandFace from "./BrandFace";
-import BrandRole from "./BrandRole";
 import { EMAIL } from "../lib/site";
 import HeadCta from "./HeadCta";
 import MobileMenu from "./MobileMenu";
@@ -33,7 +32,6 @@ export default function Header() {
         <Link prefetch={false} className="brand-me" href="/">
           <BrandFace />
           <span className="brand-word">Sam</span><span className="sr-only"> Vllaco, home</span>
-          <BrandRole />
         </Link>
         <nav className="head-nav" aria-label="Main">
           <ServicesMenu />
