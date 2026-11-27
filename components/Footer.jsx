@@ -6,7 +6,7 @@ import { SecretCount } from "./Seen";
 import { SITE, CERTS } from "../lib/site";
 import { SERVICES, svcHref } from "../lib/services";
 import CallIcon from "./CallIcon";
-import RouteHide from "./RouteHide";
+import RouteHide, { RouteOnly } from "./RouteHide";
 import { INDUSTRIES } from "../lib/industries";
 
 // 16 point scalloped seal, drawn once and filled with a shared gold gradient
@@ -85,7 +85,8 @@ export default function Footer() {
   return (
     <footer className="site-footer">
       {/* Lean pages (free tools, contact, work, pricing): no portrait scene, no site map, no photo (see RouteHide). */}
-      <RouteHide><FootStage /></RouteHide>
+      {/* The portrait scene shows only at the foot of the About page (owner, 27 Nov 2026: "remove from footer, add only on about") */}
+      <RouteOnly on={["/about/"]}><FootStage /></RouteOnly>
       <div className="wrap">
         {SHOW_CERTS ? (
         <div className="certs" role="group" aria-label="Certificates">

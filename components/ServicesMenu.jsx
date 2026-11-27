@@ -53,8 +53,9 @@ export default function ServicesMenu() {
           </div>
           <aside className="mx-side mx-call dark-island">
             <div className="mx-call-sky">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/sam-sky.webp" width="1891" height="832" alt="Sam Vllaco, product designer" loading="lazy" decoding="async" />
+              {/* Sam's design work playing instead of his photo (owner, 27 Nov 2026: "add animated design screens here instead of me").
+                  The panel is built on first open, so the clip only loads then. */}
+              <video src="/work/marketing-dashboard-hover.mp4" poster="/work/marketing-dashboard-700.webp" width="960" height="720" muted loop autoPlay playsInline preload="metadata" aria-hidden="true" />
               <span className="mx-live"><i aria-hidden="true" />1 to 2 new projects at a time</span>
             </div>
             <p className="mx-side-t">Users get lost. Sign-ups stall. <span>It still looks unfinished.</span></p>

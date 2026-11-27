@@ -11,3 +11,9 @@ export default function RouteHide({ on = LEAN, children }) {
   const path = usePathname() || "/";
   return on.some((p) => path.startsWith(p)) ? null : children;
 }
+
+// Renders children only on the given path prefixes.
+export function RouteOnly({ on, children }) {
+  const path = usePathname() || "/";
+  return on.some((p) => path.startsWith(p)) ? children : null;
+}

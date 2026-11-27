@@ -6969,3 +6969,6 @@ html.on-light .ask-me svg { background: #fff; }
   :root:root:root .site-footer .fo-right .ask-ai-row a:hover::before { transform: scaleX(1); }
   :root:root:root .site-footer .fo-right .ask-ai-row a:hover { background: rgba(255, 255, 255, .05); }
 }
+/* Services menu card: a clip of Sam's work in place of his photo, softly faded into the card */
+.mx-call-sky video { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 0; transform: scale(1.35); transform-origin: 50% 18%; -webkit-mask-image: linear-gradient(#000 60%, transparent); mask-image: linear-gradient(#000 60%, transparent); }
+@media (min-width: 1101px) and (max-width: 1260px) { .mx-call-sky video { -webkit-mask-image: linear-gradient(90deg, transparent, #000 40%); mask-image: linear-gradient(90deg, transparent, #000 40%); } }
