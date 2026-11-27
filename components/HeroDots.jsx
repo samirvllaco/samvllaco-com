@@ -7,7 +7,9 @@ import { useEffect } from "react";
 // redrawn, and the loop stops as soon as every dot is back home.
 const RADIUS = 110, PUSH = 28, SPRING = 0.12, DAMP = 0.78;
 // Home: the hero section. Inner pages: the page wrapper, which carries the dot layer behind every page hero.
-const HERO = ".hero2, main > .page:not(:has(> .hero2))";
+// Also the FAQ dot layer, on the white bands too (owner, 27 Nov 2026: "add magnetic dots on white mode as-well");
+// the dots take the section's own --text, so they are dark on white.
+const HERO = ".hero2, main > .page:not(:has(> .hero2)), .faq";
 
 // Reads the edge fade of hero::before ("radial-gradient(46% 80% at 86% 30%, ... 75%)") so the canvas fades the same way.
 const fadesOf = (el) => {
@@ -113,23 +115,25 @@ function mount(hero, onGone) {
 export default function HeroDots() {
   useEffect(() => {
     if (!matchMedia("(hover: hover) and (pointer: fine)").matches || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    let live = null;
+    const live = new Map(), bare = new WeakSet();
     // The canvas is made only when the pointer first reaches a hero, so first paint stays pure CSS.
-    // After a client-side page change the old canvas is gone, so the wait for the next hero starts again.
+    // After a client-side page change the old canvas is gone and drops out of the list, so the next page's layers mount fresh.
     // The dot area spans the full width, so the check is the hero's height band, read once per frame at most.
     let pending = null;
     const check = () => {
       const e = pending; pending = null;
-      const hero = document.querySelector(HERO);
-      if (!hero || live) return;
-      const r = hero.getBoundingClientRect();
-      if (e.clientY < r.top - 40 || e.clientY > r.bottom + 40) return;
-      document.removeEventListener("pointermove", first);
-      live = mount(hero, () => { live = null; document.addEventListener("pointermove", first, { passive: true }); }); live.move(e);
+      for (const hero of document.querySelectorAll(HERO)) {
+        if (live.has(hero) || bare.has(hero)) continue;
+        if (getComputedStyle(hero, "::before").backgroundImage === "none") { bare.add(hero); continue; }
+        const r = hero.getBoundingClientRect();
+        if (e.clientY < r.top - 40 || e.clientY > r.bottom + 40) continue;
+        const api = mount(hero, () => live.delete(hero));
+        live.set(hero, api); api.move(e);
+      }
     };
     const first = (e) => { if (!pending) requestAnimationFrame(check); pending = e; };
     document.addEventListener("pointermove", first, { passive: true });
-    return () => { document.removeEventListener("pointermove", first); live?.stop(); };
+    return () => { document.removeEventListener("pointermove", first); live.forEach((api) => api.stop()); };
   }, []);
   return null;
 }
