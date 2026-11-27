@@ -7,6 +7,7 @@ import { useSeen } from "./Seen";
 import PhoneApps from "./PhoneApps";
 import { PHONE_APPS } from "../lib/phones";
 import { INDUSTRIES } from "../lib/industries";
+import FollowTag from "./FollowTag";
 
 const DARK = ["room-editor", "language-player", "mobile-banking"];
 const TABS = [{ id: "all", label: "All" }, ...WORK_TAGS.filter((t) => WORK.some((w) => w.tags.includes(t))).map((t) => ({ id: t, label: t }))];
@@ -46,7 +47,7 @@ function WorkCard({ w, seen, first }) {
           <video ref={vref} className={live ? "is-live" : undefined} src={vid} muted loop playsInline preload="none" aria-hidden="true" tabIndex={-1} />
         ) : null}
         {seen ? <span className="work-seen"><svg viewBox="0 0 24 24" width="12" height="12" aria-hidden="true"><path d="M5 12.500l4.500 4.500L19 7.500" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" /></svg>Viewed</span> : null}
-        <span className="work-open" aria-hidden="true"><span className="work-open-t">View case study</span><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M7 17L17 7M9 7h8v8" /></svg></span>
+        <FollowTag />
       </span>
       <span className="work-meta">
         <span className="work-title">{w.title}</span>
@@ -63,12 +64,20 @@ export default function WorkGrid({ cap = false }) {
   const grid = useRef(null);
   const [device, setDevice] = useState("all");
   const [look, setLook] = useState("all");
-  // Filters sit behind one toggle so the work starts right under the page title (owner, 27 Nov 2026: "collapsible with
-  // toggle", "see work sooner without much scroll").
-  const [open, setOpen] = useState(false);
+  // Filters sit in one panel you can fold away; it starts open so every choice shows at first (owner, 28 Nov 2026:
+  // "at first make them all visible but collapsible", after "collapsible with toggle" on 27 Nov).
+  const [open, setOpen] = useState(true);
   const refs = useRef({});
   const seenList = useSeen();
-  const items = WORK.filter((w) => (tab === "all" || w.tags.includes(tab)) && (device === "all" || w.platform === device) && (look === "all" || (DARK.includes(w.slug) ? "dark" : "light") === look));
+  const okTab = (w, t) => t === "all" || w.tags.includes(t);
+  const okDev = (w, d) => d === "all" || w.platform === d;
+  const okLook = (w, l) => l === "all" || (DARK.includes(w.slug) ? "dark" : "light") === l;
+  const items = WORK.filter((w) => okTab(w, tab) && okDev(w, device) && okLook(w, look));
+  // How many projects each choice would show, given the other filters (owner, 28 Nov 2026: "show how many items each has").
+  const nTab = (t) => WORK.filter((w) => okTab(w, t) && okDev(w, device) && okLook(w, look)).length;
+  const nDev = (d) => WORK.filter((w) => okTab(w, tab) && okDev(w, d) && okLook(w, look)).length;
+  const nLook = (l) => WORK.filter((w) => okTab(w, tab) && okDev(w, device) && okLook(w, l)).length;
+  const Count = ({ n }) => <sup className={`wf-c${n ? "" : " is-0"}`}>{n}<span className="sr-only"> {n === 1 ? "project" : "projects"}</span></sup>;
   // Filters always show every match; the cap only applies to the unfiltered list.
   const capped = cap && !more && tab === "all" && device === "all" && look === "all";
 
@@ -129,7 +138,7 @@ export default function WorkGrid({ cap = false }) {
                       onClick={() => pick(() => setTab(tab === t.id ? "all" : t.id))}
                       onKeyDown={(e) => onKey(e, i)}
                     >
-                      {t.label}
+                      {t.label}<Count n={nTab(t.id)} />
                     </button>
                   ))}
                 </div>
@@ -138,10 +147,10 @@ export default function WorkGrid({ cap = false }) {
                 <p className="wf-k" id="wf-k-dev">Device</p>
                 <div className="device-switch" role="group" aria-labelledby="wf-k-dev">
                   <button type="button" aria-pressed={device === "desktop"} onClick={() => pick(() => setDevice(device === "desktop" ? "all" : "desktop"))}>
-                    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="12" rx="2" /><path d="M8 20h8M12 16v4" /></svg><span className="sw-l">Desktop</span>
+                    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="12" rx="2" /><path d="M8 20h8M12 16v4" /></svg><span className="sw-l">Desktop</span><Count n={nDev("desktop")} />
                   </button>
                   <button type="button" aria-pressed={device === "mobile"} onClick={() => pick(() => setDevice(device === "mobile" ? "all" : "mobile"))}>
-                    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="7" y="2.5" width="10" height="19" rx="2.5" /><path d="M11 18.500h2" /></svg><span className="sw-l">Mobile</span>
+                    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="7" y="2.5" width="10" height="19" rx="2.5" /><path d="M11 18.500h2" /></svg><span className="sw-l">Mobile</span><Count n={nDev("mobile")} />
                   </button>
                 </div>
               </div>
@@ -149,10 +158,10 @@ export default function WorkGrid({ cap = false }) {
                 <p className="wf-k" id="wf-k-look">Look</p>
                 <div className="device-switch" role="group" aria-labelledby="wf-k-look">
                   <button type="button" aria-pressed={look === "light"} onClick={() => pick(() => setLook(look === "light" ? "all" : "light"))}>
-                    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="4" /><path d="M12 2.500v2M12 19.500v2M2.500 12h2M19.500 12h2M5.300 5.300l1.400 1.400M17.300 17.300l1.400 1.400M5.300 18.700l1.400-1.400M17.300 6.700l1.400-1.400" /></svg><span className="sw-l">Light<span className="sr-only"> designs</span></span>
+                    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="4" /><path d="M12 2.500v2M12 19.500v2M2.500 12h2M19.500 12h2M5.300 5.300l1.400 1.400M17.300 17.300l1.400 1.400M5.300 18.700l1.400-1.400M17.300 6.700l1.400-1.400" /></svg><span className="sw-l">Light<span className="sr-only"> designs</span></span><Count n={nLook("light")} />
                   </button>
                   <button type="button" aria-pressed={look === "dark"} onClick={() => pick(() => setLook(look === "dark" ? "all" : "dark"))}>
-                    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M20 14.500A8 8 0 0 1 9.500 4a8 8 0 1 0 10.500 10.500z" /></svg><span className="sw-l">Dark<span className="sr-only"> designs</span></span>
+                    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M20 14.500A8 8 0 0 1 9.500 4a8 8 0 1 0 10.500 10.500z" /></svg><span className="sw-l">Dark<span className="sr-only"> designs</span></span><Count n={nLook("dark")} />
                   </button>
                 </div>
               </div>

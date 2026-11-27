@@ -7601,3 +7601,20 @@ html.js .site-footer.fp-on > * { translate: 0 var(--fp, 0px); }
   :root:root :is(.bb-x, .hp-copy):hover .tg-ico { transform: none; }
   :root:root .band-light :is(.bb-x, .hp-copy)::before { background: rgba(0, 0, 0, .06); }
 }
+
+/* "View case study" follows the cursor over a thumbnail (FollowTag.jsx, owner, 28 Nov 2026). Its centre sits on
+   --fx/--fy inside the picture; touch and keyboard keep it in its corner. */
+.wc-media { position: relative; }
+.wc-media .work-open { opacity: 0; transition: opacity .25s var(--ease-out); }
+@media (hover: hover) and (pointer: fine) {
+  .wc-link:hover .wc-media .work-open, .wc-link:focus-visible .wc-media .work-open { opacity: 1; }
+  :root:root:root .work-open.is-follow { left: 0; top: 0; right: auto; bottom: auto; translate: calc(var(--fx, 0px) - 50%) calc(var(--fy, 0px) - 50%); }
+  .work-card .work-media, .wc-media { cursor: pointer; }
+}
+@media (hover: none), (pointer: coarse) { .wc-media .work-open { display: none; } }
+
+/* Filter counts, small and raised after each label like a footnote (owner, 28 Nov 2026) */
+.wf-c { margin-left: 4px; font-size: .6875rem; font-weight: 500; line-height: 0; vertical-align: super; color: var(--muted); font-variant-numeric: tabular-nums; }
+.wf-box .tags button[aria-selected="true"] .wf-c, .wf-box .device-switch button[aria-pressed="true"] .wf-c { color: inherit; opacity: .7; }
+.wf-c.is-0 { opacity: .5; }
+.device-switch .wf-c { align-self: flex-start; margin: 8px 0 0 -4px; line-height: 1; }
