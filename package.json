@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "npx serve out"
+    "start": "npx serve out",
+    "prebuild": "node scripts/llms-full.mjs"
   },
   "dependencies": {
     "locomotive-scroll": "^5.0.1",

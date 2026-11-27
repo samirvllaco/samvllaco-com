@@ -5,3 +5,4 @@ out
 agent/
 contrast-report.json
 .wrangler/
+/public/llms-full.txt
