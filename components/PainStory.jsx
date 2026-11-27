@@ -20,8 +20,6 @@ export default function PainStory() {
         <path d="M1000 0 C1000 80 600 50 600 140" />
       </svg>
       <div className="pn-fix">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img className="pn-me" src="/me/ai/ai6-tall.webp?v=1" width="800" height="999" alt="Sam Vllaco, product designer, explaining a design" loading="lazy" decoding="async" />
         <div className="pn-fix-copy">
           <p className="pn-k">The fix for all three</p>
           <h3>The product is almost never the problem. <span className="t2">It just isn't clear yet.</span></h3>
@@ -34,8 +32,8 @@ export default function PainStory() {
           <p className="pn-me-line">The process of an agency, without the handoffs. You talk to me from the first call to the last file. <span className="pn-sign scr">Sam</span></p>
         </div>
         <div className="pn-cta">
-          <a className="hero2-btn hero2-btn-primary" href="/book/"><CallIcon />Show me what you're building</a>
-          <p className="pn-note">30-minute call. You get a fixed price after it.</p>
+          <a className="hero2-btn hero2-btn-primary" href="/book/">Start a project<CallIcon /></a>
+          <p className="pn-note">You get a plan and a fixed price before any work starts.</p>
         </div>
       </div>
     </section>

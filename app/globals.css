@@ -7417,9 +7417,11 @@ html.on-light .edge-blur { opacity: 0; }
 :root:root:root .tw > h2 { margin: 0 !important; } :root:root:root .tw > h2 + p { margin-top: 0 !important; }
 
 /* About portrait with the spec lens (AboutPortrait.jsx) */
-.ap { position: relative; margin: 0; aspect-ratio: 1; border-radius: var(--r-card); overflow: hidden; background: #111112; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .08); cursor: crosshair; touch-action: pan-y; }
-.ap > img { display: block; width: 100%; height: 100%; object-fit: cover; }
-.ap-cv { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.ap { position: relative; z-index: 2; margin: 0; aspect-ratio: 1; cursor: crosshair; touch-action: pan-y; }
+.ap-pic { position: absolute; inset: 0; overflow: hidden; border-radius: var(--r-card); background: #111112; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .08); }
+.ap-pic > img { display: block; width: 100%; height: 100%; object-fit: cover; }
+/* The canvas is 140px bigger on every side so the lens can run past the photo onto the page */
+.ap-cv { position: absolute; left: -140px; top: -140px; width: calc(100% + 280px); height: calc(100% + 280px); pointer-events: none; }
 .ap-hint { position: absolute; left: 12px; bottom: 12px; padding: 4px 10px; border-radius: var(--r-sm); font-size: .75rem; font-weight: 500; color: #d4d4d8; background: rgba(17, 17, 18, .7); transition: opacity .3s var(--ease-out); }
 .ap:hover .ap-hint { opacity: 0; }
 .ap-touch { display: none; }
@@ -7471,3 +7473,6 @@ html.on-light .edge-blur { opacity: 0; }
 @media (min-width: 1261px) { html.is-scrolled.is-scrolled.is-scrolled .brand-me img.brand-face { margin-right: 12px; } }
 :root:root:root .eb-pk-me img, :root:root:root img.eb-pk-me { border-radius: var(--r-sm); }
 :root:root:root .tm-track > .tm-card .tm-tags > * { flex: none; } :root:root:root .tm-track > .tm-card .tm-tags .tg-btn { white-space: nowrap; }
+
+/* Sound familiar on About: no photo, the fix copy takes the full width */
+:root:root:root .pn-fix:not(:has(.pn-me)) { grid-template-columns: minmax(0, 1fr); }
