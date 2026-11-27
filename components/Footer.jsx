@@ -64,10 +64,9 @@ function FootMap() {
         <p><b>Sam Vllaco</b><span>UI/UX and product designer for SaaS and AI products</span></p>
         <ul className="fm-co">{COMPANY.map(([t, href]) => <li key={href}><a href={href}>{t}</a></li>)}</ul>
         <ul className="fm-soc">
-          {SOCIAL.map(([t, href, icon, handle, follow]) => (
+          {SOCIAL.map(([t, href, icon, handle]) => (
             <li key={href}>
               <a href={href} target="_blank" rel="me noopener"><svg className="fm-ico" viewBox="0 0 24 24" aria-hidden="true"><path d={ICON[icon]} /></svg><span>{t}</span><span className="sr-only"> {handle}</span><span className="sr-only"> (opens in a new tab)</span></a>
-              {icon === "x" ? <a className="hero2-btn hero2-btn-light fm-follow" href={follow} target="_blank" rel="noopener">Follow<span className="sr-only"> on {t} (opens in a new tab)</span></a> : null}
             </li>
           ))}
         </ul>
