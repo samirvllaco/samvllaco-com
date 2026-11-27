@@ -1,7 +1,6 @@
 import Link from "next/link";
 import AskAI from "./AskAI";
 import CopyEmail from "./CopyEmail";
-import FootStage from "./FootStage";
 import { SecretCount } from "./Seen";
 import { SITE, CERTS } from "../lib/site";
 import { SERVICES, svcHref } from "../lib/services";
@@ -82,16 +81,16 @@ function FootMap() {
   );
 }
 
-// Pages without the wall of screens at the foot: the lean pages and About (it has the portrait scene there).
-// (Same list as LEAN in RouteHide.jsx plus /about/; a "use client" module cannot hand plain values to this server file.)
-const WALL_OFF = ["/tools/", "/slop-score/", "/book/", "/work/", "/pricing/", "/about/"];
+// Pages without the wall of screens at the foot: the lean pages.
+// (Same list as LEAN in RouteHide.jsx; a "use client" module cannot hand plain values to this server file.)
+const WALL_OFF = ["/tools/", "/slop-score/", "/book/", "/work/", "/pricing/"];
 
 export default function Footer() {
   return (
     <footer className="site-footer">
       {/* Lean pages (free tools, contact, work, pricing): no portrait scene, no site map, no photo (see RouteHide). */}
       {/* The portrait scene shows only at the foot of the About page (owner, 27 Nov 2026: "remove from footer, add only on about") */}
-      <RouteOnly on={["/about/"]}><FootStage /></RouteOnly>
+      {/* The portrait scene (FootStage.jsx) is off everywhere (owner, 27 Nov 2026: "hide this from everywhere"). */}
       {/* The closing call over the wall of screens (owner, 27 Nov 2026). Lean pages and About keep the plain call below. */}
       <RouteHide on={WALL_OFF}>
         <ScreenWall cta={<>

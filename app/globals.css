@@ -7090,3 +7090,29 @@ html.on-light .ask-me svg { background: #fff; }
 .hb-chip .hero-badge-t { justify-items: start; }
 @media (max-width: 480px) { :root:root:root .hero-badge.hb-av { letter-spacing: .06em; } .hb-chip .hero-badge-t > span { white-space: nowrap; text-align: left; } }
 @media (prefers-reduced-motion: reduce) { .hb-dot::after { animation: none; opacity: 0; } }
+
+/* Home work carousel (owner, 27 Nov 2026: "dont add filters in homepage, just show carousel and view all, show work
+   best screens"): one row of case study cards that scrolls sideways with snap; three cards on desktop, two on tablets,
+   one and a peek on phones. Arrows sit above the row on the right; "View all work" is centred under it. */
+.wc { display: grid; gap: 16px; }
+.wc-nav { display: flex; justify-content: flex-end; gap: 8px; }
+.wc-nav .sd-btn:disabled { opacity: .35; cursor: default; }
+.wc-track { display: grid; grid-auto-flow: column; grid-auto-columns: calc((100% - 2 * var(--gap-grid, 20px)) / 3); column-gap: var(--gap-grid, 20px); margin: 0; padding: 0; list-style: none; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scrollbar-width: none; border-radius: var(--r-card); }
+.wc-track::-webkit-scrollbar { display: none; }
+.wc-track:focus-visible { outline: 3px solid rgba(98, 193, 253, .6); outline-offset: 4px; }
+@media (max-width: 1023px) { .wc-track { grid-auto-columns: calc((100% - var(--gap-grid, 20px)) / 2); } }
+@media (max-width: 640px) { .wc-track { grid-auto-columns: 86%; } .wc-nav { display: none; } }
+.wc-card { scroll-snap-align: start; min-width: 0; }
+.wc-link { display: flex; flex-direction: column; height: 100%; padding: 12px; border-radius: var(--r-card); background: #1c1c1f; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .08); color: var(--text); text-decoration: none; transition: box-shadow .25s var(--ease-out); }
+.wc-link:hover { box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .16); }
+.wc-link:focus-visible { outline: 3px solid rgba(98, 193, 253, .6); outline-offset: 2px; }
+.wc-media { display: block; aspect-ratio: 4 / 3; border-radius: var(--r-inner); overflow: hidden; background: #232326; }
+.wc-media img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.wc-body { display: grid; gap: 8px; padding: 20px 12px 12px; }
+.wc-t { font-size: 1.25rem; line-height: 1.4; font-weight: 500; letter-spacing: -.02em; }
+.wc-s { font-size: .9375rem; line-height: 1.5; letter-spacing: -.011em; color: var(--muted); }
+.wc-go { display: inline-flex; align-items: center; gap: 8px; margin-top: 8px; font-size: .875rem; font-weight: 600; color: var(--text); }
+.wc-go svg { width: 16px; height: 16px; transition: translate .25s var(--ease-out); }
+.wc-link:hover .wc-go svg { translate: 3px 0; }
+:root:root .wc-all { display: flex; justify-content: center; margin-top: var(--gap-content, 40px); }
+:root:root:root #work .work-lede + .wc { margin-top: var(--gap-content, 40px); }

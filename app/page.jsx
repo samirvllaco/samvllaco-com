@@ -1,4 +1,5 @@
 import CopyEmailInline from "../components/HirePanelCopy";
+import Link from "next/link";
 import { WORK } from "../lib/work";
 import SkyPhoto from "../components/SkyPhoto";
 import fs from "fs";
@@ -14,7 +15,7 @@ import { STATS } from "../lib/stats";
 import SectionColors from "../components/SectionColors";
 import { MEDIUM_PATH } from "../lib/medium-logo";
 import ArticleMark from "../components/ArticleMark";
-import WorkGrid from "../components/WorkGrid";
+import WorkCarousel from "../components/WorkCarousel";
 import HeroQuote, { QUOTE_DAY } from "../components/HeroQuote";
 import HowIWork from "../components/HowIWork";
 import Fixes from "../components/Fixes";
@@ -139,7 +140,8 @@ export default function Home() {
       <section id="work" className="stack work" data-bg="#171719">
           <h2>Work <span className="t2">that shipped</span></h2>
           <p className="work-lede">Real products with real users. Some names are changed because the work is under NDA.</p>
-          <WorkGrid cap />
+          <WorkCarousel items={WORK.map((w) => ({ slug: w.slug, title: w.title, sub: w.sub, alt: w.alt, small: w.small }))} />
+          <div className="wc-all"><Link prefetch={false} className="hero2-btn hero2-btn-light" href="/work/">View all work</Link></div>
       </section>
 
       <Fixes />
