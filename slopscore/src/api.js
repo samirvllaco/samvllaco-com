@@ -489,3 +489,54 @@ export async function handleAudit(ctx) {
     return json({ error: "server" }, 422);
   }
 }
+
+// Send a message (owner, 28 Nov 2026: a "Book a call / Send message" switch on /book/ "so they can message us on the
+// contact form as well"). Same shape as the free audit: kept in D1 when bound, emailed to Sam with the visitor as
+// reply-to, a hidden field and 5 messages per visitor a day against spam.
+export async function handleMessage(ctx) {
+  const { request, env } = ctx;
+  const path = new URL(request.url).pathname.replace(/^\/api\/message\/?/, "").replace(/\/$/, "");
+  try {
+    if (path === "status" && request.method === "GET") return json({ ready: Boolean(env.DB || mailReady(env)), saving: Boolean(env.DB), emailing: mailReady(env) });
+    if (path === "admin/messages.csv") {
+      if (!admin(request, env)) return fail("forbidden", 403);
+      if (!env.DB) return fail("no_db", 404);
+      await ensureSchema(env);
+      const { results } = await env.DB.prepare("SELECT created_at, name, email, company, message, mailed FROM messages ORDER BY created_at DESC LIMIT 2000").all();
+      const rows = ["created_at,name,email,company,message,mailed", ...results.map((r) => [r.created_at, r.name, r.email, r.company, r.message, r.mailed].map(csv).join(","))];
+      return new Response(rows.join("\n"), { headers: { "content-type": "text/csv; charset=utf-8", "cache-control": "no-store" } });
+    }
+    if (path !== "" || request.method !== "POST") return fail("not_found", 404);
+    const b = await request.json().catch(() => ({}));
+    if (b.website2) return json({ ok: true });
+    const name = clip(b.name, 80), email = clip(b.email, 200).toLowerCase(), company = clip(b.company, 200), message = clip(b.message, 4000);
+    if (!EMAIL.test(email)) return fail("email");
+    if (message.trim().length < 10) return fail("message");
+    if (!env.DB && !mailReady(env)) return fail("unavailable", 422);
+    const ip = await sha(`${ipOf(request)}:${new Date().toISOString().slice(0, 10)}`);
+    if (env.CACHE) {
+      const k = `msg:${ip}`, n = Number((await env.CACHE.get(k)) || 0);
+      if (n >= 5) return fail("limit", 429);
+      await env.CACHE.put(k, String(n + 1), { expirationTtl: 90000 });
+    }
+    const id = newId(), at = new Date().toISOString();
+    if (env.DB) { await ensureSchema(env); await env.DB.prepare("INSERT INTO messages (id, name, email, company, message, created_at) VALUES (?, ?, ?, ?, ?, ?)").bind(id, name, email, company, message, at).run(); }
+    const e = (v) => String(v).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
+    let mailed = false;
+    try {
+      const r = await sendToSam(env, `New message from ${name || email}`, [
+        `<b>${e(name || "Someone")}</b> (${e(email)}) sent a message from samvllaco.com/book/.`,
+        company ? `Company or product: ${e(company)}` : "",
+        `${e(message).replace(/\n/g, "<br>")}`,
+        "Reply to this email to answer them directly.",
+      ].filter(Boolean), email);
+      mailed = Boolean(r && r.ok);
+    } catch (err) { console.error(JSON.stringify({ message_mail: String(err.message || err).slice(0, 160) })); }
+    if (mailed && env.DB) await env.DB.prepare("UPDATE messages SET mailed = 1 WHERE id = ?").bind(id).run();
+    if (!mailed && !env.DB) return fail("unavailable", 422);
+    return json({ ok: true });
+  } catch (err) {
+    console.error(JSON.stringify({ message: String(err.message || err).slice(0, 200) }));
+    return json({ error: "server" }, 422);
+  }
+}
