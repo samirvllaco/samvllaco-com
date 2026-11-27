@@ -1,7 +1,6 @@
 import CalFrame from "../../components/CalFrame";
 import { BookAlt } from "../../components/BookBand";
 import Link from "next/link";
-import PageHead from "../../components/PageHead";
 import CallIcon from "../../components/CallIcon";
 import { EMAIL, SITE, BOOKING_URL, FORM_ENDPOINT } from "../../lib/site";
 import { SERVICES } from "../../lib/services";
@@ -17,19 +16,13 @@ export const metadata = {
   twitter: { card: "summary_large_image", title: TITLE, description: DESC, images: ["/og-book-call-2.jpg"], site: SITE.handle, creator: SITE.handle },
 };
 
-const STEPS = [
-  { t: "30 minutes", d: "Pick a slot and tell me what you are building and roughly what you want to spend, so I come prepared." },
-  { t: "With me, not a sales rep", d: "I take every call myself and I am the one who designs your product." },
-  { t: "One clear next step", d: "We check the fit and agree on one next step: scope, audit, sprint or monthly plan." },
-];
 
 export default function Book() {
   return (
     <div className="wrap page pg svc">
-      <div className="book-split">
-      <div className="book-side">
-      <PageHead crumb="Contact" href="/book/" a="Let's" b="talk" lede="Pick a time. You talk to me, not a sales team." />
-      </div>
+      {/* Only the calendar, full width (owner, 27 Nov 2026: "remove all text, keep the main frame bigger, full width") */}
+      <h1 className="sr-only">Book a call with Sam Vllaco</h1>
+      <div className="book-split is-full">
       {BOOKING_URL ? (
         <section className="book-cal" id="calendar" aria-label="Pick a time">
           <CalFrame src={`${BOOKING_URL}?embed=true&theme=dark&layout=month_view`} />

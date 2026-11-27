@@ -6519,3 +6519,8 @@ html.is-live .ask-pill::before { animation-play-state: running; }
 @keyframes wg-sweep { 0%, 10% { translate: 0 -100%; opacity: 0; } 14% { opacity: 1; } 44% { translate: 0 0; opacity: 1; } 50%, 100% { translate: 0 0; opacity: 0; } }
 @media (prefers-reduced-motion: reduce) { .bx-proc .w4-bars i.win::before, .wg-sweep { animation: none !important; } }
 :root:root:root:root .bx-soft .bx-world h3.bx-t { padding-left: 12px; }
+/* Contact: the calendar alone, across the full content box */
+:root:root .book-split.is-full { display: block; padding-top: 32px; }
+:root:root .book-split.is-full .bb-alt { max-width: none; }
+/* Cal.com caps its month view near 1040px; scale the frame up so it fills the content box on wide screens */
+@media (min-width: 1200px) { :root:root .book-split.is-full .book-cal iframe { zoom: 1.2; } }
