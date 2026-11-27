@@ -7638,3 +7638,32 @@ html.js .site-footer.fp-on > * { translate: 0 var(--fp, 0px); }
 .cs-switch button:focus-visible { outline: 3px solid rgba(98, 193, 253, .6); outline-offset: 2px; }
 .cs-msg { width: min(760px, 100%); justify-self: center; }
 @media (max-width: 640px) { .cs-switch { justify-self: stretch; } .cs-switch button { min-width: 0; padding: 0 12px; } }
+
+/* Chrome keycap for the AI buttons (owner, 28 Nov 2026, after adamperlis.com's "Run" key): a brushed silver face, a
+   bevelled metal rim with a faint pink and blue sheen that turns slowly (the old gradient ring, recoloured), dark ink,
+   a soft drop. Pressing sinks it 1px. Used on the "Ask Sam's AI" pill and the chat's send button. */
+:root:root:root :is(.ask-pill, html.on-light .ask-pill) {
+  color: #16161a;
+  background: linear-gradient(180deg, #fdfdfe 0%, #ececf0 46%, #d5d6dc 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .95), inset 0 -2px 3px rgba(0, 0, 0, .14), 0 1px 1px rgba(0, 0, 0, .35), 0 12px 28px -12px rgba(0, 0, 0, .6);
+  --wipe: rgba(0, 0, 0, .06);
+}
+:root:root:root .ask-pill::before {
+  padding: 2px;
+  background: conic-gradient(from var(--ask-a), #ffffff, #8b8e97 12%, #f4f4f6 25%, #d9c3e6 37%, #ffffff 50%, #7f838d 62%, #eef2f8 75%, #bcd6ee 87%, #ffffff);
+}
+:root:root:root .ask-pill svg { fill: #2a2a31; }
+@media (hover: hover) and (pointer: fine) {
+  :root:root:root :is(.ask-pill, html.on-light .ask-pill):hover { background: linear-gradient(180deg, #ffffff 0%, #f1f1f4 46%, #dadbe1 100%); box-shadow: inset 0 1px 0 #ffffff, inset 0 -2px 3px rgba(0, 0, 0, .12), 0 1px 1px rgba(0, 0, 0, .35), 0 14px 32px -12px rgba(0, 0, 0, .6); }
+}
+:root:root:root .ask-pill:active { scale: 1; translate: -50% 1px; box-shadow: inset 0 1px 2px rgba(0, 0, 0, .18), inset 0 -1px 0 rgba(255, 255, 255, .6), 0 0 0 rgba(0, 0, 0, 0); }
+
+:root:root:root .ask-send {
+  color: #1b1b1f; border-radius: var(--r-sm); border: 1.5px solid transparent;
+  background: linear-gradient(180deg, #fdfdfe 0%, #ececf0 46%, #d5d6dc 100%) padding-box,
+    conic-gradient(from 210deg, #ffffff, #8b8e97 12%, #f4f4f6 25%, #d9c3e6 37%, #ffffff 50%, #7f838d 62%, #eef2f8 75%, #bcd6ee 87%, #ffffff) border-box;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .95), inset 0 -2px 3px rgba(0, 0, 0, .14), 0 1px 1px rgba(0, 0, 0, .35), 0 6px 14px -6px rgba(0, 0, 0, .55);
+  transition: opacity .25s var(--ease-out), translate .15s var(--ease-out), box-shadow .15s var(--ease-out);
+}
+:root:root:root .ask-send:disabled { opacity: .5; }
+:root:root:root .ask-send:not(:disabled):active { scale: 1; translate: 0 1px; box-shadow: inset 0 1px 2px rgba(0, 0, 0, .2), 0 0 0 rgba(0, 0, 0, 0); }
