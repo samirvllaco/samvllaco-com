@@ -7540,3 +7540,20 @@ html.on-light .edge-blur { opacity: 0; }
 /* One popup at a time: the breadcrumb "Jump to" menu opens on hover or keyboard focus only (a click no longer pins it
    open), and steps aside while a header menu is out (owner, 27 Nov 2026: "fix 2 dropdown open bug"). */
 html.mega-open .crumb-home .crumb-pop { opacity: 0 !important; visibility: hidden !important; pointer-events: none; }
+
+/* Bento motion in code (owner, 27 Nov 2026): numbers count up once (CountUp.jsx) with their width held by a hidden copy;
+   the Worldwide facts rise in one by one from inside their own boxes (transform in a clip, so text keeps its contrast). */
+.cu { position: relative; display: inline-grid; font-variant-numeric: tabular-nums; }
+.cu-w { visibility: hidden; grid-area: 1 / 1; }
+.cu-v { grid-area: 1 / 1; text-align: left; }
+html.js .bx-world[data-reveal] .wf-facts > div { overflow: hidden; }
+html.js .bx-world[data-reveal] .wf-facts > div > * { transform: translateY(110%); transition: transform .5s var(--ease-out); }
+html.js .bx-world[data-reveal].is-shown .wf-facts > div > * { transform: none; }
+html.js .bx-world[data-reveal].is-shown .wf-facts > div:nth-child(1) > * { transition-delay: .15s; }
+html.js .bx-world[data-reveal].is-shown .wf-facts > div:nth-child(2) > * { transition-delay: .25s; }
+html.js .bx-world[data-reveal].is-shown .wf-facts > div:nth-child(3) > * { transition-delay: .35s; }
+html.js .bx-world[data-reveal].is-shown .wf-facts > div:nth-child(4) > * { transition-delay: .45s; }
+html.js .bx-world[data-reveal].is-shown .wf-facts > div > dd { transition-duration: .6s; }
+@media (prefers-reduced-motion: reduce) { html.js .bx-world[data-reveal] .wf-facts > div > * { transform: none; transition: none; } }
+:root:root:root .bx-stat b .cu, :root:root:root .bx-stat b .cu span { font: inherit; color: inherit; letter-spacing: inherit; margin: 0; padding: 0; }
+:root:root:root .bx-stat b .cu > span { grid-area: 1 / 1; }

@@ -4,12 +4,14 @@ import SwipeDeck from "./SwipeDeck";
 import Toolbox from "./Toolbox";
 import BuildIn from "./BuildIn";
 import FactRow from "./FactRow";
+import CountUp from "./CountUp";
 import { WALL } from "../lib/wall";
 import { WORK } from "../lib/work";
 
 // Home: a short bento about Sam. Glossy widget cards with words and numbers only (owner, 27 Nov 2026:
 // "hide all bento illustrations keep only boxes"). Each fact shows once: the stats row, then work and the
-// worldwide list (base, live time, the US overlap, where clients are).
+// worldwide list (base, live time, the US overlap, where clients are). Motion is in code (owner, 27 Nov 2026): the
+// numbers count up once, and the Worldwide facts rise in one by one.
 const Go = ({ children }) => <span className="bx-go">{children} <span aria-hidden="true">→</span></span>;
 const TOOLS = ["Figma", "FigJam", "Photoshop", "Illustrator", "After Effects", "Claude", "ChatGPT"];
 
@@ -55,15 +57,15 @@ export default function Bento() {
         <div className="bx-stats">
           <div className="dark-island bx-card bx-stat wg" data-loop>
             <p className="wg-k">Experience</p>
-            <b>10</b><span>Years of experience</span>
+            <CountUp to={10} ms={900} /><span>Years of experience</span>
           </div>
           <div className="dark-island bx-card bx-stat wg" data-loop>
             <p className="wg-k">Clients</p>
-            <b>573</b><span>Clients served</span>
+            <CountUp to={573} /><span>Clients served</span>
           </div>
           <div className="dark-island bx-card bx-stat wg" data-loop>
             <p className="wg-k">Screens</p>
-            <b>10,000+</b><span>Screens designed</span>
+            <CountUp to={10000} suffix="+" ms={1800} /><span>Screens designed</span>
           </div>
         </div>
         <div className="dark-island bx-card bx-work bx-deck" data-reveal>
