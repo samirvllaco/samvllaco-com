@@ -1,6 +1,6 @@
 // Slop Score API on Cloudflare Pages Functions. Routed from functions/api/slop-score/[[path]].js.
 // Bindings: SCANNER (service binding to the samvllaco-scanner Worker, which holds Browser Rendering; or BROWSER directly), DB (D1 "slop_score"), CACHE (KV).
-// Secrets: ANTHROPIC_API_KEY, TURNSTILE_SECRET_KEY, RESEND_API_KEY (report and follow-up emails), WHOP_API_KEY, WHOP_WEBHOOK_SECRET, ADMIN_TOKEN.
+// Secrets: ANTHROPIC_API_KEY, TURNSTILE_SECRET_KEY, RESEND_API_KEY and BREVO_API_KEY (report and follow-up emails; Brevo when Resend is full), WHOP_API_KEY, WHOP_WEBHOOK_SECRET, ADMIN_TOKEN.
 // Variables: TURNSTILE_SITE_KEY, STRIPE_REPORT_LINK ($5 report Payment Link; secret STRIPE_WEBHOOK_SECRET), WHOP_ACCOUNT_ID, WHOP_REPORT_PLAN_ID (optional: WHOP_API_BASE, SLOP_MODEL).
 import { SLOP } from "../config.js";
 import { checkUrl } from "./url.js";
@@ -12,7 +12,7 @@ import { SCHEMA } from "./schema.js";
 import { view } from "./view.js";
 import { ASK, SYSTEM, cleanMessages, sseToText } from "./ask.js";
 import { EST, take, settle, hasBudget } from "./budget.js";
-import { runDrip, sendReportNow } from "./mail.js";
+import { mailReady, runDrip, sendReportNow } from "./mail.js";
 import { verifyStripe, paidSession } from "./stripe.js";
 
 let schemaReady = false;
@@ -193,7 +193,7 @@ async function lead(ctx) {
   await env.DB.batch(writes);
   if (report && ctx.waitUntil) ctx.waitUntil(runDrip(env).catch(() => {}));
   if (!report) return json({ ok: true });
-  return json({ ok: true, emailing: Boolean(env.RESEND_API_KEY) });
+  return json({ ok: true, emailing: mailReady(env) });
 }
 
 // Stripe: a paid $5 Payment Link session unlocks its report and emails the full report to the buyer.
@@ -237,7 +237,7 @@ async function unsubscribe(request, env) {
 // Pages has no cron, so due emails go out on site traffic: at most every 10 minutes, after the response is sent.
 async function maybeDrip(ctx) {
   const { env } = ctx;
-  if (!env.RESEND_API_KEY || !env.DB || !env.CACHE || !ctx.waitUntil) return;
+  if (!mailReady(env) || !env.DB || !env.CACHE || !ctx.waitUntil) return;
   if (await env.CACHE.get("drip:lock")) return;
   await env.CACHE.put("drip:lock", "1", { expirationTtl: 600 });
   ctx.waitUntil(ensureSchema(env).then(() => runDrip(env)).catch((e) => console.error(JSON.stringify({ drip: String(e.message).slice(0, 120) }))));

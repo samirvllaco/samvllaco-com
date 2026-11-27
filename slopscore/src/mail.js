@@ -1,7 +1,9 @@
 // Slop Score email flow. A visitor leaves an email to unlock the full report; the report email goes out at once,
 // and visitors who ticked the tips box get three short follow-ups (book, designer review, sprint).
-// Sending uses Resend (free tier) through RESEND_API_KEY. Without the key, nothing is sent and rows wait in D1,
-// so the first emails go out as soon as the key is added. Every email has a one-click unsubscribe link.
+// Sending uses two free senders, in order: Resend (RESEND_API_KEY, capped at 90 a day of its 100) and Brevo
+// (BREVO_API_KEY, capped at 280 a day of its 300), each counted per UTC day in CACHE. When Resend's share is used up
+// or it refuses, Brevo sends. Without any key nothing is sent and rows wait in D1, so the first emails go out as
+// soon as a key is added. Every email has a one-click unsubscribe link.
 import { EMAIL } from "../../lib/site.js";
 import { PERSONAL_REVIEW_URL, REVIEW_URL } from "../../lib/site.js";
 import { WEEK_PRICE, usd } from "../../lib/plans.js";
@@ -91,21 +93,69 @@ export function render(step, d) {
   };
 }
 
-export async function send(env, to, step, d) {
-  if (!env.RESEND_API_KEY) return { skipped: true };
+// The senders, tried in order. max = how many a day this site lets each one send (below its free limit).
+const SENDERS = [
+  {
+    name: "resend", key: "RESEND_API_KEY", max: 90,
+    request: (apiKey, m) => ["https://api.resend.com/emails", { authorization: `Bearer ${apiKey}` }, {
+      from: `${m.name} <${m.address}>`, to: [m.to], reply_to: m.replyTo, subject: m.subject, html: m.html, text: m.text, headers: m.headers,
+    }],
+  },
+  {
+    name: "brevo", key: "BREVO_API_KEY", max: 280,
+    request: (apiKey, m) => ["https://api.brevo.com/v3/smtp/email", { "api-key": apiKey, accept: "application/json" }, {
+      sender: { name: m.name, email: m.address }, to: [{ email: m.to }], replyTo: { email: m.replyTo },
+      subject: m.subject, htmlContent: m.html, textContent: m.text, headers: m.headers,
+    }],
+  },
+];
+export const DAILY_MAX = Object.fromEntries(SENDERS.map((x) => [x.name, x.max]));
+
+const senders = (env) => SENDERS.filter((x) => env && env[x.key]);
+export const mailReady = (env) => senders(env).length > 0;
+const dayKey = (name) => `mail:${new Date().toISOString().slice(0, 10)}:${name}`;
+const usedToday = async (env, name) => (env.CACHE ? Number((await env.CACHE.get(dayKey(name))) || 0) : 0);
+
+// How many more emails can go out today across all senders.
+export async function roomToday(env) {
+  let room = 0;
+  for (const x of senders(env)) room += Math.max(0, x.max - (await usedToday(env, x.name)));
+  return room;
+}
+
+// Sends one email through the first sender with room left that accepts it. Throws "<sender> <status>: ..." when
+// none does; a 429 in that message means every sender is full for today.
+export async function send(env, to, step, d, fetcher = fetch) {
+  const list = senders(env);
+  if (!list.length) return { skipped: true };
   const { subject, paras } = render(step, d);
   const from = env.MAIL_FROM || `Sam Vllaco <${EMAIL}>`;
-  const r = await fetch("https://api.resend.com/emails", {
-    method: "POST",
-    headers: { authorization: `Bearer ${env.RESEND_API_KEY}`, "content-type": "application/json" },
-    body: JSON.stringify({
-      from, to: [to], reply_to: EMAIL, subject,
-      html: layout(paras, d.unsub), text: text(paras, d.unsub),
-      headers: { "List-Unsubscribe": `<${d.unsub}>`, "List-Unsubscribe-Post": "List-Unsubscribe=One-Click" },
-    }),
-  });
-  if (!r.ok) throw new Error(`resend ${r.status}: ${(await r.text().catch(() => "")).slice(0, 120)}`);
-  return { ok: true };
+  const [, name = "Sam Vllaco", address = EMAIL] = from.match(/^\s*(.*?)\s*<([^>]+)>\s*$/) || [null, "Sam Vllaco", from];
+  const m = {
+    name, address, to, replyTo: EMAIL, subject, html: layout(paras, d.unsub), text: text(paras, d.unsub),
+    headers: { "List-Unsubscribe": `<${d.unsub}>`, "List-Unsubscribe-Post": "List-Unsubscribe=One-Click" },
+  };
+  let last = "quota 429: every sender is at its daily cap";
+  for (const x of list) {
+    const used = await usedToday(env, x.name);
+    if (used >= x.max) continue;
+    const [url, headers, body] = x.request(env[x.key], m);
+    let r;
+    try {
+      r = await fetcher(url, { method: "POST", headers: { ...headers, "content-type": "application/json" }, body: JSON.stringify(body) });
+    } catch (e) {
+      last = `${x.name} 0: ${String(e.message).slice(0, 100)}`;
+      continue;
+    }
+    if (r.ok) {
+      if (env.CACHE) await env.CACHE.put(dayKey(x.name), String(used + 1), { expirationTtl: 90000 });
+      return { ok: true, via: x.name };
+    }
+    last = `${x.name} ${r.status}: ${(await r.text().catch(() => "")).slice(0, 120)}`;
+    // A full sender stays skipped for the rest of the day.
+    if (r.status === 429 && env.CACHE) await env.CACHE.put(dayKey(x.name), String(x.max), { expirationTtl: 90000 });
+  }
+  throw new Error(last);
 }
 
 const details = (row, report) => {
@@ -120,15 +170,13 @@ const details = (row, report) => {
 };
 
 // Sends whatever is due: the report email to everyone, follow-ups only with consent. Small batches, safe to run often.
-// Resend's free plan allows 100 emails a day; stop at 90 so nothing ever needs a paid plan.
-export const DAILY_MAX = 90;
-
+// Each sender stops below its free plan's daily limit (DAILY_MAX), so nothing ever needs a paid plan.
 export async function runDrip(env, limit = 15) {
-  if (!env.DB || !env.RESEND_API_KEY) return 0;
-  const now = Date.now(), dayKey = `mail:${new Date(now).toISOString().slice(0, 10)}`;
-  let today = env.CACHE ? Number((await env.CACHE.get(dayKey)) || 0) : 0;
-  if (today >= DAILY_MAX) return 0;
-  limit = Math.min(limit, DAILY_MAX - today);
+  if (!env.DB || !mailReady(env)) return 0;
+  const now = Date.now();
+  const room = await roomToday(env);
+  if (room <= 0) return 0;
+  limit = Math.min(limit, room);
   const { results } = await env.DB.prepare("SELECT * FROM drip WHERE unsub = 0 AND next_at <= ? AND step < ? AND (step = 0 OR consent = 1) ORDER BY next_at LIMIT ?").bind(now, STEPS.length, limit).all();
   let sent = 0;
   for (const row of results) {
@@ -137,12 +185,11 @@ export async function runDrip(env, limit = 15) {
     try {
       await send(env, row.email, step, details(row, report));
       sent++;
-      today++;
     } catch (e) {
       const err = String(e.message).slice(0, 120);
       console.error(JSON.stringify({ drip: row.id, step, err }));
-      // Over the provider's quota: try the whole batch again later, no strike against this address.
-      if (/^resend 429/.test(err)) { await env.DB.prepare("UPDATE drip SET next_at = ? WHERE id = ?").bind(now + 3600000, row.id).run(); break; }
+      // Every sender full: try the whole batch again later, no strike against this address.
+      if (/^\w+ 429/.test(err)) { await env.DB.prepare("UPDATE drip SET next_at = ? WHERE id = ?").bind(now + 3600000, row.id).run(); break; }
       // Anything else: retry in an hour, give up on this address after 3 failed tries.
       const tries = (row.tries || 0) + 1;
       await env.DB.prepare("UPDATE drip SET tries = ?, next_at = ?, unsub = ? WHERE id = ?").bind(tries, now + 3600000, tries >= 3 ? 1 : 0, row.id).run();
@@ -152,17 +199,15 @@ export async function runDrip(env, limit = 15) {
     const at = next < STEPS.length ? row.created_ms + STEPS[next] * DAY : now;
     await env.DB.prepare("UPDATE drip SET step = ?, next_at = ?, tries = 0, last_sent = ? WHERE id = ?").bind(next, Math.max(at, now), now, row.id).run();
   }
-  if (sent && env.CACHE) await env.CACHE.put(dayKey, String(today), { expirationTtl: 90000 });
   return sent;
 }
 
 // The paid report, sent right away (not through the queue). Counts toward the daily cap.
 export async function sendReportNow(env, email, reportId) {
-  if (!env.RESEND_API_KEY) return false;
+  if (!mailReady(env)) return false;
   const row = await env.DB.prepare("SELECT * FROM drip WHERE email = ? AND report_id = ?").bind(email, reportId).first();
   const report = await env.DB.prepare("SELECT score, label, issues, unlocked FROM reports WHERE id = ?").bind(reportId).first();
   if (!row || !report) return false;
   await send(env, email, 0, details(row, report));
-  if (env.CACHE) { const k = `mail:${new Date().toISOString().slice(0, 10)}`; await env.CACHE.put(k, String(Number((await env.CACHE.get(k)) || 0) + 1), { expirationTtl: 90000 }); }
   return true;
 }
