@@ -67,12 +67,23 @@ const personSchema = {
 
 // One theme only (owner, 22 Nov 2026): clears any theme saved by the old switch.
 const THEME_BOOT = `document.documentElement.classList.add("js");try{localStorage.removeItem("sv:theme");sessionStorage.removeItem("sv:theme")}catch(e){}`;
+// First open in a session shows a short intro with Sam's mark (owner, 27 Nov 2026, after designme.agency): at least
+// .8s, gone at page load or 1.4s at the latest; skipped on later pages, for reduced motion and without JS.
+const INTRO_BOOT = `(function(){var h=document.documentElement;try{if(sessionStorage.getItem("sv:intro")||matchMedia("(prefers-reduced-motion: reduce)").matches){h.classList.add("no-intro");return}sessionStorage.setItem("sv:intro","1")}catch(e){h.classList.add("no-intro");return}var t=Date.now(),d=0;function go(){if(d)return;d=1;setTimeout(function(){h.classList.add("intro-out");setTimeout(function(){h.classList.add("no-intro")},600)},Math.max(0,800-(Date.now()-t)))}addEventListener("load",go);setTimeout(go,1400)})();`;
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <body>
-        <script dangerouslySetInnerHTML={{ __html: THEME_BOOT }} />
+        <script dangerouslySetInnerHTML={{ __html: THEME_BOOT + INTRO_BOOT }} />
+        <div className="intro" aria-hidden="true">
+          <span className="intro-mark">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/sam-face-144.webp?v=1" width="64" height="64" alt="" fetchPriority="high" />
+            <svg viewBox="0 0 80 80" width="80" height="80"><circle cx="40" cy="40" r="38" /></svg>
+          </span>
+          <span className="intro-word">Sam Vllaco</span>
+        </div>
         <a className="skip" href="#main">Skip to content</a>
         <Header />
         <main id="main">{children}</main>
