@@ -7135,3 +7135,17 @@ html.on-light .ask-me svg { background: #fff; }
   html.is-scrolled.is-down:not(.mega-open) .head-nav { animation: nav-compact .35s var(--ease-out) both; }
 }
 @keyframes nav-compact { from { opacity: 0; } to { opacity: 1; } }
+
+/* How I work, right column (owner, 27 Nov 2026: "too much content, I want the design to do the talk"): six design
+   tiles, one real screen per service with a short title and one line, two per row (one on phones). */
+.hw-tiles { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--gap-grid, 20px); margin: 0; padding: 0; list-style: none; }
+.hw-tiles a { display: grid; gap: 4px; padding: 8px 8px 16px; border-radius: var(--r-card); background: var(--card-low, #fafafa); box-shadow: inset 0 0 0 1px var(--line); color: var(--text); text-decoration: none; transition: box-shadow .25s var(--ease-out); }
+.hw-tiles a:hover { box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .2); }
+.hw-tiles a:focus-visible { outline: 3px solid rgba(10, 111, 214, .6); outline-offset: 2px; }
+.hw-shot { display: block; aspect-ratio: 4 / 3; margin-bottom: 12px; border-radius: var(--r-inner); overflow: hidden; background: var(--card-2, #ebebef); }
+.hw-shot img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.hw-tt { padding-inline: 8px; font-size: 1.125rem; line-height: 1.5; font-weight: 500; letter-spacing: -.02em; }
+.hw-td { padding-inline: 8px; font-size: .9375rem; line-height: 1.5; letter-spacing: -.011em; color: var(--muted); }
+@media (max-width: 640px) { .hw-tiles { grid-template-columns: minmax(0, 1fr); } }
+.hw-tiles li { display: grid; }
+.hw-tiles a { height: 100%; align-content: start; }

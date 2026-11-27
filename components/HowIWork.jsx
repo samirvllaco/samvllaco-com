@@ -2,34 +2,19 @@ import CallIcon from "./CallIcon";
 
 // Home: what Sam does for product teams, said plainly (owner, 25 Nov 2026: audits, UI/UX sprints, fixing gaps,
 // improving the product, redesigning from zero or picking up an existing app; "design agency, me style").
-// Two starting points, the six services with what each hands over, then the steps every engagement follows.
+// The steps every engagement follows on the left, a design tile per service on the right.
 // Desktop (26 Nov 2026, after grafit.agency): heading, steps and the call button stay pinned on the left while the cards
 // scroll on the right, and the steps light up one by one as you scroll (CSS scroll timeline, no JS).
-// Server component, no JS. Icons are the shared graphite tile (tg-ico).
-const IC = {
-  app: "M5 4h14a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1zM4 9h16M9 13l2 2 4-4",
-  zero: "M12 5v14M5 12h14",
-  audit: "M11 19a8 8 0 1 0 0-16 8 8 0 0 0 0 16zM21 21l-4.3-4.3M8 11l2 2 4-4",
-  sprint: "M13 2 4 14h7l-1 8 9-12h-7z",
-  redesign: "M4 20h4L19 9a2.8 2.8 0 0 0-4-4L4 16zM13.5 6.5l4 4",
-  test: "M3 12h4l3-8 4 16 3-8h4",
-  ab: "M4 20 8 6l4 14M5.5 15h5M15 6v14M15 6h3a3 3 0 0 1 0 6h-3M15 12h3.5a3.5 3.5 0 0 1 0 7H15",
-  doc: "M6 3h9l4 4v14H6zM9 11h7M9 15h7M9 19h4",
-};
-const Ico = ({ d }) => <i className="tg-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d={d} /></svg></i>;
-
-const START = [
-  { i: "app", t: "You have an app", d: "I audit it, find the gaps that cost you users and fix them flow by flow, inside your team. Your features stay as they are, so nothing has to be rebuilt or relearned." },
-  { i: "zero", t: "You are starting from zero", d: "I take the product from the first user flow to final screens, a design system and a clickable prototype your developers can build from." },
-];
-
+// Server component, no JS.
+// The right column shows the work, not paragraphs (owner, 27 Nov 2026: "too much content, I want the design to do
+// the talk"): one real screen per service, a short title and one line.
 const WORK = [
-  { i: "audit", t: "UX audits", d: "I review your product screen by screen against Nielsen's 10 usability heuristics and WCAG accessibility rules, and find the gaps.", g: "A written audit: every issue, how serious it is and the fix" },
-  { i: "sprint", t: "UI/UX sprints", d: "One clear problem, one focused week. I take it from the brief to final screens and a clickable prototype.", g: "Flows, UI and a prototype in Figma" },
-  { i: "redesign", t: "Redesigns", d: "An existing app made clearer and more consistent, or a new product designed from zero on a system your team can keep using.", g: "Final UI and a design system in Figma" },
-  { i: "test", t: "Product analysis and UX testing", d: "I read your funnels and analytics, then watch real people use the product to see where they get stuck.", g: "Test findings and drop-off points, ranked by impact" },
-  { i: "ab", t: "A/B testing", d: "I design the variants, agree what to measure and read the results with you, so changes rest on numbers.", g: "A test plan, the variants and a results summary" },
-  { i: "doc", t: "UX documentation and Figma handoff", d: "User flows, UX specs, guidelines and production-ready Figma, so your team can build without guessing.", g: "Docs and organized Figma files that are yours" },
+  { k: "audit", t: "UX audits", d: "Every gap found, ranked, with the fix", href: "/services/ux-audit/", alt: "An annotated web app screen with numbered UX findings" },
+  { k: "sprint", t: "UI/UX sprints", d: "One problem, one week, a clickable prototype", href: "/services/saas-product-design/", alt: "Annotated mobile banking screens from a design sprint" },
+  { k: "redesign", t: "Redesigns", d: "Clearer screens on a system that lasts", href: "/services/website-design/", alt: "A law firm homepage before and after the redesign" },
+  { k: "test", t: "UX testing", d: "Watch real people, fix where they stall", href: "/services/ux-audit/", alt: "Annotated trip planner screens with the findings from user tests" },
+  { k: "ab", t: "A/B testing", d: "Changes that rest on numbers", href: "/services/landing-pages/", alt: "Landing page variants side by side" },
+  { k: "doc", t: "Figma handoff", d: "Specs and files your team builds from", href: "/services/design-systems/", alt: "A messages screen with spec notes for developers" },
 ];
 
 const STEPS = [
@@ -64,29 +49,17 @@ export default function HowIWork() {
       </div>
 
       <div className="hw-main">
-        <ul className="hw-start">
-          {START.map((s) => (
-            <li key={s.t}>
-              <Ico d={IC[s.i]} />
-              <h3>{s.t}</h3>
-              <p>{s.d}</p>
-            </li>
-          ))}
-        </ul>
-        <ul className="hw-terms" aria-label="Ways to work together">
-          <li>Fixed-scope audits</li>
-          <li>Weekly sprints</li>
-          <li>Monthly, inside your team</li>
-        </ul>
-
-        {/* tabIndex: on phones this row scrolls sideways, so keyboard users can focus it and use the arrow keys. */}
-        <ul className="hw-grid" aria-label="Services" tabIndex={0}>
+        <ul className="hw-tiles" aria-label="Services">
           {WORK.map((w) => (
-            <li key={w.t}>
-              <Ico d={IC[w.i]} />
-              <h3>{w.t}</h3>
-              <p>{w.d}</p>
-              <p className="hw-get"><b>You get</b>{w.g}</p>
+            <li key={w.k}>
+              <a href={w.href}>
+                <span className="hw-shot">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={`/work/hw/${w.k}.webp?v=1`} width="720" height="540" alt={w.alt} loading="lazy" decoding="async" />
+                </span>
+                <span className="hw-tt">{w.t}</span>
+                <span className="hw-td">{w.d}</span>
+              </a>
             </li>
           ))}
         </ul>
