@@ -6348,7 +6348,7 @@ html.is-live .ask-pill::before { animation-play-state: running; }
    Locomotive Scroll came back on 27 Nov 2026 with lerp .2 (components/SmoothScroll.jsx).
    ========================================================================== */
 :root:root {
-  --r-card: 20px; --r-inner: 12px; --r-sm: 8px;
+  --r-card: 12px; --r-inner: 8px; --r-sm: 6px; /* 27 Nov 2026: tighter corners everywhere (was 20 / 12 / 8) */
   --max: calc(1280px + 2 * var(--gutter));
   --fs-display: clamp(2.5rem, 2.129rem + 1.524vw, 3.5rem);
   --fs-title: clamp(1.75rem, 1.471rem + 1.143vw, 2.5rem);
@@ -6414,7 +6414,7 @@ html.is-live .ask-pill::before { animation-play-state: running; }
    transform, opacity and a small clip only, paused off screen ([data-loop] gets .is-on in view) and
    until the first interaction like all ambient motion.
    ========================================================================== */
-:root { --r-bento: 32px; }
+:root { --r-bento: 16px; }
 :root:root .bx-soft .bx-card {
   border-radius: var(--r-bento);
   background: radial-gradient(70% 40% at 50% 0%, rgba(255, 255, 255, .07), transparent 70%), linear-gradient(180deg, #25252a, #0e0e10);
@@ -6624,3 +6624,6 @@ html.js:not(.is-live) .intro *, html.js:not(.is-live) .intro { animation-play-st
 /* The wall is longer now: zoom out, then pan through 13 rows (owner, 27 Nov 2026) */
 :root:root .wall { height: 420vh; }
 @media (max-width: 800px) { :root:root .wall { height: 320vh; } :root:root .wall-cell:first-child { display: block; } }
+
+/* No pill buttons (owner, 27 Nov 2026): every call button takes the small radius */
+:root:root:root :is(.hero2-btn, .head-cta, .hero3 .hero2-btn) { border-radius: var(--r-sm) !important; }
