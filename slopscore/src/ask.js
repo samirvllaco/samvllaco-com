@@ -41,11 +41,11 @@ export function facts() {
 - Has worked with 573 clients. Helped ship Lingopie, a language learning product used by 100,000+ people, and Golf Live, a PGA Show award winner.
 - Designs in Figma. Can also build marketing sites and small web app front ends.
 - Much client work is under NDA and shown with names, logos and colors changed.
-- Contact: start a project at /book/ (pick what you need and a budget, then book a 30-min call or send it by email) or email ${EMAIL}.
+- Contact: start a project at /book/ (a 30-min call; the booking form asks what you need and the budget) or email ${EMAIL}. A free UX audit by Loom: /free-audit/.
 
 WAYS TO WORK (prices are not published per plan; there is no pricing page)
 ${plans}
-- Projects start at ${usd(PROJECT_FROM)}. Every project gets a fixed price in writing after the first conversation. The contact page asks for a budget: ${BUDGETS.join(", ")}.
+- Projects start at ${usd(PROJECT_FROM)}. Every project gets a fixed price in writing after the first conversation. The booking form asks for a budget: ${BUDGETS.join(", ")}.
 - Trial week: ${usd(TRIAL_WEEK)}. One week of real work on your product, so you see how Sam works before a full project.
 - How the plans work: ${STEPS.map((s) => `${s.t}: ${s.d}`).join(" ")}
 

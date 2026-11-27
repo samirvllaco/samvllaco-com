@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import { SYSTEM, cleanMessages, sseToText } from "../src/ask.js";
 
 test("system prompt carries real prices and pages", () => {
-  for (const s of ["$5,000", "$2,500", "$5k to 10k", "$12.99", "$1,500", "/book/", "573 clients"]) assert.ok(SYSTEM.includes(s), s);
+  for (const s of ["$5,000", "$2,500", "$5,000 to $10,000", "$12.99", "$1,500", "/book/", "573 clients"]) assert.ok(SYSTEM.includes(s), s);
   for (const s of ["/pricing/", "Monthly plan", "per week"]) assert.ok(!SYSTEM.includes(s), `no ${s}`);
   assert.ok(!SYSTEM.includes("—"));
 });

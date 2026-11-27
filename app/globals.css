@@ -7287,23 +7287,6 @@ html.on-light .edge-blur { opacity: 0; }
 @media (hover: hover) and (pointer: fine) { :root:root:root .tl-list a:hover { box-shadow: inset 0 0 0 1px var(--border); background: var(--card); } :root:root:root .tl-list a:hover .tl-go { color: var(--text); } :root:root:root .tl-list a:hover .tl-go span { translate: 3px 0; } }
 @media (max-width: 900px) { :root:root:root .tl-list { grid-template-columns: minmax(0, 1fr); } }
 
-/* Start a project (/book/, owner 27 Nov 2026): what you need and a budget as chips, then a call or an email. */
-.ps { display: grid; gap: var(--gap-content, 40px); max-width: 760px; margin: 0 auto var(--gap-content, 40px); }
-.ps-head { display: grid; gap: var(--gap-intro, 12px); }
-.ps-head h1 { margin: 0; font-size: var(--fs-section, 2.5rem); line-height: 1.2; font-weight: 500; letter-spacing: -.035em; }
-.ps-head p { margin: 0; font-size: 1.125rem; line-height: 1.55; letter-spacing: -.015em; color: var(--muted); }
-.ps-set { display: grid; gap: 12px; margin: 0; padding: 0; border: 0; min-width: 0; }
-.ps-set legend { margin-bottom: 12px; padding: 0; font-size: 1rem; font-weight: 600; color: var(--text); }
-.ps-chips { display: flex; flex-wrap: wrap; gap: 8px; }
-.ps-chip { min-height: 44px; padding: 0 18px; border: 0; border-radius: var(--r-sm); font: inherit; font-size: .9375rem; font-weight: 500; color: var(--text-2, #d4d4d8); cursor: pointer;
-  background: linear-gradient(var(--hl), var(--hl)) no-repeat left center / 0% 100%, var(--card); box-shadow: inset 0 0 0 1px var(--line); transition: background-size .35s cubic-bezier(.22, .61, .36, 1), color .2s; }
-@media (hover: hover) and (pointer: fine) { .ps-chip:hover { background-size: 100% 100%, auto; color: var(--text); } }
-.ps-chip[aria-pressed="true"], .ps-chip[aria-checked="true"] { color: #111112; background: #f5f5f7; box-shadow: none; }
-.ps-chip:focus-visible { outline: 3px solid rgba(98, 193, 253, .6); outline-offset: 2px; }
-.ps-note, .ps-mail { margin: 0; font-size: .9375rem; color: var(--muted); }
-.ps-mail b { color: var(--text); font-weight: 500; user-select: all; }
-.ps-go { margin: 0; }
-.ps + .book-cal { scroll-margin-top: 96px; }
 
 /* How I work screen card, smaller and quicker to read (owner, 27 Nov 2026: "make this card way smaller and easy to scan"):
    a 16:10 screen cropped to the design, then the title and one line, at most 520px wide, centred in its column. */
@@ -7358,22 +7341,6 @@ html.on-light .edge-blur { opacity: 0; }
 .fa-steps strong { color: var(--text); font-weight: 600; }
 @media (max-width: 720px) { .fa-grid, .fa-steps { grid-template-columns: minmax(0, 1fr); } }
 
-/* Start a project: services dropdown with checkboxes */
-.ps-pick { position: relative; max-width: 480px; }
-.ps-pick-btn { display: flex; align-items: center; justify-content: space-between; gap: 12px; width: 100%; min-height: 52px; padding: 0 16px; border: 0; border-radius: var(--r-inner); font: inherit; font-size: 1rem; color: var(--text); text-align: left; cursor: pointer; background: var(--card); box-shadow: inset 0 0 0 1px var(--line); }
-.ps-pick-btn:focus-visible { outline: 3px solid rgba(98, 193, 253, .6); outline-offset: 2px; }
-.ps-pick-btn svg { flex: none; color: var(--muted); transition: rotate .25s var(--ease-out); }
-.ps-pick.is-open .ps-pick-btn svg { rotate: 180deg; }
-.ps-ph { color: var(--muted); }
-.ps-pick-list { position: absolute; z-index: 20; left: 0; right: 0; top: calc(100% + 8px); display: grid; gap: 2px; max-height: min(60vh, 520px); overflow: auto; padding: 8px; border-radius: var(--r-card); background: #1c1c1f; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .1), 0 24px 48px -24px rgba(0, 0, 0, .6); }
-.ps-pick-list[hidden] { display: none; }
-.ps-opt { display: flex; align-items: center; gap: 12px; min-height: 44px; padding: 0 12px; border-radius: var(--r-sm); font-size: .9375rem; color: var(--text-2, #d4d4d8); cursor: pointer; }
-.ps-opt:hover, .ps-opt:has(input:focus-visible) { background: rgba(255, 255, 255, .06); color: var(--text); }
-.ps-opt input { appearance: none; flex: none; display: grid; place-items: center; width: 20px; height: 20px; margin: 0; border-radius: 4px; box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, .35); cursor: pointer; }
-.ps-opt input:checked { background: #f5f5f7; box-shadow: none; }
-.ps-opt input:checked::after { content: ""; width: 10px; height: 6px; margin-top: -2px; border: solid #111112; border-width: 0 0 2px 2px; rotate: -45deg; }
-.ps-opt input:focus-visible { outline: 2px solid rgba(98, 193, 253, .7); outline-offset: 2px; }
-.ps-opt:has(input:checked) { color: var(--text); }
 
 /* Mobile apps on /work/ (Mobile filter): one phone per card that you swipe or step through, then icon, name and line */
 .pa-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--gap-grid, 20px); }

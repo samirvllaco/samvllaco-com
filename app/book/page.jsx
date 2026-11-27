@@ -1,8 +1,9 @@
-import ProjectStart from "../../components/ProjectStart";
-import { SITE } from "../../lib/site";
+import CalFrame from "../../components/CalFrame";
+import { BookAlt } from "../../components/BookBand";
+import { SITE, BOOKING_URL } from "../../lib/site";
 
 const TITLE = "Start a project with Sam Vllaco";
-const DESC = "Tell me what you need and your budget, then book a 30-min call or send it by email. Projects start at $5,000.";
+const DESC = "Pick a time for a 30-min call. Tell me what you need and your budget in the booking form. Projects start at $5,000.";
 
 export const metadata = {
   title: "Start a project",
@@ -13,11 +14,19 @@ export const metadata = {
 };
 
 
+// Just the calendar, full width (owner, 27 Nov 2026). What people need and their budget are asked in Cal.com's own
+// booking form, so every answer lands with the booking ("we use cal.com for now, we can't track it" on the site).
 export default function Book() {
   return (
     <div className="wrap page pg svc">
+      <h1 className="sr-only">Start a project with Sam Vllaco</h1>
       <div className="book-split is-full">
-        <ProjectStart />
+      {BOOKING_URL ? (
+        <section className="book-cal" id="calendar" aria-label="Pick a time">
+          <CalFrame src={`${BOOKING_URL}?embed=true&theme=dark&layout=month_view&ui.color-scheme=dark`} />
+          <BookAlt />
+        </section>
+      ) : null}
       </div>
     </div>
   );
