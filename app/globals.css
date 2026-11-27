@@ -7574,3 +7574,11 @@ html.js .bx-world[data-reveal].is-shown .wf-facts > div > dd { transition-durati
   --band-paint: inherit; background: var(--band-paint); pointer-events: none;
   border-radius: 0 0 50% 50% / 0 0 var(--bend, 0px) var(--bend, 0px);
 }
+
+/* Compact header: the page you are on sits right next to the name with a hairline between them, "Sam | Work"
+   (owner, 28 Nov 2026: "put Work closer to Sam and add | to make the UI better and more compact"). */
+@media (min-width: 1261px) {
+  html.is-scrolled.is-down:not(.mega-open) .site-header .wrap.head-row:has(.head-nav > a[aria-current="page"], .head-nav .mega-btn.is-current) { grid-template-columns: auto auto 1fr; max-width: 460px; column-gap: 12px; }
+  html.is-scrolled.is-down:not(.mega-open) .head-nav { background: none; padding: 0; gap: 0; }
+  html.is-scrolled.is-down:not(.mega-open) .head-nav:has(> a[aria-current="page"], .mega-btn.is-current)::before { content: ""; flex: none; width: 1px; height: 20px; margin-right: 4px; background: rgba(245, 245, 247, .2); }
+}
