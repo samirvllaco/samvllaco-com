@@ -444,7 +444,7 @@ export async function handleAudit(ctx) {
   const { request, env } = ctx;
   const path = new URL(request.url).pathname.replace(/^\/api\/audit\/?/, "").replace(/\/$/, "");
   try {
-    if (path === "status" && request.method === "GET") return json({ ready: Boolean(env.DB || mailReady(env)) });
+    if (path === "status" && request.method === "GET") return json({ ready: Boolean(env.DB || mailReady(env)), saving: Boolean(env.DB), emailing: mailReady(env) });
     if (path === "admin/audits.csv") {
       if (!admin(request, env)) return fail("forbidden", 403);
       if (!env.DB) return fail("no_db", 404);
