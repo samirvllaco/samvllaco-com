@@ -7429,15 +7429,21 @@ html.on-light .edge-blur { opacity: 0; }
 
 /* Reviews in two rows that slide sideways with the scroll (owner, 27 Nov 2026: "so it doesn't grab much height").
    Rows run edge to edge; the first moves left, the second right, on the section's own view timeline. Without scroll
-   timelines or with reduced motion each row is a strip you swipe. The globe card sits under the rows at the content edge. */
+   timelines or with reduced motion each row is a strip you swipe. The globe card sits over the faded foot of the rows. */
 .tm-rows { --edge: max(16px, calc(50vw - 640px)); display: grid; gap: var(--gap-grid, 20px); width: 100vw; margin-left: calc(50% - 50vw); }
 .tm-row { overflow-x: auto; scrollbar-width: none; overscroll-behavior-x: contain; scroll-snap-type: x proximity; }
 .tm-row::-webkit-scrollbar { display: none; }
 .tm-track { display: flex; gap: var(--gap-grid, 20px); width: max-content; padding-inline: var(--edge); }
 :root:root:root .tm-track > .tm-card { flex: none; width: min(400px, calc(100vw - 48px)); scroll-snap-align: start; opacity: 1; transform: none; }
-:root:root:root .tm-wrap { padding-bottom: 0; }
-:root:root:root .tm-wrap .tm-world { position: relative; left: auto; bottom: auto; transform: none; margin: var(--gap-content, 40px) 0 0; }
-@media (hover: hover) and (pointer: fine) { :root:root:root .tm-wrap .tm-world:hover { transform: none; } }
+/* Quotes stop at three lines so the cards stay short; the globe card sits centred over the faded foot of the rows, as
+   before (owner, 27 Nov 2026: "make reviews 2-3 lines and put these slightly overlapping with fade like it was before"). */
+:root:root:root .tm-track > .tm-card { gap: 12px; padding: 24px; }
+:root:root:root .tm-track > .tm-card blockquote { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; line-clamp: 3; overflow: hidden; margin: 0; }
+:root:root:root .tm-track > .tm-card .tm-tags { flex-wrap: nowrap; overflow: hidden; -webkit-mask-image: linear-gradient(90deg, #000 85%, transparent); mask-image: linear-gradient(90deg, #000 85%, transparent); }
+:root:root:root .tm-wrap { position: relative; padding-bottom: 64px; }
+:root:root:root .tm-rows { -webkit-mask-image: linear-gradient(180deg, #000 calc(100% - 200px), transparent calc(100% - 8px)); mask-image: linear-gradient(180deg, #000 calc(100% - 200px), transparent calc(100% - 8px)); }
+:root:root:root .tm-wrap .tm-world { position: absolute; left: 50%; bottom: 0; transform: translateX(-50%); margin: 0; }
+@media (hover: hover) and (pointer: fine) { :root:root:root .tm-wrap .tm-world:hover { transform: translateX(-50%); } }
 @supports (animation-timeline: view()) {
   @media (prefers-reduced-motion: no-preference) and (min-width: 721px) {
     .tm-rows { view-timeline: --tm block; }
@@ -7464,3 +7470,4 @@ html.on-light .edge-blur { opacity: 0; }
 :root:root:root :is(.ba-line > i, .ht-av > i, .ht-av img) { border-radius: var(--r-sm); }
 @media (min-width: 1261px) { html.is-scrolled.is-scrolled.is-scrolled .brand-me img.brand-face { margin-right: 12px; } }
 :root:root:root .eb-pk-me img, :root:root:root img.eb-pk-me { border-radius: var(--r-sm); }
+:root:root:root .tm-track > .tm-card .tm-tags > * { flex: none; } :root:root:root .tm-track > .tm-card .tm-tags .tg-btn { white-space: nowrap; }
