@@ -21,6 +21,7 @@ import HowIWork from "../components/HowIWork";
 import Fixes from "../components/Fixes";
 import HeroReviews from "../components/HeroReviews";
 import HeroShow from "../components/HeroShow";
+import GrowthSystem from "../components/GrowthSystem";
 import HeroRole from "../components/HeroRole";
 import { LocalTime, CountUp } from "../components/Greeting";
 
@@ -138,6 +139,8 @@ export default function Home() {
       <section className="st-line" aria-label="What I do">
         <p>I design your <span className="st-nw"><a className="st-chip" href="/services/saas-product-design/"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H4zM4 9h16M8 20h8M12 16v4" /></svg>SaaS product</a>,</span> fix the <a className="st-chip" href="/services/ux-audit/"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10.5 17a6.5 6.5 0 1 0 0-13 6.5 6.5 0 0 0 0 13zM15.5 15.5 21 21" /></svg>UX gaps</a> that cost you signups and build the <span className="st-nw"><a className="st-chip" href="/services/landing-pages/"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 17l5-5 4 4 7-7M15 9h5v5" /></svg>landing pages</a>,</span> so people get it from the first click to the first payment.</p>
       </section>
+
+      <GrowthSystem />
 
       <HowIWork />
 
