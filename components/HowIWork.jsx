@@ -56,7 +56,7 @@ export default function HowIWork() {
               <a href={w.href}>
                 <span className="hw-shot">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={`/work/hw/${w.k}-l.webp?v=2`} width="1120" height="700" alt={w.alt} loading="lazy" decoding="async" />
+                  <img src={`/work/hw/${w.k}-l.webp?v=3`} width="1120" height="700" alt={w.alt} loading="lazy" decoding="async" />
                 </span>
                 <span className="hw-cap"><span className="hw-tt">{w.t}</span><span className="hw-td">{w.d}</span></span>
               </a>

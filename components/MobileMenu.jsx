@@ -32,7 +32,7 @@ const LINKS = [
   { href: "/writing/", label: "Insights" },
   { href: "/resources/", label: "Resources", menu: true },
   { href: "/about/", label: "About" },
-  { href: "/tools/", label: "Free tools", menu: true },
+  // Free tools live inside Resources, as on desktop (owner, 28 Nov 2026: "fix all half things"; it was listed twice).
 ];
 
 // Hamburger menu for phones and small tablets. The desktop nav is hidden at the same width.
