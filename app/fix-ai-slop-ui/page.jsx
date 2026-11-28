@@ -1,3 +1,4 @@
+import Book3D from "../../components/Book3D";
 import BeforeAfter from "../../components/BeforeAfter";
 import RvWindow from "../../components/RvWindow";
 import Link from "next/link";
@@ -491,8 +492,7 @@ export default function Ebook() {
           <ul className="eb-ticks eb-ico eo-list">{BONUS.map(([i, t, d]) => <li key={t} data-i={i}><b>{t}</b><span>{d}</span></li>)}</ul>
         </div>
         <aside className="eo-card dark-island">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img className="eo-cover" src="/ebook/cover.webp?v=2" width="936" height="1326" alt="The book cover" loading="lazy" />
+          <Book3D className="eo-b3" alt="The book cover" sizes="160px" />
           <p className="eb-was"><s aria-label={`was ${WAS}`}>{WAS}</s><b>Save 25%</b></p>
           <p className="eb-price">{PRICE}<span>one-time</span></p>
           <Buy label="Get your copy" />
@@ -524,7 +524,7 @@ export default function Ebook() {
             <div className="eb-pk-me">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src="/me/ai/ai5-128.webp?v=1" width="128" height="128" alt="Sam Vllaco" loading="lazy" />
-              <span><b>Sam Vllaco <em className="eb-pk-role">Senior Designer</em></b>10+ years, 570+ clients</span>
+              <span><b>Sam Vllaco <em className="eb-pk-role">Senior Designer</em></b>10 years, 573 clients</span>
             </div>
             <p className="eb-pk-k">Focused review</p>
             <h3>30-min UI/UX review <span className="t2">+ the book</span></h3>

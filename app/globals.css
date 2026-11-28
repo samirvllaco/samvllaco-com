@@ -7740,3 +7740,22 @@ html.is-live .of-badge::before { animation-play-state: running; }
 .faq-card .of { --of-ring: var(--card, #232326); }
 .site-footer .of { --of-ring: #0b0b0e; }
 .site-footer .of .of-badge { right: -5px; bottom: -5px; width: 14px; height: 14px; }
+
+/* The ebook as a 3D book on a lit shelf (Book3D.jsx, owner, 28 Nov 2026, after spectup.com). --bw is the book width;
+   --bd its thickness. The scene is dark with light falling from the top left. */
+.b3 { --bw: 200px; --bd: 18px; position: relative; display: grid; place-items: end center; padding: 40px 24px 28px; border-radius: var(--r-inner); overflow: hidden; isolation: isolate;
+  background: radial-gradient(70% 80% at 25% 0%, rgba(255, 255, 255, .09), transparent 60%), linear-gradient(180deg, #121214, #0b0b0d); }
+.b3-scene { perspective: 1100px; }
+.b3-book { position: relative; width: var(--bw); aspect-ratio: 936 / 1326; transform-style: preserve-3d; transform: rotateY(-24deg); transform-origin: 50% 100%; will-change: transform; }
+.b3-front { position: absolute; inset: 0; width: 100%; height: 100%; border-radius: 2px 4px 4px 2px; transform: translateZ(calc(var(--bd) / 2)); box-shadow: inset 4px 0 6px -4px rgba(255, 255, 255, .25); }
+.b3-front::after { content: none; }
+.b3-pages { position: absolute; top: 3px; bottom: 3px; right: 0; width: var(--bd); transform-origin: right center; transform: translateX(calc(var(--bd) / 2)) rotateY(90deg);
+  background: repeating-linear-gradient(90deg, #e9e7e1 0 1px, #cfccc4 1px 2px), #ddd; filter: brightness(.6); }
+.b3-spine { position: absolute; top: 0; bottom: 0; left: 0; width: var(--bd); transform-origin: left center; transform: translateX(calc(var(--bd) / -2)) rotateY(-90deg); background: linear-gradient(90deg, #050506, #1b1b1e 55%, #0a0a0b); }
+.b3-top { position: absolute; left: 0; right: 0; top: 0; height: var(--bd); transform-origin: center top; transform: translateZ(calc(var(--bd) / -2)) rotateX(90deg) translateZ(0); background: linear-gradient(180deg, #d8d6cf, #a9a69d); opacity: .5; }
+.b3-shadow { position: absolute; left: 50%; bottom: 22px; z-index: -1; width: calc(var(--bw) * 1.15); height: 26px; transform: translateX(-50%); border-radius: 50%; background: radial-gradient(closest-side, rgba(0, 0, 0, .85), transparent); filter: blur(6px); }
+.b3-shelf { position: absolute; left: 0; right: 0; bottom: 0; height: 28px; z-index: -2; background: linear-gradient(180deg, rgba(255, 255, 255, .1), rgba(255, 255, 255, .02) 2px, #0a0a0b 3px, #070708); box-shadow: 0 -1px 0 rgba(255, 255, 255, .06); }
+@media (prefers-reduced-motion: reduce) { .b3-book { will-change: auto; } }
+.eo-b3 { --bw: 128px; --bd: 12px; justify-self: stretch; width: 100%; padding: 28px 16px 22px; }
+.rs-b3 { --bw: 230px; --bd: 20px; width: 100%; min-height: 100%; }
+.rs-book:has(.rs-b3) { background: none; box-shadow: none; padding: 0; }

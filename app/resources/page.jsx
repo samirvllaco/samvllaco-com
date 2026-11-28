@@ -1,3 +1,4 @@
+import Book3D from "../../components/Book3D";
 import Link from "next/link";
 import Crumbs from "../../components/Crumbs";
 import CallIcon from "../../components/CallIcon";
@@ -42,8 +43,7 @@ export default function Resources() {
           </div>
         </div>
         <Link prefetch={false} className="sv-hero-art rs-book" href="/fix-ai-slop-ui/">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/ebook/cover.webp?v=2" srcSet="/ebook/cover-520.webp?v=2 520w, /ebook/cover.webp?v=2 936w" sizes="(max-width: 760px) 60vw, 360px" width="936" height="1326" alt="Cover of 27 Copy-Paste Prompts to Fix AI Slop UI" loading="eager" fetchPriority="high" />
+          <Book3D className="rs-b3" src="/ebook/cover.webp?v=2" srcSet="/ebook/cover-520.webp?v=2 520w, /ebook/cover.webp?v=2 936w" sizes="(max-width: 760px) 50vw, 260px" alt="Cover of 27 Copy-Paste Prompts to Fix AI Slop UI" />
           <span className="sv-art-tag"><b>27 Copy-Paste Prompts</b><span>Ebook, 25% off</span></span>
         </Link>
       </header>
