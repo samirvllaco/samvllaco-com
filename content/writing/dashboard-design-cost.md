@@ -52,7 +52,7 @@ A redesign costs less than most teams fear, because it usually does not mean a r
 
 Book a 30-minute call, bring your current screen and a data sample, and you leave with a scope, a timeline and a fixed price in writing. Projects start at $5,000, and the [design cost calculator](/tools/design-cost-calculator/) gives you a rough range first.
 
-To see what the money buys, read the [SaaS dashboard design guide](/writing/saas-dashboard-design-guide/) and the [9 dashboard UX mistakes](/writing/dashboard-ux-mistakes/). The service itself is [dashboard design](/services/dashboard-design/), and this is my work [for SaaS and B2B teams](/for/saas/).
+If you are changing an existing one, see [SaaS dashboard redesign](/writing/saas-dashboard-redesign/). To see what the money buys, read the [SaaS dashboard design guide](/writing/saas-dashboard-design-guide/) and the [9 dashboard UX mistakes](/writing/dashboard-ux-mistakes/). The service itself is [dashboard design](/services/dashboard-design/), and this is my work [for SaaS and B2B teams](/for/saas/).
 
 ## Questions people ask
 
