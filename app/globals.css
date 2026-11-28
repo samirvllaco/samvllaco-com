@@ -7886,3 +7886,14 @@ html:has(.bw .bw-tab) body:not(:has(.case-fab)) .ask-pill.is-side { --ask-left: 
 .ab-year-hint { display: inline-flex; align-items: center; gap: 6px; margin-top: 4px; font-size: .75rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
 .ab-year-hint::before { content: "\2194"; font-size: .875rem; letter-spacing: 0; }
 @media (hover: none) { .ab-year-hint { display: none; } }
+
+/* Work cards: hovering one quiets the rest (owner, 28 Nov 2026: "when you highlight one, de-emphasise the others").
+   The others' screens go grey and dim and their words drop to the muted grey, which still keeps 4.5:1. Mouse only. */
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .wc-media img, .work-grid .work-card :is(img, video) { transition: filter .45s var(--ease-out); }
+  .wc-t, .wc-go, .work-grid .work-title { transition: color .35s var(--ease-out); }
+  :root:root .wc-track:has(.wc-card:hover) .wc-card:not(:hover) .wc-media img,
+  :root:root .work-grid:has(.work-card:hover) .work-card:not(:hover) :is(img, video) { filter: grayscale(1) brightness(.55); }
+  :root:root .wc-track:has(.wc-card:hover) .wc-card:not(:hover) :is(.wc-t, .wc-go),
+  :root:root .work-grid:has(.work-card:hover) .work-card:not(:hover) .work-title { color: #a1a1a6; }
+}

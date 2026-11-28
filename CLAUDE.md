@@ -164,3 +164,6 @@ One value per job, kept in the last block of `app/globals.css` ("Feel consistenc
 - Reading line on case studies and articles (`ReadLine.jsx`): 4px, blue, eased by GSAP.
 - Contact: after a message is sent, the hidden calendar no longer holds the height.
 - FAQ email pill: the mail icon leads, Copy at the end.
+- Work cards (home carousel and /work/): hovering one turns the other screens grey and dim and their titles muted (owner, 28 Nov 2026: "when you highlight one, de-emphasise the others"; this replaces "nothing dims on hover" for work cards only). Words stay at 4.5:1.
+- About year (owner, 28 Nov 2026): follows the story part being read (How it started shows 2013 in Prizren, the rest today with their fact) and is a slider: drag it sideways or use the arrow keys, Home and End.
+- Ebook hero: only the 3D book (owner: "keep only the book").
