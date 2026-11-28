@@ -8422,3 +8422,10 @@ a.wd-vis { display: block; color: inherit; text-decoration: none; }
 @media (min-width: 641px) {
   body:has(.ask-pill.is-side) .ask-panel { left: max(16px, env(safe-area-inset-left, 0px)); right: auto; translate: none; bottom: calc(max(16px, env(safe-area-inset-bottom, 0px)) + 56px + var(--kb, 0px)); z-index: 70; transform-origin: 0 100%; }
 }
+
+/* Intro lines stay straight and still (owner, 28 Nov 2026: "make lines straight so it doesn't trigger people with ADHD"):
+   the two rails and the centre line are full length from the first frame and only fade in, no growing from opposite
+   ends. The photo, the selection frame and the split stay as they were. */
+:root:root .intro-rail, :root:root .intro-line { transform: none; opacity: 0; }
+html.intro-css .intro-rail, html.intro-css .intro-line { animation: intro-lines .3s ease-out both; }
+@keyframes intro-lines { from { opacity: 0; } to { opacity: 1; } }
