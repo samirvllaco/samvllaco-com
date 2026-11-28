@@ -7951,3 +7951,8 @@ html:has(.bw .bw-tab) body:not(:has(.case-fab)) .ask-pill.is-side { --ask-left: 
 
 /* About portrait load glow (PortraitGlow.jsx): same box as the lens canvas, above the photo, never in the way */
 .ap-fx { position: absolute; left: -140px; top: -140px; width: calc(100% + 280px); height: calc(100% + 280px); pointer-events: none; z-index: 3; image-rendering: pixelated; }
+
+/* Over a white band the glass header is solid black (owner, 28 Nov 2026: "can be fully black on a white background") */
+@media (min-width: 1261px) {
+  html.is-scrolled.is-scrolled.head-on-light .site-header .wrap.head-row { background: #000000; -webkit-backdrop-filter: none; backdrop-filter: none; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .1), 0 18px 40px -18px rgba(0, 0, 0, .35); }
+}

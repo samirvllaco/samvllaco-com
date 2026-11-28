@@ -69,6 +69,10 @@ export default function SectionColors() {
       // Floating bits (Ask pill, book bubble, back to top, the bottom blur) turn light while a lit band covers the screen's foot.
       const lit = bands.includes(pick) && pick.getBoundingClientRect().bottom > window.innerHeight * 0.7;
       document.documentElement.classList.toggle("on-light", lit);
+      // The glass header turns solid black while it floats over a white band (owner, 28 Nov 2026: "can be fully black on
+      // a white background"): a band that is lit and under the header's line (about 40px from the top).
+      const under = bands.some((b) => { if (b.classList.contains("is-dim")) return false; const r = b.getBoundingClientRect(); return r.top <= 40 && r.bottom + (parseFloat(b.style.getPropertyValue("--bend")) || 0) >= 40; });
+      document.documentElement.classList.toggle("head-on-light", under);
       if (c !== current) {
         current = c;
         body.style.backgroundColor = c;
@@ -93,7 +97,7 @@ export default function SectionColors() {
       body.style.transition = "";
       document.documentElement.style.removeProperty("--sec-bg");
       for (const b of bands) { b.classList.remove("is-dim"); b.style.removeProperty("--bend"); }
-      document.documentElement.classList.remove("on-light");
+      document.documentElement.classList.remove("on-light", "head-on-light");
     };
   }, []);
   return null;
