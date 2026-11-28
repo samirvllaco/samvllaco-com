@@ -5227,16 +5227,16 @@ main > .page > .hero-dots-cv { height: clamp(560px, 86vh, 860px); }
 .bb-qr img { display: block; transition: scale var(--t-base, .25s) var(--ease-out); }
 @media (hover: hover) and (pointer: fine) { .bb-qr-pic:hover img { scale: 1.08; } }
 .qr-dlg { padding: 0; border: 0; background: none; max-width: calc(100vw - 32px); overflow: visible; }
-.qr-dlg::backdrop { background: rgba(0, 0, 0, .72); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
+.qr-dlg::backdrop { background: rgba(0, 0, 0, .72); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); opacity: 0; transition: opacity .4s var(--ease-out); }
+.qr-dlg.is-in::backdrop { opacity: 1; }
 .qr-card { display: grid; justify-items: center; gap: 8px; width: 344px; max-width: 100%; padding: 32px; border-radius: var(--r-card); background: #fff; color: #0b0b0c; text-align: center; box-shadow: 0 32px 80px -24px rgba(0, 0, 0, .6); }
-.qr-card img { width: 280px; max-width: 100%; height: auto; margin-bottom: 16px; }
+.qr-card img { width: 280px; max-width: 100%; height: auto; margin-bottom: 16px; transform-origin: 50% 50%; will-change: transform; }
 .qr-h, .qr-p { margin: 0; }
 .qr-h { font-size: var(--fs-card); line-height: 1.4; font-weight: 600; letter-spacing: -.01em; }
 .qr-p { max-width: 26ch; font-size: 1rem; line-height: 1.5; color: #48484a; }
 .qr-card .hero2-btn { margin-top: 16px; }
-.qr-dlg[open] .qr-card { animation: qr-in var(--t-slow, .45s) var(--spring, cubic-bezier(.22, 1, .36, 1)); }
 @keyframes qr-in { from { opacity: 0; scale: .92; } }
-@media (prefers-reduced-motion: reduce) { .bb-qr img { transition: none; } .qr-dlg[open] .qr-card { animation: none; } }
+@media (prefers-reduced-motion: reduce) { .bb-qr img { transition: none; } .qr-dlg::backdrop { transition: none; } }
 /* Email pills: a long address gives way to the Copied chip instead of pushing it outside the pill */
 .hp-copy > span:not(.cc):not(.sr-only) { min-width: 0; overflow-wrap: anywhere; }
 @media (max-width: 480px) { .hp-copy { gap: 8px; padding: 0 12px; } }
