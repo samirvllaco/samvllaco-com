@@ -8052,7 +8052,7 @@ html:has(.bw .bw-tab) body:not(:has(.case-fab)) .ask-pill.is-side { --ask-left: 
    Big cell: the dithered sphere with the parts of the work orbiting it (components/BentoRun.jsx). Stat cells: label on
    top, a picture of the number in the middle (gauge, one dot per client, a rising line, a timeline), the number and
    its line at the foot. Then the work deck, the worldwide facts and the toolbox with its tilted tiles. */
-.bx2-grid { position: relative; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-template-areas: "a a b c" "a a d e" "w w w w" "t t t t"; gap: 1px; background: rgba(255, 255, 255, .12); box-shadow: 0 0 0 1px rgba(255, 255, 255, .12); }
+.bx2-grid { position: relative; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-template-areas: "a a b c" "a a d e" "w w t t"; gap: 1px; background: rgba(255, 255, 255, .12); box-shadow: 0 0 0 1px rgba(255, 255, 255, .12); }
 .bx2-grid::after { content: ""; position: absolute; inset: -6px; z-index: 3; pointer-events: none;
   --x: rgba(255, 255, 255, .5);
   background:
@@ -8166,3 +8166,43 @@ html:has(.bw .bw-tab) body:not(:has(.case-fab)) .ask-pill.is-side { --ask-left: 
 @media (min-width: 1100px) {
   :root:root .case-toc { padding: 20px 20px 16px; border-radius: var(--r-card); background: #141416; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .08); }
 }
+
+/* Lines never cross content (owner, 28 Nov 2026: "make sure lines don't overlap"). The structure rails sit under the
+   page's content (body is its own stacking context, the rails at -1), so a card that runs edge to edge, like the review
+   rows, covers them. The bento grid runs out to the rails on wide screens, so its outer edges are the rails themselves
+   and the page shows one line there, not two. */
+@media (min-width: 1024px) {
+  body { isolation: isolate; }
+  body::before { z-index: -1; }
+  .bx2-grid { margin-inline: calc(1px - var(--rail-out)); box-shadow: 0 -1px 0 rgba(255, 255, 255, .12), 0 1px 0 rgba(255, 255, 255, .12); }
+}
+
+/* Ask Sam's AI, short everywhere (owner, 28 Nov 2026: "shorten it like on other pages, on hover show the full text,
+   + animation more"). At rest the key reads "AI" beside Sam's face. On hover, keyboard focus and one peek per visit
+   (.is-peek, AskSam.jsx) the key widens with a spring while "Ask Sam's" slides out of its clip, and a soft light sweeps
+   across the chrome once. Words move by transform inside a clip, never by fading, so they keep their contrast. */
+.ask-l2 { display: inline-flex; align-items: center; white-space: nowrap; }
+.ask-pre { display: inline-grid; grid-template-columns: 0fr; transition: grid-template-columns .5s cubic-bezier(.34, 1.36, .64, 1); }
+.ask-pre > span { min-width: 0; overflow: hidden; }
+.ask-pre > span > span { display: inline-block; transform: translateX(-70%); transition: transform .5s cubic-bezier(.22, .61, .36, 1); }
+:root:root .ask-pill:is(:hover, :focus-visible, .is-peek):not(.is-open) .ask-pre { grid-template-columns: 1fr; }
+:root:root .ask-pill:is(:hover, :focus-visible, .is-peek):not(.is-open) .ask-pre > span > span { transform: none; }
+.ask-sheen { position: absolute; inset: 0; z-index: 0; pointer-events: none; border-radius: inherit; overflow: hidden; }
+.ask-sheen::before { content: ""; position: absolute; top: -20%; bottom: -20%; left: 0; width: 40%; transform: translateX(-160%) skewX(-18deg); background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, .85), rgba(255, 255, 255, 0)); }
+:root:root .ask-pill:is(:hover, :focus-visible, .is-peek):not(.is-open) .ask-sheen::before { transform: translateX(320%) skewX(-18deg); transition: transform .9s cubic-bezier(.22, .61, .36, 1) .08s; }
+:root:root .ask-pill > :is(.ask-me, .ask-l2) { position: relative; z-index: 1; }
+@media (prefers-reduced-motion: reduce) {
+  .ask-pre, .ask-pre > span > span { transition: none; }
+  .ask-sheen { display: none; }
+}
+
+/* The work deck is one part of the bento, beside the toolbox (owner, 28 Nov 2026: "this should be a small part of the
+   bento layout"): the toolbox stacks its words over the tilted tiles. */
+@media (min-width: 1024px) {
+  :root:root .bx2 .bx2-t { display: flex; flex-direction: column; justify-content: space-between; align-items: stretch; gap: 32px; }
+  .bx2-t .bt-fan { align-self: center; margin-bottom: 16px; }
+}
+/* Review rows fade at their foot with a page-coloured veil instead of a mask, so the faded cards stay solid and no
+   structure line shows through them. */
+:root:root:root .tm-rows { position: relative; -webkit-mask-image: none; mask-image: none; }
+.tm-rows::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; z-index: 2; height: 200px; pointer-events: none; background: linear-gradient(180deg, rgba(14, 14, 16, 0), var(--page, #0e0e10) calc(100% - 8px)); }

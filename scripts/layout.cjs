@@ -73,6 +73,7 @@ function check(vw) {
         const r = box(b);
         if (r.width < 40) continue;
         if (b.matches(".tm-rows")) continue; // review rows slide edge to edge with the scroll (owner, 27 Nov 2026)
+        if (b.matches(".bx2-grid")) continue; // the bento grid runs out to the structure rails (owner, 28 Nov 2026: "make sure lines don't overlap")
         if (b.matches(".bb-alt")) continue; // lines up with the calendar card inside the Cal.com frame, not the content box (owner, 27 Nov 2026: "same width")
         // Inside a two-column layout the column edges are the reference, not the content box.
         const par = b.parentElement, pr = box(par);

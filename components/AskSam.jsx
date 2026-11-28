@@ -99,6 +99,7 @@ export default function AskSam() {
   const [on, setOn] = useState(null); // { siteKey } once the API is ready
   const [show, setShow] = useState(false);
   const [open, setOpen] = useState(false);
+  const [peek, setPeek] = useState(false);
   const [closing, setClosing] = useState(false);
   const [msgs, setMsgs] = useState([]);
   const [text, setText] = useState("");
@@ -110,6 +111,19 @@ export default function AskSam() {
   const list = useRef(null);
   const panel = useRef(null);
   const drag = useRef(null);
+  // One peek per visit: a moment after the pill appears and the visitor has moved, it opens to "Ask Sam's AI" for a few
+  // seconds, then folds back to "AI".
+  useEffect(() => {
+    if (!show) return;
+    try { if (sessionStorage.getItem("ask:peek") || matchMedia("(prefers-reduced-motion: reduce)").matches) return; } catch { return; }
+    const ts = [];
+    const go = () => { ts.push(setTimeout(() => { setPeek(true); try { sessionStorage.setItem("ask:peek", "1"); } catch { /* storage blocked */ } ts.push(setTimeout(() => setPeek(false), 2800)); }, 1400)); };
+    const html = document.documentElement;
+    let mo = null;
+    if (html.classList.contains("is-live")) go();
+    else { mo = new MutationObserver(() => { if (html.classList.contains("is-live")) { mo.disconnect(); go(); } }); mo.observe(html, { attributes: true, attributeFilter: ["class"] }); }
+    return () => { ts.forEach(clearTimeout); if (mo) mo.disconnect(); };
+  }, [show]);
   // Close with an exit animation (iOS sheet curve), then unmount. Reduced motion closes at once.
   const shut = (focusPill) => {
     const calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -261,10 +275,14 @@ export default function AskSam() {
 
   return (
     <>
-      <button ref={pill} type="button" className={`ask-pill${side ? " is-side" : ""}${open ? " is-open" : ""}`} aria-expanded={open} aria-controls="ask-panel" aria-label={side ? "Ask Sam's AI" : undefined} onClick={() => (open ? shut(false) : setOpen(true))}>
+      <button ref={pill} type="button" className={`ask-pill${side ? " is-side" : ""}${open ? " is-open" : ""}${peek ? " is-peek" : ""}`} aria-expanded={open} aria-controls="ask-panel" onClick={() => (open ? shut(false) : setOpen(true))}>
         {/* Sam himself as the assistant's mark, with a small spark: "Sam's AI" (owner, 27 Nov 2026: "cute or helpful mascot logo of me") */}
         <span className="ask-me" aria-hidden="true"><img src="/sam-face-144.webp?v=1" width="28" height="28" alt="" decoding="async" /><svg viewBox="0 0 24 24" width="12" height="12" aria-hidden="true"><path d="M12 3l1.8 4.9L18.7 9.7 13.8 11.5 12 16.4 10.2 11.5 5.3 9.7 10.2 7.9zM18.5 14.5l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8z" /></svg></span>
-        {side ? <span className="ask-l"><span className="ask-l-s">AI</span><span className="ask-l-f">Ask Sam&apos;s AI</span></span> : "Ask Sam's AI"}
+        {/* Short everywhere (owner, 28 Nov 2026: "shorten it like on other pages, on hover show the full text, + animation
+            more"): "AI" at rest; on hover, focus or the one peek per visit, "Ask Sam's" slides out of a clip as the key
+            widens and a light sweeps across. The clipped words stay in the button's name. */}
+        <span className="ask-l2"><span className="ask-pre"><span><span>Ask Sam&apos;s&nbsp;</span></span></span><span className="ask-word">AI</span></span>
+        <span className="ask-sheen" aria-hidden="true" />
       </button>
       {open ? (
         <section ref={panel} id="ask-panel" className={`ask-panel${closing ? " is-closing" : ""}${busy ? " is-busy" : ""}`} role="dialog" aria-modal="false" aria-labelledby="ask-h" data-lenis-prevent="">
