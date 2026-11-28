@@ -7862,13 +7862,14 @@ html:has(.bw .bw-tab) body:not(:has(.case-fab)) .ask-pill.is-side { --ask-left: 
 @media (prefers-reduced-motion: reduce) { .hw-btnw::after, .hw-btnw::before { display: none; } }
 
 /* The ebook hero's book is the 3D book (owner, 28 Nov 2026): no scene, no shelf, no background, in the old cover's place */
-:root:root .eb .eb-hero .eb-stage .eb-b3 { --bd: 16px; position: absolute; left: 4%; bottom: 2%; z-index: 2; display: block; width: 40%; padding: 0; overflow: visible; background: none; border-radius: 0; }
+:root:root .eb .eb-hero .eb-stage { display: grid; place-items: center; }
+:root:root .eb .eb-hero .eb-stage .eb-b3 { --bd: 22px; position: relative; z-index: 2; display: block; width: min(340px, 62%); padding: 0; overflow: visible; background: none; border-radius: 0; }
 .b3-still .b3-scene { width: 100%; }
 .b3-still .b3-book { width: 100%; }
 :root:root:root .eb-cover .eb-b3 .b3-front { width: 100%; height: 100%; max-width: none; margin: 0; rotate: none; transform: translateZ(calc(var(--bd) / 2)); box-shadow: inset 4px 0 6px -4px rgba(255, 255, 255, .25), 0 30px 50px -24px rgba(0, 0, 0, .8); }
 .b3-still .b3-front { border-radius: 3px 6px 6px 3px; }
 .b3-still .b3-shadow { bottom: -14px; width: 100%; height: 24px; }
-@media (max-width: 720px) { :root:root .eb .eb-hero .eb-stage .eb-b3 { --bd: 10px; } }
+@media (max-width: 720px) { :root:root .eb .eb-hero .eb-stage { aspect-ratio: auto; padding-block: 8px 24px; } :root:root .eb .eb-hero .eb-stage .eb-b3 { --bd: 14px; width: min(220px, 64%); } }
 
 /* Short footer: the top line and the bottom line meet with one hairline */
 .fo-top + .fo-bottom { border-top: 0; }
@@ -7876,3 +7877,12 @@ html:has(.bw .bw-tab) body:not(:has(.case-fab)) .ask-pill.is-side { --ask-left: 
 /* Contact: once a message is sent, the hidden calendar stops holding the height (owner, 28 Nov 2026: "remove all this
    white space after the success message") */
 .cs.is-sent .cs-pane:not(.is-on) { display: none; }
+
+/* About: the year is a slider you can drag or step with the arrow keys (owner, 28 Nov 2026) */
+:root:root .ab-year { position: relative; justify-items: start; cursor: ew-resize; touch-action: pan-y; user-select: none; -webkit-user-select: none; border-radius: var(--r-sm); }
+:root:root .ab-year:focus-visible { outline: 3px solid rgba(98, 193, 253, .6); outline-offset: 6px; }
+.ab-year-n { transition: color .25s var(--ease-out); }
+:root:root .ab-year.is-drag .ab-year-n, :root:root .ab-year:focus-visible .ab-year-n { color: #62c1fd; }
+.ab-year-hint { display: inline-flex; align-items: center; gap: 6px; margin-top: 4px; font-size: .75rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.ab-year-hint::before { content: "\2194"; font-size: .875rem; letter-spacing: 0; }
+@media (hover: none) { .ab-year-hint { display: none; } }

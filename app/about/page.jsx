@@ -36,8 +36,8 @@ export default function About() {
       <div className="ab-wrap">
       <div className="ab-photo">
         <AboutPortrait />
-        {/* The year rolls from 2013 to today as you read (AboutMotion.jsx); the server shows today's year and fact. */}
-        <p className="ab-year"><span className="ab-year-n">{new Date().getFullYear()}</span><span className="ab-year-t"><span>Now in Tirana, working with US and EU teams</span></span><span className="sr-only">. Designing since 2013, starting in Prizren, Kosovo.</span></p>
+        {/* The year follows the story part being read and can be dragged (AboutMotion.jsx); the server shows today. */}
+        <p className="ab-year" role="slider" tabIndex={0} aria-label="Year in Sam's story" aria-valuemin={2013} aria-valuemax={new Date().getFullYear()} aria-valuenow={new Date().getFullYear()}><span className="ab-year-n">{new Date().getFullYear()}</span><span className="ab-year-t"><span>Now in Tirana, working with US and EU teams</span></span><span className="ab-year-hint" aria-hidden="true">Drag the year</span></p>
       </div>
       <AboutMotion />
       <div className="ab">

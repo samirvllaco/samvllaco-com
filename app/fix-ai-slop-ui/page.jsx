@@ -187,19 +187,9 @@ export default function Ebook() {
           </ul>
         </div>
         <div className="eb-cover eb-stage">
-          {/* Before and after of a sample page, with the book in front */}
-          <figure className="eb-shot eb-shot-b" aria-hidden="true">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/ebook/ba-before-768.webp?v=3" width="768" height="768" alt="" loading="eager" decoding="async" />
-            <figcaption>First AI draft</figcaption>
-          </figure>
-          <figure className="eb-shot eb-shot-a" aria-hidden="true">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/ebook/ba-after-768.webp?v=3" width="768" height="768" alt="" loading="eager" decoding="async" />
-            <figcaption>After the book</figcaption>
-          </figure>
+          {/* Only the book (owner, 28 Nov 2026: "keep only the book"); the before and after shots are gone from the hero. */}
           {/* The 3D book (owner, 28 Nov 2026, after spectup.com): still on load, turns toward the pointer */}
-          <Book3D className="eb-b3" still eager src="/ebook/cover.webp?v=2" srcSet="/ebook/cover-520.webp?v=1 520w, /ebook/cover.webp?v=2 936w" sizes="(max-width: 720px) 120px, 230px" alt="Cover of 27 Copy-Paste Prompts to Fix AI Slop UI" />
+          <Book3D className="eb-b3" still eager src="/ebook/cover.webp?v=2" srcSet="/ebook/cover-520.webp?v=1 520w, /ebook/cover.webp?v=2 936w" sizes="(max-width: 720px) 220px, 340px" alt="Cover of 27 Copy-Paste Prompts to Fix AI Slop UI" />
         </div>
       </header>
 
