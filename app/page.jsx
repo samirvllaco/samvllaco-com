@@ -150,7 +150,7 @@ export default function Home() {
 
       <section id="work" className="stack work" data-bg="#0e0e10">
           <h2>Work <span className="t2">that shipped</span></h2>
-          <p className="work-lede">Real products with real users. Some names are changed because the work is under NDA.</p>
+          <p className="work-lede">Real products with real users.</p>
           <WorkCarousel items={WORK.map((w) => ({ slug: w.slug, title: w.title, sub: w.sub, alt: w.alt, small: w.small }))} />
           <div className="wc-all"><Link prefetch={false} className="hero2-btn hero2-btn-light" href="/work/">View all work</Link></div>
       </section>
