@@ -25,3 +25,9 @@ New owner rules go into the matching file in `.claude/rules/` (with the date), n
 
 ## Git
 - Commit messages are plain: no Co-Authored-By, Claude-Session or other trailers (owner, 13 Nov 2026).
+- The default branch is `main`, not `master`. Push with `git push origin "$(git branch --show-current)"`.
+
+## Scripts and data files (lessons of 28 Nov 2026)
+- Run any new or changed script first on one small input under `timeout 60`. Only then run it at full size. A script that fetches many sites gets a per-request timeout and a cap on how many it fetches.
+- Before parsing a log or data file, count its line shapes (fields per row, line prefixes) and print 3 samples of each. Do not assume one format.
+- When moving or summarising rules, copy the words. Never add a rule that is not in the source, and check old against new line by line.
