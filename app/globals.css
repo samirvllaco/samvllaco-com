@@ -8002,6 +8002,15 @@ html:has(.bw .bw-tab) body:not(:has(.case-fab)) .ask-pill.is-side { --ask-left: 
   .wd-card { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; }
 }
 .wd-vis { position: relative; aspect-ratio: 4 / 3; overflow: hidden; container-type: size; isolation: isolate; border-radius: var(--r-inner); background: #f5f5f7; box-shadow: 0 0 0 1px rgba(255, 255, 255, .08); }
+/* The cursor tag from the work thumbnails follows the pointer here too (FollowTag.jsx, owner, 28 Nov 2026): the web and ad
+   pictures open their service page, the before and after says "Drag to compare". Touch keeps it hidden. */
+a.wd-vis { display: block; color: inherit; text-decoration: none; }
+.wd-vis .work-open { z-index: 3; }
+@media (hover: hover) and (pointer: fine) {
+  .wd-vis:hover .work-open { opacity: 1; transform: none; }
+  a.wd-vis { cursor: pointer; }
+}
+@media (hover: none), (pointer: coarse) { .wd-vis .work-open { display: none; } }
 .wd-vis img { display: block; width: 100%; height: 100%; object-fit: cover; }
 /* 1) Before and after */
 .wd-ba { background: #0b1f4a; }

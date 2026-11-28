@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import CallIcon from "./CallIcon";
+import FollowTag from "./FollowTag";
 import { loadGsap } from "../lib/gsapLoad";
 
 // Home page, after the hero (owner, 28 Nov 2026: "need section like this", after an agency's "Who we are" block):
@@ -49,6 +50,7 @@ function Compare({ go }) {
       <span className="wd-tag wd-tag-a" aria-hidden="true">After</span>
       <div className="wd-line" aria-hidden="true"><i><Ico d={<><path d="m9 7-5 5 5 5" /><path d="m15 7 5 5-5 5" /></>} /></i></div>
       <input type="range" min="0" max="100" step="1" value={Math.round(v)} onChange={set} onPointerDown={() => { touched.current = true; }} aria-label="Compare the old and new law firm homepage" aria-valuetext={`${Math.round(v)}% old homepage`} />
+      <FollowTag label="Drag to compare" drag />
     </div>
   );
 }
@@ -92,17 +94,18 @@ export default function WhatIDo() {
           <li key={c.k} className={`wd-card wd-card-${c.k}`}>
             {c.k === "audit" ? <Compare go={seen && live} /> : null}
             {c.k === "web" ? (
-              <div className="wd-vis wd-dash" aria-hidden="true">
+              <a className="wd-vis wd-dash" href={c.href} tabIndex={-1} aria-hidden="true">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img className="wd-base" src="/work/wd/dash.webp?v=1" width="720" height="540" loading="lazy" decoding="async" alt="" />
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img className="wd-f wd-f1" src="/work/wd/dash-kpi.webp?v=1" width="255" height="160" loading="lazy" decoding="async" alt="" />
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img className="wd-f wd-f2" src="/work/wd/dash-ai.webp?v=1" width="355" height="330" loading="lazy" decoding="async" alt="" />
-              </div>
+                <FollowTag label={c.cta} />
+              </a>
             ) : null}
             {c.k === "ads" ? (
-              <div className="wd-vis wd-land" aria-hidden="true">
+              <a className="wd-vis wd-land" href={c.href} tabIndex={-1} aria-hidden="true">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img className="wd-base" src="/work/wd/land.webp?v=1" width="720" height="540" loading="lazy" decoding="async" alt="" />
                 <div className="wd-ad">
@@ -113,7 +116,8 @@ export default function WhatIDo() {
                   <div className="wd-ad-cta"><span>ocufuse.com</span><b>Play now</b></div>
                 </div>
                 <svg className="wd-cur" viewBox="0 0 24 24" width="22" height="22"><path d="M5 3.5 19 12l-6.2 1.6L9.6 19.5 5 3.5Z" fill="#111112" stroke="#fff" strokeWidth="1.5" strokeLinejoin="round" /></svg>
-              </div>
+                <FollowTag label={c.cta} />
+              </a>
             ) : null}
             <div className="wd-txt">
               <h3>{c.t}</h3>

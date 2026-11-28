@@ -4,10 +4,11 @@ import { loadGsap } from "../lib/gsapLoad";
 
 // "View case study" follows the cursor over a thumbnail (owner, 28 Nov 2026). It jumps to the pointer when it enters,
 // then trails it, eased by the vendored GSAP, and stays inside the picture. Mouse and trackpad only: touch and keyboard
-// keep the tag in its corner.
+// keep the tag in its corner. Also on the home What I do pictures (owner, 28 Nov 2026), where the before and after
+// says "Drag to compare" with a left and right arrow.
 const clamp = (v, a, b) => Math.min(Math.max(v, a), Math.max(a, b));
 
-export default function FollowTag({ label = "View case study" }) {
+export default function FollowTag({ label = "View case study", drag = false }) {
   const me = useRef(null);
   useEffect(() => {
     const tag = me.current;
@@ -44,7 +45,7 @@ export default function FollowTag({ label = "View case study" }) {
   return (
     <span ref={me} className="work-open" aria-hidden="true">
       <span className="work-open-t">{label}</span>
-      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M7 17L17 7M9 7h8v8" /></svg>
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">{drag ? <path d="m9 7-5 5 5 5M15 7l5 5-5 5" /> : <path d="M7 17L17 7M9 7h8v8" />}</svg>
     </span>
   );
 }
