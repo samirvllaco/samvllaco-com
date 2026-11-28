@@ -55,6 +55,8 @@
 - [AI slop statistics 2026: 100 new product launches, measured](https://samvllaco.com/writing/ai-slop-statistics/): original data from 100 Show HN launches scanned on 28 Nov 2026. 9 had a purple gradient, 73 had spacing off a 4px grid, 58 had more than one filled button on the first screen, 53 used more than seven font sizes, 30 put a card inside a card.
 - [Does my website look AI-generated? 10 signs and a free test](https://samvllaco.com/writing/does-my-website-look-ai-generated/): the 10 signs, a free checker, and the fix for each.
 - [Anti AI slop UI: a free skill file](https://samvllaco.com/writing/anti-ai-slop-ui-skill/): what the skill bans and enforces, and how to install it.
+- [AI slop UI examples: 12 patterns and how to fix them](https://samvllaco.com/writing/ai-slop-ui-examples/): each pattern with how often it appears in 100 new launches and its fix.
+- [Lovable app redesign: three ways without a rebuild](https://samvllaco.com/writing/lovable-app-redesign/): do it yourself, get a recorded review or have it redesigned, with prices.
 
 ## Writing: hiring a designer
 - [Hire a Lovable designer: what it costs, what you get and what to ask](https://samvllaco.com/writing/hire-lovable-designer/): what a Lovable designer does for an app that works but looks generic, costs, and questions to ask.
@@ -63,12 +65,22 @@
 - [What a product designer costs for a SaaS or AI app](https://samvllaco.com/writing/product-designer-cost/): Real 2026 price ranges for hiring a product designer: hourly, weekly, monthly and fixed price, what moves the number, and what each budget buys you.
 - [Freelance designer vs agency: which one should a SaaS or AI startup hire?](https://samvllaco.com/writing/freelance-designer-vs-agency/): Freelance product designer or design agency for your SaaS or AI startup? A fair comparison of cost, speed, skills and risk, and when to pick each.
 - [Do you need a designer if you build with AI? Hiring a designer vs vibe coding it yourself](https://samvllaco.com/writing/designer-vs-vibe-coding/): Hire a designer or vibe code the design yourself? A fair comparison for founders, plus a middle path: a $12.99 ebook, a $49 review, then a full hire.
+- [Website redesign cost: what sets the price](https://samvllaco.com/writing/website-redesign-cost/): page types, content, build, brand and migration, with ranges.
+
+## Writing: UX audits and industries
+- [UX audit checklist: 30 checks you can run yourself](https://samvllaco.com/writing/ux-audit-checklist/): six groups of checks for one flow, and how to rank what you find.
+- [Law firm website design: what gets the call](https://samvllaco.com/writing/law-firm-website-design/): the first screen, the section order and a real before and after from a personal injury firm.
+- [Ecommerce product page design: what to show and where](https://samvllaco.com/writing/ecommerce-product-page-design/): the first screen, options, price, the buy button and what comes after the order.
 
 ## Writing: SaaS dashboards and data tables
 - [SaaS dashboard design: how to make a dashboard people can read at a glance](https://samvllaco.com/writing/saas-dashboard-design-guide/): How to design a SaaS dashboard people can read at a glance: start from the question, set the hierarchy, pick the right charts and build tables for real data.
 - [9 dashboard UX mistakes that send your users back to Excel](https://samvllaco.com/writing/dashboard-ux-mistakes/): Nine dashboard design mistakes common in SaaS products, why each one makes people export to a spreadsheet, and the fix, with a prompt for AI-built apps.
 - [Data table design: 10 rules for tables that hold 10,000 rows](https://samvllaco.com/writing/data-table-design/): Your table worked with ten rows in the demo. Ten rules for SaaS data tables that stay readable and fast with real data, plus a prompt for AI-built apps.
-- [What a SaaS dashboard design costs, and what moves the price](https://samvllaco.com/writing/dashboard-design-cost/): A dashboard can cost $1,500 or $25,000 to design. The six things that decide which, what each budget gets you, and how to scope yours before a call.
+- [What a SaaS dashboard design costs, and what moves the price](https://samvllaco.com/writing/dashboard-design-cost/): A dashboard can cost $2,500 or $25,000 to design. The six things that decide which, what each budget gets you, and how to scope yours before a call.
+- [SaaS dashboard redesign: when you need one and how to do it without a rebuild](https://samvllaco.com/writing/saas-dashboard-redesign/): five signs, the week by week process, how to ship it safely and what it costs.
+- [SaaS executive dashboard: the six numbers to show](https://samvllaco.com/writing/saas-executive-dashboard/): what to include, what to leave out and a layout that reads in under a minute.
+- [Customer acquisition dashboard: metrics, layout and a prompt](https://samvllaco.com/writing/customer-acquisition-dashboard/): new customers, CAC, payback, the funnel and a table by channel.
+- [SaaS support dashboard best practices: 7 rules](https://samvllaco.com/writing/saas-support-dashboard/): tickets at risk first, median response times, tickets per customer and contact reasons.
 
 ## Writing: AI product UX
 - [AI product UX design: how to make AI features people use](https://samvllaco.com/writing/ai-product-ux-design-guide/): How to design AI features people keep using: where the AI sits, when it speaks, how to design the wait, show sources, make correction cheap, what to measure.
