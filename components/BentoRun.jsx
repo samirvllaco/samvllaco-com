@@ -1,6 +1,7 @@
 "use client";
 import { useEffect } from "react";
 import { orbitAt, orbitTf } from "../lib/orbit";
+import { onLive } from "../lib/motion";
 
 // Motion for the home bento (owner, 28 Nov 2026: "bento grid like this with our context", after grafit.agency).
 // 1) A dithered sphere: square pixels against a 4x4 Bayer matrix, lit from the top left, with bands that turn slowly.
@@ -73,9 +74,8 @@ export default function BentoRun({ at }) {
       };
       const io = new IntersectionObserver(([e]) => { on = e.isIntersecting; sync(); }, { threshold: 0.05 });
       io.observe(stage);
-      const mo = new MutationObserver(() => { if (html.classList.contains("is-live")) { live = true; mo.disconnect(); sync(); } });
-      if (!live) mo.observe(html, { attributes: true, attributeFilter: ["class"] });
-      offs.push(() => { cancelAnimationFrame(raf); io.disconnect(); mo.disconnect(); ro.disconnect(); });
+      const offLive = onLive(() => { live = true; sync(); });
+      offs.push(() => { cancelAnimationFrame(raf); io.disconnect(); offLive(); ro.disconnect(); });
     }
 
     // Client dots: lit in step with the count (CountUp's curve, 1.4s), once in view.

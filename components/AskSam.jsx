@@ -4,6 +4,7 @@ import { useOnePop } from "../lib/onePop";
 import { usePathname } from "next/navigation";
 import { useTurnstile } from "./slop/useTurnstile";
 import { EMAIL } from "../lib/site";
+import { onLive } from "../lib/motion";
 
 // "Ask Sam's AI" (owner, 25 Nov 2026): a small pill at the bottom of the page that opens a chat answering from the site's
 // own facts (slopscore/src/ask.js). Shows after the first scroll and only once the API is switched on.
@@ -118,11 +119,8 @@ export default function AskSam() {
     try { if (sessionStorage.getItem("ask:peek") || matchMedia("(prefers-reduced-motion: reduce)").matches) return; } catch { return; }
     const ts = [];
     const go = () => { ts.push(setTimeout(() => { setPeek(true); try { sessionStorage.setItem("ask:peek", "1"); } catch { /* storage blocked */ } ts.push(setTimeout(() => setPeek(false), 2800)); }, 1400)); };
-    const html = document.documentElement;
-    let mo = null;
-    if (html.classList.contains("is-live")) go();
-    else { mo = new MutationObserver(() => { if (html.classList.contains("is-live")) { mo.disconnect(); go(); } }); mo.observe(html, { attributes: true, attributeFilter: ["class"] }); }
-    return () => { ts.forEach(clearTimeout); if (mo) mo.disconnect(); };
+    const off = onLive(go);
+    return () => { ts.forEach(clearTimeout); off(); };
   }, [show]);
   // Close with an exit animation (iOS sheet curve), then unmount. Reduced motion closes at once.
   const shut = (focusPill) => {

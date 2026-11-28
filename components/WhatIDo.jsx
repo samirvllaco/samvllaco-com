@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import CallIcon from "./CallIcon";
 import FollowTag from "./FollowTag";
 import { loadGsap } from "../lib/gsapLoad";
+import { useLive, useInView } from "../lib/motion";
 
 // Home page, after the hero (owner, 28 Nov 2026: "need section like this", after an agency's "Who we are" block):
 // one line with the three verbs as small icon chips, then three cards, each with a live picture of real work.
@@ -65,23 +66,8 @@ const CARDS = [
 
 export default function WhatIDo() {
   const root = useRef(null);
-  const [inView, setInView] = useState(false);
-  const [seen, setSeen] = useState(false);
-  const [live, setLive] = useState(false);
-
-  useEffect(() => {
-    const h = document.documentElement;
-    if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    if (h.classList.contains("is-live")) { setLive(true); return; }
-    const mo = new MutationObserver(() => { if (h.classList.contains("is-live")) { setLive(true); mo.disconnect(); } });
-    mo.observe(h, { attributes: true, attributeFilter: ["class"] });
-    return () => mo.disconnect();
-  }, []);
-  useEffect(() => {
-    const io = new IntersectionObserver(([e]) => { setInView(e.isIntersecting); if (e.isIntersecting) setSeen(true); }, { threshold: 0.35 });
-    if (root.current) io.observe(root.current);
-    return () => io.disconnect();
-  }, []);
+  const [inView, seen] = useInView(root, { threshold: 0.35 });
+  const live = useLive();
 
   return (
     <section className={`wd${seen ? " is-in" : ""}`} ref={root} aria-labelledby="wd-h" data-bg="#0e0e10" data-live={live ? "" : undefined} data-paused={inView ? undefined : ""}>

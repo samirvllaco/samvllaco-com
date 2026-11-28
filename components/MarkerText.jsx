@@ -13,6 +13,7 @@ import {
   useRef,
   useState,
 } from "react";
+import { onLive } from "../lib/motion";
 
 
 
@@ -429,17 +430,13 @@ export function MarkerText({
     resize.observe(root);
     // Web fonts can swap in after the first measure and move every line.
     document.fonts?.ready.then(() => measureRef.current());
+    let offLive = () => {};
     const view = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           view.disconnect();
           // Draw only once the visitor has scrolled or interacted (html.is-live), so the first screen stays calm.
-          const root = document.documentElement;
-          if (root.classList.contains("is-live")) { setSeen(true); return; }
-          const watch = new MutationObserver(() => {
-            if (root.classList.contains("is-live")) { watch.disconnect(); setSeen(true); }
-          });
-          watch.observe(root, { attributes: true, attributeFilter: ["class"] });
+          offLive = onLive(() => setSeen(true));
         }
       },
       { threshold: 0.6 }
@@ -448,6 +445,7 @@ export function MarkerText({
     return () => {
       resize.disconnect();
       view.disconnect();
+      offLive();
     };
   }, []);
 

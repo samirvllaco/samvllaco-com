@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { useLive } from "../lib/motion";
 
 // Hero work window (owner, 27 Nov 2026: "dont copy them, come up with our own better version").
 // Sam's desk, not a video player: the work on a dotted canvas (no frame label and no tab bar, owner 27 Nov 2026:
@@ -12,19 +13,11 @@ import Link from "next/link";
 // The page passes only the fields this needs, so lib/work.js stays out of the bundle.
 export default function HeroShow({ items: LIST }) {
   const [i, setI] = useState(0);
-  const [live, setLive] = useState(false);
+  const live = useLive();
   const [seen, setSeen] = useState(true);
   const [wait, setWait] = useState(false);
   const root = useRef(null);
 
-  useEffect(() => {
-    const h = document.documentElement;
-    if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    if (h.classList.contains("is-live")) { setLive(true); return; }
-    const mo = new MutationObserver(() => { if (h.classList.contains("is-live")) { setLive(true); mo.disconnect(); } });
-    mo.observe(h, { attributes: true, attributeFilter: ["class"] });
-    return () => mo.disconnect();
-  }, []);
 
   useEffect(() => {
     const io = new IntersectionObserver(([e]) => setSeen(e.isIntersecting));

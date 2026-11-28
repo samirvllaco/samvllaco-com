@@ -1,6 +1,7 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import CallIcon from "./CallIcon";
+import { useLive, useInView } from "../lib/motion";
 
 // Home page: the four design problems teams bring to Sam (owner, 27 Nov 2026: "do a section like this", after grafit.agency's
 // testimonial switcher). A framed panel: the problems as tabs on the left (the open one fills a line while it is shown),
@@ -16,24 +17,10 @@ const FIXES = [
 
 export default function Fixes() {
   const [i, setI] = useState(0);
-  const [live, setLive] = useState(false);
-  const [seen, setSeen] = useState(true);
   const [held, setHeld] = useState(false);
   const root = useRef(null);
-
-  useEffect(() => {
-    const h = document.documentElement;
-    if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    if (h.classList.contains("is-live")) { setLive(true); return; }
-    const mo = new MutationObserver(() => { if (h.classList.contains("is-live")) { setLive(true); mo.disconnect(); } });
-    mo.observe(h, { attributes: true, attributeFilter: ["class"] });
-    return () => mo.disconnect();
-  }, []);
-  useEffect(() => {
-    const io = new IntersectionObserver(([e]) => setSeen(e.isIntersecting), { threshold: 0.3 });
-    if (root.current) io.observe(root.current);
-    return () => io.disconnect();
-  }, []);
+  const live = useLive();
+  const [seen] = useInView(root, { threshold: 0.3 });
 
   const pick = (k) => { setHeld(true); setI(k); };
   const next = () => setI((v) => (v + 1) % FIXES.length);
