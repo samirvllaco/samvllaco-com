@@ -1,6 +1,5 @@
 "use client";
 import { useEffect, useRef } from "react";
-import PortraitGlow from "./PortraitGlow";
 
 // About portrait (owner, 27 Nov 2026: a front-facing photo, "mix of 1 and 3": a spec lens and ASCII on hover).
 // The cursor is a round lens: inside it the photo turns into ASCII made of design words, with a designer's redline
@@ -168,7 +167,6 @@ export default function AboutPortrait() {
         })}
       </span>
       <canvas ref={cv} className="ap-cv" aria-hidden="true" />
-      <PortraitGlow img={img} />
       <figcaption className="ap-hint" aria-hidden="true"><span className="ap-fine">Hover to look inside</span><span className="ap-touch">Tap to scan</span></figcaption>
     </figure>
   );
