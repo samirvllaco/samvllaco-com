@@ -92,4 +92,4 @@ A [DESIGN.md](/writing/design-md-template/), which the free [DESIGN.md generator
 
 ## Where to go next
 
-I've designed more than 10,000 screens since 2013, and I fix apps built with Lovable, Cursor, Bolt and v0 without a rebuild. See [how the AI-built app design fix works](/services/ai-app-design-fix/), or [ask for a free audit](/free-audit/) and I'll send you a Loom with what I would change first.
+I've designed more than 10,000 screens since 2013, and I fix apps built with Lovable, Cursor, Bolt and v0 without a rebuild. [Lovable app redesign](/writing/lovable-app-redesign/) compares doing it yourself with hiring. See [how the AI-built app design fix works](/services/ai-app-design-fix/), or [ask for a free audit](/free-audit/) and I'll send you a Loom with what I would change first.

@@ -137,7 +137,7 @@ If you want the whole system as prompts, it's in my short book, [27 Copy-Paste P
 
 And if you'd rather hand it over, [I also fix the design of AI-built apps](/services/ai-app-design-fix/).
 
-To check the result, run your live Lovable app through the free [AI slop checker](/ai-slop-checker/). It scores how generated it looks from 0 to 100 and names the top three fixes. To write the rules file in a minute, answer five questions in the free [DESIGN.md generator](/tools/design-md-generator/). If you would rather not do this yourself, here is [when to hire a Lovable designer](/writing/hire-lovable-designer/).
+To check the result, run your live Lovable app through the free [AI slop checker](/ai-slop-checker/). It scores how generated it looks from 0 to 100 and names the top three fixes. To write the rules file in a minute, answer five questions in the free [DESIGN.md generator](/tools/design-md-generator/). For the whole picture, [Lovable app redesign](/writing/lovable-app-redesign/) compares the three routes. If you would rather not do this yourself, here is [when to hire a Lovable designer](/writing/hire-lovable-designer/).
 
 ## Questions people ask
 
