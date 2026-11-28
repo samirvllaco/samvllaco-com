@@ -8,6 +8,10 @@ export default function HeaderScroll() {
     let raf = 0, on = null, end = null, dark = null, lastY = window.scrollY, down = null;
     const update = () => { raf = 0; const y = window.scrollY; if (Math.abs(y - lastY) > 6) { const d = y > lastY && y > 90; if (d !== down) { down = d; root.classList.toggle("is-down", d); } lastY = y; } const v = window.scrollY > (on ? 40 : 90); if (v !== on) { on = v; root.classList.toggle("is-scrolled", v); }  let d = false; for (const el of document.querySelectorAll(".site-footer, .book-band, .dark-island")) { const r = el.getBoundingClientRect(); if (r.top <= 64 && r.bottom > 40 && r.width > window.innerWidth * .8) { d = true; break; } } if (d !== dark) { dark = d; root.classList.toggle("on-dark", d); } const e = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 220; if (e !== end) { end = e; root.classList.toggle("is-end", e); } };
     const onScroll = () => { if (!raf) raf = requestAnimationFrame(update); };
+    // The header keeps the height it had at load while it collapses into pills, so the page under it never moves
+    // (CLS fix, 28 Nov 2026: the top note and the row shrinking by 43px counted as a layout shift on every page).
+    const hd = document.querySelector(".site-header");
+    if (hd) root.style.setProperty("--head-h", `${hd.offsetHeight}px`);
     update();
     // Ambient motion (cycling icons, rotating badges, marquees) waits for the first interaction,
     // so the first screen stays still while it loads.

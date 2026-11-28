@@ -23,7 +23,13 @@ const UI = {
 export default function CalFrame({ src }) {
   const ref = useRef(null);
   useEffect(() => {
-    let sent = 0;
+    // The frame starts at the height Cal.com settles at (CSS), and before the visitor touches it, it only ever grows
+    // (CLS fix, 28 Nov 2026): while loading, Cal.com reports a short height first and then the real one, which made the
+    // page jump twice. Once the pointer or focus is in the calendar, every new height applies (steps, the form).
+    let sent = 0, touched = false;
+    const touch = () => { touched = true; };
+    const fr = ref.current;
+    if (fr) { fr.addEventListener("pointerenter", touch); fr.addEventListener("focus", touch); }
     const send = () => { const f = ref.current; if (f && f.contentWindow) { f.contentWindow.postMessage({ originator: "CAL", method: "ui", arg: UI }, "*"); sent++; } };
     const onMsg = (e) => {
       const f = ref.current;
@@ -31,10 +37,13 @@ export default function CalFrame({ src }) {
       const d = e.data;
       if (!d || d.originator !== "CAL") return;
       if (sent < 3) send();
-      if (d.type === "__dimensionChanged" && d.data && d.data.iframeHeight > 200) f.style.height = `${Math.ceil(d.data.iframeHeight)}px`;
+      if (d.type === "__dimensionChanged" && d.data && d.data.iframeHeight > 200) {
+        const h = Math.ceil(d.data.iframeHeight);
+        if (touched || h > f.offsetHeight) f.style.height = `${h}px`;
+      }
     };
     window.addEventListener("message", onMsg);
-    return () => window.removeEventListener("message", onMsg);
+    return () => { window.removeEventListener("message", onMsg); if (fr) { fr.removeEventListener("pointerenter", touch); fr.removeEventListener("focus", touch); } };
   }, []);
   // The Cal.com footer mark under the booker is clipped off: the frame sits in a clipping box and pulls
   // its last 80px (the branding strip) below the box edge (owner, 27 Nov 2026).

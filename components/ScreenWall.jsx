@@ -34,8 +34,12 @@ export default function ScreenWall({ cta = null }) {
         const cell = g.children[1] || g.children[0];
         const cw = (W / cols) * sc, ch = (cell ? cell.offsetHeight : W / cols * 0.5625) * sc;
         const ox = g.offsetLeft + W / 2 - (W * sc) / 2, oy = g.offsetTop + H / 2 - (H * sc) / 2 + ty;
-        ln.style.backgroundSize = `${cw.toFixed(2)}px ${ch.toFixed(2)}px`;
-        ln.style.cssText += `left:${ox.toFixed(1)}px;top:${oy.toFixed(1)}px;width:${(W * sc).toFixed(1)}px;height:${(H * sc).toFixed(1)}px`;
+        // Paint-only: the layer keeps its box (inset 0), only the background and the clip follow the zoom, so nothing
+        // shifts in layout (it used to set left/top/width/height every frame, which Google counted as layout shift).
+        const Ws = W * sc, Hs = H * sc, SW = ln.offsetWidth, SH = ln.offsetHeight, f = (v) => v.toFixed(1);
+        ln.style.backgroundSize = `${cw.toFixed(2)}px ${ch.toFixed(2)}px, ${cw.toFixed(2)}px ${ch.toFixed(2)}px, 1px ${f(Hs)}px, ${f(Ws)}px 1px`;
+        ln.style.backgroundPosition = `${f(ox)}px ${f(oy)}px, ${f(ox)}px ${f(oy)}px, ${f(ox + Ws - 1)}px ${f(oy)}px, ${f(ox)}px ${f(oy + Hs - 1)}px`;
+        ln.style.clipPath = `inset(${f(Math.max(0, oy))}px ${f(Math.max(0, SW - ox - Ws))}px ${f(Math.max(0, SH - oy - Hs))}px ${f(Math.max(0, ox))}px)`;
       }
     };
     const on = () => { if (!raf) raf = requestAnimationFrame(update); };

@@ -59,5 +59,12 @@ Every new section, component or page must keep this. Check it before calling a c
 - Accessible names must contain the visible text. Prefer visible text plus `sr-only` extras over `aria-label`.
 - Touch targets at least 24px, 44px for main controls.
 
+**Layout shift on scroll (CLS fix, 28 Nov 2026: 28% of real loads had poor layout shift)**
+- Scrolling is not an input that excuses a shift, so anything that changes size or place in layout while the page scrolls counts against CLS. Move things with transform, clip-path or background only.
+- The footer wall's hairline layer keeps its box; ScreenWall moves only its background and clip.
+- The booking calendar starts at the height Cal.com settles at (`.book-cal iframe`: 560px wide, `calc(1930px + 62vw)` below 815px) and only grows until the visitor touches it (`CalFrame.jsx`).
+- The header keeps its load height (`--head-h`, set by HeaderScroll) while it collapses into pills on wide screens.
+- To measure: a script that scrolls the page with `scrollBy` while a `layout-shift` PerformanceObserver logs entries and their sources (see the 28 Nov 2026 commit "CLS").
+
 **Caching**
 - `public/_headers` sets long caching for `/_next/static`, `/fonts`, `/hero`, `/work/*` image folders. New image folders get a rule there too. Never long-cache HTML.
