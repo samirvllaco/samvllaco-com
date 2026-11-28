@@ -1,32 +1,30 @@
 "use client";
 import { useEffect, useRef } from "react";
-import { loadGsap } from "../lib/gsapLoad";
+import { loadPlugins, reduced } from "../lib/motion";
 
 // Reading progress across the top of case studies and articles (owner, 28 Nov 2026: "make the top line thicker and
-// animated, consistent, use GSAP"): a 4px blue line, the same look as the rails beside the steps and the contents list,
-// eased by GSAP so it glides instead of stepping with the scroll. Reduced motion follows the scroll directly.
+// animated, consistent, use GSAP"): a 4px blue line, the same look as the rails beside the steps and the contents list.
+// GSAP ScrollTrigger scrubs it from the top of the page to the end (owner, 28 Nov 2026: "do all"), eased so it glides
+// instead of stepping with the scroll; reduced motion follows the scroll directly. Without GSAP a scroll listener sets it.
 export default function ReadLine() {
   const bar = useRef(null);
   useEffect(() => {
     const el = bar.current;
     if (!el) return;
-    const v = { p: 0 };
-    let q = null, raf = 0;
-    const paint = () => { el.style.transform = `scaleX(${v.p.toFixed(4)})`; };
-    const update = () => {
-      raf = 0;
-      const max = document.documentElement.scrollHeight - window.innerHeight;
-      const t = max > 0 ? Math.min(1, window.scrollY / max) : 0;
-      if (q) q(t); else { v.p = t; paint(); }
+    let tw = null, gone = false, raf = 0;
+    const plain = () => {
+      const update = () => { raf = 0; const max = document.documentElement.scrollHeight - innerHeight; el.style.transform = `scaleX(${max > 0 ? Math.min(1, scrollY / max).toFixed(4) : 0})`; };
+      const on = () => { if (!raf) raf = requestAnimationFrame(update); };
+      update(); addEventListener("scroll", on, { passive: true }); addEventListener("resize", on);
+      return () => { removeEventListener("scroll", on); removeEventListener("resize", on); cancelAnimationFrame(raf); };
     };
-    if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      loadGsap().then((g) => { if (g) { q = g.quickTo(v, "p", { duration: 0.5, ease: "power3.out", onUpdate: paint }); update(); } });
-    }
-    const on = () => { if (!raf) raf = requestAnimationFrame(update); };
-    update();
-    window.addEventListener("scroll", on, { passive: true });
-    window.addEventListener("resize", on);
-    return () => { window.removeEventListener("scroll", on); window.removeEventListener("resize", on); cancelAnimationFrame(raf); };
+    let off = null;
+    loadPlugins("ScrollTrigger").then((g) => {
+      if (gone) return;
+      if (!g) { off = plain(); return; }
+      tw = g.fromTo(el, { scaleX: 0 }, { scaleX: 1, ease: "none", scrollTrigger: { start: 0, end: "max", scrub: reduced() ? true : 0.5 } });
+    });
+    return () => { gone = true; if (tw) { tw.scrollTrigger && tw.scrollTrigger.kill(); tw.kill(); } if (off) off(); };
   }, []);
   return <div className="dl-read" aria-hidden="true"><span ref={bar} /></div>;
 }
