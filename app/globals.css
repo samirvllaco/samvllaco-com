@@ -8280,3 +8280,11 @@ a.wd-vis { display: block; color: inherit; text-decoration: none; }
 :root:root .wbadge img { object-fit: cover; }
 .wbadge i { display: grid; place-items: center; color: #fff; font-style: normal; font-size: .875rem; font-weight: 700; }
 @media (max-width: 639px) { .wbadge { left: 12px; bottom: 12px; } }
+/* Shown only on hover (owner, 28 Nov 2026: "show logos only on hover"): it wipes in from the left and lifts 4px, so the
+   text is never half transparent. Touch screens have no hover, so it stays hidden there. */
+.wbadge { clip-path: inset(0 100% 0 0 round 10px); transform: translateY(4px); transition: clip-path .4s var(--ease-out), transform .4s var(--ease-out); }
+@media (hover: hover) and (pointer: fine) {
+  :is(.work-card, .wc-link):is(:hover, :focus-visible) .wbadge { clip-path: inset(0 0 0 0 round 10px); transform: none; }
+}
+@media (hover: none), (pointer: coarse) { .wbadge { display: none; } }
+@media (prefers-reduced-motion: reduce) { .wbadge { transition: none; } }
