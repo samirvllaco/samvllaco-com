@@ -1,5 +1,4 @@
 import Link from "next/link";
-import WorldFacts from "./WorldFacts";
 import SwipeDeck from "./SwipeDeck";
 import Toolbox from "./Toolbox";
 import CountUp from "./CountUp";
@@ -55,8 +54,7 @@ const TICKS = Array.from({ length: 27 }, (_, k) => {
 // Home bento (owner, 28 Nov 2026: "bento grid like this with our context", after grafit.agency): one hairline grid with
 // crosses at the corners. The big cell is the whole-product promise, a dithered sphere with the parts of the work
 // orbiting it. Then four stat cells, each a real number with a picture of it: years on a gauge, one dot per client,
-// screens as a rising line, and the usual turnaround on a timeline. Then the work deck, the worldwide facts and the
-// toolbox. Canvas and loops come from BentoRun (loaded near the viewport); the gauge and the line draw in CSS once
+// screens as a rising line, and the usual turnaround on a timeline. Then the work deck and the toolbox. Canvas and loops come from BentoRun (loaded near the viewport); the gauge and the line draw in CSS once
 // the section is in view (.is-in).
 export default function Bento() {
   return (
@@ -113,10 +111,6 @@ export default function Bento() {
         <div className="bx2-c bx2-w bx-work bx-deck" data-reveal>
           <h3 className="bx-t">Work</h3>
           <SwipeDeck items={WORK.map((w) => ({ slug: w.slug, title: w.title, small: w.small, cut: `/work/cut/${w.small.split("?")[0].split("/").pop()}?v=6`, round: w.platform === "desktop", alt: w.alt, platform: w.platform, tags: w.tags }))} />
-        </div>
-        <div className="bx2-c bx2-g bx-world" data-reveal>
-          <h3 className="bx-t">Worldwide</h3>
-          <WorldFacts />
         </div>
         <Toolbox />
       </div>

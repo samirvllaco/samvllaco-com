@@ -5337,11 +5337,11 @@ main > .page > .hero-dots-cv { height: clamp(560px, 86vh, 860px); }
 .tb-all.is-open .tb-all-panel { opacity: 1; visibility: visible; transform: none; transition: opacity .25s var(--ease-out), transform .25s var(--ease-out), visibility 0s; }
 @media (hover: hover) and (pointer: fine) { .tb-all:hover .tb-all-panel { opacity: 1; visibility: visible; transform: none; transition: opacity .25s var(--ease-out), transform .25s var(--ease-out), visibility 0s; } }
 .tb-all-panel::after { content: ""; position: absolute; left: 0; right: 0; top: 100%; height: 14px; }
-.bx-tools .tb-grid { display: grid; grid-template-columns: repeat(6, 72px); gap: 12px 8px; margin: 0; padding: 0; list-style: none; flex-wrap: initial; }
-.bx-tools .tb-grid li { display: grid; justify-items: center; gap: 8px; padding: 0; box-shadow: none; border-radius: 0; }
+:is(.bx-tools, .bx2-t) .tb-grid { display: grid; grid-template-columns: repeat(6, 72px); gap: 12px 8px; margin: 0; padding: 0; list-style: none; flex-wrap: initial; }
+:is(.bx-tools, .bx2-t) .tb-grid li { display: grid; justify-items: center; gap: 8px; padding: 0; box-shadow: none; border-radius: 0; }
 .tb-grid .tb-ico { width: 48px; height: 48px; }
 .tb-grid .tb-name { font-size: .625rem; letter-spacing: .04em; text-align: center; white-space: normal; line-height: 1.3; }
-@media (max-width: 720px) { .bx-tools .tb-grid { grid-template-columns: repeat(4, 64px); } .tb-all-panel { bottom: auto; top: calc(100% + 12px); transform-origin: 24px 0; } .tb-all-panel::after { top: auto; bottom: 100%; } }
+@media (max-width: 720px) { :is(.bx-tools, .bx2-t) .tb-grid { grid-template-columns: repeat(4, 64px); } .tb-all-panel { bottom: auto; top: calc(100% + 12px); transform-origin: 24px 0; } .tb-all-panel::after { top: auto; bottom: 100%; } }
 @media (prefers-reduced-motion: reduce) { .tb-all-panel { transition: none; transform: none; } }
 
 /* Hero quote of the day: a fixed box (three lines, four on phones) so a longer quote never moves the page.
@@ -8047,7 +8047,7 @@ html:has(.bw .bw-tab) body:not(:has(.case-fab)) .ask-pill.is-side { --ask-left: 
    Big cell: the dithered sphere with the parts of the work orbiting it (components/BentoRun.jsx). Stat cells: label on
    top, a picture of the number in the middle (gauge, one dot per client, a rising line, a timeline), the number and
    its line at the foot. Then the work deck, the worldwide facts and the toolbox with its tilted tiles. */
-.bx2-grid { position: relative; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-template-areas: "a a b c" "a a d e" "w w g g" "t t t t"; gap: 1px; background: rgba(255, 255, 255, .12); box-shadow: 0 0 0 1px rgba(255, 255, 255, .12); }
+.bx2-grid { position: relative; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-template-areas: "a a b c" "a a d e" "w w w w" "t t t t"; gap: 1px; background: rgba(255, 255, 255, .12); box-shadow: 0 0 0 1px rgba(255, 255, 255, .12); }
 .bx2-grid::after { content: ""; position: absolute; inset: -6px; z-index: 3; pointer-events: none;
   --x: rgba(255, 255, 255, .5);
   background:
@@ -8107,9 +8107,7 @@ html:has(.bw .bw-tab) body:not(:has(.case-fab)) .ask-pill.is-side { --ask-left: 
 @keyframes bt-go { 0% { transform: scaleX(0); } 62%, 88% { transform: scaleX(1); } 100% { transform: scaleX(1); opacity: 0; } }
 /* Work and worldwide keep their insides; the cell gives them the grid's look. */
 :root:root .bx2 .bx2-w { grid-area: w; min-height: 0; }
-:root:root .bx2 .bx2-g { grid-area: g; min-height: 0; padding: 24px; background: var(--page) !important; }
-.bx2 .bx2-g::after { display: none; }
-:root:root:root .bx2 :is(.bx2-w, .bx2-g) .bx-t { position: static; margin: 0; padding: 0; }
+:root:root:root .bx2 .bx2-w .bx-t { position: static; margin: 0; padding: 0; }
 /* Toolbox */
 :root:root .bx2 .bx2-t { grid-area: t; display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 32px; padding: 32px; }
 .bx2-t .tb-all { margin-top: 16px; }
@@ -8119,12 +8117,12 @@ html:has(.bw .bw-tab) body:not(:has(.case-fab)) .ask-pill.is-side { --ask-left: 
 .bt-fan li > span:first-child { display: grid; width: 36px; height: 36px; }
 .bt-fan svg { width: 100%; height: 100%; }
 @media (max-width: 1023px) {
-  .bx2-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-areas: "a a" "b c" "d e" "w w" "g g" "t t"; }
+  .bx2-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-areas: "a a" "b c" "d e" "w w" "t t"; }
   :root:root .bx2 .bx2-t { grid-template-columns: minmax(0, 1fr); }
   .bs-stage { flex: none; height: 340px; }
 }
 @media (max-width: 639px) {
-  .bx2-grid { grid-template-columns: minmax(0, 1fr); grid-template-areas: "a" "b" "c" "d" "e" "w" "g" "t"; }
+  .bx2-grid { grid-template-columns: minmax(0, 1fr); grid-template-areas: "a" "b" "c" "d" "e" "w" "t"; }
   :root:root .bx2 :is(.bx2-a, .bx2-t) { padding: 24px; }
   :root:root .bx2 .bx2-s { min-height: 0; }
   .bs-stage { height: 300px; min-height: 0; }
