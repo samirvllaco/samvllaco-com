@@ -10,7 +10,8 @@ const SmoothScroll = dynamic(() => import("./SmoothScroll"), { ssr: false });
 const HeroDots = dynamic(() => import("./HeroDots"), { ssr: false });
 const AskSam = dynamic(() => import("./AskSam"), { ssr: false });
 const WidgetLoops = dynamic(() => import("./WidgetLoops"), { ssr: false });
+const HeadReveal = dynamic(() => import("./HeadReveal"), { ssr: false });
 
 export default function LazyExtras() {
-  return (<><SmoothScroll /><ActiveNav /><ToTop />{/* The ebook bubble is off on every page (owner, 28 Nov 2026: "hide completely from all pages") */}<Delight /><HeroDots /><AskSam /><WidgetLoops /></>);
+  return (<><SmoothScroll /><ActiveNav /><ToTop />{/* The ebook bubble is off on every page (owner, 28 Nov 2026: "hide completely from all pages") */}<Delight /><HeroDots /><AskSam /><WidgetLoops /><HeadReveal /></>);
 }
