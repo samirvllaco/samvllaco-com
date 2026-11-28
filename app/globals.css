@@ -8219,3 +8219,9 @@ html:has(.bw .bw-tab) body:not(:has(.case-fab)) .ask-pill.is-side { --ask-left: 
   :root:root .case-shot.is-wr { grid-column: 6 / span 7; }
 }
 .case-shot > :first-child, .case-fig { will-change: auto; }
+
+/* Nav links that are not the current page keep 4.5:1 (Lighthouse caught 3.7:1): the softer grey colour alone marks them,
+   with no extra opacity on top, also while another link is hovered. */
+:root:root:root .head-nav:has(> a[aria-current], .mega-btn.is-current) > a:not([aria-current]),
+:root:root:root .head-nav:has(> a[aria-current], .mega-btn.is-current) .mega-btn:not(.is-current),
+:root:root:root .head-nav:has(a:hover, .mega-btn:hover) :is(a, .mega-btn):not(:hover) { opacity: 1; }
