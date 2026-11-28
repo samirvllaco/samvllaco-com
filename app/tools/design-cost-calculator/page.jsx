@@ -1,3 +1,5 @@
+import JsonLd from "../../../components/JsonLd";
+import { PERSON_ID } from "../../../lib/seo";
 import PageHead from "../../../components/PageHead";
 import ToolCta from "../../../components/tools/ToolCta";
 import CostCalc from "../../../components/tools/CostCalc";
@@ -8,9 +10,22 @@ export const metadata = {
   alternates: { canonical: "/tools/design-cost-calculator/" },
 };
 
+const SCHEMA = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  name: "Website and App Design Cost Calculator",
+  url: "https://samvllaco.com/tools/design-cost-calculator/",
+  description: metadata.description,
+  applicationCategory: "BusinessApplication",
+  operatingSystem: "Web",
+  offers: { "@type": "Offer", price: 0, priceCurrency: "USD" },
+  creator: { "@id": PERSON_ID },
+};
+
 export default function Page() {
   return (
     <div className="wrap page pg tl-page">
+      <JsonLd data={SCHEMA} />
       <PageHead crumb="Free tools" href="/tools/" a="Design cost" b="calculator." lede="Pick what you are building and get a price range and timeline in seconds, based on real rates." />
       <CostCalc />
       <section className="tl-how" aria-labelledby="tl-how-h">
