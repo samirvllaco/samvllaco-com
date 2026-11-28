@@ -1,3 +1,4 @@
+import OnlineFace from "./OnlineFace";
 import { SITE } from "../lib/site";
 
 // FAQ section: sticky intro card on the left, questions on the right.
@@ -30,8 +31,7 @@ export default function Faq({ items, children, a = "Questions", b = "founders as
         <h2 id="faq-h">{a} <span className="t2">{b}</span></h2>
         <div className="faq-card">
           <div className="faq-who">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/sam-face-144.webp?v=1" width="72" height="72" alt="" loading="lazy" />
+            <OnlineFace size={72} />
             <div>
               <p className="faq-who-n">Sam Vllaco</p>
               <p className="faq-who-r">UI/UX and product designer</p>

@@ -7724,3 +7724,19 @@ html.is-live .fo-open-t i::after { animation-play-state: running; }
 /* Intro hand-off: the header avatar waits hidden while the intro photo flies into its place (owner, 28 Nov 2026) */
 html.js.intro-gs:not(.no-intro) .site-header .brand-me img.brand-face { visibility: hidden; }
 .intro-photo { transform-origin: 50% 50%; }
+
+/* Online face (OnlineFace.jsx, owner, 28 Nov 2026, after digitalmakers.nl, square): the photo and a green tile on its
+   corner where a light sweep turns round the dot like a radar. Used on the hire card, the FAQ card and the footer. */
+:root:root .of { position: relative; display: inline-block; flex: none; width: var(--of); height: var(--of); }
+:root:root .of > img { display: block; width: 100%; height: 100%; margin: 0; object-fit: cover; border-radius: var(--r-inner); box-shadow: none; }
+.of-badge { position: absolute; right: calc(var(--of) * -.1); bottom: calc(var(--of) * -.1); display: grid; place-items: center; width: max(14px, calc(var(--of) * .36)); height: max(14px, calc(var(--of) * .36)); overflow: hidden; border-radius: var(--r-sm); background: rgba(31, 157, 85, .22); box-shadow: 0 0 0 2px var(--of-ring, #171719); isolation: isolate; }
+.of-badge::before { content: ""; position: absolute; inset: -50%; z-index: -1; background: conic-gradient(from 0deg, rgba(120, 240, 170, .85) 0deg, rgba(62, 207, 122, .3) 60deg, transparent 100deg 360deg); animation: of-sweep 2.4s linear infinite paused; }
+html.is-live .of-badge::before { animation-play-state: running; }
+.of-badge i { width: 34%; height: 34%; border-radius: 2px; background: #3ecf7a; box-shadow: 0 0 0 1.5px rgba(8, 24, 14, .55), 0 0 8px rgba(62, 207, 122, .7); }
+@keyframes of-sweep { to { transform: rotate(1turn); } }
+@media (prefers-reduced-motion: reduce) { .of-badge::before { animation: none; } }
+/* The ring matches the surface the photo sits on */
+.hire .of { --of-ring: var(--card, #232326); }
+.faq-card .of { --of-ring: var(--card, #232326); }
+.site-footer .of { --of-ring: #0b0b0e; }
+.site-footer .of .of-badge { right: -5px; bottom: -5px; width: 14px; height: 14px; }

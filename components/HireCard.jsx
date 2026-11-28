@@ -1,4 +1,5 @@
 "use client";
+import OnlineFace from "./OnlineFace";
 import CallIcon from "./CallIcon";
 import { EMAIL, SITE } from "../lib/site";
 import { useCopyChip } from "./CopyChip";
@@ -13,11 +14,10 @@ export default function HireCard({ wide = false }) {
   return (
       <div className={`hire${wide ? " hire-wide" : ""}`}>
         <div className="hire-top">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/sam-face-144.webp?v=1" width="56" height="56" alt="Sam Vllaco" />
+          <OnlineFace size={56} alt="Sam Vllaco" lazy={false} />
           <div>
             <p className="hire-name">Sam Vllaco</p>
-            <p className="hire-status"><span className="avail-dot" aria-hidden="true" />Open to new projects</p>
+            <p className="hire-status">Open to new projects</p>
           </div>
         </div>
         <p className="hire-text">Need a product designed like this? Tell me what you are building.</p>
