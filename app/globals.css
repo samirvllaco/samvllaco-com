@@ -7738,8 +7738,6 @@ html.is-live .of-badge::before { animation-play-state: running; }
 /* The ring matches the surface the photo sits on */
 .hire .of { --of-ring: var(--card, #232326); }
 .faq-card .of { --of-ring: var(--card, #232326); }
-.site-footer .of { --of-ring: #0b0b0e; }
-.site-footer .of .of-badge { right: -5px; bottom: -5px; width: 14px; height: 14px; }
 
 /* The ebook as a 3D book on a lit shelf (Book3D.jsx, owner, 28 Nov 2026, after spectup.com). --bw is the book width;
    --bd its thickness. The scene is dark with light falling from the top left. */

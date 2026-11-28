@@ -1,4 +1,3 @@
-import OnlineFace from "./OnlineFace";
 import FootParallax from "./FootParallax";
 import Link from "next/link";
 import AskAI from "./AskAI";
@@ -163,7 +162,8 @@ export default function Footer() {
           <RouteHide>
             <div className="fo-top">
               <a className="fo-brand" href="/about/">
-                <OnlineFace size={32} />
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/sam-face-144.webp?v=1" width="32" height="32" alt="" loading="lazy" />
                 <span><b>Sam Vllaco</b><span>UI/UX and product designer</span></span>
               </a>
               <p className="fo-live"><i aria-hidden="true" />1 to 2 new projects at a time <a href="/book/">Start a project</a></p>
