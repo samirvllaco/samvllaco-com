@@ -61,7 +61,7 @@ Look for the defaults: a purple gradient, glow, three identical feature cards, e
 
 ### Is there a free AI-generated website checker?
 
-Yes. [Slop Score](/slop-score/) checks a live URL and gives a 0 to 100 score with the top fixes. The score and top three fixes are free.
+Yes. Slop Score, my free [AI slop checker](/ai-slop-checker/), checks a live URL and gives a 0 to 100 score with the top fixes. The score and top three fixes are free.
 
 ### Does Google penalize AI-generated websites?
 
@@ -73,4 +73,4 @@ Usually, yes. The prompt above and a rules file remove most of the signs. A desi
 
 ## Where to go next
 
-I've designed more than 10,000 screens since 2013, and these are the first things I fix on AI-built sites. [The 25 UI fixes](/writing/ai-slop-ui-fixes/) go deeper, and [27 copy-paste prompts](/fix-ai-slop-ui/) cover every screen. If you want me to look at your site myself, [ask for a free audit](/free-audit/).
+I've designed more than 10,000 screens since 2013, and these are the first things I fix on AI-built sites. [The 25 UI fixes](/writing/ai-slop-ui-fixes/) go deeper, and [27 copy-paste prompts](/fix-ai-slop-ui/) cover every screen. If the app behind the site needs the same work, [how to fix the design of an AI-built app](/writing/how-to-fix-ai-built-app-design/) compares the routes. If you want me to look at your site myself, [ask for a free audit](/free-audit/).

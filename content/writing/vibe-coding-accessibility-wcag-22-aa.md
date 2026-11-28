@@ -446,6 +446,10 @@ It is 27 steps with one prompt per step. It starts with 8 tells that give away a
 
 You do not need it to use anything in this story. Everything above is yours to copy.
 
+## If you sell in the EU
+
+The [European Accessibility Act checklist](/writing/european-accessibility-act-checklist/) shows what the law asks for and who it applies to. If you want the whole check done, I run a fixed [one-week EAA audit](/eaa-audit/), and [managed accessibility](/accessibility/) covers the work after it.
+
 ## The Truth
 
 AI did not make your app inaccessible. It copied the average web.

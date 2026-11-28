@@ -171,6 +171,8 @@ The full list is in AI Slop UI: 25 fixes, with the UX law behind each one. If co
 
 Would you rather hand it to a designer? That's [this service](/services/ai-app-design-fix/).
 
+To check the result, run your live app through the free [AI slop checker](/ai-slop-checker/). It scores how generated it looks from 0 to 100 and names the top three fixes. To write the rules file in a minute, answer five questions in the free [DESIGN.md generator](/tools/design-md-generator/).
+
 ## Questions people ask
 
 ### Why does Claude Code UI look generic?

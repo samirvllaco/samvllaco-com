@@ -86,4 +86,4 @@ Run it through the free [AI slop checker](/ai-slop-checker/). It measures the sa
 
 ## Where to go next
 
-I've designed more than 10,000 screens since 2013, and these four problems are the first things I fix on AI-built products. [The 25 UI fixes](/writing/ai-slop-ui-fixes/) explain each one, and [27 copy-paste prompts](/fix-ai-slop-ui/) fix them screen by screen.
+I've designed more than 10,000 screens since 2013, and these four problems are the first things I fix on AI-built products. [The 25 UI fixes](/writing/ai-slop-ui-fixes/) explain each one, [how to fix the design of an AI-built app](/writing/how-to-fix-ai-built-app-design/) compares doing it yourself with handing it over, and [27 copy-paste prompts](/fix-ai-slop-ui/) fix them screen by screen.

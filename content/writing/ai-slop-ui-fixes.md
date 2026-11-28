@@ -30,7 +30,7 @@ So your job changes. You stop asking the AI to “make it look good.” You give
 
 Here are the 25 that matter most. If you only have 20 minutes, start with Fixes 1, 3, 6 and 25. They change the most for the least effort. Each fix also names the UX law behind it, so you know why it works, not just what to do.
 
-Want a number first? The free [AI slop UI score](/tools/ai-slop-ui-score/) asks 12 yes or no questions and tells you which fixes to make first.
+Want a number first? The free [AI slop UI score](/slop-score/) asks 12 yes or no questions and tells you which fixes to make first.
 
 Save this checklist. Each fix is explained below.
 
@@ -605,6 +605,10 @@ One warning: a stronger model is not a guarantee. Check its output the same way 
 - [Nielsen Norman Group](https://www.nngroup.com/articles/): research-backed articles on forms, navigation and onboarding
 
 ![A designer standing in front of a wall of printed app screens](IMG8)
+
+## Check your own site
+
+Run your live site through the free [AI slop checker](/ai-slop-checker/). It scores how generated the site looks from 0 to 100 and names the top three fixes. I also measured how common each problem is in [AI slop statistics from 100 new launches](/writing/ai-slop-statistics/). To save the rules, answer five questions in the free [DESIGN.md generator](/tools/design-md-generator/). And if you are deciding between fixing it yourself and handing it over, [how to fix the design of an AI-built app](/writing/how-to-fix-ai-built-app-design/) compares the routes.
 
 ## The Truth
 

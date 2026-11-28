@@ -84,6 +84,8 @@ You usually do not need to start over. Most of the gain comes from hierarchy, gr
 
 [Book a 30-minute call](/book/) and bring your worst screen. You leave with a scope, a timeline and one next step.
 
+More on dashboards: the [9 dashboard UX mistakes](/writing/dashboard-ux-mistakes/) I fix most, [how to design a data table](/writing/data-table-design/) and [what dashboard design costs](/writing/dashboard-design-cost/). If you want it designed with you, see [dashboard design](/services/dashboard-design/) or my work [for SaaS and B2B teams](/for/saas/).
+
 ## Questions people ask
 
 ### What do you need from me to design a dashboard?

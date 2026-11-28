@@ -71,6 +71,8 @@ Spend in proportion to what you know. Little evidence, small budget, one flow. R
 
 The [design cost calculator](/tools/design-cost-calculator/) gives you an estimate in a minute. For a fixed price in writing, [book a 30-minute call](/book/). You leave with a scope, a timeline and a price, and no obligation to go further.
 
+If your app was built in Lovable, read [when to hire a Lovable designer](/writing/hire-lovable-designer/). If you are still before launch, [MVP UI/UX design](/writing/mvp-ui-ux-design/) covers what to design first and how long it takes.
+
 ## Questions people ask
 
 ### How much does it cost to hire a product designer per hour?

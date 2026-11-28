@@ -126,6 +126,8 @@ Audit this app for these UI problems and list every place each one occurs: spaci
 
 Fix them in the order of this article. Spacing and grays first, because they touch every screen.
 
+If the product is live, the free [AI slop checker](/ai-slop-checker/) measures several of these on the real page: spacing, font sizes, colors and competing buttons.
+
 ## Questions people ask
 
 ### What is the most common UI design mistake?

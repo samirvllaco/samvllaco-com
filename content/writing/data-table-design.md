@@ -68,6 +68,8 @@ Rebuild this data table to handle 10,000 rows. Header row fixed on vertical scro
 
 In most B2B tools the table is where the work happens. If yours is holding people back, that is the kind of screen I [redesign](/services/dashboard-design/). The other eight ways a dashboard loses its users are in [9 dashboard UX mistakes](/writing/dashboard-ux-mistakes/).
 
+Tables rarely stand alone. The [SaaS dashboard design guide](/writing/saas-dashboard-design-guide/) covers the screen around them, and [what dashboard design costs](/writing/dashboard-design-cost/) covers the budget.
+
 ## Questions people ask
 
 ### How many columns should a data table have?

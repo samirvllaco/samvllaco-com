@@ -156,6 +156,8 @@ Not sure which one you are? Ask me. I'd rather send you to the $12.99 option tha
 - **Tonight, for free:** copy two prompts from the book and run them on your app.
 - **Done for you:** book a 30-minute call. Bring the screen you're least happy with. After the call you get a fixed price and a timeline in writing.
 
+Not sure how much there is to fix? Run the live app through the free [AI slop checker](/ai-slop-checker/) first. I also measured how common each problem is in [AI slop statistics from 100 new launches](/writing/ai-slop-statistics/). If the app was built in Lovable, read [when to hire a Lovable designer](/writing/hire-lovable-designer/).
+
 ## Questions people ask
 
 ### Can't I just keep prompting until it looks good?

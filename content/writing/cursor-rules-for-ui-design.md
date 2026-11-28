@@ -185,6 +185,8 @@ A fuller DESIGN.md, with the prompts to fill it in, is in [27 Copy-Paste Prompts
 
 Rather have a designer set the rules with you? That's the [AI-built app design fix](/services/ai-app-design-fix/).
 
+To check the result, run your live app through the free [AI slop checker](/ai-slop-checker/). It scores how generated it looks from 0 to 100 and names the top three fixes. To write the rules file in a minute, answer five questions in the free [DESIGN.md generator](/tools/design-md-generator/).
+
 ## Questions people ask
 
 ### Where do Cursor rules for UI design go?
