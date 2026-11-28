@@ -13,11 +13,11 @@ The ranges are wide because "design my app" is not one product. The rest of this
 
 ## The four ways designers charge
 
-**By the hour.** Good for small fixes and second opinions: a pricing page cleanup, a file review, a few screens before launch. Bad for anything large, because you carry all the risk of it running long. I charge $50 an hour, billed in one-hour blocks.
+**By the hour.** Good for small fixes and second opinions: a pricing page cleanup, a file review, a few screens before launch. Bad for anything large, because you carry all the risk of it running long. I do not sell hours; my smallest unit is a trial week.
 
-**By the week.** A design sprint: one focused week on one problem. Redesign the onboarding, or take a feature from flow to final screens. You know the cost before it starts and you can add weeks. Mine is $1,500 a week.
+**By the week.** A design sprint: one focused week on one problem. Redesign the onboarding, or take a feature from flow to final screens. You know the cost before it starts and you can add weeks. My trial week is $2,500.
 
-**By the month.** A retainer, for teams that ship every sprint and need a designer on call. Mine is $5,000 a month, with a weekly call, and you can pause or cancel any month.
+**By the month.** A retainer, for teams that ship every sprint and need a designer on call. I price a retainer on a call, once I know how much you ship each month.
 
 **Fixed price.** A whole website, app or brand, scoped on a call and priced in writing before work starts. My projects start at $5,000, or with a $2,500 trial week.
 
@@ -37,7 +37,7 @@ If you are comparing quotes, convert them all to the same thing: what do I get, 
 
 **Who does the work.** An agency quote includes a project manager, an account lead and a margin. A freelancer quote is one person's time. Neither is wrong. They are different products.
 
-**Where the designer is.** Rates follow the cost of living. Figma's guide notes that designers in major US tech hubs charge more than those in lower-cost regions. I am in Tirana, which is part of why a senior week costs $1,500.
+**Where the designer is.** Rates follow the cost of living. Figma's guide notes that designers in major US tech hubs charge more than those in lower-cost regions. I am in Tirana, which is part of why a senior week costs $2,500.
 
 **Speed.** A hard deadline next week costs more than the same work next month.
 
@@ -45,9 +45,9 @@ If you are comparing quotes, convert them all to the same thing: what do I get, 
 
 **Under $100.** No designer, but real help. [My book](/fix-ai-slop-ui/) is $12.99: 27 prompts you paste into Claude, Cursor, Lovable or v0 to fix the design yourself. A recorded review of your product is $49 for 30 minutes, or $99 for the longer one with a scorecard and custom prompts.
 
-**$500 to $1,500.** A few hours of fixes on a live product, or one focused week on one flow. Enough to fix the screen that is losing people.
+**$500 to $2,500.** A few hours of fixes on a live product, or one focused week on one flow. Enough to fix the screen that is losing people.
 
-**$1,500 to $5,000.** Two or three sprint weeks. A full onboarding or a dashboard.
+**$2,500 to $5,000.** One or two sprint weeks. A full onboarding or a dashboard.
 
 **$5,000 to $25,000.** A full product: flows, every screen and state, a component library and a clickable prototype. With a senior freelancer this is weeks, not months.
 
@@ -71,13 +71,13 @@ Spend in proportion to what you know. Little evidence, small budget, one flow. R
 
 The [design cost calculator](/tools/design-cost-calculator/) gives you an estimate in a minute. For a fixed price in writing, [book a 30-minute call](/book/). You leave with a scope, a timeline and a price, and no obligation to go further.
 
-If your app was built in Lovable, read [when to hire a Lovable designer](/writing/hire-lovable-designer/). If you are still before launch, [MVP UI/UX design](/writing/mvp-ui-ux-design/) covers what to design first and how long it takes.
+For a marketing site, see [website redesign cost](/writing/website-redesign-cost/). If your app was built in Lovable, read [when to hire a Lovable designer](/writing/hire-lovable-designer/). If you are still before launch, [MVP UI/UX design](/writing/mvp-ui-ux-design/) covers what to design first and how long it takes.
 
 ## Questions people ask
 
 ### How much does it cost to hire a product designer per hour?
 
-Upwork lists product designers at $20 to $50 an hour and Clutch reports most UX agencies at $25 to $49 an hour. Senior specialists charge more. I charge $50 an hour.
+Upwork lists product designers at $20 to $50 an hour and Clutch reports most UX agencies at $25 to $49 an hour. Senior specialists charge more. I do not charge by the hour: a trial week is $2,500 and projects start at $5,000.
 
 ### How much does it cost to design a SaaS app?
 

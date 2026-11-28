@@ -9,7 +9,7 @@ import SkyPhoto from "../../../components/SkyPhoto";
 import { SERVICES, svcHref } from "../../../lib/services";
 import { PROCESS } from "../../../lib/service-details";
 import { GET_ICONS, PAIN_ICONS, SVC_FAQ } from "../../../lib/service-pages";
-import { INDUSTRIES, industry } from "../../../lib/industries";
+import { INDUSTRIES, INDUSTRY_READS, industry } from "../../../lib/industries";
 import { WORK } from "../../../lib/work";
 import { SITE } from "../../../lib/site";
 import { share, PERSON_ID } from "../../../lib/seo";
@@ -107,6 +107,9 @@ export default async function IndustryPage({ params }) {
               </li>
             ))}
           </ul>
+          {(INDUSTRY_READS[x.id] || []).length ? (
+            <p className="ax-also sv-for">Related reading: {INDUSTRY_READS[x.id].map(([href, t], i) => <span key={href}>{i ? ", " : ""}<Link prefetch={false} href={href}>{t}</Link></span>)}</p>
+          ) : null}
         </section>
       ) : null}
 

@@ -6,7 +6,7 @@ That is why quotes for dashboard design are so far apart. The word covers everyt
 
 Using my own published prices as the example:
 
-- **One screen, redesigned:** about one sprint week, $1,500.
+- **One screen, redesigned:** about one trial week, $2,500.
 - **A full dashboard product,** with many views, a component library and every state: fixed price, in the $5,000 to $25,000 range my larger product work runs in.
 
 For comparison, Clutch reports that most UX agencies charge $25 to $49 an hour and that UX projects there are typically more than $10,000. An agency quote for a full dashboard product will usually start above that.
@@ -58,7 +58,7 @@ If you are changing an existing one, see [SaaS dashboard redesign](/writing/saas
 
 ### How much does it cost to design a SaaS dashboard?
 
-From about $1,500 for one redesigned screen to $25,000 or more for a full dashboard product with many views, tables and states. The number of different views and the complexity of the tables decide most of it.
+From about $2,500 for one redesigned screen to $25,000 or more for a full dashboard product with many views, tables and states. The number of different views and the complexity of the tables decide most of it.
 
 ### How long does a dashboard design take?
 
