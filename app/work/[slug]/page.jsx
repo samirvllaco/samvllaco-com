@@ -14,6 +14,7 @@ import { STUDIES } from "../../../lib/work-studies";
 import { EMAIL, SITE } from "../../../lib/site";
 import { share, PERSON_ID } from "../../../lib/seo";
 import JsonLd from "../../../components/JsonLd";
+import { INDUSTRIES } from "../../../lib/industries";
 
 export const dynamicParams = false;
 
@@ -86,6 +87,11 @@ export default function CaseStudy({ params }) {
   if (i < 0) notFound();
   const w = WORK[i];
   const st = STUDIES[w.slug];
+  // Industry pages that list this case study (interlinking, 28 Nov 2026): only real matches from lib/industries.js.
+  const inds = INDUSTRIES.filter((x) => x.work.includes(w.slug));
+  const indLine = inds.length ? (
+    <span className="case-rel"> More work like this: {inds.map((x, i) => <span key={x.id}>{i ? ", " : ""}<Link prefetch={false} href={`/for/${x.id}/`}>design {x.tail}</Link></span>)}.</span>
+  ) : null;
   const others = [...WORK.slice(i + 1), ...WORK.slice(0, i)].slice(0, 3);
   const toc = st
     ? [
@@ -260,7 +266,7 @@ export default function CaseStudy({ params }) {
 
             <section className="case-section case-close">
               <h2>{st.cta.title}</h2>
-              <p>{st.cta.text}</p>
+              <p>{st.cta.text}{indLine}</p>
               <div className="btn-row">
                 <a className="hero2-btn hero2-btn-primary" href="/book/">Start a project<CallIcon /></a>
                 <Link prefetch={false} className="hero2-btn hero2-btn-light" href="/services/">See services</Link>
@@ -305,6 +311,7 @@ export default function CaseStudy({ params }) {
                 </div>
               </section>
             ) : null}
+            {indLine ? <p className="ax-also">{indLine}</p> : null}
             <EndMark kind="case study" live={w.live} />
           </>
         )}
