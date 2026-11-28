@@ -19,6 +19,7 @@ import WorkCarousel from "../components/WorkCarousel";
 import HeroQuote, { QUOTE_DAY } from "../components/HeroQuote";
 import HowIWork from "../components/HowIWork";
 import WhatIDo from "../components/WhatIDo";
+import HomeResources from "../components/HomeResources";
 import Fixes from "../components/Fixes";
 import TrialWeek from "../components/TrialWeek";
 import HeroReviews from "../components/HeroReviews";
@@ -169,6 +170,8 @@ export default function Home() {
       {SHOW_TESTIMONIALS ? <Testimonials /> : null}
 
       <Bento />
+
+      <HomeResources />
 
       <TrialWeek />
 
