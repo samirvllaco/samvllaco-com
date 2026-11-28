@@ -14,12 +14,14 @@ const NOW = new Date().getFullYear();
 const START = 2013;
 // Each story part and the year and fact it is about (only facts the story itself states).
 const PART_YEAR = {
-  who: [NOW, "10 years of product design"],
+  who: [NOW, "Designing for clients since 2015"],
   work: [NOW, "573 clients and 10,000+ screens so far"],
-  build: [START, "Started designing in Prizren, Kosovo"],
-  where: [NOW, "Now in Tirana, working with US and EU teams"],
+  build: [START, "Logos and posters for friends in Prizren"],
+  where: [NOW, "Moved to Tirana in 2026, working with US and EU teams"],
 };
-const factOf = (y) => (y <= START ? "Started designing in Prizren, Kosovo" : y >= NOW ? "Now in Tirana, 573 clients and 10,000+ screens so far" : `${y - START} ${y - START === 1 ? "year" : "years"} in`);
+// Owner, 28 Nov 2026: started 2013 with logos and posters for friends, first paid project 2015, moved to Tirana 2026.
+const PAID = 2015;
+const factOf = (y) => (y <= START ? "Logos and posters for friends in Prizren" : y >= NOW ? "Now in Tirana, 573 clients and 10,000+ screens so far" : y < PAID ? "Still designing for friends in Prizren" : y === PAID ? "First paid design project" : `${y - PAID} ${y - PAID === 1 ? "year" : "years"} of client work`);
 
 export default function AboutMotion() {
   useEffect(() => {
