@@ -44,6 +44,15 @@ export default async function Article({ params }) {
   const lede = blocks[0].t === "p" ? blocks[0].text.replace(/^_|_$/g, "") : p.description;
   const body = blocks[0].t === "p" ? blocks.slice(1) : blocks;
   const words = body.reduce((n, b) => n + (b.text || (b.items || []).join(" ")).split(/\s+/).length, 0);
+  // FAQPage schema from the article's own "Questions people ask" section (28 Nov 2026): each h3 question with the
+  // paragraphs under it, links and marks stripped, so the schema always matches the visible text.
+  const plain = (s) => s.replace(/\[([^\]]+)\]\([^)]+\)/g, "$1").replace(/\*\*|`/g, "").replace(/(^|\s)_([^_]+)_/g, "$1$2");
+  const faq = [];
+  const fi = body.findIndex((b) => b.t === "h2" && /^questions/i.test(b.text));
+  if (fi >= 0) for (let i = fi + 1; i < body.length && body[i].t !== "h2"; i++) {
+    if (body[i].t === "h3") faq.push({ q: plain(body[i].text), a: "" });
+    else if (faq.length && (body[i].t === "p" || body[i].t === "ul" || body[i].t === "ol")) faq[faq.length - 1].a = `${faq[faq.length - 1].a} ${plain(body[i].text || body[i].items.join(" "))}`.trim();
+  }
   const toc = [{ id: "intro", label: "Intro" }, ...body.filter((b) => b.t === "h2").map((b) => ({ id: b.id, label: b.text.replace(/\*\*/g, "") }))];
   // Related articles (owner, 28 Nov 2026: "add other related articles"): the same category first, then the newest.
   const others = ARTICLES.filter((a) => a.slug && a.slug !== slug);
@@ -54,6 +63,7 @@ export default async function Article({ params }) {
     <div className="wrap page case-wrap art-wrap">
       <ReadLine />
       <article className="case art">
+        {faq.length ? <JsonLd data={{ "@context": "https://schema.org", "@type": "FAQPage", mainEntity: faq.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })) }} /> : null}
         <JsonLd data={{ "@context": "https://schema.org", "@type": "BlogPosting", headline: p.title, description: p.description, url: `${SITE.url}/writing/${slug}/`, mainEntityOfPage: `${SITE.url}/writing/${slug}/`, image: `${SITE.url}${p.og}`, datePublished: p.published, dateModified: p.modified, wordCount: words, articleSection: p.category, inLanguage: "en", author: { "@id": PERSON_ID }, publisher: { "@id": PERSON_ID } }} />
         <Crumbs items={[{ name: "Insights", href: "/writing/" }, { name: p.metaTitle, href: `/writing/${slug}/` }]} />
 
