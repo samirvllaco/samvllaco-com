@@ -10,9 +10,11 @@ const paths = ["/", "/work/", "/writing/", "/services/", "/book/", "/free-audit/
 
 export default function sitemap() {
   const lastModified = new Date();
+  // Articles carry their own modified date, so the date means something to crawlers (28 Nov 2026).
+  const postDate = (p) => { const m = p.match(/^\/writing\/([^/]+)\/$/); return m && POSTS[m[1]] ? new Date(`${POSTS[m[1]].modified}T00:00:00Z`) : null; };
   return paths.map((p) => ({
     url: `${base}${p}`,
-    lastModified,
+    lastModified: postDate(p) || lastModified,
     changeFrequency: "weekly",
     priority: p === "/" ? 1 : ["/fix-ai-slop-ui/", "/book/", "/work/", "/services/", "/about/"].includes(p) ? 0.9 : 0.7,
   }));
