@@ -7,7 +7,7 @@ import { BOOK_URL } from "../lib/site";
 import CallIcon from "./CallIcon";
 import { FEATURED } from "./ServicesMenu";
 import { SERVICES, svcHref } from "../lib/services";
-import { RESOURCES } from "../lib/resources";
+import { RESOURCE_MENU } from "../lib/resources";
 import { TOOLS } from "../lib/tools";
 import { INDUSTRIES } from "../lib/industries";
 
@@ -22,7 +22,7 @@ const SUB = {
     ],
   },
   // Services (owner, 27 Nov 2026), Resources and Free tools only open their list here; they no longer link to a hub page (owner, 25 Nov 2026).
-  "/resources/": { items: RESOURCES.map((r) => ({ href: r.href, label: r.title, icon: r.icon, tag: r.tag })) },
+  "/resources/": { items: RESOURCE_MENU.map((r) => ({ href: r.href, label: r.title, icon: r.icon, tag: r.tag })) },
   "/tools/": { items: TOOLS.map((t) => ({ href: t.href || `/tools/${t.slug}/`, label: t.name, icon: t.icon })) },
 };
 
@@ -30,6 +30,7 @@ const LINKS = [
   { href: "/services/", label: "Services", menu: true },
   { href: "/work/", label: "Work" },
   { href: "/writing/", label: "Insights" },
+  { href: "/resources/", label: "Resources", menu: true },
   { href: "/about/", label: "About" },
   { href: "/tools/", label: "Free tools", menu: true },
 ];

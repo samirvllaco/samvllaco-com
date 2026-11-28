@@ -2,6 +2,7 @@ import Link from "next/link";
 import CallIcon from "./CallIcon";
 import SoundToggle from "./SoundToggle";
 import ServicesMenu from "./ServicesMenu";
+import ResourcesMenu from "./ResourcesMenu";
 import HeaderScroll from "./HeaderScroll";
 import BrandFace from "./BrandFace";
 import { EMAIL } from "../lib/site";
@@ -9,7 +10,7 @@ import HeadCta from "./HeadCta";
 import MobileMenu from "./MobileMenu";
 
 // Short nav (owner, 27 Nov 2026: "some items can be only on footer, nav can have a direct link to insights"): Services,
-// Work, Insights and About. Free tools, the e-book and the other resources live in the footer; the button starts a project.
+// Work, Insights, Resources (a menu, owner 28 Nov 2026) and About; the button starts a project.
 const NAV = [
   { href: "/work/", label: "Work" },
   { href: "/writing/", label: "Insights" },
@@ -32,13 +33,16 @@ export default function Header() {
         </Link>
         <nav className="head-nav" aria-label="Main">
           <ServicesMenu />
-          {NAV.map((n) => (
-            <Link prefetch={false} key={n.href} href={n.href}>
-              {n.dot ? <i className="nav-dot" aria-hidden="true" /> : null}
-              {n.label}
-              {n.badge ? <span className="top-badge">{n.badge}</span> : null}
-            </Link>
-          ))}
+          {NAV.flatMap((n) => {
+            const link = (
+              <Link prefetch={false} key={n.href} href={n.href}>
+                {n.dot ? <i className="nav-dot" aria-hidden="true" /> : null}
+                {n.label}
+                {n.badge ? <span className="top-badge">{n.badge}</span> : null}
+              </Link>
+            );
+            return n.href === "/about/" ? [<ResourcesMenu key="res" />, link] : [link];
+          })}
         </nav>
         <div className="head-end">
           <SoundToggle />

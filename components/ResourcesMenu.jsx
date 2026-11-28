@@ -2,11 +2,12 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import MegaShell from "./MegaShell";
-import { RESOURCES } from "../lib/resources";
+import { RESOURCE_MENU } from "../lib/resources";
 
-// "Resources" in the header: writing, the book, free prompts and answers, then the $99 review + book as one compact row.
-// Owner, 15 Nov 2026: the menu shows only Insights and the book. Owner, 25 Nov 2026: the label only opens the menu, no hub page link.
-const ITEMS = RESOURCES.filter((r) => ["/writing/", "/fix-ai-slop-ui/"].includes(r.href)).map((r) => [r.href, r.title, r.text, r.icon]);
+// "Resources" in the header (owner, 28 Nov 2026: back in the nav, without Insights, which has its own link): the book,
+// the review, free prompts, the digital kit, the free audit, the Slop Score and the free tools. The label only opens
+// the menu, no hub page link (owner, 25 Nov 2026).
+const ITEMS = RESOURCE_MENU.map((r) => [r.href, r.title, r.text, r.icon, r.tag]);
 
 export default function ResourcesMenu() {
   const path = (usePathname() || "/").replace(/\/?$/, "/");
@@ -17,11 +18,11 @@ export default function ResourcesMenu() {
           <div className="mx-main">
             <div className="mx-k-row"><p className="mx-k">Learn and borrow</p></div>
             <ul className="mx-grid">
-              {ITEMS.map(([href, t, d, icon]) => (
+              {ITEMS.map(([href, t, d, icon, tag]) => (
                 <li key={href}>
                   <Link prefetch={false} href={href} aria-current={path === href ? "page" : undefined} onClick={close}>
                     <i className="tg-ico mx-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d={icon} /></svg></i>
-                    <span><b>{t}</b><em>{d}</em></span>
+                    <span><b>{t}{tag ? <span className="mega-pdf mega-gold">{tag}</span> : null}</b><em>{d}</em></span>
                   </Link>
                 </li>
               ))}
