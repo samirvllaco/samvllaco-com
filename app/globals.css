@@ -8407,3 +8407,18 @@ a.wd-vis { display: block; color: inherit; text-decoration: none; }
    on screen. These are the heights it settles at (measured: stacked below about 815px wide, side by side above). */
 :root:root .book-cal iframe { height: 560px; }
 @media (max-width: 814px) { :root:root .book-cal iframe { height: calc(1930px + 62vw); } }
+
+/* Single work: the bar at the bottom reads over any screen (owner, 28 Nov 2026: "improve contrast, add black fade below
+   on single work"): a black fade rises behind it, the bar and its buttons are near-solid dark. */
+.case-fade { position: fixed; left: 0; right: 0; bottom: 0; z-index: 64; height: clamp(120px, 22vh, 200px); pointer-events: none; background: linear-gradient(180deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, .55) 45%, rgba(0, 0, 0, .88)); opacity: 0; transition: opacity .35s var(--ease-out); }
+.case-fade.is-on { opacity: 1; }
+:root:root .case-fab { background: rgba(12, 12, 14, .92); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .1), 0 16px 40px -12px rgba(0, 0, 0, .8); }
+:root:root .case-fab :is(a, button) { color: #f5f5f7; background: #1d1d20; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .06); }
+@media (hover: hover) and (pointer: fine) { :root:root .case-fab :is(a, button):hover { background: #28282c; } }
+:root:root .case-fab .cf-more a { background: none; box-shadow: none; }
+@media (prefers-reduced-motion: reduce) { .case-fade { transition: none; } }
+/* Ask Sam's AI on articles and case studies opens from its key at the bottom left, above the bar, not from the middle
+   (owner, 28 Nov 2026: "AI should not appear from the middle on work"). Phones keep the bottom sheet. */
+@media (min-width: 641px) {
+  body:has(.ask-pill.is-side) .ask-panel { left: max(16px, env(safe-area-inset-left, 0px)); right: auto; translate: none; bottom: calc(max(16px, env(safe-area-inset-bottom, 0px)) + 56px + var(--kb, 0px)); z-index: 70; transform-origin: 0 100%; }
+}

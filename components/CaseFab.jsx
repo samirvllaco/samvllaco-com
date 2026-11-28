@@ -34,6 +34,10 @@ export default function CaseFab({ prev, next, more = [] }) {
   }
   const t = on ? 0 : -1;
   return (
+    <>
+    {/* A dark fade under the bar so it reads over bright screens (owner, 28 Nov 2026: "improve contrast, add black fade
+        below on single work"). */}
+    <div className={`case-fade${on ? " is-on" : ""}`} aria-hidden="true" />
     <nav className={`case-fab${on ? " is-on" : ""}`} aria-label="Case study navigation" aria-hidden={!on}>
       {prev ? <Link prefetch={false} href={prev.href} tabIndex={t} aria-label={`Previous case study: ${prev.title}`} className="case-fab-ic"><Arrow d="M19 12H5M11 6l-6 6 6 6" /><span className="case-fab-tip">{prev.title}</span></Link> : null}
       <Link prefetch={false} href="/work/" tabIndex={t}><Arrow d="M4 6h7v7H4zM13 6h7v7h-7zM4 15h7v3H4zM13 15h7v3h-7z" /> All work</Link>
@@ -60,5 +64,6 @@ export default function CaseFab({ prev, next, more = [] }) {
         </span>
       ) : null}
     </nav>
+    </>
   );
 }
