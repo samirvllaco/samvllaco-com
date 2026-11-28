@@ -35,7 +35,7 @@ export default function HowIWorkMotion() {
         li.classList.toggle("is-cur", k === i);
         const b = li.querySelector("b");
         if (!g || !b) return;
-        g.to(b, { backgroundSize: k === i ? "100% 42%" : "0% 42%", duration: k === i ? 0.6 : 0.35, ease: k === i ? "expo.out" : "power2.out", overwrite: "auto" });
+        g.to(b, { backgroundSize: k === i ? "100% 100%" : "0% 100%", duration: k === i ? 0.6 : 0.35, ease: k === i ? "expo.out" : "power2.out", overwrite: "auto" });
         g.to(li.querySelectorAll(":scope > b, :scope > span:not(.hw-n)"), { x: k === i ? 4 : 0, duration: 0.5, ease: "power3.out", overwrite: "auto" });
       });
     };

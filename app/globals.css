@@ -7853,7 +7853,8 @@ html:has(.bw .bw-tab) body:not(:has(.case-fab)) .ask-pill.is-side { --ask-left: 
 @keyframes hw-ring { to { --ring-a: 360deg; } }
 @media (min-width: 1100px) and (min-height: 800px) and (prefers-reduced-motion: no-preference) {
   :root:root:root .hw-stage { top: var(--hw-top, calc(50vh - 190px)); }
-  :root:root .hw .hw-steps li b { justify-self: start; width: fit-content; background: linear-gradient(rgba(98, 193, 253, .28), rgba(98, 193, 253, .28)) 0 82% / 0% 42% no-repeat; padding-inline: 4px; margin-inline: -4px; border-radius: 2px; }
+  :root:root .hw .hw-steps li b { justify-self: start; width: fit-content; background: linear-gradient(rgba(0, 0, 0, .07), rgba(0, 0, 0, .07)) 0 0 / 0% 100% no-repeat; padding-inline: 4px; margin-inline: -4px; border-radius: var(--r-sm); }
+  :root:root .hw.is-dim .hw-steps li b { background-image: linear-gradient(rgba(255, 255, 255, .1), rgba(255, 255, 255, .1)); }
   :root:root .hw .hw-steps li > span:not(.hw-n) { color: var(--muted); transition: color .45s var(--ease-out); }
   :root:root .hw .hw-steps li.is-cur > span:not(.hw-n) { color: var(--text); }
   :root:root .hw .hw-steps li:not(.is-on) b { color: var(--muted); transition: color .45s var(--ease-out); }
