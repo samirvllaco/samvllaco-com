@@ -1,7 +1,7 @@
 "use client";
 import { useEffect } from "react";
 import { orbitAt, orbitTf } from "../lib/orbit";
-import { onLive } from "../lib/motion";
+import { onLive, loop as clock } from "../lib/motion";
 
 // Motion for the home bento (owner, 28 Nov 2026: "bento grid like this with our context", after grafit.agency).
 // 1) A dithered sphere: square pixels against a 4x4 Bayer matrix, lit from the top left, with bands that turn slowly.
@@ -59,9 +59,9 @@ export default function BentoRun({ at }) {
       fit(); draw();
       const ro = new ResizeObserver(() => { fit(); draw(); });
       ro.observe(c);
-      let raf = 0, on = false, live = html.classList.contains("is-live"), last = 0, ang = 0, prev = 0;
+      // The orbit and the sphere run on the shared GSAP clock (lib/motion.js), only on screen (owner, 28 Nov 2026, "do all").
+      let stop = null, on = false, live = html.classList.contains("is-live"), last = 0, ang = 0, prev = 0;
       const loop = (now) => {
-        raf = requestAnimationFrame(loop);
         const dt = prev ? Math.min(0.1, (now - prev) / 1000) : 0;
         prev = now; ang += dt * 0.16; rot += dt * 0.35;
         place(ang);
@@ -69,13 +69,13 @@ export default function BentoRun({ at }) {
       };
       const sync = () => {
         const go = on && live && !still;
-        if (go && !raf) { prev = 0; raf = requestAnimationFrame(loop); }
-        if (!go && raf) { cancelAnimationFrame(raf); raf = 0; }
+        if (go && !stop) { prev = 0; stop = clock(loop); }
+        if (!go && stop) { stop(); stop = null; }
       };
       const io = new IntersectionObserver(([e]) => { on = e.isIntersecting; sync(); }, { threshold: 0.05 });
       io.observe(stage);
       const offLive = onLive(() => { live = true; sync(); });
-      offs.push(() => { cancelAnimationFrame(raf); io.disconnect(); offLive(); ro.disconnect(); });
+      offs.push(() => { if (stop) stop(); io.disconnect(); offLive(); ro.disconnect(); });
     }
 
     // Client dots: lit in step with the count (CountUp's curve, 1.4s), once in view.

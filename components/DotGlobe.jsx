@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import DOTS from "../lib/globe-dots.json";
+import { loop } from "../lib/motion";
 
 const RAD = Math.PI / 180;
 // Simple dotted globe that turns slowly. Only the top-left part shows inside its card.
@@ -10,7 +11,7 @@ export default function DotGlobe() {
     const cv = ref.current; if (!cv) return;
     const ctx = cv.getContext("2d");
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    let w = 0, h = 0, raf = 0, on = false; const t0 = performance.now();
+    let w = 0, h = 0, stop = null, on = false; const t0 = performance.now();
     const size = () => { const r = cv.getBoundingClientRect(), d = Math.min(2, devicePixelRatio || 1); w = r.width; h = r.height; cv.width = w * d; cv.height = h * d; ctx.setTransform(d, 0, 0, d, 0, 0); };
     const draw = (now) => {
       const lon = -10 + ((now - t0) / 1000) * 4, c0 = 24 * RAD, R = w * 0.5, cx = w / 2, cy = h / 2;
@@ -25,12 +26,13 @@ export default function DotGlobe() {
         ctx.beginPath(); ctx.arc(cx + x * R, cy - y * R, 1.15, 0, 7); ctx.fill();
       }
       ctx.globalAlpha = 1;
-      if (on && !reduce) raf = requestAnimationFrame(draw);
     };
+    // Turns on the shared GSAP clock (lib/motion.js loop) while on screen (owner, 28 Nov 2026, GSAP "do all").
+    const run = (go) => { if (go && !stop) stop = loop(draw); if (!go && stop) { stop(); stop = null; } };
     size(); draw(performance.now());
     const ro = new ResizeObserver(() => { size(); draw(performance.now()); }); ro.observe(cv);
-    const io = new IntersectionObserver(([e]) => { on = e.isIntersecting; cancelAnimationFrame(raf); if (on && !reduce) raf = requestAnimationFrame(draw); }); io.observe(cv);
-    return () => { cancelAnimationFrame(raf); ro.disconnect(); io.disconnect(); };
+    const io = new IntersectionObserver(([e]) => { on = e.isIntersecting; run(on && !reduce); }); io.observe(cv);
+    return () => { run(false); ro.disconnect(); io.disconnect(); };
   }, []);
   return <canvas ref={ref} className="dg" aria-hidden="true" />;
 }

@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useRef } from "react";
+import { loop } from "../lib/motion";
 import { geoOrthographic, geoEquirectangular, geoPath, geoInterpolate, geoDistance } from "d3-geo";
 import WORLD from "../lib/world.json";
 
@@ -146,16 +147,18 @@ export default function BentoGlobe() {
       });
       REGIONS.map((r, i) => ({ r, big: i === target })).forEach(({ r, big }) => pin(r, big, t));
       me(t);
-      if (on) raf = requestAnimationFrame(draw);
     }
+    // Turns on the shared GSAP clock (lib/motion.js loop) while on screen (owner, 28 Nov 2026, GSAP "do all").
+    let stop = null;
+    const run = (go) => { if (go && !stop) stop = loop(draw); if (!go && stop) { stop(); stop = null; } };
     const down = (e) => { held = { x: e.clientX, y: e.clientY, r: rot.slice() }; cv.setPointerCapture?.(e.pointerId); cv.classList.add("is-held"); };
     const move = (e) => { if (!held) return; rot = [held.r[0] + (e.clientX - held.x) * (90 / R) * 0.6, Math.max(-60, Math.min(60, held.r[1] - (e.clientY - held.y) * (90 / R) * 0.6))]; };
     const up = () => { if (!held) return; held = null; idleAt = performance.now() + 3500; lastAuto = idleAt; cv.classList.remove("is-held"); };
     cv.addEventListener("pointerdown", down); cv.addEventListener("pointermove", move); cv.addEventListener("pointerup", up); cv.addEventListener("pointercancel", up);
     size(); draw(performance.now());
     const ro = new ResizeObserver(() => { size(); if (!on) draw(performance.now()); }); ro.observe(cv);
-    const io = new IntersectionObserver(([en]) => { on = en.isIntersecting; cancelAnimationFrame(raf); if (on) raf = requestAnimationFrame(draw); }); io.observe(cv);
-    return () => { cancelAnimationFrame(raf); ro.disconnect(); io.disconnect(); cv.removeEventListener("pointerdown", down); cv.removeEventListener("pointermove", move); cv.removeEventListener("pointerup", up); cv.removeEventListener("pointercancel", up); };
+    const io = new IntersectionObserver(([en]) => { on = en.isIntersecting; run(on); }); io.observe(cv);
+    return () => { run(false); ro.disconnect(); io.disconnect(); cv.removeEventListener("pointerdown", down); cv.removeEventListener("pointermove", move); cv.removeEventListener("pointerup", up); cv.removeEventListener("pointercancel", up); };
   }, []);
   return <canvas ref={ref} className="bx-globe" role="img" aria-label="Globe showing client countries. Drag to turn it." />;
 }
