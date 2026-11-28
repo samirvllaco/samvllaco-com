@@ -7720,3 +7720,7 @@ html.is-live .fo-open-t i::after { animation-play-state: running; }
 :root:root:root .pk h2, :root:root:root .pk .pk-rise { margin: 0; }
 :root:root:root .pk-stats { margin-top: calc(var(--gap-content, 40px) - 12px); }
 :root:root:root:root .pk-info > h2 + p { margin-top: 0 !important; }
+
+/* Intro hand-off: the header avatar waits hidden while the intro photo flies into its place (owner, 28 Nov 2026) */
+html.js.intro-gs:not(.no-intro) .site-header .brand-me img.brand-face { visibility: hidden; }
+.intro-photo { transform-origin: 50% 50%; }
