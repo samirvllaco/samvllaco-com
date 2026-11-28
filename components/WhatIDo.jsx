@@ -5,9 +5,9 @@ import { loadGsap } from "../lib/gsapLoad";
 
 // Home page, after the hero (owner, 28 Nov 2026: "need section like this", after an agency's "Who we are" block):
 // one line with the three verbs as small icon chips, then three cards, each with a live picture of real work.
-// 1) A before and after you drag (the law firm homepage, names changed). 2) The dashboard, with two details that
-// lift out of the screen when the card comes into view. 3) The landing page, with a pointer that clicks the main
-// button. No invented numbers: every picture is a crop of a case study. Loops wait for the first interaction
+// 1) Web UI/UX design: the dashboard, with two details that lift out of the screen when the card comes into view.
+// 2) Ad design: an ad for the eye care app over the page it leads to, with a pointer that clicks the ad. 3) UX audits:
+// a before and after you drag (the law firm homepage, names changed). No invented numbers: every picture is a crop of a case study. Loops wait for the first interaction
 // (html.is-live) and pause off screen; reduced motion shows the still end state.
 const Ico = ({ d }) => (
   <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">{d}</svg>
@@ -15,7 +15,7 @@ const Ico = ({ d }) => (
 const ICONS = {
   audit: <><circle cx="11" cy="11" r="6.5" /><path d="m20 20-4.2-4.2" /></>,
   design: <><path d="m12 3.5-8.5 4.75L12 13l8.5-4.75L12 3.5Z" /><path d="m3.5 12.5 8.5 4.75 8.5-4.75" /></>,
-  build: <><path d="M7 17 17 7" /><path d="M8.5 7H17v8.5" /></>,
+  ads: <><path d="M4 10v4h3l6 4V6l-6 4H4Z" /><path d="M16.5 9a4 4 0 0 1 0 6" /></>,
 };
 const Chip = ({ i, children }) => <span className={`wd-chip wd-chip-${i}`}><Ico d={ICONS[i]} />{children}</span>;
 
@@ -53,10 +53,12 @@ function Compare({ go }) {
   );
 }
 
+// The three things Sam sells most (owner, 28 Nov 2026: "use top 3 things I offer like web UI/UX design, ads design, UX
+// audits"; "product design" next to "UI/UX" didn't make sense). Each links to its service page.
 const CARDS = [
-  { k: "ba", t: "UX audits and redesigns", p: "I find what costs you sign-ups, rank it by impact and redesign the screens that matter most.", cta: "See a redesign", href: "/work/law-firm-website/" },
-  { k: "dash", t: "Product design", p: "Web apps, dashboards and mobile apps, from the first flow to the last edge case.", cta: "See a dashboard", href: "/work/marketing-dashboard/" },
-  { k: "land", t: "Landing pages that convert", p: "One message, one clear action and a page that loads fast on every phone.", cta: "See a landing page", href: "/work/eye-care-marketing-site/" },
+  { k: "web", t: "Web UI/UX design", p: "Websites and web apps that look finished and are easy to use, from the first flow to the last screen.", cta: "See web design", href: "/services/website-design/" },
+  { k: "ads", t: "Ad design", p: "Static and animated ads for Meta, Google, LinkedIn and X that match the page they send people to.", cta: "See ad design", href: "/services/marketing-design/" },
+  { k: "audit", t: "UX audits", p: "I find what costs you sign-ups, rank it by impact and redesign the screens that matter most.", cta: "See UX audits", href: "/services/ux-audit/" },
 ];
 
 export default function WhatIDo() {
@@ -83,13 +85,13 @@ export default function WhatIDo() {
     <section className={`wd${seen ? " is-in" : ""}`} ref={root} aria-labelledby="wd-h" data-bg="#0e0e10" data-live={live ? "" : undefined} data-paused={inView ? undefined : ""}>
       <header className="wd-head">
         <h2 id="wd-h">Three ways I help <span className="t2">your product</span></h2>
-        <p>I <Chip i="audit">audit</Chip> what slows your users down, <Chip i="design">design</Chip> the screens that fix it and <Chip i="build">build</Chip> the pages that bring new customers in.</p>
+        <p>I <Chip i="design">design</Chip> websites and web apps, make <Chip i="ads">ads</Chip> that bring people in and <Chip i="audit">audit</Chip> what slows them down.</p>
       </header>
       <ul className="wd-grid">
         {CARDS.map((c) => (
           <li key={c.k} className={`wd-card wd-card-${c.k}`}>
-            {c.k === "ba" ? <Compare go={seen && live} /> : null}
-            {c.k === "dash" ? (
+            {c.k === "audit" ? <Compare go={seen && live} /> : null}
+            {c.k === "web" ? (
               <div className="wd-vis wd-dash" aria-hidden="true">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img className="wd-base" src="/work/wd/dash.webp?v=1" width="720" height="540" loading="lazy" decoding="async" alt="" />
@@ -99,13 +101,17 @@ export default function WhatIDo() {
                 <img className="wd-f wd-f2" src="/work/wd/dash-ai.webp?v=1" width="355" height="330" loading="lazy" decoding="async" alt="" />
               </div>
             ) : null}
-            {c.k === "land" ? (
+            {c.k === "ads" ? (
               <div className="wd-vis wd-land" aria-hidden="true">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img className="wd-base" src="/work/wd/land.webp?v=1" width="720" height="540" loading="lazy" decoding="async" alt="" />
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img className="wd-cta" src="/work/wd/land-cta.webp?v=1" width="180" height="62" loading="lazy" decoding="async" alt="" />
-                <span className="wd-ring" />
+                <div className="wd-ad">
+                  <div className="wd-ad-top"><i>o</i><span><b>Ocufuse</b><em>Sponsored</em></span></div>
+                  <span className="wd-ad-copy">One-minute eye games for your screen breaks.</span>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img className="wd-ad-img" src="/work/wd/ad-img.webp?v=1" width="368" height="280" loading="lazy" decoding="async" alt="" />
+                  <div className="wd-ad-cta"><span>ocufuse.com</span><b>Play now</b></div>
+                </div>
                 <svg className="wd-cur" viewBox="0 0 24 24" width="22" height="22"><path d="M5 3.5 19 12l-6.2 1.6L9.6 19.5 5 3.5Z" fill="#111112" stroke="#fff" strokeWidth="1.5" strokeLinejoin="round" /></svg>
               </div>
             ) : null}

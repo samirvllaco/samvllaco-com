@@ -7988,7 +7988,7 @@ html:has(.bw .bw-tab) body:not(:has(.case-fab)) .ask-pill.is-side { --ask-left: 
 .wd-chip svg { flex: none; }
 .wd-chip-audit svg { color: #62c1fd; }
 .wd-chip-design svg { color: #b4a2ff; }
-.wd-chip-build svg { color: #5fd39a; }
+.wd-chip-ads svg { color: #ffb547; }
 .wd-grid { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--gap-grid); grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .wd-card { display: flex; flex-direction: column; gap: 24px; min-width: 0; padding: 24px; border-radius: var(--r-card); background: var(--card-low); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .08); }
 .wd-txt { flex: 1; display: grid; grid-template-rows: auto 1fr auto; gap: 8px; justify-items: start; min-width: 0; }
@@ -8019,30 +8019,41 @@ html:has(.bw .bw-tab) body:not(:has(.case-fab)) .ask-pill.is-side { --ask-left: 
 .wd-vis .wd-f1 { left: 5%; top: 7%; width: 38%; transform: translate(15cqw, 6.89cqh) scale(.5592); }
 .wd-vis .wd-f2 { left: 54%; top: 30%; width: 42%; transform: translate(26.42cqw, .56cqh) scale(.7043); transition-delay: .32s, .32s; }
 .wd.is-in .wd-f { transform: none; box-shadow: 0 0 0 1px rgba(17, 17, 18, .08), 0 16px 40px -12px rgba(17, 17, 18, .28); }
-/* 3) The landing page: a pointer clicks the main button */
+/* 2) Ad design: an ad for the eye care app sits over the page it leads to; a pointer comes in and clicks "Play now".
+   Every size inside the ad is in container units (cqw), so the pointer's target holds at every card width. */
 .wd-land { background: #fff; }
-.wd-vis .wd-cta { position: absolute; left: 8.7%; top: 68.4%; width: 18%; height: auto; }
-.wd-ring { position: absolute; left: 9.7%; top: 69.6%; width: 16%; height: 5.9%; border-radius: var(--r-inner); box-shadow: 0 0 0 2px #3b6cf6; opacity: 0; pointer-events: none; }
-.wd-cur { position: absolute; left: 0; top: 0; width: 22px; height: 22px; transform: translate(17cqw, 71.5cqh); filter: drop-shadow(0 2px 4px rgba(0, 0, 0, .2)); }
+.wd-land::after { content: ""; position: absolute; inset: 0; background: rgba(14, 14, 16, .28); pointer-events: none; }
+.wd-ad { position: absolute; left: 5cqw; top: 6cqw; z-index: 1; width: 46cqw; padding: 2.4cqw; border-radius: 1.6cqw; background: #fff; color: #111112; box-shadow: 0 0 0 1px rgba(17, 17, 18, .08), 0 3cqw 8cqw -2cqw rgba(0, 0, 0, .45); font-size: 2.6cqw; line-height: 1.35; }
+.wd-ad-top { display: flex; align-items: center; gap: 1.6cqw; height: 6cqw; }
+.wd-ad-top i { display: grid; place-items: center; width: 5.6cqw; height: 5.6cqw; border-radius: 1.2cqw; background: #2f5bea; color: #fff; font-style: normal; font-weight: 700; font-size: 3cqw; }
+.wd-ad-top span { display: grid; line-height: 1.2; }
+.wd-ad-top b { font-size: 2.6cqw; font-weight: 600; }
+.wd-ad-top em { font-style: normal; font-size: 2.2cqw; color: #55555c; }
+.wd-ad-copy { display: block; margin: 1.6cqw 0; height: 7cqw; overflow: hidden; font-weight: 500; }
+.wd-vis .wd-ad-img { display: block; width: 100%; height: auto; aspect-ratio: 368 / 280; border-radius: 1cqw; object-fit: cover; }
+.wd-ad-cta { display: flex; align-items: center; justify-content: space-between; gap: 1.6cqw; height: 7cqw; margin-top: 1.6cqw; font-size: 2.4cqw; color: #55555c; }
+.wd-ad-cta b { position: relative; display: grid; place-items: center; height: 5.6cqw; padding: 0 2.4cqw; border-radius: 1cqw; background: #2f5bea; color: #fff; font-weight: 600; white-space: nowrap; }
+.wd-ad-cta b::after { content: ""; position: absolute; inset: -.6cqw; border-radius: 1.4cqw; box-shadow: 0 0 0 2px #2f5bea; opacity: 0; pointer-events: none; }
+.wd-cur { position: absolute; left: 0; top: 0; z-index: 2; width: 22px; height: 22px; transform: translate(calc(41.2cqw - 4px), calc(61cqw - 3px)); filter: drop-shadow(0 2px 4px rgba(0, 0, 0, .25)); }
 .wd[data-live] .wd-cur { animation: wd-cur 5s var(--ease-out) infinite; }
-.wd[data-live] .wd-cta { animation: wd-press 5s infinite; }
-.wd[data-live] .wd-ring { animation: wd-ring 5s var(--ease-out) infinite; }
-.wd[data-paused] :is(.wd-cur, .wd-cta, .wd-ring) { animation-play-state: paused; }
+.wd[data-live] .wd-ad-cta b { animation: wd-press 5s infinite; }
+.wd[data-live] .wd-ad-cta b::after { animation: wd-ring 5s var(--ease-out) infinite; }
+.wd[data-paused] :is(.wd-cur, .wd-ad-cta b, .wd-ad-cta b::after) { animation-play-state: paused; }
 @keyframes wd-cur {
-  0% { transform: translate(84cqw, 92cqh); opacity: 0; }
+  0% { transform: translate(84cqw, 70cqw); opacity: 0; }
   10% { opacity: 1; }
-  42% { transform: translate(17cqw, 71.5cqh); }
-  48% { transform: translate(17cqw, 71.5cqh) scale(.86); }
-  54% { transform: translate(17cqw, 71.5cqh) scale(1); }
-  84% { transform: translate(17cqw, 71.5cqh); opacity: 1; }
-  92% { transform: translate(17cqw, 71.5cqh); opacity: 0; }
-  93%, 100% { transform: translate(84cqw, 92cqh); opacity: 0; }
+  42% { transform: translate(calc(41.2cqw - 4px), calc(61cqw - 3px)); }
+  48% { transform: translate(calc(41.2cqw - 4px), calc(61cqw - 3px)) scale(.86); }
+  54% { transform: translate(calc(41.2cqw - 4px), calc(61cqw - 3px)) scale(1); }
+  84% { transform: translate(calc(41.2cqw - 4px), calc(61cqw - 3px)); opacity: 1; }
+  92% { transform: translate(calc(41.2cqw - 4px), calc(61cqw - 3px)); opacity: 0; }
+  93%, 100% { transform: translate(84cqw, 70cqw); opacity: 0; }
 }
-@keyframes wd-press { 0%, 46% { transform: none; } 49% { transform: scale(.95); } 55%, 100% { transform: none; } }
-@keyframes wd-ring { 0%, 49% { opacity: 0; transform: none; } 51% { opacity: .9; } 78%, 100% { opacity: 0; transform: scale(1.3, 1.9); } }
+@keyframes wd-press { 0%, 46% { transform: none; } 49% { transform: scale(.94); } 55%, 100% { transform: none; } }
+@keyframes wd-ring { 0%, 49% { opacity: 0; transform: none; } 51% { opacity: .9; } 78%, 100% { opacity: 0; transform: scale(1.25, 1.6); } }
 @media (prefers-reduced-motion: reduce) {
   .wd-vis .wd-f { transform: none; transition: none; box-shadow: 0 0 0 1px rgba(17, 17, 18, .08), 0 16px 40px -12px rgba(17, 17, 18, .28); }
-  .wd :is(.wd-cur, .wd-cta, .wd-ring) { animation: none !important; }
+  .wd :is(.wd-cur, .wd-ad-cta b, .wd-ad-cta b::after) { animation: none !important; }
 }
 @media (max-width: 639px) { .wd-txt { justify-items: stretch; } .wd-txt .hero2-btn { width: 100%; } }
 :root:root:root:root .wd-head > * { margin: 0 !important; }
