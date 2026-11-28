@@ -1,0 +1,30 @@
+---
+paths:
+  - "app/**"
+  - "components/**"
+  - "lib/**"
+  - "public/**"
+  - "content/**"
+  - "slopscore/**"
+  - "functions/**"
+  - "scanner/**"
+---
+# Offer and prices, Slop Score, Ask Sam's AI, the offer ladder
+
+Moved here from CLAUDE.md on 28 Nov 2026, word for word. These rules load by themselves when a matching file is opened.
+
+## Offer (owner, 22 Nov 2026; prices hidden 27 Nov 2026)
+This site is the main portfolio. The design plans' prices are not published any more (owner, 27 Nov 2026: "hide pricing, might hurt conversions, just add a range on contact from 5-10k and upwards"): no /pricing/ page (it redirects to /book/) and no Pricing nav link. Projects start at $5,000 (`PROJECT_FROM`), /book/ is the Cal.com calendar with a "Book a call / Send message" switch (owner, 28 Nov 2026; `ContactSwitch.jsx`; both panels share one cell so switching never shifts the page, the picked one fades in): the message form (name, email, then optional company, what you need, budget, timeline, and the message; owner, 28 Nov 2026: "a safer space for people who want to write rather than book") posts to /api/message (`handleMessage` in `slopscore/src/api.js`, D1 `messages` table, emailed to Sam with the visitor as reply-to, 5 a day per visitor, list at /api/message/admin/messages.csv with the admin token); what people need and their budget (`BUDGETS`: $5,000 to $10,000 up to $50,000+) are asked in the Cal.com booking form, not on the site, and the home page offers a $2,500 trial week (`TRIAL_WEEK`). All in `lib/plans.js`, the one source. The design cost calculator starts at $5,000. No hourly rate. No refund terms are published until the owner sets them.
+Buttons say "Start a project" (arrow after the words), with "See my work" as the second button where two fit (owner, 27 Nov 2026: "some people feel shy about calls"). Nav: Services, Work, Insights (/writing/), Resources, About (owner, 28 Nov 2026: Resources is back as a menu, "don't use Insights inside it"; `RESOURCE_MENU` in `lib/resources.js`: the ebook, the digital kit, the free audit, the Slop Score and the free tools; the phone menu has the same list).
+Accessibility and Slop Score offers (owner, 25 Nov 2026): EAA audit $1,500 (5 working days) on `/eaa-audit/`, then a Fix Sprint from $2,500 at one fixed price (owner, 27 Nov 2026; was $1,000 a week), managed accessibility from $3,000 a month on `/accessibility/`, full Slop Score report $5 (owner, 25 Nov 2026; was $9), paid through a Stripe Payment Link on his Sam Vllaco Stripe account (never the Ocufuse one). Also set in `lib/plans.js`. True claims the owner confirmed for these pages: screen reader testing with VoiceOver and NVDA, web, iOS and Android, designs compliance software, and can code front-end fixes himself.
+
+## Slop Score, Ask Sam's AI and the offer ladder (owner, 25 Nov 2026)
+- The offer ladder is `LADDER` in `lib/plans.js` (shown on /pricing/). Prices stay in `lib/plans.js` only.
+- Slop Score (/slop-score/) and the "Ask Sam's AI" chat run on Pages Functions bundled from `slopscore/` into `functions/_slop/api.js`. The chat answers only from facts built out of `lib/` (plans, services, work, FAQ). After changing prices, services, work or FAQ, run `node slopscore/build.mjs` and commit the bundle, or the chat keeps the old facts. Tests: `node --test slopscore/test/*.test.js`.
+- Both stay off until the Cloudflare keys and bindings are set (see `slopscore/src/api.js` header). The chat pill only shows when `/api/ask/status` says ready.
+- Limits and spend (owner, 25 Nov 2026: "don't want to pay anything extra"): 2 finished scans per person a day (6 tries), 20 chat messages per person a day; `slopscore/src/budget.js` books every Anthropic call in D1 and stops at $180 total and $7 a day of the $200 free credit (no card on file). Never raise these without the owner.
+- Paid unlock (owner, 25 Nov 2026): free = score, 7 category bands and the top 3 fixes; the rest is blurred behind the $5 unlock. `STRIPE_REPORT_LINK` (Payment Link, success URL `https://samvllaco.com/slop-score/r/?paid=1`) carries the report id as `client_reference_id`; the `checkout.session.completed` webhook at `/api/slop-score/stripe-webhook` (`STRIPE_WEBHOOK_SECRET`) unlocks the report and emails the full report. No Stripe secret key on the site.
+- Email flow (owner, 25 Nov 2026; amended the same day): a free email sends the score and top 3 fixes (it no longer unlocks the report); the report email goes out at once and, with the opt-in box ticked, 3 follow-ups (book day 2, $49/$99 review day 5, sprint day 9) with one-click unsubscribe (`slopscore/src/mail.js`). Sending needs the `RESEND_API_KEY` secret (Resend free plan, capped at 90 a day in code); with `BREVO_API_KEY` (Brevo free plan on its own account, capped at 280 a day) Brevo sends when Resend is full or down (owner, 27 Nov 2026); Pages has no cron, so due emails go out on site traffic every 10 minutes at most. Owner test calls: `Authorization: Bearer <ADMIN_TOKEN>` skips the captcha and visitor limits.
+- The chat facts (`facts()` in `slopscore/src/ask.js`) are built from the whole site at bundle time: plans, ladder, services, work and deep case studies, process, real reviews (`lib/testimonials.js`), free tools, articles and FAQs; cached for an hour. New site data a visitor might ask about goes in there too.
+- App errors return 4xx: Cloudflare replaces a 5xx body from a Function with its own "error code" page.
+- Pages Functions cannot bind Browser Rendering, so page renders run in a separate Worker, `samvllaco-scanner` (`scanner/`, deployed by Workers Builds from this repo), reached through the Pages service binding `SCANNER`. `node slopscore/build.mjs` rebuilds both `functions/_slop/api.js` and `scanner/worker.js`; commit both.
