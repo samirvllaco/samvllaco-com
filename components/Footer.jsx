@@ -180,7 +180,14 @@ export default function Footer() {
             <RouteHide>
               <div className="fo-right">
                 <FootMap />
-                <AskAI inline name="Sam Vllaco" prompt="Tell me about Sam Vllaco, the product designer at samvllaco.com. What does he do, who does he work with and how do I hire him?" />
+                <div className="fo-ai-row">
+                  <AskAI inline name="Sam Vllaco" prompt="Tell me about Sam Vllaco, the product designer at samvllaco.com. What does he do, who does he work with and how do I hire him?" />
+                  {/* Availability on the right of the Ask AI row (owner, 28 Nov 2026) */}
+                  <a className="fo-open" href="/book/">
+                    <span className="fo-open-k">Contact</span>
+                    <span className="fo-open-t"><i aria-hidden="true" />Open to new projects.</span>
+                  </a>
+                </div>
               </div>
             </RouteHide>
           </div>

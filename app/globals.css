@@ -7686,3 +7686,18 @@ html.js .site-footer.fp-on > * { translate: 0 var(--fp, 0px); }
 /* 4 The moodboard photo opens from a soft clip and settles from a slight zoom */
 html.js .ab-pic { clip-path: inset(calc((1 - var(--m, 1)) * 12%) calc((1 - var(--m, 1)) * 12%) round var(--r-card)); transform: scale(calc(1.08 - var(--m, 1) * .08)); transform-origin: 50% 40%; }
 @media (prefers-reduced-motion: reduce) { .ab-year-t > span { animation: none; } html.js .ab-pic { clip-path: none; transform: none; } .ab-text span.is-now { color: inherit; } }
+
+/* Footer: "Contact, Open to new projects." on the right of the Ask AI row, with a live dot (owner, 28 Nov 2026) */
+.fo-ai-row { display: flex; align-items: center; justify-content: space-between; gap: 24px 40px; flex-wrap: wrap; padding-top: 24px; border-top: 1px solid var(--fo-line); }
+:root:root .fo-ai-row .ask-ai-row { padding: 0; border-top: 0; }
+:root:root:root .fo-open { display: grid; justify-items: end; gap: 8px; min-height: 44px; color: #f5f5f7; text-decoration: none; }
+.fo-open-k { font-size: 12px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.fo-open-t { display: inline-flex; align-items: center; gap: 12px; font-size: clamp(1.5rem, 2.2vw, 2rem); font-weight: 500; line-height: 1.1; letter-spacing: -.035em; text-decoration: underline; text-decoration-color: transparent; text-underline-offset: 6px; text-decoration-thickness: 1px; transition: text-decoration-color .25s var(--ease-out); }
+.fo-open:hover .fo-open-t { text-decoration-color: rgba(245, 245, 247, .5); }
+.fo-open:focus-visible { outline: 3px solid rgba(98, 193, 253, .6); outline-offset: 4px; border-radius: var(--r-sm); }
+.fo-open-t i { position: relative; flex: none; width: 10px; height: 10px; border-radius: 50%; background: var(--ok, #3ecf7a); box-shadow: 0 0 0 4px rgba(62, 207, 122, .18); }
+.fo-open-t i::after { content: ""; position: absolute; inset: -4px; border-radius: 50%; box-shadow: 0 0 0 1px rgba(62, 207, 122, .5); opacity: 0; animation: fo-ping 2.4s var(--ease-out) infinite paused; }
+html.is-live .fo-open-t i::after { animation-play-state: running; }
+@keyframes fo-ping { 0% { transform: scale(.6); opacity: .9; } 80%, 100% { transform: scale(1.8); opacity: 0; } }
+@media (max-width: 760px) { :root:root:root .fo-open { justify-items: start; } }
+@media (prefers-reduced-motion: reduce) { .fo-open-t i::after { animation: none; } }
