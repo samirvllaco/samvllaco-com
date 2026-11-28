@@ -8207,3 +8207,15 @@ html:has(.bw .bw-tab) body:not(:has(.case-fab)) .ask-pill.is-side { --ask-left: 
    structure line shows through them. */
 :root:root:root .tm-rows { position: relative; -webkit-mask-image: none; mask-image: none; }
 .tm-rows::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; z-index: 2; height: 200px; pointer-events: none; background: linear-gradient(180deg, rgba(14, 14, 16, 0), var(--page, #0e0e10) calc(100% - 8px)); }
+
+/* Case study screens in an editorial rhythm (owner, 28 Nov 2026: "show them in creative layouts"; app/work/[slug]/page.jsx
+   shotCls, motion in CaseMotion.jsx): one wide, a pair with the narrow one set lower, a pair the other way round. */
+@media (min-width: 900px) {
+  :root:root .case-shots { grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 64px 24px; align-items: start; }
+  :root:root .case-shot { grid-column: 1 / -1; min-width: 0; }
+  :root:root .case-shot.is-wl { grid-column: 1 / span 7; }
+  :root:root .case-shot.is-nr { grid-column: 8 / span 5; margin-top: 96px; }
+  :root:root .case-shot.is-nl { grid-column: 1 / span 5; margin-top: 96px; }
+  :root:root .case-shot.is-wr { grid-column: 6 / span 7; }
+}
+.case-shot > :first-child, .case-fig { will-change: auto; }

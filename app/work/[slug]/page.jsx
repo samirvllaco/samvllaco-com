@@ -1,5 +1,6 @@
 import HoverVideo from "../../../components/HoverVideo";
 import EndMark from "../../../components/EndMark";
+import CaseMotion from "../../../components/CaseMotion";
 import Link from "next/link";
 import { preload } from "react-dom";
 import CallIcon from "../../../components/CallIcon";
@@ -30,6 +31,15 @@ export function generateMetadata({ params }) {
     alternates: { canonical: `/work/${w.slug}/` },
     ...share({ title: `${w.title}: UI/UX case study by Sam Vllaco`, description, url: `/work/${w.slug}/`, image: `/og/work-${w.slug}.jpg`, alt: `${w.title} screens designed by Sam Vllaco` }),
   };
+}
+
+// Screens in an editorial rhythm (owner, 28 Nov 2026: "show them in creative layouts"): one wide, then a pair (wide left,
+// narrow right set lower), then a pair the other way round, and again. A pair that would be left with one screen gives
+// it the full width. Phones show one column.
+function shotCls(i, n) {
+  const k = i % 5, last = i === n - 1;
+  if (k === 0 || ((k === 1 || k === 3) && last)) return "case-shot is-full";
+  return ["", "case-shot is-wl", "case-shot is-nr is-low", "case-shot is-nl is-low", "case-shot is-wr"][k];
 }
 
 function Shot({ image, light }) {
@@ -238,8 +248,8 @@ export default function CaseStudy({ params }) {
               <section className="case-section" id="more-screens">
                 <h2>More screens</h2>
                 <div className="case-shots">
-                  {w.moreScreens.map((s) => (
-                    <figure className="case-shot" key={s.src}>
+                  {w.moreScreens.map((s, i) => (
+                    <figure className={shotCls(i, w.moreScreens.length)} key={s.src}>
                       <HoverVideo src={s.video} poster={s.src} width={s.w} height={s.h} label={s.alt} />
                       <figcaption>{s.cap}</figcaption>
                     </figure>
@@ -283,8 +293,8 @@ export default function CaseStudy({ params }) {
               <section className="case-section" id="screens">
                 <h2>Screens</h2>
                 <div className="case-shots">
-                  {w.screens.map((s) => (
-                    <figure className="case-shot" key={s.src}>
+                  {w.screens.map((s, i) => (
+                    <figure className={shotCls(i, w.screens.length)} key={s.src}>
                       {s.video ? (
                         <HoverVideo src={s.video} poster={s.src} width={s.w} height={s.h} label={s.alt} />
                       ) : (
@@ -304,6 +314,7 @@ export default function CaseStudy({ params }) {
         {others.length ? <MoreWork others={others} /> : null}
       </div>
       <CaseAside items={toc} />
+      <CaseMotion />
       <CaseFab
         prev={(() => { const i = WORK.findIndex((x) => x.slug === w.slug), p = WORK[(i - 1 + WORK.length) % WORK.length]; return { href: `/work/${p.slug}/`, title: p.title }; })()}
         next={(() => { const i = WORK.findIndex((x) => x.slug === w.slug), n = WORK[(i + 1) % WORK.length]; return { href: `/work/${n.slug}/`, title: n.title, img: n.small }; })()}
