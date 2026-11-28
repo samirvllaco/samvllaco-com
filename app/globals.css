@@ -7956,3 +7956,16 @@ html:has(.bw .bw-tab) body:not(:has(.case-fab)) .ask-pill.is-side { --ask-left: 
 @media (min-width: 1261px) {
   html.is-scrolled.is-scrolled.head-on-light .site-header .wrap.head-row { background: #000000; -webkit-backdrop-filter: none; backdrop-filter: none; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .1), 0 18px 40px -18px rgba(0, 0, 0, .35); }
 }
+
+/* How I work under GSAP (owner, 28 Nov 2026; HowIWorkMotion.jsx adds .hw-gs on wide, tall screens with motion): the CSS
+   scroll-timeline animations stand down and GSAP drives the rail (--rail), the numbers (is-on) and the screens. */
+@media (min-width: 1100px) and (min-height: 800px) and (prefers-reduced-motion: no-preference) {
+  :root:root:root .hw.hw-gs .hw-side .hw-steps::after { animation-name: hw-shine !important; animation-timeline: auto !important; animation-duration: 2.6s !important; animation-iteration-count: infinite !important; animation-range: normal !important; transform: scaleY(var(--railp, 0)); transform-origin: 50% 0; }
+  :root:root:root .hw.hw-gs .hw-steps li .hw-n { animation: none !important; color: var(--muted); transition: color .45s var(--ease-out); }
+  :root:root:root .hw.hw-gs .hw-steps li.is-on .hw-n { color: #0a5bb0; }
+  :root:root:root .hw.hw-gs.is-dim .hw-steps li.is-on .hw-n { color: #62c1fd; }
+  :root:root:root .hw.hw-gs .hw-stage > li, :root:root:root .hw.hw-gs .hw-stage > li > a, :root:root:root .hw.hw-gs .hw-stage img { animation: none !important; visibility: visible; }
+  :root:root:root .hw.hw-gs .hw-stage > li { clip-path: inset(100% 0 0% 0 round 8px); will-change: clip-path; }
+  :root:root:root .hw.hw-gs .hw-stage > li:first-child { clip-path: inset(0% 0 0% 0 round 8px); }
+  :root:root:root .hw.hw-gs .hw-stage .hw-shot { overflow: hidden; }
+}

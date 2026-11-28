@@ -14,6 +14,7 @@ export default function SmoothScroll() {
       if (dead) return;
       document.documentElement.classList.add("has-smooth");
       scroll = new LocomotiveScroll({ lenisOptions: { lerp: 0.2, smoothWheel: true, wheelMultiplier: 1 } });
+      window.__smooth = scroll; // for gentle snaps (HowIWorkMotion)
     });
     const id = "requestIdleCallback" in window ? window.requestIdleCallback(start, { timeout: 2500 }) : setTimeout(start, 1200);
     return () => {
