@@ -3,7 +3,6 @@ import SwipeDeck from "./SwipeDeck";
 import Toolbox from "./Toolbox";
 import CountUp from "./CountUp";
 import { WORK } from "../lib/work";
-import CallIcon from "./CallIcon";
 import BentoLazy from "./BentoLazy";
 import { ORBIT_CHIPS, orbitAt, orbitTf } from "../lib/orbit";
 
@@ -53,8 +52,8 @@ const TICKS = Array.from({ length: 27 }, (_, k) => {
 
 // Home bento (owner, 28 Nov 2026: "bento grid like this with our context", after grafit.agency): one hairline grid with
 // crosses at the corners. The big cell is the whole-product promise, a dithered sphere with the parts of the work
-// orbiting it. Then four stat cells, each a real number with a picture of it: years on a gauge, one dot per client,
-// screens as a rising line, and the usual turnaround on a timeline. Then the work deck and the toolbox. Canvas and loops come from BentoRun (loaded near the viewport); the gauge and the line draw in CSS once
+// orbiting it. Then the stat cells, each a real number with a picture of it: years on a gauge, one dot per client and
+// the usual turnaround on a timeline, with the work deck as one small cell beside them. Then the work deck and the toolbox. Canvas and loops come from BentoRun (loaded near the viewport); the gauge and the line draw in CSS once
 // the section is in view (.is-in).
 export default function Bento() {
   return (
@@ -87,18 +86,6 @@ export default function Bento() {
           <p className="bx2-k">Clients</p>
           <div className="bx2-vis"><canvas className="bd-dots" aria-hidden="true" /></div>
           <p className="bx2-n"><CountUp to={573} /><span>Clients served, one dot each</span></p>
-        </div>
-        <div className="bx2-c bx2-s bx2-d">
-          <p className="bx2-k">Screens</p>
-          <a className="hero2-btn hero2-btn-light bx2-go" href="/work/"><span className="sr-only">See my work</span><CallIcon /></a>
-          <div className="bx2-vis bl-line" aria-hidden="true">
-            <svg viewBox="0 0 240 96" width="240" height="96" preserveAspectRatio="none">
-              <path className="bl-area" d="M4 92 C 46 90, 74 84, 104 70 S 160 40, 190 28 S 214 20, 220 18 L 220 96 L 4 96 Z" />
-              <path className="bl-path" d="M4 92 C 46 90, 74 84, 104 70 S 160 40, 190 28 S 214 20, 220 18" />
-            </svg>
-            <i className="bl-dot" />
-          </div>
-          <p className="bx2-n"><CountUp to={10000} suffix="+" ms={1800} /><span>Screens designed</span></p>
         </div>
         <div className="bx2-c bx2-s bx2-e">
           <p className="bx2-k">Turnaround</p>
