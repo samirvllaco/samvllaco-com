@@ -15,7 +15,7 @@ export default function ToolsMenu() {
           <div className="mx-main">
             <div className="mx-k-row"><p className="mx-k">Free, no sign-up</p></div>
             <ul className="mx-grid mx-grid-3 mx-tools">
-              {TOOLS.map((t) => {
+              {TOOLS.filter((t) => t.menu !== false).map((t) => {
                 const href = t.href || `/tools/${t.slug}/`;
                 return (
                   <li key={t.slug}>
