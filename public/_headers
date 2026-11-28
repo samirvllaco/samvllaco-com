@@ -50,3 +50,6 @@
 /og/*
   ! Cache-Control
   Cache-Control: public, max-age=2592000
+/work/wd/*
+  ! Cache-Control
+  Cache-Control: public, max-age=31536000

@@ -7969,3 +7969,75 @@ html:has(.bw .bw-tab) body:not(:has(.case-fab)) .ask-pill.is-side { --ask-left: 
   :root:root:root .hw.hw-gs .hw-stage > li:first-child { clip-path: inset(0% 0 0% 0 round 8px); }
   :root:root:root .hw.hw-gs .hw-stage .hw-shot { overflow: hidden; }
 }
+
+/* What I do (components/WhatIDo.jsx; owner, 28 Nov 2026: "need section like this"): the home section after the hero.
+   Intro on the left like every home section (title in two tones, a lede with the three verbs as icon chips), then three
+   cards with a live crop of real work: a before and after to drag, a dashboard whose details lift out once in view,
+   and a landing page whose main button gets clicked. Loops wait for html.is-live and pause off screen. */
+:root:root .stack-lg > .wd { margin-top: var(--sec); }
+.wd { display: grid; }
+.wd-head { display: grid; gap: var(--gap-intro); max-width: var(--prose); margin: 0 0 var(--gap-content); text-align: left; justify-items: start; }
+.wd-head h2, .wd-head p { margin: 0; }
+.wd-head p { font-size: var(--fs-lede); line-height: 2; color: var(--muted); letter-spacing: -.015em; }
+.wd-chip { display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 10px 0 8px; margin: 0 2px; vertical-align: 1px; border-radius: var(--r-sm); background: var(--card); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .08); color: var(--text); font-weight: 500; line-height: 1; white-space: nowrap; }
+.wd-chip svg { flex: none; }
+.wd-chip-audit svg { color: #62c1fd; }
+.wd-chip-design svg { color: #b4a2ff; }
+.wd-chip-build svg { color: #5fd39a; }
+.wd-grid { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--gap-grid); grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.wd-card { display: flex; flex-direction: column; gap: 24px; min-width: 0; padding: 24px; border-radius: var(--r-card); background: var(--card-low); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .08); }
+.wd-txt { flex: 1; display: grid; grid-template-rows: auto 1fr auto; gap: 8px; justify-items: start; min-width: 0; }
+.wd-txt h3 { margin: 0; font-size: var(--fs-card); line-height: 1.4; font-weight: 500; }
+.wd-txt p { margin: 0; color: var(--muted); font-size: .9375rem; line-height: 1.6; }
+.wd-txt .hero2-btn { margin-top: 16px; }
+@media (max-width: 1023px) {
+  .wd-grid { grid-template-columns: minmax(0, 1fr); }
+}
+@media (min-width: 640px) and (max-width: 1023px) {
+  .wd-card { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; }
+}
+.wd-vis { position: relative; aspect-ratio: 4 / 3; overflow: hidden; container-type: size; isolation: isolate; border-radius: var(--r-inner); background: #f5f5f7; box-shadow: 0 0 0 1px rgba(255, 255, 255, .08); }
+.wd-vis img { display: block; width: 100%; height: 100%; object-fit: cover; }
+/* 1) Before and after */
+.wd-ba { background: #0b1f4a; }
+.wd-ba .wd-ba-a, .wd-ba-b { position: absolute; inset: 0; }
+.wd-ba-b { clip-path: inset(0 calc(100% - var(--p)) 0 0); }
+.wd-line { position: absolute; top: 0; bottom: 0; left: var(--p); width: 2px; translate: -1px 0; background: #fff; pointer-events: none; }
+.wd-line i { position: absolute; top: 50%; left: 50%; width: 32px; height: 32px; translate: -50% -50%; display: grid; place-items: center; border-radius: var(--r-sm); background: #fff; color: #111112; box-shadow: 0 6px 20px -4px rgba(0, 0, 0, .25); }
+.wd-ba input { position: absolute; inset: 0; z-index: 2; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: ew-resize; touch-action: pan-y; }
+.wd-ba:has(input:focus-visible) .wd-line i { outline: 3px solid #62c1fd; outline-offset: 2px; }
+.wd-tag { position: absolute; top: 12px; padding: 4px 8px; border-radius: var(--r-sm); background: #0e0e10; color: #f5f5f7; font-size: .75rem; line-height: 1.333; font-weight: 500; pointer-events: none; }
+.wd-tag-b { left: 12px; }
+.wd-tag-a { right: 12px; }
+/* 2) The dashboard: two details sit in place, then lift out once the section is in view */
+.wd-vis .wd-f { position: absolute; height: auto; border-radius: var(--r-inner); transform-origin: 0 0; box-shadow: 0 0 0 0 rgba(17, 17, 18, 0); transition: transform .8s var(--ease-out) .2s, box-shadow .8s var(--ease-out) .2s; }
+.wd-vis .wd-f1 { left: 5%; top: 7%; width: 38%; transform: translate(15cqw, 6.89cqh) scale(.5592); }
+.wd-vis .wd-f2 { left: 54%; top: 30%; width: 42%; transform: translate(26.42cqw, .56cqh) scale(.7043); transition-delay: .32s, .32s; }
+.wd.is-in .wd-f { transform: none; box-shadow: 0 0 0 1px rgba(17, 17, 18, .08), 0 16px 40px -12px rgba(17, 17, 18, .28); }
+/* 3) The landing page: a pointer clicks the main button */
+.wd-land { background: #fff; }
+.wd-vis .wd-cta { position: absolute; left: 8.7%; top: 68.4%; width: 18%; height: auto; }
+.wd-ring { position: absolute; left: 9.7%; top: 69.6%; width: 16%; height: 5.9%; border-radius: var(--r-inner); box-shadow: 0 0 0 2px #3b6cf6; opacity: 0; pointer-events: none; }
+.wd-cur { position: absolute; left: 0; top: 0; width: 22px; height: 22px; transform: translate(17cqw, 71.5cqh); filter: drop-shadow(0 2px 4px rgba(0, 0, 0, .2)); }
+.wd[data-live] .wd-cur { animation: wd-cur 5s var(--ease-out) infinite; }
+.wd[data-live] .wd-cta { animation: wd-press 5s infinite; }
+.wd[data-live] .wd-ring { animation: wd-ring 5s var(--ease-out) infinite; }
+.wd[data-paused] :is(.wd-cur, .wd-cta, .wd-ring) { animation-play-state: paused; }
+@keyframes wd-cur {
+  0% { transform: translate(84cqw, 92cqh); opacity: 0; }
+  10% { opacity: 1; }
+  42% { transform: translate(17cqw, 71.5cqh); }
+  48% { transform: translate(17cqw, 71.5cqh) scale(.86); }
+  54% { transform: translate(17cqw, 71.5cqh) scale(1); }
+  84% { transform: translate(17cqw, 71.5cqh); opacity: 1; }
+  92% { transform: translate(17cqw, 71.5cqh); opacity: 0; }
+  93%, 100% { transform: translate(84cqw, 92cqh); opacity: 0; }
+}
+@keyframes wd-press { 0%, 46% { transform: none; } 49% { transform: scale(.95); } 55%, 100% { transform: none; } }
+@keyframes wd-ring { 0%, 49% { opacity: 0; transform: none; } 51% { opacity: .9; } 78%, 100% { opacity: 0; transform: scale(1.3, 1.9); } }
+@media (prefers-reduced-motion: reduce) {
+  .wd-vis .wd-f { transform: none; transition: none; box-shadow: 0 0 0 1px rgba(17, 17, 18, .08), 0 16px 40px -12px rgba(17, 17, 18, .28); }
+  .wd :is(.wd-cur, .wd-cta, .wd-ring) { animation: none !important; }
+}
+@media (max-width: 639px) { .wd-txt { justify-items: stretch; } .wd-txt .hero2-btn { width: 100%; } }
+:root:root:root:root .wd-head > * { margin: 0 !important; }

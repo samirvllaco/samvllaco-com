@@ -18,6 +18,7 @@ import ArticleMark from "../components/ArticleMark";
 import WorkCarousel from "../components/WorkCarousel";
 import HeroQuote, { QUOTE_DAY } from "../components/HeroQuote";
 import HowIWork from "../components/HowIWork";
+import WhatIDo from "../components/WhatIDo";
 import Fixes from "../components/Fixes";
 import TrialWeek from "../components/TrialWeek";
 import HeroReviews from "../components/HeroReviews";
@@ -141,6 +142,8 @@ export default function Home() {
       {/* The wall of screens moved to the top of the footer, behind the closing call (owner, 27 Nov 2026). */}
 
       {/* GrowthSystem ("One designer, end to end") is off (owner, 27 Nov 2026: "hide"); the component stays in components/. */}
+      <WhatIDo />
+
       <HowIWork />
 
 
