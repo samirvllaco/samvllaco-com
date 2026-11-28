@@ -3706,8 +3706,8 @@ main p { font-size: 1.0625rem; line-height: 1.6; }
 /* Current page: shown in the header and the footer link map (owner, 14 Nov 2026) */
 .site-footer .foot-map a[aria-current="page"] { color: #f5f5f7; }
 .site-footer .foot-map a[aria-current="page"]::before { content: ""; width: 6px; height: 6px; margin-right: 2px; border-radius: 50%; background: #62c1fd; flex: none; }
-.head-nav > a[aria-current="page"], .head-nav .mega-btn.is-current { background: var(--hl); }
-.head-nav > a[aria-current="page"]::after, .head-nav .mega-btn.is-current::after { content: ""; position: absolute; left: 50%; bottom: 4px; width: 4px; height: 4px; margin-left: -2px; border-radius: 50%; background: #62c1fd; }
+.head-nav > a[aria-current], .head-nav .mega-btn.is-current { background: var(--hl); }
+.head-nav > a[aria-current]::after, .head-nav .mega-btn.is-current::after { content: ""; position: absolute; left: 50%; bottom: 4px; width: 4px; height: 4px; margin-left: -2px; border-radius: 50%; background: #62c1fd; }
 .head-nav > a, .head-nav .mega-btn { position: relative; }
 .foot-map a:has(.mega-pdf) { white-space: nowrap; } .foot-map .mega-pdf { margin-left: 8px; }
 /* Wall stats: frosted glass over the screens, tinted with the page color, no blue (owner, 14 Nov 2026) */
@@ -4722,8 +4722,8 @@ body:has(.eb) .foot-stage { display: none; }
 }
 
 /* Header: the page you are on looks pressed into the bar (owner, 15 Nov 2026) */
-.head-nav > a[aria-current="page"], .head-nav .mega-btn.is-current { background: rgba(0, 0, 0, .32); box-shadow: inset 0 2px 4px rgba(0, 0, 0, .55), inset 0 -1px 0 rgba(255, 255, 255, .08); color: var(--text); }
-:root[data-theme="light"]:not(.on-dark) .head-nav > a[aria-current="page"], :root[data-theme="light"]:not(.on-dark) .head-nav .mega-btn.is-current { background: rgba(0, 0, 0, .07); box-shadow: inset 0 2px 4px rgba(0, 0, 0, .14), inset 0 -1px 0 rgba(255, 255, 255, .9); }
+.head-nav > a[aria-current], .head-nav .mega-btn.is-current { background: rgba(0, 0, 0, .32); box-shadow: inset 0 2px 4px rgba(0, 0, 0, .55), inset 0 -1px 0 rgba(255, 255, 255, .08); color: var(--text); }
+:root[data-theme="light"]:not(.on-dark) .head-nav > a[aria-current], :root[data-theme="light"]:not(.on-dark) .head-nav .mega-btn.is-current { background: rgba(0, 0, 0, .07); box-shadow: inset 0 2px 4px rgba(0, 0, 0, .14), inset 0 -1px 0 rgba(255, 255, 255, .9); }
 
 /* Ebook in light mode: sections alternate white and light gray so each one reads as its own block (owner, 15 Nov 2026) */
 :root[data-theme="light"] .eb > :is(.ba, .eb-band) { position: relative; padding-block: 64px; background: #f2f2f4; box-shadow: 0 0 0 100vmax #f2f2f4; clip-path: inset(0 -100vmax); }
@@ -4786,11 +4786,11 @@ html:not(.is-live) :is(.scr, .mk-l) { filter: grayscale(1); }
 :root[data-theme="light"] .faq-link { text-decoration-color: #0b62c4; }
 :root[data-theme="light"] .faq-link:hover { color: #0b62c4; }
 /* Pressed current item: drawn 4px inside the 44px tap area so it never touches the bar edges (owner, 15 Nov 2026) */
-.head-nav > a[aria-current="page"], .head-nav .mega-btn.is-current,
-:root[data-theme="light"]:not(.on-dark) .head-nav > a[aria-current="page"], :root[data-theme="light"]:not(.on-dark) .head-nav .mega-btn.is-current { background: none; box-shadow: none; isolation: isolate; }
-.head-nav > a[aria-current="page"]::before, .head-nav .mega-btn.is-current::before { content: ""; position: absolute; inset: 4px 0; z-index: -1; border-radius: var(--r-sm); background: rgba(0, 0, 0, .32); box-shadow: inset 0 2px 4px rgba(0, 0, 0, .55), inset 0 -1px 0 rgba(255, 255, 255, .08); }
-:root[data-theme="light"]:not(.on-dark) .head-nav > a[aria-current="page"]::before, :root[data-theme="light"]:not(.on-dark) .head-nav .mega-btn.is-current::before { background: rgba(0, 0, 0, .06); box-shadow: inset 0 2px 4px rgba(0, 0, 0, .12), inset 0 -1px 0 rgba(255, 255, 255, .9); }
-.head-nav > a[aria-current="page"]::after, .head-nav .mega-btn.is-current::after { bottom: 8px; }
+.head-nav > a[aria-current], .head-nav .mega-btn.is-current,
+:root[data-theme="light"]:not(.on-dark) .head-nav > a[aria-current], :root[data-theme="light"]:not(.on-dark) .head-nav .mega-btn.is-current { background: none; box-shadow: none; isolation: isolate; }
+.head-nav > a[aria-current]::before, .head-nav .mega-btn.is-current::before { content: ""; position: absolute; inset: 4px 0; z-index: -1; border-radius: var(--r-sm); background: rgba(0, 0, 0, .32); box-shadow: inset 0 2px 4px rgba(0, 0, 0, .55), inset 0 -1px 0 rgba(255, 255, 255, .08); }
+:root[data-theme="light"]:not(.on-dark) .head-nav > a[aria-current]::before, :root[data-theme="light"]:not(.on-dark) .head-nav .mega-btn.is-current::before { background: rgba(0, 0, 0, .06); box-shadow: inset 0 2px 4px rgba(0, 0, 0, .12), inset 0 -1px 0 rgba(255, 255, 255, .9); }
+.head-nav > a[aria-current]::after, .head-nav .mega-btn.is-current::after { bottom: 8px; }
 .head-nav .mega-btn { isolation: isolate; }
 
 /* Light mode icon contrast (owner, 15 Nov 2026): icons need 3:1 against what is behind them.
@@ -4806,12 +4806,12 @@ html:not(.is-live) :is(.scr, .mk-l) { filter: grayscale(1); }
 :root[data-theme="light"] .globe-tools button svg { stroke: #0b62c4; color: #0b62c4; }
 
 /* Header current page (owner, 15 Nov 2026): pressed background at full height, no dot; the other items step back a little */
-.head-nav > a[aria-current="page"]::after, .head-nav .mega-btn.is-current::after { content: none !important; }
-.head-nav > a[aria-current="page"]::before, .head-nav .mega-btn.is-current::before { inset: 0; }
-.head-nav:has(> a[aria-current="page"], .mega-btn.is-current) > a:not([aria-current="page"]),
-.head-nav:has(> a[aria-current="page"], .mega-btn.is-current) .mega-btn:not(.is-current) { opacity: .66; transition: opacity .25s var(--ease-out, var(--ease-out)); }
-.head-nav:has(> a[aria-current="page"], .mega-btn.is-current) > a:not([aria-current="page"]):hover,
-.head-nav:has(> a[aria-current="page"], .mega-btn.is-current) .mega-btn:not(.is-current):hover,
+.head-nav > a[aria-current]::after, .head-nav .mega-btn.is-current::after { content: none !important; }
+.head-nav > a[aria-current]::before, .head-nav .mega-btn.is-current::before { inset: 0; }
+.head-nav:has(> a[aria-current], .mega-btn.is-current) > a:not([aria-current]),
+.head-nav:has(> a[aria-current], .mega-btn.is-current) .mega-btn:not(.is-current) { opacity: .66; transition: opacity .25s var(--ease-out, var(--ease-out)); }
+.head-nav:has(> a[aria-current], .mega-btn.is-current) > a:not([aria-current]):hover,
+.head-nav:has(> a[aria-current], .mega-btn.is-current) .mega-btn:not(.is-current):hover,
 .head-nav .mega-btn.is-open { opacity: 1; }
 
 /* Services call card: under the sky photo the card fades from black to a soft gray (blue removed) */
@@ -6462,11 +6462,8 @@ html.is-live .ask-pill::before { animation-play-state: running; }
 @media (prefers-reduced-motion: reduce) { .wg .wg-art * { animation: none !important; } }
 :root:root .pain2 + .sv-sec { margin-top: calc(var(--sec) / 2); }
 
-/* Square pattern on the call-to-action panels (owner, 27 Nov 2026, after a LogoLounge banner): a 32px grid of
-   a booking calendar: week rows of 7 day squares at 2.5 to 6%, one open slot in blue per month (owner, 27 Nov 2026: "less opacity, meaningful squares"), only at the panel edges and clear behind the words. */
-:root { --cta-squares: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='144' height='108'%3E%3Crect x='0' y='0' width='14' height='14' rx='2' fill='%23fff' fill-opacity='0.04'/%3E%3Crect x='18' y='0' width='14' height='14' rx='2' fill='%23fff' fill-opacity='0.05'/%3E%3Crect x='36' y='0' width='14' height='14' rx='2' fill='%2362c1fd' fill-opacity='0.22'/%3E%3Crect x='54' y='0' width='14' height='14' rx='2' fill='%23fff' fill-opacity='0.04'/%3E%3Crect x='72' y='0' width='14' height='14' rx='2' fill='%23fff' fill-opacity='0.05'/%3E%3Crect x='90' y='0' width='14' height='14' rx='2' fill='%23fff' fill-opacity='0.05'/%3E%3Crect x='108' y='0' width='14' height='14' rx='2' fill='%23fff' fill-opacity='0.025'/%3E%3Crect x='0' y='18' width='14' height='14' rx='2' fill='%23fff' fill-opacity='0.025'/%3E%3Crect x='18' y='18' width='14' height='14' rx='2' fill='%23fff' fill-opacity='0.05'/%3E%3Crect x='36' y='18' width='14' height='14' rx='2' fill='%23fff' fill-opacity='0.04'/%3E%3Crect x='54' y='18' width='14' height='14' rx='2' fill='%23fff' fill-opacity='0.06'/%3E%3Crect x='72' y='18' width='14' height='14' rx='2' fill='%23fff' fill-opacity='0.05'/%3E%3Crect x='90' y='18' width='14' height='14' rx='2' fill='%23fff' fill-opacity='0.025'/%3E%3Crect x='108' y='18' width='14' height='14' rx='2' fill='%23fff' fill-opacity='0.025'/%3E%3Crect x='0' y='36' width='14' height='14' rx='2' fill='%23fff' fill-opacity='0.04'/%3E%3Crect x='18' y='36' width='14' height='14' rx='2' fill='%23fff' fill-opacity='0.03'/%3E%3Crect x='36' y='36' width='14' height='14' rx='2' fill='%23fff' fill-opacity='0.025'/%3E%3Crect x='54' y='36' width='14' height='14' rx='2' fill='%23fff' fill-opacity='0.025'/%3E%3Crect x='72' y='36' width='14' height='14' rx='2' fill='%23fff' fill-opacity='0.05'/%3E%3Crect x='90' y='36' width='14' height='14' rx='2' fill='%23fff' fill-opacity='0.06'/%3E%3Crect x='108' y='36' width='14' height='14' rx='2' fill='%23fff' fill-opacity='0.06'/%3E%3Crect x='0' y='54' width='14' height='14' rx='2' fill='%23fff' fill-opacity='0.025'/%3E%3Crect x='18' y='54' width='14' height='14' rx='2' fill='%23fff' fill-opacity='0.05'/%3E%3Crect x='36' y='54' width='14' height='14' rx='2' fill='%23fff' fill-opacity='0.04'/%3E%3Crect x='54' y='54' width='14' height='14' rx='2' fill='%23fff' fill-opacity='0.04'/%3E%3Crect x='72' y='54' width='14' height='14' rx='2' fill='%23fff' fill-opacity='0.06'/%3E%3Crect x='90' y='54' width='14' height='14' rx='2' fill='%23fff' fill-opacity='0.06'/%3E%3Crect x='108' y='54' width='14' height='14' rx='2' fill='%23fff' fill-opacity='0.05'/%3E%3Crect x='0' y='72' width='14' height='14' rx='2' fill='%23fff' fill-opacity='0.06'/%3E%3Crect x='18' y='72' width='14' height='14' rx='2' fill='%23fff' fill-opacity='0.025'/%3E%3Crect x='36' y='72' width='14' height='14' rx='2' fill='%23fff' fill-opacity='0.05'/%3E%3Crect x='54' y='72' width='14' height='14' rx='2' fill='%23fff' fill-opacity='0.025'/%3E%3Crect x='72' y='72' width='14' height='14' rx='2' fill='%23fff' fill-opacity='0.05'/%3E%3Crect x='90' y='72' width='14' height='14' rx='2' fill='%23fff' fill-opacity='0.025'/%3E%3Crect x='108' y='72' width='14' height='14' rx='2' fill='%23fff' fill-opacity='0.025'/%3E%3C/svg%3E"); }
+/* The square pattern on the call-to-action panels is gone (owner, 28 Nov 2026: "remove the square dot pattern, don't use it anymore"). */
 :is(.fd-talk, .case-close, .tl-cta, .rv-box) { position: relative; isolation: isolate; overflow: hidden; }
-:is(.fd-talk, .case-close, .tl-cta, .rv-box)::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; background: var(--cta-squares) 50% 50% / 144px 108px repeat; -webkit-mask-image: linear-gradient(90deg, rgba(0, 0, 0, .9), transparent 24%, transparent 76%, rgba(0, 0, 0, .9)); mask-image: linear-gradient(90deg, rgba(0, 0, 0, .9), transparent 24%, transparent 76%, rgba(0, 0, 0, .9)); }
 
 /* Big bento cards follow the stat widgets (owner, 27 Nov 2026: "match first 2 bento cards style, animation and
    effects"): eyebrow label top left, glossy inner panels in place of blurred glass, and one small loop each
@@ -6696,7 +6693,7 @@ html.intro-css .intro-tag { animation: intro-tag .35s cubic-bezier(.16, 1, .3, 1
 /* Mega menu and nav tabs at the small radii too (owner, 27 Nov 2026): no pills in the header */
 :root:root:root .site-header .mega { border-radius: var(--r-card); }
 :root:root:root :is(.head-nav > a, .head-nav .mega-btn, .head-end button, .head-end > a:not(.head-cta), .brand-me, .head-nav, .head-end) { border-radius: var(--r-sm) !important; }
-:root:root:root .head-nav > a[aria-current="page"]::before, :root:root:root .head-nav .mega-btn.is-current::before { border-radius: var(--r-sm); }
+:root:root:root .head-nav > a[aria-current]::before, :root:root:root .head-nav .mega-btn.is-current::before { border-radius: var(--r-sm); }
 :root:root:root :is(.head-nav a.hero2-btn, .mega a.hero2-btn, .site-footer a.hero2-btn, .head-nav .mx .mx-more a) { border-radius: var(--r-sm); }
 
 /* Breadcrumbs at the small radius too, and the jump menu's current page stays one row (owner, 27 Nov 2026) */
@@ -7191,8 +7188,8 @@ html.on-light .edge-blur { opacity: 0; }
    just the photo, the call and the menu. */
 @media (min-width: 1261px) {
   html.is-scrolled.is-down:not(.mega-open) .site-header .wrap.head-row:not(:hover) { max-width: 560px; }
-  html.is-scrolled.is-down:not(.mega-open) .site-header .wrap.head-row:not(:hover):not(:has(.head-nav > a[aria-current="page"], .head-nav .mega-btn.is-current)) { max-width: 340px; }
-  html.is-scrolled.is-down:not(.mega-open) .head-row:not(:hover) .head-nav > a:not([aria-current="page"]),
+  html.is-scrolled.is-down:not(.mega-open) .site-header .wrap.head-row:not(:hover):not(:has(.head-nav > a[aria-current], .head-nav .mega-btn.is-current)) { max-width: 340px; }
+  html.is-scrolled.is-down:not(.mega-open) .head-row:not(:hover) .head-nav > a:not([aria-current]),
   html.is-scrolled.is-down:not(.mega-open) .head-row:not(:hover) .head-nav > .mega-wrap:not(:has(.mega-btn.is-current)) { display: none; }
   html.is-scrolled.is-down:not(.mega-open) .head-row:not(:hover) .head-nav { animation: nav-compact .35s var(--ease-out) both; }
 }
@@ -7262,9 +7259,9 @@ html.on-light .edge-blur { opacity: 0; }
 :root:root:root .brand-me img.brand-face { border-radius: var(--r-sm); }
 /* Nav items wipe in from the left on hover, like the buttons (owner, 27 Nov 2026: "hover effects on nav also can be from left to right") */
 @media (hover: hover) and (pointer: fine) {
-  :root:root:root :is(.head-nav > a:not([aria-current="page"]), .head-nav .mega-btn:not(.is-current), .head-nav .mx :is(.mx-col, .mx-grid, .mx-posts) a:not([aria-current="page"])) {
+  :root:root:root :is(.head-nav > a:not([aria-current]), .head-nav .mega-btn:not(.is-current), .head-nav .mx :is(.mx-col, .mx-grid, .mx-posts) a:not([aria-current="page"])) {
     background: linear-gradient(var(--hl), var(--hl)) no-repeat left center / 0% 100%; transition: background-size .35s cubic-bezier(.22, .61, .36, 1), color .25s var(--ease-out), opacity .25s var(--ease-out); }
-  :root:root:root :is(.head-nav > a:not([aria-current="page"]), .head-nav .mega-btn:not(.is-current), .head-nav .mx :is(.mx-col, .mx-grid, .mx-posts) a:not([aria-current="page"])):hover,
+  :root:root:root :is(.head-nav > a:not([aria-current]), .head-nav .mega-btn:not(.is-current), .head-nav .mx :is(.mx-col, .mx-grid, .mx-posts) a:not([aria-current="page"])):hover,
   :root:root:root .head-nav .mega-btn.is-open:not(.is-current) { background: linear-gradient(var(--hl), var(--hl)) no-repeat left center / 100% 100%; }
 }
 @media (prefers-reduced-motion: reduce) { :root:root:root :is(.head-nav > a, .head-nav .mega-btn, .head-nav .mx a) { transition: none; } }
@@ -7303,10 +7300,10 @@ html.on-light .edge-blur { opacity: 0; }
 
 /* Nav current item: no box, just white text; the other items sit back in a softer grey (owner, 27 Nov 2026: "don't use
    this highlight, just whiter text and others less emphasis so it's more compact"). */
-:root:root:root .head-nav > a[aria-current="page"]::before, :root:root:root .head-nav .mega-btn.is-current::before { content: none; }
-:root:root:root .head-nav > a[aria-current="page"], :root:root:root .head-nav .mega-btn.is-current { background: none; box-shadow: none; color: #ffffff; }
-:root:root:root .head-nav > a:not([aria-current="page"]), :root:root:root .head-nav .mega-btn:not(.is-current) { color: rgba(245, 245, 247, .62); }
-@media (hover: hover) and (pointer: fine) { :root:root:root .head-nav > a:not([aria-current="page"]):hover, :root:root:root .head-nav .mega-btn:not(.is-current):hover, :root:root:root .head-nav .mega-btn.is-open { color: #ffffff; } }
+:root:root:root .head-nav > a[aria-current]::before, :root:root:root .head-nav .mega-btn.is-current::before { content: none; }
+:root:root:root .head-nav > a[aria-current], :root:root:root .head-nav .mega-btn.is-current { background: none; box-shadow: none; color: #ffffff; }
+:root:root:root .head-nav > a:not([aria-current]), :root:root:root .head-nav .mega-btn:not(.is-current) { color: rgba(245, 245, 247, .62); }
+@media (hover: hover) and (pointer: fine) { :root:root:root .head-nav > a:not([aria-current]):hover, :root:root:root .head-nav .mega-btn:not(.is-current):hover, :root:root:root .head-nav .mega-btn.is-open { color: #ffffff; } }
 :root:root:root .head-nav:has(a:hover, .mega-btn:hover) :is(a, .mega-btn):not(:hover) { opacity: 1; }
 
 /* Free audit page (owner, 27 Nov 2026) */
@@ -7545,9 +7542,9 @@ html.js .bx-world[data-reveal].is-shown .wf-facts > div > dd { transition-durati
 /* Compact header: the page you are on sits right next to the name with a hairline between them, "Sam | Work"
    (owner, 28 Nov 2026: "put Work closer to Sam and add | to make the UI better and more compact"). */
 @media (min-width: 1261px) {
-  html.is-scrolled.is-down:not(.mega-open) .site-header .wrap.head-row:not(:hover):has(.head-nav > a[aria-current="page"], .head-nav .mega-btn.is-current) { grid-template-columns: auto auto 1fr; max-width: 460px; column-gap: 12px; }
+  html.is-scrolled.is-down:not(.mega-open) .site-header .wrap.head-row:not(:hover):has(.head-nav > a[aria-current], .head-nav .mega-btn.is-current) { grid-template-columns: auto auto 1fr; max-width: 460px; column-gap: 12px; }
   html.is-scrolled.is-down:not(.mega-open) .head-row:not(:hover) .head-nav { background: none; padding: 0; gap: 0; }
-  html.is-scrolled.is-down:not(.mega-open) .head-row:not(:hover) .head-nav:has(> a[aria-current="page"], .mega-btn.is-current)::before { content: ""; flex: none; width: 1px; height: 20px; margin-right: 4px; background: rgba(245, 245, 247, .2); }
+  html.is-scrolled.is-down:not(.mega-open) .head-row:not(:hover) .head-nav:has(> a[aria-current], .mega-btn.is-current)::before { content: ""; flex: none; width: 1px; height: 20px; margin-right: 4px; background: rgba(245, 245, 247, .2); }
 }
 
 /* Footer parallax (owner, 28 Nov 2026, like digitalmakers.nl/about-us). FootParallax.jsx sets --fp while the footer
@@ -7784,3 +7781,45 @@ html:has(.bw .bw-tab) body:not(:has(.case-fab)) .ask-pill { --ask-left: calc(max
 :root:root .ask-pill:focus-visible .ask-l { max-width: 160px; margin-inline: 8px 4px; opacity: 1; }
 @media (hover: hover) and (pointer: fine) { :root:root .ask-pill:hover .ask-l { max-width: 160px; margin-inline: 8px 4px; opacity: 1; } }
 @media (prefers-reduced-motion: reduce) { .ask-l { transition: none; } }
+
+/* Article byline (owner, 28 Nov 2026: "add my image + icons and improve hierarchy"): photo, name and role, then the date
+   and reading time with small icons behind a hairline. */
+.art-by { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px; }
+:root:root .art-by-me { display: inline-flex; align-items: center; gap: 12px; min-height: 44px; color: var(--text); text-decoration: none; }
+.art-by-me img { flex: none; width: 40px; height: 40px; border-radius: var(--r-sm); object-fit: cover; }
+.art-by-me > span { display: grid; gap: 2px; line-height: 1.3; }
+.art-by-me b { font-size: .9375rem; font-weight: 600; }
+.art-by-me > span > span { font-size: .8125rem; color: var(--muted); }
+@media (hover: hover) and (pointer: fine) { :root:root .art-by-me:hover b { text-decoration: underline; text-underline-offset: 3px; } }
+.art-by-facts { display: flex; flex-wrap: wrap; gap: 8px 20px; margin: 0; padding-left: 24px; border-left: 1px solid rgba(255, 255, 255, .12); font-size: .875rem; color: var(--muted); }
+.art-by-facts > span { display: inline-flex; align-items: center; gap: 8px; }
+.art-by-facts svg { flex: none; width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+@media (max-width: 640px) { .art-by-facts { padding-left: 0; border-left: 0; } }
+
+/* Copy page and Share keep their width when the label turns to Copied (owner, 28 Nov 2026: "no content shift") */
+.at-sw { display: inline-grid; }
+.at-sw > * { grid-area: 1 / 1; }
+.at-sw > [aria-hidden="true"] { visibility: hidden; }
+
+/* On this page (owner, 28 Nov 2026: "improve hierarchy, make the line thicker, use the same animation as the section"):
+   a 4px rail like How I work that GSAP fills with the reading, numbers in their own column, read items brighter,
+   the current one white with a blue number. */
+:root:root .case-toc ol { position: relative; gap: 2px; --p: 0; }
+.case-toc ol::before, .case-toc ol::after { content: ""; position: absolute; left: 0; top: 4px; width: 4px; border-radius: 2px; }
+.case-toc ol::before { bottom: 4px; background: rgba(255, 255, 255, .1); }
+.case-toc ol::after { height: calc(var(--p) * (100% - 8px)); background: linear-gradient(180deg, #62c1fd, #a9dbff); }
+:root:root .case-toc a { align-items: baseline; gap: 12px; min-height: 0; padding: 8px 0 8px 20px; border-left: 0; font-size: .9375rem; line-height: 1.4; font-weight: 500; color: #8e8e93; transition: color .35s var(--ease-out); }
+:root:root .case-toc li.is-read a { color: #c7c7cc; }
+:root:root .case-toc a[aria-current="true"] { color: #f5f5f7; font-weight: 600; border-left: 0; }
+.toc-n { flex: none; min-width: 2.2ch; font-size: .8125rem; font-weight: 600; font-variant-numeric: tabular-nums; color: #8e8e93; transition: color .35s var(--ease-out); }
+:root:root .case-toc :is(li.is-read, li:has(> [aria-current="true"])) .toc-n { color: #62c1fd; }
+@media (hover: hover) and (pointer: fine) { :root:root .case-toc a:hover { color: #f5f5f7; } }
+
+/* More articles at the end of an article (owner, 28 Nov 2026), in place of the call to action */
+:root:root .art-more h2 { margin: 0; }
+:root:root .art-more-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--gap-grid); margin-top: 0; }
+@media (max-width: 960px) { :root:root .art-more-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 620px) { :root:root .art-more-grid { grid-template-columns: minmax(0, 1fr); } }
+
+/* A top nav link stays lit on the pages under it (aria-current="true"), the same as on its own page */
+:root:root .head-nav > a[aria-current="true"] { color: #f5f5f7; }

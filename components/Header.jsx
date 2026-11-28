@@ -8,14 +8,11 @@ import BrandFace from "./BrandFace";
 import { EMAIL } from "../lib/site";
 import HeadCta from "./HeadCta";
 import MobileMenu from "./MobileMenu";
+import { MAIN_NAV } from "../lib/nav";
 
 // Short nav (owner, 27 Nov 2026: "some items can be only on footer, nav can have a direct link to insights"): Services,
 // Work, Insights, Resources (a menu, owner 28 Nov 2026) and About; the button starts a project.
-const NAV = [
-  { href: "/work/", label: "Work" },
-  { href: "/writing/", label: "Insights" },
-  { href: "/about/", label: "About" },
-];
+const NAV = MAIN_NAV.filter((n) => !n.menu);
 
 export default function Header() {
   return (

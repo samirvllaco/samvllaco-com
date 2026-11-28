@@ -49,10 +49,10 @@ export default function ArticleTools({ title, url }) {
   return (
     <div className="art-tools">
       <button type="button" className="at-btn" onClick={copyPage}>
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 8h12v12H8zM16 8V4H4v12h4" /></svg>{done === "copy" ? "Copied" : "Copy page"}
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 8h12v12H8zM16 8V4H4v12h4" /></svg><span className="at-sw"><span aria-hidden={done === "copy"}>Copy page</span><span aria-hidden={done !== "copy"}>Copied</span></span>
       </button>
       <button type="button" className="at-btn" onClick={share}>
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM6 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM18 22a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM8.6 13.5l6.8 4M15.4 6.5l-6.8 4" /></svg>{done === "share" ? "Link copied" : "Share"}
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM6 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM18 22a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM8.6 13.5l6.8 4M15.4 6.5l-6.8 4" /></svg><span className="at-sw"><span aria-hidden={done === "share"}>Share</span><span aria-hidden={done !== "share"}>Link copied</span></span>
       </button>
       <div className="at-ai" ref={wrap}>
         <button type="button" className="at-btn" aria-expanded={open} aria-controls="at-ai-menu" onClick={() => setOpen((v) => !v)}>

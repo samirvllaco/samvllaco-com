@@ -89,6 +89,9 @@ const WALL_OFF = ["/tools/", "/slop-score/", "/book/", "/free-audit/", "/work/",
 // same, balanced left and right, easy on the eyes"). Long: the wall, the top line, the site map, the bottom line.
 // Short (these pages): only the top line (Sam left, availability and the call right) and the bottom line.
 const SHORT = WALL_OFF;
+// Single articles get the short footer and no closing call either (owner, 28 Nov 2026: "use the short version of the
+// footer and no CTA on single blog").
+const SHORT_SUB = ["/writing/"];
 
 export default function Footer() {
   return (
@@ -98,7 +101,7 @@ export default function Footer() {
       {/* The portrait scene shows only at the foot of the About page (owner, 27 Nov 2026: "remove from footer, add only on about") */}
       {/* The portrait scene (FootStage.jsx) is off everywhere (owner, 27 Nov 2026: "hide this from everywhere"). */}
       {/* The closing call over the wall of screens (owner, 27 Nov 2026). Lean pages and About keep the plain call below. */}
-      <RouteHide on={WALL_OFF}>
+      <RouteHide on={WALL_OFF} sub={SHORT_SUB}>
         <ScreenWall cta={<>
           <h2 id="wall-h" className="wall-h">Work with the designer <span className="t2">who does the work</span></h2>
           <p className="wall-p">UI/UX and product design for SaaS, AI, fintech, health and law firms. One senior designer from the first call to the handover.</p>
@@ -174,7 +177,7 @@ export default function Footer() {
               <RouteOnly on={["/book/"]}><a href="/work/">See my work</a></RouteOnly>
             </p>
           </div>
-          <RouteHide on={SHORT}>
+          <RouteHide on={SHORT} sub={SHORT_SUB}>
             <div className="fo-body">
               <div className="fo-right">
                 <FootMap />

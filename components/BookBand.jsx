@@ -84,7 +84,8 @@ export function BookAlt() {
 
 export default function BookBand() {
   const path = usePathname() || "";
-  if (!BOOKING_URL || path.startsWith("/book") || path.startsWith("/fix-ai-slop-ui")) return null;
+  // Not on single articles either (owner, 28 Nov 2026: "hide contact from single blog").
+  if (!BOOKING_URL || path.startsWith("/book") || path.startsWith("/fix-ai-slop-ui") || (path.startsWith("/writing/") && path !== "/writing/")) return null;
   return (
     <section className="wrap book-band" id="book" aria-label="Book a call">
       <div className="book-cal">

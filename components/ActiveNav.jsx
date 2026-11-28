@@ -11,9 +11,13 @@ export default function ActiveNav() {
       const href = a.getAttribute("href") || "";
       if (href.startsWith("http") || href.includes("#")) return;
       const h = href.endsWith("/") ? href : `${href}/`;
-      if (h === here) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current");
+      // Top nav links stay lit on the pages under them (an article lights Insights, a case study lights Work).
+      const under = h !== "/" && a.parentElement?.classList.contains("head-nav") && here.startsWith(h);
+      if (h === here) a.setAttribute("aria-current", "page");
+      else if (under) a.setAttribute("aria-current", "true");
+      else a.removeAttribute("aria-current");
     });
-    const groups = { "mega-services": ["/services/"], "mega-resources": ["/resources/", "/writing/", "/fix-ai-slop-ui/", "/products/"] };
+    const groups = { "mega-services": ["/services/"], "mega-resources": ["/resources/", "/fix-ai-slop-ui/", "/products/", "/free-audit/"] };
     Object.entries(groups).forEach(([id, roots]) => {
       const btn = document.querySelector(`.mega-btn[aria-controls="${id}"]`);
       if (btn) btn.classList.toggle("is-current", roots.some((r) => here.startsWith(r)));

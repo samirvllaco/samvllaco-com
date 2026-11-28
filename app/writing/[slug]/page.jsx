@@ -4,7 +4,6 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { preload } from "react-dom";
 import Crumbs from "../../../components/Crumbs";
-import CallIcon from "../../../components/CallIcon";
 import CaseAside from "../../../components/CaseAside";
 import JsonLd from "../../../components/JsonLd";
 import ArticleBody from "../../../components/ArticleBody";
@@ -12,7 +11,7 @@ import { POSTS } from "../../../lib/articles";
 import { TLDR } from "../../../lib/tldr";
 import ArticleTools from "../../../components/ArticleTools";
 import { parseMd } from "../../../lib/md";
-import { SITE } from "../../../lib/site";
+import { SITE, ARTICLES, articleLink } from "../../../lib/site";
 import { share, PERSON_ID } from "../../../lib/seo";
 
 export const dynamicParams = false;
@@ -43,7 +42,10 @@ export default async function Article({ params }) {
   const lede = blocks[0].t === "p" ? blocks[0].text.replace(/^_|_$/g, "") : p.description;
   const body = blocks[0].t === "p" ? blocks.slice(1) : blocks;
   const words = body.reduce((n, b) => n + (b.text || (b.items || []).join(" ")).split(/\s+/).length, 0);
-  const toc = [{ id: "intro", label: "Intro" }, ...body.filter((b) => b.t === "h2").map((b) => ({ id: b.id, label: b.text.replace(/\*\*/g, "") })), { id: "next", label: "Get the prompts" }];
+  const toc = [{ id: "intro", label: "Intro" }, ...body.filter((b) => b.t === "h2").map((b) => ({ id: b.id, label: b.text.replace(/\*\*/g, "") })), { id: "more", label: "More articles" }];
+  // Related articles (owner, 28 Nov 2026: "add other related articles"): the same category first, then the newest.
+  const others = ARTICLES.filter((a) => a.slug && a.slug !== slug);
+  const more = [...others.filter((a) => a.category === p.category), ...others.filter((a) => a.category !== p.category)].slice(0, 3);
   preload(p.cover.src, { as: "image", fetchPriority: "high" });
 
   return (
@@ -56,7 +58,18 @@ export default async function Article({ params }) {
           <h1>{p.title}</h1>
           <p className="lede">{lede}</p>
           <div className="art-bar">
-            <p className="art-meta">By <Link prefetch={false} href="/about/">Sam Vllaco</Link><span aria-hidden="true"> · </span><time dateTime={p.published}>{fmt(p.published)}</time><span aria-hidden="true"> · </span>{p.minutes} min read</p>
+            {/* Byline with Sam's photo and icons (owner, 28 Nov 2026: "add my image + icons and improve hierarchy") */}
+            <div className="art-by">
+              <Link prefetch={false} className="art-by-me" href="/about/">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/sam-face-144.webp?v=1" width="40" height="40" alt="" />
+                <span><b>Sam Vllaco</b><span>UI/UX and product designer</span></span>
+              </Link>
+              <p className="art-by-facts">
+                <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16v14H4zM4 10h16M8 3v4M16 3v4" /></svg><time dateTime={p.published}>{fmt(p.published)}</time></span>
+                <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18zM12 7v5l3 2" /></svg>{p.minutes} min read</span>
+              </p>
+            </div>
             <ArticleTools title={p.title} url={`${SITE.url}/writing/${slug}/`} />
           </div>
         </header>
@@ -77,12 +90,23 @@ export default async function Article({ params }) {
           <ArticleBody blocks={body} post={p} />
         </div>
 
-        <section className="case-section case-close" id="next">
-          <h2>Want all 27 prompts?</h2>
-          <p>The book has the full system: 27 copy-paste prompts, the DESIGN.md rules file and a private video of me fixing a real AI-built page.</p>
-          <div className="btn-row">
-            <Link prefetch={false} className="hero2-btn hero2-btn-primary" href="/fix-ai-slop-ui/">Get the book</Link>
-            <a className="hero2-btn hero2-btn-light" href="/book/">Start a project<CallIcon /></a>
+        {/* No call to action at the end of an article (owner, 28 Nov 2026): more articles instead, then the related pages. */}
+        <section className="case-section art-more" id="more" aria-labelledby="more-h">
+          <h2 id="more-h">More articles</h2>
+          <div className="blog-grid art-more-grid">
+            {more.map((a) => {
+              const l = articleLink(a);
+              return (
+                <Link prefetch={false} className="blog-card" key={a.slug} href={l.href}>
+                  <span className="blog-media">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={a.cover} width="1400" height="788" alt="" loading="lazy" decoding="async" />
+                  </span>
+                  <span className="blog-meta"><span>{a.category}</span></span>
+                  <span className="blog-title">{a.short}</span>
+                </Link>
+              );
+            })}
           </div>
         </section>
 
@@ -91,7 +115,7 @@ export default async function Article({ params }) {
           <ul>{p.related.map(([href, name]) => <li key={href}><Link prefetch={false} href={href}>{name}</Link></li>)}</ul>
         </nav>
       </article>
-      <CaseAside items={toc} />
+      <CaseAside items={toc} hire={false} />
     </div>
   );
 }
