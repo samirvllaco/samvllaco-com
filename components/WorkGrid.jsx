@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { WORK, WORK_TAGS } from "../lib/work";
 import { play } from "../lib/delight";
 import { useSeen } from "./Seen";
@@ -9,6 +9,7 @@ import { PHONE_APPS } from "../lib/phones";
 import { INDUSTRIES } from "../lib/industries";
 import FollowTag from "./FollowTag";
 import WorkBadge from "./WorkBadge";
+import { loadPlugins, onLive, reduced } from "../lib/motion";
 
 const DARK = ["room-editor", "language-player", "mobile-banking"];
 const TABS = [{ id: "all", label: "All" }, ...WORK_TAGS.filter((t) => WORK.some((w) => w.tags.includes(t))).map((t) => ({ id: t, label: t }))];
@@ -96,13 +97,30 @@ export default function WorkGrid({ cap = false }) {
     if (e.key === "ArrowLeft") n = (i + TABS.length - 1) % TABS.length;
     if (n === null) return;
     e.preventDefault();
+    flip();
     setTab(TABS[n].id);
     refs.current[TABS[n].id]?.focus();
   }
 
   const active = (tab !== "all" ? 1 : 0) + (device !== "all" ? 1 : 0) + (look !== "all" ? 1 : 0);
   const ind = INDUSTRIES.find((x) => x.name === tab);
-  const pick = (fn) => { fn(); play("tab"); };
+  // Filtering moves the cards instead of swapping the grid (owner, 28 Nov 2026, GSAP "do all"): GSAP Flip records where
+  // every card is, the filter changes, and the cards that stay glide to their new places while the new ones open from
+  // a clip (never faded). Flip loads after the first interaction; until then, and for reduced motion, the grid swaps.
+  const flipState = useRef(null);
+  useEffect(() => onLive(() => { if (!reduced()) loadPlugins("Flip"); }), []);
+  const flip = () => { const F = window.Flip; if (F && grid.current && !reduced()) flipState.current = F.getState(grid.current.querySelectorAll(".work-card")); };
+  useLayoutEffect(() => {
+    const st = flipState.current, F = window.Flip, g = window.gsap;
+    flipState.current = null;
+    if (!st || !F || !g || !grid.current) return;
+    F.from(st, {
+      targets: grid.current.querySelectorAll(".work-card"),
+      duration: 0.6, ease: "power3.inOut", stagger: 0.02,
+      onEnter: (els) => g.fromTo(els, { clipPath: "inset(0 0 100% 0 round 8px)", y: 24 }, { clipPath: "inset(0 0 0% 0 round 8px)", y: 0, duration: 0.6, ease: "power3.out", stagger: 0.04, clearProps: "clipPath,transform" }),
+    });
+  }, [tab, device, look]);
+  const pick = (fn) => { flip(); fn(); play("tab"); };
 
   return (
     <>
@@ -115,10 +133,10 @@ export default function WorkGrid({ cap = false }) {
           </button>
           <div className="wf-state" aria-live="polite">
             <span className="af-count">{items.length} {items.length === 1 ? "project" : "projects"}</span>
-            {tab !== "all" ? <button type="button" className="wf-chip" onClick={() => setTab("all")} aria-label={`Remove filter ${tab}`}>{tab}<X /></button> : null}
-            {device !== "all" ? <button type="button" className="wf-chip" onClick={() => setDevice("all")} aria-label={`Remove filter ${device}`}>{device === "mobile" ? "Mobile" : "Desktop"}<X /></button> : null}
-            {look !== "all" ? <button type="button" className="wf-chip" onClick={() => setLook("all")} aria-label={`Remove filter ${look} designs`}>{look === "dark" ? "Dark designs" : "Light designs"}<X /></button> : null}
-            {active > 1 ? <button type="button" className="af-clear" onClick={() => { setTab("all"); setDevice("all"); setLook("all"); }}>Clear all</button> : null}
+            {tab !== "all" ? <button type="button" className="wf-chip" onClick={() => pick(() => setTab("all"))} aria-label={`Remove filter ${tab}`}>{tab}<X /></button> : null}
+            {device !== "all" ? <button type="button" className="wf-chip" onClick={() => pick(() => setDevice("all"))} aria-label={`Remove filter ${device}`}>{device === "mobile" ? "Mobile" : "Desktop"}<X /></button> : null}
+            {look !== "all" ? <button type="button" className="wf-chip" onClick={() => pick(() => setLook("all"))} aria-label={`Remove filter ${look} designs`}>{look === "dark" ? "Dark designs" : "Light designs"}<X /></button> : null}
+            {active > 1 ? <button type="button" className="af-clear" onClick={() => pick(() => { setTab("all"); setDevice("all"); setLook("all"); })}>Clear all</button> : null}
           </div>
         </div>
         <div id="wf-panel" className={`wf-panel${open ? " is-open" : ""}`} inert={!open}>
@@ -172,7 +190,7 @@ export default function WorkGrid({ cap = false }) {
         </div>
       </div>
       ) : null}
-      <div id="work-panel" role="tabpanel" aria-labelledby={`work-tab-${TABS.findIndex((t) => t.id === tab)}`} className="work-panel" key={`${tab}-${device}-${look}`}>
+      <div id="work-panel" role="tabpanel" aria-labelledby={`work-tab-${TABS.findIndex((t) => t.id === tab)}`} className="work-panel" key={device === "mobile" && items.length && items.every((w) => PHONE_APPS[w.slug]) ? "phones" : "grid"}>
         {items.length === 0 ? (
           <p className="work-empty">More projects are coming soon.</p>
         ) : device === "mobile" && items.every((w) => PHONE_APPS[w.slug]) ? (
