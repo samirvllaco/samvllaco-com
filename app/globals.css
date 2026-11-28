@@ -5291,6 +5291,13 @@ main > .page > .hero-dots-cv { height: clamp(560px, 86vh, 860px); }
 .cc2-in { display: grid; gap: 20px; align-content: start; }
 .cc2 fieldset { margin: 0; padding: 0; border: 0; } .cc2 legend { margin-bottom: 8px; font-weight: 600; }
 .cc2-seg { display: flex; flex-wrap: wrap; gap: 4px; padding: 4px; border-radius: var(--r-card); background: var(--bg); box-shadow: inset 0 0 0 1px var(--line); }
+/* Segmented choices in the free tools (28 Nov 2026: they rendered as bare browser buttons with no picked state). Same look as .seg. */
+.cc2-seg button { min-height: 44px; padding: 0 16px; border: 0; border-radius: var(--r-sm); background: transparent; color: var(--muted); font: inherit; font-size: .9375rem; font-weight: 600; cursor: pointer; transition: background-color .15s var(--ease-out), color .15s var(--ease-out); }
+.cc2-seg button:hover { color: var(--text); } .cc2-seg button[aria-pressed="true"] { background: var(--card-3); color: var(--text); }
+.cc2-seg button:active { transition-duration: 0s; transform: scale(.96); } .cc2-seg button:focus-visible { outline: 3px solid rgba(98, 193, 253, .6); outline-offset: 2px; }
+.dm-tool fieldset { margin: 0; padding: 0; border: 0; min-width: 0; } .dm-tool legend { margin-bottom: 8px; padding: 0; font-size: .9375rem; font-weight: 600; }
+.dm-tool .cc2-in { gap: 20px; } .dm-f { display: grid; gap: 8px; font-size: .9375rem; font-weight: 600; } .dm-f .cc-in input { flex: 1; min-width: 0; min-height: 40px; border: 0; background: none; font: inherit; font-weight: 400; font-size: 1rem; color: var(--text); padding: 0 8px; } .dm-f .cc-in input:focus-visible { outline: none; }
+.dm-out-h { margin: 40px 0 12px; font-size: 1.25rem; letter-spacing: -.02em; } .dm-note { margin: 0; color: var(--muted); font-size: .9375rem; line-height: 1.5; } .dm-tool .art-code + .dm-note { margin-top: 12px; }
 .cc2-range { display: grid; gap: 8px; } .cc2-range input { width: 100%; accent-color: #2563eb; }
 .cc2-chk { display: flex; align-items: center; gap: 10px; min-height: 44px; } .cc2-chk input { width: 20px; height: 20px; accent-color: #2563eb; }
 .cc2-out { display: flex; flex-direction: column; justify-content: center; padding: 24px; border-radius: var(--r-card); background: var(--bg); }
