@@ -19,7 +19,7 @@ function Rich({ t }) {
   });
 }
 
-export default function Faq({ items, children, a = "Questions", b = "founders ask first", bg = "#0e0e10", light = false }) {
+export default function Faq({ items, children, a = "Questions", b = "founders ask first", bg = "#0e0e10", light = true }) {
   const schema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
