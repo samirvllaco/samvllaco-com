@@ -63,7 +63,7 @@ export default function Resources() {
         </ul>
       </section>
 
-      <section className="sv-sec" aria-labelledby="rs-posts-h">
+      <section className="sv-sec band-light" aria-labelledby="rs-posts-h">
         <h2 id="rs-posts-h">Latest <span className="t2">stories</span></h2>
         <ul className="sv-work">
           {ARTICLES.slice(0, 3).map((a) => (

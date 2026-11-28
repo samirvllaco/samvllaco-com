@@ -7935,3 +7935,9 @@ html:has(.bw .bw-tab) body:not(:has(.case-fab)) .ask-pill.is-side { --ask-left: 
 .sx-get-cats li { padding: 4px 10px; border-radius: var(--r-sm); font-size: .8125rem; color: var(--text); background: rgba(255, 255, 255, .06); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .08); }
 .sx-go { display: grid; justify-items: start; gap: 8px; margin-top: 4px; }
 @media (max-width: 620px) { .sx-go > .hero2-btn { width: 100%; justify-content: center; } }
+
+/* White bands on inner pages (owner, 28 Nov 2026: "each page should have at least one white section"): a service group
+   or a resources section as a band keeps the section rhythm around it; the orange "Example" label darkens on white. */
+:root:root:root .page > :is(.svc-group, .sv-sec).band-light { margin-top: calc(var(--sec) / 2) !important; }
+:root:root:root .page > :is(.svc-group, .sv-sec).band-light + * { margin-top: calc(var(--sec) / 2) !important; }
+:root:root .band-light .svc-ex span { color: #a8590a; }

@@ -23,8 +23,9 @@ export default function Services() {
           <a className="hero2-btn hero2-btn-primary" href="/book/">Start a project<CallIcon /></a>
         </div>
       </header>
-      {SERVICES.map((g) => (
-        <section className="svc-group" id={g.id} key={g.id} aria-labelledby={`svc-${g.id}`}>
+      {/* Every second group is a white band (owner, 28 Nov 2026: "each page should have at least one white section") */}
+      {SERVICES.map((g, gi) => (
+        <section className={`svc-group${gi % 2 ? " band-light" : ""}`} id={g.id} key={g.id} aria-labelledby={`svc-${g.id}`}>
           <div className="svc-head">
             <h2 id={`svc-${g.id}`}>{g.title}</h2>
             <p>{g.blurb}</p>

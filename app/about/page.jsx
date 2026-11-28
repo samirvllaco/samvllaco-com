@@ -71,7 +71,8 @@ export default function About() {
       </div>
 
       {/* Moved here from the home page (owner, 27 Nov 2026) */}
-      <PainStory />
+      {/* A white band on every page (owner, 28 Nov 2026) */}
+      <PainStory light />
 
       {/* "How I work" and "Working with me" are hidden (owner, 27 Nov 2026: "hide those") */}
       {/* "Pick your designer" is removed (owner, 28 Nov 2026: "hide, remove this completely") */}
