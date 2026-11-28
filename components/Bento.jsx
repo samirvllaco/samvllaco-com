@@ -74,11 +74,21 @@ export default function Bento() {
         </div>
         <div className="bx2-c bx2-s bx2-b">
           <p className="bx2-k">Experience</p>
-          <div className="bx2-vis bg-gauge" aria-hidden="true">
-            <svg viewBox="0 0 220 112" width="220" height="112">
-              {TICKS.map((t) => <line key={t.k} x1={t.x1.toFixed(2)} y1={t.y1.toFixed(2)} x2={t.x2.toFixed(2)} y2={t.y2.toFixed(2)} style={{ "--i": t.k }} />)}
-            </svg>
-            <span className="bg-end bg-l">2013</span><span className="bg-end bg-r">Today</span>
+          <div className="bx2-vis" aria-hidden="true">
+            <div className="bg-gauge">
+              <svg viewBox="0 0 220 112" width="220" height="112">
+                <defs>
+                  <radialGradient id="bg-glow" cx="50%" cy="100%" r="70%"><stop offset="0" stopColor="#62c1fd" stopOpacity=".22" /><stop offset="1" stopColor="#62c1fd" stopOpacity="0" /></radialGradient>
+                  <filter id="bg-blur" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="3" /></filter>
+                </defs>
+                <path className="bg-halo" d="M10 108a100 100 0 0 1 200 0Z" fill="url(#bg-glow)" />
+                <g className="bg-ticks-glow" filter="url(#bg-blur)">{TICKS.map((t) => <line key={t.k} x1={t.x1.toFixed(2)} y1={t.y1.toFixed(2)} x2={t.x2.toFixed(2)} y2={t.y2.toFixed(2)} />)}</g>
+                <g className="bg-ticks">{TICKS.map((t) => <line key={t.k} x1={t.x1.toFixed(2)} y1={t.y1.toFixed(2)} x2={t.x2.toFixed(2)} y2={t.y2.toFixed(2)} style={{ "--i": t.k }} />)}</g>
+                <g className="bg-needle" transform="rotate(90 110 108)"><line x1="110" y1="108" x2="110" y2="40" /><circle cx="110" cy="40" r="3.5" /></g>
+                <circle className="bg-hub" cx="110" cy="108" r="6" />
+              </svg>
+              <span className="bg-end bg-l">2013</span><span className="bg-end bg-r">Today</span>
+            </div>
           </div>
           <p className="bx2-n"><CountUp to={10} ms={900} /><span>Years of experience</span></p>
         </div>
@@ -89,9 +99,11 @@ export default function Bento() {
         </div>
         <div className="bx2-c bx2-s bx2-e">
           <p className="bx2-k">Turnaround</p>
-          <div className="bx2-vis bt-time" aria-hidden="true">
-            <span className="bt-track"><i className="bt-dot" /></span>
-            <span className="bt-ends"><span>Request</span><span>Back to you</span></span>
+          <div className="bx2-vis" aria-hidden="true">
+            <div className="bt-time">
+              <span className="bt-track"><i className="bt-dot" /><b className="bt-head" /><b className="bt-end" /></span>
+              <span className="bt-ends"><span>Request</span><span>Back to you</span></span>
+            </div>
           </div>
           <p className="bx2-n"><CountUp to={48} suffix="h" ms={1000} /><span>Most requests come back in about two days</span></p>
         </div>

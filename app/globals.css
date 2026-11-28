@@ -8429,3 +8429,35 @@ a.wd-vis { display: block; color: inherit; text-decoration: none; }
 :root:root .intro-rail, :root:root .intro-line { transform: none; opacity: 0; }
 html.intro-css .intro-rail, html.intro-css .intro-line { animation: intro-lines .3s ease-out both; }
 @keyframes intro-lines { from { opacity: 0; } to { opacity: 1; } }
+
+/* Bento stat cells, aligned and with depth (owner, 28 Nov 2026: "improve animation here + alignment + use GSAP to add
+   effects, depth and make it feel super smooth"). Every stat cell has the same three rows: the label, a 152px picture
+   box with the picture centred in it, and the number at the foot, so the pictures and the numbers line up across cells.
+   A soft light follows the pointer inside the cell. BentoRun.jsx drives the motion with GSAP (.gs); without it the
+   end state shows. */
+:root:root .bx2 .bx2-s { display: grid; grid-template-rows: auto 152px auto; align-content: space-between; gap: 16px; isolation: isolate; }
+:root:root .bx2 .bx2-s > .bx2-vis { flex: none; height: 152px; min-height: 0; display: grid; place-items: center; }
+.bx2 .bx2-s::after { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; background: radial-gradient(240px circle at calc(var(--mx, 50) * 1%) calc(var(--my, 40) * 1%), rgba(98, 193, 253, .08), transparent 70%); opacity: 0; transition: opacity .4s var(--ease-out); }
+@media (hover: hover) and (pointer: fine) { .bx2 .bx2-s:hover::after { opacity: 1; } }
+/* Gauge: centred, a halo under the arc, glowing ticks and a needle from 2013 to today */
+:root:root .bx2 .bg-gauge { position: relative; display: block; width: min(100%, 264px); margin: 0; padding: 0 0 22px; }
+:root:root .bg-gauge svg { display: block; width: 100%; height: auto; overflow: visible; }
+:root:root .bg-gauge .bg-ticks line { stroke: #62c1fd; stroke-width: 3; stroke-linecap: round; transition: none; }
+.bg-gauge .bg-ticks-glow line { stroke: #62c1fd; stroke-width: 5; stroke-linecap: round; opacity: .55; }
+.bg-gauge .bg-needle line { stroke: #f5f5f7; stroke-width: 2.5; stroke-linecap: round; }
+.bg-gauge .bg-needle circle { fill: #62c1fd; filter: drop-shadow(0 0 4px rgba(98, 193, 253, .9)); }
+.bg-gauge .bg-hub { fill: #1a1a1d; stroke: rgba(255, 255, 255, .35); stroke-width: 1.5; }
+:root:root .bg-gauge .bg-end { bottom: 0; }
+:root:root .bg-gauge .bg-l { left: 0; } :root:root .bg-gauge .bg-r { right: 0; }
+/* Dots: centred in the box */
+:root:root .bx2 .bx2-cl .bd-dots { width: 100%; max-height: 100%; }
+/* Timeline: a lit head runs from request to "back to you", where a ring opens */
+:root:root .bx2 .bt-time { display: block; width: 100%; margin: 0; }
+.bt-head { position: absolute; top: 50%; left: 0; width: 12px; height: 12px; margin: -6px 0 0 -6px; border-radius: 50%; background: #62c1fd; box-shadow: 0 0 0 4px rgba(98, 193, 253, .22), 0 0 16px rgba(98, 193, 253, .8); opacity: 0; }
+.bt-end { position: absolute; top: 50%; right: -4px; width: 8px; height: 8px; margin-top: -4px; border-radius: 50%; box-shadow: 0 0 0 2px #62c1fd; opacity: 0; }
+.bx2.gs .bt-dot::before { animation: none; transform: scaleX(var(--k, 1)); }
+.bx2.gs .bt-track::after { background: #62c1fd; }
+
+/* Text selection in the brand blue (owner, 28 Nov 2026: "do custom selection colour to match our branding"):
+   the button blue with white words, the same on dark pages and white bands. */
+::selection { background: #2f6bff; color: #ffffff; }
