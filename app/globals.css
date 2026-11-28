@@ -8225,3 +8225,6 @@ html:has(.bw .bw-tab) body:not(:has(.case-fab)) .ask-pill.is-side { --ask-left: 
 :root:root:root .head-nav:has(> a[aria-current], .mega-btn.is-current) > a:not([aria-current]),
 :root:root:root .head-nav:has(> a[aria-current], .mega-btn.is-current) .mega-btn:not(.is-current),
 :root:root:root .head-nav:has(a:hover, .mega-btn:hover) :is(a, .mega-btn):not(:hover) { opacity: 1; }
+
+/* No crosses at the bento's corners (owner, 28 Nov 2026: "remove this + pattern completely"): the hairlines alone. */
+:root:root .bx2-grid::after, :root:root .bx2 .bx2-c::before { content: none; display: none; }
