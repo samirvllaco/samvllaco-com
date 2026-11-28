@@ -149,7 +149,7 @@ If you need someone to decide what the screens should do, hire a product designe
 
 ### How much does a product designer cost for a SaaS app?
 
-Public marketplaces list $20 to $50 an hour and agencies average $25 to $49 an hour, with senior specialists above that. For project work, expect anything from a few thousand dollars for one flow to $25,000 or more for a full product. My own rates are on the pricing page.
+Public marketplaces list $20 to $50 an hour and agencies average $25 to $49 an hour, with senior specialists above that. For project work, expect anything from a few thousand dollars for one flow to $25,000 or more for a full product. My own projects start at $5,000, and a trial week is $2,500.
 
 ### Do I need a designer if I built my app with AI?
 
