@@ -8321,3 +8321,55 @@ a.wd-vis { display: block; color: inherit; text-decoration: none; }
 }
 :root:root:root .tg-ico svg { position: relative; stroke: #fff; filter: drop-shadow(0 1px 1px rgba(0, 0, 0, .7)) drop-shadow(0 0 5px rgba(255, 255, 255, .28)); }
 :root:root:root .faq-card .faq-mail .tg-ico::before { content: none; }
+
+/* Slop Score result, premium pass (owner, 28 Nov 2026: "make UI better here, use GSAP, make it feel premium, blur other
+   things and ask $5 to unlock the full report"). The score card is glass lit by its band colour; past the free part
+   (the score, the seven check scores, the biggest problem's why and the top three fixes) everything is blurred with a
+   lock and the price: the other checks' why, every fix's prompts, the remaining fixes. A slim bar offers the unlock on
+   wide screens once the score has scrolled away. SlopResult.jsx drives the motion with GSAP. */
+@property --sx-a { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
+:root:root .sx-score {
+  position: relative; isolation: isolate; overflow: hidden;
+  background: radial-gradient(70% 140% at 0% 50%, color-mix(in srgb, var(--band, #62c1fd) 14%, transparent), transparent 62%), linear-gradient(180deg, #1b1b1f, #121214);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .08), inset 0 1px 0 rgba(255, 255, 255, .1), 0 30px 60px -30px rgba(0, 0, 0, .8);
+}
+:root:root .sx-num { background: radial-gradient(90% 90% at 50% 40%, color-mix(in srgb, var(--band, #62c1fd) 10%, #0e0e10), #0b0b0c); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .06), inset 0 -10px 20px -10px color-mix(in srgb, var(--band, #62c1fd) 30%, transparent); }
+.sx-lock-ico { display: inline-grid; place-items: center; flex: none; width: 16px; height: 16px; }
+.sx-lock-ico svg, .sx-unlock-ico svg, .sx-bar-pay .tg-ico svg { width: 100%; height: 100%; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.sx-ev-lock { position: relative; display: grid; align-items: center; min-height: 44px; }
+.sx-ev-blur { display: grid; gap: 8px; filter: blur(4px); }
+.sx-ev-blur i { display: block; height: 10px; border-radius: var(--r-sm); background: rgba(255, 255, 255, .14); }
+.sx-ev-blur i:last-child { width: 62%; }
+.sx-ev-t { position: absolute; left: 0; top: 50%; translate: 0 -50%; display: inline-flex; align-items: center; gap: 8px; padding: 4px 10px; border-radius: var(--r-sm); font-size: .8125rem; font-weight: 600; color: var(--text); background: rgba(14, 14, 16, .82); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .1); }
+.sx-plock { position: relative; display: grid; place-items: center; min-height: 128px; margin-top: 8px; padding: 16px; overflow: hidden; border-radius: var(--r-inner); background: #0e0e10; box-shadow: inset 0 0 0 1px var(--line); }
+.sx-plock-v { position: absolute; inset: 16px; display: grid; align-content: start; gap: 10px; filter: blur(5px); }
+.sx-plock-v i { display: block; height: 10px; border-radius: var(--r-sm); background: rgba(98, 193, 253, .22); }
+.sx-plock-v i:nth-child(2) { width: 82%; background: rgba(255, 255, 255, .16); } .sx-plock-v i:nth-child(3) { width: 90%; background: rgba(255, 255, 255, .12); } .sx-plock-v i:nth-child(4) { width: 54%; background: rgba(143, 125, 255, .22); }
+:root:root .sx-plock-t { position: relative; display: inline-flex; align-items: center; gap: 8px; margin: 0; font-size: .875rem; font-weight: 600; color: var(--text); text-align: center; }
+.sx-plock-b { position: relative; min-height: 44px; margin-top: 8px; padding: 0 16px; border: 0; border-radius: var(--r-sm); font: inherit; font-size: .875rem; font-weight: 600; color: #fff; background: #2f6bff; cursor: pointer; box-shadow: inset 0 1px 0 rgba(255, 255, 255, .25), 0 8px 20px -10px rgba(47, 107, 255, .8); transition: background-color .25s var(--ease-out); }
+@media (hover: hover) and (pointer: fine) { .sx-plock-b:hover { background: #2a5fe6; } }
+.sx-plock-b:focus-visible { outline: 3px solid rgba(98, 193, 253, .6); outline-offset: 2px; }
+:root:root .sx-locked { overflow: hidden; background: #101012; }
+:root:root .sx-unlock {
+  isolation: isolate; gap: 12px; width: min(460px, 100%); padding: 32px 28px 28px; overflow: hidden;
+  background: radial-gradient(80% 60% at 50% 0%, rgba(98, 193, 253, .12), transparent 70%), rgba(20, 20, 22, .92);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .12), 0 0 60px -16px rgba(98, 193, 253, .4), 0 30px 60px -30px rgba(0, 0, 0, .85);
+}
+.sx-unlock::before { content: ""; position: absolute; inset: 0; z-index: -1; padding: 1px; border-radius: inherit; pointer-events: none; background: conic-gradient(from var(--sx-a), rgba(98, 193, 253, .9), rgba(143, 125, 255, .6) 25%, rgba(255, 255, 255, .15) 45%, rgba(98, 193, 253, .25) 70%, rgba(98, 193, 253, .9)); -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; animation: sx-turn 6s linear infinite; }
+@keyframes sx-turn { to { --sx-a: 360deg; } }
+:root:root .sx-unlock-ico { width: 44px; height: 44px; color: #fff; }
+:root:root .sx-unlock-ico svg { width: 20px; height: 20px; }
+.sx-price { display: flex; align-items: baseline; gap: 8px; margin: 0; }
+.sx-price b { font-size: 2.5rem; line-height: 1; font-weight: 600; letter-spacing: -.04em; color: var(--text); font-variant-numeric: tabular-nums; }
+.sx-price span { font-size: .9375rem; color: var(--muted); }
+:root:root .sx-unlock .hero2-btn { width: 100%; justify-content: center; }
+.sx-bar-pay { position: fixed; right: max(24px, env(safe-area-inset-right, 0px)); bottom: max(24px, env(safe-area-inset-bottom, 0px)); z-index: 40; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 12px; width: min(520px, calc(50vw - 110px)); padding: 12px 12px 12px 16px; border-radius: var(--r-card); background: rgba(20, 20, 22, .86); -webkit-backdrop-filter: blur(20px) saturate(160%); backdrop-filter: blur(20px) saturate(160%); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .1), inset 0 1px 0 rgba(255, 255, 255, .12), 0 24px 48px -20px rgba(0, 0, 0, .8); transform: translateY(calc(100% + 48px)); visibility: hidden; transition: transform .6s var(--spring), visibility 0s linear .6s; }
+.sx-bar-pay.is-on { transform: none; visibility: visible; transition: transform .6s var(--spring), visibility 0s; }
+.sx-bar-pay .tg-ico { width: 40px; height: 40px; color: #fff; }
+.sx-bar-pay .tg-ico svg { width: 18px; height: 18px; }
+.sx-bar-pay p { display: grid; gap: 2px; margin: 0; min-width: 0; }
+.sx-bar-pay p b { font-size: .9375rem; font-weight: 600; color: var(--text); }
+.sx-bar-pay p span { font-size: .8125rem; color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+:root:root .sx-bar-pay .hero2-btn { min-height: 44px; padding: 0 16px; white-space: nowrap; }
+@media (max-width: 899px) { .sx-bar-pay { display: none; } }
+@media (prefers-reduced-motion: reduce) { .sx-unlock::before { animation: none; } .sx-bar-pay { transition: none; } }

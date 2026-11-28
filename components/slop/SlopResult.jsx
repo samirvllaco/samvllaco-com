@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import CallIcon from "../CallIcon";
 import CopyBlock, { CopyButton } from "../CopyBlock";
 import { copyText } from "../../lib/copy";
@@ -7,6 +7,8 @@ import { useTurnstile, track } from "./useTurnstile";
 import { CATS, SLOP } from "../../slopscore/config";
 import { PERSONAL_REVIEW_URL, REVIEW_URL, LEADS_ENDPOINT } from "../../lib/site";
 import { usd, TRIAL_WEEK, PROJECT_FROM } from "../../lib/plans";
+import { loadGsap } from "../../lib/gsapLoad";
+import { reduced, watch } from "../../lib/motion";
 
 const NAME = Object.fromEntries(CATS.map((c) => [c.k, c.name]));
 // Lower is better, so colors tell the story at a glance: green is clean, coral is slop.
@@ -21,8 +23,11 @@ const idFromUrl = () => {
 };
 const when = (iso) => { try { return new Date(iso).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" }); } catch { return ""; } };
 
+const Lock = () => <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10.5" width="14" height="10" rx="2.5" /><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5" /></svg>;
+
 // One fix as a to-do: tick it off when it's done (kept in this browser), open it for the why, the fix and the prompts.
-function Issue({ x, open, done, onDone }) {
+// Before the unlock the prompts are a blurred strip with the price (owner, 28 Nov 2026: "blur other things and ask $5").
+function Issue({ x, open, done, onDone, locked, onUnlock, price }) {
   return (
     <li className={`sx-issue is-${x.severity || "medium"}${done ? " is-done" : ""}`}>
       <label className="sx-do"><input type="checkbox" checked={done} onChange={(e) => onDone(e.target.checked)} /><span className="sr-only">Mark "{x.title}" as done</span></label>
@@ -40,6 +45,12 @@ function Issue({ x, open, done, onDone }) {
               <p className="sx-ptool-h">Copy-paste prompts</p>
               {[["lovable", "Lovable"], ["cursor", "Cursor"], ["claude_code", "Claude Code"]].map(([k, n]) => (x.prompts[k] ? <div key={k}><p className="sx-ptool">{n}</p><CopyBlock text={x.prompts[k]} /></div> : null))}
             </div>
+          ) : locked ? (
+            <div className="sx-plock">
+              <div className="sx-plock-v" aria-hidden="true"><i /><i /><i /><i /></div>
+              <p className="sx-plock-t"><span className="sx-lock-ico"><Lock /></span>Copy-paste prompts for Lovable, Cursor and Claude Code</p>
+              {onUnlock ? <button type="button" className="sx-plock-b" onClick={onUnlock}>Unlock for {price}</button> : null}
+            </div>
           ) : null}
         </div>
       </details>
@@ -53,7 +64,7 @@ function Ring({ score }) {
   return (
     <svg className="sx-ring" viewBox="0 0 120 120" aria-hidden="true">
       <circle cx="60" cy="60" r="52" />
-      <circle cx="60" cy="60" r="52" style={{ strokeDasharray: c, strokeDashoffset: c * (1 - Math.max(2, score) / 100) }} />
+      <circle className="sx-ring-v" cx="60" cy="60" r="52" style={{ strokeDasharray: c, strokeDashoffset: c * (1 - Math.max(2, score) / 100) }} />
     </svg>
   );
 }
@@ -70,6 +81,65 @@ export default function SlopResult() {
   const [done, setDone] = useState({});
   const [shot, setShot] = useState("");
   const ts = useTurnstile(r && !r.unlocked && status.siteKey ? status.siteKey : null);
+  const root = useRef(null);
+  const [bar, setBar] = useState(false);
+
+  // Premium motion (owner, 28 Nov 2026: "make UI better here, use GSAP, make it feel premium"): the ring draws and the
+  // score counts up, the label pops, the verdict and steps rise out of a clip, the bars fill and their numbers count when
+  // they come into view, and the locked part settles in. Text moves only by transform or clip, never fades.
+  useEffect(() => {
+    const el = root.current;
+    if (state !== "ok" || !el || reduced()) return;
+    let dead = false; const offs = [];
+    loadGsap().then((g) => {
+      if (!g || dead) return;
+      const ring = el.querySelector(".sx-ring-v"), num = el.querySelector(".sx-big b");
+      const c = 2 * Math.PI * 52, to = c * (1 - Math.max(2, r.score) / 100), n = { v: 0 };
+      g.timeline({ delay: 0.15 })
+        .fromTo(ring, { strokeDashoffset: c }, { strokeDashoffset: to, duration: 1.4, ease: "power3.out" })
+        .fromTo(n, { v: 0 }, { v: r.score, duration: 1.4, ease: "power3.out", onUpdate: () => { num.textContent = Math.round(n.v); } }, "<")
+        .fromTo(el.querySelector(".sx-lab"), { scale: 0.6 }, { scale: 1, duration: 0.5, ease: "back.out(2.5)" }, "-=0.6")
+        .fromTo(el.querySelectorAll(".sx-verdict, .sx-meta, .sx-next li, .sx-thumb"), { clipPath: "inset(0 0 100% 0)", y: 16 }, { clipPath: "inset(0 0 0% 0)", y: 0, duration: 0.7, ease: "power3.out", stagger: 0.07, clearProps: "clipPath,transform" }, 0.2);
+      const cats = el.querySelector(".sx-cats");
+      if (cats) {
+        const rows = [...cats.querySelectorAll("li")];
+        g.set(rows.map((li) => li.querySelector(".sx-bar i")), { scaleX: 0 });
+        const off = watch(cats, (on) => {
+          if (!on) return; off();
+          rows.forEach((li, k) => {
+            const v = +li.dataset.n, b = li.querySelector(".sx-bar i"), t = li.querySelector(".sx-cat-n b"), o = { v: 0 };
+            g.to(b, { scaleX: Math.max(2, v) / 100, duration: 1, ease: "power3.out", delay: k * 0.08 });
+            g.fromTo(o, { v: 0 }, { v, duration: 1, ease: "power3.out", delay: k * 0.08, onUpdate: () => { t.textContent = Math.round(o.v); } });
+          });
+        }, { threshold: 0.2 });
+        offs.push(off);
+      }
+      const lock = el.querySelector(".sx-locked");
+      if (lock) {
+        const items = lock.querySelectorAll(".sx-blur li"), card = lock.querySelector(".sx-unlock");
+        g.set(items, { y: 24 }); g.set(card, { y: 32, scale: 0.96 });
+        const off = watch(lock, (on) => {
+          if (!on) return; off();
+          g.to(items, { y: 0, duration: 0.9, ease: "power3.out", stagger: 0.06 });
+          g.to(card, { y: 0, scale: 1, duration: 0.9, ease: "back.out(1.4)", delay: 0.15 });
+        }, { threshold: 0.15 });
+        offs.push(off);
+      }
+    });
+    return () => { dead = true; offs.forEach((f) => f()); };
+  }, [state, r && r.id]);
+
+  // A slim unlock bar on wide screens: shown once the score has scrolled away, hidden while the unlock card is in view.
+  useEffect(() => {
+    const el = root.current;
+    if (state !== "ok" || !el || !r || r.unlocked || !r.locked || !status.payLink || !matchMedia("(min-width: 900px)").matches) return;
+    const card = el.querySelector(".sx-score"), lock = el.querySelector(".sx-unlock");
+    let past = false, near = false;
+    const sync = () => setBar(past && !near);
+    const a = watch(card, (on, e) => { past = !on && e.boundingClientRect.top < 0; sync(); });
+    const b = watch(lock, (on) => { near = on; sync(); });
+    return () => { a(); b(); };
+  }, [state, r && r.id, r && r.unlocked, status.payLink]);
 
   useEffect(() => {
     const i = idFromUrl(); setId(i);
@@ -130,7 +200,7 @@ export default function SlopResult() {
   };
 
   return (
-    <div className="sx-result">
+    <div className="sx-result" ref={root}>
       <section className={`sx-score b${band(r.score)}${shot ? " has-shot" : ""}`} aria-labelledby="sx-score-h">
         <div className="sx-num">
           <p id="sx-score-h" className="sx-k">Slop Score</p>
@@ -156,12 +226,15 @@ export default function SlopResult() {
       <section className="sv-sec" aria-labelledby="sx-cat-h">
         <h2 id="sx-cat-h">What's dragging <span className="t2">it down</span></h2>
         <ul className="sx-cats">
-          {cats.map((c) => (
-            <li key={c.k} className={`b${band(c.score)}`}>
+          {cats.map((c, k) => (
+            <li key={c.k} className={`b${band(c.score)}`} data-n={c.score}>
               <b>{NAME[c.k]}</b>
               <span className="sx-bar" aria-hidden="true"><i style={{ transform: `scaleX(${Math.max(2, c.score) / 100})` }} /></span>
-              <span className="sx-cat-n">{c.score}<span className="sr-only"> out of 100, lower is better</span></span>
-              {c.evidence ? <p className="sx-ev">{c.evidence}</p> : null}
+              <span className="sx-cat-n"><b>{c.score}</b><span className="sr-only"> out of 100, lower is better</span></span>
+              {/* The why behind the biggest problem is free; the rest wait for the full report. */}
+              {!c.evidence ? null : r.unlocked || k === 0 ? <p className="sx-ev">{c.evidence}</p> : (
+                <p className="sx-ev sx-ev-lock"><span className="sx-ev-blur" aria-hidden="true"><i /><i /></span><span className="sx-ev-t"><span className="sx-lock-ico"><Lock /></span>Why, in the full report</span></p>
+              )}
             </li>
           ))}
         </ul>
@@ -170,20 +243,22 @@ export default function SlopResult() {
       <section className="sv-sec" aria-labelledby="sx-fix-h">
         <h2 id="sx-fix-h">Your fixes, <span className="t2">biggest first</span></h2>
         <p className="sx-todo-h" role="status">{doneCount} of {total} done{r.locked ? ` · ${r.locked} more in the full report` : ""}</p>
-        <ol className="sx-issues">{r.issues.map((x, i) => <Issue key={x.id} x={x} open={i === 0} done={Boolean(done[x.id])} onDone={(v) => mark(x.id, v)} />)}</ol>
+        <ol className="sx-issues">{r.issues.map((x, i) => <Issue key={x.id} x={x} open={i === 0} done={Boolean(done[x.id])} onDone={(v) => mark(x.id, v)} locked={!r.unlocked} onUnlock={status.payLink ? pay : null} price={usd(SLOP.reportPrice)} />)}</ol>
         {r.locked ? (
           <div className="sx-locked">
             <ol className="sx-blur" aria-hidden="true">{Array.from({ length: Math.min(5, r.locked) }, (_, i) => <li key={i}><span /><b>{["Fix the spacing scale across sections", "One primary button per task in the hero", "Raise contrast on the muted gray text", "Replace generic feature icons", "Tighten the type scale to 6 sizes"][i]}</b><i /><i /></li>)}</ol>
             <div className="sx-unlock">
               {/* Exactly what the $5 buys, counted from this report (owner, 26 Nov 2026: make Stripe feel connected to the product). */}
+              <span className="tg-ico sx-unlock-ico"><Lock /></span>
               <p className="sx-unlock-h">Unlock all {total} fixes and {total * 3} prompts</p>
+              <p className="sx-price"><b>{usd(SLOP.reportPrice)}</b><span>one time</span></p>
               <ul className="sx-unlock-get">
                 <li><b>{r.locked}</b> more fixes for {r.domain}, ranked by impact, each with the exact fix</li>
                 <li><b>{total * 3}</b> copy-paste prompts, one each for Lovable, Cursor and Claude Code on every fix</li>
                 <li><b>1</b> full report emailed to you, yours to keep</li>
               </ul>
               {status.payLink ? (
-                <button type="button" className="hero2-btn hero2-btn-primary" onClick={pay}>Unlock {total} fixes for {usd(SLOP.reportPrice)}</button>
+                <button type="button" className="hero2-btn hero2-btn-primary" onClick={pay}>Unlock the full report<CallIcon /></button>
               ) : <p className="sx-note">Paid unlock opens shortly. Leave your email below and I'll send your score.</p>}
               <p className="sx-note">One-time {usd(SLOP.reportPrice)} by card through Stripe, no account. You come straight back here with everything unlocked.</p>
             </div>
@@ -243,6 +318,14 @@ export default function SlopResult() {
         </div>
         <p className="sr-only" role="status">{copied ? "Link copied" : ""}</p>
       </section>
+
+      {r.locked && !r.unlocked && status.payLink ? (
+        <div className={`sx-bar-pay${bar ? " is-on" : ""}`} aria-hidden={bar ? undefined : "true"}>
+          <span className="tg-ico"><Lock /></span>
+          <p><b>{r.locked} more fixes and {total * 3} prompts</b><span>for {r.domain}, in the full report</span></p>
+          <button type="button" className="hero2-btn hero2-btn-primary" onClick={pay} tabIndex={bar ? undefined : -1}>Unlock for {usd(SLOP.reportPrice)}</button>
+        </div>
+      ) : null}
 
       <p className="sx-book">Want to know why these fixes work? <a href="/fix-ai-slop-ui/" onClick={() => track("book_click", r.id)}>My book teaches the system behind them.</a></p>
     </div>
