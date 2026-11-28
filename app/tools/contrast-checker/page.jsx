@@ -1,3 +1,5 @@
+import JsonLd from "../../../components/JsonLd";
+import { PERSON_ID } from "../../../lib/seo";
 import PageHead from "../../../components/PageHead";
 import ToolCta from "../../../components/tools/ToolCta";
 import ContrastChecker from "../../../components/tools/ContrastChecker";
@@ -8,9 +10,22 @@ export const metadata = {
   alternates: { canonical: "/tools/contrast-checker/" },
 };
 
+const SCHEMA = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  name: "Color Contrast Checker",
+  url: "https://samvllaco.com/tools/contrast-checker/",
+  description: metadata.description,
+  applicationCategory: "DesignApplication",
+  operatingSystem: "Web",
+  offers: { "@type": "Offer", price: 0, priceCurrency: "USD" },
+  creator: { "@id": PERSON_ID },
+};
+
 export default function Page() {
   return (
     <div className="wrap page pg tl-page">
+      <JsonLd data={SCHEMA} />
       <PageHead crumb="Free tools" href="/tools/" a="Color contrast" b="checker." lede="Check if your text is readable for everyone, and get a passing color in one click." />
       <ContrastChecker />
       <section className="tl-how" aria-labelledby="tl-how-h">
