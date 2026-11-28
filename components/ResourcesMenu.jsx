@@ -33,7 +33,7 @@ export default function ResourcesMenu() {
             </ul>
             <div className="mx-k-row mx-k-tools"><p className="mx-k">Free tools, no sign-up</p><Link prefetch={false} className="mx-tools-all" href="/tools/" onClick={close}>All {TOOLS.length} tools</Link></div>
             <ul className="mx-grid mx-tools mx-tools-row">
-              {TOOLS.map((t) => {
+              {TOOLS.filter((t) => t.menu !== false).map((t) => {
                 const href = t.href || `/tools/${t.slug}/`;
                 return (
                   <li key={t.slug}>

@@ -5,7 +5,7 @@ import { SITE } from "../../lib/site";
 import { share, PERSON_ID } from "../../lib/seo";
 
 const TITLE = "Slop Score: Free AI Slop Checker for Your Website";
-const DESC = "A free AI slop checker: paste your URL and see how AI-generated your site looks, with the top fixes and copy-paste prompts for Lovable, Cursor and Claude Code.";
+const DESC = "Free AI slop checker and AI-generated website test. Paste your URL, see how AI-generated your site looks, and get the top fixes for Lovable, Cursor and Claude Code.";
 
 export const metadata = {
   title: TITLE,

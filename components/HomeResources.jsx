@@ -13,7 +13,7 @@ export default function HomeResources() {
         <p>Quick checks you can run on your own product today. No sign-up and nothing to install.</p>
       </header>
       <ul className="hres-grid">
-        {TOOLS.map((t) => (
+        {TOOLS.filter((t) => t.menu !== false).map((t) => (
           <li key={t.slug}>
             <Link prefetch={false} className="hres-card" href={t.href || `/tools/${t.slug}/`}>
               <span className="hres-thumb">

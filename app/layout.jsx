@@ -38,7 +38,7 @@ const personSchema = {
       address: { "@type": "PostalAddress", addressLocality: "Tirana", addressCountry: "AL" },
       description: SITE.description,
       knowsAbout: ["Product design", "UI design", "UX design", "SaaS product design", "Dashboard design", "Mobile app design", "Design systems", "AI product UX", "Website design", "Figma", "AI-built app design", "Vibe-coded app design", "AI slop UI", "App UI/UX design", "Landing page design", "Accessibility"],
-      sameAs: ["https://www.linkedin.com/in/samirvllaco/", SITE.links.x, SITE.links.medium, SITE.links.dribbble, SITE.links.figma],
+      sameAs: ["https://www.linkedin.com/in/samirvllaco/", SITE.links.x, SITE.links.medium, SITE.links.dribbble, "https://github.com/samirvllaco"],
     },
     {
       "@type": "ProfessionalService",

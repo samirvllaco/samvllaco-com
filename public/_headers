@@ -16,6 +16,11 @@
   ! Cache-Control
   Cache-Control: public, max-age=86400
 
+# Free skill files: shown as text in the browser, so people can read before they save (28 Nov 2026).
+/skills/*
+  Content-Type: text/markdown; charset=utf-8
+  X-Robots-Tag: noindex
+
 # Long cache for fonts and images. Files are versioned with ?v= when they change.
 /fonts/*
   ! Cache-Control

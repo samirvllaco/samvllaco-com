@@ -10,7 +10,7 @@
 
 ## Hire Sam
 - [Book a 30-minute call](https://samvllaco.com/book/): talk through your product and leave with a scope, a timeline and one next step.
-- [Pricing](https://samvllaco.com/pricing/): a design sprint at $1,000 a week or a monthly plan at $3,000, fixed-price projects, and $49 and $99 UI/UX reviews.
+- [Start a project](https://samvllaco.com/book/): design projects start at $5,000 and are priced in writing after the first call; a trial week is $2,500; a UI/UX review on Loom is $49 or $99. No hourly rate.
 - [Services](https://samvllaco.com/services/): SaaS product design, dashboards, AI product UX, mobile app design, UX audits, design systems, websites, landing pages, branding and SEO.
 - [SaaS product design](https://samvllaco.com/services/saas-product-design/), [dashboard design](https://samvllaco.com/services/dashboard-design/), [AI product UX](https://samvllaco.com/services/ai-product-ux/), [mobile app design](https://samvllaco.com/services/mobile-app-design/), [UX audit](https://samvllaco.com/services/ux-audit/), [design systems](https://samvllaco.com/services/design-systems/), [prototyping and motion](https://samvllaco.com/services/prototyping-motion/), [website design](https://samvllaco.com/services/website-design/), [landing pages](https://samvllaco.com/services/landing-pages/).
 - [AI-built app design fix](https://samvllaco.com/services/ai-app-design-fix/): for founders who built an app with Cursor, Lovable or v0 and want a designer to fix how it looks, without a rewrite.
@@ -25,7 +25,10 @@
 
 ## Free tools
 - [Slop Score](https://samvllaco.com/slop-score/): a free AI slop checker. Paste a URL and get a score from 0 to 100 (lower is better) for how AI-generated the site looks, with the top fixes.
+- [AI slop checker](https://samvllaco.com/ai-slop-checker/): what the Slop Score checks, how it works, what is free and what the $5 full report adds.
 - [Color contrast checker](https://samvllaco.com/tools/contrast-checker/): tests text and background colors against WCAG 2.2 AA and AAA and suggests the closest passing color.
+- [DESIGN.md generator](https://samvllaco.com/tools/design-md-generator/): pick a product type, brand color, font and corner style and copy a DESIGN.md that Claude Code, Cursor, Lovable or v0 follows on every screen.
+- [Anti AI slop UI skill](https://samvllaco.com/skills/anti-ai-slop-ui/SKILL.md): a free SKILL.md for Claude Code and other agents that bans the common AI-generated UI patterns and sets exact design rules. Guide: https://samvllaco.com/writing/anti-ai-slop-ui-skill/
 - [Design cost calculator](https://samvllaco.com/tools/design-cost-calculator/): estimates what a website, app, landing page or brand design costs and how many weeks it takes.
 
 ## Products
@@ -47,7 +50,15 @@
 - [Claude Code UI Looks Generic? Why, and the DESIGN.md Setup That Fixes It](https://samvllaco.com/writing/claude-code-ui-design/): Why Claude Code UI looks generic, and the fix: a DESIGN.md with exact values, one import line in CLAUDE.md, and 3 copy-paste prompts to audit and review.
 - [The replit.md design section that stops Replit Agent apps looking generic](https://samvllaco.com/writing/replit-md-design-rules/): Replit Agent reads replit.md on every request. Add this design section to it, run three cleanup prompts, and your app stops looking like a template.
 
+## Writing: fix the design of an AI-built app, new on 28 Nov 2026
+- [DESIGN.md: what it is, a free template and examples](https://samvllaco.com/writing/design-md-template/): what goes in a DESIGN.md, a template to copy, examples for a SaaS dashboard, a landing page and a mobile app, and where Claude Code, Cursor, Lovable and v0 read it.
+- [AI slop statistics 2026: 100 new product launches, measured](https://samvllaco.com/writing/ai-slop-statistics/): original data from 100 Show HN launches scanned on 28 Nov 2026. 9 had a purple gradient, 73 had spacing off a 4px grid, 58 had more than one filled button on the first screen, 53 used more than seven font sizes, 30 put a card inside a card.
+- [Does my website look AI-generated? 10 signs and a free test](https://samvllaco.com/writing/does-my-website-look-ai-generated/): the 10 signs, a free checker, and the fix for each.
+- [Anti AI slop UI: a free skill file](https://samvllaco.com/writing/anti-ai-slop-ui-skill/): what the skill bans and enforces, and how to install it.
+
 ## Writing: hiring a designer
+- [Hire a Lovable designer: what it costs, what you get and what to ask](https://samvllaco.com/writing/hire-lovable-designer/): what a Lovable designer does for an app that works but looks generic, costs, and questions to ask.
+- [MVP UI/UX design: what to design first, timeline and cost](https://samvllaco.com/writing/mvp-ui-ux-design/): the one flow and 5 to 8 screens to design first, a week-by-week process and costs.
 - [How to hire a product designer for a SaaS or AI app](https://samvllaco.com/writing/how-to-hire-a-product-designer/): A working designer's guide to hiring one: what to decide first, where to look, how to read a portfolio, 8 questions for the call, and what it costs.
 - [What a product designer costs for a SaaS or AI app](https://samvllaco.com/writing/product-designer-cost/): Real 2026 price ranges for hiring a product designer: hourly, weekly, monthly and fixed price, what moves the number, and what each budget buys you.
 - [Freelance designer vs agency: which one should a SaaS or AI startup hire?](https://samvllaco.com/writing/freelance-designer-vs-agency/): Freelance product designer or design agency for your SaaS or AI startup? A fair comparison of cost, speed, skills and risk, and when to pick each.
@@ -64,6 +75,9 @@
 - [Your AI feature does not have to be a chat box. 7 patterns that get used](https://samvllaco.com/writing/ai-features-beyond-chat/): Chat is one way to put AI in a product, and often the weakest. Seven AI UX patterns that sit inside the workflow, when to use each, and how to design them.
 - [AI loading states: how to design a wait that takes 20 seconds](https://samvllaco.com/writing/ai-loading-states/): A spinner works for one second. AI responses take ten or more. Seven ways to design the wait so people stay, with the copy and timing for each stage.
 - [How to show users how sure the AI is, without a percentage](https://samvllaco.com/writing/ai-confidence-ux/): "87% confident" tells users nothing. Six ways to show how sure an AI answer is, so people know when to trust it, when to check it and how to fix it.
+
+## Writing: accessibility
+- [European Accessibility Act checklist for websites and apps](https://samvllaco.com/writing/european-accessibility-act-checklist/): who the act covers, the standard to meet, a WCAG 2.2 AA checklist, deadlines and what to publish.
 
 ## Seasonal
 - [Black Friday Deals for Designers and Vibe Coders 2026, Checked One by One](https://samvllaco.com/writing/black-friday-deals-for-designers-2026/): design tool and course deals checked on each seller's own page, with codes and end dates. No affiliate links.
