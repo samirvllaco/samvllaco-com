@@ -4,6 +4,7 @@ export const metadata = {
   title: "Globe: Places I Have Been",
   description: "An interactive globe of the places Sam Vllaco has visited and worked from.",
   alternates: { canonical: "/globe/" },
+  robots: { index: false, follow: true }, // no page links here, so keep it out of search (28 Nov 2026)
 };
 
 export default function GlobePage() {
