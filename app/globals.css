@@ -8295,3 +8295,20 @@ a.wd-vis { display: block; color: inherit; text-decoration: none; }
 }
 @media (hover: none), (pointer: coarse) { .wbadge { display: none; } }
 @media (prefers-reduced-motion: reduce) { .wbadge { transition: none; } }
+
+/* Siri-style depth on the icon tiles (owner, 28 Nov 2026: "more like the new Siri update", then "don't use the Siri logo,
+   just effects and depth"). No sphere or wave inside: the tile itself is dark glass, darkest at the top and lit softly
+   from below, with a white rim light, a thin warm and cool fringe on its edge, a deep soft drop and a faint glow round
+   the white glyph. The AI pill keeps its chrome keycap ("our old AI logo was perfect, keep it"). */
+:root:root:root .tg-ico {
+  position: relative; isolation: isolate;
+  background: linear-gradient(180deg, rgba(255, 255, 255, .1), rgba(255, 255, 255, 0) 38%), radial-gradient(120% 95% at 50% 112%, #77777f 0%, #3d3d44 32%, #1b1b1f 62%, #0b0b0c 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .28), inset 0 -1px 0 rgba(255, 255, 255, .16), inset 0 -8px 12px -6px rgba(255, 255, 255, .14), 0 10px 20px -10px rgba(0, 0, 0, .85), 0 2px 4px -1px rgba(0, 0, 0, .5);
+}
+:root:root:root .tg-ico::before {
+  content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit; padding: 1px; pointer-events: none;
+  background: conic-gradient(from 200deg, rgba(255, 255, 255, .55), rgba(255, 180, 107, .5) 12%, rgba(255, 255, 255, .12) 30%, rgba(255, 255, 255, .06) 50%, rgba(143, 208, 255, .5) 70%, rgba(255, 160, 210, .35) 84%, rgba(255, 255, 255, .55));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude;
+}
+:root:root:root .tg-ico svg { position: relative; stroke: #fff; filter: drop-shadow(0 1px 1px rgba(0, 0, 0, .7)) drop-shadow(0 0 5px rgba(255, 255, 255, .28)); }
+:root:root:root .faq-card .faq-mail .tg-ico::before { content: none; }
