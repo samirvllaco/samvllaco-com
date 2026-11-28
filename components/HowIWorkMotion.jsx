@@ -27,17 +27,31 @@ export default function HowIWorkMotion() {
       const top = 112 + (a.top - s.top) + ((b.bottom - a.top) - stage.offsetHeight) / 2;
       hw.style.setProperty("--hw-top", `${Math.max(96, Math.round(top))}px`);
     };
+    // One grey box behind the whole current row (number, title and line), gliding from step to step (owner, 28 Nov
+    // 2026: "highlight the whole thing, the row, not only the title, smooth with GSAP"). It sweeps in from the left the
+    // first time and fades out above the first step.
+    let hl = list && list.querySelector(".hw-hl");
+    if (list && !hl) { hl = document.createElement("span"); hl.className = "hw-hl"; hl.setAttribute("aria-hidden", "true"); list.prepend(hl); }
+    const place = (i, first) => {
+      if (!hl || !g) return;
+      if (i < 0) { g.to(hl, { opacity: 0, duration: 0.3, ease: "power2.out", overwrite: "auto" }); return; }
+      const li = steps[i], y = li.offsetTop, h = li.offsetHeight;
+      if (first) {
+        g.set(hl, { y, height: h });
+        g.fromTo(hl, { opacity: 1, clipPath: "inset(0 100% 0 0 round 6px)" }, { clipPath: "inset(0 0% 0 0 round 6px)", duration: 0.6, ease: "expo.out", overwrite: "auto" });
+      } else g.to(hl, { y, height: h, opacity: 1, clipPath: "inset(0 0% 0 0 round 6px)", duration: 0.6, ease: "expo.inOut", overwrite: "auto" });
+    };
     const set = (i) => {
       if (i === cur) return;
+      const was = cur;
       cur = i;
       steps.forEach((li, k) => {
         li.classList.toggle("is-on", k <= i);
         li.classList.toggle("is-cur", k === i);
-        const b = li.querySelector("b");
-        if (!g || !b) return;
-        g.to(b, { backgroundSize: k === i ? "100% 100%" : "0% 100%", duration: k === i ? 0.6 : 0.35, ease: k === i ? "expo.out" : "power2.out", overwrite: "auto" });
+        if (!g) return;
         g.to(li.querySelectorAll(":scope > b, :scope > span:not(.hw-n)"), { x: k === i ? 4 : 0, duration: 0.5, ease: "power3.out", overwrite: "auto" });
       });
+      place(i, was < 0);
     };
     const light = (on) => {
       if (on === lit || !go) return;
