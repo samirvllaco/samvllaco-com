@@ -31,7 +31,7 @@ export default function Faq({ items, children, a = "Questions", b = "founders as
         <h2 id="faq-h">{a} <span className="t2">{b}</span></h2>
         <div className="faq-card">
           <div className="faq-who">
-            <OnlineFace size={72} />
+            <OnlineFace size={56} />
             <div>
               <p className="faq-who-n">Sam Vllaco</p>
               <p className="faq-who-r">UI/UX and product designer</p>
