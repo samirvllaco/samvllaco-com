@@ -10,6 +10,7 @@ import ArticleBody from "../../../components/ArticleBody";
 import { POSTS } from "../../../lib/articles";
 import { TLDR } from "../../../lib/tldr";
 import ArticleTools from "../../../components/ArticleTools";
+import EndMark from "../../../components/EndMark";
 import ReadLine from "../../../components/ReadLine";
 import { parseMd } from "../../../lib/md";
 import { SITE, ARTICLES, articleLink } from "../../../lib/site";
@@ -91,6 +92,7 @@ export default async function Article({ params }) {
         <div className="art-body">
           <ArticleBody blocks={body} post={p} />
         </div>
+        <EndMark kind="article" date={fmt(p.published)} minutes={p.minutes} />
 
         {/* No call to action at the end of an article (owner, 28 Nov 2026): more articles instead, then the related pages. */}
         <section className="case-section art-more" id="more" aria-labelledby="more-h">

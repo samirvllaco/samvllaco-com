@@ -1,4 +1,5 @@
 import HoverVideo from "../../../components/HoverVideo";
+import EndMark from "../../../components/EndMark";
 import Link from "next/link";
 import { preload } from "react-dom";
 import CallIcon from "../../../components/CallIcon";
@@ -247,6 +248,8 @@ export default function CaseStudy({ params }) {
               </section>
             ) : null}
 
+            <EndMark kind="case study" />
+
             <section className="case-section case-close">
               <h2>{st.cta.title}</h2>
               <p>{st.cta.text}</p>
@@ -294,6 +297,7 @@ export default function CaseStudy({ params }) {
                 </div>
               </section>
             ) : null}
+            <EndMark kind="case study" />
           </>
         )}
 
