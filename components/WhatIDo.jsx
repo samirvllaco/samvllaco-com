@@ -68,9 +68,40 @@ export default function WhatIDo() {
   const root = useRef(null);
   const [inView, seen] = useInView(root, { threshold: 0.35 });
   const live = useLive();
+  // The ad click as one GSAP timeline (owner, 28 Nov 2026: "do all"): the pointer comes in on a curve that speeds up and
+  // settles, presses, the button gives and springs back, a ring opens from it, then the pointer leaves. It replaces three
+  // CSS keyframe sets that had to be kept in step by hand, and pauses off screen. Without GSAP the CSS loop runs.
+  const [gs, setGs] = useState(false);
+  const tl = useRef(null);
+  useEffect(() => {
+    if (!live) return;
+    let dead = false;
+    loadGsap().then((g) => {
+      const v = root.current && root.current.querySelector(".wd-land");
+      if (!g || dead || !v) return;
+      const cur = v.querySelector(".wd-cur"), btn = v.querySelector(".wd-ad-cta b"), ring = v.querySelector(".wd-ad-ring");
+      setGs(true);
+      tl.current = g.timeline({ repeat: -1, repeatDelay: 0.5, paused: true })
+        .set(cur, { "--cx": 84, "--cy": 70, "--cs": 1, opacity: 0 })
+        .set(ring, { scale: 1, opacity: 0 })
+        .to(cur, { opacity: 1, duration: 0.3, ease: "none" })
+        .to(cur, { "--cx": 41.2, duration: 1.5, ease: "power3.inOut" }, "<")
+        .to(cur, { "--cy": 61, duration: 1.5, ease: "power2.inOut" }, "<")
+        .to(cur, { "--cs": 0.86, duration: 0.12, ease: "power2.out" }, "+=0.15")
+        .to(btn, { scale: 0.94, duration: 0.12, ease: "power2.out" }, "<")
+        .to(cur, { "--cs": 1, duration: 0.45, ease: "back.out(3)" })
+        .to(btn, { scale: 1, duration: 0.45, ease: "back.out(3)" }, "<")
+        .fromTo(ring, { scale: 1, opacity: 0.9 }, { scaleX: 1.25, scaleY: 1.6, opacity: 0, duration: 0.7, ease: "power2.out" }, "<")
+        .to(cur, { opacity: 0, duration: 0.3, ease: "none" }, "+=1.1");
+      if (inViewRef.current) tl.current.play();
+    });
+    return () => { dead = true; if (tl.current) tl.current.kill(); tl.current = null; };
+  }, [live]);
+  const inViewRef = useRef(false);
+  useEffect(() => { inViewRef.current = inView; const t = tl.current; if (t) (inView ? t.play() : t.pause()); }, [inView]);
 
   return (
-    <section className={`wd${seen ? " is-in" : ""}`} ref={root} aria-labelledby="wd-h" data-bg="#0e0e10" data-live={live ? "" : undefined} data-paused={inView ? undefined : ""}>
+    <section className={`wd${seen ? " is-in" : ""}${gs ? " gs" : ""}`} ref={root} aria-labelledby="wd-h" data-bg="#0e0e10" data-live={live ? "" : undefined} data-paused={inView ? undefined : ""}>
       <header className="wd-head">
         <h2 id="wd-h">Three ways I help <span className="t2">your product</span></h2>
         <p>I <Chip i="design">design</Chip> websites and web apps, make <Chip i="ads">ads</Chip> that bring people in and <Chip i="audit">audit</Chip> what slows them down.</p>
@@ -99,7 +130,7 @@ export default function WhatIDo() {
                   <span className="wd-ad-copy">One-minute eye games for your screen breaks.</span>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img className="wd-ad-img" src="/work/wd/ad-img.webp?v=1" width="368" height="280" loading="lazy" decoding="async" alt="" />
-                  <div className="wd-ad-cta"><span>ocufuse.com</span><b>Play now</b></div>
+                  <div className="wd-ad-cta"><span>ocufuse.com</span><b>Play now<i className="wd-ad-ring" /></b></div>
                 </div>
                 <svg className="wd-cur" viewBox="0 0 24 24" width="22" height="22"><path d="M5 3.5 19 12l-6.2 1.6L9.6 19.5 5 3.5Z" fill="#111112" stroke="#fff" strokeWidth="1.5" strokeLinejoin="round" /></svg>
                 <FollowTag label={c.cta} />
