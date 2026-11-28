@@ -8158,8 +8158,9 @@ html:has(.bw .bw-tab) body:not(:has(.case-fab)) .ask-pill.is-side { --ask-left: 
 .end-txt { flex: 1; min-width: 0; display: grid; gap: 4px; }
 .end-h { margin: 0; font-size: var(--fs-card); line-height: 1.4; font-weight: 500; letter-spacing: -.02em; color: var(--text); }
 .end-p { margin: 0; font-size: .9375rem; line-height: 1.6; color: var(--muted); }
-.end-top.hero2-btn { flex: none; }
-@media (max-width: 639px) { .end-card { flex-wrap: wrap; } .end-txt { flex-basis: calc(100% - 64px); } .end-top.hero2-btn { width: 100%; justify-content: center; } }
+.end-btns { flex: none; gap: 12px; }
+.end-p a { color: var(--text); text-decoration: underline; text-underline-offset: 3px; }
+@media (max-width: 899px) { .end-card { flex-wrap: wrap; } .end-txt { flex-basis: calc(100% - 64px); } .end-btns { width: 100%; } .end-btns > .hero2-btn { flex: 1; justify-content: center; } }
 
 /* On this page: its own lighter panel so the side column reads apart from the article (owner, 28 Nov 2026:
    "differentiate color here, bg darker or lighter"). */

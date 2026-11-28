@@ -248,7 +248,7 @@ export default function CaseStudy({ params }) {
               </section>
             ) : null}
 
-            <EndMark kind="case study" />
+            <EndMark kind="case study" live={w.live} />
 
             <section className="case-section case-close">
               <h2>{st.cta.title}</h2>
@@ -297,7 +297,7 @@ export default function CaseStudy({ params }) {
                 </div>
               </section>
             ) : null}
-            <EndMark kind="case study" />
+            <EndMark kind="case study" live={w.live} />
           </>
         )}
 
