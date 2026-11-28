@@ -5,7 +5,6 @@ import { MarkerText, Mark } from "../../components/MarkerText";
 import Link from "next/link";
 import AboutPortrait from "../../components/AboutPortrait";
 import AboutMotion from "../../components/AboutMotion";
-import PickDesigner from "../../components/PickDesigner";
 import PageHead from "../../components/PageHead";
 import { SITE } from "../../lib/site";
 import { share, PERSON_ID } from "../../lib/seo";
@@ -75,7 +74,7 @@ export default function About() {
       <PainStory />
 
       {/* "How I work" and "Working with me" are hidden (owner, 27 Nov 2026: "hide those") */}
-      <PickDesigner />
+      {/* "Pick your designer" is removed (owner, 28 Nov 2026: "hide, remove this completely") */}
     </div>
   );
 }
