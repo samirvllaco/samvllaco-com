@@ -144,7 +144,13 @@ export default function HowIWorkMotion() {
     window.addEventListener("resize", resize);
     const ro = "ResizeObserver" in window ? new ResizeObserver(centre) : null;
     if (ro && side) ro.observe(side);
-    return () => { window.removeEventListener("scroll", on); window.removeEventListener("resize", resize); cancelAnimationFrame(raf); clearTimeout(idle); ro?.disconnect(); takeOver(false); };
+    // While How I work passes under the top of the screen the header hides completely (owner, 28 Nov 2026: "on this
+    // section don't play with the navigation since it's buggy, hide it completely"): the snapping scroll flipped it
+    // between full and compact. It comes back as soon as the section has scrolled past or the page goes back above it.
+    const doc = document.documentElement;
+    const io = new IntersectionObserver(([e]) => doc.classList.toggle("hw-hide", e.isIntersecting), { rootMargin: "-20px 0px -85% 0px" });
+    io.observe(hw);
+    return () => { window.removeEventListener("scroll", on); window.removeEventListener("resize", resize); cancelAnimationFrame(raf); clearTimeout(idle); ro?.disconnect(); takeOver(false); io.disconnect(); doc.classList.remove("hw-hide"); };
   }, []);
   return null;
 }

@@ -8499,3 +8499,9 @@ html.intro-css .intro-rail, html.intro-css .intro-line { animation: intro-lines 
 /* A click in the Experience or Clients cell plays its animation again (owner, 28 Nov 2026). */
 .bx2.gs :is(.bx2-b, .bx2-cl) { cursor: pointer; }
 .bx2.gs .bx2-b .bg-gauge { cursor: ew-resize; }
+
+/* The header steps out of the way while How I work passes the top of the screen (owner, 28 Nov 2026: "hide completely").
+   Transform and opacity only, so nothing below moves. */
+.site-header { transition-property: background-color, border-color, box-shadow, top, transform, opacity; }
+html.hw-hide:not(.mm-open) .site-header { transform: translateY(-140%); opacity: 0; pointer-events: none; transition: transform .4s var(--ease-out), opacity .25s var(--ease-out); }
+html:not(.hw-hide) .site-header { transition: transform .45s var(--ease-out), opacity .3s var(--ease-out), background-color .35s var(--ease-out), border-color .35s var(--ease-out), box-shadow .35s var(--ease-out), top .35s var(--ease-out); }
