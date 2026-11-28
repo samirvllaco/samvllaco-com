@@ -1,5 +1,6 @@
 import fs from "fs";
 import path from "path";
+import ToolTrack from "./ToolTrack";
 import ToolAll from "./ToolAll";
 
 // Tools row that scrolls left to right. A tile shows the tool's logo when its official SVG is saved
@@ -11,15 +12,17 @@ const TOOLS = [
   ["chatgpt", "ChatGPT"], ["cursor", "Cursor"], ["github", "GitHub"], ["tailwind", "Tailwind"], ["storybook", "Storybook"],
 ];
 
-// Bento tools cell (owner, 28 Nov 2026, after grafit.agency's partner tiles): the words and "See all" on the left,
-// a loose stack of tilted app tiles on the right. The tilt is fixed; tiles never move on hover.
-const FAN = ["figma", "photoshop", "illustrator", "after-effects", "framer", "webflow", "claude", "chatgpt"];
-const TILT = [[-10, 6], [6, -4], [-4, 8], [9, -6], [-7, 4], [4, -8], [-9, 6], [7, -2]];
+// Bento tools cell: the words and "See all" on the left, the tools drifting sideways on the right.
 export default function Toolbox() {
   const svg = (id) => { try { return fs.readFileSync(path.join(process.cwd(), "public", "tools", `${id}.svg`), "utf8"); } catch { return ""; } };
   // Only tools with a real logo file are shown.
   const SHOWN = TOOLS.filter(([id]) => svg(id));
-  const fan = FAN.map((id) => SHOWN.find((t) => t[0] === id)).filter(Boolean);
+  const tile = ([id, name], k) => (
+    <li key={k}>
+      <span className="tb-ico" dangerouslySetInnerHTML={{ __html: svg(id) }} />
+      <span className="tb-name">{name}</span>
+    </li>
+  );
   return (
     <div className="bx2-c bx2-t tb">
       <div className="bx2-txt">
@@ -29,13 +32,11 @@ export default function Toolbox() {
           <ul className="tb-grid">{SHOWN.map(([id, name]) => <li key={id}><span className="tb-ico" aria-hidden="true" dangerouslySetInnerHTML={{ __html: svg(id) }} /><span className="tb-name">{name}</span></li>)}</ul>
         </ToolAll>
       </div>
-      <ul className="bt-fan" aria-label="Some of my tools">
-        {fan.map(([id, name], i) => (
-          <li key={id} style={{ "--r": `${TILT[i % TILT.length][0]}deg`, "--y": `${TILT[i % TILT.length][1]}px`, zIndex: i % 2 ? 2 : 1 }}>
-            <span aria-hidden="true" dangerouslySetInnerHTML={{ __html: svg(id) }} /><span className="sr-only">{name}</span>
-          </li>
-        ))}
-      </ul>
+      {/* The tools drift sideways again (owner, 28 Nov 2026: "make them scroll like before"): swipe, drag or scroll by hand. */}
+      <ToolTrack>
+        <ul className="tb-track" aria-label="Some of my tools">{SHOWN.map((t) => tile(t, t[0]))}</ul>
+        <ul className="tb-track" aria-hidden="true">{SHOWN.map((t) => tile(t, `${t[0]}-2`))}</ul>
+      </ToolTrack>
     </div>
   );
 }

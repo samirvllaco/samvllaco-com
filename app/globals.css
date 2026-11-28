@@ -8114,7 +8114,7 @@ html:has(.bw .bw-tab) body:not(:has(.case-fab)) .ask-pill.is-side { --ask-left: 
 :root:root .bx2 .bx2-w { grid-area: w; min-height: 0; }
 :root:root:root .bx2 .bx2-w .bx-t { position: static; margin: 0; padding: 0; }
 /* Toolbox */
-:root:root .bx2 .bx2-t { grid-area: t; display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 32px; padding: 32px; }
+:root:root .bx2 .bx2-t { grid-area: t; display: grid; grid-template-columns: minmax(0, 360px) minmax(0, 1fr); align-items: center; gap: 32px; padding: 32px; overflow: hidden; }
 .bx2-t .tb-all { margin-top: 16px; }
 .bt-fan { list-style: none; margin: 0; padding: 12px 8px; display: flex; }
 .bt-fan li { flex: none; width: 72px; height: 72px; margin-left: -8px; display: grid; place-items: center; border-radius: var(--r-inner); background: #1a1a1d; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .1), 0 16px 32px -16px rgba(0, 0, 0, .6); transform: translateY(var(--y)) rotate(var(--r)); }
