@@ -12,7 +12,7 @@ export default function GlobalError() {
   }, []);
   return (
     <html lang="en">
-      <body style={{ margin: 0, minHeight: "100vh", display: "grid", placeItems: "center", background: "#171719", color: "#f5f5f7", fontFamily: "-apple-system, BlinkMacSystemFont, system-ui, sans-serif", padding: 24, textAlign: "center" }}>
+      <body style={{ margin: 0, minHeight: "100vh", display: "grid", placeItems: "center", background: "#0e0e10", color: "#f5f5f7", fontFamily: "-apple-system, BlinkMacSystemFont, system-ui, sans-serif", padding: 24, textAlign: "center" }}>
         <div>
           <h1 style={{ fontSize: 28, margin: "0 0 8px" }}>Something went wrong</h1>
           <p style={{ color: "#a1a1a6", margin: "0 0 20px" }}>The page did not load correctly. Reloading usually fixes it.</p>

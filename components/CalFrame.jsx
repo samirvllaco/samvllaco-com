@@ -9,10 +9,10 @@ const UI = {
   styles: { body: { background: "transparent" } },
   cssVarsPerTheme: {
     dark: {
-      "cal-bg": "#171719",
-      "cal-bg-muted": "#1c1c1f",
-      "cal-bg-subtle": "#232326",
-      "cal-bg-emphasis": "#2c2c2f",
+      "cal-bg": "#0e0e10",
+      "cal-bg-muted": "#141416",
+      "cal-bg-subtle": "#1a1a1d",
+      "cal-bg-emphasis": "#232326",
       "cal-border": "rgba(255, 255, 255, 0.12)",
       "cal-border-subtle": "rgba(255, 255, 255, 0.08)",
       "cal-border-booker": "rgba(255, 255, 255, 0.08)",

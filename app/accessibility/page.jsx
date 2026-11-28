@@ -110,7 +110,7 @@ export default function Accessibility() {
       </section>
 
       <div className="sv-sec sv-faqwrap">
-        <Faq items={MANAGED_FAQ} a="Questions" b="from product and legal" bg="#171719">
+        <Faq items={MANAGED_FAQ} a="Questions" b="from product and legal" bg="#0e0e10">
           <SkyPhoto className="faq-photo" />
           <p className="faq-go"><a className="hero2-btn hero2-btn-primary" href="/book/">Start a project<CallIcon /></a></p>
           <div className="faq-mail"><CopyEmailInline icon /></div>

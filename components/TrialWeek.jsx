@@ -5,7 +5,7 @@ import CallIcon from "./CallIcon";
 // it sits centred like the footer call. No conversion stat: there is no real number for it yet.
 export default function TrialWeek() {
   return (
-    <section className="tw" id="trial" aria-labelledby="tw-h" data-bg="#171719">
+    <section className="tw" id="trial" aria-labelledby="tw-h" data-bg="#0e0e10">
       <h2 id="tw-h">Start with a trial week <span className="t2">for only</span> <mark className="tw-price">{usd(TRIAL_WEEK)}</mark></h2>
       <p>One week on a real problem in your product, so you see how I think, how fast I move and what the files look like. If it fits, the full project starts from there, from {usd(PROJECT_FROM)}. If not, you keep everything I made that week.</p>
       <div className="tw-go btn-row">

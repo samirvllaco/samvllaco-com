@@ -8,7 +8,7 @@ const Star = () => <svg viewBox="0 0 20 20" width="16" height="16" aria-hidden="
 // Client reviews on bordered cards: five stars, the quote, what the client endorsed and the project.
 export default function Testimonials() {
   return (
-    <section className="bx-sec" aria-labelledby="tm-h" data-bg="#171719">
+    <section className="bx-sec" aria-labelledby="tm-h" data-bg="#0e0e10">
       <svg width="0" height="0" style={{ position: "absolute" }} aria-hidden="true"><defs><linearGradient id="tm-star" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#ffd35c" /><stop offset=".55" stopColor="#ff9f0a" /><stop offset="1" stopColor="#f26a00" /></linearGradient></defs></svg>
       <h2 id="tm-h">What clients say <span className="t2">after handover</span></h2>
       <p className="bx-lede">Don't just take my word for it. A few of 200+ client reviews.</p>

@@ -39,7 +39,7 @@ export default function Fixes() {
   const next = () => setI((v) => (v + 1) % FIXES.length);
   const x = FIXES[i];
   return (
-    <section className="fixes" ref={root} aria-labelledby="fx-h" data-bg="#171719" data-live={live && !held ? "" : undefined} data-paused={seen ? undefined : ""}>
+    <section className="fixes" ref={root} aria-labelledby="fx-h" data-bg="#0e0e10" data-live={live && !held ? "" : undefined} data-paused={seen ? undefined : ""}>
       <header className="fx-head">
         <h2 id="fx-h">Design stops being <span className="t2">the problem</span></h2>
         <p>Startups and enterprise teams bring me the same four problems. I fix the design side of each one, so when growth stalls you can rule design out and put your energy into product and marketing.</p>

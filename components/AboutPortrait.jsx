@@ -43,7 +43,7 @@ export default function AboutPortrait() {
       ascii = document.createElement("canvas"); ascii.width = CW * dpr; ascii.height = CH * dpr;
       const a = ascii.getContext("2d"); a.scale(dpr, dpr);
       // The page colour everywhere, so inside and outside the photo read as one surface.
-      a.fillStyle = "#171719"; a.fillRect(0, 0, CW, CH);
+      a.fillStyle = "#0e0e10"; a.fillRect(0, 0, CW, CH);
       a.translate(PAD, PAD);
       a.font = `600 ${cell + 1}px ui-monospace, SFMono-Regular, Menlo, monospace`; a.textBaseline = "top";
       let k = 0;

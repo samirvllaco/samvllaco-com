@@ -45,7 +45,7 @@ export default function ScreenWall({ cta = null }) {
     return () => { window.removeEventListener("scroll", on); window.removeEventListener("resize", on); cancelAnimationFrame(raf); };
   }, []);
   return (
-    <section className={cta ? "wall wall-foot" : "wall"} ref={sec} aria-label={cta ? undefined : "A wall of screens from recent projects"} aria-labelledby={cta ? "wall-h" : undefined} data-bg="#171719">
+    <section className={cta ? "wall wall-foot" : "wall"} ref={sec} aria-label={cta ? undefined : "A wall of screens from recent projects"} aria-labelledby={cta ? "wall-h" : undefined} data-bg="#0e0e10">
       <div className="wall-stick">
         {cta ? <div className="wall-cta">{cta}</div> : (
         <ul className="wall-stats">

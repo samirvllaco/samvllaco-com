@@ -92,7 +92,7 @@ export default function Home() {
   return (
     <div className="wrap page stack-lg">
       <SectionColors />
-      <section className="hero2" data-bg="#171719">
+      <section className="hero2" data-bg="#0e0e10">
         <div className="hero3 hero-split">
           {/* Right side: Sam's work in a design file window (owner, 27 Nov 2026: "add my designs / animations", then "our own better version"). */}
           <HeroShow items={HERO_SHOW} />
@@ -144,7 +144,7 @@ export default function Home() {
       <HowIWork />
 
 
-      <section id="work" className="stack work" data-bg="#171719">
+      <section id="work" className="stack work" data-bg="#0e0e10">
           <h2>Work <span className="t2">that shipped</span></h2>
           <p className="work-lede">Real products with real users. Some names are changed because the work is under NDA.</p>
           <WorkCarousel items={WORK.map((w) => ({ slug: w.slug, title: w.title, sub: w.sub, alt: w.alt, small: w.small }))} />
@@ -156,7 +156,7 @@ export default function Home() {
 
 
 
-      {/* Globe section hidden for now: <Globe bg="#171719" /> */}
+      {/* Globe section hidden for now: <Globe bg="#0e0e10" /> */}
 
 
 

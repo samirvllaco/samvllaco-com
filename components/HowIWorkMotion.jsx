@@ -4,7 +4,7 @@ import { loadGsap } from "../lib/gsapLoad";
 
 // How I work, desktop motion (owner, 28 Nov 2026):
 // 1) "put emphasis on the text as well, so it's obvious it's highlighting and moving, use GSAP": as the rail reaches a
-//    step, its title turns to full ink and a soft blue marker sweeps under it, its line brightens, and it eases 4px in;
+//    step, its title turns to full ink and a full grey highlight sweeps over it, its line brightens, and it eases 4px in;
 //    steps not reached yet stay quieter (still 4.5:1).
 // 2) "at the end of the scroll highlight this button with a rich stroke around it": once the last step is lit, a
 //    spinning colour ring draws round Start a project and glows once.
