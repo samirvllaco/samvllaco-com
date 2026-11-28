@@ -34,7 +34,7 @@ The file has five parts:
 4. **Copy and states.** How buttons, errors and empty states are written, and the four states every screen needs.
 5. **Before you finish.** A seven-point check the tool runs on its own work, then reports what it changed.
 
-If your project already has a [DESIGN.md](/writing/design-md-template/), the skill uses your values instead of its defaults.
+If your project already has a [DESIGN.md](/writing/design-md-template/) (the free [DESIGN.md generator](/tools/design-md-generator/) writes one), the skill uses your values instead of its defaults.
 
 ## How to install it in Claude Code
 
@@ -65,7 +65,7 @@ Then fix the list in this order: color and gradients, spacing, type, buttons, st
 
 ## Check the result
 
-Run your live site through [Slop Score](/slop-score/), a free AI slop checker. It scores how generated the site looks from 0 to 100 and lists the top fixes. Run it before you install the skill and again after the cleanup, and you will see what moved.
+Run your live site through Slop Score, my free [AI slop checker](/ai-slop-checker/). It scores how generated the site looks from 0 to 100 and lists the top fixes. Run it before you install the skill and again after the cleanup, and you will see what moved.
 
 ## Questions people ask
 

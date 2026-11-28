@@ -30,7 +30,7 @@ Before you hire anyone, try this. It costs nothing and it fixes the most visible
 1. Paste a short set of design rules into project instructions: More, then Settings, then Instructions. [The rules and seven fix prompts are in this guide](/writing/lovable-app-looks-generic/).
 2. Remove every gradient and glow, and pick one accent color.
 3. Put spacing on one scale: 4, 8, 16, 24, 32, 48, 64.
-4. Run your site through [Slop Score](/slop-score/) to see what still reads as generated.
+4. Run your site through the free [AI slop checker](/ai-slop-checker/) to see what still reads as generated.
 
 If the app looks consistent after that but still does not convert, the problem is the flow and the content, not the styling. That is the point where a designer earns their fee.
 
@@ -88,7 +88,7 @@ It should not. The design sits on top of the logic and the data. Ask for the cha
 
 ### Do I need a designer if I use a DESIGN.md?
 
-A [DESIGN.md](/writing/design-md-template/) gets you consistency: every screen follows the same rules. A designer decides what the rules should be and which screens and states the product needs. Start with the file; hire when consistency is not enough.
+A [DESIGN.md](/writing/design-md-template/), which the free [DESIGN.md generator](/tools/design-md-generator/) writes for you, gets you consistency: every screen follows the same rules. A designer decides what the rules should be and which screens and states the product needs. Start with the file; hire when consistency is not enough.
 
 ## Where to go next
 

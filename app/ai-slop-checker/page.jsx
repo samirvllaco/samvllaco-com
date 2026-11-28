@@ -104,6 +104,7 @@ export default function Page() {
       <section className="sv-sec sv-end" aria-labelledby="ac-end-h">
         <h2 id="ac-end-h">Want it fixed, <span className="t2">not just scored?</span></h2>
         <p>Send me your site. I look at it myself and reply with a Loom of what I would change first.</p>
+        <p className="ax-also">Or fix it yourself: read <a href="/writing/ai-slop-statistics/">AI slop statistics from 100 new launches</a>, <a href="/writing/ai-slop-ui-fixes/">the 25 AI slop UI fixes</a> and <a href="/writing/how-to-fix-ai-built-app-design/">how to fix the design of an AI-built app</a>, then save your rules with the free <a href="/tools/design-md-generator/">DESIGN.md generator</a> or the <a href="/writing/anti-ai-slop-ui-skill/">anti AI slop UI skill</a>.</p>
         <div className="sv-cta sv-cta-c"><a className="hero2-btn hero2-btn-primary" href="/free-audit/">Get a free UX audit<CallIcon /></a></div>
       </section>
     </div>

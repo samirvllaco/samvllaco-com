@@ -141,4 +141,4 @@ It depends on the size of the product. I run a fixed [one-week EAA audit](/eaa-a
 
 ## Where to go next
 
-If your product was built with an AI tool, start with [the 12 accessibility fixes for AI-built apps](/writing/vibe-coding-accessibility-wcag-22-aa/), each with a prompt. If you want the whole check done and the fixes designed, [book the one-week EAA audit](/eaa-audit/). I test with VoiceOver and NVDA on web, iOS and Android, and I can fix front-end code myself.
+If your product was built with an AI tool, start with [the 12 accessibility fixes for AI-built apps](/writing/vibe-coding-accessibility-wcag-22-aa/), each with a prompt. If you want the whole check done and the fixes designed, [book the one-week EAA audit](/eaa-audit/). I test with VoiceOver and NVDA on web, iOS and Android, and I can fix front-end code myself. To test color contrast yourself, use the free [contrast checker](/tools/contrast-checker/). For the work after the audit, see [managed accessibility](/accessibility/).

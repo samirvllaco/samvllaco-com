@@ -16,6 +16,7 @@ import { SITE } from "../../../lib/site";
 import { POSTS } from "../../../lib/articles";
 import { GUIDES } from "../../../lib/service-guides";
 import { share, PERSON_ID } from "../../../lib/seo";
+import { INDUSTRIES } from "../../../lib/industries";
 import { TRIAL_WEEK, PROJECT_FROM, usd } from "../../../lib/plans";
 
 const ALL = SERVICES.flatMap((g) => g.items.map((it) => ({ ...it, group: g }))).filter((it) => !groupOf(it.id));
@@ -168,6 +169,9 @@ export default async function ServicePage({ params }) {
           ))}
         </ul>
         <p className="ax-banner">Not ready to talk yet? <Link prefetch={false} href="/free-audit/">Get a free UX audit</Link></p>
+        {INDUSTRIES.some((x) => x.help.includes(id)) ? (
+          <p className="ax-also sv-for">Who I do this for: {INDUSTRIES.filter((x) => x.help.includes(id)).map((x, i) => <span key={x.id}>{i ? ", " : ""}<Link prefetch={false} href={`/for/${x.id}/`}>{x.name}</Link></span>)}</p>
+        ) : null}
       </section>
 
       {quote ? (

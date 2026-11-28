@@ -94,9 +94,11 @@ If you have a real design system, with your own components and tokens in a repos
 
 ## Six prompts in, and then
 
-These six cover what people notice in the first five seconds. They are six of [the 25 fixes](/writing/ai-slop-ui-fixes/) I wrote up, and [the full set of 27 copy-paste prompts](/fix-ai-slop-ui/) is in the book. To see where your app stands first, the [AI slop UI score](/tools/ai-slop-ui-score/) is free.
+These six cover what people notice in the first five seconds. They are six of [the 25 fixes](/writing/ai-slop-ui-fixes/) I wrote up, and [the full set of 27 copy-paste prompts](/fix-ai-slop-ui/) is in the book. To see where your app stands first, the [AI slop UI score](/slop-score/) is free.
 
 And if you would rather hand it over, [I fix the design of AI-built apps](/services/ai-app-design-fix/).
+
+To check the result, run your live v0 app through the free [AI slop checker](/ai-slop-checker/). It scores how generated it looks from 0 to 100 and names the top three fixes. To write the rules file in a minute, answer five questions in the free [DESIGN.md generator](/tools/design-md-generator/).
 
 ## Questions people ask
 

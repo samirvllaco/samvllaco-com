@@ -31,6 +31,7 @@ export default function Page() {
       <section className="tl-how" aria-labelledby="tl-how-h">
         <h2 id="tl-how-h">How it works</h2>
         <p>Paste two hex colors. The checker works out the contrast ratio with the WCAG 2.2 formula: normal text needs 4.5:1 for AA and 7:1 for AAA, large text and icons need 3:1. If a pair fails, it nudges your text color toward black or white until it passes, so you keep your brand feel. Everything runs in your browser.</p>
+        <p className="ax-also">Checking for the law, not only for readability? Read the <a href="/writing/european-accessibility-act-checklist/">European Accessibility Act checklist</a> and the <a href="/writing/vibe-coding-accessibility-wcag-22-aa/">12 accessibility fixes for AI-built apps</a>, or see my <a href="/eaa-audit/">one-week EAA audit</a>.</p>
       </section>
       <ToolCta />
     </div>

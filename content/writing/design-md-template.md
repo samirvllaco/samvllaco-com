@@ -146,7 +146,7 @@ Read the list, then fix it in this order: spacing, color, type, then states. Spa
 
 ## How to tell it is working
 
-Open three screens side by side. If the gaps between cards are the same, the grays are the same and the buttons look like one family, the file is doing its job. If one screen still drifts, ask the tool which rule it broke. It will usually tell you, and the answer shows you which line in DESIGN.md needs to be more specific.
+Open three screens side by side. If the gaps between cards are the same, the grays are the same and the buttons look like one family, the file is doing its job. If one screen still drifts, ask the tool which rule it broke. It will usually tell you, and the answer shows you which line in DESIGN.md needs to be more specific. For a second opinion from outside, run the live app through the free [AI slop checker](/ai-slop-checker/).
 
 ## Questions people ask
 

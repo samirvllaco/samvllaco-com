@@ -71,9 +71,11 @@ Project knowledge covers one project. A new project starts empty, so keep the bl
 
 ## After the cleanup
 
-These steps cover what people notice in the first five seconds. They come from [the 25 fixes](/writing/ai-slop-ui-fixes/) I wrote up, and the full set of [27 copy-paste prompts is in the book](/fix-ai-slop-ui/). The [AI slop UI score](/tools/ai-slop-ui-score/) is free if you want to see where your app stands first.
+These steps cover what people notice in the first five seconds. They come from [the 25 fixes](/writing/ai-slop-ui-fixes/) I wrote up, and the full set of [27 copy-paste prompts is in the book](/fix-ai-slop-ui/). The [AI slop UI score](/slop-score/) is free if you want to see where your app stands first.
 
 If you would rather hand it over, [I fix the design of AI-built apps](/services/ai-app-design-fix/).
+
+To check the result, run your live Bolt app through the free [AI slop checker](/ai-slop-checker/). It scores how generated it looks from 0 to 100 and names the top three fixes. To write the rules file in a minute, answer five questions in the free [DESIGN.md generator](/tools/design-md-generator/).
 
 ## Questions people ask
 

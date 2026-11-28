@@ -79,6 +79,8 @@ If you recognised more than three of these, the dashboard needs a rethink more t
 
 [Book a 30-minute call](/book/) and bring your worst screen.
 
+For the full picture, read the [SaaS dashboard design guide](/writing/saas-dashboard-design-guide/) and [how to design a data table](/writing/data-table-design/). For a budget, see [what dashboard design costs](/writing/dashboard-design-cost/).
+
 ## Questions people ask
 
 ### Why do users export dashboards to Excel?
