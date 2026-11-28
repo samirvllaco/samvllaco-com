@@ -60,9 +60,11 @@ export default function HowIWorkMotion() {
     };
 
     const centre = () => {
-      if (!mq.matches || !side || !list || !go || !stage) { hw.style.removeProperty("--hw-top"); return; }
-      const s = side.getBoundingClientRect(), a = list.getBoundingClientRect(), b = go.getBoundingClientRect();
-      const top = 112 + (a.top - s.top) + ((b.bottom - a.top) - stage.offsetHeight) / 2;
+      if (!mq.matches || !side || !list || !stage) { hw.style.removeProperty("--hw-top"); return; }
+      // The screen centres on the five steps (owner, 28 Nov 2026: "make it look more in the middle in comparison, it can
+      // go slightly above"); it used to centre on the steps and the button together, which sat it low.
+      const s = side.getBoundingClientRect(), a = list.getBoundingClientRect();
+      const top = 112 + (a.top - s.top) + (a.height - stage.offsetHeight) / 2 - 24;
       hw.style.setProperty("--hw-top", `${Math.max(96, Math.round(top))}px`);
     };
     // One grey box behind the whole current row (number, title and line), gliding from step to step (owner, 28 Nov

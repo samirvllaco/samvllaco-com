@@ -8461,3 +8461,10 @@ html.intro-css .intro-rail, html.intro-css .intro-line { animation: intro-lines 
 /* Text selection in the brand blue (owner, 28 Nov 2026: "do custom selection colour to match our branding"):
    the button blue with white words, the same on dark pages and white bands. */
 ::selection { background: #2f6bff; color: #ffffff; }
+
+/* How I work: the screens sit on a design canvas grid (owner, 28 Nov 2026: "add grids here"). 32px squares in the
+   band's line colour, fading out at the top and bottom, so the pinned screen moves over a still grid. */
+@media (min-width: 1100px) {
+  .hw .hw-main { position: relative; isolation: isolate; }
+  .hw .hw-main::before { content: ""; position: absolute; inset: -40px -24px; z-index: -1; pointer-events: none; background-image: linear-gradient(var(--line, rgba(0, 0, 0, .08)) 1px, transparent 1px), linear-gradient(90deg, var(--line, rgba(0, 0, 0, .08)) 1px, transparent 1px); background-size: 32px 32px; background-position: center top; -webkit-mask-image: linear-gradient(180deg, transparent, #000 12%, #000 88%, transparent); mask-image: linear-gradient(180deg, transparent, #000 12%, #000 88%, transparent); }
+}
