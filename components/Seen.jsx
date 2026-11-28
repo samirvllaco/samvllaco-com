@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { load, save, unlock, SECRETS } from "../lib/delight";
 import { WORK } from "../lib/work";
+import ReadLine from "./ReadLine";
 
 function useStored(key, fallback) {
   const [v, setV] = useState(fallback);
@@ -21,7 +22,6 @@ export function useSeen() {
 
 // On a case study: remember it was viewed and show reading progress.
 export function SeenMarker({ slug }) {
-  const [p, setP] = useState(0);
   useEffect(() => {
     const seen = load("seen", []);
     save("last", slug);
@@ -32,15 +32,8 @@ export function SeenMarker({ slug }) {
         setTimeout(() => unlock("explorer", "Explorer unlocked", "You viewed every project. Thank you for looking."), 900);
       }
     }
-    function onScroll() {
-      const max = document.documentElement.scrollHeight - window.innerHeight;
-      setP(max > 0 ? Math.min(1, window.scrollY / max) : 0);
-    }
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
   }, [slug]);
-  return <div className="dl-read" aria-hidden="true"><span style={{ transform: `scaleX(${p})` }} /></div>;
+  return <ReadLine />;
 }
 
 // Above the work grid: how many case studies this visitor has opened.

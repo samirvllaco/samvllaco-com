@@ -219,6 +219,10 @@ export default function AskSam() {
   }, [open]);
 
   if (!show || HIDE.some((h) => path.startsWith(h))) return null;
+  // In the middle by default; on a single case study or article it is a small key at the bottom left, beside the
+  // ebook tab, labelled AI, that opens out on hover (owner, 28 Nov 2026: "Ask Sam's AI should be in the middle; only on
+  // single work and single blog it can be on the left, name it AI, no black dot").
+  const side = /^\/(work|writing)\/[^/]+\/?$/.test(path);
   // After the first full answer, the panel offers the call: the one next step that converts.
   const answered = !busy && msgs.some((m) => m.role === "assistant" && m.content);
 
@@ -257,10 +261,10 @@ export default function AskSam() {
 
   return (
     <>
-      <button ref={pill} type="button" className={`ask-pill${open ? " is-open" : ""}`} aria-expanded={open} aria-controls="ask-panel" onClick={() => (open ? shut(false) : setOpen(true))}>
+      <button ref={pill} type="button" className={`ask-pill${side ? " is-side" : ""}${open ? " is-open" : ""}`} aria-expanded={open} aria-controls="ask-panel" aria-label={side ? "Ask Sam's AI" : undefined} onClick={() => (open ? shut(false) : setOpen(true))}>
         {/* Sam himself as the assistant's mark, with a small spark: "Sam's AI" (owner, 27 Nov 2026: "cute or helpful mascot logo of me") */}
         <span className="ask-me" aria-hidden="true"><img src="/sam-face-144.webp?v=1" width="28" height="28" alt="" decoding="async" /><svg viewBox="0 0 24 24" width="12" height="12" aria-hidden="true"><path d="M12 3l1.8 4.9L18.7 9.7 13.8 11.5 12 16.4 10.2 11.5 5.3 9.7 10.2 7.9zM18.5 14.5l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8z" /></svg></span>
-        <span className="ask-l">Ask Sam's AI</span>
+        {side ? <span className="ask-l"><span className="ask-l-s">AI</span><span className="ask-l-f">Ask Sam&apos;s AI</span></span> : "Ask Sam's AI"}
       </button>
       {open ? (
         <section ref={panel} id="ask-panel" className={`ask-panel${closing ? " is-closing" : ""}${busy ? " is-busy" : ""}`} role="dialog" aria-modal="false" aria-labelledby="ask-h" data-lenis-prevent="">

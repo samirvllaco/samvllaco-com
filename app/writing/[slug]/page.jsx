@@ -10,6 +10,7 @@ import ArticleBody from "../../../components/ArticleBody";
 import { POSTS } from "../../../lib/articles";
 import { TLDR } from "../../../lib/tldr";
 import ArticleTools from "../../../components/ArticleTools";
+import ReadLine from "../../../components/ReadLine";
 import { parseMd } from "../../../lib/md";
 import { SITE, ARTICLES, articleLink } from "../../../lib/site";
 import { share, PERSON_ID } from "../../../lib/seo";
@@ -50,6 +51,7 @@ export default async function Article({ params }) {
 
   return (
     <div className="wrap page case-wrap art-wrap">
+      <ReadLine />
       <article className="case art">
         <JsonLd data={{ "@context": "https://schema.org", "@type": "BlogPosting", headline: p.title, description: p.description, url: `${SITE.url}/writing/${slug}/`, mainEntityOfPage: `${SITE.url}/writing/${slug}/`, image: `${SITE.url}${p.og}`, datePublished: p.published, dateModified: p.modified, wordCount: words, articleSection: p.category, inLanguage: "en", author: { "@id": PERSON_ID }, publisher: { "@id": PERSON_ID } }} />
         <Crumbs items={[{ name: "Insights", href: "/writing/" }, { name: p.metaTitle, href: `/writing/${slug}/` }]} />

@@ -7772,15 +7772,27 @@ html.is-live .of-badge::after { animation-play-state: running; }
 :root:root .ask-think-size, :root:root .ask-think-t { font-size: .875rem; line-height: 1.5; }
 @media (prefers-reduced-motion: reduce) { :root:root .ask-grid i { animation: none; opacity: .8; } }
 
-/* Ask Sam's AI pill (owner, 28 Nov 2026: "place it beside the book button, icon only like that button, expandable, not in
-   the middle"): a square chrome key at the bottom left, right of the ebook tab; the words slide out on hover or focus. */
-:root:root:root .ask-pill { left: var(--ask-left, max(16px, env(safe-area-inset-left, 0px))); bottom: var(--ask-b, max(16px, env(safe-area-inset-bottom, 0px))); translate: none; gap: 0; min-width: 44px; min-height: 44px; padding: 0 8px; }
-:root:root:root .ask-pill:active { translate: 0 1px; }
-html:has(.bw .bw-tab) body:not(:has(.case-fab)) .ask-pill { --ask-left: calc(max(16px, env(safe-area-inset-left, 0px)) + 52px); }
-.ask-l { display: inline-block; max-width: 0; overflow: hidden; white-space: nowrap; opacity: 0; transition: max-width .35s var(--ease-out), opacity .25s var(--ease-out), margin .35s var(--ease-out); }
-:root:root .ask-pill:focus-visible .ask-l { max-width: 160px; margin-inline: 8px 4px; opacity: 1; }
-@media (hover: hover) and (pointer: fine) { :root:root .ask-pill:hover .ask-l { max-width: 160px; margin-inline: 8px 4px; opacity: 1; } }
-@media (prefers-reduced-motion: reduce) { .ask-l { transition: none; } }
+/* Ask Sam's AI on single case studies and articles (owner, 28 Nov 2026): a small chrome key at the bottom left, beside
+   the ebook tab, Sam's face and "AI", no spark dot; hover or focus opens it out to "Ask Sam's AI". Elsewhere it stays
+   the pill in the middle. */
+:root:root:root .ask-pill.is-side { left: var(--ask-left, max(16px, env(safe-area-inset-left, 0px))); bottom: max(16px, env(safe-area-inset-bottom, 0px)); translate: none; gap: 8px; min-height: 44px; padding: 0 12px 0 8px; }
+:root:root:root .ask-pill.is-side:active { translate: 0 1px; }
+html:has(.bw .bw-tab) body:not(:has(.case-fab)) .ask-pill.is-side { --ask-left: calc(max(16px, env(safe-area-inset-left, 0px)) + 52px); }
+:root:root .ask-pill .ask-me svg { display: none; }
+.ask-l { display: inline-grid; }
+.ask-l > * { grid-area: 1 / 1; white-space: nowrap; transition: opacity .25s var(--ease-out); }
+.ask-l-f { opacity: 0; max-width: 0; overflow: hidden; transition: max-width .35s var(--ease-out), opacity .25s var(--ease-out); }
+:root:root .ask-pill.is-side:focus-visible .ask-l-s { opacity: 0; }
+:root:root .ask-pill.is-side:focus-visible .ask-l-f { opacity: 1; max-width: 160px; }
+@media (hover: hover) and (pointer: fine) {
+  :root:root .ask-pill.is-side:hover .ask-l-s { opacity: 0; }
+  :root:root .ask-pill.is-side:hover .ask-l-f { opacity: 1; max-width: 160px; }
+}
+@media (prefers-reduced-motion: reduce) { .ask-l > *, .ask-l-f { transition: none; } }
+
+/* FAQ email pill: the mail icon leads, Copy sits at the end (owner, 28 Nov 2026: "put the email icon at the beginning") */
+:root:root:root .faq-card .faq-mail .hp-copy { justify-content: flex-start; }
+:root:root:root .faq-card .faq-mail .hp-copy > .cc { margin-left: auto; }
 
 /* Article byline (owner, 28 Nov 2026: "add my image + icons and improve hierarchy"): photo, name and role, then the date
    and reading time with small icons behind a hairline. */
@@ -7823,3 +7835,44 @@ html:has(.bw .bw-tab) body:not(:has(.case-fab)) .ask-pill { --ask-left: calc(max
 
 /* A top nav link stays lit on the pages under it (aria-current="true"), the same as on its own page */
 :root:root .head-nav > a[aria-current="true"] { color: #f5f5f7; }
+
+/* Reading line (owner, 28 Nov 2026): 4px, the rails' blue with a light end, eased by GSAP (ReadLine.jsx) */
+:root:root .dl-read { height: 4px; }
+:root:root .dl-read span { background: linear-gradient(90deg, #2f8fe0, #62c1fd 70%, #a9dbff); border-radius: 0 2px 2px 0; will-change: transform; }
+
+/* How I work emphasis and the lit button (owner, 28 Nov 2026; HowIWorkMotion.jsx). Wide, tall screens with motion. */
+@property --ring-a { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
+.hw-btnw { position: relative; display: inline-grid; --ring-o: 0; --ring-s: .9; }
+.hw-btnw::after { content: ""; position: absolute; inset: -5px; z-index: 2; border-radius: calc(var(--r-sm) + 5px); padding: 2px; pointer-events: none;
+  background: conic-gradient(from var(--ring-a), #62c1fd, #8f7dff 22%, #f08fd8 40%, #ffd27a 52%, #62c1fd 66%, rgba(98, 193, 253, .15) 82%, #62c1fd);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude;
+  opacity: var(--ring-o); scale: var(--ring-s); animation: hw-ring 2.4s linear infinite paused; }
+.hw-btnw::before { content: ""; position: absolute; inset: -10px; z-index: -1; border-radius: calc(var(--r-sm) + 10px); pointer-events: none; opacity: calc(var(--ring-o) * .7);
+  background: radial-gradient(60% 80% at 50% 50%, rgba(98, 193, 253, .35), rgba(143, 125, 255, .18) 55%, transparent 75%); filter: blur(10px); }
+.hw-go.is-lit .hw-btnw::after { animation-play-state: running; }
+@keyframes hw-ring { to { --ring-a: 360deg; } }
+@media (min-width: 1100px) and (min-height: 800px) and (prefers-reduced-motion: no-preference) {
+  :root:root:root .hw-stage { top: var(--hw-top, calc(50vh - 190px)); }
+  :root:root .hw .hw-steps li b { justify-self: start; width: fit-content; background: linear-gradient(rgba(98, 193, 253, .28), rgba(98, 193, 253, .28)) 0 82% / 0% 42% no-repeat; padding-inline: 4px; margin-inline: -4px; border-radius: 2px; }
+  :root:root .hw .hw-steps li > span:not(.hw-n) { color: var(--muted); transition: color .45s var(--ease-out); }
+  :root:root .hw .hw-steps li.is-cur > span:not(.hw-n) { color: var(--text); }
+  :root:root .hw .hw-steps li:not(.is-on) b { color: var(--muted); transition: color .45s var(--ease-out); }
+  :root:root .hw .hw-steps li.is-on b { color: var(--text); transition: color .45s var(--ease-out); }
+}
+@media (prefers-reduced-motion: reduce) { .hw-btnw::after, .hw-btnw::before { display: none; } }
+
+/* The ebook hero's book is the 3D book (owner, 28 Nov 2026): no scene, no shelf, no background, in the old cover's place */
+:root:root .eb .eb-hero .eb-stage .eb-b3 { --bd: 16px; position: absolute; left: 4%; bottom: 2%; z-index: 2; display: block; width: 40%; padding: 0; overflow: visible; background: none; border-radius: 0; }
+.b3-still .b3-scene { width: 100%; }
+.b3-still .b3-book { width: 100%; }
+:root:root:root .eb-cover .eb-b3 .b3-front { width: 100%; height: 100%; max-width: none; margin: 0; rotate: none; transform: translateZ(calc(var(--bd) / 2)); box-shadow: inset 4px 0 6px -4px rgba(255, 255, 255, .25), 0 30px 50px -24px rgba(0, 0, 0, .8); }
+.b3-still .b3-front { border-radius: 3px 6px 6px 3px; }
+.b3-still .b3-shadow { bottom: -14px; width: 100%; height: 24px; }
+@media (max-width: 720px) { :root:root .eb .eb-hero .eb-stage .eb-b3 { --bd: 10px; } }
+
+/* Short footer: the top line and the bottom line meet with one hairline */
+.fo-top + .fo-bottom { border-top: 0; }
+
+/* Contact: once a message is sent, the hidden calendar stops holding the height (owner, 28 Nov 2026: "remove all this
+   white space after the success message") */
+.cs.is-sent .cs-pane:not(.is-on) { display: none; }

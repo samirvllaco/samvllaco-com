@@ -31,7 +31,7 @@ export default function ContactSwitch({ call }) {
   }
   const tabs = [["call", "Book a call"], ["message", "Send message"]];
   return (
-    <div className="cs">
+    <div className={`cs${sentTo && tab === "message" ? " is-sent" : ""}`}>
       <div className="cs-switch" role="tablist" aria-label="How to reach me">
         {tabs.map(([id, label]) => (
           <button key={id} type="button" role="tab" id={`cs-tab-${id}`} aria-controls={`cs-panel-${id}`} aria-selected={tab === id} tabIndex={tab === id ? 0 : -1}

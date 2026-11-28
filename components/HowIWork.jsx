@@ -1,4 +1,5 @@
 import CallIcon from "./CallIcon";
+import HowIWorkMotion from "./HowIWorkMotion";
 
 // Home: what Sam does for product teams, said plainly (owner, 25 Nov 2026: audits, UI/UX sprints, fixing gaps,
 // improving the product, redesigning from zero or picking up an existing app; "design agency, me style").
@@ -43,7 +44,7 @@ export default function HowIWork() {
         </ol>
 
         <div className="hw-go">
-          <a className="hero2-btn hero2-btn-primary" href="/book/">Start a project<CallIcon /></a>
+          <span className="hw-btnw"><a className="hero2-btn hero2-btn-primary" href="/book/">Start a project<CallIcon /></a></span>
           <p>You get a plan and a fixed price before any work starts.</p>
         </div>
       </div>
@@ -63,6 +64,7 @@ export default function HowIWork() {
           ))}
         </ul>
       </div>
+      <HowIWorkMotion />
     </section>
   );
 }
