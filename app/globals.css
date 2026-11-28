@@ -7619,13 +7619,6 @@ html.js .site-footer.fp-on > * { translate: 0 var(--fp, 0px); }
 .wf-c.is-0 { opacity: .5; }
 .device-switch .wf-c { align-self: flex-start; margin: 8px 0 0 -4px; line-height: 1; }
 
-/* Prizren behind the About portrait on hover (owner, 28 Nov 2026). The city eases in (fade, settle from a slight zoom
-   and blur) behind a cut-out of Sam that sits exactly over the photo; both load on the first hover. */
-.ap-pic > img.ap-city, .ap-pic > img.ap-cut { position: absolute; inset: 0; pointer-events: none; opacity: 0; }
-.ap-pic > img.ap-city { transform: scale(1.08); filter: blur(6px) brightness(.72); transition: opacity .6s var(--ease-out), transform .9s var(--ease-out), filter .6s var(--ease-out); }
-.ap.city-ready .ap-pic > img.ap-cut { opacity: 1; }
-.ap.city-ready.is-city .ap-pic > img.ap-city { opacity: 1; transform: none; filter: blur(0) brightness(.72); }
-@media (prefers-reduced-motion: reduce) { .ap-pic > img.ap-city { transition: opacity .3s linear; transform: none; } }
 
 /* Book a call / Send message switch on /book/ (owner, 28 Nov 2026). One segmented control; the picked side turns white.
    The message form reuses the free audit form styles. */
@@ -7676,7 +7669,7 @@ html.js .site-footer.fp-on > * { translate: 0 var(--fp, 0px); }
 .ap-layers { position: absolute; inset: 0; z-index: 1; pointer-events: none; transition: opacity .25s var(--ease-out); }
 .ap-l { --k: clamp(0, (var(--lp, 0) - var(--s)) * 8, 1); position: absolute; box-shadow: inset 0 0 0 1.5px rgba(98, 193, 253, .7); border-radius: 2px; clip-path: inset(0 calc((1 - var(--k)) * 100%) 0 0); }
 .ap-l b { position: absolute; left: 4px; top: 4px; padding: 2px 6px; border-radius: var(--r-sm); font-size: 11px; font-weight: 600; line-height: 14px; color: #fff; background: #2f6bff; opacity: var(--k); }
-.ap:hover .ap-layers, .ap.is-city .ap-layers { opacity: 0; }
+.ap:hover .ap-layers { opacity: 0; }
 /* 3 The year roll under the photo */
 .ab-year { display: grid; gap: 4px; margin: 20px 0 0; }
 .ab-year-n { font-size: clamp(2.5rem, 4vw, 3.5rem); font-weight: 500; line-height: 1; letter-spacing: -.04em; color: var(--text); font-variant-numeric: tabular-nums; }

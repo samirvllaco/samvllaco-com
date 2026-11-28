@@ -14,7 +14,6 @@ const SRC = 1254;
 const LAYERS = [
   ["eyes", 36, 34, 64, 43], ["nose", 45, 41, 56, 51], ["smile", 40, 53, 60, 61], ["ear", 26.5, 35, 33, 50], ["ear", 66.5, 35, 71.5, 50],
   ["hair", 28, 5, 72, 26], ["beard", 32, 49, 68, 74], ["tee", 0, 69, 100, 100], ["head", 26, 4, 73, 74],
-  ["bg · Prizren, Kosovo", 0, 0, 100, 69],
 ];
 // Drawn in one by one as you scroll the story (owner, 28 Nov 2026, About GSAP idea 2), in this order.
 const DRAW = ["head", "hair", "eyes", "nose", "smile", "beard", "ear", "tee"];
@@ -30,7 +29,7 @@ export default function AboutPortrait() {
     if (!el || !c || !im) return;
     const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
     let W = 0, H = 0, dpr = 1, ascii = null, spec = null, lens = null, raf = 0;
-    let mx = -9999, my = -9999, r = 0, want = 0, scan = -1, scanT = 0;
+    let mx = -9999, my = -9999, r = 0, want = 0, scan = -1, scanT = 0, cx = -1, cy = -1, moving = false;
 
     function build() {
       const rc = el.getBoundingClientRect();
@@ -125,28 +124,21 @@ export default function AboutPortrait() {
           pill(g, x0, Math.max(4, y0 - 22), L[0], "#2f6bff", "#ffffff", false);
         }
         disc(g, mx, my, r);
-        const ix = Math.round(mx / W * SRC), iy = Math.round(my / H * SRC);
-        pill(g, mx + r * 0.72, my + r * 0.72, `X ${ix}  Y ${iy}`, "rgba(17, 17, 18, .88)", "#f5f5f7", false);
+        // The coordinates count to the pointer instead of jumping (owner, 28 Nov 2026: "make numbers animated on hover").
+        const ix = mx / W * SRC, iy = my / H * SRC;
+        if (cx < 0) { cx = ix; cy = iy; }
+        cx += (ix - cx) * (reduce ? 1 : 0.18); cy += (iy - cy) * (reduce ? 1 : 0.18);
+        pill(g, mx + r * 0.72, my + r * 0.72, `X ${String(Math.round(cx)).padStart(4, "\u2007")}  Y ${String(Math.round(cy)).padStart(4, "\u2007")}`, "rgba(17, 17, 18, .88)", "#f5f5f7", false);
+        if (Math.abs(ix - cx) > 0.5 || Math.abs(iy - cy) > 0.5) moving = true;
       }
-      if (Math.abs(want - r) > 0.5) raf = requestAnimationFrame(draw);
+      if (Math.abs(want - r) > 0.5 || moving) raf = requestAnimationFrame(draw);
+      moving = false;
     }
-    // Prizren behind him on hover (owner, 28 Nov 2026: "on hover also add Prizren city bg"): the city and a cut-out of
-    // him load on the first hover, then the city eases in behind the cut-out. Phones see it during the scan.
-    let cityAsked = false, cityTimer = 0;
-    const city = (on) => {
-      if (on && !cityAsked) {
-        cityAsked = true;
-        const imgs = [...el.querySelectorAll("img[data-src]")];
-        Promise.all(imgs.map((x) => new Promise((res) => { x.onload = res; x.onerror = res; x.srcset = x.dataset.srcset; x.src = x.dataset.src; })))
-          .then(() => el.classList.add("city-ready"));
-      }
-      el.classList.toggle("is-city", on);
-    };
     const ready = () => { if (!ascii && im.complete && im.naturalWidth) build(); return Boolean(ascii); };
     const kick = () => { if (!raf) raf = requestAnimationFrame(draw); };
-    const move = (e) => { if (e.pointerType === "touch") return; city(true); if (!ready()) return; const rc = el.getBoundingClientRect(); mx = e.clientX - rc.left; my = e.clientY - rc.top; want = Math.min(104, W * 0.24); kick(); };
-    const leave = () => { want = 0; kick(); city(false); };
-    const runScan = () => { if (reduce || !ready()) return; scan = 0; scanT = performance.now(); kick(); city(true); clearTimeout(cityTimer); cityTimer = setTimeout(() => city(false), 3200); };
+    const move = (e) => { if (e.pointerType === "touch" || !ready()) return; const rc = el.getBoundingClientRect(); mx = e.clientX - rc.left; my = e.clientY - rc.top; want = Math.min(104, W * 0.24); kick(); };
+    const leave = () => { want = 0; cx = -1; cy = -1; kick(); };
+    const runScan = () => { if (reduce || !ready()) return; scan = 0; scanT = performance.now(); kick(); };
     const onResize = () => { if (ascii) { ascii = null; ready(); kick(); } };
     el.addEventListener("pointermove", move); el.addEventListener("pointerleave", leave);
     el.addEventListener("click", (e) => { if (e.pointerType !== "mouse") runScan(); });
@@ -156,18 +148,13 @@ export default function AboutPortrait() {
       io = new IntersectionObserver((en) => { if (en[0].isIntersecting) { io.disconnect(); setTimeout(runScan, 300); } }, { threshold: 0.6 });
       io.observe(el);
     }
-    return () => { el.removeEventListener("pointermove", move); el.removeEventListener("pointerleave", leave); removeEventListener("resize", onResize); if (io) io.disconnect(); cancelAnimationFrame(raf); clearTimeout(cityTimer); };
+    return () => { el.removeEventListener("pointermove", move); el.removeEventListener("pointerleave", leave); removeEventListener("resize", onResize); if (io) io.disconnect(); cancelAnimationFrame(raf); };
   }, []);
   return (
     <figure className="ap" ref={box}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <span className="ap-pic">
       <img ref={img} src="/me/sam-front-840.webp?v=1" srcSet="/me/sam-front-480.webp?v=1 480w, /me/sam-front-840.webp?v=1 840w, /me/sam-front-1254.webp?v=1 1254w" sizes="(max-width: 860px) 100vw, 440px" width="1254" height="1254" alt="Sam Vllaco, front facing, in a black t-shirt" fetchPriority="high" decoding="async" />
-      {/* Loaded on the first hover or scan; until then these hold no image. */}
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img className="ap-city" data-src="/me/prizren-840.webp?v=1" data-srcset="/me/prizren-480.webp?v=1 480w, /me/prizren-840.webp?v=1 840w" sizes="(max-width: 860px) 100vw, 440px" width="840" height="840" alt="" aria-hidden="true" />
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img className="ap-cut" data-src="/me/sam-cut-840.webp?v=1" data-srcset="/me/sam-cut-480.webp?v=1 480w, /me/sam-cut-840.webp?v=1 840w" sizes="(max-width: 860px) 100vw, 440px" width="840" height="840" alt="" aria-hidden="true" />
       </span>
       <span className="ap-layers" aria-hidden="true">
         {LAYERS.filter((L) => DRAW.includes(L[0])).map((L, i) => {
