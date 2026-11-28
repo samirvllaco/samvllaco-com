@@ -96,14 +96,12 @@ export default function CaseStudy({ params }) {
         ...st.chapters.map((c) => ({ id: c.id, label: c.title })),
         { id: "motion", label: "Motion" },
         { id: "system", label: "Visual system" },
-        ...(others.length ? [{ id: "more", label: "More work" }] : []),
       ]
     : [
         { id: "intro", label: "Intro" },
         { id: "overview", label: "Overview" },
         ...(w.decisions && w.decisions.length ? [{ id: "decisions", label: "Key decisions" }] : []),
         ...(w.screens && w.screens.length ? [{ id: "screens", label: "Screens" }] : []),
-        ...(others.length ? [{ id: "more", label: "More work" }] : []),
       ];
   if (w.fullVideo) preload(w.big, { as: "image", fetchPriority: "high" });
   const hero = (

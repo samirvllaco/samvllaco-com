@@ -13,7 +13,7 @@ export default function ReadLine() {
     if (!el) return;
     let tw = null, gone = false, raf = 0;
     const plain = () => {
-      const update = () => { raf = 0; const max = document.documentElement.scrollHeight - innerHeight; el.style.transform = `scaleX(${max > 0 ? Math.min(1, scrollY / max).toFixed(4) : 0})`; };
+      const update = () => { raf = 0; const end = document.querySelector(".end-mark"); const max = end ? end.getBoundingClientRect().bottom + scrollY - innerHeight : document.documentElement.scrollHeight - innerHeight; el.style.transform = `scaleX(${max > 0 ? Math.min(1, scrollY / max).toFixed(4) : 0})`; };
       const on = () => { if (!raf) raf = requestAnimationFrame(update); };
       update(); addEventListener("scroll", on, { passive: true }); addEventListener("resize", on);
       return () => { removeEventListener("scroll", on); removeEventListener("resize", on); cancelAnimationFrame(raf); };
@@ -22,7 +22,10 @@ export default function ReadLine() {
     loadPlugins("ScrollTrigger").then((g) => {
       if (gone) return;
       if (!g) { off = plain(); return; }
-      tw = g.fromTo(el, { scaleX: 0 }, { scaleX: 1, ease: "none", scrollTrigger: { start: 0, end: "max", scrub: reduced() ? true : 0.5 } });
+      // The line is full when the article or case study ends (its end card), not at the foot of the page (owner, 28 Nov
+      // 2026: "don't include More articles in the table of contents and in the animation on top").
+      const end = document.querySelector(".end-mark");
+      tw = g.fromTo(el, { scaleX: 0 }, { scaleX: 1, ease: "none", scrollTrigger: end ? { start: 0, endTrigger: end, end: "bottom bottom", scrub: reduced() ? true : 0.5 } : { start: 0, end: "max", scrub: reduced() ? true : 0.5 } });
     });
     return () => { gone = true; if (tw) { tw.scrollTrigger && tw.scrollTrigger.kill(); tw.kill(); } if (off) off(); };
   }, []);

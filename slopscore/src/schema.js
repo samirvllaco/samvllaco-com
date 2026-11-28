@@ -20,4 +20,5 @@ export const SCHEMA = [
   "CREATE INDEX IF NOT EXISTS scan_errors_created ON scan_errors (created_at);",
   "CREATE TABLE IF NOT EXISTS audits (id TEXT PRIMARY KEY, name TEXT, email TEXT NOT NULL, url TEXT NOT NULL, focus TEXT, details TEXT, mailed INTEGER NOT NULL DEFAULT 0, created_at TEXT NOT NULL);",
   "CREATE TABLE IF NOT EXISTS messages (id TEXT PRIMARY KEY, name TEXT, email TEXT NOT NULL, company TEXT, needs TEXT, budget TEXT, timeline TEXT, message TEXT NOT NULL, mailed INTEGER NOT NULL DEFAULT 0, created_at TEXT NOT NULL);",
+  "CREATE TABLE IF NOT EXISTS subscribers (id TEXT PRIMARY KEY, email TEXT NOT NULL UNIQUE, source TEXT, mailed INTEGER NOT NULL DEFAULT 0, created_at TEXT NOT NULL);",
 ].join("\n");

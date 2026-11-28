@@ -565,3 +565,56 @@ export async function handleMessage(ctx) {
     return json({ error: "server" }, 422);
   }
 }
+
+// Newsletter sign-up at the end of every article (owner, 28 Nov 2026: "add thanks for reading, subscribe to newsletter,
+// remove go to top"). Kept in D1 (one row per email) when bound, and Sam gets an email for each new subscriber. A hidden
+// field and 5 tries per visitor a day stop spam. List: GET /api/subscribe/admin/subscribers.csv with the admin token.
+export async function handleSubscribe(ctx) {
+  const { request, env } = ctx;
+  const path = new URL(request.url).pathname.replace(/^\/api\/subscribe\/?/, "").replace(/\/$/, "");
+  try {
+    if (path === "admin/subscribers.csv") {
+      if (!admin(request, env)) return fail("forbidden", 403);
+      if (!env.DB) return fail("no_db", 404);
+      await ensureSchema(env);
+      const { results } = await env.DB.prepare("SELECT * FROM subscribers ORDER BY created_at DESC LIMIT 5000").all();
+      const rows = ["created_at,email,source,mailed", ...results.map((r) => [r.created_at, r.email, r.source, r.mailed].map((v) => csv(v == null ? "" : v)).join(","))];
+      return new Response(rows.join("\n"), { headers: { "content-type": "text/csv; charset=utf-8", "cache-control": "no-store" } });
+    }
+    if (path !== "" || request.method !== "POST") return fail("not_found", 404);
+    const b = await request.json().catch(() => ({}));
+    if (b.website2) return json({ ok: true });
+    const email = clip(b.email, 200).toLowerCase(), source = clip(b.source, 200);
+    if (!EMAIL.test(email)) return fail("email");
+    if (!env.DB && !mailReady(env)) return fail("unavailable", 422);
+    const ip = await sha(`${ipOf(request)}:${new Date().toISOString().slice(0, 10)}`);
+    if (env.CACHE) {
+      const k = `sub:${ip}`, n = Number((await env.CACHE.get(k)) || 0);
+      if (n >= 5) return fail("limit", 429);
+      await env.CACHE.put(k, String(n + 1), { expirationTtl: 90000 });
+    }
+    const id = newId(), at = new Date().toISOString();
+    let fresh = true;
+    if (env.DB) {
+      await ensureSchema(env);
+      const r = await env.DB.prepare("INSERT OR IGNORE INTO subscribers (id, email, source, created_at) VALUES (?, ?, ?, ?)").bind(id, email, source, at).run();
+      fresh = Boolean(r && r.meta && r.meta.changes);
+    }
+    if (!fresh) return json({ ok: true, already: true });
+    const e = (v) => String(v).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
+    let mailed = false;
+    try {
+      const r = await sendToSam(env, `New newsletter subscriber: ${email}`, [
+        `<b>${e(email)}</b> subscribed to the newsletter on samvllaco.com.`,
+        source ? `From: ${e(source)}` : "",
+      ].filter(Boolean), email);
+      mailed = Boolean(r && r.ok);
+    } catch (err) { console.error(JSON.stringify({ subscribe_mail: String(err.message || err).slice(0, 160) })); }
+    if (mailed && env.DB) await env.DB.prepare("UPDATE subscribers SET mailed = 1 WHERE id = ?").bind(id).run();
+    if (!mailed && !env.DB) return fail("unavailable", 422);
+    return json({ ok: true });
+  } catch (err) {
+    console.error(JSON.stringify({ subscribe: String(err.message || err).slice(0, 200) }));
+    return json({ error: "server" }, 422);
+  }
+}

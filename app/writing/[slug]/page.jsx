@@ -44,7 +44,7 @@ export default async function Article({ params }) {
   const lede = blocks[0].t === "p" ? blocks[0].text.replace(/^_|_$/g, "") : p.description;
   const body = blocks[0].t === "p" ? blocks.slice(1) : blocks;
   const words = body.reduce((n, b) => n + (b.text || (b.items || []).join(" ")).split(/\s+/).length, 0);
-  const toc = [{ id: "intro", label: "Intro" }, ...body.filter((b) => b.t === "h2").map((b) => ({ id: b.id, label: b.text.replace(/\*\*/g, "") })), { id: "more", label: "More articles" }];
+  const toc = [{ id: "intro", label: "Intro" }, ...body.filter((b) => b.t === "h2").map((b) => ({ id: b.id, label: b.text.replace(/\*\*/g, "") }))];
   // Related articles (owner, 28 Nov 2026: "add other related articles"): the same category first, then the newest.
   const others = ARTICLES.filter((a) => a.slug && a.slug !== slug);
   const more = [...others.filter((a) => a.category === p.category), ...others.filter((a) => a.category !== p.category)].slice(0, 3);
