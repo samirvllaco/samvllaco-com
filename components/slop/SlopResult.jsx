@@ -76,6 +76,8 @@ export default function SlopResult() {
     if (!i) { setState("missing"); return; }
     try { const c = sessionStorage.getItem(`ss:${i}`); if (c) { setR(JSON.parse(c)); setState("ok"); } } catch { /* optional */ }
     try { setDone(JSON.parse(localStorage.getItem(`ss:done:${i}`) || "{}")); setShot(sessionStorage.getItem(`ss:shot:${i}`) || ""); } catch { /* optional */ }
+    // The email given before the scan already has the score on its way: show that instead of asking again.
+    try { const m = sessionStorage.getItem(`ss:mail:${i}`); if (m) setMail((x) => ({ ...x, email: m, sent: true })); } catch { /* optional */ }
     fetch("/api/slop-score/status").then((x) => x.json()).then(setStatus).catch(() => {});
     const load = () => fetch(`/api/slop-score/report/${i}`).then((x) => (x.ok ? x.json() : Promise.reject(x.status)));
     load().then((j) => { setR(j); setState("ok"); if (new URLSearchParams(location.search).get("paid") && !j.unlocked) poll(); })

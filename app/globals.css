@@ -7909,3 +7909,29 @@ html:has(.bw .bw-tab) body:not(:has(.case-fab)) .ask-pill.is-side { --ask-left: 
   }
   html.is-scrolled .head-nav > a:not([aria-current]), html.is-scrolled .head-nav .mega-btn:not(.is-current) { color: #d1d1d6; }
 }
+
+/* Email pills: the Copy chip keeps the same inset on the right as the icon on the left (owner, 28 Nov 2026: "add
+   spacing on the right also") */
+:root:root:root .hp-copy > .cc { margin-right: 0; }
+
+/* Slop Score as steps (owner, 28 Nov 2026): 1 the site, 2 the email and what you get, 3 the live scan; GSAP moves
+   between them (SlopScan.jsx). */
+.sx-steps-box { overflow: hidden; }
+.sx-step { gap: 12px; }
+.sx-dots { display: flex; gap: 6px; margin: 0 0 4px; }
+.sx-dots i { width: 24px; height: 4px; border-radius: 2px; background: rgba(255, 255, 255, .14); }
+.sx-dots i.is-on { background: #62c1fd; }
+.sx-for { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 12px; min-height: 44px; padding: 0 8px 0 16px; border-radius: var(--r-inner); background: var(--card); font-size: .9375rem; color: var(--muted); }
+.sx-for b { min-width: 0; overflow-wrap: anywhere; color: var(--text); font-weight: 600; }
+:root:root .sx-back { margin-left: auto; min-height: 36px; padding: 0 12px; border: 0; border-radius: var(--r-sm); font: inherit; font-size: .875rem; font-weight: 600; color: var(--text); background: rgba(255, 255, 255, .08); cursor: pointer; }
+:root:root .sx-back:hover { background: rgba(255, 255, 255, .14); }
+.sx-get { display: grid; gap: 12px; margin-top: 4px; padding: 20px; border-radius: var(--r-card); background: var(--card); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .08); }
+.sx-get-h { margin: 0; font-size: .75rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.sx-get-free { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; font-size: .9375rem; line-height: 1.5; color: var(--text-2, #d4d4d8); }
+.sx-get-free li { display: grid; grid-template-columns: 56px minmax(0, 1fr); gap: 12px; align-items: baseline; }
+.sx-get-free b { justify-self: start; padding: 0 8px; border-radius: var(--r-sm); font-size: .75rem; line-height: 22px; font-weight: 600; color: #0b0b0c; background: #34c759; }
+.sx-get-free li:last-child b { color: #f5f5f7; background: rgba(255, 255, 255, .12); }
+.sx-get-cats { display: flex; flex-wrap: wrap; gap: 8px; margin: 4px 0 0; padding: 0; list-style: none; }
+.sx-get-cats li { padding: 4px 10px; border-radius: var(--r-sm); font-size: .8125rem; color: var(--text); background: rgba(255, 255, 255, .06); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .08); }
+.sx-go { display: grid; justify-items: start; gap: 8px; margin-top: 4px; }
+@media (max-width: 620px) { .sx-go > .hero2-btn { width: 100%; justify-content: center; } }

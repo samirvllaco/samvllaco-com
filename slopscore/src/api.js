@@ -97,15 +97,18 @@ async function scan(ctx) {
   const cached = await env.CACHE.get(`u2:${hash}`);
   if (cached) {
     const r = await env.DB.prepare("SELECT * FROM reports WHERE id = ?").bind(cached).first();
-    if (r) return json(view(r));
+    if (r) { if (EMAIL.test(String(body.email || ""))) await saveLead(env, ctx, body.email, body.consent, r.id, u.url); return json(view(r)); }
   }
   const lim = owner ? null : await limited(env, ip);
   if (lim) return fail(lim, 429);
   if (!(await take(env, EST.scan))) return fail("cap", 429); // free credit guard
   await bump(env, `sc:t:${ip}:${new Date().toISOString().slice(0, 10)}`, 90000);
   const streaming = body.stream === true;
+  const withMail = EMAIL.test(String(body.email || ""));
+  const keep = async (out) => { if (withMail && out && out.id) await saveLead(env, ctx, body.email, body.consent, out.id, u.url).catch(() => {}); };
   if (!streaming) {
     const out = await run(env, u, hash, ip, owner, () => {});
+    await keep(out);
     return out.error ? json(out, 422) : json(out);
   }
   const { readable, writable } = new TransformStream();
@@ -114,7 +117,8 @@ async function scan(ctx) {
   const job = (async () => {
     try {
       const out = await run(env, u, hash, ip, owner, send);
-      await send(out.error ? { t: "error", ...out } : { t: "done", report: out });
+      await keep(out);
+      await send(out.error ? { t: "error", ...out } : { t: "done", report: out, mailed: withMail });
     } catch (e) {
       console.error(JSON.stringify({ path: "scan", stage, err: String(e && e.message).slice(0, 120) }));
       await logFail(env, stage, "server", e && e.message, u.url);
@@ -179,10 +183,18 @@ async function lead(ctx) {
   const ip = ipOf(request);
   if (env.TURNSTILE_SECRET_KEY && !admin(request, env)) { const bad = await turnstile(env, b.token, ip); if (bad) return tsFail(bad); }
   if ((await bump(env, `ld:${ip}:${new Date().toISOString().slice(0, 13)}`, 3700)) > 10) return fail("rate_hour", 429);
-  const email = String(b.email).toLowerCase().slice(0, 320), consent = b.consent ? 1 : 0;
-  const report = /^[A-Za-z0-9]{10}$/.test(b.id || "") ? await env.DB.prepare("SELECT * FROM reports WHERE id = ?").bind(b.id).first() : null;
+  const out = await saveLead(env, ctx, b.email, b.consent, b.id, b.url);
+  if (!out.report) return json({ ok: true });
+  return json({ ok: true, emailing: mailReady(env) });
+}
+
+// Keeps a lead and, with a report, starts its emails. Used by the email box on a report and by a scan that came with an
+// email (owner, 28 Nov 2026: the scan asks for the email first, so the score goes out the moment it is ready).
+async function saveLead(env, ctx, rawEmail, rawConsent, id, url) {
+  const email = String(rawEmail).toLowerCase().slice(0, 320), consent = rawConsent ? 1 : 0;
+  const report = /^[A-Za-z0-9]{10}$/.test(id || "") ? await env.DB.prepare("SELECT * FROM reports WHERE id = ?").bind(id).first() : null;
   const writes = [env.DB.prepare("INSERT INTO leads (id, email, report_id, url, consent_marketing, created_at) VALUES (?, ?, ?, ?, ?, ?)")
-    .bind(newId(), email, report ? report.id : null, String((report && report.url) || b.url || "").slice(0, 2048), consent, new Date().toISOString())];
+    .bind(newId(), email, report ? report.id : null, String((report && report.url) || url || "").slice(0, 2048), consent, new Date().toISOString())];
   if (report) {
     const now = Date.now(), domain = new URL(report.url).hostname.replace(/^www\./, "");
     writes.push(
@@ -192,8 +204,7 @@ async function lead(ctx) {
   }
   await env.DB.batch(writes);
   if (report && ctx.waitUntil) ctx.waitUntil(runDrip(env).catch(() => {}));
-  if (!report) return json({ ok: true });
-  return json({ ok: true, emailing: mailReady(env) });
+  return { report };
 }
 
 // Stripe: a paid $5 Payment Link session unlocks its report and emails the full report to the buyer.

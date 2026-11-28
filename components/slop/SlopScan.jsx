@@ -2,6 +2,10 @@
 import { useEffect, useRef, useState } from "react";
 import { useTurnstile } from "./useTurnstile";
 import { LEADS_ENDPOINT } from "../../lib/site";
+import { CATS } from "../../slopscore/config";
+import { usd, SLOP_REPORT_PRICE } from "../../lib/plans";
+import { loadGsap } from "../../lib/gsapLoad";
+import CallIcon from "../CallIcon";
 
 const STEPS = ["Opening your site", "Measuring spacing, type and color", "Running accessibility checks", "Looking at it like a designer", "Writing your fixes"];
 // Rules from my book, shown one at a time while the scan runs.
@@ -30,6 +34,7 @@ export const ERRORS = {
   busy: "All checkers are busy right now. Try again in a minute.",
   turnstile: "Please finish the quick check above the button, then try again.",
   review: "The design review didn't finish. Try again in a minute.",
+  email: "That email doesn't look right. Check it, or leave it empty.",
   server: "Something went wrong on my side. Try again in a minute.",
 };
 
@@ -84,7 +89,39 @@ export default function SlopScan() {
   const setErr = setCode;
   const [wait, setWait] = useState({ email: "", sent: false, sending: false });
   const timers = useRef([]);
-  const ts = useTurnstile(status?.ready ? status.siteKey : null);
+  // One step at a time (owner, 28 Nov 2026: "simple and user focused, steps with GSAP so it feels smooth, next by next:
+  // collect their email, show what they get and the fixes they will get"): 1 your site, 2 your email and what you get,
+  // 3 the live scan. The email is optional; given, the score goes to it the moment it is ready.
+  const [stage, setStage] = useState("site");
+  const [mail, setMail] = useState({ email: "", consent: false });
+  const box = useRef(null);
+  const ts = useTurnstile(status?.ready && stage === "mail" ? status.siteKey : null);
+  // GSAP between steps: the box eases to the new height while the new step slides in and the old one is gone.
+  const goStage = (next) => {
+    const el = box.current;
+    if (!el || window.matchMedia("(prefers-reduced-motion: reduce)").matches) { setStage(next); return; }
+    const h0 = el.offsetHeight;
+    loadGsap().then((g) => {
+      if (!g) { setStage(next); return; }
+      const back = next === "site";
+      g.to(el.firstElementChild, { opacity: 0, x: back ? 24 : -24, duration: 0.22, ease: "power2.in", onComplete: () => {
+        setStage(next);
+        requestAnimationFrame(() => {
+          const h1 = el.scrollHeight;
+          g.fromTo(el, { height: h0 }, { height: h1, duration: 0.45, ease: "expo.out", clearProps: "height" });
+          g.fromTo(el.firstElementChild, { opacity: 0, x: back ? -24 : 24 }, { opacity: 1, x: 0, duration: 0.5, ease: "expo.out" });
+          g.fromTo(el.querySelectorAll(".sx-anim"), { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out", stagger: 0.05, delay: 0.08 });
+          el.querySelector("input")?.focus({ preventScroll: true });
+        });
+      } });
+    });
+  };
+  const toMail = (e) => {
+    e.preventDefault();
+    setErr("");
+    if (!url.trim() || !/\./.test(url)) { setErr("invalid"); return; }
+    goStage("mail");
+  };
 
   useEffect(() => {
     try { const q = new URLSearchParams(location.search).get("url"); if (q) setUrl(q.slice(0, 300)); } catch { /* optional */ }
@@ -103,19 +140,20 @@ export default function SlopScan() {
   const scan = async (e) => {
     e.preventDefault();
     setErr("");
-    if (!url.trim()) { setErr("invalid"); return; }
+    if (!url.trim()) { setErr("invalid"); goStage("site"); return; }
+    if (mail.email.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(mail.email.trim())) { setErr("email"); return; }
     if (!ts.token && !owner) { setErr("turnstile"); return; }
     setBusy(true); setStep(0); setShot(""); setSecs(0);
     const t0 = Date.now();
     timers.current = [setInterval(() => setSecs(Math.round((Date.now() - t0) / 1000)), 1000)];
     const done = (j) => {
-      try { sessionStorage.setItem(`ss:${j.id}`, JSON.stringify(j)); } catch { /* optional */ }
+      try { sessionStorage.setItem(`ss:${j.id}`, JSON.stringify(j)); if (mail.email.trim()) sessionStorage.setItem(`ss:mail:${j.id}`, mail.email.trim()); } catch { /* optional */ }
       location.assign(`/slop-score/r/${j.id}`);
     };
     let j = {}, img = "";
     try {
       let auth = {}; try { const o = localStorage.getItem("ss:owner"); if (o) auth = { authorization: `Bearer ${o}` }; } catch { /* none */ }
-      const r = await fetch("/api/slop-score/scan", { method: "POST", headers: { "content-type": "application/json", ...auth }, body: JSON.stringify({ url, token: ts.token, stream: true }) });
+      const r = await fetch("/api/slop-score/scan", { method: "POST", headers: { "content-type": "application/json", ...auth }, body: JSON.stringify({ url, token: ts.token, stream: true, email: mail.email.trim() || undefined, consent: mail.consent }) });
       if ((r.headers.get("content-type") || "").includes("ndjson") && r.body) {
         // Live scan: the server sends the rendered page first, then the steps, then the report.
         const rd = r.body.getReader(), dec = new TextDecoder();
@@ -176,18 +214,45 @@ export default function SlopScan() {
           <p className="sx-note" aria-live="polite">{wait.sent ? "Got it. I'll send it myself as soon as the tool is live." : "No spam. One email with your score."}</p>
         </form>
       ) : (
-        <form className="sx-form" onSubmit={scan} noValidate>
-          <label className="sx-label" htmlFor="sx-url">Your website</label>
-          <div className="sx-row">
-            <input id="sx-url" className="sx-input" type="text" inputMode="url" autoComplete="url" placeholder="yoursite.com" value={url} onChange={(e) => setUrl(e.target.value)} aria-describedby="sx-err sx-hint" aria-invalid={["invalid", "too_long", "blocked"].includes(code) ? "true" : undefined} />
-            <button className="hero2-btn hero2-btn-primary" type="submit" disabled={!status}>Check my site</button>
-          </div>
-          <div className="sx-ts" ref={ts.box} />
-          <p id="sx-err" className="sx-err" role="alert">{err}</p>
-          <p id="sx-hint" className="sx-note">Lower is better. 0 is hand-crafted, 100 is pure AI slop.</p>
-          <p className="sx-note">I store the URL, the score and the report. Not your page content, not screenshots.</p>
-          {owner ? <p className="sx-note" role="status">Owner mode: no captcha, no daily limit. Turn off with #owner-off.</p> : null}
-        </form>
+        <div className="sx-steps-box" ref={box}>
+          {stage === "site" ? (
+            <form className="sx-form sx-step" onSubmit={toMail} noValidate>
+              <p className="sx-dots sx-anim" aria-hidden="true"><i className="is-on" /><i /><i /></p>
+              <label className="sx-label sx-anim" htmlFor="sx-url">Step 1 of 2: your website</label>
+              <div className="sx-row sx-anim">
+                <input id="sx-url" className="sx-input" type="text" inputMode="url" autoComplete="url" placeholder="yoursite.com" value={url} onChange={(e) => setUrl(e.target.value)} aria-describedby="sx-err sx-hint" aria-invalid={code === "invalid" ? true : undefined} />
+                <button className="hero2-btn hero2-btn-primary" type="submit" disabled={!status}>Next<CallIcon /></button>
+              </div>
+              <p id="sx-err" className="sx-err" role="alert">{err}</p>
+              <p id="sx-hint" className="sx-note sx-anim">Lower is better. 0 is hand-crafted, 100 is pure AI slop.</p>
+              {owner ? <p className="sx-note" role="status">Owner mode: no captcha, no daily limit. Turn off with #owner-off.</p> : null}
+            </form>
+          ) : (
+            <form className="sx-form sx-step" onSubmit={scan} noValidate>
+              <p className="sx-dots sx-anim" aria-hidden="true"><i className="is-on" /><i className="is-on" /><i /></p>
+              <div className="sx-for sx-anim"><span>Checking</span><b>{url.replace(/^https?:\/\//, "").replace(/\/$/, "")}</b><button type="button" className="sx-back" onClick={() => goStage("site")}>Change</button></div>
+              <label className="sx-label sx-anim" htmlFor="sx-mail">Step 2 of 2: where should I send your score?</label>
+              <input id="sx-mail" className="sx-input sx-anim" type="email" autoComplete="email" placeholder="you@company.com (optional)" value={mail.email} onChange={(e) => setMail((m) => ({ ...m, email: e.target.value }))} aria-describedby="sx-err" aria-invalid={code === "email" ? true : undefined} />
+              <label className="sx-check sx-anim"><input type="checkbox" checked={mail.consent} onChange={(e) => setMail((m) => ({ ...m, consent: e.target.checked }))} /> Also send me 3 short emails with fixes for sites like mine. One click to stop.</label>
+              <div className="sx-get sx-anim">
+                <p className="sx-get-h">What you get</p>
+                <ul className="sx-get-free">
+                  <li><b>Free</b> Your Slop Score from 0 to 100</li>
+                  <li><b>Free</b> A score for each of the 7 checks below</li>
+                  <li><b>Free</b> Your top 3 fixes, with exactly what to change</li>
+                  <li><b>{usd(SLOP_REPORT_PRICE)}</b> Every fix, plus copy-paste prompts for Lovable, Cursor and Claude Code, only if you want it</li>
+                </ul>
+                <ul className="sx-get-cats" aria-label="The 7 checks">{CATS.map((c) => <li key={c.k}>{c.name}</li>)}</ul>
+              </div>
+              <div className="sx-ts" ref={ts.box} />
+              <p id="sx-err" className="sx-err" role="alert">{err}</p>
+              <div className="sx-go sx-anim">
+                <button className="hero2-btn hero2-btn-primary" type="submit" disabled={!status}>Check my site</button>
+                <p className="sx-note">Takes about a minute. I store the URL, the score and the report, not your page content.</p>
+              </div>
+            </form>
+          )}
+        </div>
       )}
       {showNotify && status?.ready && !busy ? (
         <form className="sx-form sx-wait" onSubmit={notify}>
