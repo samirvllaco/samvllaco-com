@@ -8462,9 +8462,36 @@ html.intro-css .intro-rail, html.intro-css .intro-line { animation: intro-lines 
    the button blue with white words, the same on dark pages and white bands. */
 ::selection { background: #2f6bff; color: #ffffff; }
 
-/* How I work: the screens sit on a design canvas grid (owner, 28 Nov 2026: "add grids here"). 32px squares in the
-   band's line colour, fading out at the top and bottom, so the pinned screen moves over a still grid. */
+/* How I work: the pinned screen sits on a soft tinted canvas with four dashed guide lines along its edges, like a frame
+   picked in a design file (owner, 28 Nov 2026: "add grids here", then "remove grid lines, just add maybe colour or only
+   4 lines like here"). The lines travel with the screen. */
 @media (min-width: 1100px) {
   .hw .hw-main { position: relative; isolation: isolate; }
-  .hw .hw-main::before { content: ""; position: absolute; inset: -40px -24px; z-index: -1; pointer-events: none; background-image: linear-gradient(var(--line, rgba(0, 0, 0, .08)) 1px, transparent 1px), linear-gradient(90deg, var(--line, rgba(0, 0, 0, .08)) 1px, transparent 1px); background-size: 32px 32px; background-position: center top; -webkit-mask-image: linear-gradient(180deg, transparent, #000 12%, #000 88%, transparent); mask-image: linear-gradient(180deg, transparent, #000 12%, #000 88%, transparent); }
+  .hw .hw-main::before { content: ""; position: absolute; inset: -40px -24px; z-index: -1; pointer-events: none; border-radius: var(--r-card); background: color-mix(in srgb, var(--text, #111112) 3%, transparent); }
+  :root:root .hw .hw-stage::before, :root:root .hw .hw-stage::after { content: ""; position: absolute; z-index: -1; pointer-events: none; border: 0 dashed color-mix(in srgb, var(--text, #111112) 16%, transparent); }
+  :root:root .hw .hw-stage::before { left: -24px; right: -24px; top: -1px; bottom: -1px; border-top-width: 1px; border-bottom-width: 1px; }
+  :root:root .hw .hw-stage::after { top: -40px; bottom: -40px; left: -1px; right: -1px; border-left-width: 1px; border-right-width: 1px; }
 }
+
+/* Experience year slider and the "you" dot (owner, 28 Nov 2026). The stat cells' picture box grows to 184px so the
+   year line fits under the gauge in every cell. */
+:root:root .bx2 .bx2-s { grid-template-rows: auto 184px auto; }
+:root:root .bx2 .bx2-s > .bx2-vis { height: 184px; }
+:root:root .bx2 .bg-gauge { padding-bottom: 0; cursor: ew-resize; touch-action: pan-y; border-radius: var(--r-inner); outline: none; }
+.bx2 .bg-gauge:focus-visible { box-shadow: 0 0 0 3px rgba(98, 193, 253, .6); }
+.bg-arc { position: relative; }
+:root:root .bg-gauge .bg-end { bottom: auto; top: 100%; margin-top: 8px; }
+.bg-cap { display: grid; justify-items: center; gap: 2px; margin: 6px 0 0; text-align: center; }
+.bg-year { font-size: 1.125rem; line-height: 1.2; font-weight: 600; letter-spacing: -.02em; color: var(--text); font-variant-numeric: tabular-nums; }
+.bg-fact { font-size: .8125rem; line-height: 1.35; color: var(--muted); white-space: nowrap; }
+.bd-wrap { position: relative; width: 100%; }
+.bd-you { position: absolute; z-index: 2; display: grid; place-items: center; width: 24px; height: 24px; margin: -12px 0 0 -12px; border-radius: 50%; text-decoration: none; }
+.bd-you i { position: relative; display: block; width: 9px; height: 9px; border-radius: 50%; background: #ffffff; box-shadow: 0 0 0 2px #62c1fd, 0 0 12px rgba(98, 193, 253, .9); }
+.bd-you i::after { content: ""; position: absolute; inset: -6px; border-radius: 50%; box-shadow: 0 0 0 1.5px rgba(98, 193, 253, .8); animation: bd-you 2s ease-out infinite; }
+@keyframes bd-you { from { transform: scale(.6); opacity: 1; } to { transform: scale(1.8); opacity: 0; } }
+.bd-you span { position: absolute; right: -8px; bottom: calc(100% + 8px); padding: 6px 10px; border-radius: var(--r-sm); font-size: .8125rem; font-weight: 600; line-height: 1.3; white-space: nowrap; color: #f5f5f7; background: #232326; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .1), 0 12px 24px -12px rgba(0, 0, 0, .8); opacity: 0; transform: translateY(4px); pointer-events: none; transition: opacity .2s var(--ease-out), transform .2s var(--ease-out); }
+.bd-you:is(:hover, :focus-visible) span { opacity: 1; transform: none; }
+.bd-you:focus-visible { outline: 3px solid rgba(98, 193, 253, .6); outline-offset: 2px; }
+.bx2.gs:not(.you-on) .bd-you { opacity: 0; transform: scale(.4); pointer-events: none; }
+.bx2.gs .bd-you { transition: opacity .4s var(--ease-out), transform .5s var(--spring); }
+@media (prefers-reduced-motion: reduce) { .bd-you i::after { animation: none; } }

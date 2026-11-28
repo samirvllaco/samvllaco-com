@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { orbitAt, orbitTf } from "../lib/orbit";
 import { onLive, loop as clock, watch } from "../lib/motion";
 import { loadGsap } from "../lib/gsapLoad";
+import { FIRST_YEAR, LAST_YEAR, factOf } from "../lib/years";
 
 // Motion for the home bento (owner, 28 Nov 2026: "bento grid like this with our context", after grafit.agency).
 // 1) A dithered sphere: square pixels against a 4x4 Bayer matrix, lit from the top left, with bands that turn slowly.
@@ -86,23 +87,25 @@ export default function BentoRun({ at }) {
     // runs a lit head from request to "back to you", where a ring opens. Loops wait for the first interaction and
     // pause off screen; reduced motion and no GSAP show the end state.
     const dc = sec.querySelector(".bd-dots");
-    const dot = { w: 0, h: 0, dpr: 1, ctx: dc ? dc.getContext("2d") : null, p: 1, wave: -1 };
+    // Clients (owner, 28 Nov 2026: "make the first dots super big then go smaller to give a feeling of more clients, count
+    // and unique"): the grid starts zoomed in on the first few clients as big dots and zooms out to all 573 while the
+    // number counts; every dot has its own shade of the blue. Dot 574 is "you", a link to book a call (Bento.jsx).
+    const dot = { w: 0, h: 0, dpr: 1, ctx: dc ? dc.getContext("2d") : null, p: 1, wave: -1, z: 1 };
+    const shade = (n) => { const u = ((n * 2654435761) >>> 0) % 1000 / 1000; return `hsl(203 96% ${(60 + u * 16).toFixed(1)}%)`; };
     const fitDots = () => { if (!dc) return; dot.dpr = Math.min(2, window.devicePixelRatio || 1); dot.w = dc.clientWidth; dot.h = dc.clientHeight; dc.width = Math.round(dot.w * dot.dpr); dc.height = Math.round(dot.h * dot.dpr); };
     const paintDots = () => {
       const { ctx, w, h, dpr } = dot;
       if (!ctx || !w) return;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       ctx.clearRect(0, 0, w, h);
-      const sx = w / COLS, sy = h / ROWS, r = Math.min(sx, sy) * 0.3, reach = dot.p * 1.15;
+      const z = dot.z, sx = (w / COLS) * z, sy = (h / ROWS) * z, r = Math.min(w / COLS, h / ROWS) * 0.3 * Math.min(z, 1 + (z - 1) * 0.55);
       for (let n = 0; n < COLS * ROWS; n++) {
+        if (n === CLIENTS) continue; // the "you" dot is a link drawn over the canvas
         const c = n % COLS, rw = Math.floor(n / COLS), x = (c + 0.5) * sx, y = (rw + 0.5) * sy;
-        const t = (c / COLS) * 0.85 + (rw / ROWS) * 0.15, ahead = reach - t, near = Math.abs(dot.wave - t);
-        let fill = "rgba(255,255,255,.14)", rr = r;
-        if (n < CLIENTS && ahead > 0) {
-          fill = ahead < 0.06 ? "#d8f0ff" : "#62c1fd";
-          if (ahead < 0.06) rr = r * (1.6 - ahead * 10);
-          else if (near < 0.04) { fill = "#bfe6ff"; rr = r * (1.35 - near * 8); }
-        }
+        if (x - r > w || y - r > h) continue;
+        const t = (c / COLS) * 0.85 + (rw / ROWS) * 0.15, near = Math.abs(dot.wave - t);
+        let fill = n < CLIENTS ? shade(n) : "rgba(255,255,255,.14)", rr = r;
+        if (n < CLIENTS && near < 0.04) { fill = "#d8f0ff"; rr = r * (1.35 - near * 8); }
         ctx.fillStyle = fill;
         ctx.beginPath(); ctx.arc(x, y, rr, 0, Math.PI * 2); ctx.fill();
       }
@@ -128,42 +131,85 @@ export default function BentoRun({ at }) {
           cell.addEventListener("pointermove", mv);
           offs.push(() => cell.removeEventListener("pointermove", mv));
         });
-        // Gauge.
+        // Gauge: a year slider (owner, 28 Nov 2026: "make this interactive, show years like in About, add light
+        // effects, indicate experience"). The needle sweeps from 2013 to today once in view while the year under it
+        // rolls; then the pointer, a drag or the arrow keys move it year by year, it lights the ticks it passes, the tick
+        // under it glows white and the halo follows it. It returns to today when the pointer leaves.
         const gauge = sec.querySelector(".bg-gauge");
         if (gauge) {
-          const ticks = [...gauge.querySelectorAll(".bg-ticks line")], glows = [...gauge.querySelectorAll(".bg-ticks-glow line")];
-          const needle = gauge.querySelector(".bg-needle"), halo = gauge.querySelector(".bg-halo"), tip = needle.querySelector("circle");
-          const DIM = "rgba(255,255,255,0.16)", lit = ticks.map(() => false);
+          const svg = gauge.querySelector("svg"), ticks = [...gauge.querySelectorAll(".bg-ticks line")], glows = [...gauge.querySelectorAll(".bg-ticks-glow line")];
+          const needle = gauge.querySelector(".bg-needle"), halo = gauge.querySelector(".bg-halo"), tip = needle.querySelector("circle"), grad = gauge.querySelector("#bg-glow");
+          const yearEl = gauge.querySelector(".bg-year"), factEl = gauge.querySelector(".bg-fact"), cap = gauge.querySelector(".bg-cap");
+          const SPAN = LAST_YEAR - FIRST_YEAR, rotOf = (y) => ((y - FIRST_YEAR) / SPAN) * 180 - 90;
+          const DIM = "rgba(255,255,255,0.16)", state = ticks.map(() => "");
+          let shown = LAST_YEAR, ready = false;
           g.set(ticks, { stroke: DIM }); g.set(glows, { opacity: 0 }); g.set(halo, { opacity: 0 });
           g.set(needle, { rotation: -90, svgOrigin: "110 108" });
-          const light = () => {
-            const a = g.getProperty(needle, "rotation");
-            ticks.forEach((t, k) => {
-              const on = a >= (k / 26) * 180 - 90 - 0.5;
-              if (on !== lit[k]) { lit[k] = on; g.to(t, { stroke: on ? "#62c1fd" : DIM, duration: 0.25, overwrite: true }); g.to(glows[k], { opacity: on ? 0.55 : 0, duration: 0.35, overwrite: true }); }
-            });
+          const show = (y) => {
+            if (y === shown) return;
+            shown = y;
+            yearEl.textContent = y; factEl.textContent = factOf(y);
+            gauge.setAttribute("aria-valuenow", y); gauge.setAttribute("aria-valuetext", `${y}: ${factOf(y)}`);
+            g.fromTo(cap, { y: 10, clipPath: "inset(0 0 100% 0)" }, { y: 0, clipPath: "inset(0 0 0% 0)", duration: 0.35, ease: "power3.out", overwrite: true });
           };
+          const light = () => {
+            const a = g.getProperty(needle, "rotation"), t = (a + 90) / 180, act = Math.round(t * 26);
+            ticks.forEach((tk, k) => {
+              const s2 = k === act ? "hot" : (k / 26) * 180 - 90 <= a + 0.5 ? "on" : "off";
+              if (s2 === state[k]) return;
+              state[k] = s2;
+              g.to(tk, { stroke: s2 === "hot" ? "#ffffff" : s2 === "on" ? "#62c1fd" : DIM, duration: 0.25, overwrite: true });
+              g.to(glows[k], { opacity: s2 === "hot" ? 1 : s2 === "on" ? 0.55 : 0, duration: 0.3, overwrite: true });
+            });
+            if (grad) grad.setAttribute("cx", `${(8 + t * 84).toFixed(1)}%`);
+            show(Math.round(FIRST_YEAR + t * SPAN));
+          };
+          const turn = g.quickTo(needle, "rotation", { duration: 0.55, ease: "power3.out", onUpdate: light });
+          const go = (y) => { y = Math.max(FIRST_YEAR, Math.min(LAST_YEAR, y)); turn(rotOf(y)); };
+          let back = 0;
+          const yearAt = (e) => {
+            const r = svg.getBoundingClientRect(), hx = r.left + (r.width * 110) / 220, hy = r.top + (r.height * 108) / 112;
+            let ang = (Math.atan2(e.clientY - hy, e.clientX - hx) * 180) / Math.PI; // -180 left, -90 up, 0 right
+            if (ang > 0) ang = ang > 90 ? -180 : 0;
+            return Math.round(FIRST_YEAR + ((ang + 180) / 180) * SPAN);
+          };
+          const move = (e) => { if (!ready) return; clearTimeout(back); go(yearAt(e)); };
+          const leave = () => { if (!ready) return; clearTimeout(back); back = setTimeout(() => go(LAST_YEAR), 1200); };
+          const key = (e) => {
+            if (!ready) return;
+            const d = { ArrowLeft: -1, ArrowDown: -1, ArrowRight: 1, ArrowUp: 1 }[e.key];
+            if (e.key === "Home") { e.preventDefault(); go(FIRST_YEAR); return; }
+            if (e.key === "End") { e.preventDefault(); go(LAST_YEAR); return; }
+            if (!d) return;
+            e.preventDefault(); clearTimeout(back); go(shown + d);
+          };
+          gauge.addEventListener("pointermove", move); gauge.addEventListener("pointerdown", move); gauge.addEventListener("pointerleave", leave); gauge.addEventListener("keydown", key); gauge.addEventListener("blur", leave);
+          offs.push(() => { clearTimeout(back); gauge.removeEventListener("pointermove", move); gauge.removeEventListener("pointerdown", move); gauge.removeEventListener("pointerleave", leave); gauge.removeEventListener("keydown", key); gauge.removeEventListener("blur", leave); });
           const off = watch(gauge, (on) => {
             if (!on) return; off();
-            tls.push(g.timeline()
-              .to(needle, { rotation: 90, svgOrigin: "110 108", duration: 1.8, ease: "power3.inOut", onUpdate: light })
-              .to(halo, { opacity: 1, duration: 1.2, ease: "power2.out" }, 0.4)
+            shown = 0;
+            tls.push(g.timeline({ onComplete: () => { ready = true; } })
+              .to(needle, { rotation: 90, svgOrigin: "110 108", duration: 2.4, ease: "power2.inOut", onUpdate: light })
+              .to(halo, { opacity: 1, duration: 1.2, ease: "power2.out" }, 0.3)
               .fromTo(tip, { scale: 1, transformOrigin: "50% 50%" }, { scale: 1.8, duration: 0.25, yoyo: true, repeat: 1, ease: "power2.out" }, ">-0.1"));
           }, { threshold: 0.5 });
           offs.push(off);
         }
-        // Client dots.
+        // Client dots: start zoomed in on the first clients as big dots, zoom out to all of them in step with the
+        // count, then "you" appears as the next dot. A faint shimmer runs across them now and then.
         if (dc) {
-          dot.p = 0; paintDots();
+          dot.z = 7; paintDots();
           let shimmer = null;
           const off = watch(dc, (on) => {
             if (!on) return; off();
-            tls.push(g.to(dot, { p: 1, duration: 1.8, ease: "power2.inOut", onUpdate: paintDots, onComplete: () => {
+            tls.push(g.to(dot, { z: 1, duration: 2.2, ease: "power3.inOut", onUpdate: paintDots, onComplete: () => {
+              sec.classList.add("you-on");
               shimmer = g.timeline({ repeat: -1, repeatDelay: 5, paused: true }).fromTo(dot, { wave: -0.1 }, { wave: 1.15, duration: 1.6, ease: "none", onUpdate: paintDots, onComplete: () => { dot.wave = -1; paintDots(); } });
               tls.push(shimmer);
-              onLive(() => { if (!gone) shimmer.play(); });
-              const offV = watch(dc, (v) => { if (v) shimmer.play(); else shimmer.pause(); });
-              offs.push(offV);
+              let v = true, lv = false;
+              const sync = () => { if (v && lv) shimmer.play(); else shimmer.pause(); };
+              offs.push(onLive(() => { lv = true; sync(); }));
+              offs.push(watch(dc, (x) => { v = x; sync(); }));
             } }));
           }, { threshold: 0.5 });
           offs.push(off);

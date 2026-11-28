@@ -1,3 +1,4 @@
+import { LAST_YEAR, FIRST_YEAR, factOf } from "../lib/years";
 import Link from "next/link";
 import SwipeDeck from "./SwipeDeck";
 import Toolbox from "./Toolbox";
@@ -74,9 +75,12 @@ export default function Bento() {
         </div>
         <div className="bx2-c bx2-s bx2-b">
           <p className="bx2-k">Experience</p>
-          <div className="bx2-vis" aria-hidden="true">
-            <div className="bg-gauge">
-              <svg viewBox="0 0 220 112" width="220" height="112">
+          <div className="bx2-vis">
+            {/* A year slider (owner, 28 Nov 2026: "make this interactive, show years like in About"): move over the gauge,
+                drag it or use the arrow keys; the needle snaps to the year and the line under it says what changed. */}
+            <div className="bg-gauge" role="slider" tabIndex={0} aria-label="Years in design" aria-valuemin={FIRST_YEAR} aria-valuemax={LAST_YEAR} aria-valuenow={LAST_YEAR} aria-valuetext={`${LAST_YEAR}: ${factOf(LAST_YEAR)}`}>
+              <div className="bg-arc">
+              <svg viewBox="0 0 220 112" width="220" height="112" aria-hidden="true">
                 <defs>
                   <radialGradient id="bg-glow" cx="50%" cy="100%" r="70%"><stop offset="0" stopColor="#62c1fd" stopOpacity=".22" /><stop offset="1" stopColor="#62c1fd" stopOpacity="0" /></radialGradient>
                   <filter id="bg-blur" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="3" /></filter>
@@ -87,15 +91,23 @@ export default function Bento() {
                 <g className="bg-needle" transform="rotate(90 110 108)"><line x1="110" y1="108" x2="110" y2="40" /><circle cx="110" cy="40" r="3.5" /></g>
                 <circle className="bg-hub" cx="110" cy="108" r="6" />
               </svg>
-              <span className="bg-end bg-l">2013</span><span className="bg-end bg-r">Today</span>
+              <span className="bg-end bg-l" aria-hidden="true">{FIRST_YEAR}</span><span className="bg-end bg-r" aria-hidden="true">Today</span>
+              </div>
+              <p className="bg-cap" aria-hidden="true"><b className="bg-year">{LAST_YEAR}</b><span className="bg-fact">{factOf(LAST_YEAR)}</span></p>
             </div>
           </div>
           <p className="bx2-n"><CountUp to={10} ms={900} /><span>Years of experience</span></p>
         </div>
         <div className="bx2-c bx2-s bx2-cl">
           <p className="bx2-k">Clients</p>
-          <div className="bx2-vis"><canvas className="bd-dots" aria-hidden="true" /></div>
-          <p className="bx2-n"><CountUp to={573} /><span>Clients served, one dot each</span></p>
+          <div className="bx2-vis">
+            {/* The next dot is you (owner, 28 Nov 2026: "next can be you, add a dot for them, interactive to book a call"). */}
+            <div className="bd-wrap">
+              <canvas className="bd-dots" aria-hidden="true" />
+              <a className="bd-you" href="/book/" style={{ left: `${((573 % 48) + 0.5) / 48 * 100}%`, top: `${(Math.floor(573 / 48) + 0.5) / 12 * 100}%` }}><i aria-hidden="true" /><span>Client 574 could be you. Book a call</span></a>
+            </div>
+          </div>
+          <p className="bx2-n"><CountUp to={573} ms={2200} /><span>Clients served, one dot each</span></p>
         </div>
         <div className="bx2-c bx2-s bx2-e">
           <p className="bx2-k">Turnaround</p>
