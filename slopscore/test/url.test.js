@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { checkUrl, isBlockedHost } from "../src/url.js";
+import { checkUrl, isBlockedHost, variants } from "../src/url.js";
 
 test("accepts public sites and adds https", () => {
   assert.deepEqual(checkUrl("samvllaco.com"), { ok: true, url: "https://samvllaco.com", host: "samvllaco.com" });
@@ -20,4 +20,10 @@ test("blocks private, loopback, link-local and metadata addresses", () => {
   }
   assert.equal(isBlockedHost("172.32.0.1"), false);
   assert.equal(isBlockedHost("11.0.0.1"), false);
+});
+
+test("tries www, no www and http", () => {
+  assert.deepEqual(variants("https://cookingbuddy.ai/"), ["https://cookingbuddy.ai/", "https://www.cookingbuddy.ai/", "http://cookingbuddy.ai/"]);
+  assert.deepEqual(variants("https://www.linear.app/pricing"), ["https://www.linear.app/pricing", "https://linear.app/pricing", "http://www.linear.app/pricing"]);
+  assert.deepEqual(variants("http://example.org"), ["http://example.org", "http://www.example.org/"]);
 });

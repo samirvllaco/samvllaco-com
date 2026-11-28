@@ -12,7 +12,7 @@ export default {
     try {
       return Response.json(await render(env, c.url));
     } catch (e) {
-      return Response.json({ error: e instanceof ScanError ? e.code : "load" }, { status: 422 });
+      return Response.json({ error: e instanceof ScanError ? e.code : "load", detail: String((e && (e.detail || e.message)) || "").slice(0, 140) }, { status: 422 });
     }
   },
 };

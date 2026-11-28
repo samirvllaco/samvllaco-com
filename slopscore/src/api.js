@@ -135,7 +135,7 @@ async function run(env, u, hash, ip, owner, send) {
   stage = "render";
   await send({ t: "step", i: 0 });
   let page;
-  try { page = await render(env, u.url); } catch (e) { await settle(env, EST.scan, SLOP.model, {}); const code = e instanceof ScanError ? e.code : "load"; await logFail(env, "render", code, e && e.message, u.url); return { error: code }; }
+  try { page = await render(env, u.url); } catch (e) { await settle(env, EST.scan, SLOP.model, {}); const code = e instanceof ScanError ? e.code : "load"; await logFail(env, "render", code, e && (e.detail || e.message), u.url); return { error: code }; }
   if (page.shots && page.shots[0]) await send({ t: "shot", img: `data:image/jpeg;base64,${page.shots[0]}`, mobile: page.shots[2] ? `data:image/jpeg;base64,${page.shots[2]}` : null });
   stage = "score";
   await send({ t: "step", i: 1 });

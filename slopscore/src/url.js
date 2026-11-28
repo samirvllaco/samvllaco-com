@@ -50,3 +50,16 @@ export function checkUrl(input) {
   if (u.pathname === "/" && !u.search) url = url.replace(/\/$/, "");
   return { ok: true, url, host: u.hostname.replace(/^www\./, "") };
 }
+
+// The forms of an address a scan tries in turn: as typed, with or without www, then plain http (scan.js).
+export function variants(url) {
+  const out = [url];
+  try {
+    const u = new URL(url);
+    const alt = new URL(url);
+    alt.hostname = u.hostname.startsWith("www.") ? u.hostname.slice(4) : `www.${u.hostname}`;
+    if (alt.hostname.split(".").length >= 2) out.push(alt.toString());
+    if (u.protocol === "https:") { const h = new URL(url); h.protocol = "http:"; out.push(h.toString()); }
+  } catch { /* checked before */ }
+  return out;
+}
