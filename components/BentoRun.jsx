@@ -241,6 +241,58 @@ export default function BentoRun({ at }) {
           }, { threshold: 0.5 });
           offs.push(off);
         }
+        // Design and front end (owner, 28 Nov 2026: "show on the bento that I design and develop"): the button is picked
+        // in the design pane, a light runs to the code pane where the lines type in, then to the live pane where the card
+        // builds and a pointer presses the button. Words move only inside clips. Loops while live and on screen.
+        const dd = sec.querySelector(".dd");
+        if (dd) {
+          const sel = dd.querySelector(".dd-sel"), lines = dd.querySelectorAll(".dd-ln"), dots = dd.querySelectorAll(".dd-link i"), links = dd.querySelectorAll(".dd-link");
+          const browser = dd.querySelector(".dd-browser"), card = dd.querySelector(".dd-card-live"), btn = card.querySelector(".dd-btn"), ring = card.querySelector(".dd-ring"), cur = dd.querySelector(".dd-cur");
+          const stages = dd.querySelectorAll(".dd-stage"), caps = dd.querySelectorAll(".dd-pane figcaption");
+          // Phones: the panes share one stage (links hidden), so each step wipes in over the last.
+          const stacked = () => links[0].offsetWidth === 0;
+          const shut = () => (stacked() ? "inset(0 0 0 100%)" : "inset(0 0 0 0%)");
+          const dim = getComputedStyle(caps[0]).color, lit = "#f5f5f7";
+          const run = (dot, link) => g.fromTo(dot, { x: 0, opacity: 1 }, { x: () => link.offsetWidth, duration: 0.45, ease: "power2.inOut" });
+          const at = (f) => () => { const b = browser.getBoundingClientRect(), r = btn.getBoundingClientRect(); return f(b, r); };
+          const tl = g.timeline({ repeat: -1, repeatDelay: 1.4, paused: true })
+            .set(sel, { clipPath: "inset(50% 50% 50% 50%)" })
+            .set(lines, { clipPath: "inset(0 100% 0 0)" })
+            .set(dots, { opacity: 0, x: 0, y: 0 })
+            .set(card, { clipPath: "inset(0 0 100% 0 round 8px)", y: 10 })
+            .set(cur, { opacity: 0, x: at((b) => b.width - 24), y: at((b) => b.height - 20) })
+            .set(ring, { opacity: 0, scale: 1 })
+            .set([stages[1], stages[2]], { clipPath: shut })
+            .set(caps, { color: dim })
+            .to(caps[0], { color: lit, duration: 0.3, ease: "none" }, 0.2)
+            .to(sel, { clipPath: "inset(-40px -40px -40px -40px)", duration: 0.5, ease: "power3.out" }, 0.2)
+            .add(run(dots[0], links[0]), ">0.15")
+            .to(dots[0], { opacity: 0, duration: 0.15 }, ">-0.05")
+            .to(stages[1], { clipPath: "inset(0 0 0 0%)", duration: 0.5, ease: "power3.inOut" }, "<")
+            .to(caps[1], { color: lit, duration: 0.3, ease: "none" }, "<")
+            .to(lines, { clipPath: "inset(0 0% 0 0)", duration: 0.28, ease: "none", stagger: 0.14 }, ">-0.05")
+            .add(run(dots[1], links[1]), ">0.1")
+            .to(dots[1], { opacity: 0, duration: 0.15 }, ">-0.05")
+            .to(stages[2], { clipPath: "inset(0 0 0 0%)", duration: 0.5, ease: "power3.inOut" }, "<")
+            .to(caps[2], { color: lit, duration: 0.3, ease: "none" }, "<")
+            .to(card, { clipPath: "inset(0 0 0% 0 round 8px)", y: 0, duration: 0.55, ease: "power3.out" }, ">-0.05")
+            .to(cur, { opacity: 1, duration: 0.2, ease: "none" }, ">-0.1")
+            .to(cur, { x: at((b, r) => r.left - b.left + r.width * 0.6), y: at((b, r) => r.top - b.top + r.height * 0.5), duration: 0.9, ease: "power3.inOut" }, "<")
+            .to(btn, { scale: 0.94, duration: 0.12, ease: "power2.out" })
+            .to(btn, { scale: 1, duration: 0.45, ease: "back.out(3)" })
+            .fromTo(ring, { opacity: 0.9, scale: 1 }, { opacity: 0, scale: 1.35, duration: 0.7, ease: "power2.out" }, "<")
+            .to(cur, { opacity: 0, duration: 0.3, ease: "none" }, "+=0.9")
+            .to(caps, { color: dim, duration: 0.4, ease: "none" }, "+=0.4")
+            .to([stages[2], stages[1]], { clipPath: shut, duration: 0.5, ease: "power3.inOut", stagger: 0.15 }, "<");
+          tls.push(tl);
+          const ro = new ResizeObserver(() => tl.invalidate());
+          ro.observe(dd);
+          offs.push(() => ro.disconnect());
+          let seenD = false, liveD = false;
+          const syncD = () => { if (seenD && liveD) tl.play(); else tl.pause(); };
+          offs.push(onLive(() => { liveD = true; syncD(); }));
+          offs.push(watch(dd, (v) => { seenD = v; syncD(); }, { threshold: 0.3 }));
+        }
         // Turnaround line.
         const track = sec.querySelector(".bt-track");
         if (track) {

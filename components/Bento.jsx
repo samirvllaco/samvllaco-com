@@ -2,6 +2,7 @@ import { LAST_YEAR, FIRST_YEAR, factOf } from "../lib/years";
 import Link from "next/link";
 import SwipeDeck from "./SwipeDeck";
 import Toolbox from "./Toolbox";
+import DesignDev from "./DesignDev";
 import CountUp from "./CountUp";
 import { WORK } from "../lib/work";
 import BentoLazy from "./BentoLazy";
@@ -123,6 +124,7 @@ export default function Bento() {
           <h3 className="bx-t">Work</h3>
           <SwipeDeck items={WORK.map((w) => ({ slug: w.slug, title: w.title, small: w.small, cut: `/work/cut/${w.small.split("?")[0].split("/").pop()}?v=6`, round: w.platform === "desktop", alt: w.alt, platform: w.platform, tags: w.tags }))} />
         </div>
+        <DesignDev />
         <Toolbox />
       </div>
       <BentoLazy />

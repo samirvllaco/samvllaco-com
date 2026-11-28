@@ -8100,7 +8100,7 @@ a.wd-vis { display: block; color: inherit; text-decoration: none; }
    Big cell: the dithered sphere with the parts of the work orbiting it (components/BentoRun.jsx). Stat cells: label on
    top, a picture of the number in the middle (gauge, one dot per client, a rising line, a timeline), the number and
    its line at the foot. Then the work deck, the worldwide facts and the toolbox with its tilted tiles. */
-.bx2-grid { position: relative; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-template-areas: "a a b c" "a a w e" "t t t t"; gap: 1px; background: rgba(255, 255, 255, .12); box-shadow: 0 0 0 1px rgba(255, 255, 255, .12); }
+.bx2-grid { position: relative; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-template-areas: "a a b c" "a a w e" "d d d d" "t t t t"; gap: 1px; background: rgba(255, 255, 255, .12); box-shadow: 0 0 0 1px rgba(255, 255, 255, .12); }
 .bx2-grid::after { content: ""; position: absolute; inset: -6px; z-index: 3; pointer-events: none;
   --x: rgba(255, 255, 255, .5);
   background:
@@ -8172,12 +8172,12 @@ a.wd-vis { display: block; color: inherit; text-decoration: none; }
 .bt-fan li > span:first-child { display: grid; width: 36px; height: 36px; }
 .bt-fan svg { width: 100%; height: 100%; }
 @media (max-width: 1023px) {
-  .bx2-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-areas: "a a" "b c" "w e" "t t"; }
+  .bx2-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-areas: "a a" "b c" "w e" "d d" "t t"; }
   :root:root .bx2 .bx2-t { grid-template-columns: minmax(0, 1fr); }
   .bs-stage { flex: none; height: 340px; }
 }
 @media (max-width: 639px) {
-  .bx2-grid { grid-template-columns: minmax(0, 1fr); grid-template-areas: "a" "b" "c" "w" "e" "t"; }
+  .bx2-grid { grid-template-columns: minmax(0, 1fr); grid-template-areas: "a" "b" "c" "w" "e" "d" "t"; }
   :root:root .bx2 :is(.bx2-a, .bx2-t) { padding: 24px; }
   :root:root .bx2 .bx2-s { min-height: 0; }
   .bs-stage { height: 300px; min-height: 0; }
@@ -8509,3 +8509,51 @@ html:not(.hw-hide) .site-header { transition: transform .45s var(--ease-out), op
 /* Interlinking lines (28 Nov 2026): industries under Ways to start, and on case studies */
 .sv-for { max-width: var(--prose); margin: 16px auto 0; text-align: center; }
 .case-rel a { color: var(--text); text-decoration: underline; text-underline-offset: 3px; }
+
+/* Bento: design and front end (owner, 28 Nov 2026: "make clear that I am a designer and ship front end, show on the
+   bento that I design and develop"; DesignDev.jsx). Words left like the toolbox row; on the right one card goes through
+   Design, Code and Live panes joined by two links. BentoRun.jsx plays it with GSAP (.gs); without it the end state. */
+:root:root .bx2 .bx2-d { grid-area: d; display: grid; grid-template-columns: minmax(0, 360px) minmax(0, 1fr); align-items: center; gap: 32px; padding: 32px; }
+.dd-tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0 0; padding: 0; list-style: none; }
+.dd-tags li { padding: 4px 10px; border-radius: var(--r-sm); font-size: .8125rem; font-weight: 500; color: var(--text); background: rgba(255, 255, 255, .06); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .08); }
+.dd-flow { display: grid; grid-template-columns: minmax(0, 1fr) 32px minmax(0, 1fr) 32px minmax(0, 1fr); align-items: center; }
+.dd-pane { display: grid; gap: 8px; min-width: 0; margin: 0; }
+.dd-pane figcaption { display: inline-flex; align-items: center; gap: 8px; font-size: .8125rem; font-weight: 500; color: var(--muted); }
+.dd-pane figcaption i { width: 8px; height: 8px; border-radius: 50%; background: #a78bfa; box-shadow: 0 0 8px rgba(167, 139, 250, .7); }
+.dd-code figcaption i { background: #62c1fd; box-shadow: 0 0 8px rgba(98, 193, 253, .7); }
+.dd-live figcaption i { background: #30d158; box-shadow: 0 0 8px rgba(48, 209, 88, .7); }
+.dd-stage { position: relative; height: 196px; overflow: hidden; border-radius: var(--r-inner); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .08), 0 16px 32px -20px rgba(0, 0, 0, .8); }
+.dd-canvas { display: grid; place-items: center; background: radial-gradient(rgba(17, 17, 18, .12) 1px, transparent 1.4px) 0 0 / 12px 12px, #f2f2f4; }
+.dd-card { display: grid; gap: 4px; justify-items: start; width: min(84%, 200px); padding: 16px; border-radius: 8px; background: #ffffff; box-shadow: 0 1px 2px rgba(0, 0, 0, .08), 0 8px 20px -10px rgba(0, 0, 0, .25); }
+.dd-card b { font-size: .875rem; font-weight: 600; color: #111112; letter-spacing: -.01em; }
+.dd-card > span { font-size: .75rem; color: #55555c; }
+.dd-btn { position: relative; margin-top: 8px; padding: 6px 12px; border-radius: 4px; font-size: .75rem; font-style: normal; font-weight: 600; color: #ffffff; background: #2b66fa; }
+.dd-sel { position: absolute; inset: -4px; outline: 1.5px solid #0d99ff; pointer-events: none; }
+.dd-sel i { position: absolute; width: 6px; height: 6px; margin: -3px; background: #fff; box-shadow: 0 0 0 1.5px #0d99ff; }
+.dd-sel i:nth-child(1) { left: 0; top: 0; } .dd-sel i:nth-child(2) { right: 0; top: 0; margin: -3px -3px 0 0; } .dd-sel i:nth-child(3) { left: 0; bottom: 0; margin: 0 0 -3px -3px; } .dd-sel i:nth-child(4) { right: 0; bottom: 0; margin: 0 -3px -3px 0; }
+.dd-sel s { position: absolute; left: -1.5px; top: calc(100% + 6px); padding: 2px 6px; border-radius: 3px; font-size: .6875rem; font-weight: 600; text-decoration: none; white-space: nowrap; color: #ffffff; background: #0a6fd6; }
+.dd-code .dd-stage { background: #0b0b0c; }
+.dd-code pre { display: grid; margin: 0; padding: 14px 12px; font: 500 .71875rem/1.75 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #e6e6ea; white-space: pre; overflow: hidden; }
+.dd-ln { display: block; padding: 0 6px; border-radius: 3px; }
+.dd-hl { background: rgba(98, 193, 253, .08); }
+.dd-no { display: inline-block; width: 18px; margin-right: 8px; text-align: right; color: #8a8a90; }
+.dd-t { color: #7cc8ff; } .dd-a { color: #c9b2ff; } .dd-v { color: #ffbf7a; } .dd-x { color: #f2f2f4; }
+.dd-browser { display: grid; grid-template-rows: 28px 1fr; background: #f2f2f4; }
+.dd-bar { display: flex; align-items: center; gap: 6px; padding: 0 10px; background: #1c1c1f; }
+.dd-bar i { width: 8px; height: 8px; border-radius: 50%; background: #3a3a3f; }
+.dd-bar span { margin-left: 8px; font-size: .6875rem; color: #a1a1a6; white-space: nowrap; }
+.dd-page { display: grid; place-items: center; }
+.dd-ring { position: absolute; inset: -4px; border-radius: 6px; box-shadow: 0 0 0 2px #2f6bff; opacity: 0; pointer-events: none; }
+.dd-cur { position: absolute; left: 0; top: 0; z-index: 2; opacity: 0; filter: drop-shadow(0 2px 3px rgba(0, 0, 0, .3)); }
+.dd-link { position: relative; height: 2px; margin: 18px 4px 0; background: repeating-linear-gradient(90deg, rgba(255, 255, 255, .35) 0 4px, transparent 4px 8px); }
+.dd-link i { position: absolute; left: 0; top: 50%; width: 8px; height: 8px; margin: -4px 0 0 -4px; border-radius: 50%; background: #62c1fd; box-shadow: 0 0 10px rgba(98, 193, 253, .9); opacity: 0; }
+@media (max-width: 1099px) {
+  :root:root .bx2 .bx2-d { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 719px) {
+  .dd-flow { grid-template-columns: minmax(0, 1fr); }
+  .dd-pane { grid-area: 1 / 1; }
+  .dd-code figcaption { justify-self: center; }
+  .dd-live figcaption { justify-self: end; }
+  .dd-link { display: none; }
+}
