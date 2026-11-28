@@ -8495,3 +8495,7 @@ html.intro-css .intro-rail, html.intro-css .intro-line { animation: intro-lines 
 .bx2.gs:not(.you-on) .bd-you { opacity: 0; transform: scale(.4); pointer-events: none; }
 .bx2.gs .bd-you { transition: opacity .4s var(--ease-out), transform .5s var(--spring); }
 @media (prefers-reduced-motion: reduce) { .bd-you i::after { animation: none; } }
+
+/* A click in the Experience or Clients cell plays its animation again (owner, 28 Nov 2026). */
+.bx2.gs :is(.bx2-b, .bx2-cl) { cursor: pointer; }
+.bx2.gs .bx2-b .bg-gauge { cursor: ew-resize; }

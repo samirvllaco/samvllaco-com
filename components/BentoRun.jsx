@@ -183,15 +183,30 @@ export default function BentoRun({ at }) {
             if (!d) return;
             e.preventDefault(); clearTimeout(back); go(shown + d);
           };
-          gauge.addEventListener("pointermove", move); gauge.addEventListener("pointerdown", move); gauge.addEventListener("pointerleave", leave); gauge.addEventListener("keydown", key); gauge.addEventListener("blur", leave);
-          offs.push(() => { clearTimeout(back); gauge.removeEventListener("pointermove", move); gauge.removeEventListener("pointerdown", move); gauge.removeEventListener("pointerleave", leave); gauge.removeEventListener("keydown", key); gauge.removeEventListener("blur", leave); });
-          const off = watch(gauge, (on) => {
-            if (!on) return; off();
-            shown = 0;
-            tls.push(g.timeline({ onComplete: () => { ready = true; } })
+          gauge.addEventListener("pointermove", move); gauge.addEventListener("pointerleave", leave); gauge.addEventListener("keydown", key); gauge.addEventListener("blur", leave);
+          offs.push(() => { clearTimeout(back); gauge.removeEventListener("pointermove", move); gauge.removeEventListener("pointerleave", leave); gauge.removeEventListener("keydown", key); gauge.removeEventListener("blur", leave); });
+          // The sweep from 2013 to today: once in view, and again on every click in the cell (owner, 28 Nov 2026: "when
+          // they click they can rerun the animations here").
+          let sweepTl = null;
+          const sweep = () => {
+            ready = false; clearTimeout(back);
+            if (sweepTl) sweepTl.kill();
+            g.killTweensOf(needle);
+            g.set(needle, { rotation: -90, svgOrigin: "110 108" });
+            light(); shown = 0;
+            sweepTl = g.timeline({ onComplete: () => { ready = true; } })
               .to(needle, { rotation: 90, svgOrigin: "110 108", duration: 2.4, ease: "power2.inOut", onUpdate: light })
               .to(halo, { opacity: 1, duration: 1.2, ease: "power2.out" }, 0.3)
-              .fromTo(tip, { scale: 1, transformOrigin: "50% 50%" }, { scale: 1.8, duration: 0.25, yoyo: true, repeat: 1, ease: "power2.out" }, ">-0.1"));
+              .fromTo(tip, { scale: 1, transformOrigin: "50% 50%" }, { scale: 1.8, duration: 0.25, yoyo: true, repeat: 1, ease: "power2.out" }, ">-0.1");
+            tls.push(sweepTl);
+          };
+          const cellB = gauge.closest(".bx2-s");
+          const replay = (e) => { if (e.target.closest("a")) return; sweep(); const n = cellB.querySelector(".bx2-n > b"); if (n) n.dispatchEvent(new Event("cu-replay")); };
+          cellB.addEventListener("click", replay);
+          offs.push(() => cellB.removeEventListener("click", replay));
+          const off = watch(gauge, (on) => {
+            if (!on) return; off();
+            sweep();
           }, { threshold: 0.5 });
           offs.push(off);
         }
@@ -200,17 +215,29 @@ export default function BentoRun({ at }) {
         if (dc) {
           dot.z = 7; paintDots();
           let shimmer = null;
+          let zoomTw = null;
+          const zoom = (first) => {
+            if (zoomTw) zoomTw.kill();
+            sec.classList.remove("you-on");
+            dot.z = 7; dot.wave = -1; paintDots();
+            zoomTw = g.to(dot, { z: 1, duration: 2.2, ease: "power3.inOut", onUpdate: paintDots, onComplete: () => { sec.classList.add("you-on"); if (first) first(); } });
+            tls.push(zoomTw);
+          };
+          // A click in the Clients cell zooms in on the first clients and counts again (owner, 28 Nov 2026).
+          const cellC = dc.closest(".bx2-s");
+          const replayC = (e) => { if (e.target.closest("a")) return; zoom(); const n = cellC.querySelector(".bx2-n > b"); if (n) n.dispatchEvent(new Event("cu-replay")); };
+          cellC.addEventListener("click", replayC);
+          offs.push(() => cellC.removeEventListener("click", replayC));
           const off = watch(dc, (on) => {
             if (!on) return; off();
-            tls.push(g.to(dot, { z: 1, duration: 2.2, ease: "power3.inOut", onUpdate: paintDots, onComplete: () => {
-              sec.classList.add("you-on");
+            zoom(() => {
               shimmer = g.timeline({ repeat: -1, repeatDelay: 5, paused: true }).fromTo(dot, { wave: -0.1 }, { wave: 1.15, duration: 1.6, ease: "none", onUpdate: paintDots, onComplete: () => { dot.wave = -1; paintDots(); } });
               tls.push(shimmer);
               let v = true, lv = false;
               const sync = () => { if (v && lv) shimmer.play(); else shimmer.pause(); };
               offs.push(onLive(() => { lv = true; sync(); }));
               offs.push(watch(dc, (x) => { v = x; sync(); }));
-            } }));
+            });
           }, { threshold: 0.5 });
           offs.push(off);
         }

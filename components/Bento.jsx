@@ -107,7 +107,7 @@ export default function Bento() {
               <a className="bd-you" href="/book/" style={{ left: `${((573 % 48) + 0.5) / 48 * 100}%`, top: `${(Math.floor(573 / 48) + 0.5) / 12 * 100}%` }}><i aria-hidden="true" /><span>Client 574 could be you. Book a call</span></a>
             </div>
           </div>
-          <p className="bx2-n"><CountUp to={573} ms={2200} /><span>Clients served, one dot each</span></p>
+          <p className="bx2-n"><CountUp to={573} ms={2200} curve="inout" /><span>Clients served, one dot each</span></p>
         </div>
         <div className="bx2-c bx2-s bx2-e">
           <p className="bx2-k">Turnaround</p>
