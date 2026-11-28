@@ -8272,3 +8272,11 @@ a.wd-vis { display: block; color: inherit; text-decoration: none; }
 .hres-go svg { transition: translate .35s cubic-bezier(.22, .61, .36, 1); }
 @media (hover: hover) and (pointer: fine) { .hres-card:hover .hres-go svg { translate: 3px 0; } }
 @media (max-width: 899px) { .hres-grid { grid-template-columns: minmax(0, 1fr); } }
+
+/* Product badge on work thumbnails (WorkBadge.jsx, owner, 28 Nov 2026): logo and name in the bottom left, a white pill
+   that reads on light and dark shots. Logos live in public/work/logo/; a missing logo shows a lettered tile. */
+.wbadge { position: absolute; left: 16px; bottom: 16px; z-index: 1; display: inline-flex; align-items: center; gap: 8px; height: 36px; padding: 0 12px 0 4px; border-radius: 10px; background: rgba(255, 255, 255, .94); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); color: #111112; font-size: .875rem; font-weight: 600; line-height: 1; letter-spacing: -.005em; white-space: nowrap; box-shadow: 0 0 0 1px rgba(17, 17, 18, .06), 0 4px 16px -4px rgba(0, 0, 0, .18); pointer-events: none; }
+:root:root .wbadge img, .wbadge i { flex: none; width: 28px; height: 28px; border-radius: 7px; }
+:root:root .wbadge img { object-fit: cover; }
+.wbadge i { display: grid; place-items: center; color: #fff; font-style: normal; font-size: .875rem; font-weight: 700; }
+@media (max-width: 639px) { .wbadge { left: 12px; bottom: 12px; } }

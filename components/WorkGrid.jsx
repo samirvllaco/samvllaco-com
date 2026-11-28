@@ -8,6 +8,7 @@ import PhoneApps from "./PhoneApps";
 import { PHONE_APPS } from "../lib/phones";
 import { INDUSTRIES } from "../lib/industries";
 import FollowTag from "./FollowTag";
+import WorkBadge from "./WorkBadge";
 
 const DARK = ["room-editor", "language-player", "mobile-banking"];
 const TABS = [{ id: "all", label: "All" }, ...WORK_TAGS.filter((t) => WORK.some((w) => w.tags.includes(t))).map((t) => ({ id: t, label: t }))];
@@ -47,6 +48,7 @@ function WorkCard({ w, seen, first }) {
           <video ref={vref} className={live ? "is-live" : undefined} src={vid} muted loop playsInline preload="none" aria-hidden="true" tabIndex={-1} />
         ) : null}
         {seen ? <span className="work-seen"><svg viewBox="0 0 24 24" width="12" height="12" aria-hidden="true"><path d="M5 12.500l4.500 4.500L19 7.500" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" /></svg>Viewed</span> : null}
+        <WorkBadge slug={w.slug} />
         <FollowTag />
       </span>
       <span className="work-meta">

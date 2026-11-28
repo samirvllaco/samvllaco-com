@@ -1,5 +1,6 @@
 "use client";
 import FollowTag from "./FollowTag";
+import WorkBadge from "./WorkBadge";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
@@ -48,6 +49,7 @@ export default function WorkCarousel({ items }) {
               <span className="wc-media">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={w.small} width="800" height="600" alt={w.alt} loading="lazy" decoding="async" />
+                <WorkBadge slug={w.slug} />
                 <FollowTag />
               </span>
               <span className="wc-body">
