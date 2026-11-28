@@ -502,14 +502,16 @@ export async function handleMessage(ctx) {
       if (!admin(request, env)) return fail("forbidden", 403);
       if (!env.DB) return fail("no_db", 404);
       await ensureSchema(env);
-      const { results } = await env.DB.prepare("SELECT created_at, name, email, company, message, mailed FROM messages ORDER BY created_at DESC LIMIT 2000").all();
-      const rows = ["created_at,name,email,company,message,mailed", ...results.map((r) => [r.created_at, r.name, r.email, r.company, r.message, r.mailed].map(csv).join(","))];
+      const { results } = await env.DB.prepare("SELECT * FROM messages ORDER BY created_at DESC LIMIT 2000").all();
+      const rows = ["created_at,name,email,company,needs,budget,timeline,message,mailed", ...results.map((r) => [r.created_at, r.name, r.email, r.company, r.needs, r.budget, r.timeline, r.message, r.mailed].map((v) => csv(v == null ? "" : v)).join(","))];
       return new Response(rows.join("\n"), { headers: { "content-type": "text/csv; charset=utf-8", "cache-control": "no-store" } });
     }
     if (path !== "" || request.method !== "POST") return fail("not_found", 404);
     const b = await request.json().catch(() => ({}));
     if (b.website2) return json({ ok: true });
-    const name = clip(b.name, 80), email = clip(b.email, 200).toLowerCase(), company = clip(b.company, 200), message = clip(b.message, 4000);
+    const name = clip(b.name, 80), email = clip(b.email, 200).toLowerCase(), company = clip(b.company, 200), message = String(b.message ?? "").replace(/[\u0000-\u0009\u000b-\u001f]/g, " ").trim().slice(0, 4000);
+    // Optional, so writing feels safer than booking a call (owner, 28 Nov 2026): what they need, a budget, a timeline.
+    const needs = clip(Array.isArray(b.needs) ? b.needs.join(", ") : b.needs, 400), budget = clip(b.budget, 60), timeline = clip(b.timeline, 60);
     if (!EMAIL.test(email)) return fail("email");
     if (message.trim().length < 10) return fail("message");
     if (!env.DB && !mailReady(env)) return fail("unavailable", 422);
@@ -520,13 +522,25 @@ export async function handleMessage(ctx) {
       await env.CACHE.put(k, String(n + 1), { expirationTtl: 90000 });
     }
     const id = newId(), at = new Date().toISOString();
-    if (env.DB) { await ensureSchema(env); await env.DB.prepare("INSERT INTO messages (id, name, email, company, message, created_at) VALUES (?, ?, ?, ?, ?, ?)").bind(id, name, email, company, message, at).run(); }
+    if (env.DB) {
+      await ensureSchema(env);
+      try {
+        await env.DB.prepare("INSERT INTO messages (id, name, email, company, needs, budget, timeline, message, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)").bind(id, name, email, company, needs, budget, timeline, message, at).run();
+      } catch {
+        // A messages table made before the optional fields existed: keep them inside the message instead.
+        const extra = [needs && `Needs: ${needs}`, budget && `Budget: ${budget}`, timeline && `Timeline: ${timeline}`].filter(Boolean).join("\n");
+        await env.DB.prepare("INSERT INTO messages (id, name, email, company, message, created_at) VALUES (?, ?, ?, ?, ?, ?)").bind(id, name, email, company, extra ? `${extra}\n\n${message}` : message, at).run();
+      }
+    }
     const e = (v) => String(v).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
     let mailed = false;
     try {
       const r = await sendToSam(env, `New message from ${name || email}`, [
         `<b>${e(name || "Someone")}</b> (${e(email)}) sent a message from samvllaco.com/book/.`,
         company ? `Company or product: ${e(company)}` : "",
+        needs ? `Needs: ${e(needs)}` : "",
+        budget ? `Budget: ${e(budget)}` : "",
+        timeline ? `Timeline: ${e(timeline)}` : "",
         `${e(message).replace(/\n/g, "<br>")}`,
         "Reply to this email to answer them directly.",
       ].filter(Boolean), email);
