@@ -7764,3 +7764,23 @@ html.is-live .of-badge::after { animation-play-state: running; }
 :root:root:root .mx-tools-all:hover { text-decoration-color: currentColor; background: none; }
 :root:root:root .mx-grid.mx-tools-row { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
 :root:root:root .mx-grid.mx-tools-row a > span:last-child b { font-size: .9375rem; font-weight: 600; }
+
+/* Ask Sam's AI, thinking (owner, 28 Nov 2026: "smoother, more compact, balanced spacing"): a snug bubble with three dots
+   rising in a soft wave beside the status words, on one 12px rhythm. */
+:root:root .ask-msg.is-ai:has(> .ask-think) { padding: 10px 16px; }
+:root:root .ask-think { gap: 12px; min-height: 24px; }
+:root:root .ask-grid { grid-template-columns: repeat(3, 6px); gap: 4px; align-items: center; height: 12px; }
+:root:root .ask-grid i { width: 6px; height: 6px; opacity: .35; scale: 1; box-shadow: none; animation: ask-bob 1.2s cubic-bezier(.45, 0, .55, 1) calc(var(--d) * .15s) infinite; }
+@keyframes ask-bob { 0%, 70%, 100% { opacity: .35; translate: 0 0; } 35% { opacity: 1; translate: 0 -3px; } }
+:root:root .ask-think-size, :root:root .ask-think-t { font-size: .875rem; line-height: 1.5; }
+@media (prefers-reduced-motion: reduce) { :root:root .ask-grid i { animation: none; opacity: .8; } }
+
+/* Ask Sam's AI pill (owner, 28 Nov 2026: "place it beside the book button, icon only like that button, expandable, not in
+   the middle"): a square chrome key at the bottom left, right of the ebook tab; the words slide out on hover or focus. */
+:root:root:root .ask-pill { left: var(--ask-left, max(16px, env(safe-area-inset-left, 0px))); bottom: var(--ask-b, max(16px, env(safe-area-inset-bottom, 0px))); translate: none; gap: 0; min-width: 44px; min-height: 44px; padding: 0 8px; }
+:root:root:root .ask-pill:active { translate: 0 1px; }
+html:has(.bw .bw-tab) body:not(:has(.case-fab)) .ask-pill { --ask-left: calc(max(16px, env(safe-area-inset-left, 0px)) + 52px); }
+.ask-l { display: inline-block; max-width: 0; overflow: hidden; white-space: nowrap; opacity: 0; transition: max-width .35s var(--ease-out), opacity .25s var(--ease-out), margin .35s var(--ease-out); }
+:root:root .ask-pill:focus-visible .ask-l { max-width: 160px; margin-inline: 8px 4px; opacity: 1; }
+@media (hover: hover) and (pointer: fine) { :root:root .ask-pill:hover .ask-l { max-width: 160px; margin-inline: 8px 4px; opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .ask-l { transition: none; } }

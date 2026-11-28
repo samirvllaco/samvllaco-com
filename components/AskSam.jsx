@@ -22,7 +22,7 @@ const CHIPS = [
 ];
 // The empty input suggests what to ask, one idea at a time.
 const HINTS = ["Ask about pricing", "Ask what a UX audit covers", "Ask how a sprint works", "Ask how fast Sam can start"];
-// Thinking state (owner, 25 Nov 2026): a 3x3 grid of dots breathing in a diagonal wave, and the status words under a slow
+// Thinking state (owner, 25 Nov 2026; compact three dots in a row, 28 Nov 2026): dots rising in a soft wave, and the status words under a slow
 // light sweep. The words change as the answer is prepared; each new one rises in from below inside a clipped line.
 const STEPS = ["Reading Sam's site", "Checking his work and reviews", "Writing your answer"];
 function Thinking() {
@@ -33,7 +33,7 @@ function Thinking() {
   }, []);
   return (
     <span className="ask-think">
-      <span className="ask-grid" aria-hidden="true">{Array.from({ length: 9 }, (_, k) => <i key={k} style={{ "--d": (k % 3) + Math.floor(k / 3) }} />)}</span>
+      <span className="ask-grid" aria-hidden="true">{[0, 1, 2].map((k) => <i key={k} style={{ "--d": k }} />)}</span>
       <span className="ask-think-line"><span className="ask-think-size" aria-hidden="true">{STEPS.reduce((a, b) => (b.length > a.length ? b : a))}</span><span key={i} className="ask-think-t">{STEPS[i]}</span></span>
       <span className="sr-only">Writing</span>
     </span>
@@ -60,6 +60,38 @@ function Text({ t }) {
   }
   out.push(t.slice(last));
   return out;
+}
+
+// The answer types out at an even pace instead of jumping chunk by chunk as the stream arrives (owner, 28 Nov 2026:
+// "smoother"): each frame shows a few more characters, more when it falls behind. A half-written [link](/path/) waits
+// until it is whole. onTick lets the list follow the end of the answer.
+function Typed({ t, live, onTick }) {
+  const [n, setN] = useState(0);
+  const full = useRef(t);
+  full.current = t;
+  const tick = useRef(onTick);
+  tick.current = onTick;
+  const go = useRef(live);
+  go.current = live;
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) { setN(1e9); return; }
+    let raf = 0, cur = 0;
+    const step = () => {
+      const L = full.current.length;
+      if (cur < L) {
+        cur = Math.min(L, cur + Math.max(1, Math.ceil((L - cur) * 0.1)));
+        setN(cur);
+        tick.current?.();
+      } else if (!go.current) return;
+      raf = requestAnimationFrame(step);
+    };
+    raf = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(raf);
+  }, []);
+  let s = t.slice(0, n);
+  const o = s.lastIndexOf("[");
+  if (o > s.lastIndexOf(")")) s = s.slice(0, o);
+  return <Text t={s} />;
 }
 
 export default function AskSam() {
@@ -89,6 +121,11 @@ export default function AskSam() {
   useOnePop("ask", open, () => { if (open) shut(false); });
 
   const asked = useRef(0);
+  const fresh = useRef(-1);
+  const follow = useRef(true);
+  // Follow the end of the answer while it types, unless the visitor scrolled up to read something else.
+  const auto = useRef(0);
+  const stick = () => { const el = list.current; if (el && follow.current) { auto.current = performance.now() + 120; el.scrollTop = el.scrollHeight; } };
   const [hint, setHint] = useState(0);
   const ts = useTurnstile(open && on && !sid.current ? on.siteKey : null, { appearance: "interaction-only" });
 
@@ -145,19 +182,19 @@ export default function AskSam() {
       setTimeout(() => { setOpen(false); pill.current?.focus({ preventScroll: true }); }, 220);
     } else el.style.transform = "";
   };
-  const clear = () => { setMsgs([]); setNote(""); asked.current = 0; input.current?.focus(); };
+  const clear = () => { setMsgs([]); setNote(""); asked.current = 0; fresh.current = -1; input.current?.focus(); };
 
-  // Focus on the answer: when a question goes out, bring it to the top of the list and let the answer grow under it,
-  // so the visitor reads from the first line instead of chasing the end of the text.
+  // A new question brings the list to its end (owner, 28 Nov 2026: "when a new answer comes, scroll to the bottom of
+  // the answer so we read"); the answer then types out and the list follows it down.
   useEffect(() => {
     const el = list.current;
     if (!el) return;
     const n = msgs.filter((m) => m.role === "user").length;
     if (n === asked.current) return;
     asked.current = n;
-    const mine = el.querySelectorAll(".ask-msg.is-me");
-    const q = mine[mine.length - 1];
-    if (q) el.scrollTo({ top: Math.max(0, q.offsetTop - el.offsetTop - 8), behavior: "smooth" });
+    follow.current = true;
+    auto.current = performance.now() + 700;
+    el.scrollTo({ top: el.scrollHeight, behavior: "smooth" });
   }, [msgs]);
 
   // Phones: keep the panel above the on-screen keyboard and inside what's visible (owner, 25 Nov 2026).
@@ -191,6 +228,7 @@ export default function AskSam() {
     if (!sid.current && !ts.token) { setNote(ERR.turnstile); return; }
     setNote(""); setText(""); setBusy(true);
     const next = [...msgs, { role: "user", content: q }];
+    fresh.current = next.length;
     setMsgs([...next, { role: "assistant", content: "" }]);
     try {
       const r = await fetch("/api/ask", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ messages: next, sid: sid.current, token: ts.token, page: path }) });
@@ -222,7 +260,7 @@ export default function AskSam() {
       <button ref={pill} type="button" className={`ask-pill${open ? " is-open" : ""}`} aria-expanded={open} aria-controls="ask-panel" onClick={() => (open ? shut(false) : setOpen(true))}>
         {/* Sam himself as the assistant's mark, with a small spark: "Sam's AI" (owner, 27 Nov 2026: "cute or helpful mascot logo of me") */}
         <span className="ask-me" aria-hidden="true"><img src="/sam-face-144.webp?v=1" width="28" height="28" alt="" decoding="async" /><svg viewBox="0 0 24 24" width="12" height="12" aria-hidden="true"><path d="M12 3l1.8 4.9L18.7 9.7 13.8 11.5 12 16.4 10.2 11.5 5.3 9.7 10.2 7.9zM18.5 14.5l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8z" /></svg></span>
-        Ask Sam's AI
+        <span className="ask-l">Ask Sam's AI</span>
       </button>
       {open ? (
         <section ref={panel} id="ask-panel" className={`ask-panel${closing ? " is-closing" : ""}${busy ? " is-busy" : ""}`} role="dialog" aria-modal="false" aria-labelledby="ask-h" data-lenis-prevent="">
@@ -242,13 +280,13 @@ export default function AskSam() {
               <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" /></svg>
             </button>
           </header>
-          <div ref={list} className="ask-list" aria-live="polite">
+          <div ref={list} className="ask-list" aria-live="polite" onScroll={(e) => { if (performance.now() < auto.current) return; const el = e.currentTarget; follow.current = el.scrollHeight - el.clientHeight - el.scrollTop < 48; }}>
             <p className="ask-msg is-ai">Hi. Ask me about Sam's services, prices, process or past work.</p>
             {msgs.map((m, i) => (
               <div key={i} className={`ask-turn ${m.role === "user" ? "is-me" : "is-ai"}`}>
                 <p className={`ask-msg ${m.role === "user" ? "is-me" : "is-ai"}`}>
                   {m.role === "user" ? <span className="sr-only">You: </span> : <span className="sr-only">Assistant: </span>}
-                  {m.content ? <Text t={m.content} /> : <Thinking />}
+                  {m.content ? (i === fresh.current ? <Typed t={m.content} live={busy} onTick={stick} /> : <Text t={m.content} />) : <Thinking />}
                 </p>
                 {m.role === "assistant" && m.content && !(busy && i === msgs.length - 1) ? <p className="ask-meta" aria-hidden="true">Sam&apos;s AI · Just now</p> : null}
               </div>
