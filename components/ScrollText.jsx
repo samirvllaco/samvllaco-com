@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useRef } from "react";
 import { MarkerText, Mark } from "./MarkerText";
+import { loadGsap } from "../lib/gsapLoad";
 
 // Big text whose words go from dim to full strength as the block scrolls through the screen.
 // Optional `mark` ({ p: "exact phrase", type, color }) draws a hand-made marker over that phrase when it comes into view.
@@ -12,13 +13,24 @@ export default function ScrollText({ text, className, mark }) {
     if (!el) return;
     const spans = [...el.querySelectorAll("span")];
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) { spans.forEach((s) => (s.style.opacity = 1)); return; }
-    let raf = 0;
+    let raf = 0, to = null;
+    // The story reads itself (owner, 28 Nov 2026, About GSAP idea 1): words go from dim to full as you scroll and the
+    // few being "read" right now turn blue. GSAP eases the reading point so it glides. Dim words keep 4.5:1.
+    const o = { at: -4 };
+    const paint = () => {
+      for (let i = 0; i < spans.length; i++) {
+        const k = Math.max(0, Math.min(1, (o.at - i) / 4));
+        spans[i].style.opacity = (0.6 + 0.4 * k).toFixed(3);
+        spans[i].classList.toggle("is-now", k > 0.12 && k < 0.88);
+      }
+    };
+    loadGsap().then((g) => { if (g) to = g.quickTo(o, "at", { duration: 0.6, ease: "power3.out", onUpdate: paint }); });
     const update = () => {
       raf = 0;
       const r = el.getBoundingClientRect(), vh = innerHeight;
       const p = Math.max(0, Math.min(1, (vh * 0.86 - r.top) / (r.height + vh * 0.42)));
       const at = p * (spans.length + 4);
-      for (let i = 0; i < spans.length; i++) spans[i].style.opacity = (0.7 + 0.3 * Math.max(0, Math.min(1, (at - i) / 4))).toFixed(3);
+      if (to) to(at); else { o.at = at; paint(); }
     };
     const on = () => { if (!raf) raf = requestAnimationFrame(update); };
     update();

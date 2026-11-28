@@ -4,6 +4,7 @@ import ScrollText from "../../components/ScrollText";
 import { MarkerText, Mark } from "../../components/MarkerText";
 import Link from "next/link";
 import AboutPortrait from "../../components/AboutPortrait";
+import AboutMotion from "../../components/AboutMotion";
 import PickDesigner from "../../components/PickDesigner";
 import PageHead from "../../components/PageHead";
 import { SITE } from "../../lib/site";
@@ -34,7 +35,12 @@ export default function About() {
       <JsonLd data={{ "@context": "https://schema.org", "@type": "ProfilePage", "@id": `${SITE.url}/about/#page`, url: `${SITE.url}/about/`, name: "About Sam Vllaco", mainEntity: { "@id": PERSON_ID } }} />
       <PageHead crumb="About" href="/about/" a="I design apps." b="I also ship my own." />
       <div className="ab-wrap">
-      <div className="ab-photo"><AboutPortrait /></div>
+      <div className="ab-photo">
+        <AboutPortrait />
+        {/* The year rolls from 2013 to today as you read (AboutMotion.jsx); the server shows today's year and fact. */}
+        <p className="ab-year"><span className="ab-year-n">{new Date().getFullYear()}</span><span className="ab-year-t"><span>Now in Tirana, working with US and EU teams</span></span><span className="sr-only">. Designing since 2013, starting in Prizren, Kosovo.</span></p>
+      </div>
+      <AboutMotion />
       <div className="ab">
         {PARTS.map((p) => {
           const ext = has(p.id);

@@ -16,6 +16,8 @@ const LAYERS = [
   ["hair", 28, 5, 72, 26], ["beard", 32, 49, 68, 74], ["tee", 0, 69, 100, 100], ["head", 26, 4, 73, 74],
   ["bg · Prizren, Kosovo", 0, 0, 100, 69],
 ];
+// Drawn in one by one as you scroll the story (owner, 28 Nov 2026, About GSAP idea 2), in this order.
+const DRAW = ["head", "hair", "eyes", "nose", "smile", "beard", "ear", "tee"];
 const EYE_Y = 39.5, PUP_L = 42.3, PUP_R = 59.4;
 // The lens can run past the photo onto the page: the canvas is PAD px bigger on every side, and outside the photo the
 // lens shows the page colour with the same grid and guide lines, so it joins the background (owner, 27 Nov 2026).
@@ -166,6 +168,16 @@ export default function AboutPortrait() {
       <img className="ap-city" data-src="/me/prizren-840.webp?v=1" data-srcset="/me/prizren-480.webp?v=1 480w, /me/prizren-840.webp?v=1 840w" sizes="(max-width: 860px) 100vw, 440px" width="840" height="840" alt="" aria-hidden="true" />
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img className="ap-cut" data-src="/me/sam-cut-840.webp?v=1" data-srcset="/me/sam-cut-480.webp?v=1 480w, /me/sam-cut-840.webp?v=1 840w" sizes="(max-width: 860px) 100vw, 440px" width="840" height="840" alt="" aria-hidden="true" />
+      </span>
+      <span className="ap-layers" aria-hidden="true">
+        {LAYERS.filter((L) => DRAW.includes(L[0])).map((L, i) => {
+          const n = DRAW.indexOf(L[0]);
+          return (
+            <span key={i} className="ap-l" style={{ left: `${L[1]}%`, top: `${L[2]}%`, width: `${L[3] - L[1]}%`, height: `${L[4] - L[2]}%`, "--s": (n / DRAW.length * 0.85).toFixed(3) }}>
+              {L[0] === "ear" && L[1] > 50 ? null : <b>{L[0]}</b>}
+            </span>
+          );
+        })}
       </span>
       <canvas ref={cv} className="ap-cv" aria-hidden="true" />
       <figcaption className="ap-hint" aria-hidden="true"><span className="ap-fine">Hover to look inside</span><span className="ap-touch">Tap to scan</span></figcaption>
