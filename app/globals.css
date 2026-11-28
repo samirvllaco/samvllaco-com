@@ -7941,3 +7941,13 @@ html:has(.bw .bw-tab) body:not(:has(.case-fab)) .ask-pill.is-side { --ask-left: 
 :root:root:root .page > :is(.svc-group, .sv-sec).band-light { margin-top: calc(var(--sec) / 2) !important; }
 :root:root:root .page > :is(.svc-group, .sv-sec).band-light + * { margin-top: calc(var(--sec) / 2) !important; }
 :root:root .band-light .svc-ex span { color: #a8590a; }
+
+/* FAQ card LinkedIn mark: fixed colours so it shows at once with the band (owner, 28 Nov 2026: "the LinkedIn logo
+   appears after a lag"); it was tied to tokens that animate in at different speeds. */
+:root:root:root .faq-card .faq-in { color: #5c5c63; transition: none; }
+:root:root:root .is-dim .faq-card .faq-in, :root:root:root .faq:not(.band-light) .faq-card .faq-in { color: #8e8e93; }
+:root:root:root .faq-card .faq-in path { fill: #ffffff; }
+@media (hover: hover) and (pointer: fine) { :root:root:root .faq-card .faq-in:hover { color: #111112; } :root:root:root .is-dim .faq-card .faq-in:hover { color: #f5f5f7; } }
+
+/* About portrait load glow (PortraitGlow.jsx): same box as the lens canvas, above the photo, never in the way */
+.ap-fx { position: absolute; left: -140px; top: -140px; width: calc(100% + 280px); height: calc(100% + 280px); pointer-events: none; z-index: 3; image-rendering: pixelated; }

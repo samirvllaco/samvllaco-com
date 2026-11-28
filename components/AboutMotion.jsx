@@ -35,6 +35,7 @@ export default function AboutMotion() {
     const num = yr && yr.querySelector(".ab-year-n");
     const cap = yr && yr.querySelector(".ab-year-t");
     const v = { lp: 0, y: NOW, m: 0 };
+    let base0 = null; // the layers start from nothing at load, wherever the page opens (owner: half a box showed at load)
     let q = null, raf = 0, g = null, fact = PART_YEAR.where[1], part = "", manual = false, tw = null;
     const setFact = (f) => {
       if (!cap || cap.textContent === f) return;
@@ -76,7 +77,8 @@ export default function AboutMotion() {
       const w = wrap.getBoundingClientRect();
       // Desktop: the photo is pinned, so the story's scroll drives the layers and the year. Phones: the photo's own pass.
       const base = wide ? clamp((vh * 0.5 - w.top) / Math.max(1, w.height - vh * 0.4)) : (ap ? clamp((vh * 0.95 - ap.getBoundingClientRect().top) / (vh * 0.8)) : 0);
-      const t = { lp: base, m: 0 };
+      if (base0 === null) base0 = base;
+      const t = { lp: base0 >= 0.98 ? 1 : clamp((base - base0) / (1 - base0)), m: 0 };
       if (pic) { const r = pic.getBoundingClientRect(); t.m = clamp((vh - r.top) / (vh * 0.6)); }
       if (q) { q.lp(t.lp); q.m(t.m); } else { v.lp = t.lp; v.m = t.m; paint(); }
       readPart();

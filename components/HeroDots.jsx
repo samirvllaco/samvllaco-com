@@ -10,7 +10,8 @@ const RADIUS = 110, PUSH = 28, SPRING = 0.12, DAMP = 0.78;
 // Also the FAQ dot layer, on the white bands too (owner, 27 Nov 2026: "add magnetic dots on white mode as-well");
 // the dots take the section's own --text, so they are dark on white.
 // Not on single articles (owner, 28 Nov 2026: "remove dot animations on single blogs").
-const HERO = ".hero2, main > .page:not(:has(> .hero2)):not(.art-wrap), .faq";
+// Not on the FAQ either (owner, 28 Nov 2026: "remove the animated dots on this section").
+const HERO = ".hero2, main > .page:not(:has(> .hero2)):not(.art-wrap)";
 
 // Reads the edge fade of hero::before ("radial-gradient(46% 80% at 86% 30%, ... 75%)") so the canvas fades the same way.
 const fadesOf = (el) => {
