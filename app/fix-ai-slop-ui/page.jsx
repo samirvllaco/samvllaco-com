@@ -198,8 +198,8 @@ export default function Ebook() {
             <img src="/ebook/ba-after-768.webp?v=3" width="768" height="768" alt="" loading="eager" decoding="async" />
             <figcaption>After the book</figcaption>
           </figure>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img className="eb-book" src="/ebook/cover.webp?v=2" srcSet="/ebook/cover-520.webp?v=1 520w, /ebook/cover.webp?v=2 936w" sizes="(max-width: 720px) 200px, 300px" width="936" height="1326" alt="Cover of 27 Copy-Paste Prompts to Fix AI Slop UI" loading="eager" fetchPriority="high" />
+          {/* The 3D book (owner, 28 Nov 2026, after spectup.com): still on load, turns toward the pointer */}
+          <Book3D className="eb-b3" still eager src="/ebook/cover.webp?v=2" srcSet="/ebook/cover-520.webp?v=1 520w, /ebook/cover.webp?v=2 936w" sizes="(max-width: 720px) 120px, 230px" alt="Cover of 27 Copy-Paste Prompts to Fix AI Slop UI" />
         </div>
       </header>
 

@@ -6,14 +6,16 @@ import { loadGsap } from "../lib/gsapLoad";
 // page edge and a spine, standing on a lit ledge in a dark scene. When it comes into view GSAP slides it onto the
 // shelf and turns it to a three-quarter view; then it turns a little toward the pointer. Reduced motion and no JS show
 // it at rest.
-export default function Book3D({ src = "/ebook/cover-520.webp?v=1", srcSet, sizes = "240px", alt = "", className = "" }) {
+// still: no slide-in and no shelf, only the pointer turn (for above the fold, where nothing may move on load);
+// eager: the image is the page's LCP.
+export default function Book3D({ src = "/ebook/cover-520.webp?v=1", srcSet, sizes = "240px", alt = "", className = "", still = false, eager = false }) {
   const root = useRef(null);
   useEffect(() => {
     const el = root.current;
     if (!el || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const book = el.querySelector(".b3-book"), shadow = el.querySelector(".b3-shadow");
     let g = null, ry = null, rx = null, played = false, armed = false;
-    const arm = (gs) => { if (armed) return; armed = true; g = gs; g.set(book, { x: -60, rotationY: -70, opacity: 0 }); g.set(shadow, { scaleX: .3, opacity: 0 }); };
+    const arm = (gs) => { if (armed) return; armed = true; g = gs; if (still) { played = true; return; } g.set(book, { x: -60, rotationY: -70, opacity: 0 }); g.set(shadow, { scaleX: .3, opacity: 0 }); };
     const play = () => {
       if (!g || played) return; played = true;
       g.timeline({ defaults: { ease: "power3.out" } })
@@ -28,25 +30,29 @@ export default function Book3D({ src = "/ebook/cover-520.webp?v=1", srcSet, size
       ry(-24 + px * 26); rx(-py * 10);
     };
     const leave = () => { if (ry) { ry(-24); rx(0); } };
+    if (still) {
+      const wake = () => { loadGsap().then((gs) => gs && arm(gs)); };
+      el.addEventListener("pointerenter", wake, { once: true });
+    }
     el.addEventListener("pointermove", move); el.addEventListener("pointerleave", leave);
     const near = new IntersectionObserver((en) => { if (en[0].isIntersecting) { near.disconnect(); loadGsap().then((gs) => gs && arm(gs)); } }, { rootMargin: "0px 0px 500px 0px" });
     const seen = new IntersectionObserver((en) => { if (en[0].isIntersecting) { seen.disconnect(); loadGsap().then((gs) => { if (gs) { arm(gs); play(); } }); } }, { threshold: .4 });
-    near.observe(el); seen.observe(el);
+    if (!still) { near.observe(el); seen.observe(el); }
     return () => { near.disconnect(); seen.disconnect(); el.removeEventListener("pointermove", move); el.removeEventListener("pointerleave", leave); };
-  }, []);
+  }, [still]);
   return (
-    <div className={`b3${className ? ` ${className}` : ""}`} ref={root}>
+    <div className={`b3${still ? " b3-still" : ""}${className ? ` ${className}` : ""}`} ref={root}>
       <div className="b3-scene">
         <div className="b3-book">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img className="b3-front" src={src} srcSet={srcSet} sizes={sizes} width="936" height="1326" alt={alt} loading="lazy" decoding="async" />
+          <img className="b3-front" src={src} srcSet={srcSet} sizes={sizes} width="936" height="1326" alt={alt} {...(eager ? { loading: "eager", fetchPriority: "high" } : { loading: "lazy", decoding: "async" })} />
           <i className="b3-pages" aria-hidden="true" />
           <i className="b3-spine" aria-hidden="true" />
           <i className="b3-top" aria-hidden="true" />
         </div>
       </div>
       <i className="b3-shadow" aria-hidden="true" />
-      <i className="b3-shelf" aria-hidden="true" />
+      {still ? null : <i className="b3-shelf" aria-hidden="true" />}
     </div>
   );
 }

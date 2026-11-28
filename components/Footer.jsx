@@ -84,7 +84,11 @@ function FootMap() {
 
 // Pages without the wall of screens at the foot: the lean pages.
 // (Same list as LEAN in RouteHide.jsx; a "use client" module cannot hand plain values to this server file.)
-const WALL_OFF = ["/tools/", "/slop-score/", "/book/", "/free-audit/", "/work/"];
+const WALL_OFF = ["/tools/", "/slop-score/", "/book/", "/free-audit/", "/work/", "/fix-ai-slop-ui/"];
+// Two footers (owner, 28 Nov 2026: "be consistent, have 2 types of footer, long and short; all shorts should look the
+// same, balanced left and right, easy on the eyes"). Long: the wall, the top line, the site map, the bottom line.
+// Short (these pages): only the top line (Sam left, availability and the call right) and the bottom line.
+const SHORT = WALL_OFF;
 
 export default function Footer() {
   return (
@@ -159,25 +163,19 @@ export default function Footer() {
             a top line with Sam and his availability, the call on the left and the site map on the right split by a hairline,
             then one bottom line with the copyright and the email. Lean pages keep only the call and the bottom line. */}
         <div className="fo">
-          <RouteHide>
-            <div className="fo-top">
-              <a className="fo-brand" href="/about/">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/sam-face-144.webp?v=1" width="32" height="32" alt="" loading="lazy" />
-                <span><b>Sam Vllaco</b><span>UI/UX and product designer</span></span>
-              </a>
-              <p className="fo-live"><i aria-hidden="true" />1 to 2 new projects at a time <a href="/book/">Start a project</a></p>
-            </div>
-          </RouteHide>
-          <div className="fo-body">
-            <RouteOnly on={WALL_OFF.filter((p) => p !== "/book/")}>
-              <div className="fo-lead">
-                <p className="fo-h">Talk to the designer who does the work.</p>
-                <p className="fo-p">UI/UX and product design for SaaS, AI, fintech, health and law firms. One senior designer from the first call to the handover.</p>
-                <a className="hero2-btn hero2-btn-primary" href="/book/">Start a project<CallIcon /></a>
-              </div>
-            </RouteOnly>
-            <RouteHide>
+          <div className="fo-top">
+            <a className="fo-brand" href="/about/">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/sam-face-144.webp?v=1" width="32" height="32" alt="" loading="lazy" />
+              <span><b>Sam Vllaco</b><span>UI/UX and product designer</span></span>
+            </a>
+            <p className="fo-live"><i aria-hidden="true" />1 to 2 new projects at a time
+              <RouteHide on={["/book/"]}><a href="/book/">Start a project</a></RouteHide>
+              <RouteOnly on={["/book/"]}><a href="/work/">See my work</a></RouteOnly>
+            </p>
+          </div>
+          <RouteHide on={SHORT}>
+            <div className="fo-body">
               <div className="fo-right">
                 <FootMap />
                 <div className="fo-ai-row">
@@ -189,8 +187,8 @@ export default function Footer() {
                   </a>
                 </div>
               </div>
-            </RouteHide>
-          </div>
+            </div>
+          </RouteHide>
           <div className="fo-bottom">
             <p>© {new Date().getFullYear()} Sam Vllaco<span className="foot-tagline">, your close design partner</span></p>
             <div className="foot-links"><CopyEmail /></div>

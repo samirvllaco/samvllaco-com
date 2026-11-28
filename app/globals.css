@@ -3793,7 +3793,6 @@ main p { font-size: 1.0625rem; line-height: 1.6; }
 .eb-faqwrap .faq-card { justify-items: center; }
 /* Ebook page: a minimal footer so the page ends on the buy button (owner, 14 Nov 2026) */
 body:has(.eb) .site-footer .foot-stage, body:has(.eb) .site-footer .foot-map, body:has(.eb) .site-footer .ask-ai { display: none !important; }
-body:has(.eb) .site-footer > .wrap { padding-top: 28px; }
 /* Book widget: a round button the same size as the back-to-top and photo bubbles (owner, 14 Nov 2026) */
 .bw { bottom: max(16px, env(safe-area-inset-bottom, 0px)); }
 .bw-tab, .bw.is-open .bw-tab { position: relative; width: 44px; height: 44px; padding: 0; gap: 0; justify-content: center; border-radius: 50%; overflow: visible; background: rgba(28, 28, 30, .72); }
@@ -6488,8 +6487,7 @@ html.is-live .ask-pill::before { animation-play-state: running; }
 :root:root .book-split.is-full .bb-alt { max-width: none; }
 /* Cal.com caps its month view near 1040px; scale the frame up so it fills the content box on wide screens */
 @media (min-width: 1200px) { :root:root .book-split.is-full .book-cal iframe { zoom: 1.2; } }
-/* Contact is only the calendar: no site footer under it (owner, 27 Nov 2026) */
-body:has(.book-split.is-full) .site-footer { display: none; }
+/* Contact ends with the short footer like every short page (owner, 28 Nov 2026: "have 2 types of footer, long and short") */
 /* Booking band: the Cal.com booker is the only frame now (it takes the site colours), so no hairline or inset of our own; scaled up like the contact page */
 :root:root:root .book-band .book-cal { padding: 0; }
 :root:root:root .book-band .book-cal::after { display: none; }
@@ -7759,3 +7757,10 @@ html.is-live .of-badge::after { animation-play-state: running; }
 .rs-b3 { --bw: 230px; --bd: 20px; width: 100%; min-height: 100%; }
 .rs-book:has(.rs-b3) { background: none; box-shadow: none; padding: 0; }
 :root:root:root .faq-card .faq-who .of > img { width: 100%; height: 100%; }
+
+/* Resources menu: the free tools as a row of screen thumbnails under the list (owner, 28 Nov 2026) */
+.mx-k-tools { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--line); }
+:root:root:root .mx-tools-all { display: inline-flex; align-items: center; min-height: 44px; font-size: .875rem; font-weight: 600; color: #f5f5f7; text-decoration: underline; text-underline-offset: 4px; text-decoration-color: rgba(245, 245, 247, .35); background: none; padding: 0; }
+:root:root:root .mx-tools-all:hover { text-decoration-color: currentColor; background: none; }
+:root:root:root .mx-grid.mx-tools-row { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+:root:root:root .mx-grid.mx-tools-row a > span:last-child b { font-size: .9375rem; font-weight: 600; }
